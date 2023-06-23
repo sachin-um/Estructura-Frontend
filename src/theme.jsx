@@ -5,15 +5,15 @@ import createPalette from "@mui/material/styles/createPalette";
 // TODO: Update with Estructura Palette.
 const palette = createPalette({
   primary: {
-    light: '#757ce8',
-    main: '#3f50b5',
-    dark: '#002884',
+    light: '#618548',
+    main: '#435834',
+    dark: '#304422',
     contrastText: '#fff',
   },
   secondary: {
-    light: '#ff7961',
-    main: '#f44336',
-    dark: '#ba000d',
+    light: '#E7C4A0',
+    main: '#AF7D51',
+    dark: '#9D6432',
     contrastText: '#000',
   },
 })
