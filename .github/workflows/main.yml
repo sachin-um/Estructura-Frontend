@@ -3,7 +3,7 @@ name: Build & Deploy Estructura Frontend
 on:
   push:
     branches:
-      - main
+      - mai
 
 jobs:
   build-deploy:
