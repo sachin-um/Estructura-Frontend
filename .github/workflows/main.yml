@@ -1,9 +1,9 @@
 name: Build & Deploy Estructura Frontend
 
 on:
-  push:
-    branches:
-      - mai
+  pull_request:
+    types:
+      - closed
 
 jobs:
   build-deploy:
