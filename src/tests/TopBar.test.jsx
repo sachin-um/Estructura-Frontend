@@ -1,22 +1,28 @@
-import { render, screen } from '@testing-library/react';
-import TopBar from '../components/TopBar';
-import { pages } from '../components/TopBar';
-import { BrowserRouter } from 'react-router-dom';
+/**
+ * @jest-environment jsdom
+ */
 
-it('renders the logo text', () => {
+import "@testing-library/jest-dom";
+import { render, screen } from "@testing-library/react";
+import TopBar from "../components/TopBar";
+import { pages } from "../components/TopBar";
+import { BrowserRouter } from "react-router-dom";
+
+it("renders the logo text", () => {
   render(
     <BrowserRouter>
-      <TopBar/>
+      <TopBar />
     </BrowserRouter>
   );
   const title = screen.getByText(/Estructura/i);
   expect(title).toBeInTheDocument();
 });
 
-it('renders the links', () => {
+// Temporary: remove when TopBar is completed
+it("renders the links", () => {
   render(
     <BrowserRouter>
-      <TopBar/>
+      <TopBar />
     </BrowserRouter>
   );
   pages.forEach((page) => {
