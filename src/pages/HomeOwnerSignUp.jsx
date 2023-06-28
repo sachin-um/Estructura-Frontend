@@ -42,7 +42,7 @@ function HomeOwnerSignUp() {
                 flexDirection: 'column'
               }}
             >
-            { <div>
+            { <Grid style={{display:"flex", justifyContent:"center"}}>
                 <img 
                   height='40%'
                   width='40%'
@@ -52,7 +52,7 @@ function HomeOwnerSignUp() {
                   marginTop: '30px'
                 }}
                 />
-              </div>}   
+             </Grid>}   
               
               <Box
                 component='form'
@@ -156,5 +156,4 @@ function HomeOwnerSignUp() {
     </>
   );
 }
-
 export default HomeOwnerSignUp;
