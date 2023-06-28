@@ -29,14 +29,14 @@ function SignIn() {
             style={{
               position: 'relative',
               top: '20px',
-              left: '-50px'
+              left: '-80px'
             }}
           >
             { <img
-              width='100%'
-              height='100%'
-              src='/signin.jpeg'
-              alt=''
+              width='110%'
+              height='90%'
+              src='/signin.png'
+              alt='signin'
              
             /> }
           </Grid>
@@ -56,7 +56,7 @@ function SignIn() {
                 
               />
               </Grid> }
-              <Typography variant='h5' sx={{ textAlign: "center",textTransform: "uppercase", color:"#435834",}} >
+              <Typography variant='h5' sx={{ textAlign: "center",textTransform: "uppercase", color:"#435834", marginTop:'50px'}} >
                 Welcome Back
               </Typography>
             
@@ -71,8 +71,8 @@ function SignIn() {
                 onSubmit={HandleSubmit}
               >
                {<Grid style={{justifyContent:"center"}}>
-                <TextField  InputProps={{ sx: { borderRadius: 2 } }}sx={{ width: 1,margin:1 }}type='email' name='email' label='Email' variant="filled" size="small" />
-                <TextField  InputProps={{ sx: { borderRadius: 2 } }}sx={{ width: 1,margin:1 }}type='password' name='password' label='Password'  variant="filled" size="small"/>
+                <TextField  InputProps={{ sx: { borderRadius: 2 } }}sx={{ width: 1,margin:1 }}type='email' name='email' label='Email' variant="filled" size="small" color="secondary" />
+                <TextField  InputProps={{ sx: { borderRadius: 2 } }}sx={{ width: 1,margin:1 }}type='password' name='password' label='Password'  variant="filled" size="small" color='secondary'/>
                 
                 </Grid >}
                 <Stack spacing={18} direction='row'>
