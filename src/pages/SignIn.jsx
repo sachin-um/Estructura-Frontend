@@ -27,6 +27,9 @@ function SignIn() {
         <Grid maxWidth='lg' minHeight='100vh'  container>
           <Grid item md={6} xs={0}
             style={{
+              position: 'relative',
+              top: '20px',
+              left: '-50px'
             }}
           >
             { <img
@@ -48,7 +51,7 @@ function SignIn() {
                 <img 
                 height="40%"
                 width="40%"
-                src='/logo.jpg'
+                src='/Logo.png'
                 alt='logo'
                 
               />
@@ -73,7 +76,7 @@ function SignIn() {
                 
                 </Grid >}
                 <Stack spacing={18} direction='row'>
-                <Link  href='/Register'  color="secondary" underline="hover">Don't have an account? Register</Link> 
+                <Link  href='/Register'  color="secondary" underline="hover" sx={{ marginLeft: 'auto'}}>Don't have an account? Register</Link> 
                 <Link  href='/ForgotPassword'  color="secondary" underline="hover">Forgot Password?</Link>
                 </Stack>
    
