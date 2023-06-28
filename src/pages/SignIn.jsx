@@ -27,13 +27,16 @@ function SignIn() {
         <Grid maxWidth='lg' minHeight='100vh'  container>
           <Grid item md={6} xs={0}
             style={{
+              position: 'relative',
+              top: '20px',
+              left: '-50px'
             }}
           >
             { <img
               width='100%'
               height='100%'
-              src='/sign.jpeg'
-              alt='kella ko?'
+              src='/signin.jpeg'
+              alt=''
              
             /> }
           </Grid>
@@ -44,16 +47,15 @@ function SignIn() {
                 flexDirection:"column"
               }}
             >
-            { <div>
+            { <Grid style={{display:"flex",justifyContent:"center"}}>
                 <img 
                 height="40%"
                 width="40%"
-                src='/logo.jpg'
+                src='/Logo.png'
                 alt='logo'
-                style={{paddingLeft:'30%'}}
                 
               />
-              </div> }
+              </Grid> }
               <Typography variant='h5' sx={{ textAlign: "center",textTransform: "uppercase", color:"#435834",}} >
                 Welcome Back
               </Typography>
@@ -64,18 +66,24 @@ function SignIn() {
                   margin: "10px",
                   display: "flex",
                   flexDirection: "column",
-                  gap: "10px",
+                  gap: "20px",
                 }}
                 onSubmit={HandleSubmit}
               >
+               {<Grid style={{justifyContent:"center"}}>
                 <TextField  InputProps={{ sx: { borderRadius: 2 } }}sx={{ width: 1,margin:1 }}type='email' name='email' label='Email' variant="filled" size="small" />
                 <TextField  InputProps={{ sx: { borderRadius: 2 } }}sx={{ width: 1,margin:1 }}type='password' name='password' label='Password'  variant="filled" size="small"/>
+                
+                </Grid >}
                 <Stack spacing={18} direction='row'>
-                <Link  href='/Register'  color="secondary" underline="hover">Don't have an account? Register</Link> 
+                <Link  href='/Register'  color="secondary" underline="hover" sx={{ marginLeft: 'auto'}}>Don't have an account? Register</Link> 
                 <Link  href='/ForgotPassword'  color="secondary" underline="hover">Forgot Password?</Link>
                 </Stack>
    
-                <Button sx={{ width: 1/3, padding: 1, marginLeft: 23,borderRadius:2 ,marginTop:5}}type='submit' color="primary" variant="contained" size='large'>Sign In</Button>
+                { <Grid style={{display:"flex",justifyContent:"center",margin:10}}>
+                <Button sx={{ width: 1/3,  borderRadius:2 }}type='submit' color="primary" variant="contained" size='large'>Sign In</Button>
+                </Grid> }
+                
               </Box>
             </Container>
           </Grid>
