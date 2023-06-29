@@ -26,13 +26,13 @@ function HomeOwnerSignUp() {
                 <Grid item md={6} xs={0}
                   style={{
                     position: 'relative',
-                    top: '100px',
-                    left: '-130px'
+                    top: '120px',
+                    left: '-90px'
                   }}
                 >
                   { <img
-                      width='150%'
-                      height='90%'
+                      width='130%'
+                      height='70%'
                       src='/homeowner.png'
                       alt='homeownerSignup'
                     />}
@@ -44,7 +44,7 @@ function HomeOwnerSignUp() {
                       flexDirection: 'column'
                     }}
               >
-              { <Grid style={{display:"flex", justifyContent:"center"}}>
+              { <Grid style={{display:"flex"}}>
                   <img 
                     height='40%'
                     width='40%'
