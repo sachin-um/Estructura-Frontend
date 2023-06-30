@@ -22,7 +22,7 @@ function SignIn() {
   return (
       <div style={{ height: '100vh' }}>
         <TopBar title='Sign In to Estructura' />
-        <div style={{backgroundImage:"url('/formBg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '100px 0'}}>
+        <div style={{backgroundImage:"url('/formBg.jpg')", backgroundSize: 'cover', minHeight: '100vh', display: 'flex', justifyContent: 'center',  padding: '100px 0'}}>
         <div style={{padding:20, backgroundColor:"white", borderRadius:20, maxWidth:2000, maxHeight:600}}>
         <Container>
         <Grid maxWidth='lg' minHeight='100vh'  container>

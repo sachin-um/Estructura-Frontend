@@ -20,8 +20,8 @@ function ForgotPassword() {
   return (
       <div style={{ height: '50vh '}}>
         <TopBar title='Forgot Password' />
-        <div style={{backgroundImage:"url('/formBg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '100px 0'}}>
-        <div style={{padding:10, backgroundColor:"white", borderRadius:20, maxWidth:1000, maxHeight:550}}>
+        <div style={{backgroundImage:"url('/formBg.jpg')", backgroundSize: 'cover', minHeight: '100vh', display: 'flex', justifyContent: 'center', padding: '100px 0'}}>
+        <div style={{padding:10, backgroundColor:"white", borderRadius:20, maxWidth:1000, maxHeight:550, marginTop: '-10px'}}>
         <Container>
         <Grid maxwidth = 'lg' minHeight='100vh' container>
           <Grid item md={6} xs={0}
