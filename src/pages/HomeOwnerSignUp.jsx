@@ -148,7 +148,7 @@ function HomeOwnerSignUp() {
                   </Select>
                 </FormControl>
                 <TextField  InputProps={{ sx: { borderRadius: 2 } }}sx={{ width: 1,margin:1 }}type='city' name='city' label='City' variant="filled" size="small" color='secondary'/>
-                <Button sx={{ width: 1/3, padding: 1, marginLeft: 23,borderRadius:2 ,marginTop:2}}type='submit' color="primary" variant="contained" size='large'>Sign Up</Button>
+                <Button sx={{ width: 1/3, padding: 1, marginLeft: 18,borderRadius:2 ,marginTop:2}}type='submit' color="primary" variant="contained" size='large'>Sign Up</Button>
                 </Box>
               </Container>
             </Grid>
