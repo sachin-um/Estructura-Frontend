@@ -20,16 +20,17 @@ function SignIn() {
 
   // TODO: Change Layout
   return (
-    <>
-      <TopBar title='Sign In to Estructura' />
-
-      <Container>
+      <div style={{ height: '100vh' }}>
+        <TopBar title='Sign In to Estructura' />
+        <div style={{backgroundImage:"url('/formBg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '100px 0'}}>
+        <div style={{padding:20, backgroundColor:"white", borderRadius:20, maxWidth:2000, maxHeight:600}}>
+        <Container>
         <Grid maxWidth='lg' minHeight='100vh'  container>
           <Grid item md={6} xs={0}
             style={{
               position: 'relative',
-              top: '20px',
-              left: '-80px'
+              top: '-50px',
+              left: '-40px'
             }}
           >
             { <img
@@ -37,7 +38,6 @@ function SignIn() {
               height='90%'
               src='/signin.png'
               alt='signin'
-             
             /> }
           </Grid>
           <Grid item md={6} xs={12} >
@@ -53,6 +53,7 @@ function SignIn() {
                 width="40%"
                 src='/Logo.png'
                 alt='logo'
+                style={{marginTop: '50px'}}
                 
               />
               </Grid> }
@@ -75,10 +76,10 @@ function SignIn() {
                 <TextField  InputProps={{ sx: { borderRadius: 2 } }}sx={{ width: 1,margin:1 }}type='password' name='password' label='Password'  variant="filled" size="small" color='secondary'/>
                 
                 </Grid >}
-                <Stack spacing={18} direction='row'>
-                <Link  href='/Register'  color="secondary" underline="hover" sx={{ marginLeft: 'auto'}}>Don't have an account? Register</Link> 
-                <Link  href='/ForgotPassword'  color="secondary" underline="hover">Forgot Password?</Link>
-                </Stack>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <Link href='/Register' color="secondary" underline="hover" sx={{ marginLeft: '10px' }}>Don't have an account? Register</Link>
+                  <Link href='/ForgotPassword' color="secondary" underline="hover">Forgot Password?</Link>
+                </div>
    
                 { <Grid style={{display:"flex",justifyContent:"center",margin:10}}>
                 <Button sx={{ width: 1/3,  borderRadius:2 }}type='submit' color="primary" variant="contained" size='large'>Sign In</Button>
@@ -89,7 +90,14 @@ function SignIn() {
           </Grid>
         </Grid>
       </Container>
-    </>
+        </div>
+        </div>
+        </div>
+      
+      
+
+      
+   
   );
 }
 
