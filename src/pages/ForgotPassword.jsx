@@ -18,19 +18,21 @@ function ForgotPassword() {
   };
 
   return (
-    <>
-      <TopBar title='Forgot Password' />
-      <Container>
+      <div style={{ height: '50vh '}}>
+        <TopBar title='Forgot Password' />
+        <div style={{backgroundImage:"url('/formBg.jpg')", backgroundSize: 'cover', minHeight: '100vh', display: 'flex', justifyContent: 'center', padding: '100px 0'}}>
+        <div style={{padding:10, backgroundColor:"white", borderRadius:20, maxWidth:1000, maxHeight:550, marginTop: '-10px'}}>
+        <Container>
         <Grid maxwidth = 'lg' minHeight='100vh' container>
           <Grid item md={6} xs={0}
             style={{
               position: 'relative',
-              top: '20px',
-              left: '-90px'
+              top: '-30px',
+              left: '-70px'
             }}
           >
             { <img
-              width='110%'
+              width='130%'
               height='80%'
               src='ForgotPsw.png'
               alt="ForgotPasswordImg"
@@ -50,7 +52,7 @@ function ForgotPassword() {
                 src='/Logo.png'
                 alt='logo'
                 style={{paddingLeft:'30%',
-                marginTop: '30px'  
+                marginTop: '50px'  
               }}
                 />
               </div>}
@@ -71,14 +73,17 @@ function ForgotPassword() {
               >
                 <TextField InputProps={{ sx: { borderRadius: 2 }}} sx={{ width: 1, margin: 1}} type='email' name='email' label="Email" variant='filled' size='small' color='secondary' />
                 
-                <Button sx={{width: 1/3, padding: 1, marginLeft: 23, borderRadius: 2, marginTop: 5}} type='submit' color='primary' variant='contained' size='large'>Send OTP</Button>
+                <Button sx={{width: 1/3, padding: 1, marginLeft: 18, borderRadius: 2, marginTop: 5}} type='submit' color='primary' variant='contained' size='large'>Send OTP</Button>
               </Box>
             </Container>
           </Grid>
         </Grid>
       </Container>
-
-    </>
+        
+        </div>
+      </div>
+      </div>
+      
   );
 }
 
