@@ -1,8 +1,9 @@
-import { AppBar, Container, Toolbar } from "@mui/material";
+import { AppBar, Container, Toolbar, Link, Box } from "@mui/material";
 import { Helmet } from "react-helmet";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+import logo from "/Logo.png";
 
-let pages = [
+const pages = [
   { id: 0, title: "Estructura", link: "/" },
   { id: 1, title: "Sign In", link: "/SignIn" },
   { id: 2, title: "SignUp", link: "/SignUp" },
@@ -14,23 +15,58 @@ function TopBar(props) {
     ? props.title
     : "Estructura: Creating Homes; Connecting Experts";
 
-  // TODO: Add Logo Properly
-  // TODO: Create Sections for links(Home,Professionals etc) and User stuff(Login,Logout etc..)
-  // TODO: Add Search Bar?
-  // TODO: Style where necessary
   return (
     <>
       <Helmet>
         <title>{title}</title>
       </Helmet>
-      <AppBar position='sticky'>
+      <AppBar position="sticky" sx={{ height: 80, backgroundColor: '#fff' }}>
         <Container>
-          <Toolbar sx={{ display: { flex: "flex", gap: 10 } }}>
-            {pages.map((page) => (
-              <Link key={page.id} to={page.link}>
-                {page.title}
-              </Link>
-            ))}
+          <Toolbar
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              height: "100%",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                marginLeft: -10,
+              }}
+            >
+              <RouterLink to="/">
+                <img
+                  src={logo}
+                  alt="Logo"
+                  style={{ height: 70 }}
+                />
+              </RouterLink>
+            </Box>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              {pages.map((page) => (
+                <Link
+                  key={page.id}
+                  component={RouterLink}
+                  to={page.link}
+                  color="inherit"
+                  underline="none"
+                  sx={{
+                    fontSize: "1rem",
+                    fontWeight: "bold",
+                    fontFamily: "Arial",
+                    color: "#435834",
+                    marginLeft: 10,
+                    "&:hover": {
+                      color: "#2E8B57",
+                    },
+                  }}
+                >
+                  {page.title}
+                </Link>
+              ))}
+            </Box>
           </Toolbar>
         </Container>
       </AppBar>
@@ -39,5 +75,4 @@ function TopBar(props) {
 }
 
 export default TopBar;
-
 export { pages };
