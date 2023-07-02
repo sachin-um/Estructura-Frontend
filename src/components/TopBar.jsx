@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { AppBar, Container, Toolbar, Link, Box } from "@mui/material";
 import { Helmet } from "react-helmet";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 import logo from "/Logo.png";
 
 const pages = [
@@ -11,16 +12,27 @@ const pages = [
 ];
 
 function TopBar(props) {
+  const [activeTab, setActiveTab] = useState(null);
+  const location = useLocation();
+
   const title = props.title
     ? props.title
     : "Estructura: Creating Homes; Connecting Experts";
+
+  const handleTabChange = (pageId) => {
+    setActiveTab(pageId);
+  };
+
+  const isTabActive = (pageId) => {
+    return activeTab === pageId || location.pathname === pages[pageId].link;
+  };
 
   return (
     <>
       <Helmet>
         <title>{title}</title>
       </Helmet>
-      <AppBar position="sticky" sx={{ height: 80, backgroundColor: '#fff' }}>
+      <AppBar position="sticky" sx={{ height: 80, backgroundColor: "#fff" }}>
         <Container>
           <Toolbar
             sx={{
@@ -37,11 +49,7 @@ function TopBar(props) {
               }}
             >
               <RouterLink to="/">
-                <img
-                  src={logo}
-                  alt="Logo"
-                  style={{ height: 70 }}
-                />
+                <img src={logo} alt="Logo" style={{ height: 70 }} />
               </RouterLink>
             </Box>
             <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -51,16 +59,23 @@ function TopBar(props) {
                   component={RouterLink}
                   to={page.link}
                   color="inherit"
-                  underline="none"
+                  underline={isTabActive(page.id) ? "always" : "none"}
+                  onMouseEnter={() => handleTabChange(page.id)}
+                  onMouseLeave={() => handleTabChange(null)}
                   sx={{
                     fontSize: "1rem",
                     fontWeight: "bold",
                     fontFamily: "Arial",
-                    color: "#435834",
+                    color: isTabActive(page.id) ? "#2E8B57" : "#435834",
                     marginLeft: 10,
                     "&:hover": {
                       color: "#2E8B57",
                     },
+                    ...(isTabActive(page.id) && {
+                      textDecoration: "underline",
+                      textUnderlineOffset: "3px",
+                      transform: "translateY(-2px)",
+                    }),
                   }}
                 >
                   {page.title}
@@ -76,3 +91,4 @@ function TopBar(props) {
 
 export default TopBar;
 export { pages };
+
