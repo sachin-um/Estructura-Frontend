@@ -1,15 +1,6 @@
 import TopBar from "../components/TopBar";
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  Stack,
-  Link,
-  TextField,
-  Typography,
-} from "@mui/material";
-// import { Link } from "react-router-dom" ;
+import { Button, Container, Grid, TextField, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 function SignIn() {
   const HandleSubmit = (event) => {
@@ -18,86 +9,114 @@ function SignIn() {
     console.log(formData.get("email"), formData.get("password"));
   };
 
-  // TODO: Change Layout
   return (
-      <div style={{ height: '100vh' }}>
-        <TopBar title='Sign In to Estructura' />
-        <div style={{backgroundImage:"url('/formBg.jpg')", backgroundSize: 'cover', minHeight: '100vh', display: 'flex', justifyContent: 'center',  padding: '100px 0'}}>
-        <div style={{padding:20, backgroundColor:"white", borderRadius:20, maxWidth:2000, maxHeight:600}}>
-        <Container>
-        <Grid maxWidth='lg' minHeight='100vh'  container>
-          <Grid item md={6} xs={0}
-            style={{
-              position: 'relative',
-              top: '-50px',
-              left: '-40px'
-            }}
-          >
-            { <img
-              width='110%'
-              height='90%'
-              src='/signin.png'
-              alt='signin'
-            /> }
-          </Grid>
-          <Grid item md={6} xs={12} >
-            <Container maxWidth='sm' 
-              sx={{
-                display:"flex",
-                flexDirection:"column"
+    <>
+      <TopBar title='Sign In' />
+      <Container
+        maxWidth={false}
+        style={{ backgroundColor: '#f7f8f1', minHeight: '100vh', display: 'flex', alignItems: 'center' }}
+      >
+        <Grid container justifyContent="center" spacing={4}>
+          <Grid item xs={12} md={7}>
+            <Grid
+              container
+              style={{
+                backgroundImage: 'url("/formBg.jpg")',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                borderRadius: '20px',
+                height: '100%',
+                display: 'flex',
+                alignItems: 'flex-end',
               }}
             >
-            { <Grid style={{display:"flex",justifyContent:"center"}}>
-                <img 
-                height="40%"
-                width="40%"
-                src='/Logo.png'
-                alt='logo'
-                style={{marginTop: '50px'}}
-                
-              />
-              </Grid> }
-              <Typography variant='h5' sx={{ textAlign: "center",textTransform: "uppercase", color:"#435834", marginTop:'50px'}} >
-                Welcome Back
-              </Typography>
-            
-              <Box
-                component='form'
-                sx={{
-                  margin: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "20px",
-                }}
-                onSubmit={HandleSubmit}
-              >
-               {<Grid style={{justifyContent:"center"}}>
-                <TextField  InputProps={{ sx: { borderRadius: 2 } }}sx={{ width: 1,margin:1 }}type='email' name='email' label='Email' variant="filled" size="small" color="secondary" />
-                <TextField  InputProps={{ sx: { borderRadius: 2 } }}sx={{ width: 1,margin:1 }}type='password' name='password' label='Password'  variant="filled" size="small" color='secondary'/>
-                
-                </Grid >}
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <Link href='/Register' color="secondary" underline="hover" sx={{ marginLeft: '10px' }}>Don't have an account? Register</Link>
-                  <Link href='/ForgotPassword' color="secondary" underline="hover">Forgot Password?</Link>
-                </div>
-   
-                { <Grid style={{display:"flex",justifyContent:"center",margin:10}}>
-                <Button sx={{ width: 1/3,  borderRadius:2 }}type='submit' color="primary" variant="contained" size='large'>Sign In</Button>
-                </Grid> }
-                
-              </Box>
-            </Container>
+              <Grid item xs={12} style={{ paddingLeft: '4rem', paddingRight: '1rem', marginBottom: '2rem' }}>
+                <Typography
+                  variant="h4"
+                  style={{
+                    color: '#ffffff',
+                    fontSize: '1.5rem',
+                    textAlign: 'left',
+                    lineHeight: '1',
+                    paddingBottom: '1rem',
+                    marginTop: 'auto',
+                  }}
+                >
+                  Unleash your home’s potential
+                </Typography>
+                <Typography
+                  variant="h4"
+                  style={{
+                    color: '#ffffff',
+                    fontSize: '1.5rem',
+                    textAlign: 'left',
+                    lineHeight: '1',
+                  }}
+                >
+                  with everything at your fingertips
+                </Typography>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={12} md={5}>
+            <Grid
+              container
+              style={{
+                backgroundColor: '#ffffff',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                borderRadius: '20px',
+                padding: '1rem 2rem 3rem',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginTop: '2rem',
+                marginBottom: '2rem',
+              }}
+            >
+              <Grid item xs={12} style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'center' }}>
+                <img src="/Logo.png" alt="Logo" style={{ width: '40%' }} />
+              </Grid>
+              <Grid item xs={12} style={{ marginBottom: '1rem' }}>
+                <Typography variant="h5" gutterBottom style={{ textAlign: 'center', color: '#435834' }}>
+                  Welcome Back
+                </Typography>
+              </Grid>
+              <Grid item xs={12} style={{ marginTop: '1rem' }}>
+                <form
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '1.5rem',
+                    width: '100%',
+                    maxWidth: '400px',
+                    margin: '0 auto',
+                  }}
+                  onSubmit={HandleSubmit}
+                >
+                  <TextField label="User Name or Email" type="email" name="email" fullWidth variant="filled" color='secondary'  />
+                  <TextField label="Password" type="password" name="password" fullWidth variant="filled" color='secondary'  />
+                  <Grid container justifyContent="space-between">
+                    <Grid item style={{ marginRight: '3rem' }}>
+                      <Link to="/register" style={{ color: '#9D6432', textDecoration: 'none' }}>Don't have an account? Register</Link>
+                    </Grid>
+                    <Grid item>
+                      <Link to="/ForgotPassword" style={{ color: '#9D6432', textDecoration: 'none' }}>Forgot Password?</Link>
+                    </Grid>
+                  </Grid>
+                  <Button variant="contained" color="primary" type="submit" fullWidth style={{ marginTop: '1.5rem' }}>
+                    Sign In
+                  </Button>
+                  <Button variant="outlined" color="primary" fullWidth style={{ marginTop: '0.5rem', color: '#000000', borderColor: '#304422' }} startIcon={<img src="/google.png" alt="Google Logo" style={{ height: '1.5rem', marginRight: '0.5rem' }} />}>
+                    Sign in with Google
+                  </Button>
+                </form>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Container>
-        </div>
-        </div>
-        </div>
-      
-      
-
-      
-   
+    </>
   );
 }
 
