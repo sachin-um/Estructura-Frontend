@@ -2,7 +2,6 @@ import { useState } from "react";
 import { AppBar, Container, Toolbar, Link, Box } from "@mui/material";
 import { Helmet } from "react-helmet";
 import { Link as RouterLink, useLocation } from "react-router-dom";
-import logo from "/Logo.png";
 
 const pages = [
   { id: 0, title: "Estructura", link: "/" },
@@ -49,7 +48,7 @@ function TopBar(props) {
               }}
             >
               <RouterLink to="/">
-                <img src={logo} alt="Logo" style={{ height: 70 }} />
+                <img src={"/Logo.png"} alt="Logo" style={{ height: 70 }} />
               </RouterLink>
             </Box>
             <Box sx={{ display: "flex", alignItems: "center" }}>
