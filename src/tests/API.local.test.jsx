@@ -1,4 +1,4 @@
-import API from "./API";
+import API from "../lib/API";
 
 it("Gets Accesstoken from API", async () => {
   const response = await API.post("/auth/authenticate", {
