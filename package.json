@@ -25,7 +25,9 @@
     "start": "vite --port 3000",
     "build": "vite build",
     "serve": "vite preview",
-    "test": "jest"
+    "test": "jest --testPathIgnorePatterns=\".*\\.local\\..*\"",
+    "testExMail": "jest --testPathIgnorePatterns=\".*Mail.*\"",
+    "testAll": "jest"
   },
   "eslintConfig": {
     "extends": [
@@ -49,6 +51,8 @@
     "@vitejs/plugin-react": "^4.0.1",
     "jest": "^25.0.0",
     "jest-environment-jsdom": "^29.5.0",
+    "jest-localstorage-mock": "^2.4.26",
+    "mailslurp-client": "^15.17.2",
     "vite": "^4.3.9",
     "vite-plugin-svgr": "^3.2.0"
   }

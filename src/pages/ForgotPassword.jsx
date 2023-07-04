@@ -1,90 +1,154 @@
 import TopBar from "../components/TopBar";
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  Stack,
-  Link,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Container, Grid, TextField, Typography, Box } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 function ForgotPassword() {
-  const HandleSubmit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     console.log(formData.get("email"));
   };
 
   return (
-      <div style={{ height: '50vh '}}>
-        <TopBar title='Forgot Password' />
-        <div style={{backgroundImage:"url('/formBg.jpg')", backgroundSize: 'cover', minHeight: '100vh', display: 'flex', justifyContent: 'center', padding: '100px 0'}}>
-        <div style={{padding:10, backgroundColor:"white", borderRadius:20, maxWidth:1000, maxHeight:550, marginTop: '-10px'}}>
-        <Container>
-        <Grid maxwidth = 'lg' minHeight='100vh' container>
-          <Grid item md={6} xs={0}
-            style={{
-              position: 'relative',
-              top: '-30px',
-              left: '-70px'
-            }}
-          >
-            { <img
-              width='130%'
-              height='80%'
-              src='ForgotPsw.png'
-              alt="ForgotPasswordImg"
-            />}
-          </Grid>
-          <Grid item md={6} xs={12} >
-            <Container maxWidth= 'sm'
-              sx={{
+    <>
+      <TopBar title='Forgot Password' />
+      <Container
+        maxWidth={false}
+        style={{ backgroundColor: '#f7f8f1', minHeight: '100vh', display: 'flex', alignItems: 'center' }}
+      >
+        <Grid container justifyContent="center" spacing={4}>
+          <Grid item xs={12} md={7} style={{paddingTop: '2rem', paddingBottom: '2rem', marginTop: '2rem'}}>
+            <Grid
+              container
+              style={{
+                backgroundImage: 'url("/ForgotPasswordBG.jpg")',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                borderRadius: '20px',
+                height: '100%',
                 display: 'flex',
-                flexDirection: 'column'
+                alignItems: 'flex-end',
               }}
             >
-              { <div>
-                <img 
-                height="40%"
-                width="40%"
-                src='/Logo.png'
-                alt='logo'
-                style={{paddingLeft:'30%',
-                marginTop: '50px'  
+              <Grid item xs={12} style={{ paddingLeft: '3rem', paddingRight: '1rem', marginBottom: '2rem', paddingTop: '2rem' }}>
+                <Typography
+                  variant="h4"
+                  style={{
+                    color: '#ffffff',
+                    fontSize: '1.5rem',
+                    textAlign: 'left',
+                    lineHeight: '1',
+                    paddingBottom: '1rem',
+                    marginTop: 'auto',
+                  }}
+                >
+                  Unleash your home’s potential
+                </Typography>
+                <Typography
+                  variant="h4"
+                  style={{
+                    color: '#ffffff',
+                    fontSize: '1.5rem',
+                    textAlign: 'left',
+                    lineHeight: '1',
+                  }}
+                >
+                  with everything at your fingertips
+                </Typography>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={12} md={5}>
+            <Grid
+              container
+              style={{
+                backgroundColor: '#ffffff',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                borderRadius: '20px',
+                padding: '1rem 2rem 3rem',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginTop: '2rem',
+                marginBottom: '2rem',
               }}
-                />
-              </div>}
-              <Typography variant='h5' sx={{ textAlign: 'center', color:"#435834", marginTop: '30px'}}>
+            >
+              <Grid item xs={12} style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'center' }}>
+                <img src="/Logo.png" alt="Logo" style={{ width: '40%' }} />
+              </Grid>
+              <Grid item xs={12} style={{ marginBottom: '1rem' }}>
+                <Typography variant="h5" gutterBottom style={{ textAlign: 'center', color: '#435834' }}>
                   Forgot your password?
-              </Typography>
-
-              <Box 
-                component='form'
-                sx={{
-                  margin: '10px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '10px',
-                  marginTop: '50px',
-                }}
-                onSubmit={HandleSubmit}
-              >
-                <TextField InputProps={{ sx: { borderRadius: 2 }}} sx={{ width: 1, margin: 1}} type='email' name='email' label="Email" variant='filled' size='small' color='secondary' />
-                
-                <Button sx={{width: 1/3, padding: 1, marginLeft: 18, borderRadius: 2, marginTop: 5}} type='submit' color='primary' variant='contained' size='large'>Send OTP</Button>
-              </Box>
-            </Container>
+                </Typography>
+              </Grid>
+              <Grid item xs={12} style={{ marginTop: '1rem' }}>
+                <form
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '1.5rem',
+                    width: '100%',
+                    maxWidth: '400px',
+                    margin: '0 auto',
+                    alignItems: 'center'
+                  }}
+                  onSubmit={handleSubmit}
+                >
+                  <TextField
+                    label="Email"
+                    type="email"
+                    name="email"
+                    fullWidth
+                    variant="filled"
+                    color='secondary'
+                    inputProps={{ style: { height: '15px' } }}
+                  />
+                  <Button variant="contained" color="primary" type="submit" fullWidth style={{ width: '50%' }}>
+                    Send OTP
+                  </Button>
+                  <Box mt={1} width="100%" borderBottom={1} borderColor="grey.300" />
+                  <Box sx={{ display: 'flex', gap: '10px', marginLeft: '2px', marginRight: '2px' }}>
+                    <TextField
+                      sx={{ flex: '1', margin: '1px 1px 1px 0' }}
+                      type='typeOTP'
+                      name='typeOTP'
+                      label='Type OTP'
+                      variant="filled"
+                      size="small"
+                      color="secondary"
+                      inputProps={{ style: { height: '15px' } }}
+                    />
+                    <Button variant="contained" color="primary" type="submit">Resend OTP</Button>
+                  </Box>
+                  <TextField
+                    label="Enter New Password"
+                    type="newPassword"
+                    name="newPassword"
+                    fullWidth
+                    variant="filled"
+                    color='secondary'
+                    inputProps={{ style: { height: '15px' } }}
+                  />
+                  <TextField
+                    label="Confirm Password"
+                    type="confirmPassword"
+                    name="confirmPassword"
+                    fullWidth
+                    variant="filled"
+                    color='secondary'
+                    inputProps={{ style: { height: '15px' } }}
+                  />
+                  <Button variant="contained" color="primary" type="submit">Submit</Button>
+                </form>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Container>
-        
-        </div>
-      </div>
-      </div>
-      
+    </>
   );
 }
 
 export default ForgotPassword;
+
