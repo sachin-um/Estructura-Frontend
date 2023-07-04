@@ -1,4 +1,4 @@
-import TopBar from "../components/TopBar";
+
 import {
   Box,
   Button,
@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 // import { Link } from "react-router-dom" ;
 
-function ServiceProviderSignUp() {
+function Professional() {
   const HandleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -25,42 +25,9 @@ function ServiceProviderSignUp() {
   // TODO: Change Layout
   return (
     <>
-      <TopBar title='Sign In to Estructura' />
-
-      <Container>
-        <Grid maxWidth='lg' minHeight='100vh'  container>
-          <Grid item md={6} xs={0}
-            style={{
-              position: 'relative',
-          
-            }}
-          >
-            { <img
-              src='/signin.png'
-              alt=''
-             
-            /> }
-          </Grid>
-          <Grid item md={6} xs={12} >
-            <Container maxWidth='sm' 
-              sx={{
-                display:"flex",
-                flexDirection:"column"
-              }}
-            >
-            { <Grid style={{display:"flex",justifyContent:"center"}}>
-                <img 
-                height="40%"
-                width="40%"
-                src='/Logo.png'
-                alt='logo'
-                
-              />
-              </Grid> }
-              {/* <Typography variant='h5' sx={{ textAlign: "center",textTransform: "uppercase", color:"#435834",}} >
-                Welcome
-              </Typography>
-             */}
+      
+     
+       
               <Box
                 component='form'
                 sx={{
@@ -135,17 +102,15 @@ function ServiceProviderSignUp() {
                 </Grid >}
     
    
-                { <Grid style={{display:"flex",justifyContent:"center",margin:10}}>
-                <Button sx={{ width: 1/3,  borderRadius:2 }}type='submit' color="primary" variant="contained" size='large'  href='/SignUp/ServiceProviderCategorySignup'>Sign Up</Button>
-                </Grid> }
+                {/* { <Grid style={{display:"flex",justifyContent:"center",margin:10}}>
+                <Button sx={{ width: 1/3,  borderRadius:2 }}type='submit' color="primary" variant="contained" size='large'  href=''>Next</Button>
+                </Grid> } */}
                 
               </Box>
-            </Container>
-          </Grid>
-        </Grid>
-      </Container>
+
+    
     </>
   );
 }
 
-export default ServiceProviderSignUp;
+export default Professional;
