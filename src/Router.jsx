@@ -6,6 +6,8 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import ForgotPassword from "./pages/ForgotPassword";
 import HomeOwnerSignUp from "./pages/HomeOwnerSignUp";
+import ServiceProviderSignUp from "./pages/ServiceProviderSignUp";
+
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,13 @@ const router = createBrowserRouter([
     path: "/ForgotPassword",
     element: <ForgotPassword />,
   },
+  {
+    path: "/SignUp/ServiceProvider",
+    element: <ServiceProviderSignUp />,
+  },
+ 
+  
+  
 ]);
 
 export default router;
