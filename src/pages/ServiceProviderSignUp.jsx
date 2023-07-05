@@ -2,6 +2,7 @@
 import TopBar from "../components/TopBar";
 import SignUpPage1 from "../components/ServiceProvider/SignUpPage1";
 import SignUpPage2 from "../components/ServiceProvider/SignUpPage2";
+import ArchitectPage3 from "../components/ServiceProvider/ArchitectSignUp/ArchitectPage3";
 import React,{useState} from "react";
 import Professional from "../components/ServiceProvider/Professional";
 import RetailStore from "../components/ServiceProvider/RetailStore";

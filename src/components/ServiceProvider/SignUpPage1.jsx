@@ -11,6 +11,8 @@ import {
   Stack,
   Link,
   TextField,
+  FormControl,
+  InputLabel,
   Typography,
 } from "@mui/material";
 // import { Link } from "react-router-dom" ;
@@ -29,42 +31,72 @@ function SignUpPage1({updateFormData,handleDropdownChange,nextPage}) {
   return (
     <>
       
-
-      <Container>
-        <Grid maxWidth='lg' minHeight='100vh'  container>
-          <Grid item md={6} xs={0}
-            style={{
-              position: 'relative',
-              top: '20px',
-              left: '-50px'
-            }}
-          >
-            { <img
-              src='/signin.png'
-              alt=''
-             
-            /> }
-          </Grid>
-          <Grid item md={6} xs={12} >
-            <Container maxWidth='sm' 
-              sx={{
-                display:"flex",
-                flexDirection:"column"
+      <Container
+        maxWidth={false}
+        style={{ backgroundColor: '#f7f8f1', minHeight: '100vh', display: 'flex', alignItems: 'center' }}
+      >
+        <Grid container justifyContent="center" spacing={4}>
+          <Grid item xs={12} md={7} style={{ paddingTop: '2rem', paddingBottom: '2rem', marginTop: '2rem' }}>
+            <Grid
+              container
+              style={{
+                backgroundImage: 'url("/serviceprovider.jpeg")',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                borderRadius: '20px',
+                height: '100%',
+                display: 'flex',
+                alignItems: 'flex-end',
               }}
             >
-            { <Grid style={{display:"flex",justifyContent:"center"}}>
-                <img 
-                height="40%"
-                width="40%"
-                src='/Logo.png'
-                alt='logo'
-                
-              />
-              </Grid> }
-              {/* <Typography variant='h5' sx={{ textAlign: "center",textTransform: "uppercase", color:"#435834",}} >
-                Welcome
-              </Typography>
-             */}
+              <Grid item xs={12} style={{ paddingLeft: '4rem', paddingRight: '1rem', marginBottom: '2rem' }}>
+                <Typography
+                  variant="h4"
+                  style={{
+                    color: '#ffffff',
+                    fontSize: '1.5rem',
+                    textAlign: 'left',
+                    lineHeight: '1',
+                    paddingBottom: '1rem',
+                    marginTop: 'auto',
+                  }}
+                >
+                  Unleash your home’s potential
+                </Typography>
+                <Typography
+                  variant="h4"
+                  style={{
+                    color: '#ffffff',
+                    fontSize: '1.5rem',
+                    textAlign: 'left',
+                    lineHeight: '1',
+                  }}
+                >
+                  with everything at your fingertips
+                </Typography>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={12} md={5}>
+            <Grid
+              container
+              style={{
+                backgroundColor: '#ffffff',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                borderRadius: '20px',
+                padding: '1rem 2rem 3rem',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginTop: '2rem',
+                marginBottom: '2rem',
+              }}
+            >
+              <Grid item xs={12} style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'center' }}>
+                <img src="/Logo.png" alt="Logo" style={{ width: '40%' }} />
+              </Grid>
+              <Grid item xs={12} style={{ marginTop: '1rem' }}>
               <Box
                 component='form'
                 sx={{
@@ -81,20 +113,19 @@ function SignUpPage1({updateFormData,handleDropdownChange,nextPage}) {
                 <TextField  InputProps={{ sx: { borderRadius: 2 } }}sx={{ width: 1,margin:2 }}type='ConfirmPassword' name='ConfirmPassword' label='Confirm Password'  variant="filled" size="small"/>
                 
                 </Grid >}
-                {/* <Stack spacing={18} direction='row'>
-                <Link  href='/Register'  color="secondary" underline="hover" sx={{ marginLeft: 'auto'}}>Don't have an account? Register</Link> 
-                <Link  href='/ForgotPassword'  color="secondary" underline="hover">Forgot Password?</Link>
-                </Stack> */}
+           
    
                 { <Grid style={{display:"flex",justifyContent:"center",margin:10}}>
                 <Button sx={{ width: 1/3,  borderRadius:2 }}type='submit' color="primary" variant="contained" size='large' onClick={handleNext}>Next</Button>
                 </Grid> }
                 
               </Box>
-            </Container>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Container>
+      
     </>
   );
 }
