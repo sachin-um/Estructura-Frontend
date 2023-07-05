@@ -24,7 +24,8 @@
     "start": "vite --port 3000",
     "build": "vite build",
     "serve": "vite preview",
-    "test": "jest",
+    "test": "jest --testPathIgnorePatterns=\".*\\.local\\..*\"",
+    "testExMail": "jest --testPathIgnorePatterns=\".*Mail.*\"",
     "testAll": "jest"
   },
   "eslintConfig": {
