@@ -19,7 +19,7 @@ function SignUp() {
             <Typography variant='h4'>I am a Service Provider</Typography>
             I provide services related to home improvement or sell home products
             <br />
-            <Button variant='contained' href='/SignUp/#'>
+            <Button variant='contained' href='/SignUp/ServiceProvider'>
               Sign up as a Service Provider
             </Button>
           </Grid>
