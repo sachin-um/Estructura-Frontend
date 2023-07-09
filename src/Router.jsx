@@ -12,6 +12,7 @@ import Product from "./pages/e-com/Product";
 import Home from "./pages/e-com/Home";
 import ProductList from "./pages/e-com/ProductList";
 import Cart from "./pages/e-com/Cart";
+import AdminDashboard from "./pages/admin/dash";
 
 
 const router = createBrowserRouter([
@@ -55,7 +56,10 @@ const router = createBrowserRouter([
     path: "/e-com/Cart",
     element: <Cart />,
   },
-  
+  {
+    path: "/admin/dash",
+    element: <AdminDashboard />,
+  }
 ]);
 
 export default router;
