@@ -47,10 +47,11 @@ function RetailStore() {
                     labelId="demo-simple-select-label"
                 
                 >
-                    <MenuItem value={1}>Furnitue</MenuItem>
+                    <MenuItem value={1}>Furniture</MenuItem>
                     <MenuItem value={2}>Hardware</MenuItem>
                     <MenuItem value={3}>Bathware</MenuItem>
                     <MenuItem value={4}>Lighting</MenuItem>
+                    <MenuItem value={4}>Gardenware</MenuItem>
                    
                 </Select>
                 </FormControl>
