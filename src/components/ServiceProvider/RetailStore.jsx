@@ -47,16 +47,17 @@ function RetailStore() {
                     labelId="demo-simple-select-label"
                 
                 >
-                    <MenuItem value={1}>Furniture</MenuItem>
+                    <MenuItem value={1}>Indoor Furniture</MenuItem>
+                    <MenuItem value={1}>Outdoor Furniture</MenuItem>
                     <MenuItem value={2}>Hardware</MenuItem>
                     <MenuItem value={3}>Bathware</MenuItem>
                     <MenuItem value={4}>Lighting</MenuItem>
-                    <MenuItem value={4}>Gardenware</MenuItem>
+                    
                    
                 </Select>
                 </FormControl>
                 <TextField  InputProps={{ sx: { borderRadius: 2 } }}sx={{ width: 1,margin:1 }}type='contactNo' name='contactNo' label='Business Contact Number' variant="filled" size="small" color='secondary'/>
-               
+                <TextField  InputProps={{ sx: { borderRadius: 2 } }}sx={{ width: 1,margin:1 }}type='contactNo' name='contactNo' label='Business Registration Number' variant="filled" size="small" color='secondary'/>
                 <Typography variant='h8' sx={{ textAlign: "left", color:"#435834", marginTop: '-8px', marginLeft: '10px'}} > Address </Typography>
                 <Box sx={{ display: 'flex', gap: '10px' }}>
                   <TextField InputProps={{ sx: { borderRadius: 2 } }} sx={{ flex: '1', margin: 1 }} type='houseNo'name='houseNo'label='House No'variant="filled"size="small"color="secondary"/>
