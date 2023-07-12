@@ -9,7 +9,9 @@ import { Link } from 'react-router-dom';
 function ProfileDetails() {
   return (
     <>
-      <Typography variant='h6'> Profile </Typography>
+     <Grid style={{display:"flex",justifyContent:"center", marginTop: '3rem',marginLeft: '10rem'  }}>
+    <Typography variant='h6'>Profile Details </Typography>
+     </Grid>
      
     </>
   );
