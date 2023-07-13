@@ -13,6 +13,8 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 
  import Messages from "../components/ServiceProviderProf/Messages";
  import PreviousProjects from "../components/ServiceProviderProf/PreviousProjects";
@@ -24,45 +26,42 @@ import {
 
 
   function ServiceProviderProfile({updateFormData,nextPage,previousPage}) {
-  const HandleSubmit = (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    console.log(formData.get("email"), formData.get("password"));
-  };
-
-  const [activeTab, setActiveTab] = useState(1);
-
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-  };
-
-  const handleNext=() =>{
-    nextPage();
-  }
-
-  const handlePrevious=() =>{
-    previousPage();
-  }
-
-  const renderForm = () => {
-    if (activeTab === 1) {
+    const HandleSubmit = (event) => {
+      event.preventDefault();
+      const formData = new FormData(event.currentTarget);
+      console.log(formData.get("email"), formData.get("password"));
+    };
+    const [value, setValue] = React.useState("one");
+    const [activeTab, setActiveTab] = useState("one");
+  
+    const handleTabChange = (event,tab) => {
+      setValue(tab)
+      setActiveTab(tab);
+    };
+  
+    const handleNext=() =>{
+      nextPage();
+    }
+  
+    const handlePrevious=() =>{
+      previousPage();
+    }
+  
+    const renderForm = () => {
+      if (activeTab === "one") {
+        return <ProfileDetails />;
+      } else if (activeTab === "two") {
+        return <PreviousProjects />;
+      }else if (activeTab === "three") {
+        return <Responses />;
+      }else if (activeTab === "four") {
+        return <Messages />;
+      }else if (activeTab === "five") {
+        return <Reviews />;
+      }
       return <ProfileDetails />;
-    }
-     else if (activeTab === 2) {
-      return <PreviousProjects />;
-    }
-    else if (activeTab === 3) {
-      return <Responses />;
-    }
-    else if (activeTab === 4) {
-      return <Messages />;
-    }
-    else if (activeTab === 5) {
-      return <Reviews />;
-    }
-    return <ProfileDetails />;
-    
-  };
+    };
+
 
   return (
     <>
@@ -137,18 +136,25 @@ import {
     </Card> } 
     </Grid>
    
-        <Grid item md={6} xs={12} style={{display:"flex",justifyContent:"center", marginTop: '3rem',marginLeft: ''  }}>
-            <Button sx={{ width:1/2,height:1/8, borderRadius:2,margin:1 }}type='submit' color="secondary" variant="contained" size='small'   onClick={() => handleTabChange(1)}>Profile Details</Button>
-            <Button sx={{ width: 1/2,height:1/8, borderRadius:2,margin:1  }}type='submit' color="secondary" variant="contained" size='small'   onClick={() => handleTabChange(2)}>Previous Projects</Button>
-            <Button sx={{ width: 1/2,height:1/8, borderRadius:2,margin:1  }}type='submit' color="secondary" variant="contained" size='small'   onClick={() => handleTabChange(3)}>Responses</Button>
-            <Button sx={{ width: 1/2,height:1/8, borderRadius:2,margin:1  }}type='submit' color="secondary" variant="contained" size='small'   onClick={() => handleTabChange(4)}>Messages</Button>
-            <Button sx={{ width: 1/2,height:1/8, borderRadius:2,margin:1  }}type='submit' color="secondary" variant="contained" size='small'   onClick={() => handleTabChange(5)}>Reviews</Button>
-            
+        <Grid item md={6} xs={12} style={{display:"flex",justifyContent:"center", marginTop: '3rem',marginLeft: '0rem'  }}>
+           <Grid> {
+            <Tabs
+                value={value}
+                onChange={handleTabChange}
+                textColor="secondary"
+                indicatorColor="secondary"
+                aria-label="secondary tabs example"
+              >
+               
+                <Tab value="one" label="Profile Details" />
+                <Tab value="two" label="Previous Projects" />
+                <Tab value="three" label="Responses" />
+                <Tab value="four" label="Messages" />
+                <Tab value="five" label="Reviews" />
+              </Tabs>}</Grid>
             </Grid>
             </Grid>
      
-      
-
             {renderForm()}
        
     
