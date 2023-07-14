@@ -107,9 +107,9 @@ function SignIn() {
                   <Button variant="contained" color="primary" type="submit" fullWidth style={{ marginTop: '1.5rem' }}>
                     Sign In
                   </Button>
-                  <Button variant="outlined" color="primary" fullWidth style={{ marginTop: '0.5rem', color: '#000000', borderColor: '#304422' }} startIcon={<img src="/google.png" alt="Google Logo" style={{ height: '1.5rem', marginRight: '0.5rem' }} />}>
+                  {/* <Button variant="outlined" color="primary" fullWidth style={{ marginTop: '0.5rem', color: '#000000', borderColor: '#304422' }} startIcon={<img src="/google.png" alt="Google Logo" style={{ height: '1.5rem', marginRight: '0.5rem' }} />}>
                     Sign in with Google
-                  </Button>
+                  </Button> */}
                 </form>
               </Grid>
             </Grid>

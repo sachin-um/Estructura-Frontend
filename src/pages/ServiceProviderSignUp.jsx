@@ -2,10 +2,11 @@
 import TopBar from "../components/TopBar";
 import SignUpPage1 from "../components/ServiceProvider/SignUpPage1";
 import SignUpPage2 from "../components/ServiceProvider/SignUpPage2";
-import ArchitectPage3 from "../components/ServiceProvider/ArchitectSignUp/ArchitectPage3";
+import ArchitectPage1 from "../components/ServiceProvider/ArchitectSignUp/ArchitectPage1";
 import React,{useState} from "react";
 import Professional from "../components/ServiceProvider/Professional";
 import RetailStore from "../components/ServiceProvider/RetailStore";
+import RentalStore from "../components/ServiceProvider/Rental";
 import {
   Box,
   Button,
@@ -22,9 +23,11 @@ function ServiceProviderSignUp() {
   const [currentPage, setCurrentPage] = useState(1);
   const [formData, setFormData] = useState({});
   const [selectedOption, setSelectedOption] = useState('');
-  const [activeTab, setActiveTab] = useState(1);
+  // const [activeTab, setActiveTab] = useState(1);
+  const [value, setValue] = React.useState("one");
 
   const handleTabChange = (tab) => {
+    setValue(tab);
     setActiveTab(tab);
   };
 
@@ -33,7 +36,9 @@ function ServiceProviderSignUp() {
       return <Professional />;
     } else if (activeTab === 2) {
       return <RetailStore />;
-    }
+    } else if (activeTab === 3) {
+    return <RentalStore />;
+  }
     return <Professional />;
   };
 

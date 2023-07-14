@@ -38,10 +38,15 @@ import {
                   onSubmit={HandleSubmit}
                 >
                  {<Grid style={{justifyContent:"center"}}>
-                  <TextField  InputProps={{ sx: { borderRadius: 2 } }}sx={{ width: 1,margin:1 }}type='SLIARegNumber'   name='SLIARegNumber' label='SLIA Registration Number' variant="filled" size="small"  />
-                  <TextField  InputProps={{ sx: { borderRadius: 2 } }}sx={{ width: 1,margin:1 }}type='SLIACertificate' name='SLIACertificate' label='SLIA Certificate' variant="filled" size="small"  />
+           
                   <TextField  InputProps={{ sx: { borderRadius: 2 } }}sx={{ width: 1,margin:1 }}type='nic' name='nic' label='NIC' variant="filled" size="small"  />
                   <TextField  InputProps={{ sx: { borderRadius: 2 } }}sx={{ width: 1,margin:1 }}type='website' name='website' label='Website' variant="filled" size="small"  />
+                  <TextField  InputProps={{ sx: { borderRadius: 2 } }}sx={{ width: 1,margin:1 }}type='SLIARegNumber'   name='SLIARegNumber' label='SLIA Registration Number' variant="filled" size="small"  />
+                  <Typography>SLIA Certificate</Typography>
+                  <Button sx={{width:1}} variant="contained" component="label" >
+                  Upload Files
+                  <input hidden accept="image/*" multiple type="file" />
+                </Button>
                   </Grid >}
       
      
