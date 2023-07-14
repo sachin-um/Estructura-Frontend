@@ -17,7 +17,7 @@ function SignIn() {
         style={{ backgroundColor: '#f7f8f1', minHeight: '100vh', display: 'flex', alignItems: 'center' }}
       >
         <Grid container justifyContent="center" spacing={4}>
-          <Grid item xs={12} md={7}>
+          <Grid item xs={12} md={7} lg={7}>
             <Grid
               container
               style={{
@@ -58,7 +58,7 @@ function SignIn() {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} md={5}>
+          <Grid item xs={12} md={5} lg={5}> 
             <Grid
               container
               style={{
@@ -98,7 +98,7 @@ function SignIn() {
                   <TextField label="Password" type="password" name="password" fullWidth variant="filled" color='secondary'  />
                   <Grid container justifyContent="space-between">
                     <Grid item style={{ marginRight: '3rem' }}>
-                      <Link to="/register" style={{ color: '#9D6432', textDecoration: 'none' }}>Don't have an account? Register</Link>
+                      <Link to="/SignUp" style={{ color: '#9D6432', textDecoration: 'none' }}>Don't have an account? Register</Link>
                     </Grid>
                     <Grid item>
                       <Link to="/ForgotPassword" style={{ color: '#9D6432', textDecoration: 'none' }}>Forgot Password?</Link>

@@ -261,7 +261,6 @@ const HomePage = () => {
           marginTop="20px"
           marginBottom="20px"
           marginLeft="20px"
-          fontFamily="Arial"
         >
           Browse Professionals
         </Typography>
@@ -277,7 +276,6 @@ const HomePage = () => {
           textAlign="left"
           marginTop="50px"
           marginLeft="20px"
-          fontFamily="Arial"
         >
           Shop Items By
         </Typography>
@@ -319,7 +317,6 @@ const HomePage = () => {
               <Typography
                 variant="h4"
                 paragraph
-                fontFamily="Arial"
                 fontWeight="bold"
                 fontSize="1.7rem"
                 color="#304422"
@@ -329,7 +326,6 @@ const HomePage = () => {
               <Typography
                 variant="h6"
                 paragraph
-                fontFamily="Arial"
                 fontSize="1.2rem"
                 color="#435834"
                 marginBottom="30px"
@@ -387,9 +383,8 @@ const HomePage = () => {
               <Typography
                 variant="h4"
                 paragraph
-                fontFamily="Arial"
                 fontWeight="bold"
-                fontSize="1.7rem"
+                fontSize="1.5rem"
                 color="#304422"
               >
                 Elevate your room's vibe with exclusive furniture!
@@ -397,8 +392,7 @@ const HomePage = () => {
               <Typography
                 variant="h6"
                 paragraph
-                fontFamily="Arial"
-                fontSize="1.2rem"
+                fontSize="1.1rem"
                 color="#435834"
                 marginBottom="30px"
               >
@@ -407,8 +401,7 @@ const HomePage = () => {
               <Typography
                 variant="h6"
                 paragraph
-                fontFamily="Arial"
-                fontSize="1.2rem"
+                fontSize="1.1rem"
                 color="#435834"
                 marginBottom="30px"
               >
@@ -441,7 +434,6 @@ const HomePage = () => {
             <Typography
               variant="h4"
               paragraph
-              fontFamily="Arial"
               fontWeight="bold"
               fontSize="1.8rem"
               color="#435834"
@@ -451,7 +443,6 @@ const HomePage = () => {
             <Typography
               variant="h6"
               paragraph
-              fontFamily="Arial"
               fontSize="1.3rem"
               color="#AF7D51"
               marginBottom="30px"
