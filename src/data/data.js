@@ -39,7 +39,7 @@ export const sliderItems = [
       title: "HARDWARE ITEMS",
     },
     {
-      id: 3,
+      id: 4,
       img: "https://images.pexels.com/photos/3076899/pexels-photo-3076899.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       title: "GARDENWARE",
     },
