@@ -44,32 +44,44 @@ API.interceptors.response.use(
       })
         .then((res) => {
           // Store new tokens
-          localStorage.setItem(
-            "accessToken",
-            res.data.access_token ?? localStorage.getItem("accessToken")
-          );
-          localStorage.setItem(
-            "refreshToken",
-            res.data.refresh_token ?? localStorage.getItem("refreshToken")
-          );
-          localStorage.setItem(
-            "role",
-            res.data.role ?? localStorage.getItem("role")
-          );
-          // Set header as default for API and the current request
-          const authHeader = `Bearer ${localStorage.getItem("accessToken")}`;
-          API.defaults.headers.common["Authorization"] = authHeader;
-          config.headers.Authorization = authHeader;
-          config._retry = true;
-          // Retry current request
-          return API(config);
+          if (res.status === 200) {
+            localStorage.setItem(
+              "accessToken",
+              res.data.access_token ?? localStorage.getItem("accessToken")
+            );
+            localStorage.setItem(
+              "refreshToken",
+              res.data.refresh_token ?? localStorage.getItem("refreshToken")
+            );
+            localStorage.setItem(
+              "role",
+              res.data.role ?? localStorage.getItem("role")
+            );
+            // Set header as default for API and the current request
+            const authHeader = `Bearer ${localStorage.getItem("accessToken")}`;
+            API.defaults.headers.common["Authorization"] = authHeader;
+            config.headers.Authorization = authHeader;
+            config._retry = true;
+            // Retry current request
+            return API(config);
+          } else {
+            clearTokens();
+            return Promise.reject(res);
+          }
         })
         .catch((refreshError) => {
+          clearTokens();
           return Promise.reject(refreshError);
         });
     }
     return Promise.reject(error);
   }
 );
+
+export const clearTokens = () => {
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
+  localStorage.removeItem("role");
+};
 
 export default API;
