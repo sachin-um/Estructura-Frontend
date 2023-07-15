@@ -5,6 +5,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import "../../assets/admindb.css";
+import { AdminAuthenticated } from "../../components/Auth/Authenticated";
 import Header from "../../components/adminDashboard/Header";
 import { tokens } from "../../theme";
 
