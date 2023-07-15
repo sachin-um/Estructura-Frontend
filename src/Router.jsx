@@ -7,7 +7,7 @@ import SignUp from "./pages/SignUp";
 import ForgotPassword from "./pages/ForgotPassword";
 import HomeOwnerSignUp from "./pages/HomeOwnerSignUp";
 import ServiceProviderSignUp from "./pages/ServiceProviderSignUp";
-
+import ServiceProviderProfile from "./pages/ServiceProviderProfile";
 import Product from "./pages/e-com/Product";
 import Home from "./pages/e-com/Home";
 import ProductList from "./pages/e-com/ProductList";
@@ -55,6 +55,10 @@ const router = createBrowserRouter([
   {
     path: "/e-com/Cart",
     element: <Cart />,
+  },
+  {
+    path: "/ServiceProviderProfile",
+    element: <ServiceProviderProfile />,
   },
   {
     path: "/admin/dash",
