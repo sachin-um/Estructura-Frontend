@@ -36,7 +36,8 @@ const StyledArrowForward = styled(ArrowForwardIos)(({ theme }) => ({
 
 const Slider = ({ images, interval = 5000 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
-
+  const [isSliderButtonHovered, setIsSliderButtonHovered] = useState(false);
+  
   useEffect(() => {
     const slideInterval = setInterval(goToNextSlide, interval);
 
@@ -158,7 +159,9 @@ const Slider = ({ images, interval = 5000 }) => {
 }
 
 const HomePage = () => {
-  const [isButtonHovered, setIsButtonHovered] = useState(false);
+  const [isCreateIdeaButtonHovered, setIsCreateIdeaButtonHovered] = useState(false);
+  const [isFurnitureButtonHovered, setIsFurnitureButtonHovered] = useState(false);
+
   const images = [
     "/Home_Slider/1.jpg",
     "/Home_Slider/2.jpg",
@@ -333,14 +336,14 @@ const HomePage = () => {
                 Let us know your one-of-a-kind idea!
               </Typography>
               <Button
-                variant={isButtonHovered ? "contained" : "outlined"}
+                variant={isCreateIdeaButtonHovered ? "contained" : "outlined"}
                 color="secondary"
                 size="large"
                 style={{
-                  color: isButtonHovered ? "#FFFFFF" : "#9D6432",
+                  color: isCreateIdeaButtonHovered ? "#FFFFFF" : "#9D6432",
                 }}
-                onMouseEnter={() => setIsButtonHovered(true)}
-                onMouseLeave={() => setIsButtonHovered(false)}
+                onMouseEnter={() => setIsCreateIdeaButtonHovered(true)}
+                onMouseLeave={() => setIsCreateIdeaButtonHovered(false)}
               >
                 Create your own idea
               </Button>
@@ -408,14 +411,14 @@ const HomePage = () => {
                 Click here for a stylish upgrade!
               </Typography>
               <Button
-                variant={isButtonHovered ? "contained" : "outlined"}
+                variant={isFurnitureButtonHovered ? "contained" : "outlined"}
                 color="secondary"
                 size="large"
                 style={{
-                  color: isButtonHovered ? "#FFFFFF" : "#9D6432",
+                  color: isFurnitureButtonHovered ? "#FFFFFF" : "#9D6432",
                 }}
-                onMouseEnter={() => setIsButtonHovered(true)}
-                onMouseLeave={() => setIsButtonHovered(false)}
+                onMouseEnter={() => setIsFurnitureButtonHovered(true)}
+                onMouseLeave={() => setIsFurnitureButtonHovered(false)}
               >
                 Get Started!
               </Button>
