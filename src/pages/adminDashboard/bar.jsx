@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
-import Header from "../../../components/adminDashboard/Header";
-import BarChart from "../../../components/adminDashboard/BarChart";
-import "../../../assets/admindb.css"
+import Header from "../../components/adminDashboard/Header";
+import BarChart from "../../components/adminDashboard/BarChart";
+import "../../assets/admindb.css"
 
 const Bar = () => {
   return (

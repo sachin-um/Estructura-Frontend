@@ -1,14 +1,14 @@
 import { Box, useTheme } from "@mui/material";
-import Header from "../../../components/adminDashboard/Header";
+import Header from "../../components/adminDashboard/Header";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { tokens } from "../../../theme";
-import "../../../assets/admindb.css"
+import { tokens } from "../../theme";
+import "../../assets/admindb.css"
 
-const FAQ = () => {
+const Reviews = () => {
   const theme = useTheme();
   const colors = tokens;
   return (
@@ -84,4 +84,4 @@ const FAQ = () => {
   );
 };
 
-export default FAQ;
+export default Reviews;

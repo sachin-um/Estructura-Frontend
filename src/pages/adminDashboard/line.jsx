@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
-import Header from "../../../components/adminDashboard/Header";
-import LineChart from "../../../components/adminDashboard/LineChart";
-import "../../../assets/admindb.css"
+import Header from "../../components/adminDashboard/Header";
+import LineChart from "../../components/adminDashboard/LineChart";
+import "../../assets/admindb.css"
 
 const Line = () => {
   return (

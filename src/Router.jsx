@@ -1,11 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
 
-//admin dashboard
-// import { useState } from "react";
-// import { Routes, Route } from "react-router-dom";
-// import { CssBaseline, ThemeProvider } from "@mui/material";
-// import { ColorModeContext, useMode } from "./theme";
-
 // Import pages
 import Homepage from "./pages/HomePage";
 import SignIn from "./pages/SignIn";
@@ -20,8 +14,6 @@ import ProductList from "./pages/e-com/ProductList";
 import Cart from "./pages/e-com/Cart";
 
 //admin dashboard
-// import Topbar from "./scenes/global/Topbar";
-// import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./pages/adminDashboard/dashboard";
 import Team from "./pages/adminDashboard/team";
 import Invoices from "./pages/adminDashboard/invoices";
@@ -30,9 +22,9 @@ import Bar from "./pages/adminDashboard/bar";
 import Form from "./pages/adminDashboard/form";
 import Line from "./pages/adminDashboard/line";
 import Pie from "./pages/adminDashboard/pie";
-import FAQ from "./pages/adminDashboard/faq";
+import Reviews from "./pages/adminDashboard/reviews";
 import Geography from "./pages/adminDashboard/geography";
-import Calendar from "./pages/adminDashboard/calendar/calendar";
+import Calendar from "./pages/adminDashboard/calendar";
 
 
 const router = createBrowserRouter([
@@ -113,8 +105,8 @@ const router = createBrowserRouter([
     element: <Line />,
   },
   {
-    path: "/admin/faq",
-    element: <FAQ />,
+    path: "/admin/reviews",
+    element: <Reviews />,
   },
   {
     path: "/admin/calendar",

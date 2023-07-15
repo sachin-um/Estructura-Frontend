@@ -1,10 +1,10 @@
 import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import { tokens } from "../../../theme";
-import { mockDataContacts } from "../../../data/mockData";
-import Header from "../../../components/adminDashboard/Header";
+import { tokens } from "../../theme";
+import { mockDataContacts } from "../../data/mockData";
+import Header from "../../components/adminDashboard/Header";
 import { useTheme } from "@mui/material";
-import "../../../assets/admindb.css"
+import "../../assets/admindb.css"
 
 const Contacts = () => {
   const theme = useTheme();

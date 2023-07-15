@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
-import Header from "../../../components/adminDashboard/Header";
-import PieChart from "../../../components/adminDashboard/PieChart";
-import "../../../assets/admindb.css"
+import Header from "../../components/adminDashboard/Header";
+import PieChart from "../../components/adminDashboard/PieChart";
+import "../../assets/admindb.css"
 
 const Pie = () => {
   return (
