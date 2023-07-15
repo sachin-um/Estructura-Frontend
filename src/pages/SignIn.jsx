@@ -1,6 +1,14 @@
-import { Button, Container, Grid, TextField, Typography } from "@mui/material";
+import {
+  Alert,
+  Button,
+  Container,
+  Grid,
+  Snackbar,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { Formik } from "formik";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import TopBar from "../components/TopBar";
@@ -18,15 +26,34 @@ const ValidationSchema = yup.object().shape({
     .required("Email is required"),
   password: yup.string().required("Password is required"),
 });
+
 function SignIn() {
   const FormRef = useRef();
   const Navigate = useNavigate();
 
+  const Params = new URLSearchParams(window.location.search);
+  const from = Params.get("from");
+  const tokenExpired = Params.get("tokenExpired");
+  console.log(from);
+
+  const [open, setOpen] = useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
+  useEffect(() => {
+    if (tokenExpired == "true" && open == false) {
+      setOpen(true);
+    }
+  }, []);
+
   const HandleSubmit = (values) => {
-    console.log(values);
     const { setErrors, setSubmitting } = FormRef.current;
     setSubmitting(true);
-
     clearTokens();
     const email = values.email;
     const password = values.password;
@@ -40,7 +67,14 @@ function SignIn() {
             localStorage.setItem("role", res.data.role);
             localStorage.setItem("accessToken", res.data.access_token);
             localStorage.setItem("refreshToken", res.data.refresh_token);
-            Navigate(`/${res.data.role.toLowerCase()}/dashboard`);
+            if (from) {
+              Navigate(from, { replace: true });
+            } else {
+              Navigate(`/${res.data.role.toLowerCase()}/dashboard`, {
+                replace: true,
+              });
+            }
+            console.log(from);
           } else {
             const violationsToErrors = (violations) => {
               const result = {};
@@ -61,6 +95,16 @@ function SignIn() {
 
   return (
     <>
+      <Snackbar
+        autoHideDuration={6000}
+        open={open}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "middle" }}
+      >
+        <Alert onClose={handleClose} severity='warning'>
+          Your session has expired. Please sign in again.
+        </Alert>
+      </Snackbar>
       <TopBar title='Sign In' />
       <Container
         maxWidth={false}

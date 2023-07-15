@@ -35,7 +35,6 @@ import FAQ from "./pages/adminDashboard/faq";
 import Geography from "./pages/adminDashboard/geography";
 import Calendar from "./pages/adminDashboard/calendar/calendar";
 
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -119,7 +118,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin/calendar",
-    element: <Calendar />
+    element: <Calendar />,
   },
   {
     path: "/admin/geography",
@@ -128,7 +127,7 @@ const router = createBrowserRouter([
   {
     path: "/admin/dash",
     element: <AdminDashboard />,
-  }
+  },
 ]);
 
 export default router;
