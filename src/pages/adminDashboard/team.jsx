@@ -1,12 +1,12 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { tokens } from "../../../theme";
-import { mockDataTeam } from "../../../data/mockData";
+import { tokens } from "../../theme";
+import { mockDataTeam } from "../../data/mockData";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
-import Header from "../../../components/adminDashboard/Header";
-import "../../../assets/admindb.css"
+import Header from "../../components/adminDashboard/Header";
+import "../../assets/admindb.css"
 
 const Team = () => {
   const theme = useTheme();
@@ -86,7 +86,7 @@ const Team = () => {
             color: colors.greenAccent[300],
           },
           "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: colors.brownAccent[400],
             borderBottom: "none",
           },
           "& .MuiDataGrid-virtualScroller": {
@@ -94,7 +94,7 @@ const Team = () => {
           },
           "& .MuiDataGrid-footerContainer": {
             borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
+            backgroundColor: colors.brownAccent[400],
           },
           "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,

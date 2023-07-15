@@ -12,9 +12,9 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import Header from "../../../components/adminDashboard/Header";
-import { tokens } from "../../../theme";
-import "../../../assets/admindb.css"
+import Header from "../../components/adminDashboard/Header";
+import { tokens } from "../../theme";
+import "../../assets/admindb.css"
 
 const Calendar = () => {
   const theme = useTheme();

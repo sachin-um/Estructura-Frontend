@@ -1,8 +1,8 @@
 import { Box, useTheme } from "@mui/material";
-import GeographyChart from "../../../components/adminDashboard/GeographyChart";
-import Header from "../../../components/adminDashboard/Header";
-import { tokens } from "../../../theme";
-import "../../../assets/admindb.css"
+import GeographyChart from "../../components/adminDashboard/GeographyChart";
+import Header from "../../components/adminDashboard/Header";
+import { tokens } from "../../theme";
+import "../../assets/admindb.css"
 
 const Geography = () => {
   const theme = useTheme();

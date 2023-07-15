@@ -1,9 +1,9 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { tokens } from "../../../theme";
-import { mockDataInvoices } from "../../../data/mockData";
-import Header from "../../../components/adminDashboard/Header";
-import "../../../assets/admindb.css"
+import { tokens } from "../../theme";
+import { mockDataInvoices } from "../../data/mockData";
+import Header from "../../components/adminDashboard/Header";
+import "../../assets/admindb.css"
 
 const Invoices = () => {
   const theme = useTheme();

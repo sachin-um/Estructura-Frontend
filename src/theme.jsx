@@ -45,6 +45,7 @@ export const tokens = {
   },
   greenAccent: {
     100: "#0f2922",
+    150: "#435834",
     200: "#1e5245",
     300: "#2e7c67",
     400: "#3da58a",
@@ -76,53 +77,16 @@ export const tokens = {
     800: "#c3c6fd",
     900: "#e1e2fe",
   },
-};
-
-// mui theme settings
-export const themeSettings = {
-  palette: {
-    primary: {
-      main: tokens.primary[100],
-    },
-    secondary: {
-      main: tokens.greenAccent[500],
-    },
-    neutral: {
-      dark: tokens.grey[700],
-      main: tokens.grey[500],
-      light: tokens.grey[100],
-    },
-    background: {
-      default: "#fcfcfc",
-    },
-  },
-  typography: {
-    fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-    fontSize: 12,
-    h1: {
-      fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-      fontSize: 40,
-    },
-    h2: {
-      fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-      fontSize: 32,
-    },
-    h3: {
-      fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-      fontSize: 24,
-    },
-    h4: {
-      fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-      fontSize: 20,
-    },
-    h5: {
-      fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-      fontSize: 16,
-    },
-    h6: {
-      fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-      fontSize: 14,
-    },
+  brownAccent: {
+    100: "#2c1e0f",
+    200: "#583c1e",
+    300: "#835b2d",
+    400: "#af7a3c",
+    500: "#db994b",
+    600: "#e2b06f",
+    700: "#e8c793",
+    800: "#efddb7",
+    900: "#f5f4db",
   },
 };
 
