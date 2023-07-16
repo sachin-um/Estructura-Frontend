@@ -12,6 +12,7 @@ import Product from "./pages/e-com/Product";
 import Home from "./pages/e-com/Home";
 import ProductList from "./pages/e-com/ProductList";
 import Cart from "./pages/e-com/Cart";
+import AdminDashboard from "./pages/admin/dash";
 
 //admin dashboard
 import Dashboard from "./pages/adminDashboard/dashboard";
@@ -25,7 +26,6 @@ import Pie from "./pages/adminDashboard/pie";
 import Reviews from "./pages/adminDashboard/reviews";
 import Geography from "./pages/adminDashboard/geography";
 import Calendar from "./pages/adminDashboard/calendar";
-
 
 const router = createBrowserRouter([
   {
@@ -110,14 +110,16 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin/calendar",
-    element: <Calendar />
+    element: <Calendar />,
   },
   {
     path: "/admin/geography",
     element: <Geography />,
   },
-  
-  
+  {
+    path: "/admin/dash",
+    element: <AdminDashboard />,
+  },
 ]);
 
 export default router;
