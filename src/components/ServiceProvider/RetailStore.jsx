@@ -35,6 +35,7 @@ function RetailStore() {
                   display: "flex",
                   flexDirection: "column",
                   gap: "30px",
+                  minHeight:'80vh'
                 }}
                 onSubmit={HandleSubmit}
               >

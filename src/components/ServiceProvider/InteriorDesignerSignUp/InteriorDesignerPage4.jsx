@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { MultiSelect } from "react-multi-select-component";
 import {
   Box,
   Button,
@@ -8,54 +7,19 @@ import {
   Stack,
   Link,
   TextField,
-  FormGroup,
-  FormControlLabel,
+  InputAdornment,
   FormControl,
-  Select,
-  MenuItem,
   InputLabel,
   Typography,
 } from "@mui/material";
-import { Checkbox } from "@mui/material";
 // import { Link } from "react-router-dom" ;
 
-function ArchitectPage2({
+function InteriorDesignerPage4({
   updateFormData,
   handleDropdownChange,
   nextPage,
   previousPage,
 }) {
-  const [selected, setSelected] = useState([]);
-  const options = [
-    { label: "Ampara", value: "ampara" },
-    { label: "Anuradhapura", value: "anuradhapura" },
-    { label: "Badulla", value: "badulla" },
-    { label: "Batticaloa", value: "batticaloa" },
-    { label: "Colombo", value: "colombo" },
-    { label: "Galle", value: "galle" },
-    { label: "Gampaha", value: "gampaha" },
-    { label: "Hambantota", value: "hambantota" },
-    { label: "Jaffna", value: "jaffna" },
-    { label: "Kalutara", value: "kalutara" },
-    { label: "Kandy", value: "kandy" },
-    { label: "Kegalle", value: "kegalle" },
-    { label: "Kilinochchi", value: "kilinochchi" },
-    { label: "Kurunegala", value: "kurunegala" },
-    { label: "Mannar", value: "mannar" },
-    { label: "Matale", value: "matale" },
-    { label: "Matara", value: "matara" },
-    { label: "Monaragala", value: "monaragala" },
-    { label: "Mullaitivu", value: "mullaitivu" },
-    { label: "Nuwara Eliya", value: "nuwaraeliya" },
-    { label: "Polonnaruwa", value: "polonnaruwa" },
-    { label: "Puttalam", value: "puttalam" },
-    { label: "Ratnapura", value: "ratnapura" },
-    { label: "Trincomalee", value: "trincomalee" },
-    { label: "Vavuniya", value: "vavuniya" },
-    
-   
-    
-  ];
   const HandleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -94,7 +58,7 @@ function ArchitectPage2({
             <Grid
               container
               style={{
-                backgroundImage: 'url("/archi.jpg")',
+                backgroundImage: 'url("/designer.jpg")',
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 borderRadius: "20px",
@@ -190,25 +154,50 @@ function ArchitectPage2({
                     {
                       <Grid style={{ justifyContent: "center" }}>
                         <Typography textAlign="center">
-                          Where are you based?
+                          What is the estimated price range for a project?
                         </Typography>
-                        <Grid
-                          style={{ justifyContent: "center" }}
-                          sx={{ width: 1, margin: 1 }}
-                        >
-                          <FormControl sx={{ m: 1, minWidth: 320, maxWidth: 300,border:1,borderColor: "primary",borderRadius: '5px'}}>
-                          <MultiSelect 
-                            options={options}
-                            value={selected}
-                            onChange={setSelected}
-                            labelledBy={"Select"}
-                            isCreatable={false}
-                            overrideStrings={{selectAll:"Islandwide",search:"Search districts..",selectSomeItems:"Select Districts"}}
+                        <Box sx={{ display: "flex", gap: "10px" }}>
+                          <TextField
+                            sx={{ flex: "1", margin: 2 }}
+                            InputProps={{
+                              sx: { borderRadius: 2 },
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  LKR
+                                </InputAdornment>
+                              ),
+                            }}
+                            type="From"
+                            name="From"
+                            label="From"
+                            variant="filled"
+                            size="small"
+                            color="secondary"
                           />
-                          </FormControl>
-                        </Grid>
+                          <TextField
+                            InputProps={{
+                              sx: { borderRadius: 2 },
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  LKR
+                                </InputAdornment>
+                              ),
+                            }}
+                            sx={{ flex: "1", margin: 2 }}
+                            type="To"
+                            name="To"
+                            label="To"
+                            variant="filled"
+                            size="small"
+                            color="secondary"
+                          />
+                        </Box>
                       </Grid>
                     }
+
+                    {/* { <Grid style={{display:"flex",justifyContent:"center",margin:10}}>
+                  <Button sx={{ width: 1/3,  borderRadius:2 }}type='submit' color="primary" variant="contained" size='large'  href=''>Next</Button>
+                  </Grid> } */}
                   </Box>
 
                   {
@@ -220,7 +209,7 @@ function ArchitectPage2({
                       }}
                     >
                       <Button
-                        sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
+                        sx={{ width: 1 / 3, borderRadius: 2, margin: 1 }}
                         type="submit"
                         color="primary"
                         variant="contained"
@@ -230,7 +219,7 @@ function ArchitectPage2({
                         Previous
                       </Button>
                       <Button
-                        sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
+                        sx={{ width: 1 / 3, borderRadius: 2, margin: 1 }}
                         type="submit"
                         color="primary"
                         variant="contained"
@@ -251,4 +240,4 @@ function ArchitectPage2({
   );
 }
 
-export default ArchitectPage2;
+export default InteriorDesignerPage4;

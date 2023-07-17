@@ -156,8 +156,8 @@ function ArchitectPage3({
                           What range of services do you offer?
                         </Typography>
                         <Grid style={{ justifyContent: "center" }}>
-                          <TextField
-                            sx={{ width: 1, marginTop: 1 }}
+                          <TextField sx={{ m: 1, minWidth: 320, maxWidth: 400}}
+                            label="Please seperate each one with commas."
                             id="filled-multiline-static"
                             multiline
                             rows={5}

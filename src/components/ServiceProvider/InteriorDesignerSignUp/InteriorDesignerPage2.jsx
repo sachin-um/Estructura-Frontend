@@ -19,7 +19,7 @@ import {
 import { Checkbox } from "@mui/material";
 // import { Link } from "react-router-dom" ;
 
-function ArchitectPage2({
+function InteriorDesignerPage2({
   updateFormData,
   handleDropdownChange,
   nextPage,
@@ -52,8 +52,6 @@ function ArchitectPage2({
     { label: "Ratnapura", value: "ratnapura" },
     { label: "Trincomalee", value: "trincomalee" },
     { label: "Vavuniya", value: "vavuniya" },
-    
-   
     
   ];
   const HandleSubmit = (event) => {
@@ -94,7 +92,7 @@ function ArchitectPage2({
             <Grid
               container
               style={{
-                backgroundImage: 'url("/archi.jpg")',
+                backgroundImage: 'url("/designer.jpg")',
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 borderRadius: "20px",
@@ -251,4 +249,4 @@ function ArchitectPage2({
   );
 }
 
-export default ArchitectPage2;
+export default InteriorDesignerPage2;

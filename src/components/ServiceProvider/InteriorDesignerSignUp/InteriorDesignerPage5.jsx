@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { MultiSelect } from "react-multi-select-component";
 import {
   Box,
   Button,
@@ -8,54 +7,18 @@ import {
   Stack,
   Link,
   TextField,
-  FormGroup,
-  FormControlLabel,
   FormControl,
-  Select,
-  MenuItem,
   InputLabel,
   Typography,
 } from "@mui/material";
-import { Checkbox } from "@mui/material";
 // import { Link } from "react-router-dom" ;
 
-function ArchitectPage2({
+function InteriorDesignerPage5({
   updateFormData,
   handleDropdownChange,
   nextPage,
   previousPage,
 }) {
-  const [selected, setSelected] = useState([]);
-  const options = [
-    { label: "Ampara", value: "ampara" },
-    { label: "Anuradhapura", value: "anuradhapura" },
-    { label: "Badulla", value: "badulla" },
-    { label: "Batticaloa", value: "batticaloa" },
-    { label: "Colombo", value: "colombo" },
-    { label: "Galle", value: "galle" },
-    { label: "Gampaha", value: "gampaha" },
-    { label: "Hambantota", value: "hambantota" },
-    { label: "Jaffna", value: "jaffna" },
-    { label: "Kalutara", value: "kalutara" },
-    { label: "Kandy", value: "kandy" },
-    { label: "Kegalle", value: "kegalle" },
-    { label: "Kilinochchi", value: "kilinochchi" },
-    { label: "Kurunegala", value: "kurunegala" },
-    { label: "Mannar", value: "mannar" },
-    { label: "Matale", value: "matale" },
-    { label: "Matara", value: "matara" },
-    { label: "Monaragala", value: "monaragala" },
-    { label: "Mullaitivu", value: "mullaitivu" },
-    { label: "Nuwara Eliya", value: "nuwaraeliya" },
-    { label: "Polonnaruwa", value: "polonnaruwa" },
-    { label: "Puttalam", value: "puttalam" },
-    { label: "Ratnapura", value: "ratnapura" },
-    { label: "Trincomalee", value: "trincomalee" },
-    { label: "Vavuniya", value: "vavuniya" },
-    
-   
-    
-  ];
   const HandleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -94,7 +57,7 @@ function ArchitectPage2({
             <Grid
               container
               style={{
-                backgroundImage: 'url("/archi.jpg")',
+                backgroundImage: 'url("/designer.jpg")',
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 borderRadius: "20px",
@@ -190,25 +153,46 @@ function ArchitectPage2({
                     {
                       <Grid style={{ justifyContent: "center" }}>
                         <Typography textAlign="center">
-                          Where are you based?
+                          Upload your profile picture
                         </Typography>
                         <Grid
                           style={{ justifyContent: "center" }}
                           sx={{ width: 1, margin: 1 }}
                         >
-                          <FormControl sx={{ m: 1, minWidth: 320, maxWidth: 300,border:1,borderColor: "primary",borderRadius: '5px'}}>
-                          <MultiSelect 
-                            options={options}
-                            value={selected}
-                            onChange={setSelected}
-                            labelledBy={"Select"}
-                            isCreatable={false}
-                            overrideStrings={{selectAll:"Islandwide",search:"Search districts..",selectSomeItems:"Select Districts"}}
+                          <img
+                            src="/user.png"
+                            alt="user"
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                            }}
                           />
-                          </FormControl>
+                        </Grid>
+                        <Grid
+                          style={{ justifyContent: "center" }}
+                          sx={{ width: 1, margin: 1 }}
+                        >
+                          <Button
+                            sx={{ width: 1 }}
+                            variant="contained"
+                            color="secondary"
+                            component="label"
+                          >
+                            Upload Photo
+                            <input
+                              hidden
+                              accept="image/*"
+                              multiple
+                              type="file"
+                            />
+                          </Button>
                         </Grid>
                       </Grid>
                     }
+
+                    {/* { <Grid style={{display:"flex",justifyContent:"center",margin:10}}>
+                  <Button sx={{ width: 1/3,  borderRadius:2 }}type='submit' color="primary" variant="contained" size='large'  href=''>Next</Button>
+                  </Grid> } */}
                   </Box>
 
                   {
@@ -251,4 +235,4 @@ function ArchitectPage2({
   );
 }
 
-export default ArchitectPage2;
+export default InteriorDesignerPage5;

@@ -7,6 +7,11 @@ import ArchitectPage2 from "../components/ServiceProvider/ArchitectSignUp/Archit
 import ArchitectPage3 from "../components/ServiceProvider/ArchitectSignUp/ArchitectPage3";
 import ArchitectPage4 from "../components/ServiceProvider/ArchitectSignUp/ArchitectPage4";
 import ArchitectPage5 from "../components/ServiceProvider/ArchitectSignUp/ArchitectPage5";
+import InteriorDesignerPage1 from "../components/ServiceProvider/InteriorDesignerSignUp/InteriorDesignerPage1";
+import InteriorDesignerPage2 from "../components/ServiceProvider/InteriorDesignerSignUp/InteriorDesignerPage2";
+import InteriorDesignerPage3 from "../components/ServiceProvider/InteriorDesignerSignUp/InteriorDesignerPage3";
+import InteriorDesignerPage4 from "../components/ServiceProvider/InteriorDesignerSignUp/InteriorDesignerPage4";
+import InteriorDesignerPage5 from "../components/ServiceProvider/InteriorDesignerSignUp/InteriorDesignerPage5";
 import React, { useState } from "react";
 import Professional from "../components/ServiceProvider/Professional";
 import RetailStore from "../components/ServiceProvider/RetailStore";
@@ -115,8 +120,40 @@ function ServiceProviderSignUp() {
         previousPage={previousPage}
       />
     );
-  } else if (selectedOption === "option2") {
-    pages.push(<Page3 updateFormData={updateFormData} />);
+  } else if (selectedOption === "interiordesigner") {
+    pages.push(
+      <InteriorDesignerPage1
+        updateFormData={updateFormData}
+        handleDropdownChange={handleDropdownChange}
+        nextPage={nextPage}
+        previousPage={previousPage}
+      />,
+      <InteriorDesignerPage2
+      updateFormData={updateFormData}
+      handleDropdownChange={handleDropdownChange}
+      nextPage={nextPage}
+      previousPage={previousPage}
+    />,
+    <InteriorDesignerPage3
+      updateFormData={updateFormData}
+      handleDropdownChange={handleDropdownChange}
+      nextPage={nextPage}
+      previousPage={previousPage}
+    />,
+    <InteriorDesignerPage4
+      updateFormData={updateFormData}
+      handleDropdownChange={handleDropdownChange}
+      nextPage={nextPage}
+      previousPage={previousPage}
+    />,
+    <InteriorDesignerPage5
+      updateFormData={updateFormData}
+      handleDropdownChange={handleDropdownChange}
+      nextPage={nextPage}
+      previousPage={previousPage}
+    />
+      
+    );
   }
 
   const HandleSubmit = (event) => {
