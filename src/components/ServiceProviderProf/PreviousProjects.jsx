@@ -1,12 +1,16 @@
-import React from "react";
+import React, {useState} from "react";
 import { Button, Container, Grid, Typography, Box, Card, CardContent, CardActions } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 function PreviousProjects() {
+  
   return (
-    <Container>
+    <Container style={{ marginBottom: '2rem' }}>
+      <Box display='flex' justifyContent='flex-end'>
+        <Button variant='contained'>Add Projects</Button>
+      </Box>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={4} style={{ marginLeft: 'auto', marginTop: '2rem' }}>
           <Card sx={{ height: '100%' }}>
@@ -75,7 +79,7 @@ function PreviousProjects() {
         </Grid>
         <Grid item xs={12} sm={4} style={{ marginLeft: 'auto', marginTop: '2rem' }}>
           <Card sx={{ height: '100%' }}>
-            <img src="signin.png" alt="Project 5" style={{ width: '100%', height: '200px' }} />
+            <img src="BannerImage.jpg" alt="Project 5" style={{ width: '100%', height: '200px' }} />
             <CardContent>
               <Typography variant="subtitle1">Project Name 5</Typography>
               <Box display="flex" alignItems="center">
@@ -88,10 +92,11 @@ function PreviousProjects() {
               <Button variant="outlined" startIcon={<DeleteIcon />}>Delete</Button>
             </CardActions>
           </Card>
+
         </Grid>
         <Grid item xs={12} sm={4} style={{ marginLeft: 'auto', marginTop: '2rem' }}>
           <Card sx={{ height: '100%' }}>
-            <img src="homeownerBG" alt="Project 6" style={{ width: '100%', height: '200px' }} />
+            <img src="formBg.jpg" alt="Project 6" style={{ width: '100%', height: '200px' }} />
             <CardContent>
               <Typography variant="subtitle1">Project Name 6</Typography>
               <Box display="flex" alignItems="center">

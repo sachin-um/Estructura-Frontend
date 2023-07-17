@@ -85,11 +85,13 @@ function ServiceProviderProfile({ updateFormData, nextPage, previousPage }) {
                   color: "primary.dark",
                 },
               }}
+              
+            >
+              <label htmlFor="profilePictureInput" style={{ cursor: "pointer" }}
               onClick={() => {
                 document.getElementById("profilePictureInput").click();
               }}
-            >
-              <label htmlFor="profilePictureInput" style={{ cursor: "pointer" }}>
+              >
                 <CameraAltIcon />
               </label>
               <input
