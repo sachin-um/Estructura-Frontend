@@ -33,3 +33,10 @@ it("waits and retries to get refreshed token from API", async () => {
     localStorage.setItem("refreshToken", response.data.refresh_token);
   }, 10000).unref();
 }, 15000);
+
+it("Gets response from admin controller", async () => {
+  const response = await API.get("/admin");
+  expect(response.status).toBe(200);
+  expect(response.data).toBeTruthy();
+  console.log(response.data);
+});

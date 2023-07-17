@@ -7,13 +7,14 @@ import {
   Stack,
   Link,
   TextField,
+  InputAdornment,
   FormControl,
   InputLabel,
   Typography,
 } from "@mui/material";
 // import { Link } from "react-router-dom" ;
 
-function ArchitectPage1({
+function ArchitectPage4({
   updateFormData,
   handleDropdownChange,
   nextPage,
@@ -152,55 +153,45 @@ function ArchitectPage1({
                   >
                     {
                       <Grid style={{ justifyContent: "center" }}>
-                        <TextField
-                          InputProps={{ sx: { borderRadius: 2 } }}
-                          sx={{ width: 1, margin: 1 }}
-                          type="nic"
-                          name="nic"
-                          label="NIC"
-                          variant="filled"
-                          size="small"
-                        />
-                        <TextField
-                          InputProps={{ sx: { borderRadius: 2 } }}
-                          sx={{ width: 1, margin: 1 }}
-                          type="website"
-                          name="website"
-                          label="Website"
-                          variant="filled"
-                          size="small"
-                        />
-                        <TextField
-                          InputProps={{ sx: { borderRadius: 2 } }}
-                          sx={{ width: 1, margin: 1 }}
-                          type="SLIARegNumber"
-                          name="SLIARegNumber"
-                          label="SLIA Registration Number"
-                          variant="filled"
-                          size="small"
-                        />
-                        <Grid
-                          style={{ justifyContent: "center" }}
-                          sx={{ width: 1, margin: 1 }}
-                        >
-                          <Typography sx={{ margin: 1 }}>
-                            SLIA Certificate
-                          </Typography>
-                          <Button
-                            sx={{ width: 1 }}
-                            variant="contained"
+                        <Typography textAlign="center">
+                          What is the estimated price range for a project?
+                        </Typography>
+                        <Box sx={{ display: "flex", gap: "10px" }}>
+                          <TextField
+                            sx={{ flex: "1", margin: 2 }}
+                            InputProps={{
+                              sx: { borderRadius: 2 },
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  LKR
+                                </InputAdornment>
+                              ),
+                            }}
+                            type="From"
+                            name="From"
+                            label="From"
+                            variant="filled"
+                            size="small"
                             color="secondary"
-                            component="label"
-                          >
-                            Upload Certificate
-                            <input
-                              hidden
-                              accept="image/*"
-                              multiple
-                              type="file"
-                            />
-                          </Button>
-                        </Grid>
+                          />
+                          <TextField
+                            InputProps={{
+                              sx: { borderRadius: 2 },
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  LKR
+                                </InputAdornment>
+                              ),
+                            }}
+                            sx={{ flex: "1", margin: 2 }}
+                            type="To"
+                            name="To"
+                            label="To"
+                            variant="filled"
+                            size="small"
+                            color="secondary"
+                          />
+                        </Box>
                       </Grid>
                     }
 
@@ -218,7 +209,7 @@ function ArchitectPage1({
                       }}
                     >
                       <Button
-                        sx={{ width: 1 / 4, borderRadius: 2, margin: 1 }}
+                        sx={{ width: 1 / 3, borderRadius: 2, margin: 1 }}
                         type="submit"
                         color="primary"
                         variant="contained"
@@ -228,7 +219,7 @@ function ArchitectPage1({
                         Previous
                       </Button>
                       <Button
-                        sx={{ width: 1 / 4, borderRadius: 2, margin: 1 }}
+                        sx={{ width: 1 / 3, borderRadius: 2, margin: 1 }}
                         type="submit"
                         color="primary"
                         variant="contained"
@@ -249,4 +240,4 @@ function ArchitectPage1({
   );
 }
 
-export default ArchitectPage1;
+export default ArchitectPage4;

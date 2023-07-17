@@ -12,7 +12,20 @@ import Product from "./pages/e-com/Product";
 import Home from "./pages/e-com/Home";
 import ProductList from "./pages/e-com/ProductList";
 import Cart from "./pages/e-com/Cart";
+import AdminDashboard from "./pages/admin/dash";
 
+//admin dashboard
+import Dashboard from "./pages/adminDashboard/dashboard";
+import Team from "./pages/adminDashboard/team";
+import Invoices from "./pages/adminDashboard/invoices";
+import Contacts from "./pages/adminDashboard/contacts";
+import Bar from "./pages/adminDashboard/bar";
+import Form from "./pages/adminDashboard/form";
+import Line from "./pages/adminDashboard/line";
+import Pie from "./pages/adminDashboard/pie";
+import Reviews from "./pages/adminDashboard/reviews";
+import Geography from "./pages/adminDashboard/geography";
+import Calendar from "./pages/adminDashboard/calendar";
 
 const router = createBrowserRouter([
   {
@@ -59,8 +72,54 @@ const router = createBrowserRouter([
     path: "/ServiceProviderProfile",
     element: <ServiceProviderProfile />,
   },
-  
-  
+  {
+    path: "/admin/dashboard",
+    element: <Dashboard />,
+  },
+  {
+    path: "/admin/team",
+    element: <Team />,
+  },
+  {
+    path: "/admin/contacts",
+    element: <Contacts />,
+  },
+  {
+    path: "/admin/invoices",
+    element: <Invoices />,
+  },
+  {
+    path: "/admin/form",
+    element: <Form />,
+  },
+  {
+    path: "/admin/bar",
+    element: <Bar />,
+  },
+  {
+    path: "/admin/pie",
+    element: <Pie />,
+  },
+  {
+    path: "/admin/line",
+    element: <Line />,
+  },
+  {
+    path: "/admin/reviews",
+    element: <Reviews />,
+  },
+  {
+    path: "/admin/calendar",
+    element: <Calendar />,
+  },
+  {
+    path: "/admin/geography",
+    element: <Geography />,
+  },
+  {
+    path: "/admin/dash",
+    element: <AdminDashboard />,
+  },
 ]);
 
 export default router;
