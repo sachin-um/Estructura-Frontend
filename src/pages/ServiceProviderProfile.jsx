@@ -148,10 +148,13 @@ function ServiceProviderProfile({ updateFormData, nextPage, previousPage }) {
                 }
               }}
               onClick={() => {
-                document.getElementById('profilePictureInput').click();
+                document.getElementById('profilePictureInput').focus();
               }}
             >
               <label htmlFor="profilePictureInput" style={{ cursor: 'pointer' }}>
+                <CameraAltIcon />
+              </label>
+            </Box>
               <input
                 id='profilePictureInput'
                 type='file'
@@ -159,9 +162,6 @@ function ServiceProviderProfile({ updateFormData, nextPage, previousPage }) {
                 style={{ display: 'none' }}
                 onChange={handleProfilePictureChange}
               />
-              <CameraAltIcon />
-            </label>
-            </Box>
           </Box>
         </Box>
       </Box>
