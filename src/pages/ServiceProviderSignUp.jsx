@@ -61,10 +61,11 @@ function ServiceProviderSignUp() {
     setFormData({ ...formData, ...data });
   };
   const handlePageImage=(value)=>{
+    setSelectedOption("");
     if (value=="two") {
-      setPageImage("/designer.jpg")
+      setPageImage("/designer.jpg");
     } else if  (value=="three"){
-      setPageImage("/designer.jpg")
+      setPageImage("/designer.jpg");
     }
   }
 
@@ -77,6 +78,7 @@ function ServiceProviderSignUp() {
     else if(value=="interiordesigner"){
       setPageImage("/designer.jpg")
     }
+    
   };
 
   const handleSubmit = () => {
@@ -84,7 +86,7 @@ function ServiceProviderSignUp() {
     console.log(formData);
   };
 
-  let pages = [
+  let initialPages = [
     <SignUpPage1
       updateFormData={updateFormData}
       handleDropdownChange={handleDropdownChange}
@@ -105,8 +107,9 @@ function ServiceProviderSignUp() {
         pageImage={pageImage}
       />
   ];
+  let pages=[...initialPages];
 
-  const remainigPages=[
+  const professionalsPages=[
     <ServiceProviderPage4
         updateFormData={updateFormData}
         handleDropdownChange={handleDropdownChange}
@@ -139,7 +142,7 @@ function ServiceProviderSignUp() {
         nextPage={nextPage}
         previousPage={previousPage}
       />,
-      remainigPages
+      ...professionalsPages
     );
   } else if (selectedOption === "interiordesigner") {
     pages.splice(2,0,
@@ -149,7 +152,7 @@ function ServiceProviderSignUp() {
         nextPage={nextPage}
         previousPage={previousPage}
       />,
-      remainigPages
+      ...professionalsPages
     );
   }
 
