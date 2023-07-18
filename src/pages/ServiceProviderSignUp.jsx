@@ -3,10 +3,11 @@ import TopBar from "../components/TopBar";
 import SignUpPage1 from "../components/ServiceProvider/SignUpPage1";
 import SignUpPage2 from "../components/ServiceProvider/SignUpPage2";
 import ArchitectPage1 from "../components/ServiceProvider/ArchitectSignUp/ArchitectPage1";
-import ArchitectPage2 from "../components/ServiceProvider/ArchitectSignUp/ArchitectPage2";
-import ArchitectPage3 from "../components/ServiceProvider/ArchitectSignUp/ArchitectPage3";
-import ArchitectPage4 from "../components/ServiceProvider/ArchitectSignUp/ArchitectPage4";
-import ArchitectPage5 from "../components/ServiceProvider/ArchitectSignUp/ArchitectPage5";
+import InteriorDesignerPage1 from "../components/ServiceProvider/InteriorDesignerSignUp/InteriorDesignerPage1";
+import ServiceProviderPage4  from "../components/ServiceProvider/ServiceProviderPage4";
+import ServiceProviderPage5  from "../components/ServiceProvider/ServiceProviderPage5";
+import ServiceProviderPage6  from "../components/ServiceProvider/ServiceProviderPage6";
+import ServiceProviderPage7  from "../components/ServiceProvider/ServiceProviderPage7";
 import React, { useState } from "react";
 import Professional from "../components/ServiceProvider/Professional";
 import RetailStore from "../components/ServiceProvider/RetailStore";
@@ -27,6 +28,8 @@ function ServiceProviderSignUp() {
   const [currentPage, setCurrentPage] = useState(1);
   const [formData, setFormData] = useState({});
   const [selectedOption, setSelectedOption] = useState("");
+  const [pageImage, setPageImage] = useState("");
+  
   // const [activeTab, setActiveTab] = useState(1);
   const [value, setValue] = React.useState("one");
 
@@ -57,10 +60,23 @@ function ServiceProviderSignUp() {
   const updateFormData = (data) => {
     setFormData({ ...formData, ...data });
   };
+  const handlePageImage=(value)=>{
+    if (value=="two") {
+      setPageImage("/designer.jpg")
+    } else if  (value=="three"){
+      setPageImage("/designer.jpg")
+    }
+  }
 
   const handleDropdownChange = (value) => {
     setSelectedOption(value);
     setCurrentPage(2); // Reset to the first page when dropdown changes
+    if(value=="architect"){
+      setPageImage("/archi.jpg")
+    }
+    else if(value=="interiordesigner"){
+      setPageImage("/designer.jpg")
+    }
   };
 
   const handleSubmit = () => {
@@ -77,46 +93,64 @@ function ServiceProviderSignUp() {
     <SignUpPage2
       updateFormData={updateFormData}
       handleDropdownChange={handleDropdownChange}
+      handlePageImage={handlePageImage}
       nextPage={nextPage}
       previousPage={previousPage}
     />,
+      <ServiceProviderPage7
+        updateFormData={updateFormData}
+        handleDropdownChange={handleDropdownChange}
+        nextPage={nextPage}
+        previousPage={previousPage}
+        pageImage={pageImage}
+      />
   ];
 
+  const remainigPages=[
+    <ServiceProviderPage4
+        updateFormData={updateFormData}
+        handleDropdownChange={handleDropdownChange}
+        nextPage={nextPage}
+        previousPage={previousPage}
+        pageImage={pageImage}
+      />,
+      <ServiceProviderPage5
+        updateFormData={updateFormData}
+        handleDropdownChange={handleDropdownChange}
+        nextPage={nextPage}
+        previousPage={previousPage}
+        pageImage={pageImage}
+      />,
+      <ServiceProviderPage6
+        updateFormData={updateFormData}
+        handleDropdownChange={handleDropdownChange}
+        nextPage={nextPage}
+        previousPage={previousPage}
+        pageImage={pageImage}
+      />,
+  ]
+  
+
   if (selectedOption === "architect") {
-    pages.push(
+    pages.splice(2,0,
       <ArchitectPage1
         updateFormData={updateFormData}
         handleDropdownChange={handleDropdownChange}
         nextPage={nextPage}
         previousPage={previousPage}
       />,
-      <ArchitectPage2
-        updateFormData={updateFormData}
-        handleDropdownChange={handleDropdownChange}
-        nextPage={nextPage}
-        previousPage={previousPage}
-      />,
-      <ArchitectPage3
-        updateFormData={updateFormData}
-        handleDropdownChange={handleDropdownChange}
-        nextPage={nextPage}
-        previousPage={previousPage}
-      />,
-      <ArchitectPage4
-        updateFormData={updateFormData}
-        handleDropdownChange={handleDropdownChange}
-        nextPage={nextPage}
-        previousPage={previousPage}
-      />,
-      <ArchitectPage5
-        updateFormData={updateFormData}
-        handleDropdownChange={handleDropdownChange}
-        nextPage={nextPage}
-        previousPage={previousPage}
-      />
+      remainigPages
     );
-  } else if (selectedOption === "option2") {
-    pages.push(<Page3 updateFormData={updateFormData} />);
+  } else if (selectedOption === "interiordesigner") {
+    pages.splice(2,0,
+      <InteriorDesignerPage1
+        updateFormData={updateFormData}
+        handleDropdownChange={handleDropdownChange}
+        nextPage={nextPage}
+        previousPage={previousPage}
+      />,
+      remainigPages
+    );
   }
 
   const HandleSubmit = (event) => {

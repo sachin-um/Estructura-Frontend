@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 // import { Link } from "react-router-dom" ;
 
-function ArchitectPage3({
+function InteriorDesignerPage1({
   updateFormData,
   handleDropdownChange,
   nextPage,
@@ -57,7 +57,7 @@ function ArchitectPage3({
             <Grid
               container
               style={{
-                backgroundImage: 'url("/archi.jpg")',
+                backgroundImage: 'url("/designer.jpg")',
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 borderRadius: "20px",
@@ -152,17 +152,54 @@ function ArchitectPage3({
                   >
                     {
                       <Grid style={{ justifyContent: "center" }}>
-                        <Typography textAlign="center" width={1}>
-                          What range of services do you offer?
-                        </Typography>
-                        <Grid style={{ justifyContent: "center" }}>
-                          <TextField
-                            sx={{ width: 1, marginTop: 1 }}
-                            id="filled-multiline-static"
-                            multiline
-                            rows={5}
-                            variant="filled"
-                          />
+                        <TextField
+                          InputProps={{ sx: { borderRadius: 2 } }}
+                          sx={{ width: 1, margin: 1 }}
+                          type="nic"
+                          name="nic"
+                          label="NIC"
+                          variant="filled"
+                          size="small"
+                        />
+                        <TextField
+                          InputProps={{ sx: { borderRadius: 2 } }}
+                          sx={{ width: 1, margin: 1 }}
+                          type="website"
+                          name="website"
+                          label="Website"
+                          variant="filled"
+                          size="small"
+                        />
+                        <TextField
+                          InputProps={{ sx: { borderRadius: 2 } }}
+                          sx={{ width: 1, margin: 1 }}
+                          type="SLIDRegNumber"
+                          name="SLIDRegNumber"
+                          label="SLID Registration Number"
+                          variant="filled"
+                          size="small"
+                        />
+                        <Grid
+                          style={{ justifyContent: "center" }}
+                          sx={{ width: 1, margin: 1 }}
+                        >
+                          <Typography sx={{ margin: 1 }}>
+                            SLID Certificate
+                          </Typography>
+                          <Button
+                            sx={{ width: 1 }}
+                            variant="contained"
+                            color="secondary"
+                            component="label"
+                          >
+                            Upload Certificate
+                            <input
+                              hidden
+                              accept="image/*"
+                              multiple
+                              type="file"
+                            />
+                          </Button>
                         </Grid>
                       </Grid>
                     }
@@ -181,7 +218,7 @@ function ArchitectPage3({
                       }}
                     >
                       <Button
-                        sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
+                        sx={{ width: 1 / 4, borderRadius: 2, margin: 1 }}
                         type="submit"
                         color="primary"
                         variant="contained"
@@ -191,7 +228,7 @@ function ArchitectPage3({
                         Previous
                       </Button>
                       <Button
-                        sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
+                        sx={{ width: 1 / 4, borderRadius: 2, margin: 1 }}
                         type="submit"
                         color="primary"
                         variant="contained"
@@ -212,4 +249,4 @@ function ArchitectPage3({
   );
 }
 
-export default ArchitectPage3;
+export default InteriorDesignerPage1;

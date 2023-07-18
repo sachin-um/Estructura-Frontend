@@ -7,17 +7,19 @@ import {
   Stack,
   Link,
   TextField,
+  InputAdornment,
   FormControl,
   InputLabel,
   Typography,
 } from "@mui/material";
 // import { Link } from "react-router-dom" ;
 
-function ArchitectPage5({
+function ServiceProviderPage6({
   updateFormData,
   handleDropdownChange,
   nextPage,
   previousPage,
+  pageImage,
 }) {
   const HandleSubmit = (event) => {
     event.preventDefault();
@@ -38,7 +40,6 @@ function ArchitectPage5({
         maxWidth={false}
         style={{
           backgroundColor: "#f7f8f1",
-          minHeight: "100vh",
           display: "flex",
           alignItems: "center",
         }}
@@ -57,7 +58,7 @@ function ArchitectPage5({
             <Grid
               container
               style={{
-                backgroundImage: 'url("/archi.jpg")',
+                backgroundImage: `url(${pageImage})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 borderRadius: "20px",
@@ -116,6 +117,7 @@ function ArchitectPage5({
                 justifyContent: "center",
                 marginTop: "2rem",
                 marginBottom: "2rem",
+                minHeight:'80vh'
               }}
             >
               <Grid
@@ -153,40 +155,44 @@ function ArchitectPage5({
                     {
                       <Grid style={{ justifyContent: "center" }}>
                         <Typography textAlign="center">
-                          Upload your profile picture
+                          What is the estimated price range for a project?
                         </Typography>
-                        <Grid
-                          style={{ justifyContent: "center" }}
-                          sx={{ width: 1, margin: 1 }}
-                        >
-                          <img
-                            src="/user.png"
-                            alt="user"
-                            style={{
-                              width: "100%",
-                              height: "100%",
+                        <Box sx={{ display: "flex", gap: "10px" }}>
+                          <TextField
+                            sx={{ flex: "1", margin: 2 }}
+                            InputProps={{
+                              sx: { borderRadius: 2 },
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  LKR
+                                </InputAdornment>
+                              ),
                             }}
-                          />
-                        </Grid>
-                        <Grid
-                          style={{ justifyContent: "center" }}
-                          sx={{ width: 1, margin: 1 }}
-                        >
-                          <Button
-                            sx={{ width: 1 }}
-                            variant="contained"
+                            type="From"
+                            name="From"
+                            label="From"
+                            variant="filled"
+                            size="small"
                             color="secondary"
-                            component="label"
-                          >
-                            Upload Photo
-                            <input
-                              hidden
-                              accept="image/*"
-                              multiple
-                              type="file"
-                            />
-                          </Button>
-                        </Grid>
+                          />
+                          <TextField
+                            InputProps={{
+                              sx: { borderRadius: 2 },
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  LKR
+                                </InputAdornment>
+                              ),
+                            }}
+                            sx={{ flex: "1", margin: 2 }}
+                            type="To"
+                            name="To"
+                            label="To"
+                            variant="filled"
+                            size="small"
+                            color="secondary"
+                          />
+                        </Box>
                       </Grid>
                     }
 
@@ -195,7 +201,9 @@ function ArchitectPage5({
                   </Grid> } */}
                   </Box>
 
-                  {
+              
+                </Box>
+                {
                     <Grid
                       style={{
                         display: "flex",
@@ -204,7 +212,7 @@ function ArchitectPage5({
                       }}
                     >
                       <Button
-                        sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
+                        sx={{ width: 1 / 3, borderRadius: 2, margin: 1 }}
                         type="submit"
                         color="primary"
                         variant="contained"
@@ -214,7 +222,7 @@ function ArchitectPage5({
                         Previous
                       </Button>
                       <Button
-                        sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
+                        sx={{ width: 1 / 3, borderRadius: 2, margin: 1 }}
                         type="submit"
                         color="primary"
                         variant="contained"
@@ -225,7 +233,6 @@ function ArchitectPage5({
                       </Button>
                     </Grid>
                   }
-                </Box>
               </Grid>
             </Grid>
           </Grid>
@@ -235,4 +242,4 @@ function ArchitectPage5({
   );
 }
 
-export default ArchitectPage5;
+export default ServiceProviderPage6;

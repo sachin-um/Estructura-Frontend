@@ -12,6 +12,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { getMinimalContentHeight } from "@mui/x-data-grid/hooks/features/rows/gridRowsUtils";
 // import { Link } from "react-router-dom" ;
 
 function Professional({ handleDropdownChange }) {
@@ -32,13 +33,14 @@ function Professional({ handleDropdownChange }) {
   // TODO: Change Layout
   return (
     <>
-      <Box
+      <Box 
         component="form"
         sx={{
           margin: "10px",
           display: "flex",
           flexDirection: "column",
           gap: "30px",
+          minHeight:'80vh'
         }}
         onSubmit={HandleSubmit}
       >
@@ -98,7 +100,7 @@ function Professional({ handleDropdownChange }) {
               sx={{
                 textAlign: "left",
                 color: "#435834",
-                marginTop: "-8px",
+                marginTop: "20px",
                 marginLeft: "10px",
               }}
             >

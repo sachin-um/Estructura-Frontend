@@ -7,24 +7,28 @@ import {
   Stack,
   Link,
   TextField,
-  InputAdornment,
   FormControl,
   InputLabel,
   Typography,
 } from "@mui/material";
 // import { Link } from "react-router-dom" ;
 
-function ArchitectPage4({
+function ServiceProviderPage7({
   updateFormData,
   handleDropdownChange,
   nextPage,
   previousPage,
+  pageImage,
 }) {
+    const [profileimage, setprofileimage] = useState("/User/user.png");
   const HandleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     console.log(formData.get("email"), formData.get("password"));
   };
+  const handleUpload=(e)=>{
+    setprofileimage(URL.createObjectURL(e.target.files[0]));
+  }
 
   const handleNext = () => {
     nextPage();
@@ -39,7 +43,6 @@ function ArchitectPage4({
         maxWidth={false}
         style={{
           backgroundColor: "#f7f8f1",
-          minHeight: "100vh",
           display: "flex",
           alignItems: "center",
         }}
@@ -58,7 +61,7 @@ function ArchitectPage4({
             <Grid
               container
               style={{
-                backgroundImage: 'url("/archi.jpg")',
+                backgroundImage: `url(${pageImage})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 borderRadius: "20px",
@@ -117,6 +120,7 @@ function ArchitectPage4({
                 justifyContent: "center",
                 marginTop: "2rem",
                 marginBottom: "2rem",
+                minHeight:'80vh'
               }}
             >
               <Grid
@@ -130,17 +134,8 @@ function ArchitectPage4({
               >
                 <img src="/Logo.png" alt="Logo" style={{ width: "40%" }} />
               </Grid>
-              <Grid item xs={12} style={{ marginTop: "1rem" }}>
-                <Box
-                  component="form"
-                  sx={{
-                    margin: "10px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "20px",
-                  }}
-                  onSubmit={HandleSubmit}
-                >
+              <Grid item xs={12} style={{ marginTop: "1rem",width:'60%' }}>
+                
                   <Box
                     component="form"
                     sx={{
@@ -154,44 +149,41 @@ function ArchitectPage4({
                     {
                       <Grid style={{ justifyContent: "center" }}>
                         <Typography textAlign="center">
-                          What is the estimated price range for a project?
+                          Upload your profile picture
                         </Typography>
-                        <Box sx={{ display: "flex", gap: "10px" }}>
-                          <TextField
-                            sx={{ flex: "1", margin: 2 }}
-                            InputProps={{
-                              sx: { borderRadius: 2 },
-                              startAdornment: (
-                                <InputAdornment position="start">
-                                  LKR
-                                </InputAdornment>
-                              ),
+                        <Grid
+                          style={{ justifyContent: "center" }}
+                          sx={{ width: 1, margin: 1 }}
+                        >
+                          <img
+                            src={profileimage}
+                            alt="user"
+                            style={{
+                              width: "100%",
+                              height: "100%",
                             }}
-                            type="From"
-                            name="From"
-                            label="From"
-                            variant="filled"
-                            size="small"
-                            color="secondary"
                           />
-                          <TextField
-                            InputProps={{
-                              sx: { borderRadius: 2 },
-                              startAdornment: (
-                                <InputAdornment position="start">
-                                  LKR
-                                </InputAdornment>
-                              ),
-                            }}
-                            sx={{ flex: "1", margin: 2 }}
-                            type="To"
-                            name="To"
-                            label="To"
-                            variant="filled"
-                            size="small"
+                        </Grid>
+                        <Grid
+                          style={{ justifyContent: "center" }}
+                          sx={{ width: 1, margin: 1 }}
+                        >
+                          <Button
+                            sx={{ width: 1 }}
+                            variant="contained"
                             color="secondary"
-                          />
-                        </Box>
+                            component="label"
+                          >
+                            Upload Photo
+                            <input
+                              hidden
+                              accept="image/*"
+                              multiple
+                              type="file"
+                              onChange={handleUpload}
+                            />
+                          </Button>
+                        </Grid>
                       </Grid>
                     }
 
@@ -200,7 +192,7 @@ function ArchitectPage4({
                   </Grid> } */}
                   </Box>
 
-                  {
+                {
                     <Grid
                       style={{
                         display: "flex",
@@ -209,7 +201,7 @@ function ArchitectPage4({
                       }}
                     >
                       <Button
-                        sx={{ width: 1 / 3, borderRadius: 2, margin: 1 }}
+                        sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
                         type="submit"
                         color="primary"
                         variant="contained"
@@ -219,18 +211,17 @@ function ArchitectPage4({
                         Previous
                       </Button>
                       <Button
-                        sx={{ width: 1 / 3, borderRadius: 2, margin: 1 }}
+                        sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
                         type="submit"
                         color="primary"
                         variant="contained"
                         size="large"
-                        onClick={handleNext}
+                        
                       >
-                        Next
+                        Submit
                       </Button>
                     </Grid>
                   }
-                </Box>
               </Grid>
             </Grid>
           </Grid>
@@ -240,4 +231,4 @@ function ArchitectPage4({
   );
 }
 
-export default ArchitectPage4;
+export default ServiceProviderPage7;
