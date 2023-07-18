@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { MultiSelect } from "react-multi-select-component";
 import {
   Box,
   Button,
@@ -8,57 +7,28 @@ import {
   Stack,
   Link,
   TextField,
-  FormGroup,
-  FormControlLabel,
   FormControl,
-  Select,
-  MenuItem,
   InputLabel,
   Typography,
 } from "@mui/material";
-import { Checkbox } from "@mui/material";
 // import { Link } from "react-router-dom" ;
 
-function InteriorDesignerPage2({
+function ServiceProviderPage7({
   updateFormData,
   handleDropdownChange,
   nextPage,
   previousPage,
+  pageImage,
 }) {
-  const [selected, setSelected] = useState([]);
-  const options = [
-    { label: "Ampara", value: "ampara" },
-    { label: "Anuradhapura", value: "anuradhapura" },
-    { label: "Badulla", value: "badulla" },
-    { label: "Batticaloa", value: "batticaloa" },
-    { label: "Colombo", value: "colombo" },
-    { label: "Galle", value: "galle" },
-    { label: "Gampaha", value: "gampaha" },
-    { label: "Hambantota", value: "hambantota" },
-    { label: "Jaffna", value: "jaffna" },
-    { label: "Kalutara", value: "kalutara" },
-    { label: "Kandy", value: "kandy" },
-    { label: "Kegalle", value: "kegalle" },
-    { label: "Kilinochchi", value: "kilinochchi" },
-    { label: "Kurunegala", value: "kurunegala" },
-    { label: "Mannar", value: "mannar" },
-    { label: "Matale", value: "matale" },
-    { label: "Matara", value: "matara" },
-    { label: "Monaragala", value: "monaragala" },
-    { label: "Mullaitivu", value: "mullaitivu" },
-    { label: "Nuwara Eliya", value: "nuwaraeliya" },
-    { label: "Polonnaruwa", value: "polonnaruwa" },
-    { label: "Puttalam", value: "puttalam" },
-    { label: "Ratnapura", value: "ratnapura" },
-    { label: "Trincomalee", value: "trincomalee" },
-    { label: "Vavuniya", value: "vavuniya" },
-    
-  ];
+    const [profileimage, setprofileimage] = useState("/User/user.png");
   const HandleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     console.log(formData.get("email"), formData.get("password"));
   };
+  const handleUpload=(e)=>{
+    setprofileimage(URL.createObjectURL(e.target.files[0]));
+  }
 
   const handleNext = () => {
     nextPage();
@@ -73,7 +43,6 @@ function InteriorDesignerPage2({
         maxWidth={false}
         style={{
           backgroundColor: "#f7f8f1",
-          minHeight: "100vh",
           display: "flex",
           alignItems: "center",
         }}
@@ -92,7 +61,7 @@ function InteriorDesignerPage2({
             <Grid
               container
               style={{
-                backgroundImage: 'url("/designer.jpg")',
+                backgroundImage: `url(${pageImage})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 borderRadius: "20px",
@@ -151,6 +120,7 @@ function InteriorDesignerPage2({
                 justifyContent: "center",
                 marginTop: "2rem",
                 marginBottom: "2rem",
+                minHeight:'80vh'
               }}
             >
               <Grid
@@ -164,17 +134,8 @@ function InteriorDesignerPage2({
               >
                 <img src="/Logo.png" alt="Logo" style={{ width: "40%" }} />
               </Grid>
-              <Grid item xs={12} style={{ marginTop: "1rem" }}>
-                <Box
-                  component="form"
-                  sx={{
-                    margin: "10px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "20px",
-                  }}
-                  onSubmit={HandleSubmit}
-                >
+              <Grid item xs={12} style={{ marginTop: "1rem",width:'60%' }}>
+                
                   <Box
                     component="form"
                     sx={{
@@ -188,28 +149,50 @@ function InteriorDesignerPage2({
                     {
                       <Grid style={{ justifyContent: "center" }}>
                         <Typography textAlign="center">
-                          Where are you based?
+                          Upload your profile picture
                         </Typography>
                         <Grid
                           style={{ justifyContent: "center" }}
                           sx={{ width: 1, margin: 1 }}
                         >
-                          <FormControl sx={{ m: 1, minWidth: 320, maxWidth: 300,border:1,borderColor: "primary",borderRadius: '5px'}}>
-                          <MultiSelect 
-                            options={options}
-                            value={selected}
-                            onChange={setSelected}
-                            labelledBy={"Select"}
-                            isCreatable={false}
-                            overrideStrings={{selectAll:"Islandwide",search:"Search districts..",selectSomeItems:"Select Districts"}}
+                          <img
+                            src={profileimage}
+                            alt="user"
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                            }}
                           />
-                          </FormControl>
+                        </Grid>
+                        <Grid
+                          style={{ justifyContent: "center" }}
+                          sx={{ width: 1, margin: 1 }}
+                        >
+                          <Button
+                            sx={{ width: 1 }}
+                            variant="contained"
+                            color="secondary"
+                            component="label"
+                          >
+                            Upload Photo
+                            <input
+                              hidden
+                              accept="image/*"
+                              multiple
+                              type="file"
+                              onChange={handleUpload}
+                            />
+                          </Button>
                         </Grid>
                       </Grid>
                     }
+
+                    {/* { <Grid style={{display:"flex",justifyContent:"center",margin:10}}>
+                  <Button sx={{ width: 1/3,  borderRadius:2 }}type='submit' color="primary" variant="contained" size='large'  href=''>Next</Button>
+                  </Grid> } */}
                   </Box>
 
-                  {
+                {
                     <Grid
                       style={{
                         display: "flex",
@@ -233,13 +216,12 @@ function InteriorDesignerPage2({
                         color="primary"
                         variant="contained"
                         size="large"
-                        onClick={handleNext}
+                        
                       >
-                        Next
+                        Submit
                       </Button>
                     </Grid>
                   }
-                </Box>
               </Grid>
             </Grid>
           </Grid>
@@ -249,4 +231,4 @@ function InteriorDesignerPage2({
   );
 }
 
-export default InteriorDesignerPage2;
+export default ServiceProviderPage7;

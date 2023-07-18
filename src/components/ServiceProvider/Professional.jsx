@@ -100,7 +100,7 @@ function Professional({ handleDropdownChange }) {
               sx={{
                 textAlign: "left",
                 color: "#435834",
-                marginTop: "-8px",
+                marginTop: "20px",
                 marginLeft: "10px",
               }}
             >
