@@ -1,13 +1,13 @@
-name: Build & Deploy Estructura Frontend
+name: Build and deploy Frontend
 
 on:
-  pull_request:
-    types:
-      - closed
+  push:
+    branches:
+      - main
 
 jobs:
   build-deploy:
-    name: Build and Deploy Estructura Frontend
+    name: Test Frontend
     runs-on: ubuntu-latest
 
     steps:
@@ -28,7 +28,7 @@ jobs:
 
       - name: Run builder
         run: npm run build
-      
+
       - name: Build Docker Image
         uses: docker/build-push-action@v4
         with:
