@@ -196,7 +196,10 @@ function TopBar() {
         </Toolbar>
       </Container>
     </AppBar>
+
   );
 }
 
 export default TopBar;
+
+export { pages };
