@@ -6,37 +6,17 @@ import {
   Button,
   Grid,
   Card,
-  CardContent,
   CardMedia,
 } from "@mui/material";
-import { ArrowBackIosNew, ArrowForwardIos } from "@mui/icons-material";
-import { styled } from "@mui/system";
 import TopBar from "../components/TopBar";
 import HomepageCarousel from "../components/Carousel/HomepageCarousel";
+import BlogCard from "../components/blog/card";
 
-const StyledArrowBack = styled(ArrowBackIosNew)(({ theme }) => ({
-  color: "#304422",
-  fontSize: "0.5rem",
-  cursor: "pointer",
-  "&:hover": {
-    transform: "scale(1.1)",
-    transition: "transform 0.3s ease",
-  },
-}));
+import "../assets/font.css"
 
-const StyledArrowForward = styled(ArrowForwardIos)(({ theme }) => ({
-  color: "#304422",
-  fontSize: "0.5rem",
-  cursor: "pointer",
-  "&:hover": {
-    transform: "scale(1.1)",
-    transition: "transform 0.3s ease",
-  },
-}));
 
 const Slider = ({ images, interval = 5000 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isSliderButtonHovered, setIsSliderButtonHovered] = useState(false);
   
   useEffect(() => {
     const slideInterval = setInterval(goToNextSlide, interval);
@@ -52,13 +32,12 @@ const Slider = ({ images, interval = 5000 }) => {
 
   return (
     <>
-      {/* auto moving slider */}
       <TopBar title="Home" />
       <Box
         display="flex"
         justifyContent="center"
         alignItems="center"
-        width="100vw"
+        maxWidth="100vw"
         position="relative"
       >
         <Box width="100%">
@@ -70,7 +49,9 @@ const Slider = ({ images, interval = 5000 }) => {
               style={{
                 display: index === currentSlide ? "block" : "none",
                 width: "100vw",
-                maxHeight: "calc(112vh - 100px)",
+                height: "100vw",
+                maxHeight: "calc(110vh - 100px)",
+                maxWidth: "100%",
                 objectFit: "cover",
               }}
             />
@@ -100,8 +81,8 @@ const Slider = ({ images, interval = 5000 }) => {
             <Typography
               variant="h5"
               paragraph
-              fontFamily="Arial"
-              fontWeight="bold"
+              fontFamily="Poppins" 
+              // fontWeight="bold"
               fontSize="2rem"
               color="white"
             >
@@ -258,14 +239,15 @@ const HomePage = () => {
           variant="h5"
           gutterBottom
           color="#435834"
-          fontWeight="bold"
+          fontFamily="Poppins" 
+          // fontWeight="bold"
           fontSize="1.7rem"
           textAlign="left"
           marginTop="20px"
           marginBottom="20px"
           marginLeft="20px"
         >
-          Browse Professionals
+          Explore Professionals
         </Typography>
 
         <HomepageCarousel cards={cardDataBrowse} />
@@ -280,7 +262,7 @@ const HomePage = () => {
           marginTop="50px"
           marginLeft="20px"
         >
-          Shop Items By
+          Buy Products
         </Typography>
 
         <HomepageCarousel cards={cardDataShopBy} />
@@ -433,7 +415,7 @@ const HomePage = () => {
           width="100%"
           marginTop="10px"
         >
-          <Box marginTop="50px" marginLeft="50px">
+          <Box marginTop="50px" marginLeft="10px">
             <Typography
               variant="h4"
               paragraph
@@ -452,7 +434,6 @@ const HomePage = () => {
             >
               Check out our blog for the latest stories!
             </Typography>
-
             <Grid container spacing={2}>
               {blogCardData.map((card, index) => (
                 <Grid item key={index} xs={12} sm={4} marginBottom="40px">
@@ -463,7 +444,7 @@ const HomePage = () => {
                       justifyContent: "space-between",
                       height: "100%",
                       transform:
-                        hoveredIndex === index ? "scale(1.1)" : "scale(1)",
+                        hoveredIndex === index ? "scale(0.9)" : "scale(1)",
                       transition: "transform 0.3s ease",
                     }}
                     onMouseEnter={() => setHoveredIndex(index)}
