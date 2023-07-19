@@ -63,9 +63,10 @@ function ServiceProviderSignUp() {
   const handlePageImage=(value)=>{
     setSelectedOption("");
     if (value=="two") {
-      setPageImage("/designer.jpg");
+      setPageImage("/retailstore.jpg")
     } else if  (value=="three"){
-      setPageImage("/designer.jpg");
+      setPageImage("/rental.jpg")
+
     }
   }
 
