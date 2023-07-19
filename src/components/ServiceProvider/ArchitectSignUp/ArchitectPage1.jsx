@@ -38,7 +38,7 @@ function ArchitectPage1({
         maxWidth={false}
         style={{
           backgroundColor: "#f7f8f1",
-          minHeight: "100vh",
+          
           display: "flex",
           alignItems: "center",
         }}
@@ -116,6 +116,7 @@ function ArchitectPage1({
                 justifyContent: "center",
                 marginTop: "2rem",
                 marginBottom: "2rem",
+                minHeight: "80vh",
               }}
             >
               <Grid
@@ -209,7 +210,9 @@ function ArchitectPage1({
                   </Grid> } */}
                   </Box>
 
-                  {
+                 
+                </Box>
+                {
                     <Grid
                       style={{
                         display: "flex",
@@ -218,7 +221,7 @@ function ArchitectPage1({
                       }}
                     >
                       <Button
-                        sx={{ width: 1 / 4, borderRadius: 2, margin: 1 }}
+                        sx={{ width: 1 / 3, borderRadius: 2, margin: 1 }}
                         type="submit"
                         color="primary"
                         variant="contained"
@@ -228,7 +231,7 @@ function ArchitectPage1({
                         Previous
                       </Button>
                       <Button
-                        sx={{ width: 1 / 4, borderRadius: 2, margin: 1 }}
+                        sx={{ width: 1 / 3, borderRadius: 2, margin: 1 }}
                         type="submit"
                         color="primary"
                         variant="contained"
@@ -239,7 +242,6 @@ function ArchitectPage1({
                       </Button>
                     </Grid>
                   }
-                </Box>
               </Grid>
             </Grid>
           </Grid>

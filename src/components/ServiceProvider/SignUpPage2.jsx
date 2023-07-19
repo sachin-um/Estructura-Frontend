@@ -23,6 +23,7 @@ import Tab from "@mui/material/Tab";
 function SignUpPage2({
   updateFormData,
   handleDropdownChange,
+  handlePageImage,
   nextPage,
   previousPage,
 }) {
@@ -37,6 +38,7 @@ function SignUpPage2({
   const handleTabChange = (event, tab) => {
     setValue(tab);
     setActiveTab(tab);
+    handlePageImage(tab);
   };
 
   const handleNext = () => {
@@ -65,7 +67,6 @@ function SignUpPage2({
         maxWidth={false}
         style={{
           backgroundColor: "#f7f8f1",
-          minHeight: "100vh",
           display: "flex",
           alignItems: "center",
         }}
@@ -197,6 +198,7 @@ function SignUpPage2({
                     display: "flex",
                     justifyContent: "center",
                     margin: 10,
+                    width:'80%'
                   }}
                 >
                   <Button
