@@ -5,7 +5,7 @@ import { styled } from "@mui/system";
 
 const StyledArrowBack = styled(ArrowBackIosNew)(({ theme }) => ({
   color: "grey",
-  fontSize: "1.5rem",
+  fontSize: "1.4rem",
   cursor: "pointer",
   "&:hover": {
     transform: "scale(1.1)",
@@ -15,7 +15,7 @@ const StyledArrowBack = styled(ArrowBackIosNew)(({ theme }) => ({
 
 const StyledArrowForward = styled(ArrowForwardIos)(({ theme }) => ({
   color: "grey",
-  fontSize: "1.5rem",
+  fontSize: "1.4rem",
   cursor: "pointer",
   "&:hover": {
     transform: "scale(1.1)",
@@ -42,7 +42,7 @@ const HomepageCarousel = ({ cards }) => {
   };
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center">
+    <Box display="flex" justifyContent="center" alignItems="center" maxWidth="99%">
       <Box width="100%" position="relative">
         <Box
           display="flex"
@@ -53,17 +53,11 @@ const HomepageCarousel = ({ cards }) => {
           <StyledArrowBack
             onClick={goToPreviousCard}
             style={{
-              color: "grey",
-              fontSize: "2.5rem",
               marginRight: "10px",
             }}
           />
           <StyledArrowForward
             onClick={goToNextCard}
-            style={{
-              color: "grey",
-              fontSize: "2.5rem",
-            }}
           />
         </Box>
         <Box

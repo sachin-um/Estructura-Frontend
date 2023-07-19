@@ -7,25 +7,33 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import PersonIcon from '@mui/icons-material/Person';
+import SettingsIcon from '@mui/icons-material/Settings';
 import Grid from '@mui/material/Grid';
 
 const pages = ['Home', 'Professionals', 'Products', 'Blog'];
+const settings = ['Profile', 'Account', 'Logout'];
 const professionalsTopics = ['Architects', 'Interior Designers', 'Construction Companies', 'Landscape Architects', 'Home Builders', 'Painters', 'Carpenters'];
 const productsTopics = ['Furniture', 'Hardware Items', 'Gardening Items and Tools', 'Bathware', 'Lighting'];
 
-function TopBar() {
+function CusTopBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [anchorElProfessionals, setAnchorElProfessionals] = React.useState(null);
   const [anchorElProducts, setAnchorElProducts] = React.useState(null);
-  // const [isAppBarFixed, setIsAppBarFixed] = React.useState(false);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
+  };
+
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
   };
 
   const handleOpenProfessionalsMenu = (event) => {
@@ -40,6 +48,10 @@ function TopBar() {
     setAnchorElNav(null);
   };
 
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
   const handleCloseProfessionalsMenu = () => {
     setAnchorElProfessionals(null);
   };
@@ -48,24 +60,9 @@ function TopBar() {
     setAnchorElProducts(null);
   };
 
-  // React.useEffect(() => {
-  //   const handleScroll = () => {
-  //     const scrollTop = window.scrollY;
-  //     const isFixed = scrollTop > 0;
-  //     setIsAppBarFixed(isFixed);
-  //   };
-
-  //   window.addEventListener('scroll', handleScroll);
-
-  //   return () => {
-  //     window.removeEventListener('scroll', handleScroll);
-  //   };
-  // }, []);
-
-
   return (
     // <AppBar position={isAppBarFixed ? 'fixed' : 'relative'} sx={{ backgroundColor: 'white', color: 'green', transition: 'position 0.2s ease-in-out', }}>
-    <AppBar position ="relative" sx={{ backgroundColor: 'white', color: 'green' }}>
+    <AppBar position="relative" sx={{ backgroundColor: 'white', color: 'green' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <IconButton
@@ -132,26 +129,42 @@ function TopBar() {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center' }}>
-            <Tooltip title="Sign In">
-              <IconButton color="inherit" sx={{ fontSize: 16 }} aria-label="Sign In">
-                <PersonIcon color="secondary" />
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="Remy Sharp" src="User/user.png" />
               </IconButton>
             </Tooltip>
-            <Typography variant="body1" color="primary" fontWeight={600} sx={{ mr: 2 }}>
-              Sign In
-            </Typography>
-
-            <Box sx={{ width: '10px' }} /> {/* Add a gap of 10px between the icons */}
-
-            <Tooltip title="Sign Up">
-              <IconButton color="inherit" sx={{ fontSize: 16 }} aria-label="Sign Up">
-                <ExitToAppIcon color="secondary" />
-              </IconButton>
-            </Tooltip>
-            <Typography variant="body1" color="primary" fontWeight={600}>
-              Sign Up
-            </Typography>
+            <Menu
+              sx={{ mt: '45px', '& .MuiPaper-root': { minWidth: '200px' } }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {settings.map((setting) => (
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <ListItemIcon>
+                    {/* Add Material-UI icons */}
+                    {setting === 'Profile' && <PersonIcon color="secondary" />}
+                    {setting === 'Account' && <SettingsIcon color="secondary" />}
+                    {setting === 'Logout' && <ExitToAppIcon color="secondary" />}
+                  </ListItemIcon>
+                  <Typography textAlign="center" sx={{ color: 'green' }}>
+                    {setting}
+                  </Typography>
+                </MenuItem>
+              ))}
+            </Menu>
           </Box>
 
           <Menu
@@ -175,7 +188,7 @@ function TopBar() {
           </Menu>
 
           <Menu
-            sx={{ mt: '45px', '& .MuiPaper-root': { width: '28rem' } }}
+            sx={{ mt: '45px', '& .MuiPaper-root': { width: '30rem' } }}
             id="menu-appbar-products"
             anchorEl={anchorElProducts}
             open={Boolean(anchorElProducts)}
@@ -199,4 +212,4 @@ function TopBar() {
   );
 }
 
-export default TopBar;
+export default CusTopBar;
