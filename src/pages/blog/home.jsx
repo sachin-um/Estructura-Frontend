@@ -1,6 +1,9 @@
+import { useState } from "react";
 import CusBar from "../../components/CusTopBar";
 import BlogCard from "../../components/blog/card";
 import Carousel from "../../components/blog/carousel";
+import Typography from '@mui/material/Typography';
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 
 export default function Home() {
   const blogData = [
@@ -83,10 +86,49 @@ export default function Home() {
   ];
   
 
+  const [showMyBlogs, setShowMyBlogs] = useState(true);
+
+  // Filter blogs to show only "My Blogs" if the showMyBlogs state is true
+  const filteredBlogs = showMyBlogs
+    ? blogData.filter((blog) => blog.author === "P. Guruge") // Replace "YourUserName" with your actual username
+    : blogData;
+
+
   return (
     <>
       <CusBar />
       <Carousel cards={blogcards} />
+
+      <div style={{ margin: "20px", display: "flex", justifyContent: "flex-end" }}>
+        <button
+          style={{
+            marginRight: "10px",
+            backgroundColor: showMyBlogs ? "#804000" : "transparent",
+            color: showMyBlogs ? "#fff" : "#804000",
+            border: "1px solid #804000",
+            borderRadius: "4px",
+            padding: "5px 10px",
+            cursor: "pointer",
+          }}
+          onClick={() => setShowMyBlogs(true)}
+        >
+          My Blogs
+        </button>
+        <button
+          style={{
+            backgroundColor: showMyBlogs ? "transparent" : "#804000",
+            color: showMyBlogs ? "#804000" : "#fff",
+            border: "1px solid #804000",
+            borderRadius: "4px",
+            padding: "5px 10px",
+            cursor: "pointer",
+          }}
+          onClick={() => setShowMyBlogs(false)}
+        >
+          All Blogs
+        </button>
+      </div>
+
       <div
         style={{
           backgroundColor: "#f9f9f9",
@@ -97,17 +139,26 @@ export default function Home() {
           gap: "20px",
         }}
       >
-        {blogData.map((blog) => (
-          <BlogCard
-            key={blog.title}
-            image={blog.image}
-            title={blog.title}
-            content={blog.content}
-            author={blog.author}
-            date={blog.date}
-            avatar={blog.avatar}
-          />
-        ))}
+      {filteredBlogs.length === 0 ? (
+          <div style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', height: 'calc(100vh - 300px)' }}>
+            <SentimentVeryDissatisfiedIcon style={{ fontSize: 80, color: '#999' }} />
+            <Typography variant="h6" style={{ color: '#999', marginTop: '20px' }}>
+              There is nothing here...
+            </Typography>
+          </div>
+        ) : (
+          filteredBlogs.map((blog) => (
+            <BlogCard
+              key={blog.title}
+              image={blog.image}
+              title={blog.title}
+              content={blog.content}
+              author={blog.author}
+              date={blog.date}
+              avatar={blog.avatar}
+            />
+          ))
+        )}
       </div>
     </>
   );

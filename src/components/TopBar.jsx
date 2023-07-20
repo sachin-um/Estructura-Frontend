@@ -13,6 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import PersonIcon from '@mui/icons-material/Person';
 import Grid from '@mui/material/Grid';
+import webLogo from '/Logo.png'
 
 const pages = ['Home', 'Professionals', 'Products', 'Blog'];
 const professionalsTopics = ['Architects', 'Interior Designers', 'Construction Companies', 'Landscape Architects', 'Home Builders', 'Painters', 'Carpenters'];
@@ -89,7 +90,7 @@ function TopBar() {
               justifyContent: 'flex-start', // Logo aligns to the left
             }}
           >
-            <img src="Logo.png" alt="" height={65} width={65} />
+            <img src={webLogo} alt="" height={65} width={65} />
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>

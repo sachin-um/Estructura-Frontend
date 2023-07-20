@@ -29,6 +29,8 @@ import Calendar from "./pages/adminDashboard/calendar";
 
 //blog pages
 import BlogHome from "./pages/blog/home";
+import BlogView from "./pages/blog/view"
+import BlogCreate from "./pages/blog/create"
 
 const router = createBrowserRouter([
   {
@@ -125,8 +127,17 @@ const router = createBrowserRouter([
   },
   {
     path: "/blog/",
-    element: <BlogHome />
+    element: <BlogHome />,
   },
+  {
+    path: "/blog/view",
+    element: <BlogView />,
+  },
+  {
+    path: "/blog/create",
+    element: <BlogCreate />,
+  },
+
 
 ]);
 
