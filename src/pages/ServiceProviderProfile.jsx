@@ -10,11 +10,13 @@ import {
   Tab,
   ListItemIcon,
   Stack,
+  Rating
 } from "@mui/material";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 
+import ProfileDetails from "../components/ServiceProviderProf/ProfileDetails";
 import PreviousProjects from "../components/ServiceProviderProf/PreviousProjects";
 import Responses from "../components/ServiceProviderProf/Responses";
 import Messages from "../components/ServiceProviderProf/Messages";
@@ -108,7 +110,7 @@ function ServiceProviderProfile({ updateFormData, nextPage, previousPage }) {
 
       <Grid container spacing={2}>
         <Grid item md={3} xs={12}>
-          <Card sx={{ width: "300px", height: "280px", marginTop: "3rem", marginLeft: "2rem" }}>
+          <Card sx={{ width: "300px", height: "380px", marginTop: "3rem", marginLeft: "2rem" }}>
             <CardContent>
               <Typography variant="h5" component="div">
                 John Doe
@@ -139,6 +141,20 @@ function ServiceProviderProfile({ updateFormData, nextPage, previousPage }) {
                   </Typography>
                 </Stack>
               </Box>
+              <Box mt={2} display='flex' alignItems='center' style={{ marginTop: '40px'}}>
+              <Typography variant="h4" color="primary"> 4.5 </Typography>
+                <Rating
+                  name='rating'
+                  value={4.5}
+                  precision={0.5}
+                  readOnly
+                  size='large'
+                  style={{ marginLeft: '20px' }}
+                />
+              </Box>
+              <Box flexGrow={1} display="flex" justifyContent="center">
+                <Typography variant="body1" color="primary" style={{ marginRight: '40px'}}>120 reviews</Typography>
+              </Box>
             </CardContent>
           </Card>
         </Grid>
@@ -158,13 +174,7 @@ function ServiceProviderProfile({ updateFormData, nextPage, previousPage }) {
             <Tab value="five" label="Reviews" />
           </Tabs>
 
-          {activeTab === "one" && (
-            <Card sx={{ marginTop: "3rem" }}>
-              <CardContent>
-                {/* Profile Details Content */}
-              </CardContent>
-            </Card>
-          )}
+          {activeTab === "one" && <ProfileDetails />}
           {activeTab === "two" && <PreviousProjects />}
           {activeTab === "three" && <Responses />}
           {activeTab === "four" && <Messages />}
