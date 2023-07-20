@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 // import { Link } from "react-router-dom" ;
 
-function ArchitectPage1({
+function PainterPage({
   updateFormData,
   handleDropdownChange,
   nextPage,
@@ -57,7 +57,7 @@ function ArchitectPage1({
             <Grid
               container
               style={{
-                backgroundImage: 'url("/archi.jpg")',
+                backgroundImage: 'url("/signup/painter.jpg")',
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 borderRadius: "20px",
@@ -174,9 +174,9 @@ function ArchitectPage1({
                         <TextField
                           InputProps={{ sx: { borderRadius: 2 } }}
                           sx={{ width: 1, margin: 1 }}
-                          type="SLIARegNumber"
-                          name="SLIARegNumber"
-                          label="SLIA Registration Number"
+                          type="SpecialQualification"
+                          name="SpecialQualification"
+                          label="Mention of any Special Qualification"
                           variant="filled"
                           size="small"
                         />
@@ -185,7 +185,7 @@ function ArchitectPage1({
                           sx={{ width: 1, margin: 1 }}
                         >
                           <Typography sx={{ margin: 1 }}>
-                            SLIA Certificate
+                          Proof of Qualification
                           </Typography>
                           <Button
                             sx={{ width: 1 }}
@@ -193,7 +193,7 @@ function ArchitectPage1({
                             color="secondary"
                             component="label"
                           >
-                            Upload Certificate
+                            Upload Documents
                             <input
                               hidden
                               accept="image/*"
@@ -251,4 +251,4 @@ function ArchitectPage1({
   );
 }
 
-export default ArchitectPage1;
+export default PainterPage;
