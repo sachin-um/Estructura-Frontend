@@ -2,8 +2,13 @@
 import TopBar from "../components/TopBar";
 import SignUpPage1 from "../components/ServiceProvider/SignUpPage1";
 import SignUpPage2 from "../components/ServiceProvider/SignUpPage2";
-import ArchitectPage1 from "../components/ServiceProvider/ArchitectSignUp/ArchitectPage1";
-import InteriorDesignerPage1 from "../components/ServiceProvider/InteriorDesignerSignUp/InteriorDesignerPage1";
+import ArchitectPage from "../components/ServiceProvider/ProfessionalPages/ArchitectPage";
+import InteriorDesignerPage from "../components/ServiceProvider/ProfessionalPages/InteriorDesignerPage";
+import ConstructionCompanyPage from "../components/ServiceProvider/ProfessionalPages/ConstructionCompanyPage";
+import CarpenterPage from "../components/ServiceProvider/ProfessionalPages/CarpenterPage";
+import PainterPage from "../components/ServiceProvider/ProfessionalPages/PainterPage";
+import LansdcapeArchitectPage from "../components/ServiceProvider/ProfessionalPages/LansdcapeArchitectPage";
+import HomebuilderPage from "../components/ServiceProvider/ProfessionalPages/HomebuilderPage";
 import ServiceProviderPage4  from "../components/ServiceProvider/ServiceProviderPage4";
 import ServiceProviderPage5  from "../components/ServiceProvider/ServiceProviderPage5";
 import ServiceProviderPage6  from "../components/ServiceProvider/ServiceProviderPage6";
@@ -63,9 +68,9 @@ function ServiceProviderSignUp() {
   const handlePageImage=(value)=>{
     setSelectedOption("");
     if (value=="two") {
-      setPageImage("/retailstore.jpg")
+      setPageImage("/signup/retailstore.jpg")
     } else if  (value=="three"){
-      setPageImage("/rental.jpg")
+      setPageImage("/signup/rental.jpg")
 
     }
   }
@@ -74,14 +79,29 @@ function ServiceProviderSignUp() {
     setSelectedOption(value);
     setCurrentPage(2); // Reset to the first page when dropdown changes
     if(value=="architect"){
-      setPageImage("/archi.jpg")
+      setPageImage("/signup/archi.jpg")
     }
     else if(value=="interiordesigner"){
-      setPageImage("/designer.jpg")
+      setPageImage("/signup/designer.jpg")
+    }
+    else if(value=="constructioncompany"){
+      setPageImage("/signup/constructioncompany.png")
+    }
+    else if(value=="homebuilder"){
+      setPageImage("/signup/homebuilder.jpg")
+    }
+    else if(value=="landscapearchitect"){
+      setPageImage("/signup/landscapearchitect.jpg")
+    }
+    else if(value=="painter"){
+      setPageImage("/signup/painter.jpg")
+    }
+    else if(value=="carpenter"){
+      setPageImage("/signup/carpenter.jpg")
     }
     
   };
-
+  
   const handleSubmit = () => {
     // Handle form submission using the collected form data
     console.log(formData);
@@ -137,7 +157,7 @@ function ServiceProviderSignUp() {
 
   if (selectedOption === "architect") {
     pages.splice(2,0,
-      <ArchitectPage1
+      <ArchitectPage
         updateFormData={updateFormData}
         handleDropdownChange={handleDropdownChange}
         nextPage={nextPage}
@@ -147,7 +167,7 @@ function ServiceProviderSignUp() {
     );
   } else if (selectedOption === "interiordesigner") {
     pages.splice(2,0,
-      <InteriorDesignerPage1
+      <InteriorDesignerPage
         updateFormData={updateFormData}
         handleDropdownChange={handleDropdownChange}
         nextPage={nextPage}
@@ -155,6 +175,67 @@ function ServiceProviderSignUp() {
       />,
       ...professionalsPages
     );
+    
+  }
+  else if (selectedOption === "constructioncompany") {
+    pages.splice(2,0,
+      <ConstructionCompanyPage
+        updateFormData={updateFormData}
+        handleDropdownChange={handleDropdownChange}
+        nextPage={nextPage}
+        previousPage={previousPage}
+      />,
+      ...professionalsPages
+    );
+    
+  }
+  else if (selectedOption === "homebuilder") {
+    pages.splice(2,0,
+      <HomebuilderPage
+        updateFormData={updateFormData}
+        handleDropdownChange={handleDropdownChange}
+        nextPage={nextPage}
+        previousPage={previousPage}
+      />,
+      ...professionalsPages
+    );
+    
+  }
+  else if (selectedOption === "carpenter") {
+    pages.splice(2,0,
+      <CarpenterPage
+        updateFormData={updateFormData}
+        handleDropdownChange={handleDropdownChange}
+        nextPage={nextPage}
+        previousPage={previousPage}
+      />,
+      ...professionalsPages
+    );
+    
+  }
+  else if (selectedOption === "painter") {
+    pages.splice(2,0,
+      <PainterPage
+        updateFormData={updateFormData}
+        handleDropdownChange={handleDropdownChange}
+        nextPage={nextPage}
+        previousPage={previousPage}
+      />,
+      ...professionalsPages
+    );
+    
+  }
+  else if (selectedOption === "landscapearchitect") {
+    pages.splice(2,0,
+      <LansdcapeArchitectPage
+        updateFormData={updateFormData}
+        handleDropdownChange={handleDropdownChange}
+        nextPage={nextPage}
+        previousPage={previousPage}
+      />,
+      ...professionalsPages
+    );
+    
   }
 
   const HandleSubmit = (event) => {

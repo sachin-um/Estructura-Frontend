@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 // import { Link } from "react-router-dom" ;
 
-function InteriorDesignerPage1({
+function ConstructionCompanyPage({
   updateFormData,
   handleDropdownChange,
   nextPage,
@@ -38,7 +38,7 @@ function InteriorDesignerPage1({
         maxWidth={false}
         style={{
           backgroundColor: "#f7f8f1",
-          minHeight: "100vh",
+          
           display: "flex",
           alignItems: "center",
         }}
@@ -57,7 +57,7 @@ function InteriorDesignerPage1({
             <Grid
               container
               style={{
-                backgroundImage: 'url("/designer.jpg")',
+                backgroundImage: 'url("/signup/constructioncompany.png")',
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 borderRadius: "20px",
@@ -116,6 +116,7 @@ function InteriorDesignerPage1({
                 justifyContent: "center",
                 marginTop: "2rem",
                 marginBottom: "2rem",
+                minHeight: "80vh",
               }}
             >
               <Grid
@@ -173,9 +174,9 @@ function InteriorDesignerPage1({
                         <TextField
                           InputProps={{ sx: { borderRadius: 2 } }}
                           sx={{ width: 1, margin: 1 }}
-                          type="SLIDRegNumber"
-                          name="SLIDRegNumber"
-                          label="SLID Registration Number"
+                          type="BusinessRegNumber"
+                          name="BusinessRegNumber"
+                          label="Business Registration Number"
                           variant="filled"
                           size="small"
                         />
@@ -184,7 +185,7 @@ function InteriorDesignerPage1({
                           sx={{ width: 1, margin: 1 }}
                         >
                           <Typography sx={{ margin: 1 }}>
-                            SLID Certificate
+                          Business Registration Certificate
                           </Typography>
                           <Button
                             sx={{ width: 1 }}
@@ -209,7 +210,9 @@ function InteriorDesignerPage1({
                   </Grid> } */}
                   </Box>
 
-                  {
+                 
+                </Box>
+                {
                     <Grid
                       style={{
                         display: "flex",
@@ -218,7 +221,7 @@ function InteriorDesignerPage1({
                       }}
                     >
                       <Button
-                        sx={{ width: 1 / 4, borderRadius: 2, margin: 1 }}
+                        sx={{ width: 1 / 3, borderRadius: 2, margin: 1 }}
                         type="submit"
                         color="primary"
                         variant="contained"
@@ -228,7 +231,7 @@ function InteriorDesignerPage1({
                         Previous
                       </Button>
                       <Button
-                        sx={{ width: 1 / 4, borderRadius: 2, margin: 1 }}
+                        sx={{ width: 1 / 3, borderRadius: 2, margin: 1 }}
                         type="submit"
                         color="primary"
                         variant="contained"
@@ -239,7 +242,6 @@ function InteriorDesignerPage1({
                       </Button>
                     </Grid>
                   }
-                </Box>
               </Grid>
             </Grid>
           </Grid>
@@ -249,4 +251,4 @@ function InteriorDesignerPage1({
   );
 }
 
-export default InteriorDesignerPage1;
+export default ConstructionCompanyPage;
