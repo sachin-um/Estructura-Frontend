@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import * as yup from "yup";
 import { Formik } from "formik";
-import { useState,useRef } from "react";
+import { useState, useRef } from "react";
 import { clearTokens } from "../lib/API";
 import API from "../lib/API";
 import { violationsToErrors } from "../utils/Violations";
@@ -70,7 +70,6 @@ const ValidationSchema = yup.object().shape({
     .required("District is required"),
 });
 
-
 const initialValues = {
   email: "",
   password: "",
@@ -105,7 +104,8 @@ function HomeOwnerSignUp() {
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <Alert onClose={handleClose} severity='success'>
-          An Email has been sent to your email address. Please verify your email to complete the Sign up process.
+          An Email has been sent to your email address. Please verify your email
+          to complete the Sign up process.
         </Alert>
       </Snackbar>
       <Container
@@ -206,8 +206,7 @@ function HomeOwnerSignUp() {
               <Grid item xs={12} style={{ marginTop: "1rem" }}>
                 <Formik
                   innerRef={FormRef}
-                  onSubmit={(values) => {
-                    const { setErrors, setSubmitting } = FormRef.current;
+                  onSubmit={(values, { setErrors, setSubmitting }) => {
                     clearTokens();
                     setSubmitting(true);
                     if (values.password !== values.confirmPassword) {
@@ -254,24 +253,17 @@ function HomeOwnerSignUp() {
                     isSubmitting,
                   }) => {
                     const spread = (field, helper = true) => {
-                      return helper
-                        ? {
-                            name: field,
-                            onBlur: handleBlur,
-                            onChange: handleChange,
-                            value: values[field],
-                            error: touched[field] && !!errors[field],
-                            helperText: touched[field] && errors[field],
-                            disabled: isSubmitting,
-                          }
-                        : {
-                            name: field,
-                            onBlur: handleBlur,
-                            onChange: handleChange,
-                            value: values[field],
-                            error: touched[field] && !!errors[field],
-                            disabled: isSubmitting,
-                          };
+                      return {
+                        name: field,
+                        onBlur: handleBlur,
+                        onChange: handleChange,
+                        value: values[field],
+                        error: touched[field] && !!errors[field],
+                        disabled: isSubmitting,
+                        ...(helper && {
+                          helperText: touched[field] && errors[field],
+                        }),
+                      };
                     };
                     return (
                       <form
