@@ -16,6 +16,8 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Grid from '@mui/material/Grid';
+import avatarImg from '/User/user.png'
+import webLogo from '/Logo.png'
 
 const pages = ['Home', 'Professionals', 'Products', 'Blog'];
 const settings = ['Profile', 'Account', 'Logout'];
@@ -86,7 +88,7 @@ function CusTopBar() {
               justifyContent: 'flex-start', // Logo aligns to the left
             }}
           >
-            <img src="Logo.png" alt="" height={65} width={65} />
+            <img src={webLogo} alt="" height={65} width={65} />
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -132,7 +134,7 @@ function CusTopBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="User/user.png" />
+                <Avatar alt="Remy Sharp" src={avatarImg} />
               </IconButton>
             </Tooltip>
             <Menu
