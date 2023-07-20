@@ -7,7 +7,7 @@ import { render} from "@testing-library/react";
 import TopBar from "../components/TopBar";
 import { BrowserRouter } from "react-router-dom";
 
-it("renders the logo text", () => {
+it("renders the text", () => {
   render(
     <BrowserRouter>
       <TopBar />
