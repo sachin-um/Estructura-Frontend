@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import TopBar from "../components/TopBar";
 import HomepageCarousel from "../components/Carousel/HomepageCarousel";
-import BlogCard from "../components/blog/card";
+import BlogCard from "../components/blog/card";HomepageCarousel
 
 import "../assets/font.css"
 
