@@ -109,7 +109,6 @@ function TopBar() {
             <RouterLink to="/">
               <img src="/Logo.png" alt="" height={65} width={65} />  
             </RouterLink>
-            
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>

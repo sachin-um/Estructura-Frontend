@@ -27,6 +27,11 @@ import Reviews from "./pages/adminDashboard/reviews";
 import Geography from "./pages/adminDashboard/geography";
 import Calendar from "./pages/adminDashboard/calendar";
 
+//blog pages
+import BlogHome from "./pages/blog/home";
+import BlogView from "./pages/blog/view"
+import BlogCreate from "./pages/blog/create"
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -120,6 +125,20 @@ const router = createBrowserRouter([
     path: "/admin/dash",
     element: <AdminDashboard />,
   },
+  {
+    path: "/blog/",
+    element: <BlogHome />,
+  },
+  {
+    path: "/blog/view",
+    element: <BlogView />,
+  },
+  {
+    path: "/blog/create",
+    element: <BlogCreate />,
+  },
+
+
 ]);
 
 export default router;

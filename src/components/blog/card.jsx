@@ -3,38 +3,52 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, Avatar, Box, Divider } from '@mui/material';
+import { Button, CardActionArea, Avatar, Box } from '@mui/material';
+import "../../assets/font.css"
 
-export default function MultiActionAreaCard() {
+function MultiActionAreaCard(props) {
+  const { image, title, content, author, date, avatar } = props;
+
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{
+      maxWidth: 345,
+      borderRadius: '15px',
+      transition: 'transform 0.2s',
+      '&:hover': {
+        transform: 'translateY(-4px)',
+      }
+    }}>
       <CardActionArea>
-        <CardMedia
-          component="img"
-          height="140"
-          image="formBg.jpg"
-          alt="green iguana"
-        />
+        <Box sx={{ margin: '15px', borderRadius: '12px', overflow: 'hidden' }}>
+          <CardMedia
+            component="img"
+            height="200"
+            image={image} // Use the image prop
+            alt="green iguana"
+            style={{
+              objectFit: 'cover',
+              width: '100%',
+            }}
+          />
+        </Box>
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            Smart Furniture
+          <Typography gutterBottom variant="h5" component="div" sx={{fontFamily: "Poppins"}}>
+            {title} {/* Use the title prop */}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            The Corridor Media Console is engineered for functionality but the exquisite craftsmanship cannot be denied.
-            In fact, the Corridor is our best-selling media console.
+          <Typography variant="body2" color="text.secondary" sx={{fontFamily: "Poppins"}}>
+            {content} {/* Use the content prop */}
           </Typography>
         </CardContent>
       </CardActionArea>
-      <Divider />
       <Box display="flex" alignItems="center" justifyContent="space-between" p={2}>
         <Box display="flex" alignItems="center">
-          <Avatar src="User/user.png" />
+          <Avatar src={avatar} /> {/* Use the avatar prop */}
           <Box ml={1}>
             <Typography variant="body2" color="text.secondary" fontSize={14}>
-              S. Akarawita
+              {author} {/* Use the author prop */}
             </Typography>
             <Typography variant="body2" color="text.secondary" fontSize={12}>
-              16th of July 2023
+              {date} {/* Use the date prop */}
             </Typography>
           </Box>
         </Box>
@@ -45,3 +59,5 @@ export default function MultiActionAreaCard() {
     </Card>
   );
 }
+
+export default MultiActionAreaCard;
