@@ -96,6 +96,10 @@ const theme = createTheme({
   palette: palette,
   typography: {
     button: {
+      fontFamily:[
+        'Poppins',
+        'sans-serif'
+      ].join(','),
       textTransform: "none",
     },
   },
