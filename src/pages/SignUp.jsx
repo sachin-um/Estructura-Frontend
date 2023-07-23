@@ -31,7 +31,7 @@ function SignUp() {
               }}
             >
             <img
-              src="homeOwner.jpg"
+              src="/homeOwner.jpg"
               alt="Home Owner"
               style={{ width: "100%", height: '60%', marginBottom: "2rem" }}
             />
@@ -65,7 +65,7 @@ function SignUp() {
               }}
             >
             <img
-              src="serviceProvider.webp"
+              src="/serviceProvider.webp"
               alt="Service Provider"
               style={{ width: "100%", height: '60%', marginBottom: "2rem" }}
             />
