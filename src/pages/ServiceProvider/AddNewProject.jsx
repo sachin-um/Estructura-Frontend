@@ -100,7 +100,7 @@ function AddNewProject() {
                 {image ? (
                   <img
                     src={image}
-                    style={{ width: "100%", height: "100%" }}
+                    style={{ width: "100%", height: "300px" }}
                     alt={fileName}
                   />
                 ) : (
