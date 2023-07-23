@@ -14,7 +14,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import PersonIcon from '@mui/icons-material/Person';
 import Grid from '@mui/material/Grid';
 
-const pages = ['Home', 'Professionals', 'Products', 'Blog'];
+const pages = ['Home', 'Professionals', 'Products', 'Rent Items', 'Blog'];
 const professionalsTopics = ['Architects', 'Interior Designers', 'Construction Companies', 'Landscape Architects', 'Home Builders', 'Painters', 'Carpenters'];
 const productsTopics = ['Furniture', 'Hardware Items', 'Gardening Items and Tools', 'Bathware', 'Lighting'];
 
@@ -22,7 +22,6 @@ function TopBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElProfessionals, setAnchorElProfessionals] = React.useState(null);
   const [anchorElProducts, setAnchorElProducts] = React.useState(null);
-  // const [isAppBarFixed, setIsAppBarFixed] = React.useState(false);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -48,23 +47,7 @@ function TopBar() {
     setAnchorElProducts(null);
   };
 
-  // React.useEffect(() => {
-  //   const handleScroll = () => {
-  //     const scrollTop = window.scrollY;
-  //     const isFixed = scrollTop > 0;
-  //     setIsAppBarFixed(isFixed);
-  //   };
-
-  //   window.addEventListener('scroll', handleScroll);
-
-  //   return () => {
-  //     window.removeEventListener('scroll', handleScroll);
-  //   };
-  // }, []);
-
-
   return (
-    // <AppBar position={isAppBarFixed ? 'fixed' : 'relative'} sx={{ backgroundColor: 'white', color: 'green', transition: 'position 0.2s ease-in-out', }}>
     <AppBar position ="relative" sx={{ backgroundColor: 'white', color: 'green' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -86,7 +69,7 @@ function TopBar() {
               flexGrow: 1,
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'flex-start', // Logo aligns to the left
+              justifyContent: 'flex-start', 
             }}
           >
             <img src="Logo.png" alt="" height={65} width={65} />
@@ -134,24 +117,36 @@ function TopBar() {
 
           <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center' }}>
             <Tooltip title="Sign In">
-              <IconButton color="inherit" sx={{ fontSize: 16 }} aria-label="Sign In">
-                <PersonIcon color="secondary" />
-              </IconButton>
+              <Button
+                color='primary'
+                variant='outlined'
+                sx={{
+                  fontSize: 16,
+                  '&:hover': {
+                    variant: 'contained',
+                  }
+                }}
+              >
+                Sign In
+              </Button>
             </Tooltip>
-            <Typography variant="body1" color="primary" fontWeight={600} sx={{ mr: 2 }}>
-              Sign In
-            </Typography>
 
-            <Box sx={{ width: '10px' }} /> {/* Add a gap of 10px between the icons */}
+            <Box sx={{ width: '15px' }} /> 
 
             <Tooltip title="Sign Up">
-              <IconButton color="inherit" sx={{ fontSize: 16 }} aria-label="Sign Up">
-                <ExitToAppIcon color="secondary" />
-              </IconButton>
+              <Button
+                color='primary'
+                variant='outlined'
+                sx={{
+                  fontSize: 16,
+                  '&:hover': {
+                    variant: 'contained',
+                  }
+                }}
+              >
+                Sign Up
+              </Button>
             </Tooltip>
-            <Typography variant="body1" color="primary" fontWeight={600}>
-              Sign Up
-            </Typography>
           </Box>
 
           <Menu
@@ -165,7 +160,7 @@ function TopBar() {
               {professionalsTopics.map((topic) => (
                 <Grid item xs={6} key={topic}>
                   <MenuItem onClick={handleCloseProfessionalsMenu}>
-                    <Typography textAlign="center" sx={{ color: 'green' }}>
+                    <Typography textAlign="center" sx={{ color: 'black' }}>
                       {topic}
                     </Typography>
                   </MenuItem>
@@ -185,7 +180,7 @@ function TopBar() {
               {productsTopics.map((topic) => (
                 <Grid item xs={6} key={topic}>
                   <MenuItem onClick={handleCloseProductsMenu}>
-                    <Typography textAlign="center" sx={{ color: 'green' }}>
+                    <Typography textAlign="center" sx={{ color: 'black' }}>
                       {topic}
                     </Typography>
                   </MenuItem>
