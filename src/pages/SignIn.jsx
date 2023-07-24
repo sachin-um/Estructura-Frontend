@@ -99,7 +99,7 @@ function SignIn() {
         autoHideDuration={6000}
         open={open}
         onClose={handleClose}
-        anchorOrigin={{ vertical: "top", horizontal: "middle" }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <Alert onClose={handleClose} severity='warning'>
           Your session has expired. Please sign in again.

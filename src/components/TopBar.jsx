@@ -13,10 +13,28 @@ import MenuItem from '@mui/material/MenuItem';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import PersonIcon from '@mui/icons-material/Person';
 import Grid from '@mui/material/Grid';
+import { Link, Link as RouterLink, useLocation } from "react-router-dom";
 
-const pages = ['Home', 'Professionals', 'Products', 'Rent Items', 'Blog'];
-const professionalsTopics = ['Architects', 'Interior Designers', 'Construction Companies', 'Landscape Architects', 'Home Builders', 'Painters', 'Carpenters'];
-const productsTopics = ['Furniture', 'Hardware Items', 'Gardening Items and Tools', 'Bathware', 'Lighting'];
+
+const pages = ['Home', 'Professionals', 'Products', 'Blog'];
+const professionalsTopics = [
+  { id: 0, title: "All", link: "/" },
+  { id: 1, title: "Architects", link: "/" },
+  { id: 2, title: "Interior Designers", link: "/" },
+  { id: 3, title: "Construction Companies", link: "/" },
+  { id: 4, title: "Landscape Architects", link: "/" },
+  { id: 4, title: "Home Builders", link: "/" },
+  { id: 4, title: "Painters", link: "/" },
+  { id: 4, title: "Carpenters", link: "/" },
+];
+const productsTopics = [
+  { id: 0, title: "All", link: "/e-com/Home" },
+  { id: 1, title: "Furniture", link: "/" },
+  { id: 2, title: "Hardware Items", link: "/" },
+  { id: 3, title: "Gardening Items and Tools", link: "/" },
+  { id: 4, title: "Bathware", link: "/" },
+  { id: 4, title: "Lighting", link: "/" }
+];
 
 function TopBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -72,7 +90,9 @@ function TopBar() {
               justifyContent: 'flex-start', 
             }}
           >
-            <img src="Logo.png" alt="" height={65} width={65} />
+            <RouterLink to="/">
+              <img src="/Logo.png" alt="" height={65} width={65} />  
+            </RouterLink>
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -110,7 +130,23 @@ function TopBar() {
                 }
                 sx={{ my: 2, mx: 2, color: 'green', display: 'block', textAlign: 'center', fontSize: '16px', letterSpacing: '0.1rem' }}
               >
-                {page}
+                {page==='Blog' ?
+                  <Link 
+                  component={RouterLink}
+                  underline="hover"
+                  to="/blog/"
+                  style={{
+                    textDecoration:"none",
+                    color:"inherit",
+                    fontSize: '16px',
+                    display:'flex',
+                    }}
+                  >
+                      {page}
+                  </Link>
+                  :
+                  page
+                }
               </Button>
             ))}
           </Box>
@@ -157,14 +193,26 @@ function TopBar() {
             onClose={handleCloseProfessionalsMenu}
           >
             <Grid container>
-              {professionalsTopics.map((topic) => (
-                <Grid item xs={6} key={topic}>
-                  <MenuItem onClick={handleCloseProfessionalsMenu}>
-                    <Typography textAlign="center" sx={{ color: 'black' }}>
-                      {topic}
-                    </Typography>
-                  </MenuItem>
-                </Grid>
+              {professionalsTopics.map((item) => (
+                <Link 
+                  key={item.id}
+                  component={RouterLink}
+                  underline="hover"
+                  to={item.link}
+                  style={{
+                    textDecoration:"none",
+                    color:"inherit",
+                    display:'flex',
+                    }}
+                >
+                  <Grid item xs={6} >
+                    <MenuItem onClick={handleCloseProfessionalsMenu}>
+                      <Typography textAlign="center" sx={{ color: 'green' }}>
+                        {item.title}
+                      </Typography>
+                    </MenuItem>
+                  </Grid>
+                </Link>
               ))}
             </Grid>
           </Menu>
@@ -177,14 +225,26 @@ function TopBar() {
             onClose={handleCloseProductsMenu}
           >
             <Grid container>
-              {productsTopics.map((topic) => (
-                <Grid item xs={6} key={topic}>
-                  <MenuItem onClick={handleCloseProductsMenu}>
-                    <Typography textAlign="center" sx={{ color: 'black' }}>
-                      {topic}
-                    </Typography>
-                  </MenuItem>
-                </Grid>
+              {productsTopics.map((item) => (
+                <Link 
+                  key={item.id}
+                  component={RouterLink}
+                  underline="hover"
+                  to={item.link}
+                  style={{
+                    textDecoration:"none",
+                    color:"inherit",
+                    display:'flex',
+                    }}
+                >
+                  <Grid item xs={6} >
+                    <MenuItem onClick={handleCloseProductsMenu}>
+                      <Typography textAlign="center" sx={{ color: 'green' }}>
+                        {item.title}
+                      </Typography>
+                    </MenuItem>
+                  </Grid>
+                </Link>
               ))}
             </Grid>
           </Menu>
