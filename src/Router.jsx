@@ -8,6 +8,8 @@ import ForgotPassword from "./pages/ForgotPassword";
 import HomeOwnerSignUp from "./pages/HomeOwnerSignUp";
 import ServiceProviderSignUp from "./pages/ServiceProviderSignUp";
 import ServiceProviderProfile from "./pages/ServiceProviderProfile";
+import AddNewProject from "./pages/ServiceProvider/AddNewProject";
+import ViewProject from "./pages/ServiceProvider/ViewProject";
 import Product from "./pages/e-com/Product";
 import Home from "./pages/e-com/Home";
 import ProductList from "./pages/e-com/ProductList";
@@ -26,6 +28,11 @@ import Pie from "./pages/adminDashboard/pie";
 import Reviews from "./pages/adminDashboard/reviews";
 import Geography from "./pages/adminDashboard/geography";
 import Calendar from "./pages/adminDashboard/calendar";
+
+//blog pages
+import BlogHome from "./pages/blog/home";
+import BlogView from "./pages/blog/view"
+import BlogCreate from "./pages/blog/create"
 
 const router = createBrowserRouter([
   {
@@ -71,6 +78,14 @@ const router = createBrowserRouter([
   {
     path: "/ServiceProviderProfile",
     element: <ServiceProviderProfile />,
+  },
+  {
+    path: "/AddNewProject",
+    element: <AddNewProject />,
+  },
+  {
+    path: "/ViewProject",
+    element: <ViewProject />,
   },
   {
     path: "/admin/dashboard",
@@ -120,6 +135,20 @@ const router = createBrowserRouter([
     path: "/admin/dash",
     element: <AdminDashboard />,
   },
+  {
+    path: "/blog/",
+    element: <BlogHome />,
+  },
+  {
+    path: "/blog/view",
+    element: <BlogView />,
+  },
+  {
+    path: "/blog/create",
+    element: <BlogCreate />,
+  },
+
+
 ]);
 
 export default router;
