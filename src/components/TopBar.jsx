@@ -15,6 +15,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import Grid from '@mui/material/Grid';
 import { Link, Link as RouterLink, useLocation } from "react-router-dom";
 
+
 const pages = ['Home', 'Professionals', 'Products', 'Blog'];
 const professionalsTopics = [
   { id: 0, title: "All", link: "/" },
@@ -39,7 +40,6 @@ function TopBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElProfessionals, setAnchorElProfessionals] = React.useState(null);
   const [anchorElProducts, setAnchorElProducts] = React.useState(null);
-  // const [isAppBarFixed, setIsAppBarFixed] = React.useState(false);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -65,23 +65,7 @@ function TopBar() {
     setAnchorElProducts(null);
   };
 
-  // React.useEffect(() => {
-  //   const handleScroll = () => {
-  //     const scrollTop = window.scrollY;
-  //     const isFixed = scrollTop > 0;
-  //     setIsAppBarFixed(isFixed);
-  //   };
-
-  //   window.addEventListener('scroll', handleScroll);
-
-  //   return () => {
-  //     window.removeEventListener('scroll', handleScroll);
-  //   };
-  // }, []);
-
-
   return (
-    // <AppBar position={isAppBarFixed ? 'fixed' : 'relative'} sx={{ backgroundColor: 'white', color: 'green', transition: 'position 0.2s ease-in-out', }}>
     <AppBar position ="relative" sx={{ backgroundColor: 'white', color: 'green' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -103,7 +87,7 @@ function TopBar() {
               flexGrow: 1,
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'flex-start', // Logo aligns to the left
+              justifyContent: 'flex-start', 
             }}
           >
             <RouterLink to="/">
@@ -168,46 +152,37 @@ function TopBar() {
           </Box>
 
           <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center' }}>
-            <Link 
-                component={RouterLink}
-                underline="hover"
-                to="/SignIn"
-                style={{
-                  textDecoration:"none",
-                  color:"inherit",
-                  display:'flex',
-                  }}
-            >
-                <Tooltip title="Sign In">
-                <IconButton color="inherit" sx={{ fontSize: 16 }} aria-label="Sign In">
-                  <PersonIcon color="secondary" />
-                </IconButton>
-                </Tooltip>
-                <Typography variant="body1" color="primary" fontWeight={600} sx={{ mr: 2,mt:1 }} className="hover-button">
-                    Sign In 
-                </Typography>
-            </Link>
-            <Box sx={{ width: '10px' }} /> {/* Add a gap of 10px between the icons */}
-            <Link 
-                component={RouterLink}
-                underline="hover"
-                to="/SignUp"
-                style={{
-                  textDecoration:"none",
-                  color:"inherit",
-                  display:'flex',
-                  }}
-            >
-                <Tooltip title="Sign Up">
-                <IconButton color="inherit" sx={{ fontSize: 16 }} aria-label="Sign Up">
-                  <ExitToAppIcon color="secondary" />
-                </IconButton>
-                </Tooltip>
-                <Typography variant="body1" color="primary" fontWeight={600} sx={{ mt:1 }} className="hover-button">
-                  Sign Up
-                </Typography>
-            </Link>      
-            
+            <Tooltip title="Sign In">
+              <Button
+                color='primary'
+                variant='outlined'
+                sx={{
+                  fontSize: 16,
+                  '&:hover': {
+                    variant: 'contained',
+                  }
+                }}
+              >
+                Sign In
+              </Button>
+            </Tooltip>
+
+            <Box sx={{ width: '15px' }} /> 
+
+            <Tooltip title="Sign Up">
+              <Button
+                color='primary'
+                variant='outlined'
+                sx={{
+                  fontSize: 16,
+                  '&:hover': {
+                    variant: 'contained',
+                  }
+                }}
+              >
+                Sign Up
+              </Button>
+            </Tooltip>
           </Box>
 
           <Menu
