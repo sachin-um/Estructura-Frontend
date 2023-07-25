@@ -65,6 +65,7 @@ function Professional({
           display: "flex",
           flexDirection: "column",
           gap: "30px",
+          minHeight:'80vh'
         }}
       >
         <Formik
@@ -77,7 +78,7 @@ function Professional({
             nextPage();
           }}
           initialValues={initialValues}
-          // validationSchema={validationSchema}
+          validationSchema={validationSchema}
         >
           {({
             values,

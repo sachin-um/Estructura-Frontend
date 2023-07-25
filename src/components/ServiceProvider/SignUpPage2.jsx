@@ -44,10 +44,24 @@ function SignUpPage2({
         );
         break;
       case "two":
-        tab = <RetailStore nextPage={nextPage} previousPage={previousPage} />;
+        tab = (
+          <RetailStore 
+            nextPage={nextPage} 
+            previousPage={previousPage} 
+            updateFormData={updateFormData}
+            formData={formData}  
+          />
+        );
         break;
       case "three":
-        tab = <RentalStore nextPage={nextPage} previousPage={previousPage} />;
+        tab = (
+          <RentalStore 
+            nextPage={nextPage} 
+            previousPage={previousPage} 
+            updateFormData={updateFormData}
+            formData={formData}  
+            />
+        );
         break;
     }
     return tab;
