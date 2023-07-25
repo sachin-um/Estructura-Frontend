@@ -65,13 +65,12 @@ function Professional({
           display: "flex",
           flexDirection: "column",
           gap: "30px",
-          minHeight:'80vh'
+          minHeight:'100vh'
         }}
       >
         <Formik
           innerRef={formRef}
           onSubmit={(values) => {
-            console.log("sdadsadsad")
             // TODO: HANDLE PAGE CHANGE HERE!!!
             updateFormData(values);
             handleDropdownChange(values.role);
@@ -152,8 +151,7 @@ function Professional({
                     style={{
                       display: "flex",
                       justifyContent: "center",
-                      margin: 10,
-                      width: "80%",
+                      width: "100%",
                     }}
                   >
                     <Button

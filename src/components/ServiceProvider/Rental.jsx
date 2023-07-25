@@ -40,8 +40,8 @@ import AddressInputs,{addressInitialValues,addressValidators} from "../Auth/Addr
       businessName: formData.businessName ?? "",
       registrationNo:formData.registrationNo ?? "",
       contactNo: formData.contactNo ?? "",
-      firstname:  "",
-      lastname:  "",
+      firstname: formData.firstname?? "",
+      lastname:  formData.lastname ?? "",
       ...addressInitialValues,
     }  ;  
     // TODO: Change Layout
@@ -54,7 +54,7 @@ import AddressInputs,{addressInitialValues,addressValidators} from "../Auth/Addr
                       display: "flex",
                       flexDirection: "column",
                       gap: "30px",
-                      minHeight:'80vh'
+                      minHeight:'100vh'
                     }}
                   >
                     <Formik
@@ -95,7 +95,7 @@ import AddressInputs,{addressInitialValues,addressValidators} from "../Auth/Addr
                                     {" "}
                                     Owner Details{" "}
                                   </Typography>
-                                  <Box sx={{ display: 'flex', gap: '1' }}>
+                                  <Box sx={{ display: 'flex', gap: 1 }}>
                                       <TextField
                                           label='Your First Name'
                                           variant='filled'
@@ -123,13 +123,14 @@ import AddressInputs,{addressInitialValues,addressValidators} from "../Auth/Addr
                                     {...spread("businessName")}
                                   />
                                   <TextField 
+                                  style={{display:"none"}}
                                     type="hidden"
                                     name='role' 
                                     label='role' 
                                     variant="filled" 
                                     size="small"
                                     value={initialValues.role}
-                                    color="secoundary"  
+                                    color="secondary"  
                                     {...spread("role")}
                                   />
                                   <TextField  
@@ -153,8 +154,7 @@ import AddressInputs,{addressInitialValues,addressValidators} from "../Auth/Addr
                                       style={{
                                         display: "flex",
                                         justifyContent: "center",
-                                        margin: 10,
-                                        width: "80%",
+                                        width: "100%",
                                       }}
                                     >
                                       <Button
