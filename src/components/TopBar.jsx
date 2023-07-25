@@ -195,6 +195,7 @@ function TopBar() {
                   fontSize: 16,
                   '&:hover': {
                     variant: 'contained',
+                    backgroundColor:'#ddf0dd'
                   }
                 }}
               >
@@ -210,27 +211,26 @@ function TopBar() {
             open={Boolean(anchorElProfessionals)}
             onClose={handleCloseProfessionalsMenu}
           >
-            <Grid container>
+            <Grid container sx={{ display: 'flex', flexWrap: 'wrap' }}>
               {professionalsTopics.map((item) => (
-                <Link 
-                  key={item.id}
-                  component={RouterLink}
-                  underline="hover"
-                  to={item.link}
-                  style={{
-                    textDecoration:"none",
-                    color:"inherit",
-                    display:'flex',
+                <Grid key={item.id} item xs={6}>
+                  <Link
+                    component={RouterLink}
+                    underline="hover"
+                    to={item.link}
+                    style={{
+                      textDecoration: 'none',
+                      color: 'inherit',
+                      display: 'flex',
                     }}
-                >
-                  <Grid item xs={6} >
+                  >
                     <MenuItem onClick={handleCloseProfessionalsMenu}>
                       <Typography textAlign="center" sx={{ color: 'green' }}>
                         {item.title}
                       </Typography>
                     </MenuItem>
-                  </Grid>
-                </Link>
+                  </Link>
+                </Grid>
               ))}
             </Grid>
           </Menu>
@@ -242,27 +242,26 @@ function TopBar() {
             open={Boolean(anchorElProducts)}
             onClose={handleCloseProductsMenu}
           >
-            <Grid container>
+            <Grid container sx={{ display: 'flex', flexWrap: 'wrap' }}>
               {productsTopics.map((item) => (
-                <Link 
-                  key={item.id}
-                  component={RouterLink}
-                  underline="hover"
-                  to={item.link}
-                  style={{
-                    textDecoration:"none",
-                    color:"inherit",
-                    display:'flex',
+                <Grid key={item.id} item xs={6}>
+                  <Link
+                    component={RouterLink}
+                    underline="hover"
+                    to={item.link}
+                    style={{
+                      textDecoration: 'none',
+                      color: 'inherit',
+                      display: 'flex',
                     }}
-                >
-                  <Grid item xs={6} >
+                  >
                     <MenuItem onClick={handleCloseProductsMenu}>
                       <Typography textAlign="center" sx={{ color: 'green' }}>
                         {item.title}
                       </Typography>
                     </MenuItem>
-                  </Grid>
-                </Link>
+                  </Link>
+                </Grid>
               ))}
             </Grid>
           </Menu>
