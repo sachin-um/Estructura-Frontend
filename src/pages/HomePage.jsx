@@ -7,11 +7,11 @@ import {
   Grid,
   Card,
   CardMedia,
+  CardContent,
+  Paper
 } from "@mui/material";
 import TopBar from "../components/TopBar";
 import HomepageCarousel from "../components/Carousel/HomepageCarousel";
-import BlogCard from "../components/blog/card";
-
 import "../assets/font.css"
 
 
@@ -82,7 +82,6 @@ const Slider = ({ images, interval = 5000 }) => {
               variant="h5"
               paragraph
               fontFamily="Poppins" 
-              // fontWeight="bold"
               fontSize="2rem"
               color="white"
             >
@@ -207,20 +206,53 @@ const HomePage = () => {
     },
   ];
 
+  const cardDataRentItems = [
+    {
+      image: "/RentItems/heavyMachinery.webp",
+      title: "Heavy Machinery",
+    },
+    {
+      image: "/RentItems/tools.jpg",
+      title: "Tools and Equipment",
+    },
+    {
+      image: "/RentItems/portableMachines.jpg",
+      title: "Portable Machines",
+    },
+  ];
+  
+
   const blogCardData = [
     {
       image: "formBg.jpg",
+      title: 'Estructura Furniture',
+      user: {
+        profilePic: '/User/user.png',
+        name: 'S.Akarawita',
+      }
     },
     {
       image: "HomeOwnerBG.jpg",
+      title: 'Gardening Tips',
+      user: {
+        profilePic: '/User/user.png',
+        name: 'P.Guruge',
+      }
     },
     {
       image: "ForgotPasswordBG.jpg",
+      title: 'Bathware Trends',
+      user: {
+        profilePic: '/User/user.png',
+        name: 'S.Umayangana',
+      }
     },
   ];
   const [hoveredIndexBrowse, setHoveredIndexBrowse] = useState(null);
   const [hoveredIndexShopBy, setHoveredIndexShopBy] = useState(null);
+  const [hoveredIndexRentItems, setHoveredIndexRentItems] = useState(null);
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [showOverlay, setShowOverlay] = useState(false);
 
   return (
     <Box>
@@ -240,32 +272,91 @@ const HomePage = () => {
           gutterBottom
           color="#435834"
           fontFamily="Poppins" 
-          // fontWeight="bold"
           fontSize="1.7rem"
           textAlign="left"
           marginTop="20px"
           marginBottom="20px"
-          marginLeft="20px"
+          marginLeft='10px'
         >
           Explore Professionals
         </Typography>
 
-        <HomepageCarousel cards={cardDataBrowse} />
+        <HomepageCarousel 
+          cards={cardDataBrowse}
+        />
 
         <Typography
           variant="h5"
           gutterBottom
           color="#435834"
-          fontWeight="bold"
           fontSize="1.7rem"
+          fontFamily="Poppins" 
           textAlign="left"
           marginTop="50px"
-          marginLeft="20px"
+          marginLeft='10px'
         >
           Buy Products
         </Typography>
 
-        <HomepageCarousel cards={cardDataShopBy} />
+        <HomepageCarousel 
+          cards={cardDataShopBy} 
+        />
+
+        {/*Rent Items*/}
+        <Typography
+            variant="h5"
+            gutterBottom
+            color="#435834"
+            fontSize="1.7rem"
+            fontFamily="Poppins"
+            textAlign="left"
+            marginTop="50px"
+            marginLeft='10px'
+        >
+          Rent Items
+        </Typography>
+
+        <Grid container spacing={2}>
+          {cardDataRentItems.map((card, index) => (
+            <Grid item key={index} xs={12} sm={4}>
+              <Box
+                onMouseEnter={() => setHoveredIndexRentItems(index)}
+                onMouseLeave={() => setHoveredIndexRentItems(null)}
+                sx={{
+                  position: 'relative',
+                  height: '300px',
+                }}
+              >
+                <img 
+                  src={card.image}
+                  alt={card.title}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    marginLeft: '10px',
+                    filter: hoveredIndexRentItems === index ? 'brightness(60%)' : 'none',
+                    transition: 'filter 0.3s ease',
+                  }}
+                />
+                {hoveredIndexRentItems === index && (
+                  <Box
+                  sx={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                  }}
+                  >
+                    <Typography variant='h6' color='white'>
+                      {card.title}
+                    </Typography>
+                  </Box>
+                )}
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
 
         {/* Create your own idea banner */}
         <Box
@@ -281,6 +372,7 @@ const HomePage = () => {
               width: "100%",
               height: "100%",
               objectFit: "cover",
+              marginLeft: '10px'
             }}
           />
           <Box
@@ -302,16 +394,16 @@ const HomePage = () => {
               <Typography
                 variant="h4"
                 paragraph
-                fontWeight="bold"
+                fontFamily="Poppins" 
                 fontSize="1.7rem"
                 color="#304422"
               >
                 Missing that special touch?
               </Typography>
               <Typography
-                variant="h6"
                 paragraph
-                fontSize="1.2rem"
+                fontSize="1.1rem"
+                fontFamily="Poppins" 
                 color="#435834"
                 marginBottom="30px"
               >
@@ -347,6 +439,7 @@ const HomePage = () => {
               width: "100%",
               height: "100%",
               objectFit: "cover",
+              marginLeft: '10px'
             }}
           />
           <Box
@@ -368,25 +461,25 @@ const HomePage = () => {
               <Typography
                 variant="h4"
                 paragraph
-                fontWeight="bold"
+                fontFamily="Poppins" 
                 fontSize="1.5rem"
                 color="#304422"
               >
                 Elevate your room's vibe with exclusive furniture!
               </Typography>
               <Typography
-                variant="h6"
                 paragraph
                 fontSize="1.1rem"
+                fontFamily="Poppins" 
                 color="#435834"
                 marginBottom="30px"
               >
                 Discover unique twists that perfectly match your interior.
               </Typography>
               <Typography
-                variant="h6"
                 paragraph
                 fontSize="1.1rem"
+                fontFamily="Poppins" 
                 color="#435834"
                 marginBottom="30px"
               >
@@ -415,20 +508,20 @@ const HomePage = () => {
           width="100%"
           marginTop="10px"
         >
-          <Box marginTop="50px" marginLeft="10px">
+          <Box marginTop="50px" marginLeft="10px" textAlign="center">
             <Typography
               variant="h4"
               paragraph
-              fontWeight="bold"
+              fontFamily="Poppins" 
               fontSize="1.8rem"
               color="#435834"
             >
               Looking for more inspiration?
             </Typography>
             <Typography
-              variant="h6"
               paragraph
               fontSize="1.3rem"
+              fontFamily="Poppins" 
               color="#AF7D51"
               marginBottom="30px"
             >
@@ -446,9 +539,16 @@ const HomePage = () => {
                       transform:
                         hoveredIndex === index ? "scale(0.9)" : "scale(1)",
                       transition: "transform 0.3s ease",
+                      position: 'relative',
                     }}
-                    onMouseEnter={() => setHoveredIndex(index)}
-                    onMouseLeave={() => setHoveredIndex(null)}
+                    onMouseEnter={() => {
+                      setHoveredIndex(index);
+                      setShowOverlay(true);
+                    }}
+                    onMouseLeave={() => {
+                      setHoveredIndex(null);
+                      setShowOverlay(false);
+                    }}
                   >
                     <CardMedia
                       component="img"
@@ -457,6 +557,52 @@ const HomePage = () => {
                       alt={card.title}
                       sx={{ objectFit: "cover" }}
                     />
+                    {showOverlay && hoveredIndex === index && (
+                      <Paper
+                        sx={{
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          width: '100%',
+                          height: '100%',
+                          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          padding: '16px',
+                        }}
+                      >
+                        <Typography variant="h5" color="white" sx={{ textAlign: "center" }}> 
+                          {card.title}
+                        </Typography>
+                        <Box sx={{
+                            display: "flex",
+                            flexDirection: "row", 
+                            alignItems: "center", 
+                            marginBottom: "16px", 
+                          }}
+                        >
+                          <img
+                            src={card.user.profilePic}
+                            alt={card.user.name}
+                            style={{
+                              width: "40px",
+                              height: "40px",
+                              borderRadius: "50%",
+                              marginRight: '16px',
+
+                            }}
+                          />
+    
+        
+                          <Typography variant="h7" color="white">
+                            {card.user.name}
+                          </Typography>
+
+                        </Box>
+                      </Paper>
+                    )}
                   </Card>
                 </Grid>
               ))}
