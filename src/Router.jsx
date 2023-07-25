@@ -10,6 +10,7 @@ import ServiceProviderSignUp from "./pages/ServiceProviderSignUp";
 import ServiceProviderProfile from "./pages/ServiceProviderProfile";
 import AddNewProject from "./pages/ServiceProvider/AddNewProject";
 import ViewProject from "./pages/ServiceProvider/ViewProject";
+import ViewResponse from "./pages/ServiceProvider/ViewResponse";
 import Product from "./pages/e-com/Product";
 import Home from "./pages/e-com/Home";
 import ProductList from "./pages/e-com/ProductList";
@@ -147,8 +148,10 @@ const router = createBrowserRouter([
     path: "/blog/create",
     element: <BlogCreate />,
   },
-
-
+  {
+    path: "/ViewResponse",
+    element: <ViewResponse/>,
+  }
 ]);
 
 export default router;
