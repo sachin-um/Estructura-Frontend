@@ -1,75 +1,97 @@
 // TODO: Add Service Provider Sign In Page with 2 paths (service provider and retail store)
 
-import Professional from "./Professional";
-import RetailStore from "./RetailStore";
-import React,{useState} from "react";
 import {
   Box,
   Button,
   Container,
   Grid,
-  Stack,
-  Link,
   TextField,
-  FormControl,
-  InputLabel,
   Typography,
 } from "@mui/material";
-// import { Link } from "react-router-dom" ;
+import { useRef } from "react";
+import { Formik,Form } from "formik";
+import * as yup from "yup";
 
-function SignUpPage1({updateFormData,handleDropdownChange,nextPage}) {
-  const HandleSubmit = (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    console.log(formData.get("email"), formData.get("password"));
-  };
+const validationSchema = yup.object({
+  email: yup
+    .string()
+    .email("Enter a valid email")
+    .required("Email is required"),
+  password: yup
+    .string()
+    .min(5, "Password should be of minimum 5 characters length")
+    .required("Password is required"),
+  confirmpassword: yup
+    .string()
+    .oneOf([yup.ref("password")], "Passwords must match"),
+});
 
-  const handleNext=() =>{
-    nextPage();
-  }
+function SignUpPage1({ formData ,updateFormData, nextPage }) {
+  const formRef = useRef(null);
   // TODO: Change Layout
   return (
     <>
-      
       <Container
         maxWidth={false}
-        style={{ backgroundColor: '#f7f8f1', minHeight: '100vh', display: 'flex', alignItems: 'center' }}
+        style={{
+          backgroundColor: "#f7f8f1",
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+        }}
       >
-        <Grid container justifyContent="center" spacing={4}>
-          <Grid item xs={12} md={7} style={{ paddingTop: '2rem', paddingBottom: '2rem', marginTop: '2rem' }}>
+        <Grid container justifyContent='center' spacing={4}>
+          <Grid
+            item
+            xs={12}
+            md={7}
+            style={{
+              paddingTop: "2rem",
+              paddingBottom: "2rem",
+              marginTop: "2rem",
+            }}
+          >
             <Grid
               container
               style={{
                 backgroundImage: 'url("/serviceprovider.jpeg")',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                borderRadius: '20px',
-                height: '100%',
-                display: 'flex',
-                alignItems: 'flex-end',
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                borderRadius: "20px",
+                height: "100%",
+                display: "flex",
+                alignItems: "flex-end",
               }}
             >
-              <Grid item xs={12} style={{ paddingLeft: '4rem', paddingRight: '1rem', marginBottom: '2rem' }}>
+              <Grid
+                item
+                xs={12}
+                style={{
+                  paddingLeft: "4rem",
+                  paddingRight: "1rem",
+                  marginBottom: "2rem",
+                }}
+              >
                 <Typography
-                  variant="h4"
+                  variant='h4'
                   style={{
-                    color: '#ffffff',
-                    fontSize: '1.5rem',
-                    textAlign: 'left',
-                    lineHeight: '1',
-                    paddingBottom: '1rem',
-                    marginTop: 'auto',
+                    color: "#ffffff",
+                    fontSize: "1.5rem",
+                    textAlign: "left",
+                    lineHeight: "1",
+                    paddingBottom: "1rem",
+                    marginTop: "auto",
                   }}
                 >
                   Unleash your home’s potential
                 </Typography>
                 <Typography
-                  variant="h4"
+                  variant='h4'
                   style={{
-                    color: '#ffffff',
-                    fontSize: '1.5rem',
-                    textAlign: 'left',
-                    lineHeight: '1',
+                    color: "#ffffff",
+                    fontSize: "1.5rem",
+                    textAlign: "left",
+                    lineHeight: "1",
                   }}
                 >
                   with everything at your fingertips
@@ -81,51 +103,135 @@ function SignUpPage1({updateFormData,handleDropdownChange,nextPage}) {
             <Grid
               container
               style={{
-                backgroundColor: '#ffffff',
-                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                borderRadius: '20px',
-                padding: '1rem 2rem 3rem',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginTop: '2rem',
-                marginBottom: '2rem',
+                backgroundColor: "#ffffff",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                borderRadius: "20px",
+                padding: "1rem 2rem 3rem",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: "2rem",
+                marginBottom: "2rem",
               }}
             >
-              <Grid item xs={12} style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'center' }}>
-                <img src="/Logo.png" alt="Logo" style={{ width: '40%' }} />
-              </Grid>
-              <Grid item xs={12} style={{ marginTop: '1rem' }}>
-              <Box
-                component='form'
-                sx={{
-                  margin: "10px",
+              <Grid
+                item
+                xs={12}
+                style={{
+                  marginBottom: "1.5rem",
                   display: "flex",
-                  flexDirection: "column",
-                  gap: "20px",
+                  justifyContent: "center",
                 }}
-                onSubmit={HandleSubmit}
               >
-               {<Grid style={{justifyContent:"center"}}>
-                <TextField  InputProps={{ sx: { borderRadius: 2 } }}sx={{ width: 1,margin:2 }}type='email' name='email' label='Email' variant="filled" size="small" />
-                <TextField  InputProps={{ sx: { borderRadius: 2 } }}sx={{ width: 1,margin:2 }}type='password' name='password' label='Password'  variant="filled" size="small"/>
-                <TextField  InputProps={{ sx: { borderRadius: 2 } }}sx={{ width: 1,margin:2 }}type='ConfirmPassword' name='ConfirmPassword' label='Confirm Password'  variant="filled" size="small"/>
-                
-                </Grid >}
-           
-   
-                { <Grid style={{display:"flex",justifyContent:"center",margin:10}}>
-                <Button sx={{ width: 1/3,  borderRadius:2 }}type='submit' color="primary" variant="contained" size='large' onClick={handleNext}>Next</Button>
-                </Grid> }
-                
-              </Box>
+                <img src='/Logo.png' alt='Logo' style={{ width: "40%" }} />
+              </Grid>
+              <Grid item xs={12} style={{ marginTop: "1rem" }}>
+                <Box
+                  sx={{
+                    margin: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "20px",
+                  }}
+                >
+                  {
+                    <Grid style={{ justifyContent: "center" }}>
+                      <Formik
+                        innerRef={formRef}
+                        onSubmit={
+                          (values) =>{
+                            updateFormData(values);
+                            nextPage();
+                          }
+                        }
+                        initialValues={{
+                          email: formData.email ?? "",
+                          password: formData.password ?? "",
+                          confirmpassword: formData.confirmpassword ?? "",
+                        }}
+                        validationSchema={validationSchema}
+                      >
+                        {({
+                          values,
+                          errors,
+                          touched,
+                          handleChange,
+                          handleBlur,
+                          handleSubmit,
+                          isSubmitting,
+                        }) => {
+                          const spread = (field, helper = true) => {
+                            return {
+                              name: field,
+                              onBlur: handleBlur,
+                              onChange: handleChange,
+                              value: values[field],
+                              error: touched[field] && !!errors[field],
+                              disabled: isSubmitting,
+                              ...(helper && {
+                                helperText: touched[field] && errors[field],
+                              }),
+                            };
+                          };
+                          return (
+                            <Form onSubmit={handleSubmit}>
+                              <TextField
+                                InputProps={{ sx: { borderRadius: 2 } }}
+                                sx={{ width: 1, margin: 2 }}
+                                type='email'
+                                label='Email'
+                                variant='filled'
+                                size='small'
+                                {...spread("email")}
+                              />
+                              <TextField
+                                InputProps={{ sx: { borderRadius: 2 } }}
+                                sx={{ width: 1, margin: 2 }}
+                                type='password'
+                                label='Password'
+                                variant='filled'
+                                size='small'
+                                {...spread("password")}
+                              />
+                              <TextField
+                                InputProps={{ sx: { borderRadius: 2 } }}
+                                sx={{ width: 1, margin: 2 }}
+                                type='password'
+                                label='Confirm Password'
+                                variant='filled'
+                                size='small'
+                                {...spread("confirmpassword")}
+                              />
+                              <Grid
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  margin: 10,
+                                }}
+                              >
+                                <Button
+                                  sx={{ width: 1 / 3, borderRadius: 2 }}
+                                  type='submit'
+                                  color='primary'
+                                  variant='contained'
+                                  size='large'
+                                >
+                                  Next
+                                </Button>
+                              </Grid>
+                            </Form>
+                          );
+                        }}
+                      </Formik>
+                    </Grid>
+                  }
+                </Box>
               </Grid>
             </Grid>
           </Grid>
         </Grid>
       </Container>
-      
     </>
   );
 }

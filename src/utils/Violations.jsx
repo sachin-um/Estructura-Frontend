@@ -6,6 +6,4 @@ const violationsToErrors = (violations) => {
   return errors;
 };
 
-export {
-    violationsToErrors
-}
+export { violationsToErrors };

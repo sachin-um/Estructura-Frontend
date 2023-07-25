@@ -1,52 +1,23 @@
-import TopBar from "../components/TopBar";
 import {
+  Alert,
+  Box,
   Button,
   Container,
   Grid,
+  Snackbar,
   TextField,
   Typography,
-  Box,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  Snackbar,
-  Alert,
 } from "@mui/material";
-import * as yup from "yup";
 import { Formik } from "formik";
-import { useState,useRef } from "react";
-import { clearTokens } from "../lib/API";
-import API from "../lib/API";
+import { useRef, useState } from "react";
+import * as yup from "yup";
+import AddressInputs, {
+  addressValidators,
+  districts,
+} from "../components/Auth/AddressInputs";
+import TopBar from "../components/TopBar";
+import API, { clearTokens } from "../lib/API";
 import { violationsToErrors } from "../utils/Violations";
-
-const districts = [
-  "Ampara",
-  "Anuradhapur",
-  "Badulla",
-  "Batticaloa",
-  "Colombo",
-  "Galle",
-  "Gampaha",
-  "Hambantota",
-  "Jaffna",
-  "Kalutara",
-  "Kandy",
-  "Kegalle",
-  "Kilinochchi",
-  "Kurunegala",
-  "Mannar",
-  "Matale",
-  "Matara",
-  "Monaragala",
-  "Mullaitivu",
-  "Nuwara Eliya",
-  "Polonnaruwa",
-  "Puttalam",
-  "Ratnapura",
-  "Trincomalee",
-  "Vavuniya",
-];
 
 const ValidationSchema = yup.object().shape({
   email: yup
@@ -61,15 +32,8 @@ const ValidationSchema = yup.object().shape({
     .string()
     .matches(/^(\+94)|(0)[0-9]{9}$/, "Invalid Contact Number")
     .required("Contact Number is required"),
-  addressLine1: yup.string().required("Address Line 1 is required"),
-  addressLine2: yup.string().required("Address Line 2 is required"),
-  city: yup.string().required("City is required"),
-  district: yup
-    .string()
-    .oneOf(districts, "District has to be valid")
-    .required("District is required"),
+  ...addressValidators,
 });
-
 
 const initialValues = {
   email: "",
@@ -105,7 +69,8 @@ function HomeOwnerSignUp() {
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <Alert onClose={handleClose} severity='success'>
-          An Email has been sent to your email address. Please verify your email to complete the Sign up process.
+          An Email has been sent to your email address. Please verify your email
+          to complete the Sign up process.
         </Alert>
       </Snackbar>
       <Container
@@ -206,8 +171,7 @@ function HomeOwnerSignUp() {
               <Grid item xs={12} style={{ marginTop: "1rem" }}>
                 <Formik
                   innerRef={FormRef}
-                  onSubmit={(values) => {
-                    const { setErrors, setSubmitting } = FormRef.current;
+                  onSubmit={(values, { setErrors, setSubmitting }) => {
                     clearTokens();
                     setSubmitting(true);
                     if (values.password !== values.confirmPassword) {
@@ -254,24 +218,17 @@ function HomeOwnerSignUp() {
                     isSubmitting,
                   }) => {
                     const spread = (field, helper = true) => {
-                      return helper
-                        ? {
-                            name: field,
-                            onBlur: handleBlur,
-                            onChange: handleChange,
-                            value: values[field],
-                            error: touched[field] && !!errors[field],
-                            helperText: touched[field] && errors[field],
-                            disabled: isSubmitting,
-                          }
-                        : {
-                            name: field,
-                            onBlur: handleBlur,
-                            onChange: handleChange,
-                            value: values[field],
-                            error: touched[field] && !!errors[field],
-                            disabled: isSubmitting,
-                          };
+                      return {
+                        name: field,
+                        onBlur: handleBlur,
+                        onChange: handleChange,
+                        value: values[field],
+                        error: touched[field] && !!errors[field],
+                        disabled: isSubmitting,
+                        ...(helper && {
+                          helperText: touched[field] && errors[field],
+                        }),
+                      };
                     };
                     return (
                       <form
@@ -344,60 +301,7 @@ function HomeOwnerSignUp() {
                           color='secondary'
                           {...spread("confirmPassword")}
                         />
-                        <Typography
-                          variant='h8'
-                          sx={{ textAlign: "left", color: "#435834" }}
-                        >
-                          {" "}
-                          Address{" "}
-                        </Typography>
-                        <TextField
-                          label='Address Line 1'
-                          type='text'
-                          fullWidth
-                          variant='filled'
-                          color='secondary'
-                          {...spread("addressLine1")}
-                        />
-                        <TextField
-                          label='Address Line 2'
-                          type='text'
-                          fullWidth
-                          variant='filled'
-                          color='secondary'
-                          {...spread("addressLine2")}
-                        />
-                        <FormControl
-                          variant='filled'
-                          sx={{
-                            m: 1,
-                            minWidth: 120,
-                            width: "100%",
-                            marginLeft: "auto",
-                          }}
-                        >
-                          <InputLabel id='selectDistrict' color='secondary'>
-                            Select District
-                          </InputLabel>
-                          <Select
-                            labelId='selectDistrict-label'
-                            {...spread("district", false)}
-                          >
-                            {districts.map((district) => (
-                              <MenuItem key={district} value={district}>
-                                {district}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        </FormControl>
-                        <TextField
-                          label='City'
-                          type='city'
-                          fullWidth
-                          variant='filled'
-                          color='secondary'
-                          {...spread("city")}
-                        />
+                        <AddressInputs spread={spread} />
                         <Button
                           variant='contained'
                           color='primary'
