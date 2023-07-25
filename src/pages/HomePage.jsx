@@ -10,6 +10,7 @@ import {
   CardContent,
   Paper
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import TopBar from "../components/TopBar";
 import HomepageCarousel from "../components/Carousel/HomepageCarousel";
 import "../assets/font.css"
@@ -254,6 +255,10 @@ const HomePage = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [showOverlay, setShowOverlay] = useState(false);
 
+  const handleMLButtonClick = () => {
+    window.location.href = "/findfurniture";
+  };
+
   return (
     <Box>
       <Slider images={images} interval={5000} />
@@ -302,7 +307,6 @@ const HomePage = () => {
           cards={cardDataShopBy} 
         />
 
-        {/*Rent Items*/}
         <Typography
             variant="h5"
             gutterBottom
@@ -325,6 +329,7 @@ const HomePage = () => {
                 sx={{
                   position: 'relative',
                   height: '300px',
+                  marginTop: 4,
                 }}
               >
                 <img 
@@ -337,6 +342,7 @@ const HomePage = () => {
                     marginLeft: '10px',
                     filter: hoveredIndexRentItems === index ? 'brightness(60%)' : 'none',
                     transition: 'filter 0.3s ease',
+                    borderRadius: 5,
                   }}
                 />
                 {hoveredIndexRentItems === index && (
@@ -494,6 +500,7 @@ const HomePage = () => {
                 }}
                 onMouseEnter={() => setIsFurnitureButtonHovered(true)}
                 onMouseLeave={() => setIsFurnitureButtonHovered(false)}
+                onClick={handleMLButtonClick}
               >
                 Get Started!
               </Button>
