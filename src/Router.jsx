@@ -15,6 +15,7 @@ import Home from "./pages/e-com/Home";
 import ProductList from "./pages/e-com/ProductList";
 import Cart from "./pages/e-com/Cart";
 import AdminDashboard from "./pages/admin/dash";
+import FindFurniture from "./pages/findfurniture";
 
 //admin dashboard
 import Dashboard from "./pages/adminDashboard/dashboard";
@@ -146,6 +147,10 @@ const router = createBrowserRouter([
   {
     path: "/blog/create",
     element: <BlogCreate />,
+  },
+  {
+    path: "/findFurniture",
+    element: <FindFurniture />
   },
 
 

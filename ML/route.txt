@@ -1,0 +1,3 @@
+cd 'D:\Computer Science - UCSC\Third Year\Estructura - 3YGP\Estructura-Frontend\ML\'
+conda activate interior
+python app.py
