@@ -1,52 +1,48 @@
-import TopBar from "../components/TopBar";
 import {
+  Alert,
+  Box,
   Button,
   Container,
   Grid,
-  TextField,
-  Typography,
-  Box,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
   Snackbar,
-  Alert,
+  TextField,
+  Typography
 } from "@mui/material";
-import * as yup from "yup";
 import { Formik } from "formik";
-import { useState, useRef } from "react";
-import { clearTokens } from "../lib/API";
-import API from "../lib/API";
+import { useRef, useState } from "react";
+import * as yup from "yup";
+import AddressInputs, { districts } from "../components/Auth/AddressInputs";
+import TopBar from "../components/TopBar";
+import API, { clearTokens } from "../lib/API";
 import { violationsToErrors } from "../utils/Violations";
 
-const districts = [
-  "Ampara",
-  "Anuradhapur",
-  "Badulla",
-  "Batticaloa",
-  "Colombo",
-  "Galle",
-  "Gampaha",
-  "Hambantota",
-  "Jaffna",
-  "Kalutara",
-  "Kandy",
-  "Kegalle",
-  "Kilinochchi",
-  "Kurunegala",
-  "Mannar",
-  "Matale",
-  "Matara",
-  "Monaragala",
-  "Mullaitivu",
-  "Nuwara Eliya",
-  "Polonnaruwa",
-  "Puttalam",
-  "Ratnapura",
-  "Trincomalee",
-  "Vavuniya",
-];
+// const districts = [
+//   "Ampara",
+//   "Anuradhapur",
+//   "Badulla",
+//   "Batticaloa",
+//   "Colombo",
+//   "Galle",
+//   "Gampaha",
+//   "Hambantota",
+//   "Jaffna",
+//   "Kalutara",
+//   "Kandy",
+//   "Kegalle",
+//   "Kilinochchi",
+//   "Kurunegala",
+//   "Mannar",
+//   "Matale",
+//   "Matara",
+//   "Monaragala",
+//   "Mullaitivu",
+//   "Nuwara Eliya",
+//   "Polonnaruwa",
+//   "Puttalam",
+//   "Ratnapura",
+//   "Trincomalee",
+//   "Vavuniya",
+// ];
 
 const ValidationSchema = yup.object().shape({
   email: yup
@@ -336,60 +332,7 @@ function HomeOwnerSignUp() {
                           color='secondary'
                           {...spread("confirmPassword")}
                         />
-                        <Typography
-                          variant='h8'
-                          sx={{ textAlign: "left", color: "#435834" }}
-                        >
-                          {" "}
-                          Address{" "}
-                        </Typography>
-                        <TextField
-                          label='Address Line 1'
-                          type='text'
-                          fullWidth
-                          variant='filled'
-                          color='secondary'
-                          {...spread("addressLine1")}
-                        />
-                        <TextField
-                          label='Address Line 2'
-                          type='text'
-                          fullWidth
-                          variant='filled'
-                          color='secondary'
-                          {...spread("addressLine2")}
-                        />
-                        <FormControl
-                          variant='filled'
-                          sx={{
-                            m: 1,
-                            minWidth: 120,
-                            width: "100%",
-                            marginLeft: "auto",
-                          }}
-                        >
-                          <InputLabel id='selectDistrict' color='secondary'>
-                            Select District
-                          </InputLabel>
-                          <Select
-                            labelId='selectDistrict-label'
-                            {...spread("district", false)}
-                          >
-                            {districts.map((district) => (
-                              <MenuItem key={district} value={district}>
-                                {district}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        </FormControl>
-                        <TextField
-                          label='City'
-                          type='city'
-                          fullWidth
-                          variant='filled'
-                          color='secondary'
-                          {...spread("city")}
-                        />
+                        <AddressInputs spread={spread} />
                         <Button
                           variant='contained'
                           color='primary'
