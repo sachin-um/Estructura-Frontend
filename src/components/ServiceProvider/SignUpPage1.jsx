@@ -26,7 +26,7 @@ const validationSchema = yup.object({
     .oneOf([yup.ref("password")], "Passwords must match"),
 });
 
-function SignUpPage1({ updateFormData, nextPage }) {
+function SignUpPage1({ formData ,updateFormData, nextPage }) {
   const formRef = useRef(null);
   // TODO: Change Layout
   return (
@@ -146,9 +146,9 @@ function SignUpPage1({ updateFormData, nextPage }) {
                           }
                         }
                         initialValues={{
-                          email: "",
-                          password: "",
-                          confirmPassword: "",
+                          email: formData.email ?? "",
+                          password: formData.password ?? "",
+                          confirmpassword: formData.confirmpassword ?? "",
                         }}
                         validationSchema={validationSchema}
                       >

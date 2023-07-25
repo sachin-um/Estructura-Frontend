@@ -6,43 +6,18 @@ import {
   Grid,
   Snackbar,
   TextField,
-  Typography
+  Typography,
 } from "@mui/material";
 import { Formik } from "formik";
 import { useRef, useState } from "react";
 import * as yup from "yup";
-import AddressInputs, { districts } from "../components/Auth/AddressInputs";
+import AddressInputs, {
+  addressValidators,
+  districts,
+} from "../components/Auth/AddressInputs";
 import TopBar from "../components/TopBar";
 import API, { clearTokens } from "../lib/API";
 import { violationsToErrors } from "../utils/Violations";
-
-// const districts = [
-//   "Ampara",
-//   "Anuradhapur",
-//   "Badulla",
-//   "Batticaloa",
-//   "Colombo",
-//   "Galle",
-//   "Gampaha",
-//   "Hambantota",
-//   "Jaffna",
-//   "Kalutara",
-//   "Kandy",
-//   "Kegalle",
-//   "Kilinochchi",
-//   "Kurunegala",
-//   "Mannar",
-//   "Matale",
-//   "Matara",
-//   "Monaragala",
-//   "Mullaitivu",
-//   "Nuwara Eliya",
-//   "Polonnaruwa",
-//   "Puttalam",
-//   "Ratnapura",
-//   "Trincomalee",
-//   "Vavuniya",
-// ];
 
 const ValidationSchema = yup.object().shape({
   email: yup
@@ -57,13 +32,7 @@ const ValidationSchema = yup.object().shape({
     .string()
     .matches(/^(\+94)|(0)[0-9]{9}$/, "Invalid Contact Number")
     .required("Contact Number is required"),
-  addressLine1: yup.string().required("Address Line 1 is required"),
-  addressLine2: yup.string().required("Address Line 2 is required"),
-  city: yup.string().required("City is required"),
-  district: yup
-    .string()
-    .oneOf(districts, "District has to be valid")
-    .required("District is required"),
+  ...addressValidators,
 });
 
 const initialValues = {

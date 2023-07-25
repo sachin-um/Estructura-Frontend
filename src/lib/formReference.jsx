@@ -1,4 +1,4 @@
-/* REFERENCE:
+/* REFERENCE: */
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { violationsToErrors } from "utils/Violations"; // TODO: fix import
@@ -79,4 +79,3 @@ function Component() {
     </Formik>
   );
 }
-*/

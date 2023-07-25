@@ -7,6 +7,7 @@ import RentalStore from "./Rental";
 import RetailStore from "./RetailStore";
 
 function SignUpPage2({
+  formData,
   updateFormData,
   handleDropdownChange,
   handlePageImage,
@@ -29,18 +30,24 @@ function SignUpPage2({
   };
 
   const renderForm = () => {
-    let tab = <>
-      Oops! Something went wrong.
-    </>;
+    let tab = <>Oops! Something went wrong.</>;
     switch (activeTab) {
       case "one":
-        tab = <Professional handleDropdownChange={handleDropdownChange} />;
+        tab = (
+          <Professional
+            updateFormData={updateFormData}
+            formData={formData}
+            nextPage={nextPage}
+            previousPage={previousPage}
+            handleDropdownChange={handleDropdownChange}
+          />
+        );
         break;
       case "two":
-        tab = <RetailStore />;
+        tab = <RetailStore nextPage={nextPage} previousPage={previousPage} />;
         break;
       case "three":
-        tab = <RentalStore />;
+        tab = <RentalStore nextPage={nextPage} previousPage={previousPage} />;
         break;
     }
     return tab;
@@ -144,15 +151,15 @@ function SignUpPage2({
                 <img src='/Logo.png' alt='Logo' style={{ width: "40%" }} />
               </Grid>
               <Grid item xs={12} style={{ marginTop: "1rem" }}>
-                  <Typography
-                    variant='h3'
-                    fontWeight='bold'
-                    fontSize='1rem'
-                    color='secondary'
-                    align="center"
-                  >
-                    Select your Category
-                  </Typography>
+                <Typography
+                  variant='h3'
+                  fontWeight='bold'
+                  fontSize='1rem'
+                  color='secondary'
+                  align='center'
+                >
+                  Select your Category
+                </Typography>
                 <Grid style={{ display: "flex", justifyContent: "center" }}>
                   <Tabs
                     value={activeTab}
@@ -168,87 +175,39 @@ function SignUpPage2({
                 </Grid>
                 {renderForm()}
               </Grid>
-              {
-                <Grid
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    margin: 10,
-                    width: "80%",
-                  }}
+              {/* <Grid
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  margin: 10,
+                  width: "80%",
+                }}
+              >
+                <Button
+                  sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
+                  type='submit'
+                  color='primary'
+                  variant='contained'
+                  size='large'
+                  onClick={handlePrevious}
                 >
-                  <Button
-                    sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
-                    type='submit'
-                    color='primary'
-                    variant='contained'
-                    size='large'
-                    onClick={handlePrevious}
-                  >
-                    Previous
-                  </Button>
-                  <Button
-                    sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
-                    type='submit'
-                    color='primary'
-                    variant='contained'
-                    size='large'
-                    onClick={handleNext}
-                  >
-                    Next
-                  </Button>
-                </Grid>
-              }
+                  Previous
+                </Button>
+                <Button
+                  sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
+                  type='submit'
+                  color='primary'
+                  variant='contained'
+                  size='large'
+                  onClick={handleNext}
+                >
+                  Next
+                </Button>
+              </Grid> */}
             </Grid>
           </Grid>
         </Grid>
       </Container>
-      {/*
-      <Container>
-        <Grid maxWidth='lg' minHeight='100vh'  container>
-          <Grid item md={6} xs={0}
-            style={{
-              position: 'relative',
-
-            }}
-          >
-            { <img
-              src='/signin.png'
-              alt=''
-
-            /> }
-          </Grid>
-          <Grid item md={6} xs={12} >
-            <Container maxWidth='sm'
-              sx={{
-                display:"flex",
-                flexDirection:"column"
-              }}
-            >
-            { <Grid style={{display:"flex",justifyContent:"center"}}>
-                <img
-                height="40%"
-                width="40%"
-                src='/Logo.png'
-                alt='logo'
-
-              />
-              </Grid> }
-
-            <Grid style={{display:"flex",justifyContent:"center"}}>
-            <Button sx={{ width: 1/3,  borderRadius:2,margin:1 }}type='submit' color="secondary" variant="contained" size='large'   onClick={() => handleTabChange(1)}>Professional</Button>
-            <Button sx={{ width: 1/3,  borderRadius:2,margin:1  }}type='submit' color="secondary" variant="contained" size='large'   onClick={() => handleTabChange(2)}>Retail Store</Button>
-            </Grid>
-            {renderForm()}
-
-            { <Grid style={{display:"flex",justifyContent:"center",margin:10}}>
-                <Button sx={{ width: 1/3,  borderRadius:2,margin:1  }}type='submit' color="primary" variant="contained" size='large' onClick={handlePrevious}>Previous</Button>
-                <Button sx={{ width: 1/3,  borderRadius:2,margin:1 }}type='submit' color="primary" variant="contained" size='large'  onClick={handleNext}>Next</Button>
-            </Grid> }
-            </Container>
-          </Grid>
-        </Grid>
-      </Container> */}
     </>
   );
 }

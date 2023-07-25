@@ -24,7 +24,7 @@ function ServiceProviderSignUp() {
   const [formData, setFormData] = useState({});
   const [selectedOption, setSelectedOption] = useState("");
   const [pageImage, setPageImage] = useState("");
-
+  console.log(formData);
   // const [activeTab, setActiveTab] = useState(1);
   const [value, setValue] = React.useState("one");
 
@@ -35,13 +35,13 @@ function ServiceProviderSignUp() {
 
   const renderForm = () => {
     if (activeTab === 1) {
-      return <Professional />;
+      return <Professional formData={formData}/>;
     } else if (activeTab === 2) {
-      return <RetailStore />;
+      return <RetailStore formData={formData}/>;
     } else if (activeTab === 3) {
-      return <RentalStore />;
+      return <RentalStore formData={formData}/>;
     }
-    return <Professional />;
+    return <Professional formData={formData}/>;
   };
 
   const nextPage = () => {
@@ -90,7 +90,6 @@ function ServiceProviderSignUp() {
     else if(value=="carpenter"){
       setPageImage("/signup/carpenter.jpg")
     }
-
   };
 
   const handleSubmit = () => {
@@ -99,19 +98,22 @@ function ServiceProviderSignUp() {
   };
 
   let initialPages = [
-    <SignUpPage1
+    <SignUpPage1  // Email
+      formData={formData}
       updateFormData={updateFormData}
       handleDropdownChange={handleDropdownChange}
       nextPage={nextPage}
     />,
-    <SignUpPage2
+    <SignUpPage2 // Select Service Provider Type
+      // for Professionals, select the type of professional
+      formData={formData}
       updateFormData={updateFormData}
       handleDropdownChange={handleDropdownChange}
       handlePageImage={handlePageImage}
       nextPage={nextPage}
       previousPage={previousPage}
     />,
-      <ServiceProviderPage7
+      <ServiceProviderPage7 // Profile Image
         updateFormData={updateFormData}
         handleDropdownChange={handleDropdownChange}
         nextPage={nextPage}
@@ -119,24 +121,24 @@ function ServiceProviderSignUp() {
         pageImage={pageImage}
       />
   ];
-  let pages=[...initialPages];
+  let pages=[...initialPages]; // Copy the initial pages
 
   const professionalsPages=[
-    <ServiceProviderPage4
+    <ServiceProviderPage4 // Where are you based? Who???
         updateFormData={updateFormData}
         handleDropdownChange={handleDropdownChange}
         nextPage={nextPage}
         previousPage={previousPage}
         pageImage={pageImage}
       />,
-      <ServiceProviderPage5
+      <ServiceProviderPage5 // Services offered? Construction Company???
         updateFormData={updateFormData}
         handleDropdownChange={handleDropdownChange}
         nextPage={nextPage}
         previousPage={previousPage}
         pageImage={pageImage}
       />,
-      <ServiceProviderPage6
+      <ServiceProviderPage6 // Project Price range? Construction Company???
         updateFormData={updateFormData}
         handleDropdownChange={handleDropdownChange}
         nextPage={nextPage}

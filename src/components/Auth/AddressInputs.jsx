@@ -1,3 +1,4 @@
+import * as yup from "yup";
 import {
   FormControl,
   InputLabel,
@@ -79,7 +80,7 @@ function AddressInputs(props) {
         <InputLabel id='selectDistrict' color='secondary'>
           Select District
         </InputLabel>
-        <Select labelId='selectDistrict-label' {...spread("district", false)}>
+        <Select displayEmpty labelId='selectDistrict-label' {...spread("district", false)}>
           {districts.map((district) => (
             <MenuItem key={district} value={district}>
               {district}
@@ -91,6 +92,23 @@ function AddressInputs(props) {
   );
 }
 
-export { districts };
+const addressValidators = {
+  addressLine1: yup.string().required("Address Line 1 is required"),
+  addressLine2: yup.string().required("Address Line 2 is required"),
+  city: yup.string().required("City is required"),
+  district: yup
+    .string()
+    .oneOf(districts, "District has to be valid")
+    .required("District is required"),
+}
+
+const addressInitialValues = {
+  addressline1: "",
+  addressline2: "",
+  city: "",
+  district: "",
+}
+
+export { districts, addressValidators, addressInitialValues };
 
 export default AddressInputs;
