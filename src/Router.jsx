@@ -153,8 +153,8 @@ const router = createBrowserRouter([
 
     path: "/ViewResponse",
     element: <ViewResponse/>,
-  }
-
+  },
+  {
     path: "/findFurniture",
     element: <FindFurniture />
   },
