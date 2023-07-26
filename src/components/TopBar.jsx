@@ -16,7 +16,7 @@ import Grid from '@mui/material/Grid';
 import { Link, Link as RouterLink, useLocation } from "react-router-dom";
 
 
-const pages = ['Home', 'Professionals', 'Products', 'Blog'];
+const pages = ['Professionals', 'Products', 'Blog'];
 const professionalsTopics = [
   { id: 0, title: "All", link: "/" },
   { id: 1, title: "Architects", link: "/" },
@@ -152,24 +152,42 @@ function TopBar() {
           </Box>
 
           <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center' }}>
-            <Tooltip title="Sign In">
-              <Button
-                color='primary'
-                variant='outlined'
-                sx={{
-                  fontSize: 16,
-                  '&:hover': {
-                    variant: 'contained',
-                  }
-                }}
+              <Link 
+                      component={RouterLink}
+                      underline="hover"
+                      to="/SignIn"
+                      style={{
+                        textDecoration:"none",
+                        color:"inherit",
+                        display:'flex',
+                        }}
               >
-                Sign In
-              </Button>
-            </Tooltip>
+                <Button
+                  color='primary'
+                  variant='outlined'
+                  sx={{
+                    fontSize: 16,
+                    '&:hover': {
+                      variant: 'contained',
+                    }
+                  }}
+                >
+                  Sign In
+                </Button>
+              </Link>
 
             <Box sx={{ width: '15px' }} /> 
 
-            <Tooltip title="Sign Up">
+            <Link 
+                component={RouterLink}
+                underline="hover"
+                to="/SignUp"
+                style={{
+                  textDecoration:"none",
+                  color:"inherit",
+                  display:'flex',
+                  }}
+            >
               <Button
                 color='primary'
                 variant='outlined'
@@ -177,12 +195,13 @@ function TopBar() {
                   fontSize: 16,
                   '&:hover': {
                     variant: 'contained',
+                    backgroundColor:'#ddf0dd'
                   }
                 }}
               >
                 Sign Up
               </Button>
-            </Tooltip>
+            </Link>
           </Box>
 
           <Menu
@@ -192,27 +211,26 @@ function TopBar() {
             open={Boolean(anchorElProfessionals)}
             onClose={handleCloseProfessionalsMenu}
           >
-            <Grid container>
+            <Grid container sx={{ display: 'flex', flexWrap: 'wrap' }}>
               {professionalsTopics.map((item) => (
-                <Link 
-                  key={item.id}
-                  component={RouterLink}
-                  underline="hover"
-                  to={item.link}
-                  style={{
-                    textDecoration:"none",
-                    color:"inherit",
-                    display:'flex',
+                <Grid key={item.id} item xs={6}>
+                  <Link
+                    component={RouterLink}
+                    underline="hover"
+                    to={item.link}
+                    style={{
+                      textDecoration: 'none',
+                      color: 'inherit',
+                      display: 'flex',
                     }}
-                >
-                  <Grid item xs={6} >
+                  >
                     <MenuItem onClick={handleCloseProfessionalsMenu}>
                       <Typography textAlign="center" sx={{ color: 'green' }}>
                         {item.title}
                       </Typography>
                     </MenuItem>
-                  </Grid>
-                </Link>
+                  </Link>
+                </Grid>
               ))}
             </Grid>
           </Menu>
@@ -224,27 +242,26 @@ function TopBar() {
             open={Boolean(anchorElProducts)}
             onClose={handleCloseProductsMenu}
           >
-            <Grid container>
+            <Grid container sx={{ display: 'flex', flexWrap: 'wrap' }}>
               {productsTopics.map((item) => (
-                <Link 
-                  key={item.id}
-                  component={RouterLink}
-                  underline="hover"
-                  to={item.link}
-                  style={{
-                    textDecoration:"none",
-                    color:"inherit",
-                    display:'flex',
+                <Grid key={item.id} item xs={6}>
+                  <Link
+                    component={RouterLink}
+                    underline="hover"
+                    to={item.link}
+                    style={{
+                      textDecoration: 'none',
+                      color: 'inherit',
+                      display: 'flex',
                     }}
-                >
-                  <Grid item xs={6} >
+                  >
                     <MenuItem onClick={handleCloseProductsMenu}>
                       <Typography textAlign="center" sx={{ color: 'green' }}>
                         {item.title}
                       </Typography>
                     </MenuItem>
-                  </Grid>
-                </Link>
+                  </Link>
+                </Grid>
               ))}
             </Grid>
           </Menu>

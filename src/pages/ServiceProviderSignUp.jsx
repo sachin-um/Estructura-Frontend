@@ -1,32 +1,22 @@
 // TODO: Add Service Provider Sign In Page with 2 paths (service provider and retail store)
-import TopBar from "../components/TopBar";
-import SignUpPage1 from "../components/ServiceProvider/SignUpPage1";
-import SignUpPage2 from "../components/ServiceProvider/SignUpPage2";
-import ArchitectPage from "../components/ServiceProvider/ProfessionalPages/ArchitectPage";
-import InteriorDesignerPage from "../components/ServiceProvider/ProfessionalPages/InteriorDesignerPage";
-import ConstructionCompanyPage from "../components/ServiceProvider/ProfessionalPages/ConstructionCompanyPage";
-import CarpenterPage from "../components/ServiceProvider/ProfessionalPages/CarpenterPage";
-import PainterPage from "../components/ServiceProvider/ProfessionalPages/PainterPage";
-import LansdcapeArchitectPage from "../components/ServiceProvider/ProfessionalPages/LansdcapeArchitectPage";
-import HomebuilderPage from "../components/ServiceProvider/ProfessionalPages/HomebuilderPage";
-import ServiceProviderPage4  from "../components/ServiceProvider/ServiceProviderPage4";
-import ServiceProviderPage5  from "../components/ServiceProvider/ServiceProviderPage5";
-import ServiceProviderPage6  from "../components/ServiceProvider/ServiceProviderPage6";
-import ServiceProviderPage7  from "../components/ServiceProvider/ServiceProviderPage7";
 import React, { useState } from "react";
 import Professional from "../components/ServiceProvider/Professional";
-import RetailStore from "../components/ServiceProvider/RetailStore";
+import ArchitectPage from "../components/ServiceProvider/ProfessionalPages/ArchitectPage";
+import CarpenterPage from "../components/ServiceProvider/ProfessionalPages/CarpenterPage";
+import ConstructionCompanyPage from "../components/ServiceProvider/ProfessionalPages/ConstructionCompanyPage";
+import HomebuilderPage from "../components/ServiceProvider/ProfessionalPages/HomebuilderPage";
+import InteriorDesignerPage from "../components/ServiceProvider/ProfessionalPages/InteriorDesignerPage";
+import LansdcapeArchitectPage from "../components/ServiceProvider/ProfessionalPages/LansdcapeArchitectPage";
+import PainterPage from "../components/ServiceProvider/ProfessionalPages/PainterPage";
 import RentalStore from "../components/ServiceProvider/Rental";
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  Stack,
-  Link,
-  TextField,
-  Typography,
-} from "@mui/material";
+import RetailStore from "../components/ServiceProvider/RetailStore";
+import ServiceProviderPage4 from "../components/ServiceProvider/ServiceProviderPage4";
+import ServiceProviderPage5 from "../components/ServiceProvider/ServiceProviderPage5";
+import ServiceProviderPage6 from "../components/ServiceProvider/ServiceProviderPage6";
+import ServiceProviderPage7 from "../components/ServiceProvider/ServiceProviderPage7";
+import SignUpPage1 from "../components/ServiceProvider/SignUpPage1";
+import SignUpPage2 from "../components/ServiceProvider/SignUpPage2";
+import TopBar from "../components/TopBar";
 // import { Link } from "react-router-dom" ;
 
 function ServiceProviderSignUp() {
@@ -34,7 +24,7 @@ function ServiceProviderSignUp() {
   const [formData, setFormData] = useState({});
   const [selectedOption, setSelectedOption] = useState("");
   const [pageImage, setPageImage] = useState("");
-  
+  console.log(formData);
   // const [activeTab, setActiveTab] = useState(1);
   const [value, setValue] = React.useState("one");
 
@@ -45,16 +35,17 @@ function ServiceProviderSignUp() {
 
   const renderForm = () => {
     if (activeTab === 1) {
-      return <Professional />;
+      return <Professional formData={formData}/>;
     } else if (activeTab === 2) {
-      return <RetailStore />;
+      return <RetailStore formData={formData}/>;
     } else if (activeTab === 3) {
-      return <RentalStore />;
+      return <RentalStore formData={formData}/>;
     }
-    return <Professional />;
+    return <Professional formData={formData}/>;
   };
 
   const nextPage = () => {
+    console.log(formData);
     setCurrentPage(currentPage + 1);
   };
 
@@ -99,28 +90,30 @@ function ServiceProviderSignUp() {
     else if(value=="carpenter"){
       setPageImage("/signup/carpenter.jpg")
     }
-    
   };
-  
+
   const handleSubmit = () => {
     // Handle form submission using the collected form data
     console.log(formData);
   };
 
   let initialPages = [
-    <SignUpPage1
+    <SignUpPage1  // Email
+      formData={formData}
       updateFormData={updateFormData}
       handleDropdownChange={handleDropdownChange}
       nextPage={nextPage}
     />,
-    <SignUpPage2
+    <SignUpPage2 // Select Service Provider Type
+      // for Professionals, select the type of professional
+      formData={formData}
       updateFormData={updateFormData}
       handleDropdownChange={handleDropdownChange}
       handlePageImage={handlePageImage}
       nextPage={nextPage}
       previousPage={previousPage}
     />,
-      <ServiceProviderPage7
+      <ServiceProviderPage7 // Profile Image
         updateFormData={updateFormData}
         handleDropdownChange={handleDropdownChange}
         nextPage={nextPage}
@@ -128,24 +121,24 @@ function ServiceProviderSignUp() {
         pageImage={pageImage}
       />
   ];
-  let pages=[...initialPages];
+  let pages=[...initialPages]; // Copy the initial pages
 
   const professionalsPages=[
-    <ServiceProviderPage4
+    <ServiceProviderPage4 // Where are you based? Who???
         updateFormData={updateFormData}
         handleDropdownChange={handleDropdownChange}
         nextPage={nextPage}
         previousPage={previousPage}
         pageImage={pageImage}
       />,
-      <ServiceProviderPage5
+      <ServiceProviderPage5 // Services offered? Construction Company???
         updateFormData={updateFormData}
         handleDropdownChange={handleDropdownChange}
         nextPage={nextPage}
         previousPage={previousPage}
         pageImage={pageImage}
       />,
-      <ServiceProviderPage6
+      <ServiceProviderPage6 // Project Price range? Construction Company???
         updateFormData={updateFormData}
         handleDropdownChange={handleDropdownChange}
         nextPage={nextPage}
@@ -153,7 +146,7 @@ function ServiceProviderSignUp() {
         pageImage={pageImage}
       />,
   ]
-  
+
 
   if (selectedOption === "architect") {
     pages.splice(2,0,
@@ -175,7 +168,7 @@ function ServiceProviderSignUp() {
       />,
       ...professionalsPages
     );
-    
+
   }
   else if (selectedOption === "constructioncompany") {
     pages.splice(2,0,
@@ -187,7 +180,7 @@ function ServiceProviderSignUp() {
       />,
       ...professionalsPages
     );
-    
+
   }
   else if (selectedOption === "homebuilder") {
     pages.splice(2,0,
@@ -199,7 +192,7 @@ function ServiceProviderSignUp() {
       />,
       ...professionalsPages
     );
-    
+
   }
   else if (selectedOption === "carpenter") {
     pages.splice(2,0,
@@ -211,7 +204,7 @@ function ServiceProviderSignUp() {
       />,
       ...professionalsPages
     );
-    
+
   }
   else if (selectedOption === "painter") {
     pages.splice(2,0,
@@ -223,7 +216,7 @@ function ServiceProviderSignUp() {
       />,
       ...professionalsPages
     );
-    
+
   }
   else if (selectedOption === "landscapearchitect") {
     pages.splice(2,0,
@@ -235,7 +228,7 @@ function ServiceProviderSignUp() {
       />,
       ...professionalsPages
     );
-    
+
   }
 
   const HandleSubmit = (event) => {

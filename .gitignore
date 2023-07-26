@@ -9,6 +9,9 @@ build/
 /.pnp
 .pnp.js
 
+# ML Model
+ML/interior_type_model.h5
+
 # testing
 /coverage
 
