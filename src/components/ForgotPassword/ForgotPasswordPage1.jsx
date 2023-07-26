@@ -31,8 +31,8 @@ function ForgotPasswordPage1({updateFormData,handleDropdownChange,nextPage}) {
       
     
           
-               {<Grid style={{justifyContent:"center"}}>
-               <Typography variant="h5" gutterBottom style={{ textAlign: 'center', color: '#435834' }}>
+               {<Grid style={{minHeight:'30vh',justifyContent:"center"}}>
+               <Typography variant="h5" gutterBottom style={{ textAlign: 'center', color: '#435834',marginBottom:'50px' }}>
                   Forgot your Password?
                 </Typography>
                 
