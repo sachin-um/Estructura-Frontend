@@ -14,6 +14,7 @@ import {
 // import { Link } from "react-router-dom" ;
 
 function ArchitectPage1({
+  formData,
   updateFormData,
   handleDropdownChange,
   nextPage,

@@ -101,7 +101,7 @@ function ServiceProviderSignUp() {
     <SignUpPage1  // Email
       formData={formData}
       updateFormData={updateFormData}
-      handleDropdownChange={handleDropdownChange}
+     
       nextPage={nextPage}
     />,
     <SignUpPage2 // Select Service Provider Type
@@ -114,8 +114,9 @@ function ServiceProviderSignUp() {
       previousPage={previousPage}
     />,
       <ServiceProviderPage7 // Profile Image
+      formData={formData}
         updateFormData={updateFormData}
-        handleDropdownChange={handleDropdownChange}
+        
         nextPage={nextPage}
         previousPage={previousPage}
         pageImage={pageImage}
@@ -125,22 +126,25 @@ function ServiceProviderSignUp() {
 
   const professionalsPages=[
     <ServiceProviderPage4 // Where are you based? Who???
+    formData={formData}
         updateFormData={updateFormData}
-        handleDropdownChange={handleDropdownChange}
+     
         nextPage={nextPage}
         previousPage={previousPage}
         pageImage={pageImage}
       />,
       <ServiceProviderPage5 // Services offered? Construction Company???
+      formData={formData}
         updateFormData={updateFormData}
-        handleDropdownChange={handleDropdownChange}
+       
         nextPage={nextPage}
         previousPage={previousPage}
         pageImage={pageImage}
       />,
       <ServiceProviderPage6 // Project Price range? Construction Company???
+      formData={formData}
         updateFormData={updateFormData}
-        handleDropdownChange={handleDropdownChange}
+       
         nextPage={nextPage}
         previousPage={previousPage}
         pageImage={pageImage}
@@ -151,8 +155,9 @@ function ServiceProviderSignUp() {
   if (selectedOption === "architect") {
     pages.splice(2,0,
       <ArchitectPage
+      formData={formData}
         updateFormData={updateFormData}
-        handleDropdownChange={handleDropdownChange}
+    
         nextPage={nextPage}
         previousPage={previousPage}
       />,
@@ -161,8 +166,9 @@ function ServiceProviderSignUp() {
   } else if (selectedOption === "interiordesigner") {
     pages.splice(2,0,
       <InteriorDesignerPage
+      formData={formData}
         updateFormData={updateFormData}
-        handleDropdownChange={handleDropdownChange}
+       
         nextPage={nextPage}
         previousPage={previousPage}
       />,
@@ -173,8 +179,9 @@ function ServiceProviderSignUp() {
   else if (selectedOption === "constructioncompany") {
     pages.splice(2,0,
       <ConstructionCompanyPage
+      formData={formData}
         updateFormData={updateFormData}
-        handleDropdownChange={handleDropdownChange}
+       
         nextPage={nextPage}
         previousPage={previousPage}
       />,
@@ -185,8 +192,9 @@ function ServiceProviderSignUp() {
   else if (selectedOption === "homebuilder") {
     pages.splice(2,0,
       <HomebuilderPage
+      formData={formData}
         updateFormData={updateFormData}
-        handleDropdownChange={handleDropdownChange}
+      
         nextPage={nextPage}
         previousPage={previousPage}
       />,
@@ -197,8 +205,9 @@ function ServiceProviderSignUp() {
   else if (selectedOption === "carpenter") {
     pages.splice(2,0,
       <CarpenterPage
+      formData={formData}
         updateFormData={updateFormData}
-        handleDropdownChange={handleDropdownChange}
+      
         nextPage={nextPage}
         previousPage={previousPage}
       />,
@@ -209,8 +218,9 @@ function ServiceProviderSignUp() {
   else if (selectedOption === "painter") {
     pages.splice(2,0,
       <PainterPage
+      formData={formData}
         updateFormData={updateFormData}
-        handleDropdownChange={handleDropdownChange}
+       
         nextPage={nextPage}
         previousPage={previousPage}
       />,
@@ -221,8 +231,9 @@ function ServiceProviderSignUp() {
   else if (selectedOption === "landscapearchitect") {
     pages.splice(2,0,
       <LansdcapeArchitectPage
+      formData={formData}
         updateFormData={updateFormData}
-        handleDropdownChange={handleDropdownChange}
+        
         nextPage={nextPage}
         previousPage={previousPage}
       />,

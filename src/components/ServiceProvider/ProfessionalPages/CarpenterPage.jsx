@@ -14,6 +14,7 @@ import {
 // import { Link } from "react-router-dom" ;
 
 function CarpenterPage({
+  formData,
   updateFormData,
   handleDropdownChange,
   nextPage,

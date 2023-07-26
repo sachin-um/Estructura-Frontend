@@ -14,6 +14,7 @@ import {
 // import { Link } from "react-router-dom" ;
 
 function InteriorDesignerPage1({
+  formData,
   updateFormData,
   handleDropdownChange,
   nextPage,

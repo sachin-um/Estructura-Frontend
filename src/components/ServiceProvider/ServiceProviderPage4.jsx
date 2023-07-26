@@ -20,8 +20,9 @@ import { Checkbox } from "@mui/material";
 // import { Link } from "react-router-dom" ;
 
 function ServiceProviderPage4({
+  formData,
   updateFormData,
-  handleDropdownChange,
+
   nextPage,
   previousPage,
   pageImage,
