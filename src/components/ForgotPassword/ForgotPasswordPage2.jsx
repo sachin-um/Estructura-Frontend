@@ -28,7 +28,7 @@ import { Form } from "react-router-dom";
      
             
       
-                  {<Grid style={{justifyContent:"center"}}>
+                  {<Grid style={{minHeight:'30vh',justifyContent:"center"}}>
                   <Typography variant="h5" gutterBottom style={{ textAlign: 'center', color: '#435834' }}>
                   Enter New Password
                 </Typography>
