@@ -16,7 +16,7 @@ import Grid from '@mui/material/Grid';
 import { Link, Link as RouterLink, useLocation } from "react-router-dom";
 
 
-const pages = ['Home', 'Professionals', 'Products', 'Blog'];
+const pages = ['Professionals', 'Products', 'Blog'];
 const professionalsTopics = [
   { id: 0, title: "All", link: "/" },
   { id: 1, title: "Architects", link: "/" },
@@ -152,25 +152,42 @@ function TopBar() {
           </Box>
 
           <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center' }}>
-            <Tooltip title="Sign In">
-              <Button
-                color='primary'
-                variant='outlined'
-                sx={{
-                  fontSize: 16,
-                  '&:hover': {
-                    variant: 'contained',
-                    backgroundColor:'#ddf0dd'
-                  }
-                }}
+              <Link 
+                      component={RouterLink}
+                      underline="hover"
+                      to="/SignIn"
+                      style={{
+                        textDecoration:"none",
+                        color:"inherit",
+                        display:'flex',
+                        }}
               >
-                Sign In
-              </Button>
-            </Tooltip>
+                <Button
+                  color='primary'
+                  variant='outlined'
+                  sx={{
+                    fontSize: 16,
+                    '&:hover': {
+                      variant: 'contained',
+                    }
+                  }}
+                >
+                  Sign In
+                </Button>
+              </Link>
 
             <Box sx={{ width: '15px' }} /> 
 
-            <Tooltip title="Sign Up">
+            <Link 
+                component={RouterLink}
+                underline="hover"
+                to="/SignUp"
+                style={{
+                  textDecoration:"none",
+                  color:"inherit",
+                  display:'flex',
+                  }}
+            >
               <Button
                 color='primary'
                 variant='outlined'
@@ -184,7 +201,7 @@ function TopBar() {
               >
                 Sign Up
               </Button>
-            </Tooltip>
+            </Link>
           </Box>
 
           <Menu
