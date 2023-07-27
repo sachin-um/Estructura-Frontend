@@ -91,7 +91,7 @@ function TopBar() {
             }}
           >
             <RouterLink to="/">
-              <img src="/Logo.png" alt="" height={65} width={65} />  
+              <img src="/Logo.png" alt="" height={65} />  
             </RouterLink>
           </Typography>
 

@@ -1,8 +1,8 @@
-import { MdCloudUpload, MdDelete } from "react-icons/md";
-import { AiFillFileImage } from "react-icons/ai";
 import TopBar from "../../components/TopBar";
 import React, { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
+import UploadIcon from '@mui/icons-material/Upload';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import ImageIcon from "@mui/icons-material/Image";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
@@ -13,6 +13,8 @@ import {
   Grid,
   TextField,
   Typography,
+  IconButton,
+  Tooltip,
   FormControl,
   InputLabel,
   MenuItem,
@@ -26,9 +28,9 @@ function AddNewProject() {
   const [fileNames, setFileNames] = useState([]);
   const [doc, setDoc] = useState([]);
   const [docNames, setDocNames] = useState([]);
-  const docplaceholdersCount =
-    doc.length === 0 ? 3 : doc.length >= 3 ? 0 : 3 - (doc.length - 1);
-  const docplaceholders = Array.from({ length: docplaceholdersCount }).fill(0);
+  const docPlaceHoldersCount =
+    doc.length === 0 ? 3 : doc.length >= 3 ? 0 : 3 - doc.length;
+  const docPlaceholders = Array.from({ length: docPlaceHoldersCount }).fill(0);
 
   const placeholdersCount =
     images.length === 0 ? 3 : images.length >= 4 ? 0 : 3 - (images.length - 1);
@@ -43,8 +45,15 @@ function AddNewProject() {
     updatedFileNames.splice(index, 1);
     setFileNames(updatedFileNames);
   };
-  // const [image, setImage] = useState(null);
-  // const [fileName, setFileName] = useState("No selected file");
+  const removeDoc = (index) => {
+    const updatedDocs = [...doc];
+    updatedDocs.splice(index, 1);
+    setDoc(updatedDocs);
+
+    const updatedFileNames = [...docNames];
+    updatedFileNames.splice(index, 1);
+    setDocNames(updatedFileNames);
+  };
   return (
     <>
       <TopBar title="" />
@@ -58,7 +67,7 @@ function AddNewProject() {
           margin: "2",
         }}
       >
-        <Grid style={{ justifyContent: "center" }}></Grid>
+        
 
         <Grid container justifyContent="center" spacing={4}>
           <Grid
@@ -81,26 +90,6 @@ function AddNewProject() {
             >
               Add Project
             </Typography>
-            {/* <Typography
-              variant="h6"
-              style={{
-                fontSize: "1rem",
-                textAlign: "left",
-                lineHeight: "1",
-                marginTop: "30px",
-              }}
-            >
-              Add images related to your project
-            </Typography> */}
-            {/* <Button
-                  sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
-                  variant="contained"
-                  color="primary"
-                  type="submit"
-                  fullWidth
-                >
-                  Add
-                </Button> */}
             <Grid style={{ display: "flex", justifyContent: "center" }}>
               <Button
                 sx={{ width: 1 / 2, borderRadius: 2, margin: 1, padding: 0 }}
@@ -129,8 +118,8 @@ function AddNewProject() {
                     }
                   }}
                 />
-                <MdCloudUpload color="white" size={30} />
-                <p>Browse Files to upload</p>
+                <UploadIcon style={{marginRight:5}}/>
+                <p>Browse Images</p>
               </Button>
             </Grid>
             <Box
@@ -148,20 +137,15 @@ function AddNewProject() {
                     style={{ width: "100%", height: "300px" }}
                     alt={fileNames[0]}
                   />
-                  <span
-                    style={{
-                      position: "absolute",
-                      top: "10px",
-                      right: "10px",
-                      backgroundColor: "black",
-                      color: "red",
-                      padding: "5px",
-                      cursor: "pointer",
-                    }}
-                    onClick={() => removeImage(0)}
+                  <IconButton
+                    size="small"
+                    onClick={()=>removeImage(0)}
+                    style={{ position: 'absolute', top: 5, right: 5, backgroundColor: 'white', color:'red' }}
                   >
-                    <DeleteIcon />
-                  </span>
+                    <Tooltip title="Remove Image">
+                      <DeleteIcon />
+                    </Tooltip>
+                  </IconButton>
                 </>
               ) : (
                 <>
@@ -172,12 +156,8 @@ function AddNewProject() {
                       marginTop: "100px",
                     }}
                   >
-                    {/* <MdCloudUpload color="#1475cf" size={60} /> */}
-
-                    <ImageIcon />
+                    <AddPhotoAlternateIcon />
                   </Grid>
-
-                  {/* <MdCloudUpload color="#1475cf" size={60} /> */}
                   <Typography
                     style={{
                       display: "flex",
@@ -191,7 +171,7 @@ function AddNewProject() {
               )}
             </Box>
 
-            {/* <Typography>Images</Typography> */}
+            
 
             <Grid container spacing={2}>
               {images.length > 1 &&
@@ -209,20 +189,15 @@ function AddNewProject() {
                         style={{ width: "100%", height: "150px" }}
                         alt={fileNames[index + 1]}
                       />
-                      <span
-                        style={{
-                          position: "absolute",
-                          top: "10px",
-                          right: "10px",
-                          backgroundColor: "black",
-                          color: "red",
-                          padding: "5px",
-                          cursor: "pointer",
-                        }}
-                        onClick={() => removeImage(index + 1)}
+                      <IconButton
+                        size="small"
+                        onClick={()=>removeImage(index+1)}
+                        style={{ position: 'absolute', top: 5, right: 5, backgroundColor: 'white', color:'red' }}
                       >
-                        <DeleteIcon />
-                      </span>
+                        <Tooltip title="Remove Image">
+                          <DeleteIcon />
+                        </Tooltip>
+                      </IconButton>
                     </Box>
                   </Grid>
                 ))}
@@ -242,9 +217,7 @@ function AddNewProject() {
                         marginTop: "50px",
                       }}
                     >
-                      {/* <MdCloudUpload color="#1475cf" size={60} /> */}
-
-                      <ImageIcon />
+                      <AddPhotoAlternateIcon />
                     </Grid>
                     <Grid
                       style={{
@@ -254,7 +227,6 @@ function AddNewProject() {
                         backgroundColor: "#F9F6EE",
                       }}
                     >
-                      {/* <MdCloudUpload color="#1475cf" size={60} /> */}
                       <p>Optional Images</p>
                     </Grid>
                   </Box>
@@ -274,28 +246,28 @@ function AddNewProject() {
                 color="primary"
                 width="50%"
                 fullWidth
-                onClick={() => document.querySelector(".input-field").click()}
+                onClick={() => document.querySelector(".input-field-doc").click()}
               >
                 <input
                   type="file"
-                  accept=".pdf,.doc"
-                  className="input-field"
+                  accept=".pdf,.doc,.docx,.pptx,.xls,.xlsx"
+                  className="input-field-doc"
                   hidden
                   multiple
                   onChange={({ target: { files } }) => {
                     if (files && files.length > 0) {
-                      const fileArray = Array.from(files).slice(0, 4);
+                      const fileArray = Array.from(files).slice(0, 3);
                       const fileNames = fileArray.map((file) => file.name);
-                      setFileNames(fileNames);
-                      const imageUrls = fileArray.map((file) =>
+                      setDocNames(fileNames);
+                      const docUrls = fileArray.map((file) =>
                         URL.createObjectURL(file)
                       );
-                      setImages(imageUrls);
+                      setDoc(docUrls);
                     }
                   }}
                 />
-                <MdCloudUpload color="white" size={30} />
-                <p>Browse Documents to upload</p>
+                <UploadIcon style={{marginRight:5}}/>
+                <p>Browse Documents</p>
               </Button>
             </Grid>
             <Grid container spacing={2}>
@@ -303,22 +275,20 @@ function AddNewProject() {
                 docNames.map((fileName, index) => (
                   <Grid item xs={4} key={index}>
                     <Box
+                      display={"flex"}
                       position="relative"
-                      height="150px"
+                      height="50px"
                       width="100%"
                       marginTop="30px"
                       sx={{ borderStyle: "dashed", borderColor: "grey" }}
                     >
                       <InsertDriveFileIcon
                         style={{
-                          display: "flex",
-                          justifyContent: "center",
                           marginTop: "10px",
                           marginLeft: "10px",
                         }}
                       />
 
-                      {/* <MdCloudUpload color="#1475cf" size={60} /> */}
                       <Typography
                         style={{
                           justifyContent: "center",
@@ -329,34 +299,28 @@ function AddNewProject() {
                       >
                         {fileName}
                       </Typography>
-                      <span
-                        style={{
-                          // position: "absolute",
-                          // top: "10px",
-                          // right: "10px",
-                          backgroundColor: "black",
-                          color: "red",
-                          padding: "5px",
-                          cursor: "pointer",
-                        }}
-                        onClick={() => removeImage(index + 1)}
+                      <IconButton
+                        size="small"
+                        onClick={()=>removeDoc(index)}
+                        style={{ position: 'absolute', top: 5, right: 5, backgroundColor: 'white', color:'red' }}
                       >
-                        <DeleteIcon />
-                      </span>
+                        <Tooltip title="Remove File">
+                          <DeleteIcon />
+                        </Tooltip>
+                      </IconButton>
                     </Box>
                   </Grid>
                 ))}
-              {placeholders.map((index) => (
+              {docPlaceholders.map((index) => (
                 <Grid item xs={4} key={index}>
                   <Box
                     style={{ display: "flex" }}
                     position="relative"
                     height="50px"
                     width="100%"
-                    marginTop="50px"
+                    marginTop="30px"
                     sx={{ borderStyle: "dashed", borderColor: "grey" }}
                   >
-                    {/* <MdCloudUpload color="#1475cf" size={60} /> */}
 
                     <AttachFileIcon
                       style={{
@@ -367,7 +331,6 @@ function AddNewProject() {
                       }}
                     />
 
-                    {/* <MdCloudUpload color="#1475cf" size={60} /> */}
                     <Typography
                       style={{
                         justifyContent: "center",
@@ -382,74 +345,6 @@ function AddNewProject() {
                 </Grid>
               ))}
             </Grid>
-
-            {/* <Typography
-              variant="h6"
-              style={{
-                fontSize: "1rem",
-                textAlign: "left",
-                lineHeight: "1",
-                marginTop: "30px",
-              }}
-            >
-              Add documents related to your project
-            </Typography>
-            <Grid container spacing={1}>
-              <Grid item xs={4}>
-                <Box
-                  position="relative"
-                  height="200px"
-                  width="70%"
-                  marginTop="20px"
-                >
-                  <img
-                    src="formBg.jpg"
-                    alt="Banner"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
-                  />
-                </Box>
-              </Grid>
-              <Grid item xs={4}>
-                <Box
-                  position="relative"
-                  height="200px"
-                  width="70%"
-                  marginTop="20px"
-                >
-                  <img
-                    src="formBg.jpg"
-                    alt="Banner"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
-                  />
-                </Box>
-              </Grid>
-              <Grid item xs={4}>
-                <Box
-                  position="relative"
-                  height="200px"
-                  width="70%"
-                  marginTop="20px"
-                >
-                  <img
-                    src="formBg.jpg"
-                    alt="Banner"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
-                  />
-                </Box>
-              </Grid>
-            </Grid> */}
           </Grid>
           <Grid
             item
