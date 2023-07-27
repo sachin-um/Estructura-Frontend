@@ -1,30 +1,30 @@
-import TopBar from "../components/CusTopBar";
-import React, { useState } from "react";
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
+import EmailIcon from '@mui/icons-material/Email';
+import PhoneIcon from '@mui/icons-material/Phone';
 import {
   Box,
   Card,
   CardContent,
-  Typography,
   Grid,
-  Tabs,
-  Tab,
   ListItemIcon,
+  Rating,
   Stack,
-  Rating
-} from "@mui/material";
-import PhoneIcon from "@mui/icons-material/Phone";
-import EmailIcon from "@mui/icons-material/Email";
-import CameraAltIcon from "@mui/icons-material/CameraAlt";
+  Tab,
+  Tabs,
+  Typography,
+} from '@mui/material';
+import React, { useState } from 'react';
 
-import ProfileDetails from "../components/ServiceProviderProf/ProfileDetails";
-import PreviousProjects from "../components/ServiceProviderProf/PreviousProjects";
-import Responses from "../components/ServiceProviderProf/Responses";
-import Messages from "../components/ServiceProviderProf/Messages";
-import Reviews from "../components/ServiceProviderProf/Reviews";
+import TopBar from '../components/CusTopBar';
+import Messages from '../components/ServiceProviderProf/Messages';
+import PreviousProjects from '../components/ServiceProviderProf/PreviousProjects';
+import ProfileDetails from '../components/ServiceProviderProf/ProfileDetails';
+import Responses from '../components/ServiceProviderProf/Responses';
+import Reviews from '../components/ServiceProviderProf/Reviews';
 
-function ServiceProviderProfile({ updateFormData, nextPage, previousPage }) {
-  const [value, setValue] = useState("one");
-  const [activeTab, setActiveTab] = useState("one");
+function ServiceProviderProfile({ nextPage, previousPage, updateFormData }) {
+  const [value, setValue] = useState('one');
+  const [activeTab, setActiveTab] = useState('one');
   const [profilePicture, setProfilePicture] = useState(null);
 
   const handleTabChange = (event, tab) => {
@@ -41,67 +41,76 @@ function ServiceProviderProfile({ updateFormData, nextPage, previousPage }) {
     <>
       <TopBar title="Service Provider Profile" />
 
-      <Box position="relative" height="200px" width="100%">
+      <Box height="200px" position="relative" width="100%">
         <img
-          src="cover.jpg"
-          alt="cover"
           style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
+            height: '100%',
+            objectFit: 'cover',
+            width: '100%',
           }}
+          alt="cover"
+          src="cover.jpg"
         />
         <Box
+          left="7%"
+          maxWidth="200px"
+          p={4}
           position="absolute"
           top="50%"
-          left="7%"
           transform="translate(-50%, -50%)"
           zIndex="1"
-          p={4}
-          maxWidth="200px"
         >
-          <Box position="relative" display="flex" flexDirection="column" alignItems="center">
+          <Box
+            alignItems="center"
+            display="flex"
+            flexDirection="column"
+            position="relative"
+          >
             <img
-              src={profilePicture || "account-avatar-person-profile-user-svgrepo-com.svg"}
-              alt="user"
+              src={
+                profilePicture ||
+                'account-avatar-person-profile-user-svgrepo-com.svg'
+              }
               style={{
-                width: "100px",
-                height: "100px",
-                objectFit: "cover",
+                height: '100px',
+                objectFit: 'cover',
+                width: '100px',
               }}
+              alt="user"
             />
             <Box
-              position="absolute"
-              bottom="-20px"
-              left="70%"
-              transform="translateX(-50%)"
-              display="flex"
-              alignItems="center"
-              zIndex="1"
-              p={1}
-              cursor="pointer"
-              color="primary.main"
-              borderRadius="50%"
               sx={{
-                "&:hover": {
-                  color: "primary.dark",
+                '&:hover': {
+                  color: 'primary.dark',
                 },
               }}
-              
+              alignItems="center"
+              borderRadius="50%"
+              bottom="-20px"
+              color="primary.main"
+              cursor="pointer"
+              display="flex"
+              left="70%"
+              p={1}
+              position="absolute"
+              transform="translateX(-50%)"
+              zIndex="1"
             >
-              <label htmlFor="profilePictureInput" style={{ cursor: "pointer" }}
-              onClick={() => {
-                document.getElementById("profilePictureInput").click();
-              }}
+              <label
+                onClick={() => {
+                  document.getElementById('profilePictureInput').click();
+                }}
+                htmlFor="profilePictureInput"
+                style={{ cursor: 'pointer' }}
               >
                 <CameraAltIcon />
               </label>
               <input
-                id="profilePictureInput"
-                type="file"
                 accept="image/*"
-                style={{ display: "none" }}
+                id="profilePictureInput"
                 onChange={handleProfilePictureChange}
+                style={{ display: 'none' }}
+                type="file"
               />
             </Box>
           </Box>
@@ -110,50 +119,75 @@ function ServiceProviderProfile({ updateFormData, nextPage, previousPage }) {
 
       <Grid container spacing={2}>
         <Grid item md={3} xs={12}>
-          <Card sx={{ width: "300px", height: "380px", marginTop: "3rem", marginLeft: "2rem" }}>
+          <Card
+            sx={{
+              height: '380px',
+              marginLeft: '2rem',
+              marginTop: '3rem',
+              width: '300px',
+            }}
+          >
             <CardContent>
-              <Typography variant="h5" component="div">
+              <Typography component="div" variant="h5">
                 John Doe
               </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              <Typography color="text.secondary" sx={{ mb: 1.5 }}>
                 Architect
               </Typography>
-              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+              <Typography
+                color="text.secondary"
+                gutterBottom
+                sx={{ fontSize: 14 }}
+              >
                 Based in Colombo
               </Typography>
               <Box mt={6}>
-                <Stack direction="row" alignItems="center" spacing={2}>
+                <Stack alignItems="center" direction="row" spacing={2}>
                   <ListItemIcon>
                     <PhoneIcon />
                   </ListItemIcon>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography color="text.secondary" variant="body2">
                     +94 713729173
                   </Typography>
                 </Stack>
               </Box>
               <Box mt={4}>
-                <Stack direction="row" alignItems="center" spacing={2}>
+                <Stack alignItems="center" direction="row" spacing={2}>
                   <ListItemIcon>
                     <EmailIcon />
                   </ListItemIcon>
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography color="text.secondary" variant="body2">
                     john.doe@example.com
                   </Typography>
                 </Stack>
               </Box>
-              <Box mt={2} display='flex' alignItems='center' style={{ marginTop: '40px'}}>
-              <Typography variant="h4" color="primary"> 4.5 </Typography>
+              <Box
+                alignItems="center"
+                display="flex"
+                mt={2}
+                style={{ marginTop: '40px' }}
+              >
+                <Typography color="primary" variant="h4">
+                  {' '}
+                  4.5{' '}
+                </Typography>
                 <Rating
-                  name='rating'
-                  value={4.5}
+                  name="rating"
                   precision={0.5}
                   readOnly
-                  size='large'
+                  size="large"
                   style={{ marginLeft: '20px' }}
+                  value={4.5}
                 />
               </Box>
-              <Box flexGrow={1} display="flex" justifyContent="center">
-                <Typography variant="body1" color="primary" style={{ marginRight: '40px'}}>120 reviews</Typography>
+              <Box display="flex" flexGrow={1} justifyContent="center">
+                <Typography
+                  color="primary"
+                  style={{ marginRight: '40px' }}
+                  variant="body1"
+                >
+                  120 reviews
+                </Typography>
               </Box>
             </CardContent>
           </Card>
@@ -161,24 +195,32 @@ function ServiceProviderProfile({ updateFormData, nextPage, previousPage }) {
 
         <Grid item md={9} xs={12}>
           <Tabs
-            value={value}
+            aria-label="secondary tabs example"
+            indicatorColor="secondary"
             onChange={handleTabChange}
             textColor="secondary"
-            indicatorColor="secondary"
-            aria-label="secondary tabs example"
+            value={value}
           >
-            <Tab value="one" label="Profile Details" sx={{ marginRight: "4rem" }} />
-            <Tab value="two" label="Previous Projects" sx={{ marginRight: "4rem" }} />
-            <Tab value="three" label="Responses" sx={{ marginRight: "4rem" }} />
-            <Tab value="four" label="Messages" sx={{ marginRight: "4rem" }} />
-            <Tab value="five" label="Reviews" />
+            <Tab
+              label="Profile Details"
+              sx={{ marginRight: '4rem' }}
+              value="one"
+            />
+            <Tab
+              label="Previous Projects"
+              sx={{ marginRight: '4rem' }}
+              value="two"
+            />
+            <Tab label="Responses" sx={{ marginRight: '4rem' }} value="three" />
+            <Tab label="Messages" sx={{ marginRight: '4rem' }} value="four" />
+            <Tab label="Reviews" value="five" />
           </Tabs>
 
-          {activeTab === "one" && <ProfileDetails />}
-          {activeTab === "two" && <PreviousProjects />}
-          {activeTab === "three" && <Responses />}
-          {activeTab === "four" && <Messages />}
-          {activeTab === "five" && <Reviews />}
+          {activeTab === 'one' && <ProfileDetails />}
+          {activeTab === 'two' && <PreviousProjects />}
+          {activeTab === 'three' && <Responses />}
+          {activeTab === 'four' && <Messages />}
+          {activeTab === 'five' && <Reviews />}
         </Grid>
       </Grid>
     </>
@@ -186,7 +228,3 @@ function ServiceProviderProfile({ updateFormData, nextPage, previousPage }) {
 }
 
 export default ServiceProviderProfile;
-
-
-
-

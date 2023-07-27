@@ -1,10 +1,11 @@
-import styled from "styled-components";
-import Navbar from "../../components/e-com/Navbar";
-import Announcement from "../../components/e-com/Announcement";
-import Products from "../../components/e-com/Products";
-import Newsletter from "../../components/e-com/Blog";
-import Footer from "../../components/e-com/Footer";
-import { mobile } from "../../responsive";
+import styled from 'styled-components';
+
+import Announcement from '../../components/e-com/Announcement';
+import Newsletter from '../../components/e-com/Blog';
+import Footer from '../../components/e-com/Footer';
+import Navbar from '../../components/e-com/Navbar';
+import Products from '../../components/e-com/Products';
+import { mobile } from '../../responsive';
 
 const Container = styled.div``;
 
@@ -19,22 +20,22 @@ const FilterContainer = styled.div`
 
 const Filter = styled.div`
   margin: 20px;
-  ${mobile({ width: "0px 20px", display: "flex", flexDirection: "column" })}
+  ${mobile({ display: 'flex', flexDirection: 'column', width: '0px 20px' })}
 `;
 
 const FilterText = styled.span`
   font-size: 20px;
   font-weight: 600;
   margin-right: 20px;
-  ${mobile({ marginRight: "0px" })}
+  ${mobile({ marginRight: '0px' })}
 `;
 
 const Select = styled.select`
   padding: 10px;
-  width:100px;
+  width: 100px;
   margin-right: 20px;
   border-radius: 10px;
-  ${mobile({ margin: "10px 0px" })}
+  ${mobile({ margin: '10px 0px' })}
 `;
 const Option = styled.option``;
 

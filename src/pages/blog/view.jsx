@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+
 import CusBar from '../../components/CusTopBar';
-import ProfileCard from '../../components/blog/profilecard';
 import BlogDetailsCard from '../../components/blog/blogdetailscard';
+import ProfileCard from '../../components/blog/profilecard';
 
 export default function View() {
   const [isMobile, setIsMobile] = useState(false);
@@ -23,11 +24,11 @@ export default function View() {
       <div
         style={{
           backgroundColor: '#f9f9f9',
-          padding: '10px',
           display: 'flex',
           flexWrap: 'wrap',
-          justifyContent: 'flex-start',
           gap: '20px',
+          justifyContent: 'flex-start',
+          padding: '10px',
         }}
       >
         <br />

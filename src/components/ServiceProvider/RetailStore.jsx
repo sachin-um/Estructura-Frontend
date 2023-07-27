@@ -1,52 +1,45 @@
 import {
   Box,
-  Button,
-  Container,
-  Grid,
   FormControl,
+  Grid,
   InputLabel,
   MenuItem,
   Select,
-  Stack,
-  Link,
   TextField,
   Typography,
-} from "@mui/material";
+} from '@mui/material';
 // import { Link } from "react-router-dom" ;
-import { Form, Formik } from "formik";
-import { useRef } from "react";
-import * as yup from "yup";
-import AddressInputs, {
-  addressInitialValues,
-  addressValidators,
-} from "../Auth/AddressInputs";
+import { useRef } from 'react';
+import * as yup from 'yup';
+
+import { addressInitialValues, addressValidators } from '../Auth/AddressInputs';
 
 const retailCategories = [
-  ["indoorfurniture", "Indoor Furniture"],
-  ["outdoorfurniture", "Outdoor Furniture"],
-  ["hardware", "Hardware"],
-  ["bathware", "Bathware"],
-  ["lighting", "Lighting"],
+  ['indoorfurniture', 'Indoor Furniture'],
+  ['outdoorfurniture', 'Outdoor Furniture'],
+  ['hardware', 'Hardware'],
+  ['bathware', 'Bathware'],
+  ['lighting', 'Lighting'],
 ];
 
 const validationSchema = yup.object({
-  businessName: yup.string().required("Business Name is required"),
-  
-  contactNo: yup.string().required("Contact Number is required"),
-  firstname: yup.string().required("First Name is required"),
-  lastname: yup.string().required("Last Name is required"),
+  businessName: yup.string().required('Business Name is required'),
+
+  contactNo: yup.string().required('Contact Number is required'),
+  firstname: yup.string().required('First Name is required'),
+  lastname: yup.string().required('Last Name is required'),
   ...addressValidators,
 });
 
-function RetailStore({ nextPage, previousPage, updateFormData, formData }) {
+function RetailStore({ formData, nextPage, previousPage, updateFormData }) {
   const formRef = useRef(null);
   const initialValues = {
     // if possible, set from formData
-    businessName: formData.businessName ?? "",
-   
-    contactNo: formData.contactNo ?? "",
-    firstname: formData.firstname ?? "",
-    lastname: formData.lastname ?? "",
+    businessName: formData.businessName ?? '',
+
+    contactNo: formData.contactNo ?? '',
+    firstname: formData.firstname ?? '',
+    lastname: formData.lastname ?? '',
     ...addressInitialValues,
   };
 
@@ -55,14 +48,14 @@ function RetailStore({ nextPage, previousPage, updateFormData, formData }) {
     <>
       {/* Retail Store Signup*/}
       <Box
-        component="form"
         sx={{
-          margin: "10px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "30px",
-          minHeight: "80vh",
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '30px',
+          margin: '10px',
+          minHeight: '80vh',
         }}
+        component="form"
         // onSubmit={HandleSubmit}
       >
         {/* <Formik
@@ -122,30 +115,30 @@ function RetailStore({ nextPage, previousPage, updateFormData, formData }) {
                                       />
                                   </Box>
                 </Stack>
-                                 
+
 
               </Form>
             );
           }}
           </Formik> */}
-        
+
         {
-          <Grid style={{ justifyContent: "center" }}>
+          <Grid style={{ justifyContent: 'center' }}>
             <TextField
               InputProps={{ sx: { borderRadius: 2 } }}
-              sx={{ width: 1, margin: 1 }}
-              type="RetailStoreName"
-              name="businessName"
               label="Retail Store Name"
-              variant="filled"
+              name="businessName"
               size="small"
+              sx={{ margin: 1, width: 1 }}
+              type="RetailStoreName"
+              variant="filled"
             />
 
             <FormControl
-              fullWidth
-              variant="filled"
               InputProps={{ sx: { borderRadius: 2 } }}
-              sx={{ width: 1, margin: 1 }}
+              fullWidth
+              sx={{ margin: 1, width: 1 }}
+              variant="filled"
             >
               <InputLabel id="SelectRetailCategory">Retail Category</InputLabel>
               <Select labelId="demo-simple-select-label">
@@ -158,65 +151,65 @@ function RetailStore({ nextPage, previousPage, updateFormData, formData }) {
             </FormControl>
             <TextField
               InputProps={{ sx: { borderRadius: 2 } }}
-              sx={{ width: 1, margin: 1 }}
-              type="contactNo"
-              name="contactNo"
-              label="Business Contact Number"
-              variant="filled"
-              size="small"
               color="secondary"
+              label="Business Contact Number"
+              name="contactNo"
+              size="small"
+              sx={{ margin: 1, width: 1 }}
+              type="contactNo"
+              variant="filled"
             />
             <TextField
               InputProps={{ sx: { borderRadius: 2 } }}
-              sx={{ width: 1, margin: 1 }}
-              type="contactNo"
-              name="contactNo"
-              label="Business Registration Number"
-              variant="filled"
-              size="small"
               color="secondary"
+              label="Business Registration Number"
+              name="contactNo"
+              size="small"
+              sx={{ margin: 1, width: 1 }}
+              type="contactNo"
+              variant="filled"
             />
             <Typography
-              variant="h8"
               sx={{
-                textAlign: "left",
-                color: "#435834",
-                marginTop: "-8px",
-                marginLeft: "10px",
+                color: '#435834',
+                marginLeft: '10px',
+                marginTop: '-8px',
+                textAlign: 'left',
               }}
+              variant="h8"
             >
-              {" "}
-              Address{" "}
+              {' '}
+              Address{' '}
             </Typography>
-            <Box sx={{ display: "flex", gap: "10px" }}>
+            <Box sx={{ display: 'flex', gap: '10px' }}>
               <TextField
                 InputProps={{ sx: { borderRadius: 2 } }}
-                sx={{ flex: "1", margin: 1 }}
-                type="houseNo"
-                name="houseNo"
-                label="House No"
-                variant="filled"
-                size="small"
                 color="secondary"
+                label="House No"
+                name="houseNo"
+                size="small"
+                sx={{ flex: '1', margin: 1 }}
+                type="houseNo"
+                variant="filled"
               />
               <TextField
                 InputProps={{ sx: { borderRadius: 2 } }}
-                sx={{ flex: "1", margin: 1 }}
-                type="lane"
-                name="lane"
-                label="Lane"
-                variant="filled"
-                size="small"
                 color="secondary"
+                label="Lane"
+                name="lane"
+                size="small"
+                sx={{ flex: '1', margin: 1 }}
+                type="lane"
+                variant="filled"
               />
             </Box>
 
             <FormControl
               fullWidth
-              variant="filled"
               sx={{ m: 1, minWidth: 120 }}
+              variant="filled"
             >
-              <InputLabel id="selectDistrict" color="secondary">
+              <InputLabel color="secondary" id="selectDistrict">
                 District
               </InputLabel>
               <Select labelId="selectDistrict-label">
@@ -249,34 +242,34 @@ function RetailStore({ nextPage, previousPage, updateFormData, formData }) {
             </FormControl>
             <TextField
               InputProps={{ sx: { borderRadius: 2 } }}
-              sx={{ width: 1, margin: 1 }}
-              type="city"
-              name="city"
-              label="City"
-              variant="filled"
-              size="small"
               color="secondary"
+              label="City"
+              name="city"
+              size="small"
+              sx={{ margin: 1, width: 1 }}
+              type="city"
+              variant="filled"
             />
-            <Box sx={{ display: "flex", gap: "10" }}>
+            <Box sx={{ display: 'flex', gap: '10' }}>
               <TextField
                 InputProps={{ sx: { borderRadius: 2 } }}
-                sx={{ flex: "1", margin: 1 }}
-                type="firstName"
-                name="firstName"
-                label="First Name"
-                variant="filled"
-                size="small"
                 color="secondary"
+                label="First Name"
+                name="firstName"
+                size="small"
+                sx={{ flex: '1', margin: 1 }}
+                type="firstName"
+                variant="filled"
               />
               <TextField
                 InputProps={{ sx: { borderRadius: 2 } }}
-                sx={{ flex: "1", margin: 1 }}
-                type="lastName"
-                name="lastName"
-                label="Last Name"
-                variant="filled"
-                size="small"
                 color="secondary"
+                label="Last Name"
+                name="lastName"
+                size="small"
+                sx={{ flex: '1', margin: 1 }}
+                type="lastName"
+                variant="filled"
               />
             </Box>
           </Grid>

@@ -1,164 +1,160 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from 'react-router-dom';
 
+import ForgotPassword from './pages/ForgotPassword';
+import HomeOwnerSignUp from './pages/HomeOwnerSignUp';
 // Import pages
-import Homepage from "./pages/HomePage";
-import SignIn from "./pages/SignIn";
-import SignUp from "./pages/SignUp";
-import ForgotPassword from "./pages/ForgotPassword";
-import HomeOwnerSignUp from "./pages/HomeOwnerSignUp";
-import ServiceProviderSignUp from "./pages/ServiceProviderSignUp";
-import ServiceProviderProfile from "./pages/ServiceProviderProfile";
-import AddNewProject from "./pages/ServiceProvider/AddNewProject";
-import ViewProject from "./pages/ServiceProvider/ViewProject";
-import ViewResponse from "./pages/ServiceProvider/ViewResponse";
-import Product from "./pages/e-com/Product";
-import Home from "./pages/e-com/Home";
-import ProductList from "./pages/e-com/ProductList";
-import Cart from "./pages/e-com/Cart";
-import AdminDashboard from "./pages/admin/dash";
-import FindFurniture from "./pages/findfurniture";
-
+import Homepage from './pages/HomePage';
+import AddNewProject from './pages/ServiceProvider/AddNewProject';
+import ViewProject from './pages/ServiceProvider/ViewProject';
+import ViewResponse from './pages/ServiceProvider/ViewResponse';
+import ServiceProviderProfile from './pages/ServiceProviderProfile';
+import ServiceProviderSignUp from './pages/ServiceProviderSignUp';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+import AdminDashboard from './pages/admin/dash';
+import Bar from './pages/adminDashboard/bar';
+import Calendar from './pages/adminDashboard/calendar';
+import Contacts from './pages/adminDashboard/contacts';
 //admin dashboard
-import Dashboard from "./pages/adminDashboard/dashboard";
-import Team from "./pages/adminDashboard/team";
-import Invoices from "./pages/adminDashboard/invoices";
-import Contacts from "./pages/adminDashboard/contacts";
-import Bar from "./pages/adminDashboard/bar";
-import Form from "./pages/adminDashboard/form";
-import Line from "./pages/adminDashboard/line";
-import Pie from "./pages/adminDashboard/pie";
-import Reviews from "./pages/adminDashboard/reviews";
-import Geography from "./pages/adminDashboard/geography";
-import Calendar from "./pages/adminDashboard/calendar";
-
+import Dashboard from './pages/adminDashboard/dashboard';
+import Form from './pages/adminDashboard/form';
+import Geography from './pages/adminDashboard/geography';
+import Invoices from './pages/adminDashboard/invoices';
+import Line from './pages/adminDashboard/line';
+import Pie from './pages/adminDashboard/pie';
+import Reviews from './pages/adminDashboard/reviews';
+import Team from './pages/adminDashboard/team';
+import BlogCreate from './pages/blog/create';
 //blog pages
-import BlogHome from "./pages/blog/home";
-import BlogView from "./pages/blog/view"
-import BlogCreate from "./pages/blog/create"
+import BlogHome from './pages/blog/home';
+import BlogView from './pages/blog/view';
+import Cart from './pages/e-com/Cart';
+import Home from './pages/e-com/Home';
+import Product from './pages/e-com/Product';
+import ProductList from './pages/e-com/ProductList';
+import FindFurniture from './pages/findfurniture';
 
 const router = createBrowserRouter([
   {
-    path: "/",
     element: <Homepage />,
+    path: '/',
   },
   {
-    path: "/SignIn",
     element: <SignIn />,
+    path: '/SignIn',
   },
   {
-    path: "/SignUp",
     element: <SignUp />,
+    path: '/SignUp',
   },
   {
-    path: "/SignUp/HomeOwner",
     element: <HomeOwnerSignUp />,
+    path: '/SignUp/HomeOwner',
   },
   {
-    path: "/SignUp/ServiceProvider",
     element: <ServiceProviderSignUp />,
+    path: '/SignUp/ServiceProvider',
   },
   {
-    path: "/ForgotPassword",
     element: <ForgotPassword />,
+    path: '/ForgotPassword',
   },
   {
-    path: "/e-com/Home",
     element: <Home />,
+    path: '/e-com/Home',
   },
   {
-    path: "/e-com/ProductList",
     element: <ProductList />,
+    path: '/e-com/ProductList',
   },
   {
-    path: "/e-com/Product",
     element: <Product />,
+    path: '/e-com/Product',
   },
   {
-    path: "/e-com/Cart",
     element: <Cart />,
+    path: '/e-com/Cart',
   },
   {
-    path: "/ServiceProviderProfile",
     element: <ServiceProviderProfile />,
+    path: '/ServiceProviderProfile',
   },
   {
-    path: "/AddNewProject",
     element: <AddNewProject />,
+    path: '/AddNewProject',
   },
   {
-    path: "/ViewProject",
     element: <ViewProject />,
+    path: '/ViewProject',
   },
   {
-    path: "/admin/dashboard",
     element: <Dashboard />,
+    path: '/admin/dashboard',
   },
   {
-    path: "/admin/team",
     element: <Team />,
+    path: '/admin/team',
   },
   {
-    path: "/admin/contacts",
     element: <Contacts />,
+    path: '/admin/contacts',
   },
   {
-    path: "/admin/invoices",
     element: <Invoices />,
+    path: '/admin/invoices',
   },
   {
-    path: "/admin/form",
     element: <Form />,
+    path: '/admin/form',
   },
   {
-    path: "/admin/bar",
     element: <Bar />,
+    path: '/admin/bar',
   },
   {
-    path: "/admin/pie",
     element: <Pie />,
+    path: '/admin/pie',
   },
   {
-    path: "/admin/line",
     element: <Line />,
+    path: '/admin/line',
   },
   {
-    path: "/admin/reviews",
     element: <Reviews />,
+    path: '/admin/reviews',
   },
   {
-    path: "/admin/calendar",
     element: <Calendar />,
+    path: '/admin/calendar',
   },
   {
-    path: "/admin/geography",
     element: <Geography />,
+    path: '/admin/geography',
   },
   {
-    path: "/admin/dash",
     element: <AdminDashboard />,
+    path: '/admin/dash',
   },
   {
-    path: "/blog/",
     element: <BlogHome />,
+    path: '/blog/',
   },
   {
-    path: "/blog/view",
     element: <BlogView />,
+    path: '/blog/view',
   },
   {
-    path: "/blog/create",
     element: <BlogCreate />,
+    path: '/blog/create',
   },
   {
-
-    path: "/ViewResponse",
-    element: <ViewResponse/>,
+    element: <ViewResponse />,
+    path: '/ViewResponse',
   },
   {
-    path: "/findFurniture",
-    element: <FindFurniture />
+    element: <FindFurniture />,
+    path: '/findFurniture',
   },
-
 ]);
 
 export default router;

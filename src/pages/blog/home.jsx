@@ -1,47 +1,50 @@
-import { useState } from "react";
-import CusBar from "../../components/CusTopBar";
-import BlogCard from "../../components/blog/card";
-import Carousel from "../../components/blog/carousel";
-import Typography from "@mui/material/Typography";
-import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
-import API from "../../lib/API";
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
+import Typography from '@mui/material/Typography';
+import { useState } from 'react';
+
+import CusBar from '../../components/CusTopBar';
+import BlogCard from '../../components/blog/card';
+import Carousel from '../../components/blog/carousel';
+import API from '../../lib/API';
 
 const User_ID = 1;
-const IMAGE_SOURCE = "http://127.0.0.1:5000/blog-files/"
+const IMAGE_SOURCE = 'http://127.0.0.1:5000/blog-files/';
 
-const blogData = Array.from(await API.get("/blogs/all")
-  .then((res) => res.data)
-  .catch((err) => {
-    console.log(err);
-    return [];
-  }));
+const blogData = Array.from(
+  await API.get('/blogs/all')
+    .then((res) => res.data)
+    .catch((err) => {
+      console.log(err);
+      return [];
+    }),
+);
 
 console.log(blogData);
 export default function Home() {
   const blogCards = [
     {
-      image: "/blog/1.1.jpg",
-      title: "Home Decoration",
+      image: '/blog/1.1.jpg',
+      title: 'Home Decoration',
     },
     {
-      image: "/ShopBy/hardware.jpg",
-      title: "DIY Projects",
+      image: '/ShopBy/hardware.jpg',
+      title: 'DIY Projects',
     },
     {
-      image: "/blog/1.3.jpg",
-      title: "Lifestyle & Wellness",
+      image: '/blog/1.3.jpg',
+      title: 'Lifestyle & Wellness',
     },
     {
-      image: "/blog/1.4.jpg",
-      title: "Gardening & Outdoors",
+      image: '/blog/1.4.jpg',
+      title: 'Gardening & Outdoors',
     },
     {
-      image: "/blog/1.5.jpg",
-      title: "Technology & Gadgets",
+      image: '/blog/1.5.jpg',
+      title: 'Technology & Gadgets',
     },
     {
-      image: "/blog/1.6.jpg",
-      title: "Architecture & Design",
+      image: '/blog/1.6.jpg',
+      title: 'Architecture & Design',
     },
   ];
 
@@ -61,17 +64,17 @@ export default function Home() {
       <Carousel cards={blogCards} />
 
       <div
-        style={{ margin: "20px", display: "flex", justifyContent: "flex-end" }}
+        style={{ display: 'flex', justifyContent: 'flex-end', margin: '20px' }}
       >
         <button
           style={{
-            marginRight: "10px",
-            backgroundColor: showMyBlogs ? "#804000" : "transparent",
-            color: showMyBlogs ? "#fff" : "#804000",
-            border: "1px solid #804000",
-            borderRadius: "4px",
-            padding: "5px 10px",
-            cursor: "pointer",
+            backgroundColor: showMyBlogs ? '#804000' : 'transparent',
+            border: '1px solid #804000',
+            borderRadius: '4px',
+            color: showMyBlogs ? '#fff' : '#804000',
+            cursor: 'pointer',
+            marginRight: '10px',
+            padding: '5px 10px',
           }}
           onClick={() => setShowMyBlogs(true)}
         >
@@ -79,12 +82,12 @@ export default function Home() {
         </button>
         <button
           style={{
-            backgroundColor: showMyBlogs ? "transparent" : "#804000",
-            color: showMyBlogs ? "#804000" : "#fff",
-            border: "1px solid #804000",
-            borderRadius: "4px",
-            padding: "5px 10px",
-            cursor: "pointer",
+            backgroundColor: showMyBlogs ? 'transparent' : '#804000',
+            border: '1px solid #804000',
+            borderRadius: '4px',
+            color: showMyBlogs ? '#804000' : '#fff',
+            cursor: 'pointer',
+            padding: '5px 10px',
           }}
           onClick={() => setShowMyBlogs(false)}
         >
@@ -94,31 +97,31 @@ export default function Home() {
 
       <div
         style={{
-          backgroundColor: "#f9f9f9",
-          padding: "10px",
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "flex-start",
-          gap: "20px",
+          backgroundColor: '#f9f9f9',
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: '20px',
+          justifyContent: 'flex-start',
+          padding: '10px',
         }}
       >
         {filteredBlogs.length === 0 ? (
           <div
             style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-              height: "calc(100vh - 300px)",
+              alignItems: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              height: 'calc(100vh - 300px)',
+              justifyContent: 'center',
+              width: '100%',
             }}
           >
             <SentimentVeryDissatisfiedIcon
-              style={{ fontSize: 80, color: "#999" }}
+              style={{ color: '#999', fontSize: 80 }}
             />
             <Typography
-              variant='h6'
-              style={{ color: "#999", marginTop: "20px" }}
+              style={{ color: '#999', marginTop: '20px' }}
+              variant="h6"
             >
               There is nothing here...
             </Typography>
@@ -126,13 +129,13 @@ export default function Home() {
         ) : (
           filteredBlogs.map((blog) => (
             <BlogCard
-              key={blog.title}
-              image={IMAGE_SOURCE+blog.id+"/"+blog.mainImage}
-              title={blog.title}
-              content={blog.content}
               author={blog.author}
-              date={blog.date}
               avatar={blog.avatar}
+              content={blog.content}
+              date={blog.date}
+              image={IMAGE_SOURCE + blog.id + '/' + blog.mainImage}
+              key={blog.title}
+              title={blog.title}
             />
           ))
         )}

@@ -8,52 +8,53 @@ import {
   Select,
   Stack,
   TextField,
-} from "@mui/material";
-import { Form, Formik } from "formik";
-import { useRef } from "react";
-import * as yup from "yup";
+} from '@mui/material';
+import { Form, Formik } from 'formik';
+import { useRef } from 'react';
+import * as yup from 'yup';
+
 import AddressInputs, {
   addressInitialValues,
   addressValidators,
-} from "../Auth/AddressInputs";
+} from '../Auth/AddressInputs';
 
 const professionalCategories = [
-  ["architect", "Architect"],
-  ["interiordesigner", "Interior Designer"],
-  ["constructioncompany", "Construction Company"],
-  ["homebuilder", "Home Builder"],
-  ["landscapearchitect", "Landscape Architect"],
-  ["painter", "Painter"],
-  ["carpenter", "Carpenter "],
+  ['architect', 'Architect'],
+  ['interiordesigner', 'Interior Designer'],
+  ['constructioncompany', 'Construction Company'],
+  ['homebuilder', 'Home Builder'],
+  ['landscapearchitect', 'Landscape Architect'],
+  ['painter', 'Painter'],
+  ['carpenter', 'Carpenter '],
 ];
 
 const validationSchema = yup.object({
-  businessName: yup.string().required("Business Name is required"),
+  businessName: yup.string().required('Business Name is required'),
+  contactNo: yup.string().required('Contact Number is required'),
+  firstname: yup.string().required('First Name is required'),
+  lastname: yup.string().required('Last Name is required'),
   role: yup
     .string()
     .oneOf(professionalCategories.map((category) => category[0]))
-    .required("Professional Category is required"),
-  contactNo: yup.string().required("Contact Number is required"),
-  firstname: yup.string().required("First Name is required"),
-  lastname: yup.string().required("Last Name is required"),
+    .required('Professional Category is required'),
   ...addressValidators,
 });
 
 function Professional({
+  formData,
   handleDropdownChange,
   nextPage,
   previousPage,
   updateFormData,
-  formData,
 }) {
   const formRef = useRef(null);
   const initialValues = {
     // if possible, set from formData
-    businessName: formData.businessName ?? "",
-    role: formData.professionalCategory ?? "",
-    contactNo: formData.contactNo ?? "",
-    firstname: formData.firstname ?? "",
-    lastname: formData.lastname ?? "",
+    businessName: formData.businessName ?? '',
+    contactNo: formData.contactNo ?? '',
+    firstname: formData.firstname ?? '',
+    lastname: formData.lastname ?? '',
+    role: formData.professionalCategory ?? '',
     ...addressInitialValues,
   };
 
@@ -61,15 +62,14 @@ function Professional({
     <>
       <Box
         sx={{
-          margin: "10px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "30px",
-          minHeight:'100vh'
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '30px',
+          margin: '10px',
+          minHeight: '100vh',
         }}
       >
         <Formik
-          innerRef={formRef}
           onSubmit={(values) => {
             // TODO: HANDLE PAGE CHANGE HERE!!!
             updateFormData(values);
@@ -77,25 +77,26 @@ function Professional({
             nextPage();
           }}
           initialValues={initialValues}
+          innerRef={formRef}
           validationSchema={validationSchema}
         >
           {({
-            values,
             errors,
-            touched,
-            handleChange,
             handleBlur,
+            handleChange,
             handleSubmit,
             isSubmitting,
+            touched,
+            values,
           }) => {
             const spread = (field, helper = true) => {
               return {
+                disabled: isSubmitting,
+                error: touched[field] && !!errors[field],
                 name: field,
                 onBlur: handleBlur,
                 onChange: handleChange,
                 value: values[field],
-                error: touched[field] && !!errors[field],
-                disabled: isSubmitting,
                 ...(helper && {
                   helperText: touched[field] && errors[field],
                 }),
@@ -103,37 +104,39 @@ function Professional({
             };
             return (
               <Form onSubmit={handleSubmit}>
-                <Stack style={{ justifyContent: "center" }} gap={2}>
-                  <Box sx={{ display: "flex", gap: 1 }}>
+                <Stack gap={2} style={{ justifyContent: 'center' }}>
+                  <Box sx={{ display: 'flex', gap: 1 }}>
                     <TextField
-                      label='Your First Name'
-                      variant='filled'
-                      size='small'
-                      color='secondary'
-                      {...spread("firstname")}
+                      color="secondary"
+                      label="Your First Name"
+                      size="small"
+                      variant="filled"
+                      {...spread('firstname')}
                     />
                     <TextField
-                      variant='filled'
-                      size='small'
-                      color='secondary'
-                      label='Your Last Name'
-                      {...spread("lastname")}
+                      color="secondary"
+                      label="Your Last Name"
+                      size="small"
+                      variant="filled"
+                      {...spread('lastname')}
                     />
                   </Box>
                   <TextField
                     fullWidth
-                    label='Business Name'
-                    variant='filled'
-                    size='small'
-                    {...spread("businessName")}
+                    label="Business Name"
+                    size="small"
+                    variant="filled"
+                    {...spread('businessName')}
                   />
-                  <FormControl fullWidth variant='filled'>
-                    <InputLabel id='SelectProfessionalCategory'>
+                  <FormControl fullWidth variant="filled">
+                    <InputLabel id="SelectProfessionalCategory">
                       Professional Category
                     </InputLabel>
-                    <Select displayEmpty={true} {...spread("role", false)}>
+                    <Select displayEmpty={true} {...spread('role', false)}>
                       {professionalCategories.map(([value, label]) => (
-                        <MenuItem key={value} value={value}>{label}</MenuItem>
+                        <MenuItem key={value} value={value}>
+                          {label}
+                        </MenuItem>
                       ))}
                     </Select>
                   </FormControl>
@@ -149,27 +152,27 @@ function Professional({
                   <AddressInputs spread={spread} />
                   <Grid
                     style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      width: "100%",
+                      display: 'flex',
+                      justifyContent: 'center',
+                      width: '100%',
                     }}
                   >
                     <Button
-                      sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
-                      type='button'
-                      color='primary'
-                      variant='contained'
-                      size='large'
+                      color="primary"
                       onClick={previousPage}
+                      size="large"
+                      sx={{ borderRadius: 2, margin: 1, width: 1 / 2 }}
+                      type="button"
+                      variant="contained"
                     >
                       Previous
                     </Button>
                     <Button
-                      sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
-                      type='submit'
-                      color='primary'
-                      variant='contained'
-                      size='large'
+                      color="primary"
+                      size="large"
+                      sx={{ borderRadius: 2, margin: 1, width: 1 / 2 }}
+                      type="submit"
+                      variant="contained"
                     >
                       Next
                     </Button>

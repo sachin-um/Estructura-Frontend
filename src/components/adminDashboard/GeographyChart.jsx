@@ -1,15 +1,42 @@
-import { useTheme } from "@mui/material";
-import { ResponsiveChoropleth } from "@nivo/geo";
-import { geoFeatures } from "../../data/mockGeoFeatures";
-import { tokens } from "../../theme";
-import { mockGeographyData as data } from "../../data/mockData";
+import { ResponsiveChoropleth } from '@nivo/geo';
+
+import { mockGeographyData as data } from '../../data/mockData';
+import { geoFeatures } from '../../data/mockGeoFeatures';
+import { tokens } from '../../theme';
 
 const GeographyChart = ({ isDashboard = false }) => {
-  const theme = useTheme();
   const colors = tokens;
   return (
     <ResponsiveChoropleth
-      data={data}
+      legends={
+        !isDashboard
+          ? [
+              {
+                anchor: 'bottom-left',
+                direction: 'column',
+                effects: [
+                  {
+                    on: 'hover',
+                    style: {
+                      itemOpacity: 1,
+                      itemTextColor: '#ffffff',
+                    },
+                  },
+                ],
+                itemDirection: 'left-to-right',
+                itemHeight: 18,
+                itemOpacity: 0.85,
+                itemTextColor: colors.grey[100],
+                itemWidth: 94,
+                itemsSpacing: 0,
+                justify: true,
+                symbolSize: 18,
+                translateX: 20,
+                translateY: -100,
+              },
+            ]
+          : undefined
+      }
       theme={{
         axis: {
           domain: {
@@ -38,46 +65,18 @@ const GeographyChart = ({ isDashboard = false }) => {
           },
         },
       }}
-      features={geoFeatures.features}
-      margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
+      borderColor="#ffffff"
+      borderWidth={1.5}
+      data={data}
       domain={[0, 1000000]}
-      unknownColor="#666666"
+      features={geoFeatures.features}
       label="properties.name"
-      valueFormat=".2s"
+      margin={{ bottom: 0, left: 0, right: 0, top: 0 }}
+      projectionRotation={[0, 0, 0]}
       projectionScale={isDashboard ? 40 : 150}
       projectionTranslation={isDashboard ? [0.49, 0.6] : [0.5, 0.5]}
-      projectionRotation={[0, 0, 0]}
-      borderWidth={1.5}
-      borderColor="#ffffff"
-      legends={
-        !isDashboard
-          ? [
-              {
-                anchor: "bottom-left",
-                direction: "column",
-                justify: true,
-                translateX: 20,
-                translateY: -100,
-                itemsSpacing: 0,
-                itemWidth: 94,
-                itemHeight: 18,
-                itemDirection: "left-to-right",
-                itemTextColor: colors.grey[100],
-                itemOpacity: 0.85,
-                symbolSize: 18,
-                effects: [
-                  {
-                    on: "hover",
-                    style: {
-                      itemTextColor: "#ffffff",
-                      itemOpacity: 1,
-                    },
-                  },
-                ],
-              },
-            ]
-          : undefined
-      }
+      unknownColor="#666666"
+      valueFormat=".2s"
     />
   );
 };

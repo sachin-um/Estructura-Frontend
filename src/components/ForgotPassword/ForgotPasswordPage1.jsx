@@ -1,54 +1,64 @@
-
-import React,{useState} from "react";
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  Stack,
-  Link,
-  TextField,
-  FormControl,
-  InputLabel,
-  Typography,
-} from "@mui/material";
-import ForgotPasswordPage2 from "./ForgotPasswordPage2";
+import { Button, Grid, TextField, Typography } from '@mui/material';
+import React from 'react';
 // import { Link } from "react-router-dom" ;
 
-function ForgotPasswordPage1({updateFormData,handleDropdownChange,nextPage}) {
+function ForgotPasswordPage1({
+  handleDropdownChange,
+  nextPage,
+  updateFormData,
+}) {
   const HandleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    console.log(formData.get("email"), formData.get("password"));
+    console.log(formData.get('email'), formData.get('password'));
   };
 
-  const handleNext=() =>{
+  const handleNext = () => {
     nextPage();
-  }
+  };
   // TODO: Change Layout
   return (
     <>
-      
-    
-          
-               {<Grid style={{minHeight:'30vh',justifyContent:"center"}}>
-               <Typography variant="h5" gutterBottom style={{ textAlign: 'center', color: '#435834',marginBottom:'50px' }}>
-                  Forgot your Password?
-                </Typography>
-                
-                <TextField  InputProps={{ sx: { borderRadius: 2 } }}sx={{ width: 1,margin:2 }}type='email' name='email' label='Email' variant="filled" size="small" />
-             
-                
-                </Grid >}
-           
-   
-                { <Grid style={{display:"flex",justifyContent:"center",margin:2}}>
-                <Button sx={{ width: 1/2,  borderRadius:2 }}type='submit' color="primary" variant="contained" size='large' onClick={handleNext}>Send OTP</Button>
-                </Grid> }
-                
-              
-            
-      
+      {
+        <Grid style={{ justifyContent: 'center', minHeight: '30vh' }}>
+          <Typography
+            style={{
+              color: '#435834',
+              marginBottom: '50px',
+              textAlign: 'center',
+            }}
+            gutterBottom
+            variant="h5"
+          >
+            Forgot your Password?
+          </Typography>
+
+          <TextField
+            InputProps={{ sx: { borderRadius: 2 } }}
+            label="Email"
+            name="email"
+            size="small"
+            sx={{ margin: 2, width: 1 }}
+            type="email"
+            variant="filled"
+          />
+        </Grid>
+      }
+
+      {
+        <Grid style={{ display: 'flex', justifyContent: 'center', margin: 2 }}>
+          <Button
+            color="primary"
+            onClick={handleNext}
+            size="large"
+            sx={{ borderRadius: 2, width: 1 / 2 }}
+            type="submit"
+            variant="contained"
+          >
+            Send OTP
+          </Button>
+        </Grid>
+      }
     </>
   );
 }

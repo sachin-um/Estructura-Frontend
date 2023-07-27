@@ -6,25 +6,26 @@ import {
   Snackbar,
   TextField,
   Typography,
-} from "@mui/material";
-import { Formik } from "formik";
-import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import * as yup from "yup";
-import TopBar from "../components/TopBar";
-import API, { clearTokens } from "../lib/API";
+} from '@mui/material';
+import { Formik } from 'formik';
+import { useEffect, useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import * as yup from 'yup';
+
+import TopBar from '../components/TopBar';
+import API, { clearTokens } from '../lib/API';
 
 const InitialValues = {
-  email: "",
-  password: "",
+  email: '',
+  password: '',
 };
 
 const ValidationSchema = yup.object().shape({
   email: yup
     .string()
-    .email("Email must be a well formed email address")
-    .required("Email is required"),
-  password: yup.string().required("Password is required"),
+    .email('Email must be a well formed email address')
+    .required('Email is required'),
+  password: yup.string().required('Password is required'),
 });
 
 function SignIn() {
@@ -32,24 +33,24 @@ function SignIn() {
   const Navigate = useNavigate();
 
   const Params = new URLSearchParams(window.location.search);
-  const from = Params.get("from");
-  const tokenExpired = Params.get("tokenExpired");
+  const from = Params.get('from');
+  const tokenExpired = Params.get('tokenExpired');
   console.log(from);
 
   const [open, setOpen] = useState(false);
 
   const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
     setOpen(false);
   };
 
   useEffect(() => {
-    if (tokenExpired == "true" && open == false) {
+    if (tokenExpired === 'true' && open === false) {
       setOpen(true);
     }
-  }, []);
+  }, [open, tokenExpired]);
 
   const HandleSubmit = (values) => {
     const { setErrors, setSubmitting } = FormRef.current;
@@ -57,16 +58,16 @@ function SignIn() {
     clearTokens();
     const email = values.email;
     const password = values.password;
-    API.post("/auth/authenticate", {
+    API.post('/auth/authenticate', {
       email,
       password,
     })
       .then((res) => {
         if (res.status === 200) {
           if (res.data.success === true) {
-            localStorage.setItem("role", res.data.role);
-            localStorage.setItem("accessToken", res.data.access_token);
-            localStorage.setItem("refreshToken", res.data.refresh_token);
+            localStorage.setItem('role', res.data.role);
+            localStorage.setItem('accessToken', res.data.access_token);
+            localStorage.setItem('refreshToken', res.data.refresh_token);
             if (from) {
               Navigate(from, { replace: true });
             } else {
@@ -86,7 +87,7 @@ function SignIn() {
             setErrors(violationsToErrors(res.data.validation_violations));
           }
         } else {
-          alert("Invalid Credentials");
+          alert('Invalid Credentials');
         }
       })
       .catch((err) => console.log(JSON.stringify(err)));
@@ -96,190 +97,190 @@ function SignIn() {
   return (
     <>
       <Snackbar
+        anchorOrigin={{ horizontal: 'center', vertical: 'top' }}
         autoHideDuration={6000}
-        open={open}
         onClose={handleClose}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={open}
       >
-        <Alert onClose={handleClose} severity='warning'>
+        <Alert onClose={handleClose} severity="warning">
           Your session has expired. Please sign in again.
         </Alert>
       </Snackbar>
-      <TopBar title='Sign In' />
+      <TopBar title="Sign In" />
       <Container
-        maxWidth={false}
         style={{
-          backgroundColor: "#f7f8f1",
-          minHeight: "100vh",
-          display: "flex",
-          alignItems: "center",
+          alignItems: 'center',
+          backgroundColor: '#f7f8f1',
+          display: 'flex',
+          minHeight: '100vh',
         }}
+        maxWidth={false}
       >
-        <Grid container justifyContent='center' spacing={4}>
-          <Grid item xs={12} md={7} lg={7}>
+        <Grid container justifyContent="center" spacing={4}>
+          <Grid item lg={7} md={7} xs={12}>
             <Grid
-              container
               style={{
+                alignItems: 'flex-end',
                 backgroundImage: 'url("/formBg.jpg")',
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                borderRadius: "20px",
-                height: "100%",
-                display: "flex",
-                alignItems: "flex-end",
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+                borderRadius: '20px',
+                display: 'flex',
+                height: '100%',
               }}
+              container
             >
               <Grid
+                style={{
+                  marginBottom: '2rem',
+                  paddingLeft: '4rem',
+                  paddingRight: '1rem',
+                }}
                 item
                 xs={12}
-                style={{
-                  paddingLeft: "4rem",
-                  paddingRight: "1rem",
-                  marginBottom: "2rem",
-                }}
               >
                 <Typography
-                  variant='h4'
                   style={{
-                    color: "#ffffff",
-                    fontSize: "1.5rem",
-                    textAlign: "left",
-                    lineHeight: "1",
-                    paddingBottom: "1rem",
-                    marginTop: "auto",
+                    color: '#ffffff',
+                    fontSize: '1.5rem',
+                    lineHeight: '1',
+                    marginTop: 'auto',
+                    paddingBottom: '1rem',
+                    textAlign: 'left',
                   }}
+                  variant="h4"
                 >
                   Unleash your home’s potential
                 </Typography>
                 <Typography
-                  variant='h4'
                   style={{
-                    color: "#ffffff",
-                    fontSize: "1.5rem",
-                    textAlign: "left",
-                    lineHeight: "1",
+                    color: '#ffffff',
+                    fontSize: '1.5rem',
+                    lineHeight: '1',
+                    textAlign: 'left',
                   }}
+                  variant="h4"
                 >
                   with everything at your fingertips
                 </Typography>
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} md={5} lg={5}>
+          <Grid item lg={5} md={5} xs={12}>
             <Grid
-              container
               style={{
-                backgroundColor: "#ffffff",
-                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-                borderRadius: "20px",
-                padding: "1rem 2rem 3rem",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                marginTop: "2rem",
-                marginBottom: "2rem",
+                alignItems: 'center',
+                backgroundColor: '#ffffff',
+                borderRadius: '20px',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                marginBottom: '2rem',
+                marginTop: '2rem',
+                padding: '1rem 2rem 3rem',
               }}
+              container
             >
               <Grid
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  marginBottom: '1.5rem',
+                }}
                 item
                 xs={12}
-                style={{
-                  marginBottom: "1.5rem",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
               >
-                <img src='/Logo.png' alt='Logo' style={{ width: "40%" }} />
+                <img alt="Logo" src="/Logo.png" style={{ width: '40%' }} />
               </Grid>
-              <Grid item xs={12} style={{ marginBottom: "1rem" }}>
+              <Grid item style={{ marginBottom: '1rem' }} xs={12}>
                 <Typography
-                  variant='h5'
                   gutterBottom
-                  style={{ textAlign: "center", color: "#435834" }}
+                  style={{ color: '#435834', textAlign: 'center' }}
+                  variant="h5"
                 >
                   Welcome Back
                 </Typography>
               </Grid>
-              <Grid item xs={12} style={{ marginTop: "1rem" }}>
+              <Grid item style={{ marginTop: '1rem' }} xs={12}>
                 <Formik
+                  initialValues={InitialValues}
                   innerRef={FormRef}
                   onSubmit={HandleSubmit}
-                  initialValues={InitialValues}
                   validationSchema={ValidationSchema}
                 >
                   {({
-                    values,
                     errors,
-                    touched,
-                    handleChange,
                     handleBlur,
+                    handleChange,
                     handleSubmit,
                     isSubmitting,
+                    touched,
+                    values,
                   }) => (
                     <form
                       style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "1.5rem",
-                        width: "100%",
-                        maxWidth: "400px",
-                        margin: "0 auto",
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '1.5rem',
+                        margin: '0 auto',
+                        maxWidth: '400px',
+                        width: '100%',
                       }}
                       onSubmit={handleSubmit}
                     >
                       <TextField
-                        label='User Name or Email'
+                        color="secondary"
+                        disabled={isSubmitting}
+                        error={touched.email && errors?.email}
                         fullWidth
-                        variant='filled'
-                        color='secondary'
-                        name='email'
-                        type='email'
+                        helperText={touched.email && errors?.email}
+                        label="User Name or Email"
+                        name="email"
                         onBlur={handleBlur}
                         onChange={handleChange}
+                        type="email"
                         value={values.email}
-                        error={touched.email && errors?.email}
-                        helperText={touched.email && errors?.email}
-                        disabled={isSubmitting}
+                        variant="filled"
                       />
                       <TextField
-                        label='Password'
+                        color="secondary"
+                        disabled={isSubmitting}
+                        error={touched.password && errors?.password}
                         fullWidth
-                        variant='filled'
-                        color='secondary'
-                        name='password'
-                        type='password'
+                        helperText={touched.password && errors?.password}
+                        label="Password"
+                        name="password"
                         onBlur={handleBlur}
                         onChange={handleChange}
+                        type="password"
                         value={values.password}
-                        error={touched.password && errors?.password}
-                        helperText={touched.password && errors?.password}
-                        disabled={isSubmitting}
+                        variant="filled"
                       />
-                      <Grid container justifyContent='space-between'>
-                        <Grid item style={{ marginRight: "3rem" }}>
+                      <Grid container justifyContent="space-between">
+                        <Grid item style={{ marginRight: '3rem' }}>
                           <Link
-                            to='/SignUp'
-                            style={{ color: "#9D6432", textDecoration: "none" }}
+                            style={{ color: '#9D6432', textDecoration: 'none' }}
+                            to="/SignUp"
                           >
-                            Don't have an account? Register
+                            Don&apos;t have an account? Register
                           </Link>
                         </Grid>
                         <Grid item>
                           <Link
-                            to='/ForgotPassword'
-                            style={{ color: "#9D6432", textDecoration: "none" }}
+                            style={{ color: '#9D6432', textDecoration: 'none' }}
+                            to="/ForgotPassword"
                           >
                             Forgot Password?
                           </Link>
                         </Grid>
                       </Grid>
                       <Button
-                        variant='contained'
-                        color='primary'
-                        type='submit'
+                        color="primary"
                         fullWidth
-                        style={{ marginTop: "1.5rem" }}
+                        style={{ marginTop: '1.5rem' }}
+                        type="submit"
+                        variant="contained"
                       >
                         Sign In
                       </Button>

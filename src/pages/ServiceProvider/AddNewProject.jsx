@@ -1,11 +1,7 @@
-import { MdCloudUpload, MdDelete } from "react-icons/md";
-import { AiFillFileImage } from "react-icons/ai";
-import TopBar from "../../components/TopBar";
-import React, { useState } from "react";
-import DeleteIcon from "@mui/icons-material/Delete";
-import ImageIcon from "@mui/icons-material/Image";
-import AttachFileIcon from "@mui/icons-material/AttachFile";
-import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
+import AttachFileIcon from '@mui/icons-material/AttachFile';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ImageIcon from '@mui/icons-material/Image';
+import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import {
   Box,
   Button,
@@ -13,13 +9,11 @@ import {
   Grid,
   TextField,
   Typography,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  Snackbar,
-  Alert,
-} from "@mui/material";
+} from '@mui/material';
+import React, { useState } from 'react';
+import { MdCloudUpload } from 'react-icons/md';
+
+import TopBar from '../../components/TopBar';
 
 function AddNewProject() {
   const [images, setImages] = useState([]);
@@ -49,35 +43,35 @@ function AddNewProject() {
     <>
       <TopBar title="" />
       <Container
-        maxWidth={false}
         style={{
-          backgroundColor: "#f7f8f1",
-          minHeight: "100vh",
-          display: "flex",
-          alignItems: "center",
-          margin: "2",
+          alignItems: 'center',
+          backgroundColor: '#f7f8f1',
+          display: 'flex',
+          margin: '2',
+          minHeight: '100vh',
         }}
+        maxWidth={false}
       >
-        <Grid style={{ justifyContent: "center" }}></Grid>
+        <Grid style={{ justifyContent: 'center' }}></Grid>
 
         <Grid container justifyContent="center" spacing={4}>
           <Grid
-            item
-            xs={12}
-            md={6}
             style={{
-              paddingTop: "2rem",
-              paddingBottom: "2rem",
-              marginTop: "2rem",
+              marginTop: '2rem',
+              paddingBottom: '2rem',
+              paddingTop: '2rem',
             }}
+            item
+            md={6}
+            xs={12}
           >
             <Typography
-              variant="h4"
               style={{
-                fontSize: "1.5rem",
-                textAlign: "left",
-                lineHeight: "1",
+                fontSize: '1.5rem',
+                lineHeight: '1',
+                textAlign: 'left',
               }}
+              variant="h4"
             >
               Add Project
             </Typography>
@@ -101,62 +95,62 @@ function AddNewProject() {
                 >
                   Add
                 </Button> */}
-            <Grid style={{ display: "flex", justifyContent: "center" }}>
+            <Grid style={{ display: 'flex', justifyContent: 'center' }}>
               <Button
-                sx={{ width: 1 / 2, borderRadius: 2, margin: 1, padding: 0 }}
-                variant="contained"
                 color="primary"
-                width="50%"
-                marginTop="20px"
                 fullWidth
-                onClick={() => document.querySelector(".input-field").click()}
+                marginTop="20px"
+                onClick={() => document.querySelector('.input-field').click()}
+                sx={{ borderRadius: 2, margin: 1, padding: 0, width: 1 / 2 }}
+                variant="contained"
+                width="50%"
               >
                 <input
-                  type="file"
-                  accept="image/*"
-                  className="input-field"
-                  hidden
-                  multiple
                   onChange={({ target: { files } }) => {
                     if (files && files.length > 0) {
                       const fileArray = Array.from(files).slice(0, 4);
                       const fileNames = fileArray.map((file) => file.name);
                       setFileNames(fileNames);
                       const imageUrls = fileArray.map((file) =>
-                        URL.createObjectURL(file)
+                        URL.createObjectURL(file),
                       );
                       setImages(imageUrls);
                     }
                   }}
+                  accept="image/*"
+                  className="input-field"
+                  hidden
+                  multiple
+                  type="file"
                 />
                 <MdCloudUpload color="white" size={30} />
                 <p>Browse Files to upload</p>
               </Button>
             </Grid>
             <Box
-              style={{ borderRadius: "5px", backgroundColor: "#F9F6EE" }}
-              position="relative"
               height="300px"
-              width="100%"
               marginTop="20px"
-              sx={{ borderStyle: "dashed", borderColor: "grey" }}
+              position="relative"
+              style={{ backgroundColor: '#F9F6EE', borderRadius: '5px' }}
+              sx={{ borderColor: 'grey', borderStyle: 'dashed' }}
+              width="100%"
             >
               {images[0] ? (
                 <>
                   <img
-                    src={images[0]}
-                    style={{ width: "100%", height: "300px" }}
                     alt={fileNames[0]}
+                    src={images[0]}
+                    style={{ height: '300px', width: '100%' }}
                   />
                   <span
                     style={{
-                      position: "absolute",
-                      top: "10px",
-                      right: "10px",
-                      backgroundColor: "black",
-                      color: "red",
-                      padding: "5px",
-                      cursor: "pointer",
+                      backgroundColor: 'black',
+                      color: 'red',
+                      cursor: 'pointer',
+                      padding: '5px',
+                      position: 'absolute',
+                      right: '10px',
+                      top: '10px',
                     }}
                     onClick={() => removeImage(0)}
                   >
@@ -167,9 +161,9 @@ function AddNewProject() {
                 <>
                   <Grid
                     style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      marginTop: "100px",
+                      display: 'flex',
+                      justifyContent: 'center',
+                      marginTop: '100px',
                     }}
                   >
                     {/* <MdCloudUpload color="#1475cf" size={60} /> */}
@@ -180,9 +174,9 @@ function AddNewProject() {
                   {/* <MdCloudUpload color="#1475cf" size={60} /> */}
                   <Typography
                     style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      marginTop: "10px",
+                      display: 'flex',
+                      justifyContent: 'center',
+                      marginTop: '10px',
                     }}
                   >
                     Main Image
@@ -196,28 +190,28 @@ function AddNewProject() {
             <Grid container spacing={2}>
               {images.length > 1 &&
                 images.slice(1, 4).map((imageUrl, index) => (
-                  <Grid item xs={4} key={index}>
+                  <Grid item key={index} xs={4}>
                     <Box
-                      position="relative"
                       height="150px"
-                      width="100%"
                       marginTop="30px"
-                      sx={{ borderStyle: "dashed", borderColor: "grey" }}
+                      position="relative"
+                      sx={{ borderColor: 'grey', borderStyle: 'dashed' }}
+                      width="100%"
                     >
                       <img
-                        src={imageUrl}
-                        style={{ width: "100%", height: "150px" }}
                         alt={fileNames[index + 1]}
+                        src={imageUrl}
+                        style={{ height: '150px', width: '100%' }}
                       />
                       <span
                         style={{
-                          position: "absolute",
-                          top: "10px",
-                          right: "10px",
-                          backgroundColor: "black",
-                          color: "red",
-                          padding: "5px",
-                          cursor: "pointer",
+                          backgroundColor: 'black',
+                          color: 'red',
+                          cursor: 'pointer',
+                          padding: '5px',
+                          position: 'absolute',
+                          right: '10px',
+                          top: '10px',
                         }}
                         onClick={() => removeImage(index + 1)}
                       >
@@ -227,19 +221,19 @@ function AddNewProject() {
                   </Grid>
                 ))}
               {placeholders.map((index) => (
-                <Grid item xs={4} key={index}>
+                <Grid item key={index} xs={4}>
                   <Box
-                    position="relative"
                     height="150px"
-                    width="100%"
                     marginTop="30px"
-                    sx={{ borderStyle: "dashed", borderColor: "grey" }}
+                    position="relative"
+                    sx={{ borderColor: 'grey', borderStyle: 'dashed' }}
+                    width="100%"
                   >
                     <Grid
                       style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        marginTop: "50px",
+                        display: 'flex',
+                        justifyContent: 'center',
+                        marginTop: '50px',
                       }}
                     >
                       {/* <MdCloudUpload color="#1475cf" size={60} /> */}
@@ -248,10 +242,10 @@ function AddNewProject() {
                     </Grid>
                     <Grid
                       style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        marginTop: "10px",
-                        backgroundColor: "#F9F6EE",
+                        backgroundColor: '#F9F6EE',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        marginTop: '10px',
                       }}
                     >
                       {/* <MdCloudUpload color="#1475cf" size={60} /> */}
@@ -263,36 +257,36 @@ function AddNewProject() {
             </Grid>
             <Grid
               style={{
-                display: "flex",
-                justifyContent: "center",
-                marginTop: "50px",
+                display: 'flex',
+                justifyContent: 'center',
+                marginTop: '50px',
               }}
             >
               <Button
-                sx={{ width: 1 / 2, borderRadius: 2, margin: 1, padding: 0 }}
-                variant="contained"
                 color="primary"
-                width="50%"
                 fullWidth
-                onClick={() => document.querySelector(".input-field").click()}
+                onClick={() => document.querySelector('.input-field').click()}
+                sx={{ borderRadius: 2, margin: 1, padding: 0, width: 1 / 2 }}
+                variant="contained"
+                width="50%"
               >
                 <input
-                  type="file"
-                  accept=".pdf,.doc"
-                  className="input-field"
-                  hidden
-                  multiple
                   onChange={({ target: { files } }) => {
                     if (files && files.length > 0) {
                       const fileArray = Array.from(files).slice(0, 4);
                       const fileNames = fileArray.map((file) => file.name);
                       setFileNames(fileNames);
                       const imageUrls = fileArray.map((file) =>
-                        URL.createObjectURL(file)
+                        URL.createObjectURL(file),
                       );
                       setImages(imageUrls);
                     }
                   }}
+                  accept=".pdf,.doc"
+                  className="input-field"
+                  hidden
+                  multiple
+                  type="file"
                 />
                 <MdCloudUpload color="white" size={30} />
                 <p>Browse Documents to upload</p>
@@ -301,30 +295,30 @@ function AddNewProject() {
             <Grid container spacing={2}>
               {docNames.length > 0 &&
                 docNames.map((fileName, index) => (
-                  <Grid item xs={4} key={index}>
+                  <Grid item key={index} xs={4}>
                     <Box
-                      position="relative"
                       height="150px"
-                      width="100%"
                       marginTop="30px"
-                      sx={{ borderStyle: "dashed", borderColor: "grey" }}
+                      position="relative"
+                      sx={{ borderColor: 'grey', borderStyle: 'dashed' }}
+                      width="100%"
                     >
                       <InsertDriveFileIcon
                         style={{
-                          display: "flex",
-                          justifyContent: "center",
-                          marginTop: "10px",
-                          marginLeft: "10px",
+                          display: 'flex',
+                          justifyContent: 'center',
+                          marginLeft: '10px',
+                          marginTop: '10px',
                         }}
                       />
 
                       {/* <MdCloudUpload color="#1475cf" size={60} /> */}
                       <Typography
                         style={{
-                          justifyContent: "center",
-                          marginLeft: "20px",
-                          marginTop: "10px",
-                          backgroundColor: "#F9F6EE",
+                          backgroundColor: '#F9F6EE',
+                          justifyContent: 'center',
+                          marginLeft: '20px',
+                          marginTop: '10px',
                         }}
                       >
                         {fileName}
@@ -334,10 +328,10 @@ function AddNewProject() {
                           // position: "absolute",
                           // top: "10px",
                           // right: "10px",
-                          backgroundColor: "black",
-                          color: "red",
-                          padding: "5px",
-                          cursor: "pointer",
+                          backgroundColor: 'black',
+                          color: 'red',
+                          cursor: 'pointer',
+                          padding: '5px',
                         }}
                         onClick={() => removeImage(index + 1)}
                       >
@@ -347,33 +341,33 @@ function AddNewProject() {
                   </Grid>
                 ))}
               {placeholders.map((index) => (
-                <Grid item xs={4} key={index}>
+                <Grid item key={index} xs={4}>
                   <Box
-                    style={{ display: "flex" }}
-                    position="relative"
                     height="50px"
-                    width="100%"
                     marginTop="50px"
-                    sx={{ borderStyle: "dashed", borderColor: "grey" }}
+                    position="relative"
+                    style={{ display: 'flex' }}
+                    sx={{ borderColor: 'grey', borderStyle: 'dashed' }}
+                    width="100%"
                   >
                     {/* <MdCloudUpload color="#1475cf" size={60} /> */}
 
                     <AttachFileIcon
                       style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        marginTop: "10px",
-                        marginLeft: "10px",
+                        display: 'flex',
+                        justifyContent: 'center',
+                        marginLeft: '10px',
+                        marginTop: '10px',
                       }}
                     />
 
                     {/* <MdCloudUpload color="#1475cf" size={60} /> */}
                     <Typography
                       style={{
-                        justifyContent: "center",
-                        marginLeft: "20px",
-                        marginTop: "10px",
-                        backgroundColor: "#F9F6EE",
+                        backgroundColor: '#F9F6EE',
+                        justifyContent: 'center',
+                        marginLeft: '20px',
+                        marginTop: '10px',
                       }}
                     >
                       Documents
@@ -452,74 +446,74 @@ function AddNewProject() {
             </Grid> */}
           </Grid>
           <Grid
-            item
-            xs={12}
-            md={6}
             style={{
-              paddingTop: "2rem",
-              paddingBottom: "2rem",
-              marginTop: "2rem",
-              display: "flex",
-              justifyContent: "center",
+              display: 'flex',
+              justifyContent: 'center',
+              marginTop: '2rem',
+              paddingBottom: '2rem',
+              paddingTop: '2rem',
             }}
+            item
+            md={6}
+            xs={12}
           >
             <form
               style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "1.5rem",
-                width: "80%",
-                maxWidth: "800px",
-                marginTop: "75px",
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1.5rem',
+                marginTop: '75px',
+                maxWidth: '800px',
+                width: '80%',
               }}
             >
               <TextField
-                sx={{ width: "1", borderRadius: 2, margin: 1 }}
-                label="Project Title"
-                type="title"
-                fullWidth
-                variant="filled"
                 color="secondary"
+                fullWidth
+                label="Project Title"
+                sx={{ borderRadius: 2, margin: 1, width: '1' }}
+                type="title"
+                variant="filled"
               />
-              <Grid style={{ justifyContent: "center" }}>
+              <Grid style={{ justifyContent: 'center' }}>
                 <TextField
-                  sx={{ width: "1", borderRadius: 2, margin: 1 }}
-                  label="Project Description"
                   id="filled-multiline-static"
+                  label="Project Description"
                   multiline
                   rows={15}
+                  sx={{ borderRadius: 2, margin: 1, width: '1' }}
                   variant="filled"
                 />
               </Grid>
               <TextField
-                sx={{ width: "1", borderRadius: 2, margin: 1 }}
-                label="Project Budget"
-                type="Budget"
-                fullWidth
-                variant="filled"
                 color="secondary"
+                fullWidth
+                label="Project Budget"
+                sx={{ borderRadius: 2, margin: 1, width: '1' }}
+                type="Budget"
+                variant="filled"
               />
               <TextField
-                sx={{ width: "1", borderRadius: 2, margin: 1 }}
-                label="Location"
-                type="Location"
-                fullWidth
-                variant="filled"
                 color="secondary"
+                fullWidth
+                label="Location"
+                sx={{ borderRadius: 2, margin: 1, width: '1' }}
+                type="Location"
+                variant="filled"
               />
               <Grid
                 style={{
-                  display: "flex",
-                  justifyContent: "center",
+                  display: 'flex',
+                  justifyContent: 'center',
                   margin: 10,
                 }}
               >
                 <Button
-                  sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
-                  variant="contained"
                   color="primary"
-                  type="submit"
                   fullWidth
+                  sx={{ borderRadius: 2, margin: 1, width: 1 / 2 }}
+                  type="submit"
+                  variant="contained"
                 >
                   Add
                 </Button>

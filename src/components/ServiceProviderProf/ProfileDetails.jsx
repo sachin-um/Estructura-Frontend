@@ -1,18 +1,18 @@
-
-import { Button, Container, Grid, TextField, Typography, Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import { Link } from 'react-router-dom';
-
-
-
-
+import { Grid, Typography } from '@mui/material';
 
 function ProfileDetails() {
   return (
     <>
-     <Grid style={{display:"flex",justifyContent:"center", marginTop: '3rem',marginLeft: '10rem'  }}>
-    <Typography variant='h6'>Profile Details </Typography>
-     </Grid>
-     
+      <Grid
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginLeft: '10rem',
+          marginTop: '3rem',
+        }}
+      >
+        <Typography variant="h6">Profile Details </Typography>
+      </Grid>
     </>
   );
 }

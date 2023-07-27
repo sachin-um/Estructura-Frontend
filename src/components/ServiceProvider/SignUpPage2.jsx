@@ -1,20 +1,21 @@
-import { Button, Container, Grid, Typography } from "@mui/material";
-import Tab from "@mui/material/Tab";
-import Tabs from "@mui/material/Tabs";
-import { useState } from "react";
-import Professional from "./Professional";
-import RentalStore from "./Rental";
-import RetailStore from "./RetailStore";
+import { Container, Grid, Typography } from '@mui/material';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
+import { useState } from 'react';
+
+import Professional from './Professional';
+import RentalStore from './Rental';
+import RetailStore from './RetailStore';
 
 function SignUpPage2({
   formData,
-  updateFormData,
   handleDropdownChange,
   handlePageImage,
   nextPage,
   previousPage,
+  updateFormData,
 }) {
-  const [activeTab, setActiveTab] = useState("one");
+  const [activeTab, setActiveTab] = useState('one');
 
   const handleTabChange = (_event, tab) => {
     setActiveTab(tab);
@@ -32,37 +33,39 @@ function SignUpPage2({
   const renderForm = () => {
     let tab = <>Oops! Something went wrong.</>;
     switch (activeTab) {
-      case "one":
+      case 'one':
         tab = (
           <Professional
+            formData={formData}
+            handleDropdownChange={handleDropdownChange}
+            nextPage={nextPage}
+            previousPage={previousPage}
             updateFormData={updateFormData}
+          />
+        );
+        break;
+      case 'two':
+        tab = (
+          <RetailStore
             formData={formData}
             nextPage={nextPage}
             previousPage={previousPage}
-            handleDropdownChange={handleDropdownChange}
+            updateFormData={updateFormData}
           />
         );
         break;
-      case "two":
+      case 'three':
         tab = (
-          <RetailStore 
-            nextPage={nextPage} 
-            previousPage={previousPage} 
+          <RentalStore
+            formData={formData}
+            nextPage={nextPage}
+            previousPage={previousPage}
             updateFormData={updateFormData}
-            formData={formData}  
           />
         );
         break;
-      case "three":
-        tab = (
-          <RentalStore 
-            nextPage={nextPage} 
-            previousPage={previousPage} 
-            updateFormData={updateFormData}
-            formData={formData}  
-            />
-        );
-        break;
+      default:
+        tab = <>What&apos;s This?</>;
     }
     return tab;
   };
@@ -71,120 +74,120 @@ function SignUpPage2({
   return (
     <>
       <Container
-        maxWidth={false}
         style={{
-          backgroundColor: "#f7f8f1",
-          display: "flex",
-          alignItems: "center",
+          alignItems: 'center',
+          backgroundColor: '#f7f8f1',
+          display: 'flex',
         }}
+        maxWidth={false}
       >
-        <Grid container justifyContent='center' spacing={4}>
+        <Grid container justifyContent="center" spacing={4}>
           <Grid
-            item
-            xs={12}
-            md={7}
             style={{
-              paddingTop: "2rem",
-              paddingBottom: "2rem",
-              marginTop: "4rem",
+              marginTop: '4rem',
+              paddingBottom: '2rem',
+              paddingTop: '2rem',
             }}
+            item
+            md={7}
+            xs={12}
           >
             <Grid
-              container
               style={{
+                alignItems: 'flex-end',
                 backgroundImage: 'url("/category.jpg")',
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                borderRadius: "20px",
-                height: "100%",
-                display: "flex",
-                alignItems: "flex-end",
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+                borderRadius: '20px',
+                display: 'flex',
+                height: '100%',
               }}
+              container
             >
               <Grid
+                style={{
+                  marginBottom: '2rem',
+                  paddingLeft: '4rem',
+                  paddingRight: '1rem',
+                }}
                 item
                 xs={12}
-                style={{
-                  paddingLeft: "4rem",
-                  paddingRight: "1rem",
-                  marginBottom: "2rem",
-                }}
               >
                 <Typography
-                  variant='h4'
                   style={{
-                    color: "#ffffff",
-                    fontSize: "1.5rem",
-                    textAlign: "left",
-                    lineHeight: "1",
-                    paddingBottom: "1rem",
-                    marginTop: "auto",
+                    color: '#ffffff',
+                    fontSize: '1.5rem',
+                    lineHeight: '1',
+                    marginTop: 'auto',
+                    paddingBottom: '1rem',
+                    textAlign: 'left',
                   }}
+                  variant="h4"
                 >
                   Unleash your home’s potential
                 </Typography>
                 <Typography
-                  variant='h4'
                   style={{
-                    color: "#ffffff",
-                    fontSize: "1.5rem",
-                    textAlign: "left",
-                    lineHeight: "1",
+                    color: '#ffffff',
+                    fontSize: '1.5rem',
+                    lineHeight: '1',
+                    textAlign: 'left',
                   }}
+                  variant="h4"
                 >
                   with everything at your fingertips
                 </Typography>
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} md={5}>
+          <Grid item md={5} xs={12}>
             <Grid
-              container
               style={{
-                backgroundColor: "#ffffff",
-                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-                borderRadius: "20px",
-                padding: "1rem 2rem 3rem",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                marginTop: "2rem",
-                marginBottom: "2rem",
+                alignItems: 'center',
+                backgroundColor: '#ffffff',
+                borderRadius: '20px',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                marginBottom: '2rem',
+                marginTop: '2rem',
+                padding: '1rem 2rem 3rem',
               }}
+              container
             >
               <Grid
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  marginBottom: '0.5rem',
+                }}
                 item
                 xs={12}
-                style={{
-                  marginBottom: "0.5rem",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
               >
-                <img src='/Logo.png' alt='Logo' style={{ width: "40%" }} />
+                <img alt="Logo" src="/Logo.png" style={{ width: '40%' }} />
               </Grid>
-              <Grid item xs={12} style={{ marginTop: "1rem" }}>
+              <Grid item style={{ marginTop: '1rem' }} xs={12}>
                 <Typography
-                  variant='h3'
-                  fontWeight='bold'
-                  fontSize='1rem'
-                  color='secondary'
-                  align='center'
+                  align="center"
+                  color="secondary"
+                  fontSize="1rem"
+                  fontWeight="bold"
+                  variant="h3"
                 >
                   Select your Category
                 </Typography>
-                <Grid style={{ display: "flex", justifyContent: "center" }}>
+                <Grid style={{ display: 'flex', justifyContent: 'center' }}>
                   <Tabs
-                    value={activeTab}
+                    aria-label="secondary tabs example"
+                    indicatorColor="secondary"
                     onChange={handleTabChange}
-                    textColor='secondary'
-                    indicatorColor='secondary'
-                    aria-label='secondary tabs example'
+                    textColor="secondary"
+                    value={activeTab}
                   >
-                    <Tab value='one' label='Professional' />
-                    <Tab value='two' label='Retail Store' />
-                    <Tab value='three' label='Rental' />
+                    <Tab label="Professional" value="one" />
+                    <Tab label="Retail Store" value="two" />
+                    <Tab label="Rental" value="three" />
                   </Tabs>
                 </Grid>
                 {renderForm()}

@@ -1,11 +1,11 @@
-import axios from "axios";
+import axios from 'axios';
 
-const baseURL = "http://localhost:8080/api/v1/";
+const baseURL = 'http://localhost:8080/api/v1/';
 
 const API = axios.create({
   baseURL,
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });
 
@@ -13,7 +13,7 @@ const API = axios.create({
 API.interceptors.request.use(
   (config) => {
     // Before sending the request, check if the access token is in the local storage
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken = localStorage.getItem('accessToken');
     // if token is present in the local storage, add it to the request's header
     if (accessToken && !config.headers.Authorization) {
       config.headers.Authorization = `Bearer ${accessToken}`;
@@ -22,23 +22,23 @@ API.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 API.interceptors.response.use(
   // Do not interfere with successful responses
   (response) => response,
   (error) => {
-    const { response, config } = error;
+    const { config, response } = error;
     console.log(error);
     // Do not try to handle non 403 and 2nd attempts after refreshing tokens
     if (response.status !== 403 || config._retry) {
       return Promise.reject(error);
     }
-    const refreshToken = localStorage.getItem("refreshToken");
+    const refreshToken = localStorage.getItem('refreshToken');
     if (refreshToken) {
       // Send a request to get refreshed tokens using the refresh token
-      return API.post("auth/refresh-token", null, {
+      return API.post('auth/refresh-token', null, {
         headers: {
           Authorization: `Bearer ${refreshToken}`,
         },
@@ -47,20 +47,20 @@ API.interceptors.response.use(
           // Store new tokens
           if (res.status === 200) {
             localStorage.setItem(
-              "accessToken",
-              res.data.access_token ?? localStorage.getItem("accessToken")
+              'accessToken',
+              res.data.access_token ?? localStorage.getItem('accessToken'),
             );
             localStorage.setItem(
-              "refreshToken",
-              res.data.refresh_token ?? localStorage.getItem("refreshToken")
+              'refreshToken',
+              res.data.refresh_token ?? localStorage.getItem('refreshToken'),
             );
             localStorage.setItem(
-              "role",
-              res.data.role ?? localStorage.getItem("role")
+              'role',
+              res.data.role ?? localStorage.getItem('role'),
             );
             // Set header as default for API and the current request
-            const authHeader = `Bearer ${localStorage.getItem("accessToken")}`;
-            API.defaults.headers.common["Authorization"] = authHeader;
+            const authHeader = `Bearer ${localStorage.getItem('accessToken')}`;
+            API.defaults.headers.common['Authorization'] = authHeader;
             config.headers.Authorization = authHeader;
             config._retry = true;
             // Retry current request
@@ -76,13 +76,13 @@ API.interceptors.response.use(
         });
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export const clearTokens = () => {
-  localStorage.removeItem("accessToken");
-  localStorage.removeItem("refreshToken");
-  localStorage.removeItem("role");
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('refreshToken');
+  localStorage.removeItem('role');
 };
 
 export default API;
