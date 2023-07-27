@@ -140,6 +140,7 @@ import AddressInputs,{addressInitialValues,addressValidators} from "../Auth/Addr
                                     variant="filled" 
                                     size="small" 
                                     color='secondary'
+                                    {...spread("contactNo")}
                                   />
                                   <TextField  
                                     fullWidth
@@ -148,6 +149,7 @@ import AddressInputs,{addressInitialValues,addressValidators} from "../Auth/Addr
                                     variant="filled" 
                                     size="small" 
                                     color='secondary'
+                                    {...spread("registrationNo")}
                                   />
                                   <AddressInputs spread={spread}/>
                                   <Grid
