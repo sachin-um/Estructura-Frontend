@@ -30,6 +30,7 @@ API.interceptors.response.use(
   (response) => response,
   (error) => {
     const { response, config } = error;
+    console.log(error);
     // Do not try to handle non 403 and 2nd attempts after refreshing tokens
     if (response.status !== 403 || config._retry) {
       return Promise.reject(error);

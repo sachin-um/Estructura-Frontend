@@ -23,7 +23,7 @@ function MultiActionAreaCard(props) {
           <CardMedia
             component="img"
             height="200"
-            image={image} // Use the image prop
+            src={image} // Use the image prop
             alt="green iguana"
             style={{
               objectFit: 'cover',
