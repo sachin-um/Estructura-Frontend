@@ -1,7 +1,8 @@
 /* REFERENCE: */
-import { Formik } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { violationsToErrors } from "utils/Violations"; // TODO: fix import
+import { useRef } from "react";
 
 const validationSchema = Yup.object().shape({
   // TODO: add validation here
@@ -49,31 +50,32 @@ function Component() {
         setSubmitting(false);
       }}
     >
-      {(
+      {({
         values,
         errors,
         touched,
         handleChange,
         handleBlur,
         handleSubmit,
-        isSubmitting
-      ) => {
+        isSubmitting,
+      }) => {
         const spread = (field, helper = true) => {
           return {
-                name: field,
-                onBlur: handleBlur,
-                onChange: handleChange,
-                value: values[field],
-                error: touched[field] && !!errors[field],
-                disabled: isSubmitting,
-                ...(helper && {
-                  helperText: touched[field] && errors[field]})
-              }
+            name: field,
+            onBlur: handleBlur,
+            onChange: handleChange,
+            value: values[field],
+            error: touched[field] && !!errors[field],
+            disabled: isSubmitting,
+            ...(helper && {
+              helperText: touched[field] && errors[field],
+            }),
+          };
         };
         return (
-          <form onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit}>
             <input type='text' {...spread("name")} />
-          </form>
+          </Form>
         );
       }}
     </Formik>
