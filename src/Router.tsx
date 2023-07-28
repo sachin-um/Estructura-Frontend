@@ -1,4 +1,5 @@
-import { createBrowserRouter } from 'react-router-dom';
+/* eslint-disable perfectionist/sort-objects */
+import { type RouteObject, createBrowserRouter } from 'react-router-dom';
 
 import ForgotPassword from './pages/ForgotPassword';
 import HomeOwnerSignUp from './pages/HomeOwnerSignUp';
@@ -154,6 +155,41 @@ const router = createBrowserRouter([
   {
     element: <FindFurniture />,
     path: '/findFurniture',
+  },
+]);
+
+const authChildren: RouteObject[] = [
+  { element: <SignIn />, path: '/auth/SignIn' },
+  {
+    children: [
+      {
+        element: <HomeOwnerSignUp />,
+        path: '/auth/SignUp/HomeOwner',
+      },
+      {
+        element: <ServiceProviderSignUp />,
+        path: '/auth/SignUp/ServiceProvider',
+      },
+    ],
+    element: <SignUp />,
+    path: '/auth/SignUp',
+  },
+  {
+    element: <ForgotPassword />,
+    path: '/auth/ForgotPassword',
+  },
+];
+
+export const altRouter = createBrowserRouter([
+  {
+    element: <Homepage />,
+    path: '/',
+    children: [
+      {
+        children: authChildren,
+        path: '/auth',
+      },
+    ],
   },
 ]);
 

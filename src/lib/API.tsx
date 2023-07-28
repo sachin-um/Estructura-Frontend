@@ -9,7 +9,7 @@ const API = axios.create({
   },
 });
 
-// Setup interceptors to work with the backen's authentication implementation
+// Setup interceptors to work with the backend's authentication implementation
 API.interceptors.request.use(
   (config) => {
     // Before sending the request, check if the access token is in the local storage

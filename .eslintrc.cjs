@@ -5,20 +5,25 @@ module.exports = {
     'plugin:import/errors',
     'plugin:react/recommended',
     'plugin:perfectionist/recommended-natural',
+    'plugin:@typescript-eslint/recommended',
   ],
-  parser: '@babel/eslint-parser',
-
+  parser: '@typescript-eslint/parser',
   parserOptions: {
-    babelOptions: {
-      presets: ['@babel/preset-react'],
-    },
-    requireConfigFile: false,
+    project: './tsconfig.json',
+    sourceType: 'module',
   },
-  plugins: ['prettier', 'import', 'react', 'perfectionist'],
+  plugins: [
+    'prettier',
+    'import',
+    'react',
+    'perfectionist',
+    '@typescript-eslint/eslint-plugin',
+  ],
   root: true,
   rules: {
+    '@typescript-eslint/no-unused-vars': 'off',
     'import/no-unresolved': [2, { caseSensitive: false }],
-    'no-unused-vars': 'off', // or "@typescript-eslint/no-unused-vars": "off",
+    'no-console': 'off',
     'prettier/prettier': 'error',
     'react/prop-types': 0,
     'react/react-in-jsx-scope': 0,

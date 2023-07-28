@@ -22,7 +22,7 @@ import ProfileDetails from '../components/ServiceProviderProf/ProfileDetails';
 import Responses from '../components/ServiceProviderProf/Responses';
 import Reviews from '../components/ServiceProviderProf/Reviews';
 
-function ServiceProviderProfile({ nextPage, previousPage, updateFormData }) {
+function ServiceProviderProfile() {
   const [value, setValue] = useState('one');
   const [activeTab, setActiveTab] = useState('one');
   const [profilePicture, setProfilePicture] = useState(null);
