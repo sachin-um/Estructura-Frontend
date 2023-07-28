@@ -24,6 +24,8 @@ import {
 } from "@mui/material";
 
 function AddNewProject() {
+  const [mainImage, setMainImage] = useState(null);
+  const [mainImageName, setMainImageName] = useState(null);
   const [images, setImages] = useState([]);
   const [fileNames, setFileNames] = useState([]);
   const [doc, setDoc] = useState([]);
@@ -33,9 +35,13 @@ function AddNewProject() {
   const docPlaceholders = Array.from({ length: docPlaceHoldersCount }).fill(0);
 
   const placeholdersCount =
-    images.length === 0 ? 3 : images.length >= 4 ? 0 : 3 - (images.length - 1);
+    images.length === 0 ? 3 : images.length >= 3 ? 0 : 3 - (images.length);
   const placeholders = Array.from({ length: placeholdersCount }).fill(0);
 
+  const removeMainImage=()=>{
+      setMainImage(null);
+      setMainImageName(null);
+  }
   const removeImage = (index) => {
     const updatedImages = [...images];
     updatedImages.splice(index, 1);
@@ -90,73 +96,62 @@ function AddNewProject() {
             >
               Add Project
             </Typography>
-            <Grid style={{ display: "flex", justifyContent: "center" }}>
-              <Button
-                sx={{ width: 1 / 2, borderRadius: 2, margin: 1, padding: 0 }}
-                variant="contained"
-                color="primary"
-                width="50%"
-                marginTop="20px"
-                fullWidth
-                onClick={() => document.querySelector(".input-field").click()}
-              >
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="input-field"
-                  hidden
-                  multiple
-                  onChange={({ target: { files } }) => {
-                    if (files && files.length > 0) {
-                      const fileArray = Array.from(files).slice(0, 4);
-                      const fileNames = fileArray.map((file) => file.name);
-                      setFileNames(fileNames);
-                      const imageUrls = fileArray.map((file) =>
-                        URL.createObjectURL(file)
-                      );
-                      setImages(imageUrls);
-                    }
-                  }}
-                />
-                <UploadIcon style={{marginRight:5}}/>
-                <p>Browse Images</p>
-              </Button>
-            </Grid>
-            <Box
-              style={{ borderRadius: "5px", backgroundColor: "#F9F6EE" }}
-              position="relative"
-              height="300px"
-              width="100%"
-              marginTop="20px"
-              sx={{ borderStyle: "dashed", borderColor: "grey" }}
-            >
-              {images[0] ? (
-                <>
+              {mainImage ? (
+                <Box
+                  style={{ borderRadius: "5px", backgroundColor: "#F9F6EE" }}
+                  position="relative"
+                  height="300px"
+                  width="100%"
+                  marginTop="20px"
+                  sx={{ borderStyle: "dashed", borderColor: "grey" }}
+                >
                   <img
-                    src={images[0]}
+                    src={mainImage}
                     style={{ width: "100%", height: "300px" }}
-                    alt={fileNames[0]}
+                    alt={mainImageName}
                   />
                   <IconButton
                     size="small"
-                    onClick={()=>removeImage(0)}
+                    onClick={()=>removeMainImage()}
                     style={{ position: 'absolute', top: 5, right: 5, backgroundColor: 'white', color:'red' }}
                   >
                     <Tooltip title="Remove Image">
                       <DeleteIcon />
                     </Tooltip>
                   </IconButton>
-                </>
+                </Box>
               ) : (
-                <>
+                <Box
+                  style={{ borderRadius: "5px", backgroundColor: "#F9F6EE" }}
+                  position="relative"
+                  height="300px"
+                  width="100%"
+                  marginTop="20px"
+                  sx={{ borderStyle: "dashed", borderColor: "grey" }}
+                  onClick={() => document.querySelector(".input-main-img").click()}
+                >
                   <Grid
                     style={{
                       display: "flex",
                       justifyContent: "center",
                       marginTop: "100px",
+                      
                     }}
+                    
                   >
                     <AddPhotoAlternateIcon />
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="input-main-img"
+                      hidden
+                      onChange={({ target: { files } }) => {
+                        files[0] && setMainImageName(files[0].name);
+                        if (files) {
+                          setMainImage(URL.createObjectURL(files[0]));
+                        }
+                      }}
+                    />
                   </Grid>
                   <Typography
                     style={{
@@ -167,15 +162,11 @@ function AddNewProject() {
                   >
                     Main Image
                   </Typography>
-                </>
+                </Box>
               )}
-            </Box>
-
-            
-
             <Grid container spacing={2}>
-              {images.length > 1 &&
-                images.slice(1, 4).map((imageUrl, index) => (
+              {images.length > 0 &&
+                images.map((imageUrl, index) => (
                   <Grid item xs={4} key={index}>
                     <Box
                       position="relative"
@@ -187,11 +178,11 @@ function AddNewProject() {
                       <img
                         src={imageUrl}
                         style={{ width: "100%", height: "150px" }}
-                        alt={fileNames[index + 1]}
+                        alt={fileNames[index]}
                       />
                       <IconButton
                         size="small"
-                        onClick={()=>removeImage(index+1)}
+                        onClick={()=>removeImage(index)}
                         style={{ position: 'absolute', top: 5, right: 5, backgroundColor: 'white', color:'red' }}
                       >
                         <Tooltip title="Remove Image">
@@ -233,43 +224,39 @@ function AddNewProject() {
                 </Grid>
               ))}
             </Grid>
-            <Grid
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                marginTop: "50px",
-              }}
-            >
+            <Grid style={{ display: "flex", justifyContent: "center" }}>
               <Button
                 sx={{ width: 1 / 2, borderRadius: 2, margin: 1, padding: 0 }}
                 variant="contained"
                 color="primary"
                 width="50%"
+                marginTop="20px"
                 fullWidth
-                onClick={() => document.querySelector(".input-field-doc").click()}
+                onClick={() => document.querySelector(".input-field").click()}
               >
                 <input
                   type="file"
-                  accept=".pdf,.doc,.docx,.pptx,.xls,.xlsx"
-                  className="input-field-doc"
+                  accept="image/*"
+                  className="input-field"
                   hidden
                   multiple
                   onChange={({ target: { files } }) => {
                     if (files && files.length > 0) {
                       const fileArray = Array.from(files).slice(0, 3);
                       const fileNames = fileArray.map((file) => file.name);
-                      setDocNames(fileNames);
-                      const docUrls = fileArray.map((file) =>
+                      setFileNames(fileNames);
+                      const imageUrls = fileArray.map((file) =>
                         URL.createObjectURL(file)
                       );
-                      setDoc(docUrls);
+                      setImages(imageUrls);
                     }
                   }}
                 />
                 <UploadIcon style={{marginRight:5}}/>
-                <p>Browse Documents</p>
+                <p>Browse Extra Images</p>
               </Button>
             </Grid>
+            
             <Grid container spacing={2}>
               {docNames.length > 0 &&
                 docNames.map((fileName, index) => (
@@ -344,6 +331,43 @@ function AddNewProject() {
                   </Box>
                 </Grid>
               ))}
+            </Grid>
+            <Grid
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "50px",
+              }}
+            >
+              <Button
+                sx={{ width: 1 / 2, borderRadius: 2, margin: 1, padding: 0 }}
+                variant="contained"
+                color="primary"
+                width="50%"
+                fullWidth
+                onClick={() => document.querySelector(".input-field-doc").click()}
+              >
+                <input
+                  type="file"
+                  accept=".pdf,.doc,.docx,.pptx,.xls,.xlsx"
+                  className="input-field-doc"
+                  hidden
+                  multiple
+                  onChange={({ target: { files } }) => {
+                    if (files && files.length > 0) {
+                      const fileArray = Array.from(files).slice(0, 3);
+                      const fileNames = fileArray.map((file) => file.name);
+                      setDocNames(fileNames);
+                      const docUrls = fileArray.map((file) =>
+                        URL.createObjectURL(file)
+                      );
+                      setDoc(docUrls);
+                    }
+                  }}
+                />
+                <UploadIcon style={{marginRight:5}}/>
+                <p>Browse Documents</p>
+              </Button>
             </Grid>
           </Grid>
           <Grid
