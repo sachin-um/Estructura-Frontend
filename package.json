@@ -48,7 +48,9 @@
     "testExMail": "jest --testPathIgnorePatterns=\".*Mail.*\"",
     "testAll": "jest",
     "lint": "eslint src/ --fix-dry-run --color --ext .ts,.tsx",
-    "lintfr": "eslint src/ --fix --ext .ts,.tsx"
+    "lintfr": "eslint src/ --fix --ext .ts,.tsx",
+    "lintall": "eslint src/ --fix-dry-run --color --ext .ts,.tsx,.js,.jsx",
+    "lintallfr": "eslint src/ --fix --ext .ts,.tsx,.js,.jsx"
   },
   "eslintConfig": {
     "extends": [

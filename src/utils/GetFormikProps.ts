@@ -1,9 +1,11 @@
 import { type FormikProps } from 'formik';
 
 /**
- * This function returns a function that takes a field name and returns
- * the props for an input field. This is useful for reducing boilerplate
+ * Call to get a function that gives props for an input field
  * @param props FormikProps<ReqInterface> from Formik
+ * @returns a function that takes a field name and a helper text flag
+ *          (Helper text isn't available in some input fields like Select)
+ *          and returns the props for an input field.
  */
 function GetFormikProps<ReqInterface>(props: FormikProps<ReqInterface>) {
   return (field: string, helper = true): Record<string, unknown> => {
