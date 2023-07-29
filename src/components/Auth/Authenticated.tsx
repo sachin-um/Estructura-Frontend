@@ -1,28 +1,30 @@
-import jwt_decode from 'jwt-decode';
-import { useEffect } from 'react';
+import jwt_decode, { type JwtPayload } from 'jwt-decode';
+import { PropsWithChildren, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const RolesRequired = (AllowedRoles) => {
-  return function AdminAuthenticated(props) {
+const RolesRequired = (AllowedRoles: Role[]) => {
+  return function Auth(props: PropsWithChildren) {
     const navigate = useNavigate();
-    const { children } = props;
-    const refreshToken = localStorage.getItem('refreshToken');
-    let tokenExpired = false;
+    const refreshToken = localStorage.getItem('refreshToken') as string;
+    const tokenExpired = false;
     if (refreshToken) {
-      tokenExpired = jwt_decode(refreshToken).exp < Date.now() / 1000;
+      const token = jwt_decode<JwtPayload>(refreshToken);
+      const tokenExpired =
+        token !== undefined && (token.exp ?? 0) < Date.now() / 1000;
       console.log(
-        'Token expires in ' +
-          Math.floor(jwt_decode(refreshToken).exp - Date.now() / 1000) +
+        'Refresh Token expires in ' +
+          Math.floor((token.exp ?? 0) - Date.now() / 1000) +
           ' seconds',
       );
     }
     const isAuthenticated =
-      AllowedRoles.includes(localStorage.getItem('role')) && !tokenExpired;
+      AllowedRoles.includes(localStorage.getItem('role') as Role) &&
+      !tokenExpired;
 
     useEffect(() => {
       if (!isAuthenticated && window.location.pathname !== '/SignIn') {
         const link = encodeURI(
-          '/SignIn?' +
+          '/auth/SignIn?' +
             (tokenExpired ? 'tokenExpired=true' : '') +
             '&from=' +
             window.location.pathname +
@@ -32,13 +34,13 @@ const RolesRequired = (AllowedRoles) => {
       }
     });
 
-    return isAuthenticated ? <>{children}</> : <>Unauthorized</>;
+    return isAuthenticated ? <>{props.children}</> : <>Unauthorized</>;
   };
 };
 
 const AdminAuthenticated = RolesRequired(['ADMIN']);
 const CustomerAuthenticated = RolesRequired(['CUSTOMER']);
-const RetailOwnerAuthenticated = RolesRequired(['RETAIL_OWNER']);
+const RetailOwnerAuthenticated = RolesRequired(['RETAILOWNER']);
 const ArchitectAuthenticated = RolesRequired(['ARCHITECT']);
 
 export {

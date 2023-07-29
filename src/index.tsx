@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 
 // import router, { altRouter } from './Router';
-import { altRouter } from './Router';
+import { altRouter } from './Routes/Router';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import EstructuraTheme from './theme';
