@@ -14,6 +14,7 @@ import * as yup from 'yup';
 
 import TopBar from '../components/TopBar';
 import API, { clearTokens } from '../lib/API';
+import GetFormikProps from '../utils/GetFormikProps';
 import { violationsToErrorsTS } from '../utils/ViolationsTS';
 
 interface SignInRequest {
@@ -125,15 +126,24 @@ function SignIn() {
       <TopBar />
       <Container
         style={{
-          alignItems: 'center',
           backgroundColor: '#f7f8f1',
-          display: 'flex',
-          minHeight: '100vh',
+          marginTop: '2.5rem',
         }}
         maxWidth={false}
       >
-        <Grid container justifyContent="center" spacing={4}>
-          <Grid item lg={7} md={7} xs={12}>
+        <Grid
+          container
+          justifyContent="center"
+          spacing={4}
+          sx={{ minHeight: '85vh' }}
+        >
+          <Grid
+            item
+            lg={7}
+            md={7}
+            sm={12}
+            sx={{ display: { md: 'block', sm: 'none' } }}
+          >
             <Grid
               style={{
                 alignItems: 'flex-end',
@@ -225,33 +235,8 @@ function SignIn() {
                   onSubmit={HandleSubmit}
                   validationSchema={ValidationSchema}
                 >
-                  {({
-                    errors,
-                    handleBlur,
-                    handleChange,
-                    handleSubmit,
-                    isSubmitting,
-                    touched,
-                    values,
-                  }: FormikProps<SignInRequest>) => {
-                    const spread = (
-                      field: string,
-                      helper = true,
-                    ): Record<string, unknown> => {
-                      const key = field as keyof SignInRequest;
-                      return {
-                        disabled: isSubmitting,
-                        error: touched[key] && !!errors[key],
-                        name: field,
-                        onBlur: handleBlur,
-                        onChange: handleChange,
-                        value: values[key],
-                        ...(helper && {
-                          helperText: touched[key] && errors[key],
-                        }),
-                      };
-                    };
-
+                  {(FormikProps: FormikProps<SignInRequest>) => {
+                    const spread = GetFormikProps(FormikProps);
                     return (
                       <Form
                         style={{
@@ -262,7 +247,7 @@ function SignIn() {
                           maxWidth: '400px',
                           width: '100%',
                         }}
-                        onSubmit={handleSubmit}
+                        onSubmit={FormikProps.handleSubmit}
                       >
                         <TextField
                           color="secondary"

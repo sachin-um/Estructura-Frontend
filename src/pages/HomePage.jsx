@@ -135,7 +135,7 @@ const Slider = ({ images, interval = 5000 }) => {
   );
 };
 
-const HomePage = () => {
+const HomePage = (props) => {
   const [isCreateIdeaButtonHovered, setIsCreateIdeaButtonHovered] =
     useState(false);
   const [isFurnitureButtonHovered, setIsFurnitureButtonHovered] =

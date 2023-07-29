@@ -158,9 +158,17 @@ const router = createBrowserRouter([
   },
 ]);
 
-const authChildren: RouteObject[] = [
-  { element: <SignIn />, path: '/auth/SignIn' },
+const authChildren: RouteObject[] = [];
+
+export const altRouter = createBrowserRouter([
   {
+    element: <Homepage />,
+    path: '/',
+  },
+  { path: '/auth/SignIn', element: <SignIn /> },
+  {
+    path: '/auth/SignUp',
+    element: <SignUp />,
     children: [
       {
         element: <HomeOwnerSignUp />,
@@ -171,25 +179,10 @@ const authChildren: RouteObject[] = [
         path: '/auth/SignUp/ServiceProvider',
       },
     ],
-    element: <SignUp />,
-    path: '/auth/SignUp',
   },
   {
-    element: <ForgotPassword />,
     path: '/auth/ForgotPassword',
-  },
-];
-
-export const altRouter = createBrowserRouter([
-  {
-    element: <Homepage />,
-    path: '/',
-    children: [
-      {
-        children: authChildren,
-        path: '/auth',
-      },
-    ],
+    element: <ForgotPassword />,
   },
 ]);
 

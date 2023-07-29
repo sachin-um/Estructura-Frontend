@@ -4,7 +4,8 @@ import { Form, Formik, type FormikProps } from 'formik';
 import { useRef } from 'react';
 import * as Yup from 'yup';
 
-import API from './API'; // TODO: fix import
+import API from './API'; // ! TODO: fix imports
+import GetFormikProps from '../utils/GetFormikProps';
 import { violationsToErrorsTS } from '../utils/ViolationsTS';
 
 interface FormValues {
@@ -55,35 +56,10 @@ function Component() {
       onSubmit={HandleSubmit}
       validationSchema={validationSchema}
     >
-      {({
-        errors,
-        handleBlur,
-        handleChange,
-        handleSubmit,
-        isSubmitting,
-        touched,
-        values,
-      }) => {
-        const spread = (
-          field: string,
-          helper = true,
-        ): Record<string, unknown> => {
-          const key = field as keyof FormValues;
-          return {
-            disabled: isSubmitting,
-            error: touched[key] && !!errors[key],
-            name: field,
-            onBlur: handleBlur,
-            onChange: handleChange,
-            value: values[key],
-            ...(helper && {
-              helperText: touched[key] && errors[key],
-            }),
-          };
-        };
-
+      {(FormikProps: FormikProps<FormValues>) => {
+        const spread = GetFormikProps(FormikProps);
         return (
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={FormikProps.handleSubmit}>
             <TextField type="text" {...spread('name')} />
           </Form>
         );
