@@ -33,6 +33,7 @@ import Home from '../pages/e-com/Home';
 import Product from '../pages/e-com/Product';
 import ProductList from '../pages/e-com/ProductList';
 import FindFurniture from '../pages/findfurniture';
+import Play from '../play';
 import AdminRoutes from './AdminRoutes';
 import AuthRoutes from './AuthRoutes';
 
@@ -163,6 +164,10 @@ export const altRouter = createBrowserRouter([
   {
     path: '/',
     element: <Homepage />,
+  },
+  {
+    path: '/play',
+    element: <Play />,
   },
   ...AuthRoutes,
   ...AdminRoutes,

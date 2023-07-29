@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 
-// import router, { altRouter } from './Router';
-import { altRouter } from './Routes/Router';
 import './index.css';
+import { store } from './redux/store';
+// import router, { altRouter } from './Router';
+import { altRouter } from './routes/Router';
 import EstructuraTheme from './theme';
 
 const root = ReactDOM.createRoot(
@@ -13,9 +15,11 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <EstructuraTheme>
-      {/* <RouterProvider router={router} /> */}
-      <RouterProvider router={altRouter} />
-    </EstructuraTheme>
+    <Provider store={store}>
+      <EstructuraTheme>
+        {/* <RouterProvider router={router} /> */}
+        <RouterProvider router={altRouter} />
+      </EstructuraTheme>
+    </Provider>
   </React.StrictMode>,
 );

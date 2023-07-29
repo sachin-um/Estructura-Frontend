@@ -19,7 +19,8 @@
   "include": [
     "src",
     ".eslintrc.cjs",
-    "src/Routes/.eslintrc.cjs",
+    "src/routes/.eslintrc.cjs",
+    "src/redux/.eslintrc.cjs",
     "vite.config.ts",
     "tsconfig.node.json",
     "tsconfig.json"
