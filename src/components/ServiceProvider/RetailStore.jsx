@@ -37,7 +37,6 @@ const validationSchema = yup.object({
     .required("Retail Category is required"),
   businessContactNo: yup.string().required("Contact Number is required"),
   registrationNo:yup.string().required("Business Registration number is required"),
-  contactNo: yup.string().required("Contact Number is required"),
   firstname: yup.string().required("First Name is required"),
   lastname: yup.string().required("Last Name is required"),
   ...addressValidators,
@@ -75,7 +74,6 @@ function RetailStore({ nextPage, previousPage, updateFormData, formData }) {
           onSubmit={(values) => {
             // TODO: HANDLE PAGE CHANGE HERE!!!
             updateFormData(values);
-            handleDropdownChange(values.role);
             nextPage();
           }}
           initialValues={initialValues}
@@ -156,7 +154,7 @@ function RetailStore({ nextPage, previousPage, updateFormData, formData }) {
                           label="Business Contact Number"
                           variant="filled"
                           size="small"
-                          {...spread("contactNo")}
+                          {...spread("businessContactNo")}
                         />
                         <TextField
                           name="contactNo"

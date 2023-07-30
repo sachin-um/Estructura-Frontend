@@ -21,13 +21,6 @@ function SignUpPage2({
     handlePageImage(tab);
   };
 
-  const handleNext = () => {
-    nextPage();
-  };
-
-  const handlePrevious = () => {
-    previousPage();
-  };
 
   const renderForm = () => {
     let tab = <>Oops! Something went wrong.</>;
@@ -189,35 +182,6 @@ function SignUpPage2({
                 </Grid>
                 {renderForm()}
               </Grid>
-              {/* <Grid
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  margin: 10,
-                  width: "80%",
-                }}
-              >
-                <Button
-                  sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
-                  type='submit'
-                  color='primary'
-                  variant='contained'
-                  size='large'
-                  onClick={handlePrevious}
-                >
-                  Previous
-                </Button>
-                <Button
-                  sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
-                  type='submit'
-                  color='primary'
-                  variant='contained'
-                  size='large'
-                  onClick={handleNext}
-                >
-                  Next
-                </Button>
-              </Grid> */}
             </Grid>
           </Grid>
         </Grid>

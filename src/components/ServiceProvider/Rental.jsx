@@ -39,7 +39,7 @@ import AddressInputs,{addressInitialValues,addressValidators} from "../Auth/Addr
       role:formData.role ?? "RENTER",
       businessName: formData.businessName ?? "",
       registrationNo:formData.registrationNo ?? "",
-      contactNo: formData.contactNo ?? "",
+      businessContactNo: formData.contactNo ?? "",
       firstname: formData.firstname?? "",
       lastname:  formData.lastname ?? "",
       ...addressInitialValues,
@@ -140,7 +140,7 @@ import AddressInputs,{addressInitialValues,addressValidators} from "../Auth/Addr
                                     variant="filled" 
                                     size="small" 
                                     color='secondary'
-                                    {...spread("contactNo")}
+                                    {...spread("businessContactNo")}
                                   />
                                   <TextField  
                                     fullWidth
