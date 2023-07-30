@@ -8,17 +8,23 @@ import { type FormikProps } from 'formik';
  *          and returns the props for an input field.
  */
 function GetFormikProps<ReqInterface>(props: FormikProps<ReqInterface>) {
-  return (field: string, helper = true): Record<string, unknown> => {
+  return (
+    field: string,
+    helper = true,
+    onChange = true,
+    value = true,
+    error = true,
+  ): Record<string, unknown> => {
     const { errors, handleBlur, handleChange, isSubmitting, touched, values } =
       props;
     const key = field as keyof ReqInterface;
     return {
       disabled: isSubmitting,
-      error: touched[key] && !!errors[key],
       name: field,
       onBlur: handleBlur,
-      onChange: handleChange,
-      value: values[key],
+      ...(error && { error: touched[key] && !!errors[key] }),
+      ...(value && { value: values[key] }),
+      ...(onChange && { onChange: handleChange }),
       ...(helper && {
         helperText: touched[key] && errors[key],
       }),
