@@ -33,7 +33,7 @@ const validationSchema = yup.object({
     .string()
     .oneOf(professionalCategories.map((category) => category[0]))
     .required("Professional Category is required"),
-  contactNo: yup.string().required("Contact Number is required"),
+  businessContactNo: yup.string().required("Contact Number is required"),
   firstname: yup.string().required("First Name is required"),
   lastname: yup.string().required("Last Name is required"),
   ...addressValidators,
@@ -51,7 +51,7 @@ function Professional({
     // if possible, set from formData
     businessName: formData.businessName ?? "",
     role: formData.professionalCategory ?? "",
-    contactNo: formData.contactNo ?? "",
+    businessContactNo: formData.contactNo ?? "",
     firstname: formData.firstname ?? "",
     lastname: formData.lastname ?? "",
     ...addressInitialValues,
@@ -127,6 +127,15 @@ function Professional({
                     size='small'
                     {...spread("businessName")}
                   />
+                  <TextField // IDK why this was here
+                    type='tel'
+                    label='Business Contact Number'
+                    variant='filled'
+                    size='small'
+                    color='secondary'
+                    {...spread("businessContactNo")}
+                    fullWidth
+                />
                   <FormControl fullWidth variant='filled'>
                     <InputLabel id='SelectProfessionalCategory'>
                       Professional Category
@@ -137,15 +146,7 @@ function Professional({
                       ))}
                     </Select>
                   </FormControl>
-                  {/* <TextField // IDK why this was here
-                    type='tel'
-                    label='Business Contact Number'
-                    variant='filled'
-                    size='small'
-                    color='secondary'
-                    {...spread("businessContactNo")}
-                    fullWidth
-                /> */}
+                  
                   <AddressInputs spread={spread} />
                   <Grid
                     style={{
