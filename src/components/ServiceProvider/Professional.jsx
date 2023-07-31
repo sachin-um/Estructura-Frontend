@@ -54,6 +54,7 @@ function Professional({
     businessContactNo: formData.contactNo ?? "",
     firstname: formData.firstname ?? "",
     lastname: formData.lastname ?? "",
+    businessContactNo: formData.businessContactNo ??"",
     ...addressInitialValues,
   };
 

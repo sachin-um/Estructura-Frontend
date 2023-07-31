@@ -16,61 +16,53 @@ import {
   InputLabel,
   Typography,
 } from "@mui/material";
+import { Form, Formik } from "formik";
+import { useRef } from "react";
+import * as yup from "yup";
 import { Checkbox } from "@mui/material";
 // import { Link } from "react-router-dom" ;
 
+const options = [
+  { label: "Ampara", value: "ampara" },
+  { label: "Anuradhapura", value: "anuradhapura" },
+  { label: "Badulla", value: "badulla" },
+  { label: "Batticaloa", value: "batticaloa" },
+  { label: "Colombo", value: "colombo" },
+  { label: "Galle", value: "galle" },
+  { label: "Gampaha", value: "gampaha" },
+  { label: "Hambantota", value: "hambantota" },
+  { label: "Jaffna", value: "jaffna" },
+  { label: "Kalutara", value: "kalutara" },
+  { label: "Kandy", value: "kandy" },
+  { label: "Kegalle", value: "kegalle" },
+  { label: "Kilinochchi", value: "kilinochchi" },
+  { label: "Kurunegala", value: "kurunegala" },
+  { label: "Mannar", value: "mannar" },
+  { label: "Matale", value: "matale" },
+  { label: "Matara", value: "matara" },
+  { label: "Monaragala", value: "monaragala" },
+  { label: "Mullaitivu", value: "mullaitivu" },
+  { label: "Nuwara Eliya", value: "nuwaraeliya" },
+  { label: "Polonnaruwa", value: "polonnaruwa" },
+  { label: "Puttalam", value: "puttalam" },
+  { label: "Ratnapura", value: "ratnapura" },
+  { label: "Trincomalee", value: "trincomalee" },
+  { label: "Vavuniya", value: "vavuniya" },
+];
+const validationSchema = yup.object({
+  serviceAreas:yup
+  .string()
+  .oneOf(options.map((area)=>area[0]))
+  .required("Select a One or More Service Areas")
+});
 function ServiceProviderPage4({
   formData,
   updateFormData,
-
   nextPage,
   previousPage,
   pageImage,
 }) {
   const [selected, setSelected] = useState([]);
-  const options = [
-    { label: "Ampara", value: "ampara" },
-    { label: "Anuradhapura", value: "anuradhapura" },
-    { label: "Badulla", value: "badulla" },
-    { label: "Batticaloa", value: "batticaloa" },
-    { label: "Colombo", value: "colombo" },
-    { label: "Galle", value: "galle" },
-    { label: "Gampaha", value: "gampaha" },
-    { label: "Hambantota", value: "hambantota" },
-    { label: "Jaffna", value: "jaffna" },
-    { label: "Kalutara", value: "kalutara" },
-    { label: "Kandy", value: "kandy" },
-    { label: "Kegalle", value: "kegalle" },
-    { label: "Kilinochchi", value: "kilinochchi" },
-    { label: "Kurunegala", value: "kurunegala" },
-    { label: "Mannar", value: "mannar" },
-    { label: "Matale", value: "matale" },
-    { label: "Matara", value: "matara" },
-    { label: "Monaragala", value: "monaragala" },
-    { label: "Mullaitivu", value: "mullaitivu" },
-    { label: "Nuwara Eliya", value: "nuwaraeliya" },
-    { label: "Polonnaruwa", value: "polonnaruwa" },
-    { label: "Puttalam", value: "puttalam" },
-    { label: "Ratnapura", value: "ratnapura" },
-    { label: "Trincomalee", value: "trincomalee" },
-    { label: "Vavuniya", value: "vavuniya" },
-    
-   
-    
-  ];
-  const HandleSubmit = (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    console.log(formData.get("email"), formData.get("password"));
-  };
-
-  const handleNext = () => {
-    nextPage();
-  };
-  const handlePrevious = () => {
-    previousPage();
-  };
-  // TODO: Change Layout
   return (
     <>
       <Container
@@ -169,82 +161,100 @@ function ServiceProviderPage4({
                 <img src="/Logo.png" alt="Logo" style={{ width: "40%" }} />
               </Grid>
               <Grid item xs={12} style={{ marginTop: "1rem" }}>
-                <Box
-                  component="form"
-                  sx={{
-                    margin: "10px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "20px",
+              <Formik
+                  innerRef={formRef}
+                  onSubmit={(values) => {
+                    // TODO: HANDLE PAGE CHANGE HERE!!!
+                    updateFormData(values);
+                    // handleDropdownChange(values.role);
+                    // nextPage();
+                    console.log(values);
                   }}
-                  onSubmit={HandleSubmit}
+                  initialValues={initialValues}
+                  validationSchema={validationSchema}
                 >
-                  <Box
-                    component="form"
-                    sx={{
-                      margin: "10px",
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "30px",
-                    }}
-                    onSubmit={HandleSubmit}
-                  >
-                    {
-                      <Grid style={{ justifyContent: "center" }}>
-                        <Typography textAlign="center">
-                          Where are you based?
-                        </Typography>
-                        <Grid
-                          style={{ justifyContent: "center" }}
-                          sx={{ width: 1, margin: 1 }}
-                        >
-                          <FormControl sx={{ m: 1, minWidth: 320, maxWidth: 300,border:1,borderColor: "primary",borderRadius: '5px'}}>
-                          <MultiSelect 
-                            options={options}
-                            value={selected}
-                            onChange={setSelected}
-                            labelledBy={"Select"}
-                            isCreatable={false}
-                            overrideStrings={{selectAll:"Islandwide",search:"Search districts..",selectSomeItems:"Select Districts"}}
-                          />
-                          </FormControl>
-                        </Grid>
-                      </Grid>
-                    }
-                  </Box>
-
-                </Box>
-                
-                {
-                    <Grid
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        margin: 10,
-                      }}
-                    >
-                      <Button
-                        sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
-                        type="submit"
-                        color="primary"
-                        variant="contained"
-                        size="large"
-                        onClick={handlePrevious}
+                  {({
+                    values,
+                    errors,
+                    touched,
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    isSubmitting,
+                  }) => {
+                    const spread = (field, helper = true) => {
+                      return {
+                        name: field,
+                        onBlur: handleBlur,
+                        onChange: handleChange,
+                        value: values[field],
+                        error: touched[field] && !!errors[field],
+                        disabled: isSubmitting,
+                        ...(helper && {
+                          helperText: touched[field] && errors[field],
+                        }),
+                      };
+                    };
+                    return (
+                      <Form onSubmit={handleSubmit}>
+                      <Box
+                        sx={{
+                          margin: "10px",
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "20px",
+                        }}
                       >
-                        Previous
-                      </Button>
-                      <Button
-                        sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
-                        type="submit"
-                        color="primary"
-                        variant="contained"
-                        size="large"
-                        onClick={handleNext}
-                      >
-                        Next
-                      </Button>
-                    </Grid>
-                  }
+                          {
+                            <Grid style={{ justifyContent: "center" }}>
+                              <Typography textAlign="center">
+                                Where are you based?
+                              </Typography>
+                                <FormControl fullWidth variant='filled'>
+                                <MultiSelect 
+                                  displayEmpty={true} {...spread("serviceAreas", false)}
+                                  options={options}
+                                  value={selected}
+                                  onChange={setSelected}
+                                  labelledBy={"Select"}
+                                  isCreatable={false}
+                                  overrideStrings={{selectAll:"Islandwide",search:"Search districts..",selectSomeItems:"Select Districts"}}
+                                />
+                                </FormControl>
+                                <Grid
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    width: "100%",
+                                  }}
+                                >
+                                  <Button
+                                    sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
+                                    type='button'
+                                    color='primary'
+                                    variant='contained'
+                                    size='large'
+                                    onClick={previousPage}
+                                  >
+                                    Previous
+                                  </Button>
+                                  <Button
+                                    sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
+                                    type='submit'
+                                    color='primary'
+                                    variant='contained'
+                                    size='large'
+                                  >
+                                    Next
+                                  </Button>
+                                </Grid>
+                            </Grid>
+                          }
+                      </Box>
+                      </Form>
+                    );
+                  }}
+                </Formik>
               </Grid>
             </Grid>
           </Grid>

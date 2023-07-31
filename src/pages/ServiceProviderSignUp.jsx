@@ -155,9 +155,8 @@ function ServiceProviderSignUp() {
   if (selectedOption === "architect") {
     pages.splice(2,0,
       <ArchitectPage
-      formData={formData}
+        formData={formData}
         updateFormData={updateFormData}
-    
         nextPage={nextPage}
         previousPage={previousPage}
       />,
