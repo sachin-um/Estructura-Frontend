@@ -1,8 +1,8 @@
 import TopBar from "../../components/TopBar";
 import React, { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-import UploadIcon from '@mui/icons-material/Upload';
-import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import UploadIcon from "@mui/icons-material/Upload";
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import ImageIcon from "@mui/icons-material/Image";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
@@ -18,7 +18,8 @@ import {
   Tooltip,
   FormControl,
   FormControlLabel,
-  Checkbox,
+  RadioGroup,
+  Radio,
   Stack,
   InputLabel,
   MenuItem,
@@ -39,13 +40,13 @@ function AddNewProject() {
   const docPlaceholders = Array.from({ length: docPlaceHoldersCount }).fill(0);
 
   const placeholdersCount =
-    images.length === 0 ? 3 : images.length >= 3 ? 0 : 3 - (images.length);
+    images.length === 0 ? 3 : images.length >= 3 ? 0 : 3 - images.length;
   const placeholders = Array.from({ length: placeholdersCount }).fill(0);
 
-  const removeMainImage=()=>{
-      setMainImage(null);
-      setMainImageName(null);
-  }
+  const removeMainImage = () => {
+    setMainImage(null);
+    setMainImageName(null);
+  };
   const removeImage = (index) => {
     const updatedImages = [...images];
     updatedImages.splice(index, 1);
@@ -77,8 +78,6 @@ function AddNewProject() {
           margin: "2",
         }}
       >
-        
-
         <Grid container justifyContent="center" spacing={4}>
           <Grid
             item
@@ -96,89 +95,96 @@ function AddNewProject() {
                 fontSize: "1.5rem",
                 textAlign: "left",
                 lineHeight: "1",
-                marginBottom:'5px',
-                fontWeight: 'bold'
+                marginBottom: "5px",
+                fontWeight: "bold",
               }}
             >
               Add Project
             </Typography>
             <Divider />
-            <Typography  style={{
-              
+            <Typography
+              style={{
                 textAlign: "left",
-                marginTop:'5px',
-                marginBottom:'2px'
-              }}>
-                 Add images related to your project
-                </Typography>
-              {mainImage ? (
-                <Box
-                  style={{ borderRadius: "5px", backgroundColor: "#F9F6EE" }}
-                  position="relative"
-                  height="300px"
-                  width="100%"
-                  marginTop="20px"
-                  sx={{ borderStyle: "dashed", borderColor: "grey" }}
+                marginTop: "5px",
+                marginBottom: "2px",
+              }}
+            >
+              Add images related to your project
+            </Typography>
+            {mainImage ? (
+              <Box
+                style={{ borderRadius: "5px", backgroundColor: "#F9F6EE" }}
+                position="relative"
+                height="300px"
+                width="100%"
+                marginTop="20px"
+                sx={{ borderStyle: "dashed", borderColor: "grey" }}
+              >
+                <img
+                  src={mainImage}
+                  style={{ width: "100%", height: "300px" }}
+                  alt={mainImageName}
+                />
+                <IconButton
+                  size="small"
+                  onClick={() => removeMainImage()}
+                  style={{
+                    position: "absolute",
+                    top: 5,
+                    right: 5,
+                    backgroundColor: "white",
+                    color: "red",
+                  }}
                 >
-                  <img
-                    src={mainImage}
-                    style={{ width: "100%", height: "300px" }}
-                    alt={mainImageName}
+                  <Tooltip title="Remove Image">
+                    <DeleteIcon />
+                  </Tooltip>
+                </IconButton>
+              </Box>
+            ) : (
+              <Box
+                style={{ borderRadius: "5px", backgroundColor: "#F9F6EE" }}
+                position="relative"
+                height="300px"
+                width="100%"
+                marginTop="20px"
+                sx={{ borderStyle: "dashed", borderColor: "grey" }}
+                onClick={() =>
+                  document.querySelector(".input-main-img").click()
+                }
+              >
+                <Grid
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: "100px",
+                  }}
+                >
+                  <AddPhotoAlternateIcon />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="input-main-img"
+                    hidden
+                    onChange={({ target: { files } }) => {
+                      files[0] && setMainImageName(files[0].name);
+                      if (files) {
+                        setMainImage(URL.createObjectURL(files[0]));
+                      }
+                    }}
                   />
-                  <IconButton
-                    size="small"
-                    onClick={()=>removeMainImage()}
-                    style={{ position: 'absolute', top: 5, right: 5, backgroundColor: 'white', color:'red' }}
-                  >
-                    <Tooltip title="Remove Image">
-                      <DeleteIcon />
-                    </Tooltip>
-                  </IconButton>
-                </Box>
-              ) : (
-                <Box
-                  style={{ borderRadius: "5px", backgroundColor: "#F9F6EE" }}
-                  position="relative"
-                  height="300px"
-                  width="100%"
-                  marginTop="20px"
-                  sx={{ borderStyle: "dashed", borderColor: "grey" }}
-                  onClick={() => document.querySelector(".input-main-img").click()}
+                </Grid>
+                <Typography
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: "10px",
+                  }}
                 >
-                  <Grid
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      marginTop: "100px",
-                      
-                    }}
-                    
-                  >
-                    <AddPhotoAlternateIcon />
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="input-main-img"
-                      hidden
-                      onChange={({ target: { files } }) => {
-                        files[0] && setMainImageName(files[0].name);
-                        if (files) {
-                          setMainImage(URL.createObjectURL(files[0]));
-                        }
-                      }}
-                    />
-                  </Grid>
-                  <Typography
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      marginTop: "10px",
-                    }}
-                  >
-                    Main Image
-                  </Typography>
-                </Box>
-              )}
+                  Main Image
+                </Typography>
+              </Box>
+            )}
             <Grid container spacing={2}>
               {images.length > 0 &&
                 images.map((imageUrl, index) => (
@@ -197,8 +203,14 @@ function AddNewProject() {
                       />
                       <IconButton
                         size="small"
-                        onClick={()=>removeImage(index)}
-                        style={{ position: 'absolute', top: 5, right: 5, backgroundColor: 'white', color:'red' }}
+                        onClick={() => removeImage(index)}
+                        style={{
+                          position: "absolute",
+                          top: 5,
+                          right: 5,
+                          backgroundColor: "white",
+                          color: "red",
+                        }}
                       >
                         <Tooltip title="Remove Image">
                           <DeleteIcon />
@@ -266,25 +278,29 @@ function AddNewProject() {
                     }
                   }}
                 />
-                <UploadIcon style={{marginRight:5}}/>
-                <Typography  style={{
-              
-              textAlign: "left",
-              marginTop:'5px',
-              marginBottom:'10px'
-            }}>Browse Extra Images </Typography>
+                <UploadIcon style={{ marginRight: 5 }} />
+                <Typography
+                  style={{
+                    textAlign: "left",
+                    marginTop: "5px",
+                    marginBottom: "10px",
+                  }}
+                >
+                  Browse Extra Images{" "}
+                </Typography>
               </Button>
             </Grid>
             <Divider />
-            <Typography  style={{
-              
+            <Typography
+              style={{
                 textAlign: "left",
-                marginTop:'10px',
-                marginBottom:'2px'
-              }}>
-                 Add documents related to your project
-                </Typography>
-            
+                marginTop: "10px",
+                marginBottom: "2px",
+              }}
+            >
+              Add documents related to your project
+            </Typography>
+
             <Grid container spacing={2}>
               {docNames.length > 0 &&
                 docNames.map((fileName, index) => (
@@ -316,8 +332,14 @@ function AddNewProject() {
                       </Typography>
                       <IconButton
                         size="small"
-                        onClick={()=>removeDoc(index)}
-                        style={{ position: 'absolute', top: 5, right: 5, backgroundColor: 'white', color:'red' }}
+                        onClick={() => removeDoc(index)}
+                        style={{
+                          position: "absolute",
+                          top: 5,
+                          right: 5,
+                          backgroundColor: "white",
+                          color: "red",
+                        }}
                       >
                         <Tooltip title="Remove File">
                           <DeleteIcon />
@@ -336,7 +358,6 @@ function AddNewProject() {
                     marginTop="30px"
                     sx={{ borderStyle: "dashed", borderColor: "grey" }}
                   >
-
                     <AttachFileIcon
                       style={{
                         display: "flex",
@@ -372,7 +393,9 @@ function AddNewProject() {
                 variant="contained"
                 color="primary"
                 fullWidth
-                onClick={() => document.querySelector(".input-field-doc").click()}
+                onClick={() =>
+                  document.querySelector(".input-field-doc").click()
+                }
               >
                 <input
                   type="file"
@@ -392,13 +415,16 @@ function AddNewProject() {
                     }
                   }}
                 />
-                <UploadIcon style={{marginRight:5}}/>
-                <Typography  style={{
-              
-              textAlign: "left",
-              marginTop:' 5px',
-              marginBottom:'10px'
-            }}>Browse Documents </Typography>
+                <UploadIcon style={{ marginRight: 5 }} />
+                <Typography
+                  style={{
+                    textAlign: "left",
+                    marginTop: " 5px",
+                    marginBottom: "10px",
+                  }}
+                >
+                  Browse Documents{" "}
+                </Typography>
               </Button>
             </Grid>
             <Divider />
@@ -425,7 +451,7 @@ function AddNewProject() {
                 marginTop: "30px",
               }}
             >
-               <Divider />
+              <Divider />
               <TextField
                 sx={{ width: "1", borderRadius: 2, margin: 1 }}
                 label="Project Title"
@@ -460,15 +486,23 @@ function AddNewProject() {
                 variant="filled"
                 color="secondary"
               />
-                  <Grid sx={{ width: "1", borderRadius: 2, margin: 1 }}>
+              <Grid sx={{ width: "1", borderRadius: 2, margin: 1 }}>
                 <Typography textAlign="center">
-                  Did you connect with this client through our platform Estructura?
+                  Did you connect with this client through our platform
+                  Estructura?
                 </Typography>
 
-                <Stack direction="row" spacing={2} justifyContent={"center"}>
-                  <FormControlLabel control={<Checkbox />} label="Yes" />
-                  <FormControlLabel control={<Checkbox />} label="No" />
-                </Stack>
+                <RadioGroup row sx={{ justifyContent: "center" }}>
+                  <FormControlLabel
+                    value="yes"
+                    control={<Radio />}
+                    label="Yes"
+                  />
+                  <FormControlLabel 
+                  value="no"
+                   control={<Radio />} 
+                   label="No" />
+                </RadioGroup>
               </Grid>
 
               <Divider />
