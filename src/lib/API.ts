@@ -1,4 +1,5 @@
 import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 
 const baseURL = 'http://localhost:8080/api/v1/';
 
@@ -13,10 +14,10 @@ const API = axios.create({
 API.interceptors.request.use(
   (config) => {
     // Before sending the request, check if the access token is in the local storage
-    const accessToken = localStorage.getItem('accessToken');
+    const access_token = localStorage.getItem('access_token');
     // if token is present in the local storage, add it to the request's header
-    if (accessToken && !config.headers.Authorization) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
+    if (access_token && !config.headers.Authorization) {
+      config.headers.Authorization = `Bearer ${access_token}`;
     }
     return config;
   },
@@ -27,39 +28,50 @@ API.interceptors.request.use(
 
 API.interceptors.response.use(
   // Do not interfere with successful responses
-  (response) => response,
+  (response) => {
+    // const refresh_token = localStorage.getItem('refresh_token');
+    // if (refresh_token) {
+    //   // decode jwt and log the expiration time
+    //   const decoded: { exp: number } = jwt_decode(refresh_token);
+    //   console.log(
+    //     `Refresh token expires at ${new Date(
+    //       decoded.exp * 1000,
+    //     ).toLocaleString()}`,
+    //   );
+    // }
+    return response;
+  },
   (error) => {
     const { config, response } = error;
-    console.log(error);
     // Do not try to handle non 403 and 2nd attempts after refreshing tokens
     if (response.status !== 403 || config._retry) {
       return Promise.reject(error);
     }
-    const refreshToken = localStorage.getItem('refreshToken');
-    if (refreshToken) {
+    const refresh_token = localStorage.getItem('refresh_token');
+    if (refresh_token) {
       // Send a request to get refreshed tokens using the refresh token
       return API.post('auth/refresh-token', null, {
         headers: {
-          Authorization: `Bearer ${refreshToken}`,
+          Authorization: `Bearer ${refresh_token}`,
         },
       })
         .then((res) => {
           // Store new tokens
           if (res.status === 200) {
             localStorage.setItem(
-              'accessToken',
-              res.data.access_token ?? localStorage.getItem('accessToken'),
+              'access_token',
+              res.data.access_token ?? localStorage.getItem('access_token'),
             );
             localStorage.setItem(
-              'refreshToken',
-              res.data.refresh_token ?? localStorage.getItem('refreshToken'),
+              'refresh_token',
+              res.data.refresh_token ?? localStorage.getItem('refresh_token'),
             );
             localStorage.setItem(
               'role',
               res.data.role ?? localStorage.getItem('role'),
             );
             // Set header as default for API and the current request
-            const authHeader = `Bearer ${localStorage.getItem('accessToken')}`;
+            const authHeader = `Bearer ${localStorage.getItem('access_token')}`;
             API.defaults.headers.common['Authorization'] = authHeader;
             config.headers.Authorization = authHeader;
             config._retry = true;
@@ -80,8 +92,8 @@ API.interceptors.response.use(
 );
 
 export const clearTokens = () => {
-  localStorage.removeItem('accessToken');
-  localStorage.removeItem('refreshToken');
+  localStorage.removeItem('access_token');
+  localStorage.removeItem('refresh_token');
   localStorage.removeItem('role');
 };
 
