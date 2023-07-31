@@ -1,6 +1,8 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 
+import { RefreshTokenResponse } from '../redux/UserAuthenticationReducer';
+
 const baseURL = 'http://localhost:8080/api/v1/';
 
 const API = axios.create({
@@ -29,16 +31,6 @@ API.interceptors.request.use(
 API.interceptors.response.use(
   // Do not interfere with successful responses
   (response) => {
-    // const refresh_token = localStorage.getItem('refresh_token');
-    // if (refresh_token) {
-    //   // decode jwt and log the expiration time
-    //   const decoded: { exp: number } = jwt_decode(refresh_token);
-    //   console.log(
-    //     `Refresh token expires at ${new Date(
-    //       decoded.exp * 1000,
-    //     ).toLocaleString()}`,
-    //   );
-    // }
     return response;
   },
   (error) => {
@@ -50,7 +42,14 @@ API.interceptors.response.use(
     const refresh_token = localStorage.getItem('refresh_token');
     if (refresh_token) {
       // Send a request to get refreshed tokens using the refresh token
-      return API.post('auth/refresh-token', null, {
+      // decode jwt and log the expiration time
+      const decoded: { exp: number } = jwt_decode(refresh_token);
+      console.log(
+        `Refresh token expires at ${new Date(
+          decoded.exp * 1000,
+        ).toLocaleString()}`,
+      );
+      return API.post<RefreshTokenResponse>('auth/refresh-token', null, {
         headers: {
           Authorization: `Bearer ${refresh_token}`,
         },
@@ -58,18 +57,21 @@ API.interceptors.response.use(
         .then((res) => {
           // Store new tokens
           if (res.status === 200) {
-            localStorage.setItem(
-              'access_token',
-              res.data.access_token ?? localStorage.getItem('access_token'),
-            );
-            localStorage.setItem(
-              'refresh_token',
-              res.data.refresh_token ?? localStorage.getItem('refresh_token'),
-            );
-            localStorage.setItem(
-              'role',
-              res.data.role ?? localStorage.getItem('role'),
-            );
+            if (
+              res.data.access_token !== null &&
+              res.data.refresh_token !== null
+            ) {
+              const decoded: { exp: number } = jwt_decode(
+                res.data.refresh_token,
+              );
+              console.log(
+                `Refresh token expires at ${new Date(
+                  decoded.exp * 1000,
+                ).toLocaleString()}`,
+              );
+              localStorage.setItem('access_token', res.data.access_token);
+              localStorage.setItem('refresh_token', res.data.refresh_token);
+            }
             // Set header as default for API and the current request
             const authHeader = `Bearer ${localStorage.getItem('access_token')}`;
             API.defaults.headers.common['Authorization'] = authHeader;

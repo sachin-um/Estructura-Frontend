@@ -71,7 +71,7 @@ export default function AuthTest() {
         <Button
           onClick={async () => {
             const res = await API.get('http://localhost:8080/api/v1/admin');
-            console.table(res.data);
+            console.log(res);
           }}
         >
           Try Access

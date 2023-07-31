@@ -28,6 +28,13 @@ export interface AuthenticationResponse extends ValidatedResponse, UserState {
   success: boolean;
 }
 
+export interface RefreshTokenResponse {
+  access_token: null | string;
+  message: null | string;
+  refresh_token: null | string;
+  success: boolean;
+}
+
 const initialState: {
   access_token: null | string;
   isAuthenticated: boolean;
@@ -135,6 +142,7 @@ const UserAuthenticationSlice = createSlice({
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
         localStorage.removeItem('user');
+        API.defaults.headers.common.Authorization = null;
       });
   },
 });

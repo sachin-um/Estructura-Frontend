@@ -15,7 +15,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
 import TopBar from '../components/TopBar';
-import API, { clearTokens } from '../lib/API';
 import {
   AuthenticationResponse,
   SignInRequest,
@@ -90,41 +89,6 @@ function SignIn() {
           }
         }
       });
-      // clearTokens();
-      // const email = values.email;
-      // const password = values.password;
-      // API.post<AuthenticationResponse>('/auth/authenticate', {
-      //   email,
-      //   password,
-      // })
-      //   .then((res) => {
-      //     if (res.status === 200) {
-      //       console.log(res.data);
-      //       if (res.data.success === true) {
-      //         localStorage.setItem('role', res.data.role as string);
-      //         localStorage.setItem(
-      //           'accessToken',
-      //           res.data.access_token as string,
-      //         );
-      //         localStorage.setItem(
-      //           'refreshToken',
-      //           res.data.refresh_token as string,
-      //         );
-      //         if (from) {
-      //           Navigate(from, { replace: true });
-      //         } else {
-      //           Navigate(`/${res.data.role?.toLowerCase()}/dashboard`, {
-      //             replace: true,
-      //           });
-      //         }
-      //       } else {
-      //         setErrors(violationsToErrorsTS(res.data.validation_violations));
-      //       }
-      //     } else {
-      //       alert('Invalid Credentials');
-      //     }
-      //   })
-      //   .catch((err) => console.log(JSON.stringify(err)));
       setSubmitting(false);
     }
   };
