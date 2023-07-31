@@ -1,9 +1,9 @@
 import TopBar from "../../components/TopBar";
 import React, { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-import UploadIcon from "@mui/icons-material/Upload";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-import ImageIcon from "@mui/icons-material/Image";
+import ImageIcon from '@mui/icons-material/Image';
+import AddIcon from '@mui/icons-material/Add';
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import Divider from "@mui/material/Divider";
@@ -185,6 +185,61 @@ function AddNewProject() {
                 </Typography>
               </Box>
             )}
+            <Divider sx={
+              {marginTop:"10px"}
+            }/>
+            <Grid
+                style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginTop: "10px",
+                  }}
+            >
+              <Typography
+                style={{
+                  textAlign: "left",
+                  marginTop: "10px",
+                  marginBottom: "2px",
+                }}
+              >
+                Add Extra Images related to your project
+              </Typography>
+              <Grid>
+              <Button
+                variant="contained"
+                fullWidth
+                onClick={() => document.querySelector(".input-field").click()}
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="input-field"
+                  hidden
+                  multiple
+                  onChange={({ target: { files } }) => {
+                    if (files && files.length > 0) {
+                      const fileArray = Array.from(files).slice(0, 3);
+                      const fileNames = fileArray.map((file) => file.name);
+                      setFileNames(fileNames);
+                      const imageUrls = fileArray.map((file) =>
+                        URL.createObjectURL(file)
+                      );
+                      setImages(imageUrls);
+                    }
+                  }}
+                />
+                <AddIcon/>
+                <Typography
+                  style={{
+                    textAlign: "left",
+                  }}
+                >
+                  Select
+                </Typography>
+              </Button>
+            </Grid>
+            </Grid>
+            
             <Grid container spacing={2}>
               {images.length > 0 &&
                 images.map((imageUrl, index) => (
@@ -226,7 +281,7 @@ function AddNewProject() {
                     height="150px"
                     width="100%"
                     marginTop="30px"
-                    sx={{ borderStyle: "dashed", borderColor: "grey" }}
+                    sx={{ borderStyle: "dashed", backgroundColor: "#F9F6EE" }}
                   >
                     <Grid
                       style={{
@@ -235,7 +290,7 @@ function AddNewProject() {
                         marginTop: "50px",
                       }}
                     >
-                      <AddPhotoAlternateIcon />
+                      <ImageIcon />
                     </Grid>
                     <Grid
                       style={{
@@ -251,47 +306,19 @@ function AddNewProject() {
                 </Grid>
               ))}
             </Grid>
-            <Grid style={{ display: "flex", justifyContent: "center" }}>
-              <Button
-                sx={{ width: 1 / 3, borderRadius: 2, margin: 2, padding: 0 }}
-                variant="contained"
-                color="primary"
-                marginTop="20px"
-                fullWidth
-                onClick={() => document.querySelector(".input-field").click()}
-              >
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="input-field"
-                  hidden
-                  multiple
-                  onChange={({ target: { files } }) => {
-                    if (files && files.length > 0) {
-                      const fileArray = Array.from(files).slice(0, 3);
-                      const fileNames = fileArray.map((file) => file.name);
-                      setFileNames(fileNames);
-                      const imageUrls = fileArray.map((file) =>
-                        URL.createObjectURL(file)
-                      );
-                      setImages(imageUrls);
-                    }
+            
+            
+            <Divider sx={
+              {marginTop:"10px"}
+            }/>
+            <Grid
+                style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginTop: "10px",
                   }}
-                />
-                <UploadIcon style={{ marginRight: 5 }} />
-                <Typography
-                  style={{
-                    textAlign: "left",
-                    marginTop: "5px",
-                    marginBottom: "10px",
-                  }}
-                >
-                  Browse Extra Images{" "}
-                </Typography>
-              </Button>
-            </Grid>
-            <Divider />
-            <Typography
+            >
+              <Typography
               style={{
                 textAlign: "left",
                 marginTop: "10px",
@@ -300,7 +327,43 @@ function AddNewProject() {
             >
               Add documents related to your project
             </Typography>
-
+              <Grid>
+              <Button
+                sx={{padding:"0 2 0 2"}}
+                variant="contained"
+                color="primary"
+                fullWidth
+                onClick={() => document.querySelector(".input-field").click()}
+              >
+                <input
+                  type="file"
+                  accept=".pdf,.doc,.docx,.pptx,.xls,.xlsx"
+                  className="input-field-doc"
+                  hidden
+                  multiple
+                  onChange={({ target: { files } }) => {
+                    if (files && files.length > 0) {
+                      const fileArray = Array.from(files).slice(0, 3);
+                      const fileNames = fileArray.map((file) => file.name);
+                      setDocNames(fileNames);
+                      const docUrls = fileArray.map((file) =>
+                        URL.createObjectURL(file)
+                      );
+                      setDoc(docUrls);
+                    }
+                  }}
+                />
+                <AddIcon/>
+                <Typography
+                  style={{
+                    textAlign: "left",
+                  }}
+                >
+                  Select
+                </Typography>
+              </Button>
+            </Grid>
+            </Grid>
             <Grid container spacing={2}>
               {docNames.length > 0 &&
                 docNames.map((fileName, index) => (
@@ -351,7 +414,7 @@ function AddNewProject() {
               {docPlaceholders.map((index) => (
                 <Grid item xs={4} key={index}>
                   <Box
-                    style={{ display: "flex" }}
+                    style={{ display: "flex", backgroundColor: "#F9F6EE"}}
                     position="relative"
                     height="50px"
                     width="100%"
@@ -381,53 +444,6 @@ function AddNewProject() {
                 </Grid>
               ))}
             </Grid>
-            <Grid
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                marginTop: "10px",
-              }}
-            >
-              <Button
-                sx={{ width: 1 / 3, borderRadius: 2, margin: 2, padding: 0 }}
-                variant="contained"
-                color="primary"
-                fullWidth
-                onClick={() =>
-                  document.querySelector(".input-field-doc").click()
-                }
-              >
-                <input
-                  type="file"
-                  accept=".pdf,.doc,.docx,.pptx,.xls,.xlsx"
-                  className="input-field-doc"
-                  hidden
-                  multiple
-                  onChange={({ target: { files } }) => {
-                    if (files && files.length > 0) {
-                      const fileArray = Array.from(files).slice(0, 3);
-                      const fileNames = fileArray.map((file) => file.name);
-                      setDocNames(fileNames);
-                      const docUrls = fileArray.map((file) =>
-                        URL.createObjectURL(file)
-                      );
-                      setDoc(docUrls);
-                    }
-                  }}
-                />
-                <UploadIcon style={{ marginRight: 5 }} />
-                <Typography
-                  style={{
-                    textAlign: "left",
-                    marginTop: " 5px",
-                    marginBottom: "10px",
-                  }}
-                >
-                  Browse Documents{" "}
-                </Typography>
-              </Button>
-            </Grid>
-            <Divider />
           </Grid>
           <Grid
             item
