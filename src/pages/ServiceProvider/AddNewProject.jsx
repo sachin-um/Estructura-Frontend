@@ -206,6 +206,11 @@ function AddNewProject() {
               </Typography>
               <Grid>
               <Button
+                style={{
+                  backgroundColor:"transparent",
+                  border: "1px solid #435834",
+                  color:"#435834"
+                }}
                 variant="contained"
                 fullWidth
                 onClick={() => document.querySelector(".input-field").click()}
@@ -329,9 +334,12 @@ function AddNewProject() {
             </Typography>
               <Grid>
               <Button
-                sx={{padding:"0 2 0 2"}}
+                style={{
+                  backgroundColor:"transparent",
+                  border: "1px solid #435834",
+                  color:"#435834"
+                }}
                 variant="contained"
-                color="primary"
                 fullWidth
                 onClick={() => document.querySelector(".input-field").click()}
               >
