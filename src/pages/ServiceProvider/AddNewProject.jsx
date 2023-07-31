@@ -6,6 +6,7 @@ import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import ImageIcon from "@mui/icons-material/Image";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
+import Divider from "@mui/material/Divider";
 import {
   Box,
   Button,
@@ -16,6 +17,9 @@ import {
   IconButton,
   Tooltip,
   FormControl,
+  FormControlLabel,
+  Checkbox,
+  Stack,
   InputLabel,
   MenuItem,
   Select,
@@ -92,10 +96,21 @@ function AddNewProject() {
                 fontSize: "1.5rem",
                 textAlign: "left",
                 lineHeight: "1",
+                marginBottom:'5px',
+                fontWeight: 'bold'
               }}
             >
               Add Project
             </Typography>
+            <Divider />
+            <Typography  style={{
+              
+                textAlign: "left",
+                marginTop:'5px',
+                marginBottom:'2px'
+              }}>
+                 Add images related to your project
+                </Typography>
               {mainImage ? (
                 <Box
                   style={{ borderRadius: "5px", backgroundColor: "#F9F6EE" }}
@@ -226,10 +241,9 @@ function AddNewProject() {
             </Grid>
             <Grid style={{ display: "flex", justifyContent: "center" }}>
               <Button
-                sx={{ width: 1 / 2, borderRadius: 2, margin: 1, padding: 0 }}
+                sx={{ width: 1 / 3, borderRadius: 2, margin: 2, padding: 0 }}
                 variant="contained"
                 color="primary"
-                width="50%"
                 marginTop="20px"
                 fullWidth
                 onClick={() => document.querySelector(".input-field").click()}
@@ -253,9 +267,23 @@ function AddNewProject() {
                   }}
                 />
                 <UploadIcon style={{marginRight:5}}/>
-                <p>Browse Extra Images</p>
+                <Typography  style={{
+              
+              textAlign: "left",
+              marginTop:'5px',
+              marginBottom:'10px'
+            }}>Browse Extra Images </Typography>
               </Button>
             </Grid>
+            <Divider />
+            <Typography  style={{
+              
+                textAlign: "left",
+                marginTop:'10px',
+                marginBottom:'2px'
+              }}>
+                 Add documents related to your project
+                </Typography>
             
             <Grid container spacing={2}>
               {docNames.length > 0 &&
@@ -336,14 +364,13 @@ function AddNewProject() {
               style={{
                 display: "flex",
                 justifyContent: "center",
-                marginTop: "50px",
+                marginTop: "10px",
               }}
             >
               <Button
-                sx={{ width: 1 / 2, borderRadius: 2, margin: 1, padding: 0 }}
+                sx={{ width: 1 / 3, borderRadius: 2, margin: 2, padding: 0 }}
                 variant="contained"
                 color="primary"
-                width="50%"
                 fullWidth
                 onClick={() => document.querySelector(".input-field-doc").click()}
               >
@@ -366,9 +393,15 @@ function AddNewProject() {
                   }}
                 />
                 <UploadIcon style={{marginRight:5}}/>
-                <p>Browse Documents</p>
+                <Typography  style={{
+              
+              textAlign: "left",
+              marginTop:' 5px',
+              marginBottom:'10px'
+            }}>Browse Documents </Typography>
               </Button>
             </Grid>
+            <Divider />
           </Grid>
           <Grid
             item
@@ -389,9 +422,10 @@ function AddNewProject() {
                 gap: "1.5rem",
                 width: "80%",
                 maxWidth: "800px",
-                marginTop: "75px",
+                marginTop: "30px",
               }}
             >
+               <Divider />
               <TextField
                 sx={{ width: "1", borderRadius: 2, margin: 1 }}
                 label="Project Title"
@@ -406,7 +440,7 @@ function AddNewProject() {
                   label="Project Description"
                   id="filled-multiline-static"
                   multiline
-                  rows={15}
+                  rows={14}
                   variant="filled"
                 />
               </Grid>
@@ -426,21 +460,33 @@ function AddNewProject() {
                 variant="filled"
                 color="secondary"
               />
+                  <Grid sx={{ width: "1", borderRadius: 2, margin: 1 }}>
+                <Typography textAlign="center">
+                  Did you connect with this client through our platform Estructura?
+                </Typography>
+
+                <Stack direction="row" spacing={2} justifyContent={"center"}>
+                  <FormControlLabel control={<Checkbox />} label="Yes" />
+                  <FormControlLabel control={<Checkbox />} label="No" />
+                </Stack>
+              </Grid>
+
+              <Divider />
               <Grid
                 style={{
                   display: "flex",
                   justifyContent: "center",
-                  margin: 10,
+                  margin: 1,
                 }}
               >
                 <Button
-                  sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
+                  sx={{ width: 1 / 3, borderRadius: 2 }}
                   variant="contained"
                   color="primary"
                   type="submit"
                   fullWidth
                 >
-                  Add
+                  ADD
                 </Button>
               </Grid>
             </form>
