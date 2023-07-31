@@ -208,7 +208,7 @@ function AddNewProject() {
               <Button
                 style={{
                   backgroundColor:"transparent",
-                  border: "1px solid #435834",
+                  border: "2px solid #435834",
                   color:"#435834"
                 }}
                 variant="contained"
@@ -336,7 +336,7 @@ function AddNewProject() {
               <Button
                 style={{
                   backgroundColor:"transparent",
-                  border: "1px solid #435834",
+                  border: "2px solid #435834",
                   color:"#435834"
                 }}
                 variant="contained"
