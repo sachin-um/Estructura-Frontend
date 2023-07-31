@@ -14,14 +14,15 @@ function GetFormikProps<ReqInterface>(props: FormikProps<ReqInterface>) {
     onChange = true,
     value = true,
     error = true,
+    setDisabledToIsSubmitting = true,
   ): Record<string, unknown> => {
     const { errors, handleBlur, handleChange, isSubmitting, touched, values } =
       props;
     const key = field as keyof ReqInterface;
     return {
-      disabled: isSubmitting,
       name: field,
       onBlur: handleBlur,
+      ...(setDisabledToIsSubmitting && { disabled: isSubmitting }),
       ...(error && { error: touched[key] && !!errors[key] }),
       ...(value && { value: values[key] }),
       ...(onChange && { onChange: handleChange }),
