@@ -10,7 +10,7 @@ import {
 
 const districts = [
   "Ampara",
-  "Anuradhapur",
+  "Anuradhapura",
   "Badulla",
   "Batticaloa",
   "Colombo",
