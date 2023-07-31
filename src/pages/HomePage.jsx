@@ -260,6 +260,7 @@ const HomePage = () => {
   };
 
   return (
+    <>
     <Box>
       <Slider images={images} interval={5000} />
 
@@ -618,6 +619,7 @@ const HomePage = () => {
         </Box>
       </Box>
     </Box>
+    </>
   );
 };
 

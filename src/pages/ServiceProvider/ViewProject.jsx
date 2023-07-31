@@ -1,5 +1,6 @@
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import TopBar from "../../components/TopBar";
+import Footer from "../../components/Footer";
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -236,9 +237,10 @@ function ViewProject() {
             </Grid>
 
      </Grid>
-      </Container>
-       
-  
+    </Container>
+      
+    <Footer />
+    
   </>
 );
 }

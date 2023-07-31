@@ -1,4 +1,5 @@
 import TopBar from "../components/CusTopBar";
+import Footer from "../components/Footer";
 import React, { useState } from "react";
 import {
   Box,
@@ -181,6 +182,8 @@ function ServiceProviderProfile({ updateFormData, nextPage, previousPage }) {
           {activeTab === "five" && <Reviews />}
         </Grid>
       </Grid>
+
+      <Footer />
     </>
   );
 }

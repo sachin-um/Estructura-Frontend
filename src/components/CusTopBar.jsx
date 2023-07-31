@@ -19,7 +19,7 @@ import Grid from '@mui/material/Grid';
 import avatarImg from '/User/user.png'
 import webLogo from '/Logo.png'
 
-const pages = ['Home', 'Professionals', 'Products', 'Blog'];
+const pages = ['Professionals', 'Products', 'Blog'];
 const settings = ['Profile', 'Account', 'Logout'];
 const professionalsTopics = ['Architects', 'Interior Designers', 'Construction Companies', 'Landscape Architects', 'Home Builders', 'Painters', 'Carpenters'];
 const productsTopics = ['Furniture', 'Hardware Items', 'Gardening Items and Tools', 'Bathware', 'Lighting'];
@@ -88,7 +88,7 @@ function CusTopBar() {
               justifyContent: 'flex-start', // Logo aligns to the left
             }}
           >
-            <img src={webLogo} alt="" height={65} width={65} />
+            <img src={webLogo} alt="" height={65}  />
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>

@@ -53,16 +53,23 @@ const ImgContainer = styled.div`
 `;
 
 const Image = styled.img`
-  height: 80%;
+  height: 100vh;
+  width: 100vh;
 `;
 
 const InfoContainer = styled.div`
   flex: 1;
   padding: 50px;
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; 
 `;
 
 const Title = styled.h1`
-  font-size: 70px;
+  font-size: 40px;
+  text-align: center;
+  color: #435834;
 `;
 
 const Desc = styled.p`
@@ -70,13 +77,23 @@ const Desc = styled.p`
   font-size: 20px;
   font-weight: 500;
   letter-spacing: 3px;
+  text-align: center;
+  color: #304422;
 `;
 
 const Button = styled.button`
-  padding: 10px;
+  padding: 10px 20px;
   font-size: 20px;
   background-color: transparent;
   cursor: pointer;
+  border: 2px solid #9D6432;
+  color: #9D6432;
+  transition: all 0.3s ease;
+
+  &:hover{
+    background-color: #9D6432;
+    color: white;
+  }
 `;
 
 const Slider = () => {
@@ -113,7 +130,7 @@ const Slider = () => {
             <InfoContainer>
               <Title>{item.title}</Title>
               <Desc>{item.desc}</Desc>
-              <Button>SHOW NOW</Button>
+              <Button>SHOP NOW</Button>
             </InfoContainer>
           </Slide>
         ))}

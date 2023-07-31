@@ -2,8 +2,8 @@ import { Add, Remove } from "@mui/icons-material";
 import { useState } from "react";
 import styled from "styled-components";
 import Announcement from "../../components/e-com/Announcement";
-import Footer from "../../components/e-com/Footer";
-import Navbar from "../../components/e-com/Navbar";
+import Footer from "../../components/Footer";
+import TopBar from "../../components/CusTopBar";
 import Newsletter from "../../components/e-com/Blog";
 import { mobile } from "../../responsive";
 
@@ -81,15 +81,18 @@ const InfoContainer = styled.div`
 
 const Title = styled.h1`
   font-weight: 200;
+  color: #304422;
 `;
 
 const Desc = styled.p`
   margin: 20px 0px;
+  color: #435834;
 `;
 
 const Price = styled.span`
   font-weight: 100;
   font-size: 40px;
+  color: #9D6432;
 `;
 
 const FilterContainer = styled.div`
@@ -117,11 +120,13 @@ const FilterColor = styled.div`
   background-color: ${(props) => props.color};
   margin: 0px 5px;
   cursor: pointer;
+  color: #435834;
 `;
 
 const FilterSize = styled.select`
   margin-left: 10px;
   padding: 5px;
+  color: #435834;
 `;
 
 const FilterSizeOption = styled.option``;
@@ -138,13 +143,14 @@ const AmountContainer = styled.div`
   display: flex;
   align-items: center;
   font-weight: 700;
+  color: #435834;
 `;
 
 const Amount = styled.span`
   width: 30px;
   height: 30px;
   border-radius: 10px;
-  border: 1px solid teal;
+  border: 1px solid #435834;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -153,13 +159,15 @@ const Amount = styled.span`
 
 const Button = styled.button`
   padding: 15px;
-  border: 2px solid teal;
+  border: 2px solid #435834;
   background-color: white;
   cursor: pointer;
   font-weight: 500;
+  color: #435834;
 
   &:hover{
-      background-color: #f8f4f4;
+      background-color: #435834;
+      color: white;
   }
 `;
 
@@ -178,7 +186,7 @@ const Product = () => {
   
   return (
     <Container>
-      <Navbar />
+      <TopBar title="Product" />
       <Announcement />
       <Wrapper>
         <ContainerImg>
@@ -200,11 +208,11 @@ const Product = () => {
         <InfoContainer>
           <Title>Table Lamp</Title>
           <Desc>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-            venenatis, dolor in finibus malesuada, lectus ipsum porta nunc, at
-            iaculis arcu nisi sed mauris. Nulla fermentum vestibulum ex, eget
-            tristique tortor pretium ut. Curabitur elit justo, consequat id
-            condimentum ac, volutpat ornare.
+          The elegant and sophisticated "Luminous Glow" Table Lamp – the perfect addition 
+          to elevate your home decor. Crafted with meticulous attention to detail, the "Luminous Glow" 
+          Table Lamp boasts a sleek and modern design that effortlessly complements various interior 
+          styles. The lamp's slender body, finished in brushed bronze, exudes a timeless charm, making 
+          it a versatile accent piece for any space.
           </Desc>
           <Price>$ 20</Price>
           <FilterContainer>

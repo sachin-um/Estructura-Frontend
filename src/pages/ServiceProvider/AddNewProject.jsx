@@ -1,4 +1,5 @@
 import TopBar from "../../components/TopBar";
+import Footer from "../../components/Footer";
 import React, { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import UploadIcon from "@mui/icons-material/Upload";
@@ -527,6 +528,8 @@ function AddNewProject() {
           </Grid>
         </Grid>
       </Container>
+
+      <Footer />
     </>
   );
 }

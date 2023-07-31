@@ -1,6 +1,5 @@
 import {
   FavoriteBorderOutlined,
-  SearchOutlined,
   ShoppingCartOutlined,
 } from "@mui/icons-material";
 import styled from "styled-components";
@@ -87,9 +86,6 @@ const Product = ({ item }) => {
       <Info>
         <Icon>
           <ShoppingCartOutlined />
-        </Icon>
-        <Icon>
-          <SearchOutlined />
         </Icon>
         <Icon>
           <FavoriteBorderOutlined />

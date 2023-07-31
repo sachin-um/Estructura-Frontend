@@ -1,15 +1,16 @@
 import styled from "styled-components";
-import Navbar from "../../components/e-com/Navbar";
+import TopBar from "../../components/CusTopBar";
 import Announcement from "../../components/e-com/Announcement";
 import Products from "../../components/e-com/Products";
 import Newsletter from "../../components/e-com/Blog";
-import Footer from "../../components/e-com/Footer";
+import Footer from "../../components/Footer";
 import { mobile } from "../../responsive";
 
 const Container = styled.div``;
 
 const Title = styled.h1`
   margin: 20px;
+  color: #435834;
 `;
 
 const FilterContainer = styled.div`
@@ -26,6 +27,7 @@ const FilterText = styled.span`
   font-size: 20px;
   font-weight: 600;
   margin-right: 20px;
+  color: #9D6434;
   ${mobile({ marginRight: "0px" })}
 `;
 
@@ -41,9 +43,9 @@ const Option = styled.option``;
 const ProductList = () => {
   return (
     <Container>
-      <Navbar />
+      <TopBar title="Products" />
       <Announcement />
-      <Title>Dresses</Title>
+      <Title>Furniture</Title>
       <FilterContainer>
         <Filter>
           <FilterText>Filter Products:</FilterText>
