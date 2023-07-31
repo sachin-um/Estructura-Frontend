@@ -79,7 +79,7 @@ function SignIn() {
           if (response.success === false) {
             setErrors(violationsToErrorsTS(response.validation_violations));
           } else {
-            if (from) {
+            if (from && from !== '/') {
               Navigate(from, { replace: true });
             } else {
               Navigate(`/${response.role.toLowerCase()}/dashboard`, {

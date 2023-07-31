@@ -96,6 +96,7 @@ const UserAuthenticationSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(signIn.pending, (state) => {
+        API.defaults.headers.common.Authorization = null;
         state.isAuthenticated = false;
         state.access_token = null;
         state.refresh_token = null;
@@ -147,7 +148,7 @@ const UserAuthenticationSlice = createSlice({
   },
 });
 
-export const selectUser = (state: RootState) => state.user;
+export const selectUser = (state: RootState) => state.user.userState;
 
 export const selectRole = (state: RootState) => state.user.userState?.role;
 

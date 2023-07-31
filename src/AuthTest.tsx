@@ -6,6 +6,7 @@ import { type AnyAction, type ThunkDispatch } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
+import TopAppBar from './components/TopAppBar';
 import API from './lib/API';
 import {
   SignInRequest,
@@ -35,6 +36,7 @@ export default function AuthTest() {
 
   return (
     <div>
+      <TopAppBar />
       <h1>AuthTest</h1>
       {isAuthenticated ? (
         <div>

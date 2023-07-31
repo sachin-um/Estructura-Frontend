@@ -10,10 +10,10 @@ const RolesRequired = (AllowedRoles: Role[]) => {
     const currentRole = useSelector(selectRole);
     const navigate = useNavigate();
     const refreshToken = localStorage.getItem('refreshToken') as string;
-    const tokenExpired = false;
+    let tokenExpired = false;
     if (refreshToken) {
       const token = jwt_decode<JwtPayload>(refreshToken);
-      const tokenExpired =
+      tokenExpired =
         token !== undefined && (token.exp ?? 0) < Date.now() / 1000;
       console.log(
         'Refresh Token expires in ' +
