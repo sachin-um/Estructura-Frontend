@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 
+// import router from './Router';
 import './index.css';
 import { store } from './redux/store';
-// import router, { altRouter } from './Router';
-import { altRouter } from './routes/Router';
+import altRouter from './routes/Router';
 import EstructuraTheme from './theme';
 
 const root = ReactDOM.createRoot(
