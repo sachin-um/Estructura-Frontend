@@ -10,6 +10,7 @@ import { RootState } from './store';
 export interface Blog {
   content: string;
   createdBy: number;
+  creatorName: string;
   dateAdded: Date;
   id: number;
   mainImage: string;
@@ -36,7 +37,12 @@ const initialState: {
 
 export const fetchBlogs = createAsyncThunk('blogs/fetchBlogs', async () => {
   const response = await API.get<Blog[]>('/blogs/all');
-  return response.status === 200 ? response.data : [];
+  return response.status === 200
+    ? response.data.sort(
+        (a, b) =>
+          new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime(),
+      )
+    : [];
 });
 
 export const fetchBlogById = createAsyncThunk(
