@@ -15,15 +15,16 @@ import React, { useState } from 'react';
 
 import API from '../../lib/API';
 
-const projectsFetch = await API.get('/projects/all/1') // TODO: Change 1 to user id
-  .then((res) => {
-    console.log(res);
-    return res.data;
-  })
-  .catch((err) => {
-    console.log(err);
-    return [];
-  });
+const projectsFetch = [] // TODO: Change 1 to user id
+// const projectsFetch = await API.get('/projects/all/1') // TODO: Change 1 to user id
+//   .then((res) => {
+//     console.log(res);
+//     return res.data;
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//     return [];
+//   });
 function PreviousProjects() {
   const [projects, setProjects] = useState(projectsFetch);
   return (

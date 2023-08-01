@@ -36,6 +36,7 @@ import FindFurniture from '../pages/findfurniture';
 import Play from '../play';
 import AdminRoutes from './AdminRoutes';
 import AuthRoutes from './AuthRoutes';
+import BlogRoutes from './BlogRoutes';
 
 const router = createBrowserRouter([
   {
@@ -171,6 +172,7 @@ export const altRouter = createBrowserRouter([
   },
   ...AuthRoutes,
   ...AdminRoutes,
+  ...BlogRoutes,
 ]);
 
 export default router;

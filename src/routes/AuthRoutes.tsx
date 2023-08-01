@@ -8,30 +8,23 @@ import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 
 const AuthRoutes: RouteObject[] = [
+  { path: '/auth', element: <AuthTest /> },
+  { path: '/SignIn', element: <SignIn /> },
   {
-    path: '/',
-    children: [
-      { path: 'auth', element: <AuthTest /> },
-      { path: 'SignIn', element: <SignIn /> },
-      {
-        path: 'ForgotPassword',
-        element: <ForgotPassword />,
-      },
-      {
-        path: 'SignUp',
-        element: <SignUp />,
-        children: [
-          {
-            path: 'HomeOwner',
-            element: <HomeOwnerSignUp />,
-          },
-          {
-            path: 'ServiceProvider',
-            element: <ServiceProviderSignUp />,
-          },
-        ],
-      },
-    ],
+    path: '/ForgotPassword',
+    element: <ForgotPassword />,
+  },
+  {
+    path: '/SignUp',
+    element: <SignUp />,
+  },
+  {
+    path: '/SignUp/HomeOwner',
+    element: <HomeOwnerSignUp />,
+  },
+  {
+    path: 'SignUp/ServiceProvider',
+    element: <ServiceProviderSignUp />,
   },
 ];
 

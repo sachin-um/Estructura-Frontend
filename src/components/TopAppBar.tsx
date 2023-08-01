@@ -65,7 +65,7 @@ const pages: LinkedPage[] = [
       { name: 'Lighting', path: '/' },
     ],
   },
-  { main: { name: 'Blog', path: '/' } },
+  { main: { name: 'Blog', path: '/blogs' } },
 ];
 function TopAppBar() {
   const userInfo: UserState | null = useSelector(selectUser);
@@ -85,6 +85,10 @@ function TopAppBar() {
   const AvatarMenuButtonRef = useRef<HTMLButtonElement>(null);
 
   const Navigate = useNavigate();
+
+  const SignInLink = encodeURI(
+    '/SignIn?from=' + window.location.pathname + window.location.search,
+  );
 
   const dispatch: ThunkDispatch<UserState, void, AnyAction> = useDispatch();
   return (
@@ -121,7 +125,7 @@ function TopAppBar() {
           <Link style={{ alignItems: 'center', display: 'flex' }} to="/">
             <img alt="" height={65} src="/Logo.png" width={65} />
           </Link>
-          {/* Middle Menu */}
+          {/* Small Screen Menu Menu */}
           <Box sx={{ display: { md: 'none', xs: 'flex' }, flexGrow: 1 }}>
             <Menu
               anchorOrigin={{
@@ -143,7 +147,12 @@ function TopAppBar() {
               open={MenuOpen}
             >
               {pages.map((page) => (
-                <MenuItem key={page.main.name}>
+                <MenuItem
+                  onClick={() => {
+                    Navigate(page.main.path);
+                  }}
+                  key={page.main.name}
+                >
                   <Typography
                     component="a"
                     href={page.main.path}
@@ -167,6 +176,9 @@ function TopAppBar() {
                         const newMiddleOpenArr = [...MiddleOpenArr];
                         newMiddleOpenArr[index] = !newMiddleOpenArr[index];
                         setMiddleOpenArr(newMiddleOpenArr);
+                      } else {
+                        console.log('Navigate to ' + page.main.path);
+                        Navigate(page.main.path);
                       }
                     }}
                     ref={(el) => {
@@ -213,7 +225,7 @@ function TopAppBar() {
                             <Grid item key={subPage.name} xs={6}>
                               <MenuItem
                                 onClick={() => {
-                                  console.log(subPage.path);
+                                  Navigate(subPage.path);
                                 }}
                               >
                                 <Typography
@@ -312,7 +324,7 @@ function TopAppBar() {
               </>
             ) : (
               <Grid container spacing={2}>
-                <Grid component={Link} item to="/SignIn">
+                <Grid component={Link} item to={SignInLink}>
                   <Button
                     sx={{
                       '&:hover': {
@@ -323,7 +335,7 @@ function TopAppBar() {
                     color="primary"
                     variant="outlined"
                   >
-                    Login
+                    Sign In
                   </Button>
                 </Grid>
                 <Grid component={Link} item to="/SignUp">
