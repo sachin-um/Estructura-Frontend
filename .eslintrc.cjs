@@ -24,7 +24,12 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 'off',
     'import/no-unresolved': [2, { caseSensitive: false }],
     'no-console': 'off',
-    'prettier/prettier': 'error',
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
     'react/prop-types': 0,
     'react/react-in-jsx-scope': 0,
   },
