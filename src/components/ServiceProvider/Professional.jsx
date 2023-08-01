@@ -51,7 +51,6 @@ function Professional({
     // if possible, set from formData
     businessName: formData.businessName ?? "",
     role: formData.professionalCategory ?? "",
-    businessContactNo: formData.contactNo ?? "",
     firstname: formData.firstname ?? "",
     lastname: formData.lastname ?? "",
     businessContactNo: formData.businessContactNo ??"",

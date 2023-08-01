@@ -103,8 +103,8 @@ const addressValidators = {
 }
 
 const addressInitialValues = {
-  addressline1: "",
-  addressline2: "",
+  addressLine1: "",
+  addressLine2: "",
   city: "",
   district: "",
 }

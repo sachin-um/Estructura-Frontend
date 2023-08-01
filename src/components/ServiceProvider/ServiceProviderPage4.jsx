@@ -49,12 +49,12 @@ const options = [
   { label: "Trincomalee", value: "trincomalee" },
   { label: "Vavuniya", value: "vavuniya" },
 ];
-const validationSchema = yup.object({
-  serviceAreas:yup
-  .string()
-  .oneOf(options.map((area)=>area[0]))
-  .required("Select a One or More Service Areas")
-});
+// const validationSchema = yup.object({
+//   serviceAreas:yup
+//   .string()
+//   .oneOf(options.map((area)=>area["value"]))
+//   .required("Select a One or More Service Areas")
+// });
 function ServiceProviderPage4({
   formData,
   updateFormData,
@@ -63,6 +63,10 @@ function ServiceProviderPage4({
   pageImage,
 }) {
   const [selected, setSelected] = useState([]);
+  const formRef=useRef(null);
+  const initialValues={
+      serviceAreas:formData.serviceAreas ?? ""
+  }
   return (
     <>
       <Container
@@ -167,11 +171,12 @@ function ServiceProviderPage4({
                     // TODO: HANDLE PAGE CHANGE HERE!!!
                     updateFormData(values);
                     // handleDropdownChange(values.role);
-                    // nextPage();
-                    console.log(values);
+                    nextPage();
+                    // console.log(selected);
+                    // console.log(values);
                   }}
                   initialValues={initialValues}
-                  validationSchema={validationSchema}
+                  // validationSchema={validationSchema}
                 >
                   {({
                     values,
@@ -183,6 +188,14 @@ function ServiceProviderPage4({
                     isSubmitting,
                   }) => {
                     const spread = (field, helper = true) => {
+                      let valueArray=[];
+                      if (selected.length===25) {
+                        valueArray=["Islandwide"]
+                      }
+                      else{
+                        valueArray=selected.map((option)=>option.value);
+                      }
+                      values[field]=valueArray;
                       return {
                         name: field,
                         onBlur: handleBlur,
@@ -211,8 +224,8 @@ function ServiceProviderPage4({
                                 Where are you based?
                               </Typography>
                                 <FormControl fullWidth variant='filled'>
-                                <MultiSelect 
-                                  displayEmpty={true} {...spread("serviceAreas", false)}
+                                <MultiSelect {...spread("serviceAreas", false)}
+                                  displayEmpty={true} 
                                   options={options}
                                   value={selected}
                                   onChange={setSelected}
