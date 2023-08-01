@@ -1,8 +1,20 @@
-import { Box, Button, Grid, Stack, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+  Link,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { Form, Formik } from 'formik';
 import { useRef } from 'react';
 import * as yup from 'yup';
-
 import AddressInputs, {
   addressInitialValues,
   addressValidators,
@@ -10,25 +22,25 @@ import AddressInputs, {
 // import { Link } from "react-router-dom" ;
 
 const validationSchema = yup.object({
-  businessContactNo: yup.string().required('Contact Number is required'),
   businessName: yup.string().required('Business Name is required'),
-  firstname: yup.string().required('First Name is required'),
-  lastname: yup.string().required('Last Name is required'),
+  businessContactNo: yup.string().required('Contact Number is required'),
   registrationNo: yup
     .string()
     .required('Business Registration number is required'),
+  firstname: yup.string().required('First Name is required'),
+  lastname: yup.string().required('Last Name is required'),
   ...addressValidators,
 });
 
-function RentalStore({ formData, nextPage, previousPage, updateFormData }) {
+function RentalStore({ nextPage, previousPage, updateFormData, formData }) {
   const formRef = useRef(null);
   const initialValues = {
+    role: formData.role ?? 'RENTER',
     businessName: formData.businessName ?? '',
-    contactNo: formData.contactNo ?? '',
+    registrationNo: formData.registrationNo ?? '',
+    businessContactNo: formData.contactNo ?? '',
     firstname: formData.firstname ?? '',
     lastname: formData.lastname ?? '',
-    registrationNo: formData.registrationNo ?? '',
-    role: formData.role ?? 'RENTER',
     ...addressInitialValues,
   };
   // TODO: Change Layout
@@ -37,39 +49,39 @@ function RentalStore({ formData, nextPage, previousPage, updateFormData }) {
       {/* Rental Store Signup*/}
       <Box
         sx={{
+          margin: '10px',
           display: 'flex',
           flexDirection: 'column',
           gap: '30px',
-          margin: '10px',
           minHeight: '100vh',
         }}
       >
         <Formik
+          innerRef={formRef}
           onSubmit={(values) => {
             updateFormData(values);
             nextPage();
           }}
           initialValues={initialValues}
-          innerRef={formRef}
           validationSchema={validationSchema}
         >
           {({
+            values,
             errors,
-            handleBlur,
+            touched,
             handleChange,
+            handleBlur,
             handleSubmit,
             isSubmitting,
-            touched,
-            values,
           }) => {
             const spread = (field, helper = true) => {
               return {
-                disabled: isSubmitting,
-                error: touched[field] && !!errors[field],
                 name: field,
                 onBlur: handleBlur,
                 onChange: handleChange,
                 value: values[field],
+                error: touched[field] && !!errors[field],
+                disabled: isSubmitting,
                 ...(helper && {
                   helperText: touched[field] && errors[field],
                 }),
@@ -77,33 +89,33 @@ function RentalStore({ formData, nextPage, previousPage, updateFormData }) {
             };
             return (
               <Form onSubmit={handleSubmit}>
-                <Stack gap={2} style={{ justifyContent: 'center' }}>
+                <Stack style={{ justifyContent: 'center' }} gap={2}>
                   <Typography
-                    sx={{ color: '#435834', textAlign: 'left' }}
                     variant="h8"
+                    sx={{ textAlign: 'left', color: '#435834' }}
                   >
                     {' '}
                     Owner Details{' '}
                   </Typography>
                   <Box sx={{ display: 'flex', gap: 1 }}>
                     <TextField
-                      color="secondary"
                       label="Your First Name"
-                      size="small"
                       variant="filled"
+                      size="small"
+                      color="secondary"
                       {...spread('firstname')}
                     />
                     <TextField
+                      variant="filled"
+                      size="small"
                       color="secondary"
                       label="Your Last Name"
-                      size="small"
-                      variant="filled"
                       {...spread('lastname')}
                     />
                   </Box>
                   <Typography
-                    sx={{ color: '#435834', textAlign: 'left' }}
                     variant="h8"
+                    sx={{ textAlign: 'left', color: '#435834' }}
                   >
                     {' '}
                     Business Details{' '}
@@ -111,36 +123,38 @@ function RentalStore({ formData, nextPage, previousPage, updateFormData }) {
                   <TextField
                     fullWidth
                     label="Rental Company Name"
-                    size="small"
                     variant="filled"
+                    size="small"
                     {...spread('businessName')}
                   />
                   <TextField
-                    color="secondary"
-                    label="role"
-                    name="role"
-                    size="small"
                     style={{ display: 'none' }}
                     type="hidden"
-                    value={initialValues.role}
+                    name="role"
+                    label="role"
                     variant="filled"
+                    size="small"
+                    value={initialValues.role}
+                    color="secondary"
                     {...spread('role')}
                   />
                   <TextField
-                    color="secondary"
                     fullWidth
-                    label="Business Contact Number"
                     name="businessContactNo"
-                    size="small"
+                    label="Business Contact Number"
                     variant="filled"
+                    size="small"
+                    color="secondary"
+                    {...spread('businessContactNo')}
                   />
                   <TextField
-                    color="secondary"
                     fullWidth
-                    label="Business Registration Number"
                     name="registrationNo"
-                    size="small"
+                    label="Business Registration Number"
                     variant="filled"
+                    size="small"
+                    color="secondary"
+                    {...spread('registrationNo')}
                   />
                   <AddressInputs spread={spread} />
                   <Grid
@@ -151,21 +165,21 @@ function RentalStore({ formData, nextPage, previousPage, updateFormData }) {
                     }}
                   >
                     <Button
-                      color="primary"
-                      onClick={previousPage}
-                      size="large"
-                      sx={{ borderRadius: 2, margin: 1, width: 1 / 2 }}
+                      sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
                       type="button"
+                      color="primary"
                       variant="contained"
+                      size="large"
+                      onClick={previousPage}
                     >
                       Previous
                     </Button>
                     <Button
-                      color="primary"
-                      size="large"
-                      sx={{ borderRadius: 2, margin: 1, width: 1 / 2 }}
+                      sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
                       type="submit"
+                      color="primary"
                       variant="contained"
+                      size="large"
                     >
                       Next
                     </Button>
