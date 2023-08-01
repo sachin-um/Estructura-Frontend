@@ -95,8 +95,9 @@ function ServiceProviderSignUp() {
     <SignUpPage1 // Email
       formData={formData}
       key={1}
-      nextPage={nextPage}
       updateFormData={updateFormData}
+      handleDropdownChange={handleDropdownChange}
+      nextPage={nextPage}
     />,
     <SignUpPage2 // Select Service Provider Type
       formData={formData}

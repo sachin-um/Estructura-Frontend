@@ -1,15 +1,19 @@
 import jwt_decode, { type JwtPayload } from 'jwt-decode';
 import { PropsWithChildren, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+
+import { selectRole } from '../../redux/UserAuthenticationReducer';
 
 const RolesRequired = (AllowedRoles: Role[]) => {
   return function Auth(props: PropsWithChildren) {
+    const currentRole = useSelector(selectRole);
     const navigate = useNavigate();
     const refreshToken = localStorage.getItem('refreshToken') as string;
-    const tokenExpired = false;
+    let tokenExpired = false;
     if (refreshToken) {
       const token = jwt_decode<JwtPayload>(refreshToken);
-      const tokenExpired =
+      tokenExpired =
         token !== undefined && (token.exp ?? 0) < Date.now() / 1000;
       console.log(
         'Refresh Token expires in ' +
@@ -18,13 +22,12 @@ const RolesRequired = (AllowedRoles: Role[]) => {
       );
     }
     const isAuthenticated =
-      AllowedRoles.includes(localStorage.getItem('role') as Role) &&
-      !tokenExpired;
+      currentRole && AllowedRoles.includes(currentRole) && !tokenExpired;
 
     useEffect(() => {
       if (!isAuthenticated && window.location.pathname !== '/SignIn') {
         const link = encodeURI(
-          '/auth/SignIn?' +
+          '/SignIn?' +
             (tokenExpired ? 'tokenExpired=true' : '') +
             '&from=' +
             window.location.pathname +

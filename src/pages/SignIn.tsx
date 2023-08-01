@@ -7,27 +7,22 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import { type AnyAction, type ThunkDispatch } from '@reduxjs/toolkit';
 import { Form, Formik, type FormikProps } from 'formik';
 import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
 import TopBar from '../components/TopBar';
-import API, { clearTokens } from '../lib/API';
+import {
+  AuthenticationResponse,
+  SignInRequest,
+  UserState,
+  signIn,
+} from '../redux/UserAuthenticationReducer';
 import GetFormikProps from '../utils/GetFormikProps';
 import { violationsToErrorsTS } from '../utils/ViolationsTS';
-
-interface SignInRequest {
-  email: string;
-  password: string;
-}
-
-interface AuthenticationResponse extends ValidatedResponse {
-  access_token: null | string;
-  refresh_token: null | string;
-  role: Role | null;
-  success: boolean;
-}
 
 const InitialValues: SignInRequest = {
   email: '',
@@ -44,6 +39,7 @@ const ValidationSchema = yup.object().shape({
 
 function SignIn() {
   const FormRef = useRef<FormikProps<SignInRequest>>(null);
+  const dispatch: ThunkDispatch<UserState, void, AnyAction> = useDispatch();
   const Navigate = useNavigate();
 
   const Params = new URLSearchParams(window.location.search);
@@ -72,41 +68,27 @@ function SignIn() {
     if (FormRef.current !== null) {
       const { setErrors, setSubmitting } = FormRef.current;
       setSubmitting(true);
-      clearTokens();
-      const email = values.email;
-      const password = values.password;
-      API.post<AuthenticationResponse>('/auth/authenticate', {
-        email,
-        password,
-      })
-        .then((res) => {
-          if (res.status === 200) {
-            console.log(res.data);
-            if (res.data.success === true) {
-              localStorage.setItem('role', res.data.role as string);
-              localStorage.setItem(
-                'accessToken',
-                res.data.access_token as string,
-              );
-              localStorage.setItem(
-                'refreshToken',
-                res.data.refresh_token as string,
-              );
-              if (from) {
-                Navigate(from, { replace: true });
-              } else {
-                Navigate(`/${res.data.role?.toLowerCase()}/dashboard`, {
-                  replace: true,
-                });
-              }
-            } else {
-              setErrors(violationsToErrorsTS(res.data.validation_violations));
-            }
+      dispatch(
+        signIn({
+          email: values.email,
+          password: values.password,
+        }),
+      ).then((resultAction) => {
+        if (resultAction.payload !== undefined) {
+          const response = resultAction.payload as AuthenticationResponse;
+          if (response.success === false) {
+            setErrors(violationsToErrorsTS(response.validation_violations));
           } else {
-            alert('Invalid Credentials');
+            if (from && from !== '/') {
+              Navigate(from, { replace: true });
+            } else {
+              Navigate(`/${response.role.toLowerCase()}/dashboard`, {
+                replace: true,
+              });
+            }
           }
-        })
-        .catch((err) => console.log(JSON.stringify(err)));
+        }
+      });
       setSubmitting(false);
     }
   };

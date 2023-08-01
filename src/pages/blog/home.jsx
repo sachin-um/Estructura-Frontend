@@ -11,15 +11,15 @@ const User_ID = 1;
 const IMAGE_SOURCE = 'http://127.0.0.1:5000/blog-files/';
 
 const blogData = Array.from(
-  await API.get('/blogs/all')
-    .then((res) => res.data)
-    .catch((err) => {
-      console.log(err);
-      return [];
-    }),
+//   await API.get('/blogs/all')
+//     .then((res) => res.data)
+//     .catch((err) => {
+//       console.log(err);
+//       return [];
+//     }),
+  []
 );
 
-console.log(blogData);
 export default function Home() {
   const blogCards = [
     {

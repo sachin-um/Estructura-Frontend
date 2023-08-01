@@ -10,7 +10,7 @@ import * as yup from 'yup';
 
 const districts = [
   'Ampara',
-  'Anuradhapur',
+  'Anuradhapura',
   'Badulla',
   'Batticaloa',
   'Colombo',
