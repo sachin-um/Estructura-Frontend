@@ -1,5 +1,5 @@
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container, Pagination, Stack, Typography } from '@mui/material';
 import { type AnyAction, type ThunkDispatch } from '@reduxjs/toolkit';
 import { FunctionComponent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,6 +15,7 @@ import {
   selectAllBlogs,
 } from '../../redux/BlogsReducer';
 import { selectUser } from '../../redux/UserAuthenticationReducer';
+import Paginate from '../../utils/Paginate';
 
 interface BlogHomeProps {
   children?: React.ReactNode;
@@ -77,57 +78,85 @@ const BlogHome: FunctionComponent<BlogHomeProps> = () => {
     return true;
   });
 
+  const [pageNumber, setPageNumber] = useState(1);
+  const [pageSize, setPageSize] = useState(9);
+
+  const paginatedBlogs = Paginate(filteredBlogs, pageNumber, pageSize);
+
   return (
     <>
       <TopAppBar />
       <Carousel cards={blogCards} />
-      <Container>
+      <Container sx={{ paddingBottom: '2rem' }}>
         <div
           style={{
             display: 'flex',
-            justifyContent: 'flex-end',
+            justifyContent: 'space-between',
             margin: '20px',
           }}
         >
-          {userInfo && (
+          <Typography variant="h4">Blogs</Typography>
+          <div className="buttons">
+            {userInfo && (
+              <button
+                onClick={() => {
+                  if (!showMyBlogs) {
+                    setPageNumber(1);
+                  }
+                  setShowMyBlogs(true);
+                }}
+                style={{
+                  backgroundColor: showMyBlogs ? '#804000' : 'transparent',
+                  border: '1px solid #804000',
+                  borderRadius: '4px',
+                  color: showMyBlogs ? '#fff' : '#804000',
+                  cursor: 'pointer',
+                  marginRight: '10px',
+                  padding: '5px 10px',
+                }}
+              >
+                My Blogs
+              </button>
+            )}
             <button
+              onClick={() => {
+                if (showMyBlogs) {
+                  setPageNumber(1);
+                }
+                setShowMyBlogs(false);
+              }}
               style={{
-                backgroundColor: showMyBlogs ? '#804000' : 'transparent',
+                backgroundColor: showMyBlogs ? 'transparent' : '#804000',
                 border: '1px solid #804000',
                 borderRadius: '4px',
-                color: showMyBlogs ? '#fff' : '#804000',
+                color: showMyBlogs ? '#804000' : '#fff',
                 cursor: 'pointer',
-                marginRight: '10px',
                 padding: '5px 10px',
               }}
-              onClick={() => setShowMyBlogs(true)}
             >
-              My Blogs
+              All Blogs
             </button>
-          )}
-          <button
-            style={{
-              backgroundColor: showMyBlogs ? 'transparent' : '#804000',
-              border: '1px solid #804000',
-              borderRadius: '4px',
-              color: showMyBlogs ? '#804000' : '#fff',
-              cursor: 'pointer',
-              padding: '5px 10px',
-            }}
-            onClick={() => setShowMyBlogs(false)}
-          >
-            All Blogs
-          </button>
+          </div>
         </div>
         {filteredBlogs.length > 0 ? (
-          <Box
-            display={'flex'}
-            flexWrap={'wrap'}
-            gap="20px"
-            justifyContent="center"
-          >
-            {filteredBlogs.map(blogToCard)}
-          </Box>
+          <Stack spacing={3}>
+            <Box
+              display={'flex'}
+              flexWrap={'wrap'}
+              gap="20px"
+              justifyContent="center"
+            >
+              {paginatedBlogs.map(blogToCard)}
+            </Box>
+            <Box display={'flex'} justifyContent={'center'}>
+              <Pagination
+                onChange={(_event, value) => {
+                  setPageNumber(value);
+                }}
+                count={Math.ceil(filteredBlogs.length / pageSize)}
+              />
+            </Box>
+          </Stack>
         ) : (
           <div
             style={{

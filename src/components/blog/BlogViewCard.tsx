@@ -66,7 +66,8 @@ const BlogViewCard: FunctionComponent<BlogCardProps> = ({
             sx={{ fontFamily: 'Poppins' }}
             variant="body2"
           >
-            {content} {/* Use the content prop */}
+            {content.substring(0, 50)}...
+            {/* Use the content prop */}
           </Typography>
         </CardContent>
       </CardActionArea>
