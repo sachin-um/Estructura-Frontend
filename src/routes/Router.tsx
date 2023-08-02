@@ -5,6 +5,7 @@ import Play from '../play';
 import AdminRoutes from './AdminRoutes';
 import AuthRoutes from './AuthRoutes';
 import BlogRoutes from './BlogRoutes';
+import ProjectRoutes from './Projects';
 
 export const altRouter = createBrowserRouter([
   {
@@ -18,6 +19,7 @@ export const altRouter = createBrowserRouter([
   ...AuthRoutes,
   ...AdminRoutes,
   ...BlogRoutes,
+  ...ProjectRoutes,
 ]);
 
 export default altRouter;

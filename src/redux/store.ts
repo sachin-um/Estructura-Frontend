@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import BlogsReducer from './BlogsReducer';
+import ProjectReducer from './ProjectReducer';
 import UserAuthenticationReducer from './UserAuthenticationReducer';
 
 export const store = configureStore({
   reducer: {
     blog: BlogsReducer,
+    project: ProjectReducer,
     user: UserAuthenticationReducer,
   },
 });
