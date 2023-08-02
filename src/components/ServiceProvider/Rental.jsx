@@ -42,7 +42,7 @@ import AddressInputs,{addressInitialValues,addressValidators} from "../Auth/Addr
       businessContactNo: formData.contactNo ?? "",
       firstname: formData.firstname?? "",
       lastname:  formData.lastname ?? "",
-      ...addressInitialValues,
+      ...addressInitialValues(formData),
     }  ;  
     // TODO: Change Layout
     return (
@@ -151,7 +151,7 @@ import AddressInputs,{addressInitialValues,addressValidators} from "../Auth/Addr
                                     color='secondary'
                                     {...spread("registrationNo")}
                                   />
-                                  <AddressInputs spread={spread}/>
+                                  <AddressInputs spread={spread} errors={errors}/>
                                   <Grid
                                       style={{
                                         display: "flex",

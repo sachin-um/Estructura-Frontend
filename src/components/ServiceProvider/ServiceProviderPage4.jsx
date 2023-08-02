@@ -49,12 +49,7 @@ const options = [
   { label: "Trincomalee", value: "trincomalee" },
   { label: "Vavuniya", value: "vavuniya" },
 ];
-// const validationSchema = yup.object({
-//   serviceAreas:yup
-//   .string()
-//   .oneOf(options.map((area)=>area["value"]))
-//   .required("Select a One or More Service Areas")
-// });
+
 function ServiceProviderPage4({
   formData,
   updateFormData,
@@ -65,7 +60,7 @@ function ServiceProviderPage4({
   const [selected, setSelected] = useState([]);
   const formRef=useRef(null);
   const initialValues={
-      serviceAreas:formData.serviceAreas ?? ""
+      serviceAreas:formData.serviceAreas ?? ["Islandwide"]
   }
   return (
     <>
@@ -168,12 +163,9 @@ function ServiceProviderPage4({
               <Formik
                   innerRef={formRef}
                   onSubmit={(values) => {
-                    // TODO: HANDLE PAGE CHANGE HERE!!!
+                    //: HANDLE PAGE CHANGE HERE!!!
                     updateFormData(values);
-                    // handleDropdownChange(values.role);
                     nextPage();
-                    // console.log(selected);
-                    // console.log(values);
                   }}
                   initialValues={initialValues}
                   // validationSchema={validationSchema}
@@ -182,24 +174,15 @@ function ServiceProviderPage4({
                     values,
                     errors,
                     touched,
-                    handleChange,
+                    setFieldValue,
                     handleBlur,
                     handleSubmit,
                     isSubmitting,
                   }) => {
                     const spread = (field, helper = true) => {
-                      let valueArray=[];
-                      if (selected.length===25) {
-                        valueArray=["Islandwide"]
-                      }
-                      else{
-                        valueArray=selected.map((option)=>option.value);
-                      }
-                      values[field]=valueArray;
                       return {
                         name: field,
                         onBlur: handleBlur,
-                        onChange: handleChange,
                         value: values[field],
                         error: touched[field] && !!errors[field],
                         disabled: isSubmitting,
@@ -228,7 +211,17 @@ function ServiceProviderPage4({
                                   displayEmpty={true} 
                                   options={options}
                                   value={selected}
-                                  onChange={setSelected}
+                                  onChange={(value)=>{
+                                    setSelected(value);
+                                    let valueArray=[];
+                                    if (value.length===25) {
+                                      valueArray=["Islandwide"]
+                                    }
+                                    else{
+                                      valueArray=value.map((option)=>option.value);
+                                    }
+                                    setFieldValue("serviceAreas",valueArray,false)
+                                    }}
                                   labelledBy={"Select"}
                                   isCreatable={false}
                                   overrideStrings={{selectAll:"Islandwide",search:"Search districts..",selectSomeItems:"Select Districts"}}
