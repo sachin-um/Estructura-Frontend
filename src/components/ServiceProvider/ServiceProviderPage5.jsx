@@ -15,11 +15,10 @@ import {
 
 function ServiceProviderPage5({
     formData,
-  updateFormData,
- 
-  nextPage,
-  previousPage,
-  pageImage,
+    updateFormData, 
+    nextPage,
+    previousPage,
+    pageImage,
 }) {
   const HandleSubmit = (event) => {
     event.preventDefault();
