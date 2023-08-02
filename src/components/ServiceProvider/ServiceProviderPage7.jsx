@@ -1,35 +1,24 @@
-import React, { useState } from "react";
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  Stack,
-  Link,
-  TextField,
-  FormControl,
-  InputLabel,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Container, Grid, Typography } from '@mui/material';
+import React, { useState } from 'react';
 // import { Link } from "react-router-dom" ;
 
 function ServiceProviderPage7({
   formData,
-  updateFormData,
-
   nextPage,
-  previousPage,
+
   pageImage,
+  previousPage,
+  updateFormData,
 }) {
-    const [profileimage, setprofileimage] = useState("/User/user.png");
+  const [profileimage, setprofileimage] = useState('/User/user.png');
   const HandleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    console.log(formData.get("email"), formData.get("password"));
+    console.log(formData.get('email'), formData.get('password'));
   };
-  const handleUpload=(e)=>{
+  const handleUpload = (e) => {
     setprofileimage(URL.createObjectURL(e.target.files[0]));
-  }
+  };
 
   const handleNext = () => {
     nextPage();
@@ -41,188 +30,186 @@ function ServiceProviderPage7({
   return (
     <>
       <Container
-        maxWidth={false}
         style={{
-          backgroundColor: "#f7f8f1",
-          display: "flex",
-          alignItems: "center",
+          alignItems: 'center',
+          backgroundColor: '#f7f8f1',
+          display: 'flex',
         }}
+        maxWidth={false}
       >
         <Grid container justifyContent="center" spacing={4}>
           <Grid
-            item
-            xs={12}
-            md={7}
             style={{
-              paddingTop: "2rem",
-              paddingBottom: "2rem",
-              marginTop: "2rem",
+              marginTop: '2rem',
+              paddingBottom: '2rem',
+              paddingTop: '2rem',
             }}
+            item
+            md={7}
+            xs={12}
           >
             <Grid
-              container
               style={{
+                alignItems: 'flex-end',
                 backgroundImage: `url(${pageImage})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                borderRadius: "20px",
-                height: "100%",
-                display: "flex",
-                alignItems: "flex-end",
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+                borderRadius: '20px',
+                display: 'flex',
+                height: '100%',
               }}
+              container
             >
               <Grid
+                style={{
+                  marginBottom: '2rem',
+                  paddingLeft: '4rem',
+                  paddingRight: '1rem',
+                }}
                 item
                 xs={12}
-                style={{
-                  paddingLeft: "4rem",
-                  paddingRight: "1rem",
-                  marginBottom: "2rem",
-                }}
               >
                 <Typography
-                  variant="h4"
                   style={{
-                    color: "#ffffff",
-                    fontSize: "1.5rem",
-                    textAlign: "left",
-                    lineHeight: "1",
-                    paddingBottom: "1rem",
-                    marginTop: "auto",
+                    color: '#ffffff',
+                    fontSize: '1.5rem',
+                    lineHeight: '1',
+                    marginTop: 'auto',
+                    paddingBottom: '1rem',
+                    textAlign: 'left',
                   }}
+                  variant="h4"
                 >
                   Unleash your home’s potential
                 </Typography>
                 <Typography
-                  variant="h4"
                   style={{
-                    color: "#ffffff",
-                    fontSize: "1.5rem",
-                    textAlign: "left",
-                    lineHeight: "1",
+                    color: '#ffffff',
+                    fontSize: '1.5rem',
+                    lineHeight: '1',
+                    textAlign: 'left',
                   }}
+                  variant="h4"
                 >
                   with everything at your fingertips
                 </Typography>
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} md={5}>
+          <Grid item md={5} xs={12}>
             <Grid
-              container
               style={{
-                backgroundColor: "#ffffff",
-                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-                borderRadius: "20px",
-                padding: "1rem 2rem 3rem",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                marginTop: "2rem",
-                marginBottom: "2rem",
-                minHeight:'80vh'
+                alignItems: 'center',
+                backgroundColor: '#ffffff',
+                borderRadius: '20px',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                marginBottom: '2rem',
+                marginTop: '2rem',
+                minHeight: '80vh',
+                padding: '1rem 2rem 3rem',
               }}
+              container
             >
               <Grid
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  marginBottom: '1.5rem',
+                }}
                 item
                 xs={12}
-                style={{
-                  marginBottom: "1.5rem",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
               >
-                <img src="/Logo.png" alt="Logo" style={{ width: "40%" }} />
+                <img alt="Logo" src="/Logo.png" style={{ width: '40%' }} />
               </Grid>
-              <Grid item xs={12} style={{ marginTop: "1rem",width:'60%' }}>
-                
-                  <Box
-                    component="form"
-                    sx={{
-                      margin: "10px",
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "30px",
-                    }}
-                    onSubmit={HandleSubmit}
-                  >
-                    {
-                      <Grid style={{ justifyContent: "center" }}>
-                        <Typography textAlign="center">
-                          Upload your profile picture
-                        </Typography>
-                        <Grid
-                          style={{ justifyContent: "center" }}
-                          sx={{ width: 1, margin: 1 }}
-                        >
-                          <img
-                            src={profileimage}
-                            alt="user"
-                            style={{
-                              width: "100%",
-                              height: "100%",
-                            }}
-                          />
-                        </Grid>
-                        <Grid
-                          style={{ justifyContent: "center" }}
-                          sx={{ width: 1, margin: 1 }}
-                        >
-                          <Button
-                            sx={{ width: 1 }}
-                            variant="contained"
-                            color="secondary"
-                            component="label"
-                          >
-                            Upload Photo
-                            <input
-                              hidden
-                              accept="image/*"
-                              multiple
-                              type="file"
-                              onChange={handleUpload}
-                            />
-                          </Button>
-                        </Grid>
+              <Grid item style={{ marginTop: '1rem', width: '60%' }} xs={12}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '30px',
+                    margin: '10px',
+                  }}
+                  component="form"
+                  onSubmit={HandleSubmit}
+                >
+                  {
+                    <Grid style={{ justifyContent: 'center' }}>
+                      <Typography textAlign="center">
+                        Upload your profile picture
+                      </Typography>
+                      <Grid
+                        style={{ justifyContent: 'center' }}
+                        sx={{ margin: 1, width: 1 }}
+                      >
+                        <img
+                          style={{
+                            height: '100%',
+                            width: '100%',
+                          }}
+                          alt="user"
+                          src={profileimage}
+                        />
                       </Grid>
-                    }
-
-                    {/* { <Grid style={{display:"flex",justifyContent:"center",margin:10}}>
-                  <Button sx={{ width: 1/3,  borderRadius:2 }}type='submit' color="primary" variant="contained" size='large'  href=''>Next</Button>
-                  </Grid> } */}
-                  </Box>
-
-                {
-                    <Grid
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        margin: 10,
-                      }}
-                    >
-                      <Button
-                        sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
-                        type="submit"
-                        color="primary"
-                        variant="contained"
-                        size="large"
-                        onClick={handlePrevious}
+                      <Grid
+                        style={{ justifyContent: 'center' }}
+                        sx={{ margin: 1, width: 1 }}
                       >
-                        Previous
-                      </Button>
-                      <Button
-                        sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
-                        type="submit"
-                        color="primary"
-                        variant="contained"
-                        size="large"
-                        
-                      >
-                        Submit
-                      </Button>
+                        <Button
+                          color="secondary"
+                          component="label"
+                          sx={{ width: 1 }}
+                          variant="contained"
+                        >
+                          Upload Photo
+                          <input
+                            accept="image/*"
+                            hidden
+                            multiple
+                            onChange={handleUpload}
+                            type="file"
+                          />
+                        </Button>
+                      </Grid>
                     </Grid>
                   }
+
+                  {/* { <Grid style={{display:"flex",justifyContent:"center",margin:10}}>
+                  <Button sx={{ width: 1/3,  borderRadius:2 }}type='submit' color="primary" variant="contained" size='large'  href=''>Next</Button>
+                  </Grid> } */}
+                </Box>
+
+                {
+                  <Grid
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      margin: 10,
+                    }}
+                  >
+                    <Button
+                      color="primary"
+                      onClick={handlePrevious}
+                      size="large"
+                      sx={{ borderRadius: 2, margin: 1, width: 1 / 2 }}
+                      type="submit"
+                      variant="contained"
+                    >
+                      Previous
+                    </Button>
+                    <Button
+                      color="primary"
+                      size="large"
+                      sx={{ borderRadius: 2, margin: 1, width: 1 / 2 }}
+                      type="submit"
+                      variant="contained"
+                    >
+                      Submit
+                    </Button>
+                  </Grid>
+                }
               </Grid>
             </Grid>
           </Grid>

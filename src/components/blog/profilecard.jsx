@@ -1,33 +1,60 @@
-import React from 'react';
-import { Avatar, Card, CardContent, Typography, Stack, capitalize } from '@mui/material';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+// eslint-disable-next-line import/no-unresolved
+import backgroundPic from '/Professionals/InteriorDesigner.jpg';
+// eslint-disable-next-line import/no-unresolved
+import userPic from '/User/user.png';
 import EmailIcon from '@mui/icons-material/Email';
-import backgroundPic from "/Professionals/InteriorDesigner.jpg"
-import userPic from "/User/user.png"
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { Avatar, Card, CardContent, Stack, Typography } from '@mui/material';
+import React from 'react';
 
 const ProfileCard = () => {
-
   return (
-    <Card sx={{ position: 'relative', backgroundColor: 'white', padding: 1.5, width: '100%', maxWidth: '340px', maxHeight:430, marginLeft:1, borderRadius: 5, transition: 'transform 0.2s ease', '&:hover': {transform: 'scale(1.008)'} }}>
-      <div style={{ width: '100%', height: '150px', marginBottom: '10px' }}>
-        <img src={backgroundPic} alt="Background" style={{ width: '100%', height: '120%', objectFit: 'cover', borderRadius: '12px' }} />
+    <Card
+      sx={{
+        '&:hover': { transform: 'scale(1.008)' },
+        backgroundColor: 'white',
+        borderRadius: 5,
+        marginLeft: 1,
+        maxHeight: 430,
+        maxWidth: '340px',
+        padding: 1.5,
+        position: 'relative',
+        transition: 'transform 0.2s ease',
+        width: '100%',
+      }}
+    >
+      <div style={{ height: '150px', marginBottom: '10px', width: '100%' }}>
+        <img
+          style={{
+            borderRadius: '12px',
+            height: '120%',
+            objectFit: 'cover',
+            width: '100%',
+          }}
+          alt="Background"
+          src={backgroundPic}
+        />
       </div>
       <CardContent>
-        <Stack direction="column" alignItems="center" spacing={2}>
-          <Avatar alt="User Avatar" src={userPic} sx={{ width: 100, height: 100, marginTop: '-50px' }} />
+        <Stack alignItems="center" direction="column" spacing={2}>
+          <Avatar
+            alt="User Avatar"
+            src={userPic}
+            sx={{ height: 100, marginTop: '-50px', width: 100 }}
+          />
           <Typography variant="h6">Saneru Akarawita</Typography>
-          <Typography variant="body2" color="textSecondary">
+          <Typography color="textSecondary" variant="body2">
             Customer
           </Typography>
-          <Stack direction="row" alignItems="center" spacing={1}>
+          <Stack alignItems="center" direction="row" spacing={1}>
             <LocationOnIcon sx={{ fontSize: 16 }} />
-            <Typography variant="body2" color="textSecondary">
+            <Typography color="textSecondary" variant="body2">
               Colombo, Sri Lanka
             </Typography>
           </Stack>
-          <Stack direction="row" alignItems="center" spacing={1}>
+          <Stack alignItems="center" direction="row" spacing={1}>
             <EmailIcon sx={{ fontSize: 16 }} />
-            <Typography variant="body2" color="textSecondary">
+            <Typography color="textSecondary" variant="body2">
               saneru.akarawita@gmail.com
             </Typography>
           </Stack>

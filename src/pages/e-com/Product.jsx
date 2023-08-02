@@ -1,12 +1,12 @@
-import { Add, Remove } from "@mui/icons-material";
-import { useState } from "react";
-import styled from "styled-components";
-import Announcement from "../../components/e-com/Announcement";
-import Footer from "../../components/e-com/Footer";
-import Navbar from "../../components/e-com/Navbar";
-import Newsletter from "../../components/e-com/Blog";
-import { mobile } from "../../responsive";
+import { Add, Remove } from '@mui/icons-material';
+import { useState } from 'react';
+import styled from 'styled-components';
 
+import Announcement from '../../components/e-com/Announcement';
+import Newsletter from '../../components/e-com/Blog';
+import Footer from '../../components/e-com/Footer';
+import Navbar from '../../components/e-com/Navbar';
+import { mobile } from '../../responsive';
 
 const Container = styled.div``;
 
@@ -33,8 +33,6 @@ const BigImage = styled.img`
   z-index: 2;
 `;
 
-
-
 const SmallImagesContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -45,7 +43,7 @@ const SmallImageContainer = styled.div`
   width: 60px;
   height: 60px;
   object-fit: cover;
-  border: ${(props) => (props.isSelected ? "2px solid teal" : "none")};
+  border: ${(props) => (props.isSelected ? '2px solid teal' : 'none')};
   margin: 0 10px;
   cursor: pointer;
 `;
@@ -59,7 +57,7 @@ const SmallImage = styled.img`
 const Wrapper = styled.div`
   padding: 50px;
   display: flex;
-  ${mobile({ padding: "10px", flexDirection:"column" })}
+  ${mobile({ flexDirection: 'column', padding: '10px' })}
 `;
 
 const ImgContainer = styled.div`
@@ -70,13 +68,13 @@ const Image = styled.img`
   width: 100%;
   height: 90vh;
   object-fit: cover;
-  ${mobile({ height: "40vh" })}
+  ${mobile({ height: '40vh' })}
 `;
 
 const InfoContainer = styled.div`
   flex: 1;
   padding: 0px 50px;
-  ${mobile({ padding: "10px" })}
+  ${mobile({ padding: '10px' })}
 `;
 
 const Title = styled.h1`
@@ -97,7 +95,7 @@ const FilterContainer = styled.div`
   margin: 30px 0px;
   display: flex;
   justify-content: space-between;
-  ${mobile({ width: "100%" })}
+  ${mobile({ width: '100%' })}
 `;
 
 const Filter = styled.div`
@@ -131,7 +129,7 @@ const AddContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  ${mobile({ width: "100%" })}
+  ${mobile({ width: '100%' })}
 `;
 
 const AmountContainer = styled.div`
@@ -158,24 +156,25 @@ const Button = styled.button`
   cursor: pointer;
   font-weight: 500;
 
-  &:hover{
-      background-color: #f8f4f4;
+  &:hover {
+    background-color: #f8f4f4;
   }
 `;
 
 const Product = () => {
-
-  const [selectedImage, setSelectedImage] = useState("https://images.pexels.com/photos/1112598/pexels-photo-1112598.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  const [selectedImage, setSelectedImage] = useState(
+    'https://images.pexels.com/photos/1112598/pexels-photo-1112598.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+  );
   const images = [
-    "https://images.pexels.com/photos/11674340/pexels-photo-11674340.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "https://images.pexels.com/photos/13068370/pexels-photo-13068370.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "https://images.pexels.com/photos/1112598/pexels-photo-1112598.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    'https://images.pexels.com/photos/11674340/pexels-photo-11674340.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    'https://images.pexels.com/photos/13068370/pexels-photo-13068370.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    'https://images.pexels.com/photos/1112598/pexels-photo-1112598.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
   ];
 
   const handleImageClick = (image) => {
     setSelectedImage(image);
   };
-  
+
   return (
     <Container>
       <Navbar />
@@ -189,8 +188,8 @@ const Product = () => {
             {images.map((image) => (
               <SmallImageContainer
                 isSelected={image === selectedImage}
-                onClick={() => handleImageClick(image)}
                 key={image}
+                onClick={() => handleImageClick(image)}
               >
                 <SmallImage src={image} />
               </SmallImageContainer>

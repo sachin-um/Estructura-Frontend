@@ -1,24 +1,24 @@
-
-import { Button, Container, Grid, TextField, Typography, Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import { Link } from 'react-router-dom';
-
-
-
-
+import { Grid, Typography } from '@mui/material';
 
 function Messages() {
-    const HandleSubmit = (event) => {
-      event.preventDefault();
-      const formData = new FormData(event.currentTarget);
-      console.log(formData.get("email"), formData.get("password"));
-    };
-    
+  const HandleSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    console.log(formData.get('email'), formData.get('password'));
+  };
+
   return (
     <>
-    <Grid style={{display:"flex",justifyContent:"center", marginTop: '3rem',marginLeft: '10rem'  }}>
-    <Typography variant='h6'> Messages</Typography>
-     </Grid>
-     
+      <Grid
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginLeft: '10rem',
+          marginTop: '3rem',
+        }}
+      >
+        <Typography variant="h6"> Messages</Typography>
+      </Grid>
     </>
   );
 }
