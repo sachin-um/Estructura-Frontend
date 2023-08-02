@@ -11,7 +11,8 @@ import {
   InputLabel,
   Typography,
 } from "@mui/material";
-// import { Link } from "react-router-dom" ;
+import { Form, Formik } from "formik";
+import { useRef } from "react";
 
 function ServiceProviderPage5({
     formData,
@@ -20,18 +21,10 @@ function ServiceProviderPage5({
     previousPage,
     pageImage,
 }) {
-  const HandleSubmit = (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    console.log(formData.get("email"), formData.get("password"));
-  };
-
-  const handleNext = () => {
-    nextPage();
-  };
-  const handlePrevious = () => {
-    previousPage();
-  };
+  const formRef=useRef(null);
+  const initialValues={
+    specialization:formData.specialization ?? ""
+  }
   // TODO: Change Layout
   return (
     <>
@@ -132,71 +125,98 @@ function ServiceProviderPage5({
                         <img src="/Logo.png" alt="Logo" style={{ width: "40%" }} />
                     </Grid>
                     <Grid item xs={12} style={{ marginTop: "1rem" }}>
-                        <Box
-                        component="form"
-                        sx={{
-                            margin: "10px",
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "20px",
-                        }}
-                        onSubmit={HandleSubmit}
-                        >
-                        
-                            {
-                            <Grid style={{ justifyContent: "center" }}>
-                                <Typography textAlign="center" width={1}>
-                                What range of services do you offer?
-                                </Typography>
-                                <Grid style={{ justifyContent: "center" }}>
-                                <TextField sx={{ m: 1, minWidth: 320, maxWidth: 400}}
-                                    label="Please seperate each one with commas."
-                                    id="filled-multiline-static"
-                                    multiline
-                                    rows={5}
-                                    variant="filled"
-                                />
-                                </Grid>
-                            </Grid>
-                            }
-
-                            {/* { <Grid style={{display:"flex",justifyContent:"center",margin:10}}>
-                        <Button sx={{ width: 1/3,  borderRadius:2 }}type='submit' color="primary" variant="contained" size='large'  href=''>Next</Button>
-                        </Grid> } */}
-                        </Box>
-
-                       
-                      
-                        {
-                            <Grid
-                            style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                margin: 10,
+                        <Formik
+                            innerRef={formRef}
+                            onSubmit={(values) => {
+                              //: HANDLE PAGE CHANGE HERE!!!
+                              updateFormData(values);
+                              nextPage();
                             }}
-                            >
-                            <Button
-                                sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
-                                type="submit"
-                                color="primary"
-                                variant="contained"
-                                size="large"
-                                onClick={handlePrevious}
-                            >
-                                Previous
-                            </Button>
-                            <Button
-                                sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
-                                type="submit"
-                                color="primary"
-                                variant="contained"
-                                size="large"
-                                onClick={handleNext}
-                            >
-                                Next
-                            </Button>
-                            </Grid>
-                        }
+                            initialValues={initialValues}
+                            // validationSchema={validationSchema}
+                        >
+                           {({
+                                values,
+                                errors,
+                                touched,
+                                handleChange,
+                                handleBlur,
+                                handleSubmit,
+                                isSubmitting,
+                            }) => {
+                                const spread = (field, helper = true) => {
+                                return {
+                                    name: field,
+                                    onBlur: handleBlur,
+                                    onChange: handleChange,
+                                    value: values[field],
+                                    error: touched[field] && !!errors[field],
+                                    disabled: isSubmitting,
+                                    ...(helper && {
+                                    helperText: touched[field] && errors[field],
+                                    }),
+                                };
+                                };
+                                return(
+                                    <Form onSubmit={handleSubmit}>
+                                        <Box
+                                            sx={{
+                                                margin: "10px",
+                                                display: "flex",
+                                                flexDirection: "column",
+                                                gap: "20px",
+                                            }}
+                                        >   
+                                            {
+                                            <Grid style={{ justifyContent: "center" }}>
+                                                <Typography textAlign="center" width={1}>
+                                                What range of services do you offer?
+                                                </Typography>
+                                                <Grid style={{ justifyContent: "center" }}>
+                                                <TextField sx={{ m: 1, minWidth: 320, maxWidth: 400}}
+                                                    label="Please separate each one with commas."
+                                                    id="filled-multiline-static"
+                                                    multiline
+                                                    rows={5}
+                                                    variant="filled"
+                                                    {...spread("specialization")}
+                                                />
+                                                </Grid>
+                                            </Grid>
+                                            }
+                                            <Grid
+                                            style={{
+                                                display: "flex",
+                                                justifyContent: "center",
+                                                width: "100%",
+                                            }}
+                                            >
+                                            <Button
+                                                sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
+                                                type='button'
+                                                color='primary'
+                                                variant='contained'
+                                                size='large'
+                                                onClick={previousPage}
+                                            >
+                                                Previous
+                                            </Button>
+                                            <Button
+                                                sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
+                                                type='submit'
+                                                color='primary'
+                                                variant='contained'
+                                                size='large'
+                                            >
+                                                Next
+                                            </Button>
+                                            </Grid>
+                                        </Box>
+                                    </Form>
+                                );
+                            }}    
+                        </Formik>
+                       
                     </Grid>
                 </Grid>
             </Grid>

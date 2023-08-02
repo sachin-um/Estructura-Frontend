@@ -18,8 +18,6 @@ import {
 } from "@mui/material";
 import { Form, Formik } from "formik";
 import { useRef } from "react";
-import * as yup from "yup";
-import { Checkbox } from "@mui/material";
 // import { Link } from "react-router-dom" ;
 
 const options = [

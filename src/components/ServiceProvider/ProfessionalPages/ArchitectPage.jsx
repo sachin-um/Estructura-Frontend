@@ -14,7 +14,6 @@ import {
 import { Form, Formik } from "formik";
 import { useRef } from "react";
 import * as yup from "yup";
-import { spread } from "axios";
 
 const validationSchema = yup.object({
   nic: yup.string().required("NIC is required"),
