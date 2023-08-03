@@ -2,8 +2,8 @@ import TopBar from "../../components/TopBar";
 import React, { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-import ImageIcon from '@mui/icons-material/Image';
-import AddIcon from '@mui/icons-material/Add';
+import ImageIcon from "@mui/icons-material/Image";
+import AddIcon from "@mui/icons-material/Add";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import Divider from "@mui/material/Divider";
@@ -80,7 +80,7 @@ function AddRetailItem() {
         }}
       >
         <Grid container justifyContent="center" spacing={4}>
-        <Grid
+          <Grid
             item
             xs={12}
             md={6}
@@ -91,9 +91,7 @@ function AddRetailItem() {
               display: "flex",
               justifyContent: "center",
             }}
-            
           >
-            
             <form
               style={{
                 display: "flex",
@@ -104,20 +102,20 @@ function AddRetailItem() {
                 marginTop: "30px",
               }}
             >
-                <Typography
-              variant="h4"
-              style={{
-                fontSize: "1.5rem",
-                textAlign: "left",
-                lineHeight: "1",
-               
-                fontWeight: "bold",
-              }}
-            >
-              Add Retail Item
-            </Typography>
-            <Divider />
-             
+              <Typography
+                variant="h4"
+                style={{
+                  fontSize: "1.5rem",
+                  textAlign: "left",
+                  lineHeight: "1",
+
+                  fontWeight: "bold",
+                }}
+              >
+                Add Retail Item
+              </Typography>
+              <Divider />
+
               <TextField
                 sx={{ width: "1", borderRadius: 2, margin: 1 }}
                 label="Item Name"
@@ -140,12 +138,10 @@ function AddRetailItem() {
                 InputProps={{
                   sx: { borderRadius: 2 },
                   startAdornment: (
-                    <InputAdornment position="start">
-                      LKR
-                    </InputAdornment>
+                    <InputAdornment position="start">LKR</InputAdornment>
                   ),
                 }}
-                sx={{ width: "1",  margin: 1 }}
+                sx={{ width: "1", margin: 1 }}
                 label="Retail Price"
                 type="price"
                 fullWidth
@@ -162,7 +158,6 @@ function AddRetailItem() {
               />
 
               <Divider />
-        
             </form>
           </Grid>
           <Grid
@@ -172,12 +167,11 @@ function AddRetailItem() {
             style={{
               paddingTop: "2rem",
               paddingBottom: "2rem",
-              paddingRight:"5rem",
+              paddingRight: "5rem",
               marginTop: "4.7rem",
               justifyContent: "center",
             }}
           >
-         
             <Divider />
             <Typography
               style={{
@@ -262,16 +256,14 @@ function AddRetailItem() {
                 </Typography>
               </Box>
             )}
-            <Divider sx={
-              {marginTop:"10px"}
-            }/>
+            <Divider sx={{ marginTop: "10px" }} />
             <Grid
-                style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginTop: "10px",
-                    width:"100%"
-                  }}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginTop: "10px",
+                width: "100%",
+              }}
             >
               <Typography
                 style={{
@@ -282,50 +274,47 @@ function AddRetailItem() {
               >
                 Add more images
               </Typography>
-              <Grid >
-              <Button
-                style={{
-                  backgroundColor:"transparent",
-                  border: "2px solid #435834",
-                  color:"#435834",
-                
-                
-        
-                }}
-                variant="contained"
-                fullWidth
-                onClick={() => document.querySelector(".input-field").click()}
-              >
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="input-field"
-                  hidden
-                  multiple
-                  onChange={({ target: { files } }) => {
-                    if (files && files.length > 0) {
-                      const fileArray = Array.from(files).slice(0, 3);
-                      const fileNames = fileArray.map((file) => file.name);
-                      setFileNames(fileNames);
-                      const imageUrls = fileArray.map((file) =>
-                        URL.createObjectURL(file)
-                      );
-                      setImages(imageUrls);
-                    }
-                  }}
-                />
-                <AddIcon/>
-                <Typography
+              <Grid>
+                <Button
                   style={{
-                    textAlign: "left",
+                    backgroundColor: "transparent",
+                    border: "2px solid #435834",
+                    color: "#435834",
                   }}
+                  variant="contained"
+                  fullWidth
+                  onClick={() => document.querySelector(".input-field").click()}
                 >
-                  Select
-                </Typography>
-              </Button>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="input-field"
+                    hidden
+                    multiple
+                    onChange={({ target: { files } }) => {
+                      if (files && files.length > 0) {
+                        const fileArray = Array.from(files).slice(0, 3);
+                        const fileNames = fileArray.map((file) => file.name);
+                        setFileNames(fileNames);
+                        const imageUrls = fileArray.map((file) =>
+                          URL.createObjectURL(file)
+                        );
+                        setImages(imageUrls);
+                      }
+                    }}
+                  />
+                  <AddIcon />
+                  <Typography
+                    style={{
+                      textAlign: "left",
+                    }}
+                  >
+                    Select
+                  </Typography>
+                </Button>
+              </Grid>
             </Grid>
-            </Grid>
-            
+
             <Grid container spacing={1}>
               {images.length > 0 &&
                 images.map((imageUrl, index) => (
@@ -335,7 +324,6 @@ function AddRetailItem() {
                       height="150px"
                       width="100%"
                       marginTop="30px"
-                    
                       sx={{ borderStyle: "dashed", borderColor: "grey" }}
                     >
                       <img
@@ -393,33 +381,27 @@ function AddRetailItem() {
                 </Grid>
               ))}
             </Grid>
-            
-            
-            <Divider sx={
-              {marginTop:"20px"}
-            }/>
-           
+
+            <Divider sx={{ marginTop: "20px" }} />
           </Grid>
           <Grid
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  margin: 1,
-                }}
-              >
-                <Button 
-                  sx={{  width:1,borderRadius: 2,margin:1 }}
-                  variant="contained"
-                  color="primary"
-                  type="submit"
-                  
-                  fullWidth
-                >
-                  ADD ITEM
-                </Button>
-              </Grid>
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              margin: 1,
+            }}
+          >
+            <Button
+              sx={{ width: 1, borderRadius: 2, margin: 1 }}
+              variant="contained"
+              color="primary"
+              type="submit"
+              fullWidth
+            >
+              ADD ITEM
+            </Button>
+          </Grid>
         </Grid>
-        
       </Container>
     </>
   );
