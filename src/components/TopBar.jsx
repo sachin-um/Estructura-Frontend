@@ -226,7 +226,7 @@ function TopBar() {
                     }}
                   >
                     <MenuItem onClick={handleCloseProfessionalsMenu}>
-                      <Typography textAlign="center" sx={{ color: 'green' }}>
+                      <Typography textAlign="center" sx={{ color: '#304422' }}>
                         {item.title}
                       </Typography>
                     </MenuItem>
@@ -257,7 +257,7 @@ function TopBar() {
                     }}
                   >
                     <MenuItem onClick={handleCloseProductsMenu}>
-                      <Typography textAlign="center" sx={{ color: 'green' }}>
+                      <Typography textAlign="center" sx={{ color: '#304422' }}>
                         {item.title}
                       </Typography>
                     </MenuItem>

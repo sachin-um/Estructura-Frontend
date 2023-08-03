@@ -4,7 +4,7 @@ import { mobile } from "../../responsive";
 
 const Container = styled.div`
   height: 60vh;
-  background-image: url("../../../public/ProductsBlog-banner.jpeg");
+  background-image: url("https://www.venuscreatives.com/wp-content/uploads/2021/04/livingroom-banner5.jpg");
   background-size: cover;
   background-position: center;
   display: flex;

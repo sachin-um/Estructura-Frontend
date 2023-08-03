@@ -157,11 +157,11 @@ function CusTopBar() {
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <ListItemIcon>
                     {/* Add Material-UI icons */}
-                    {setting === 'Profile' && <PersonIcon color="secondary" />}
-                    {setting === 'Account' && <SettingsIcon color="secondary" />}
-                    {setting === 'Logout' && <ExitToAppIcon color="secondary" />}
+                    {setting === 'Profile' && <PersonIcon color="grey" />}
+                    {setting === 'Account' && <SettingsIcon color="grey" />}
+                    {setting === 'Logout' && <ExitToAppIcon color="grey" />}
                   </ListItemIcon>
-                  <Typography textAlign="center" sx={{ color: 'green' }}>
+                  <Typography textAlign="center" sx={{ color: '#304422' }}>
                     {setting}
                   </Typography>
                 </MenuItem>
@@ -180,7 +180,7 @@ function CusTopBar() {
               {professionalsTopics.map((topic) => (
                 <Grid item xs={6} key={topic}>
                   <MenuItem onClick={handleCloseProfessionalsMenu}>
-                    <Typography textAlign="center" sx={{ color: 'green' }}>
+                    <Typography textAlign="center" sx={{ color: '#304422' }}>
                       {topic}
                     </Typography>
                   </MenuItem>
@@ -200,7 +200,7 @@ function CusTopBar() {
               {productsTopics.map((topic) => (
                 <Grid item xs={6} key={topic}>
                   <MenuItem onClick={handleCloseProductsMenu}>
-                    <Typography textAlign="center" sx={{ color: 'green' }}>
+                    <Typography textAlign="center" sx={{ color: '#304422' }}>
                       {topic}
                     </Typography>
                   </MenuItem>

@@ -530,7 +530,7 @@ const HomePage = () => {
               paragraph
               fontSize="1.3rem"
               fontFamily="Poppins" 
-              color="#AF7D51"
+              color="#435834"
               marginBottom="30px"
             >
               Check out our blog for the latest stories!

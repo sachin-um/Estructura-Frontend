@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { Add, Remove } from "@mui/icons-material";
+import { Add, Remove, ShoppingCart } from "@mui/icons-material";
 import styled from "styled-components";
-import Announcement from "../../components/e-com/Announcement";
 import Footer from "../../components/Footer";
 import TopBar from "../../components/CusTopBar";
 import { mobile } from "../../responsive";
@@ -67,8 +66,21 @@ const ProductDetail = styled.div`
   display: flex;
 `;
 
+const ProductAmountBox = styled.div `
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    width: 150px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
 const Image = styled.img`
-  width: 200px;
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
 `;
 
 const Details = styled.div`
@@ -80,22 +92,13 @@ const Details = styled.div`
 
 const ProductName = styled.span`
     color: #435834;
+    margin-bottom: -140px;
+    font-size: 18px;
 `;
 
 const ProductId = styled.span`
-    color: #435834;
-
-`;
-
-const ProductColor = styled.div`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: ${(props) => props.color};
-`;
-
-const ProductSize = styled.span`
-    color: #435834;
+    color: grey;
+    font-size: 15px;
 
 `;
 
@@ -110,7 +113,7 @@ const PriceDetail = styled.div`
 const ProductAmountContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  cursor: pointer;
 `;
 
 const ProductAmount = styled.div`
@@ -121,9 +124,10 @@ const ProductAmount = styled.div`
 `;
 
 const ProductPrice = styled.div`
-  font-size: 30px;
+  font-size: 28px;
   font-weight: 200;
   color: #9D6432;
+  margin-top: 20px;
   ${mobile({ marginBottom: "20px" })}
 `;
 
@@ -171,28 +175,38 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-
-
 const Cart = () => {
 
-    const [quantity, setQuantity] = useState(2);
+    const [products, setProducts] = useState([
+      { id: 1, quantity: 2 },
+      { id: 2, quantity: 2 },
+    ])
   
-    const increaseQuantity = () => {
-      setQuantity((prevQuantity) => prevQuantity + 1);
+    const increaseQuantity = (productId) => {
+      setProducts((prevProducts) => 
+        prevProducts.map((product) =>
+          product.id === productId
+            ? {...product, quantity: product.quantity + 1 }
+            :product
+        )
+      );
     };
   
-    const decreaseQuantity = () => {
-      if (quantity > 1) {
-        setQuantity((prevQuantity) => prevQuantity - 1);
-      }
-    };
+    const decreaseQuantity = (productId) => {
+      setProducts((prevProducts) =>
+        prevProducts.map((product) =>
+          product.id === productId && product.quantity > 1
+            ? {...product, quantity: product.quantity - 1}
+            : product
+          )
+      );
+    }
 
   return (
     <Container>
       <TopBar title="Cart" />
-      <Announcement />
       <Wrapper>
-        <Title>YOUR CART</Title>
+        <Title><ShoppingCart sx={{ fontSize: '32px', marginRight: '10px', marginBottom: '-5px' }} />YOUR CART</Title>
         <Top>
           <TopButton>CONTINUE SHOPPING</TopButton>
 
@@ -210,19 +224,17 @@ const Cart = () => {
                   <ProductId>
                     <b>ID:</b> 93813718293
                   </ProductId>
-                  <ProductColor color="black" />
-                  <ProductSize>
-                    <b>Size:</b> 37.5
-                  </ProductSize>
                 </Details>
               </ProductDetail>
               <PriceDetail>
-                <ProductAmountContainer>
-                  <Remove onClick={decreaseQuantity} />
-                    <ProductAmount>{quantity}</ProductAmount>
-                  <Add onClick={increaseQuantity} />
-                </ProductAmountContainer>
-                <ProductPrice>$ 30</ProductPrice>
+              <ProductAmountBox>
+                    <ProductAmountContainer>
+                      <Remove onClick={() => decreaseQuantity(1)} />
+                        <ProductAmount>{products.find((product) => product.id === 1)?.quantity || 0}</ProductAmount>
+                      <Add onClick={() => increaseQuantity(1)} />
+                    </ProductAmountContainer>
+                  </ProductAmountBox>
+                  <ProductPrice>LKR. 25,000</ProductPrice>
               </PriceDetail>
             </Product>
             <Hr />
@@ -236,19 +248,17 @@ const Cart = () => {
                   <ProductId>
                     <b>ID:</b> 93813718293
                   </ProductId>
-                  <ProductColor color="grey" />
-                  <ProductSize>
-                    <b>Size:</b> M
-                  </ProductSize>
                 </Details>
               </ProductDetail>
               <PriceDetail>
-                <ProductAmountContainer>
-                  <Remove onClick={decreaseQuantity} />
-                    <ProductAmount>{quantity}</ProductAmount>
-                  <Add onClick={increaseQuantity} />
-                </ProductAmountContainer>
-                <ProductPrice>$ 20</ProductPrice>
+              <ProductAmountBox>
+                    <ProductAmountContainer>
+                      <Remove onClick={() => decreaseQuantity(2)} />
+                        <ProductAmount>{products.find((product) => product.id === 2)?.quantity || 0}</ProductAmount>
+                      <Add onClick={() => increaseQuantity(2)} />
+                    </ProductAmountContainer>
+                  </ProductAmountBox>
+                <ProductPrice>LKR. 18,000</ProductPrice>
               </PriceDetail>
             </Product>
           </Info>
@@ -256,19 +266,19 @@ const Cart = () => {
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>$ 80</SummaryItemPrice>
+              <SummaryItemPrice>LKR. 43,000</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Estimated Shipping</SummaryItemText>
-              <SummaryItemPrice>$ 5.90</SummaryItemPrice>
+              <SummaryItemPrice>LKR. 1000</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Shipping Discount</SummaryItemText>
-              <SummaryItemPrice>$ -5.90</SummaryItemPrice>
+              <SummaryItemPrice>LKR. -1000</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>$ 80</SummaryItemPrice>
+              <SummaryItemPrice>LKR. 43,000</SummaryItemPrice>
             </SummaryItem>
             <Button>CHECKOUT NOW</Button>
           </Summary>
