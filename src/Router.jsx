@@ -9,6 +9,8 @@ import HomeOwnerSignUp from "./pages/HomeOwnerSignUp";
 import ServiceProviderSignUp from "./pages/ServiceProviderSignUp";
 import ServiceProviderProfile from "./pages/ServiceProviderProfile";
 import AddNewProject from "./pages/ServiceProvider/AddNewProject";
+import AddRetailItem from "./pages/ServiceProvider/AddRetailItem";
+import AddRentalItem from "./pages/ServiceProvider/AddRentalItem";
 import ViewProject from "./pages/ServiceProvider/ViewProject";
 import ViewResponse from "./pages/ServiceProvider/ViewResponse";
 import Product from "./pages/e-com/Product";
@@ -87,6 +89,14 @@ const router = createBrowserRouter([
   {
     path: "/AddNewProject",
     element: <AddNewProject />,
+  },
+  {
+    path: "/AddRetailItem",
+    element: <AddRetailItem />,
+  },
+  {
+    path: "/AddRentalItem",
+    element: <AddRentalItem />,
   },
   {
     path: "/ViewProject",
