@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Categories from "../../components/e-com/Categories";
 import styled from "styled-components";
 import { FaSort } from "react-icons/fa";
@@ -37,7 +37,7 @@ const SortContainer = styled.div`
 `;
 
 const SortText = styled.span`
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   color: grey;
   font-family: Poppins;
@@ -46,10 +46,10 @@ const SortText = styled.span`
 `;
 
 const SortSelect = styled(Select)`
-  padding: 20px;
-  width: 250px; 
+  padding: 5px;
+  width: 220px; 
   border-radius: 10px;
-  height: 50px; 
+  height: 40px; 
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -68,6 +68,28 @@ const SortIcon = styled(FaSort)`
 `;
 
 const ProductList = () => {
+  const [sortedData, setSortedData] = useState(Furniture);
+  const [sortingOption, setSortingOption] = useState("");
+
+  const handleSortingOptionChange = (sortingValue) => {
+    setSortingOption(sortingValue);
+    switch (sortingValue) {
+      case "priceLowToHigh":
+        setSortedData([...Furniture].sort((a, b) => parseFloat(a.price.split(" ")[1].replace(",", "")) - parseFloat(b.price.split(" ")[1].replace(",", ""))));
+        break;
+      case "priceHighToLow":
+        setSortedData([...Furniture].sort((a, b) => parseFloat(b.price.split(" ")[1].replace(",", "")) - parseFloat(a.price.split(" ")[1].replace(",", ""))));
+        break;
+      case "dateNewestOnTop":
+        setSortedData([...Furniture].sort((a, b) => new Date(b.date) - new Date(a.date)));
+        break;
+      case "dateOldestOnTop":
+        setSortedData([...Furniture].sort((a, b) => new Date(a.date) - new Date(b.date)));
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <Container>
@@ -79,9 +101,10 @@ const ProductList = () => {
         <SortSelect
           labelId="sort-by-label"
           id="sort-by"
-          value=""
+          value={sortingOption}
           displayEmpty
           variant="outlined"
+          onChange={(e) => handleSortingOptionChange(e.target.value)}
       >
           <Option value="" disabled>
           Sorting option
@@ -92,7 +115,7 @@ const ProductList = () => {
         <Option value="dateOldestOnTop">Date: Oldest on Top</Option>
       </SortSelect>
       </SortContainer>
-      <Categories data={Furniture} />
+      <Categories data={sortedData} />
       <Newsletter />
       <Footer />
     </Container>
