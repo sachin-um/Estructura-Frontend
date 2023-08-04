@@ -45,38 +45,73 @@ const Slide = styled.div`
   display: flex;
   align-items: center;
   background-color: #${(props) => props.bg};
+  position: relative;
 `;
 
 const ImgContainer = styled.div`
-  height: 100%;
+  height: 100vh;
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Image = styled.img`
-  height: 80%;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
 `;
 
 const InfoContainer = styled.div`
-  flex: 1;
-  padding: 50px;
+position: absolute;
+top: 40%;
+left: 35%; 
+transform: translate(-50%, -50%);
+text-align: left;
+display: flex;
+flex-direction: column;
+justify-content: center; 
+align-items: flex-start; 
+z-index: 1;
 `;
 
 const Title = styled.h1`
-  font-size: 70px;
+  font-size: 35px;
+  text-align: left;
+  color: white;
+  margin-bottom: 10px;
+  margin-left: 100px;
+
 `;
 
 const Desc = styled.p`
-  margin: 50px 0px;
+  margin: 0;
   font-size: 20px;
   font-weight: 500;
   letter-spacing: 3px;
+  text-align: left;
+  color: white;
+  margin-bottom: 50px;
+  margin-left: 100px;
+
 `;
 
 const Button = styled.button`
-  padding: 10px;
+  padding: 10px 20px;
   font-size: 20px;
   background-color: transparent;
   cursor: pointer;
+  border: 4px solid white;
+  color: white;
+  margin-left: 100px;
+  transition: all 0.3s ease;
+
+  &:hover{
+    background-color: #9D6432;
+    color: white;
+    border: 4px solid #9D6432;
+  }
 `;
 
 const Slider = () => {
@@ -113,8 +148,8 @@ const Slider = () => {
             <InfoContainer>
               <Title>{item.title}</Title>
               <Desc>{item.desc}</Desc>
-              <Button>SHOW NOW</Button>
-            </InfoContainer>
+              <Button>SHOP NOW</Button>
+            </InfoContainer> 
           </Slide>
         ))}
       </Wrapper>

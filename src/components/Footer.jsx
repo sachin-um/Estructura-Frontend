@@ -20,7 +20,7 @@ const Footer = () => {
           alignItems: "center",
           backgroundColor: "#f3f3f3",
           padding: "1rem",
-         
+
         }}
       >
         <Grid container spacing={2}>
@@ -37,11 +37,11 @@ const Footer = () => {
               }}
             >
               <RouterLink to="/">
-                <img src="/Logo.png" alt="" height={90} width={90} />  
+                <img src="/Logo.png" alt="" height={90}  />  
               </RouterLink>
             </Typography>
             <Typography variant="body2" color="textSecondary" sx={{
-              marginLeft: "12.7rem"
+              marginLeft: "14rem"
             }}>
               Estructura © {new Date().getFullYear()}
             </Typography>

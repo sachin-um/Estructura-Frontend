@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { Add, Remove } from "@mui/icons-material";
+import { Add, Remove, ShoppingCart } from "@mui/icons-material";
 import styled from "styled-components";
-import Announcement from "../../components/e-com/Announcement";
-import Footer from "../../components/e-com/Footer";
-import Navbar from "../../components/e-com/Navbar";
+import Footer from "../../components/Footer";
+import TopBar from "../../components/CusTopBar";
 import { mobile } from "../../responsive";
 
 const Container = styled.div``;
@@ -16,6 +15,7 @@ const Wrapper = styled.div`
 const Title = styled.h1`
   font-weight: 300;
   text-align: center;
+  color: #435834;
 `;
 
 const Top = styled.div`
@@ -31,7 +31,7 @@ const TopButton = styled.button`
   cursor: pointer;
   border: ${(props) => props.type === "filled" && "none"};
   background-color: ${(props) =>
-    props.type === "filled" ? "black" : "transparent"};
+    props.type === "filled" ? "#304422" : "transparent"};
   color: ${(props) => props.type === "filled" && "white"};
 `;
 
@@ -66,8 +66,21 @@ const ProductDetail = styled.div`
   display: flex;
 `;
 
+const ProductAmountBox = styled.div `
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    width: 150px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
 const Image = styled.img`
-  width: 200px;
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
 `;
 
 const Details = styled.div`
@@ -77,18 +90,17 @@ const Details = styled.div`
   justify-content: space-around;
 `;
 
-const ProductName = styled.span``;
-
-const ProductId = styled.span``;
-
-const ProductColor = styled.div`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: ${(props) => props.color};
+const ProductName = styled.span`
+    color: #435834;
+    margin-bottom: -140px;
+    font-size: 18px;
 `;
 
-const ProductSize = styled.span``;
+const ProductId = styled.span`
+    color: grey;
+    font-size: 15px;
+
+`;
 
 const PriceDetail = styled.div`
   flex: 1;
@@ -101,18 +113,21 @@ const PriceDetail = styled.div`
 const ProductAmountContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  cursor: pointer;
 `;
 
 const ProductAmount = styled.div`
   font-size: 24px;
   margin: 5px;
+  color: #435834;
   ${mobile({ margin: "5px 15px" })}
 `;
 
 const ProductPrice = styled.div`
-  font-size: 30px;
+  font-size: 28px;
   font-weight: 200;
+  color: #9D6432;
+  margin-top: 20px;
   ${mobile({ marginBottom: "20px" })}
 `;
 
@@ -132,6 +147,7 @@ const Summary = styled.div`
 
 const SummaryTitle = styled.h1`
   font-weight: 200;
+  color: #435834;
 `;
 
 const SummaryItem = styled.div`
@@ -142,40 +158,55 @@ const SummaryItem = styled.div`
   font-size: ${(props) => props.type === "total" && "24px"};
 `;
 
-const SummaryItemText = styled.span``;
+const SummaryItemText = styled.span`
+    color: #435834;
+`;
 
-const SummaryItemPrice = styled.span``;
+const SummaryItemPrice = styled.span`
+    color: #9D6432;
+`;
 
 const Button = styled.button`
   width: 100%;
   padding: 10px;
-  background-color: black;
+  background-color: #304422;
   color: white;
   font-weight: 600;
+  cursor: pointer;
 `;
-
-
 
 const Cart = () => {
 
-    const [quantity, setQuantity] = useState(2);
+    const [products, setProducts] = useState([
+      { id: 1, quantity: 2 },
+      { id: 2, quantity: 2 },
+    ])
   
-    const increaseQuantity = () => {
-      setQuantity((prevQuantity) => prevQuantity + 1);
+    const increaseQuantity = (productId) => {
+      setProducts((prevProducts) => 
+        prevProducts.map((product) =>
+          product.id === productId
+            ? {...product, quantity: product.quantity + 1 }
+            :product
+        )
+      );
     };
   
-    const decreaseQuantity = () => {
-      if (quantity > 1) {
-        setQuantity((prevQuantity) => prevQuantity - 1);
-      }
-    };
+    const decreaseQuantity = (productId) => {
+      setProducts((prevProducts) =>
+        prevProducts.map((product) =>
+          product.id === productId && product.quantity > 1
+            ? {...product, quantity: product.quantity - 1}
+            : product
+          )
+      );
+    }
 
   return (
     <Container>
-      <Navbar />
-      <Announcement />
+      <TopBar title="Cart" />
       <Wrapper>
-        <Title>YOUR CART</Title>
+        <Title><ShoppingCart sx={{ fontSize: '32px', marginRight: '10px', marginBottom: '-5px' }} />YOUR CART</Title>
         <Top>
           <TopButton>CONTINUE SHOPPING</TopButton>
 
@@ -185,53 +216,49 @@ const Cart = () => {
           <Info>
             <Product>
               <ProductDetail>
-                <Image src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A" />
+                <Image src="https://m.media-amazon.com/images/I/81kxw825MsL.jpg" />
                 <Details>
                   <ProductName>
-                    <b>Product:</b> JESSIE THUNDER SHOES
+                    <b>Product:</b> MODERN LOVESEAT SOFA
                   </ProductName>
                   <ProductId>
                     <b>ID:</b> 93813718293
                   </ProductId>
-                  <ProductColor color="black" />
-                  <ProductSize>
-                    <b>Size:</b> 37.5
-                  </ProductSize>
                 </Details>
               </ProductDetail>
               <PriceDetail>
-                <ProductAmountContainer>
-                  <Remove onClick={decreaseQuantity} />
-                    <ProductAmount>{quantity}</ProductAmount>
-                  <Add onClick={increaseQuantity} />
-                </ProductAmountContainer>
-                <ProductPrice>$ 30</ProductPrice>
+              <ProductAmountBox>
+                    <ProductAmountContainer>
+                      <Remove onClick={() => decreaseQuantity(1)} />
+                        <ProductAmount>{products.find((product) => product.id === 1)?.quantity || 0}</ProductAmount>
+                      <Add onClick={() => increaseQuantity(1)} />
+                    </ProductAmountContainer>
+                  </ProductAmountBox>
+                  <ProductPrice>LKR. 25,000</ProductPrice>
               </PriceDetail>
             </Product>
             <Hr />
             <Product>
               <ProductDetail>
-                <Image src="https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png" />
+                <Image src="https://foter.com/photos/424/traditional-round-marble-dining-table-for-4.jpeg" />
                 <Details>
                   <ProductName>
-                    <b>Product:</b> HAKURA T-SHIRT
+                    <b>Product:</b> ROUND MARBLE DINING TABLE SET
                   </ProductName>
                   <ProductId>
                     <b>ID:</b> 93813718293
                   </ProductId>
-                  <ProductColor color="gray" />
-                  <ProductSize>
-                    <b>Size:</b> M
-                  </ProductSize>
                 </Details>
               </ProductDetail>
               <PriceDetail>
-                <ProductAmountContainer>
-                  <Remove onClick={decreaseQuantity} />
-                    <ProductAmount>{quantity}</ProductAmount>
-                  <Add onClick={increaseQuantity} />
-                </ProductAmountContainer>
-                <ProductPrice>$ 20</ProductPrice>
+              <ProductAmountBox>
+                    <ProductAmountContainer>
+                      <Remove onClick={() => decreaseQuantity(2)} />
+                        <ProductAmount>{products.find((product) => product.id === 2)?.quantity || 0}</ProductAmount>
+                      <Add onClick={() => increaseQuantity(2)} />
+                    </ProductAmountContainer>
+                  </ProductAmountBox>
+                <ProductPrice>LKR. 18,000</ProductPrice>
               </PriceDetail>
             </Product>
           </Info>
@@ -239,19 +266,19 @@ const Cart = () => {
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>$ 80</SummaryItemPrice>
+              <SummaryItemPrice>LKR. 43,000</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Estimated Shipping</SummaryItemText>
-              <SummaryItemPrice>$ 5.90</SummaryItemPrice>
+              <SummaryItemPrice>LKR. 1000</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Shipping Discount</SummaryItemText>
-              <SummaryItemPrice>$ -5.90</SummaryItemPrice>
+              <SummaryItemPrice>LKR. -1000</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>$ 80</SummaryItemPrice>
+              <SummaryItemPrice>LKR. 43,000</SummaryItemPrice>
             </SummaryItem>
             <Button>CHECKOUT NOW</Button>
           </Summary>

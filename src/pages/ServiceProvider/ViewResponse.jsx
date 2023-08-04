@@ -1,5 +1,6 @@
 import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
 import TopBar from "../../components/CusTopBar";
+import Footer from "../../components/Footer";
 
 function ViewResponse() {
     return (
@@ -79,6 +80,8 @@ function ViewResponse() {
                         </CardContent>
                     </Card>
                 </Box>
+
+                <Footer />
             </>
         );
     }

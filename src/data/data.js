@@ -1,24 +1,24 @@
 export const sliderItems = [
     {
       id: 1,
-      img: "https://images.pexels.com/photos/5704736/pexels-photo-5704736.jpeg",
-      title: "SUMMER SALE",
-      desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
-      bg: "f5fafd",
+      img: "https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      title: "BEDROOM FURNITURE FOR SALE",
+      desc: "DON'T COMPROMISE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
+      bg: "f3f3f3",
     },
     {
       id: 2,
-      img: "https://i.ibb.co/DG69bQ4/2.png",
-      title: "AUTUMN COLLECTION",
+      img: "https://images.pexels.com/photos/7546317/pexels-photo-7546317.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      title: "BATHWARE FOR SALE",
       desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
-      bg: "fcf1ed",
+      bg: "f3f3f3",
     },
     {
       id: 3,
-      img: "https://i.ibb.co/cXFnLLV/3.png",
-      title: "LOUNGEWEAR LOVE",
+      img: "https://images.pexels.com/photos/271815/pexels-photo-271815.jpeg",
+      title: "OUTDOOR FURNITURE",
       desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
-      bg: "fbf0f4",
+      bg: "f3f3f3",
     },
   ];
 
@@ -36,13 +36,18 @@ export const sliderItems = [
     {
       id: 3,
       img: "https://images.pexels.com/photos/5481512/pexels-photo-5481512.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      title: "HARDWARE ITEMS",
+      title: "HARDWARE",
     },
     {
       id: 4,
       img: "https://images.pexels.com/photos/3076899/pexels-photo-3076899.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       title: "GARDENWARE",
     },
+    {
+      id: 5,
+      img: "https://images.pexels.com/photos/10799351/pexels-photo-10799351.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
+      title: "LIGHTING",
+    }
   ];
 
   export const popularProducts = [
