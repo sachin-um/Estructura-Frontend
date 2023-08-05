@@ -337,7 +337,7 @@ function AddNewProject() {
                   }}
                   variant="contained"
                   fullWidth
-                  onClick={() => document.querySelector('.input-field').click()}
+                  onClick={() => document.querySelector('.input-field-doc').click()}
                 >
                   <input
                     type="file"
