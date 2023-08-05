@@ -12,6 +12,7 @@ interface Project {
   ExtraImage3: string;
   ExtraImage3Name: string;
   cost: number;
+  createdBy: number;
   description: string;
   id: number;
   location: string;
@@ -22,7 +23,6 @@ interface Project {
 }
 
 interface ProjectAddOrUpdateRequest {
-  content: string;
   cost: number;
   description: string;
   documents: FileList;
@@ -32,7 +32,6 @@ interface ProjectAddOrUpdateRequest {
   name: string;
   professionalId: number;
   projectFromEstructura: boolean;
-  title: string;
 }
 
 interface updateProjectParams {

@@ -20,10 +20,10 @@ export const fetchProjectByById = createAsyncThunk(
   },
 );
 export const addProject = createAsyncThunk(
-  'project/add',
+  'projects/add',
   async (projectAddRequest: ProjectAddOrUpdateRequest, { rejectWithValue }) => {
     const response = await API.post<GenericAddOrUpdateResponse>(
-      '/add',
+      'projects/add',
       projectAddRequest,
       {
         headers: {

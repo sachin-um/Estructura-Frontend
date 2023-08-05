@@ -5,7 +5,7 @@ import AddNewProject from '../pages/ServiceProvider/AddNewProject';
 const ProjectRoutes: RouteObject[] = [
   {
     path: '/AddNewProject',
-    element: <AddNewProject />,
+    element: <AddNewProject userId={1} />,
   },
 ];
 
