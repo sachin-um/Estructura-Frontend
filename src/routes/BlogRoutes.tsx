@@ -1,6 +1,5 @@
 import { type RouteObject } from 'react-router-dom';
 
-import BlogViewCard from '../components/blog/BlogViewCard';
 import BlogAdd from '../pages/blog/BlogAdd';
 import BlogDetails from '../pages/blog/BlogDetails';
 import BlogEdit from '../pages/blog/BlogEdit';

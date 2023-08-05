@@ -16,7 +16,7 @@ const initialState: RentingItemsState = {
 export const fetchRentingItems = createAsyncThunk(
   'rentingItems/fetchRentingItems',
   async () => {
-    const response = await API.get<RentingItem[]>('/rentingItems/all');
+    const response = await API.get<RentingItem[]>('/renting-items/all');
     return response.status === 200
       ? response.data.sort(
           (a, b) =>

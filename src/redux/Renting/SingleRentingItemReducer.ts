@@ -16,9 +16,7 @@ const initialState: RentingItemState = {
 export const fetchRentingItemById = createAsyncThunk(
   'rentingItems/fetchRentingItemById',
   async (id: number) => {
-    const response = await API.get<RentingItem>(
-      `/rentingItems/rentingItem/${id}`,
-    );
+    const response = await API.get<RentingItem>(`/renting-items/item/${id}`);
     return response.status === 200 ? response.data : null;
   },
 );
@@ -31,7 +29,7 @@ export const addRentingItem = createAsyncThunk(
     { rejectWithValue },
   ) => {
     const response = await API.post<GenericAddOrUpdateResponse>(
-      '/rentingItems/add',
+      '/renting-items/add',
       rentingItemAddRequest,
       {
         headers: {
@@ -59,7 +57,7 @@ export const editRentingItem = createAsyncThunk(
   'rentingItems/update',
   async (update: updateRentingItemParams, { rejectWithValue }) => {
     const response = await API.post<GenericAddOrUpdateResponse>(
-      `/rentingItems/update/${update.rentingItem.id}`,
+      `/renting-items/update/${update.rentingItem.id}`,
       update.updatedRentingItem,
       {
         headers: {
@@ -87,7 +85,7 @@ export const deleteRentingItem = createAsyncThunk(
   'rentingItems/delete',
   async (id: number, { rejectWithValue }) => {
     const response = await API.delete<GenericDeleteResponse>(
-      `/rentingItems/delete/${id}`,
+      `/renting-items/delete/${id}`,
     );
     if (response.status !== 200 || response.data.success === false) {
       if (response.status !== 200) {
