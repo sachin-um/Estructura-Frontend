@@ -50,11 +50,11 @@ function Professional({
   const initialValues = {
     // if possible, set from formData
     businessName: formData.businessName ?? "",
-    role: formData.professionalCategory ?? "",
-    businessContactNo: formData.contactNo ?? "",
+    role: formData.role ?? "",
     firstname: formData.firstname ?? "",
     lastname: formData.lastname ?? "",
-    ...addressInitialValues,
+    businessContactNo: formData.businessContactNo ??"",
+    ...addressInitialValues(formData),
   };
 
   return (
@@ -140,14 +140,16 @@ function Professional({
                     <InputLabel id='SelectProfessionalCategory'>
                       Professional Category
                     </InputLabel>
+                    
                     <Select displayEmpty={true} {...spread("role", false)}>
                       {professionalCategories.map(([value, label]) => (
                         <MenuItem key={value} value={value}>{label}</MenuItem>
                       ))}
                     </Select>
+                    <span>{errors.role ?? ''}</span>
                   </FormControl>
                   
-                  <AddressInputs spread={spread} />
+                  <AddressInputs spread={spread} errors={errors} />
                   <Grid
                     style={{
                       display: "flex",

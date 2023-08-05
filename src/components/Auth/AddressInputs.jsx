@@ -37,7 +37,7 @@ const districts = [
 ];
 
 function AddressInputs(props) {
-  const { spread } = props;
+  const { spread, errors } = props;
   return (
     <>
       <Typography variant='h8' sx={{ textAlign: "left", color: "#435834" }}>
@@ -87,6 +87,7 @@ function AddressInputs(props) {
             </MenuItem>
           ))}
         </Select>
+        <span>{errors.district}</span>
       </FormControl>
     </>
   );
@@ -102,12 +103,13 @@ const addressValidators = {
     .required("District is required"),
 }
 
-const addressInitialValues = {
-  addressline1: "",
-  addressline2: "",
-  city: "",
-  district: "",
-}
+const addressInitialValues=(formData) => {
+return{
+  addressLine1: formData.addressLine1 ?? "",
+  addressLine2: formData.addressLine2 ??"",
+  city: formData.city ?? "",
+  district: formData.district ??"",
+}}
 
 export { districts, addressValidators, addressInitialValues };
 

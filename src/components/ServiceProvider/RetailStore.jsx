@@ -50,10 +50,9 @@ function RetailStore({ nextPage, previousPage, updateFormData, formData }) {
     businessCategory:formData.businessCategory ?? "",
     businessContactNo: formData.businessContactNo ?? "",
     registrationNo:formData.registrationNo ?? "",
-    contactNo: formData.contactNo ?? "",
     firstname: formData.firstname ?? "",
     lastname: formData.lastname ?? "",
-    ...addressInitialValues,
+    ...addressInitialValues(formData),
   };
 
   // TODO: Change Layout
@@ -163,7 +162,7 @@ function RetailStore({ nextPage, previousPage, updateFormData, formData }) {
                           size="small"
                           {...spread("registrationNo")}
                         />
-                        <AddressInputs spread={spread}/>
+                        <AddressInputs spread={spread} errors={errors}/>
                         <Grid
                             style={{
                                 display: "flex",
