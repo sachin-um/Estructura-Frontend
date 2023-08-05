@@ -1,4 +1,6 @@
-import { Box, Container, Grid, Typography } from '@mui/material';
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import TopBar from "../../components/TopBar";
+import Footer from "../../components/Footer";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 
@@ -136,66 +138,10 @@ function ViewProject() {
             </Card>
           </Grid>
         </Grid>
-
-        <Grid container spacing={1}>
-          <Grid item xs={4}>
-            <Box
-              height="300px"
-              marginTop="20px"
-              position="relative"
-              width="60%"
-            >
-              <img
-                style={{
-                  height: '100%',
-                  objectFit: 'cover',
-                  width: '100%',
-                }}
-                alt="Banner"
-                src="formBg.jpg"
-              />
-            </Box>
-          </Grid>
-          <Grid item xs={4}>
-            <Box
-              height="300px"
-              marginTop="20px"
-              position="relative"
-              width="60%"
-            >
-              <img
-                style={{
-                  height: '100%',
-                  objectFit: 'cover',
-                  width: '100%',
-                }}
-                alt="Banner"
-                src="formBg.jpg"
-              />
-            </Box>
-          </Grid>
-          <Grid item xs={4}>
-            <Box
-              height="300px"
-              marginTop="20px"
-              position="relative"
-              width="60%"
-            >
-              <img
-                style={{
-                  height: '100%',
-                  objectFit: 'cover',
-                  width: '100%',
-                }}
-                alt="Banner"
-                src="formBg.jpg"
-              />
-            </Box>
-          </Grid>
-        </Grid>
-      </Container>
-    </>
-  );
+    </Container>
+    <Footer />
+  </>
+);
 }
 
 export default ViewProject;

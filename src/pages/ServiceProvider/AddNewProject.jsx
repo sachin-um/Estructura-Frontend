@@ -1,7 +1,8 @@
-import TopBar from '../../components/TopBar';
-import React, { useState } from 'react';
-import DeleteIcon from '@mui/icons-material/Delete';
-import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import TopBar from "../../components/TopBar";
+import Footer from "../../components/Footer";
+import React, { useState } from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import ImageIcon from '@mui/icons-material/Image';
 import AddIcon from '@mui/icons-material/Add';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
@@ -543,6 +544,8 @@ function AddNewProject() {
           </Grid>
         </Grid>
       </Container>
+
+      <Footer />
     </>
   );
 }

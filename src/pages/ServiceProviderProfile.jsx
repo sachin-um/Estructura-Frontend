@@ -1,6 +1,6 @@
-import CameraAltIcon from '@mui/icons-material/CameraAlt';
-import EmailIcon from '@mui/icons-material/Email';
-import PhoneIcon from '@mui/icons-material/Phone';
+import TopBar from "../components/CusTopBar";
+import Footer from "../components/Footer";
+import React, { useState } from "react";
 import {
   Box,
   Card,
@@ -223,6 +223,8 @@ function ServiceProviderProfile() {
           {activeTab === 'five' && <Reviews />}
         </Grid>
       </Grid>
+
+      <Footer />
     </>
   );
 }

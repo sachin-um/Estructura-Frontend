@@ -1,6 +1,6 @@
 import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
-
 import TopBar from '../../components/CusTopBar';
+import Footer from '../../components/Footer';
 
 function ViewResponse() {
   return (
@@ -42,7 +42,6 @@ function ViewResponse() {
                 </CardContent>
               </Card>
             </Box>
-
             <Box sx={{ marginTop: '2rem' }}>
               <Grid container spacing={6}>
                 <Grid item xs={6}>
@@ -78,27 +77,27 @@ function ViewResponse() {
                       }}
                     >
                       <img
-                        style={{
-                          height: '100px',
-                          marginRight: '20px',
-                          width: '40%',
-                        }}
-                        alt="Document 1"
                         src="ForgotPasswordBG.jpg"
-                      />
-                      <img
+                        alt="Document 1"
                         style={{
+                          width: '40%',
                           height: '100px',
                           marginRight: '20px',
-                          width: '40%',
                         }}
-                        alt="Document 2"
-                        src="BannerImage.jpg"
                       />
                       <img
-                        alt="Document 3"
+                        src="BannerImage.jpg"
+                        alt="Document 2"
+                        style={{
+                          width: '40%',
+                          height: '100px',
+                          marginRight: '20px',
+                        }}
+                      />
+                      <img
                         src="formBg.jpg"
-                        style={{ height: '100px', width: '40%' }}
+                        alt="Document 3"
+                        style={{ width: '40%', height: '100px' }}
                       />
                     </Box>
                   </Box>
@@ -112,27 +111,27 @@ function ViewResponse() {
                       }}
                     >
                       <img
+                        src="formBg.jpg"
+                        alt="Image 1"
                         style={{
+                          width: '40%',
                           height: '100px',
                           marginRight: '20px',
-                          width: '40%',
                         }}
-                        alt="1"
-                        src="formBg.jpg"
                       />
                       <img
+                        src="formBg.jpg"
+                        alt="Image 2"
                         style={{
+                          width: '40%',
                           height: '100px',
                           marginRight: '20px',
-                          width: '40%',
                         }}
-                        alt="2"
-                        src="formBg.jpg"
                       />
                       <img
-                        alt="3"
                         src="formBg.jpg"
-                        style={{ height: '100px', width: '40%' }}
+                        alt="Image 3"
+                        style={{ width: '40%', height: '100px' }}
                       />
                     </Box>
                   </Box>
@@ -142,6 +141,7 @@ function ViewResponse() {
           </CardContent>
         </Card>
       </Box>
+      <Footer />
     </>
   );
 }
