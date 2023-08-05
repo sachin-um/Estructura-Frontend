@@ -34,15 +34,15 @@ function ProfileDetails() {
   return (
     <>
       <Grid style={{ marginTop: '2rem' }}>
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h6" gutterBottom fontFamily='Poppins'>
           Personal Information
         </Typography>
         <Card sx={{ width: '1000px', p: 2 }}>
           <CardContent>
             <Grid container spacing={4}>
               <Grid item xs={3}>
-                <Typography variant="body1">
-                  <strong>Name:</strong>
+                <Typography variant="h7">
+                  Name:
                 </Typography>
               </Grid>
               <Grid item xs={3}>
@@ -54,7 +54,7 @@ function ProfileDetails() {
                     onChange={(e) => setName(e.target.value)}
                   />
                 ) : (
-                  <Typography variant="body1" color="textSecondary">
+                  <Typography variant="body1" color="textSecondary" fontFamily='Poppins'>
                     {name}
                   </Typography>
                 )}
@@ -62,8 +62,8 @@ function ProfileDetails() {
 
 
               <Grid item xs={3}>
-                <Typography variant="body1">
-                  <strong>NIC Number:</strong>
+                <Typography variant="h7">
+                  NIC Number:
                 </Typography>
               </Grid>
               <Grid item xs={3}>
@@ -75,15 +75,15 @@ function ProfileDetails() {
                     onChange={(e) => setNic(e.target.value)}
                   />
                 ) : (
-                  <Typography variant="body1" color="textSecondary">
+                  <Typography variant="body1" color="textSecondary" fontFamily='Poppins'>
                     {nic}
                   </Typography>
                 )}
               </Grid>
 
               <Grid item xs={3}>
-                <Typography variant="body1">
-                  <strong>Email Address:</strong>
+                <Typography variant="h7">
+                  Email Address:
                 </Typography>
               </Grid>
               <Grid item xs={3}>
@@ -95,15 +95,15 @@ function ProfileDetails() {
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 ) : (
-                  <Typography variant="body1" color="textSecondary">
+                  <Typography variant="body1" color="textSecondary" fontFamily='Poppins'>
                     {email}
                   </Typography>
                 )}
               </Grid>
 
               <Grid item xs={3}>
-                <Typography variant="body1">
-                  <strong>Contact Number:</strong>
+                <Typography variant="h7">
+                  Contact Number:
                 </Typography>
               </Grid>
               <Grid item xs={3}>
@@ -115,7 +115,7 @@ function ProfileDetails() {
                     onChange={(e) => setContactNo(e.target.value)}
                   />
                 ) : (
-                  <Typography variant="body1" color="textSecondary">
+                  <Typography variant="body1" color="textSecondar" fontFamily='Poppins'>
                     {contactNo}
                   </Typography>
                 )}
@@ -127,15 +127,15 @@ function ProfileDetails() {
       </Grid>
 
       <Grid style={{ marginTop: '2rem' }}>
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h6" gutterBottom fontFamily='Poppins'>
           Business Information
         </Typography>
         <Card sx={{ width: '1000px', p: 2 }}>
           <CardContent>
             <Grid container spacing={4}>
               <Grid item xs={3}>
-                <Typography variant="body1">
-                  <strong>Business Name:</strong>
+                <Typography variant="h7">
+                  Business Name:
                 </Typography>
               </Grid>
               <Grid item xs={3}>
@@ -147,15 +147,15 @@ function ProfileDetails() {
                     onChange={(e) => setBusinessName(e.target.value)}
                   />
                 ) : (
-                  <Typography variant="body1" color="textSecondary">
+                  <Typography variant="body1" color="textSecondary" fontFamily='Poppins'>
                     {businessName}
                   </Typography>
                 )}
               </Grid>
 
               <Grid item xs={3}>
-                <Typography variant="body1">
-                  <strong>Business Contact No:</strong>
+                <Typography variant="h7">
+                  Business Contact No:
                 </Typography>
               </Grid>
               <Grid item xs={3}>
@@ -167,15 +167,15 @@ function ProfileDetails() {
                     onChange={(e) => setBusinessContactNo(e.target.value)}
                   />
                 ) : (
-                  <Typography variant="body1" color="textSecondary">
+                  <Typography variant="body1" color="textSecondary" fontFamily='Poppins'>
                     {businessContactNo}
                   </Typography>
                 )}
               </Grid>
 
               <Grid item xs={3}>
-                <Typography variant="body1">
-                  <strong>Business Location:</strong>
+                <Typography variant="h7">
+                  Business Location:
                 </Typography>
               </Grid>
               <Grid item xs={3}>
@@ -187,15 +187,15 @@ function ProfileDetails() {
                     onChange={(e) => setBusinessLocation(e.target.value)}
                   />
                 ) : (
-                  <Typography variant="body1" color="textSecondary">
+                  <Typography variant="body1" color="textSecondary" fontFamily='Poppins'>
                     {businessLocation}
                   </Typography>
                 )}
               </Grid>
 
               <Grid item xs={3}>
-                <Typography variant="body1">
-                  <strong>Professional Category:</strong>
+                <Typography variant="h7">
+                  Professional Category:
                 </Typography>
               </Grid>
               <Grid item xs={3}>
@@ -207,13 +207,13 @@ function ProfileDetails() {
                     onChange={(e) => setProfessionalCategory(e.target.value)}
                   >
                     {professionalCategoryOptions.map((option) => (
-                      <MenuItem key={option} value={option}>
+                      <MenuItem key={option} value={option} >
                         {option}
                       </MenuItem>
                     ))}
                   </Select>
                 ) : (
-                  <Typography variant="body1" color="textSecondary">
+                  <Typography variant="body1" color="textSecondary" fontFamily='Poppins'>
                     {professionalCategory}
                   </Typography>
                 )}
@@ -224,7 +224,7 @@ function ProfileDetails() {
       </Grid>
 
       <Grid style={{ marginTop: '2rem' }}>
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h6" gutterBottom fontFamily='Poppins'>
           Qualifications
         </Typography>
         <Card sx={{ width: '1000px', height: '100px', p: 2 }}>
@@ -248,7 +248,7 @@ function ProfileDetails() {
       </Grid>
 
       <Grid style={{ marginTop: '2rem' }}>
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h6" gutterBottom fontFamily='Poppins'>
           Services
         </Typography>
         <Card sx={{ width: '1000px', height: '100px', p: 2 }}>

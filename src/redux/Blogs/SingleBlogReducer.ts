@@ -1,49 +1,18 @@
+import { StarRateTwoTone } from '@mui/icons-material';
 import {
   type PayloadAction,
   createAsyncThunk,
   createSlice,
 } from '@reduxjs/toolkit';
 
-import API from '../lib/API';
-import { RootState } from './store';
+import API from '../../lib/API';
+import { RootState } from '../store';
 
-export interface Blog {
-  content: string;
-  createdBy: number;
-  creatorName: string;
-  dateAdded: Date;
-  id: number;
-  mainImage: string;
-  mainImageName: string;
-  title: string;
-}
-
-export interface BlogAddOrUpdateRequest {
-  content: string;
-  mainImage: FileList;
-  title: string;
-  userId: number;
-}
-
-const initialState: {
-  blogs: Blog[];
-  error: boolean | null;
-  reqStatus: reqStatus;
-} = {
-  blogs: [],
+const initialState: BlogState = {
+  blog: null,
   error: null,
   reqStatus: 'idle',
 };
-
-export const fetchBlogs = createAsyncThunk('blogs/fetchBlogs', async () => {
-  const response = await API.get<Blog[]>('/blogs/all');
-  return response.status === 200
-    ? response.data.sort(
-        (a, b) =>
-          new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime(),
-      )
-    : [];
-});
 
 export const fetchBlogById = createAsyncThunk(
   'blogs/fetchBlogById',
@@ -53,6 +22,7 @@ export const fetchBlogById = createAsyncThunk(
   },
 );
 
+// ! Make sure to check the user is logged in before calling this function
 export const addBlog = createAsyncThunk(
   'blogs/add',
   async (blogAddRequest: BlogAddOrUpdateRequest, { rejectWithValue }) => {
@@ -78,11 +48,7 @@ export const addBlog = createAsyncThunk(
   },
 );
 
-interface updateBlogParams {
-  blog: Blog;
-  updatedBlog: BlogAddOrUpdateRequest;
-}
-
+// ! Make sure to check the user is logged in before calling this function
 export const editBlog = createAsyncThunk(
   'blogs/update',
   async (update: updateBlogParams, { rejectWithValue }) => {
@@ -108,6 +74,7 @@ export const editBlog = createAsyncThunk(
   },
 );
 
+// ! Make sure to check the user is logged in before calling this function
 export const deleteBlog = createAsyncThunk(
   'blogs/delete',
   async (id: number, { rejectWithValue }) => {
@@ -125,47 +92,51 @@ export const deleteBlog = createAsyncThunk(
   },
 );
 
-export const BlogsSlice = createSlice({
-  name: 'Blogs',
+export const BlogSlice = createSlice({
+  name: 'Blog',
   initialState,
   reducers: {
-    setBlogs(state, action: PayloadAction<Blog[]>) {
-      state.blogs = action.payload;
+    setBlog(state, action: PayloadAction<Blog>) {
+      state.blog = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchBlogs.pending, (state) => {
+      .addCase(fetchBlogById.pending, (state) => {
         state.reqStatus = 'loading';
       })
-      .addCase(fetchBlogs.fulfilled, (state, action) => {
+      .addCase(fetchBlogById.fulfilled, (state, action) => {
         state.reqStatus = 'succeeded';
-        state.blogs = action.payload;
+        state.blog = action.payload;
       })
-      .addCase(fetchBlogs.rejected, (state) => {
+      .addCase(fetchBlogById.rejected, (state) => {
         state.reqStatus = 'failed';
         state.error = true;
       })
       .addCase(addBlog.fulfilled, (state, action) => {
-        state.blogs.push(action.payload);
+        state.blog = action.payload;
+        state.error = null;
+        state.reqStatus = 'idle';
       })
       .addCase(editBlog.fulfilled, (state, action) => {
-        const index = state.blogs.findIndex((b) => b.id === action.payload.id);
-        state.blogs[index] = action.payload;
+        state.blog = action.payload;
+        state.error = null;
+        state.reqStatus = 'idle';
       })
       .addCase(deleteBlog.fulfilled, (state, action) => {
-        const index = state.blogs.findIndex((b) => b.id === action.payload);
-        state.blogs.splice(index, 1);
+        state.blog = null;
+        state.error = null;
+        state.reqStatus = 'idle';
       });
   },
 });
 
-export const { setBlogs } = BlogsSlice.actions;
+export const { setBlog } = BlogSlice.actions;
 
-export const getBlogsStatus = (state: RootState) => state.blog.reqStatus;
+export const getBlogStatus = (state: RootState) => state.blog.reqStatus;
 
-export const getBlogsError = (state: RootState) => state.blog.error;
+export const getBlogError = (state: RootState) => state.blog.error;
 
-export const selectAllBlogs = (state: RootState) => state.blog.blogs;
+export const selectBlog = (state: RootState) => state.blog.blog;
 
-export default BlogsSlice.reducer;
+export default BlogSlice.reducer;

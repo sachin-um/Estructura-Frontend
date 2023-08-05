@@ -8,12 +8,11 @@ import TopAppBar from '../../components/TopAppBar';
 import { blogToCard } from '../../components/blog/BlogViewCard';
 import Carousel from '../../components/blog/carousel';
 import {
-  Blog,
   fetchBlogs,
   getBlogsError,
   getBlogsStatus,
   selectAllBlogs,
-} from '../../redux/BlogsReducer';
+} from '../../redux/Blogs/BlogsReducer';
 import { selectUser } from '../../redux/UserAuthenticationReducer';
 import Paginate from '../../utils/Paginate';
 

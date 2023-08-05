@@ -91,7 +91,7 @@ function TopBar() {
             variant="h6"
           >
             <RouterLink to="/">
-              <img src="/Logo.png" alt="" height={65} />  
+              <img src="/Logo.png" alt="" height={65} />
             </RouterLink>
           </Typography>
 
@@ -163,30 +163,30 @@ function TopBar() {
             ))}
           </Box>
 
-          <Box sx={{ alignItems: 'center', display: 'flex', flexGrow: 0 }}>
-            <Link
-              style={{
-                color: 'inherit',
-                display: 'flex',
-                textDecoration: 'none',
-              }}
-              component={RouterLink}
-              to="/SignIn"
-              underline="hover"
-            >
-              <Button
-                sx={{
-                  '&:hover': {
-                    variant: 'contained',
-                  },
-                  fontSize: 16,
-                }}
-                color="primary"
-                variant="outlined"
+          <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center' }}>
+              <Link
+                      component={RouterLink}
+                      underline="hover"
+                      to="/SignIn"
+                      style={{
+                        textDecoration:"none",
+                        color:"inherit",
+                        display:'flex',
+                        }}
               >
-                Sign In
-              </Button>
-            </Link>
+                <Button
+                  color='primary'
+                  variant='outlined'
+                  sx={{
+                    fontSize: 16,
+                    '&:hover': {
+                      variant: 'contained',
+                    }
+                  }}
+                >
+                  Sign In
+                </Button>
+              </Link>
 
             <Box sx={{ width: '15px' }} />
 
@@ -237,7 +237,7 @@ function TopBar() {
                     underline="hover"
                   >
                     <MenuItem onClick={handleCloseProfessionalsMenu}>
-                      <Typography sx={{ color: 'green' }} textAlign="center">
+                      <Typography textAlign="center" sx={{ color: 'green' }}>
                         {item.title}
                       </Typography>
                     </MenuItem>
@@ -268,7 +268,7 @@ function TopBar() {
                     underline="hover"
                   >
                     <MenuItem onClick={handleCloseProductsMenu}>
-                      <Typography sx={{ color: 'green' }} textAlign="center">
+                      <Typography textAlign="center" sx={{ color: 'green' }}>
                         {item.title}
                       </Typography>
                     </MenuItem>

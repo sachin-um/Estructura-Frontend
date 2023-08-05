@@ -1,12 +1,10 @@
-import { Add, Remove } from '@mui/icons-material';
-import { useState } from 'react';
-import styled from 'styled-components';
-
-import Announcement from '../../components/e-com/Announcement';
-import Newsletter from '../../components/e-com/Blog';
-import Footer from '../../components/e-com/Footer';
-import Navbar from '../../components/e-com/Navbar';
-import { mobile } from '../../responsive';
+import { Add, Remove, ShoppingCart, Favorite } from "@mui/icons-material";
+import { useState } from "react";
+import styled from "styled-components";
+import Footer from "../../components/Footer";
+import TopBar from "../../components/CusTopBar";
+import Newsletter from "../../components/e-com/Blog";
+import { mobile } from "../../responsive";
 
 const Container = styled.div``;
 
@@ -57,113 +55,125 @@ const SmallImage = styled.img`
 const Wrapper = styled.div`
   padding: 50px;
   display: flex;
-  ${mobile({ flexDirection: 'column', padding: '10px' })}
-`;
-
-const ImgContainer = styled.div`
-  flex: 1;
-`;
-
-const Image = styled.img`
-  width: 100%;
-  height: 90vh;
-  object-fit: cover;
-  ${mobile({ height: '40vh' })}
+  ${mobile({ padding: "10px", flexDirection: "column" })}
 `;
 
 const InfoContainer = styled.div`
-  flex: 1;
+  flex: 2;
   padding: 0px 50px;
   ${mobile({ padding: '10px' })}
 `;
 
 const Title = styled.h1`
   font-weight: 200;
+  color: #304422;
+  margin-bottom: 5px;
+`;
+
+const DateText = styled.p`
+  font-size: 15px;
+  color: #808080;
+  margin-top: 5px;
+  margin-bottom: 30px;
 `;
 
 const Desc = styled.p`
   margin: 20px 0px;
+  color: #435834;
+`;
+
+const PriceContainer = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
 `;
 
 const Price = styled.span`
   font-weight: 100;
-  font-size: 40px;
-`;
-
-const FilterContainer = styled.div`
-  width: 50%;
-  margin: 30px 0px;
-  display: flex;
-  justify-content: space-between;
-  ${mobile({ width: '100%' })}
-`;
-
-const Filter = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const FilterTitle = styled.span`
-  font-size: 20px;
-  font-weight: 200;
-`;
-
-const FilterColor = styled.div`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: ${(props) => props.color};
-  margin: 0px 5px;
-  cursor: pointer;
-`;
-
-const FilterSize = styled.select`
-  margin-left: 10px;
-  padding: 5px;
-`;
-
-const FilterSizeOption = styled.option``;
-
-const AddContainer = styled.div`
-  width: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  ${mobile({ width: '100%' })}
+  font-size: 30px;
+  color: #9d6432;
+  margin-right: 20px;
 `;
 
 const AmountContainer = styled.div`
   display: flex;
   align-items: center;
   font-weight: 700;
+  color: #435834;
+  cursor: pointer;
 `;
 
 const Amount = styled.span`
-  width: 30px;
-  height: 30px;
+  width: 200px;
+  height: 50px;
   border-radius: 10px;
-  border: 1px solid teal;
+  border: 1px solid #435834;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0px 5px;
+  cursor: pointer;
 `;
 
-const Button = styled.button`
+const ActionContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+`;
+
+const AddToCartButton = styled.button`
   padding: 15px;
-  border: 2px solid teal;
+  border: 2px solid #435834;
   background-color: white;
   cursor: pointer;
   font-weight: 500;
+  color: #435834;
+  width: 200px;
+  margin-right: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   &:hover {
-    background-color: #f8f4f4;
+    background-color: #435834;
+    color: white;
   }
+`;
+
+const AddToPlanButton = styled.button`
+  padding: 15px;
+  border: 2px solid #435834;
+  background-color: white;
+  cursor: pointer;
+  font-weight: 500;
+  color: #435834;
+  margin-left: 10px;
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &:hover {
+    background-color: #435834;
+    color: white;
+  }
+`;
+
+const ButtonText = styled.span`
+  flex: 1;
+  text-align: center;
 `;
 
 const Product = () => {
   const [selectedImage, setSelectedImage] = useState(
-    'https://images.pexels.com/photos/1112598/pexels-photo-1112598.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    "https://images.pexels.com/photos/1112598/pexels-photo-1112598.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
   );
   const images = [
     'https://images.pexels.com/photos/11674340/pexels-photo-11674340.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
@@ -175,10 +185,21 @@ const Product = () => {
     setSelectedImage(image);
   };
 
+  const [amount, setAmount] = useState(1);
+
+  const handleIncrease = () => {
+    setAmount((prevAmount) => prevAmount + 1);
+  }
+
+  const handleDecrease = () => {
+    if (amount > 1){
+      setAmount((prevAmount) => prevAmount - 1);
+    }
+  }
+
   return (
     <Container>
-      <Navbar />
-      <Announcement />
+      <TopBar title="Product" />
       <Wrapper>
         <ContainerImg>
           <BigImageContainer>
@@ -198,40 +219,34 @@ const Product = () => {
         </ContainerImg>
         <InfoContainer>
           <Title>Table Lamp</Title>
+          <DateText>Posted on 10 January, 2023</DateText>
           <Desc>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-            venenatis, dolor in finibus malesuada, lectus ipsum porta nunc, at
-            iaculis arcu nisi sed mauris. Nulla fermentum vestibulum ex, eget
-            tristique tortor pretium ut. Curabitur elit justo, consequat id
-            condimentum ac, volutpat ornare.
+            The elegant and sophisticated "Luminous Glow" Table Lamp – the perfect addition
+            to elevate your home decor. Crafted with meticulous attention to detail, the "Luminous Glow"
+            Table Lamp boasts a sleek and modern design that effortlessly complements various interior
+            styles. The lamp's slender body, finished in brushed bronze, exudes a timeless charm, making
+            it a versatile accent piece for any space.
           </Desc>
-          <Price>$ 20</Price>
-          <FilterContainer>
-            <Filter>
-              <FilterTitle>Color</FilterTitle>
-              <FilterColor color="black" />
-              <FilterColor color="darkblue" />
-              <FilterColor color="gray" />
-            </Filter>
-            <Filter>
-              <FilterTitle>Size</FilterTitle>
-              <FilterSize>
-                <FilterSizeOption>XS</FilterSizeOption>
-                <FilterSizeOption>S</FilterSizeOption>
-                <FilterSizeOption>M</FilterSizeOption>
-                <FilterSizeOption>L</FilterSizeOption>
-                <FilterSizeOption>XL</FilterSizeOption>
-              </FilterSize>
-            </Filter>
-          </FilterContainer>
-          <AddContainer>
-            <AmountContainer>
-              <Remove />
-              <Amount>1</Amount>
-              <Add />
-            </AmountContainer>
-            <Button>ADD TO CART</Button>
-          </AddContainer>
+          <PriceContainer>
+            <Price>LKR. 4300</Price>
+          </PriceContainer>
+          <ActionContainer>
+            <ButtonContainer>
+              <AddToCartButton>
+                <ShoppingCart />
+                <ButtonText>ADD TO CART</ButtonText>
+              </AddToCartButton>
+              <AmountContainer>
+                <Remove onClick={handleDecrease}/>
+                <Amount>{amount}</Amount>
+                <Add onClick={handleIncrease}/>
+              </AmountContainer>
+            </ButtonContainer>
+            <AddToPlanButton>
+              <Favorite />
+              <ButtonText>ADD TO PLAN</ButtonText>
+            </AddToPlanButton>
+          </ActionContainer>
         </InfoContainer>
       </Wrapper>
       <Newsletter />
@@ -241,3 +256,5 @@ const Product = () => {
 };
 
 export default Product;
+
+

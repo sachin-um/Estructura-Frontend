@@ -257,6 +257,7 @@ const HomePage = (props) => {
   };
 
   return (
+    <>
     <Box>
       <Slider images={images} interval={5000} />
 
@@ -507,11 +508,11 @@ const HomePage = (props) => {
               Looking for more inspiration?
             </Typography>
             <Typography
-              color="#AF7D51"
-              fontFamily="Poppins"
-              fontSize="1.3rem"
-              marginBottom="30px"
               paragraph
+              fontSize="1.3rem"
+              fontFamily="Poppins"
+              color="#435834"
+              marginBottom="30px"
             >
               Check out our blog for the latest stories!
             </Typography>
@@ -601,6 +602,7 @@ const HomePage = (props) => {
         </Box>
       </Box>
     </Box>
+    </>
   );
 };
 

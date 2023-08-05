@@ -54,8 +54,8 @@ const RentingCards = ({ data }) => {
           </div>
 
           <CardContent sx={{ flex: '1 0 auto', padding: 2 }}>
-            <Typography variant="h5" sx={{fontSize: 26}}>{rentingItem.name}</Typography>
-            <Typography variant="body1" color="primary" gutterBottom sx={{fontSize: 20, fontFamily: 'Poppins', fontWeight: 600}}>
+            <Typography variant="h7" sx={{fontSize: 22}}>{rentingItem.name}</Typography>
+            <Typography variant="body1" color="primary" gutterBottom sx={{fontSize: 18, fontFamily: 'Poppins', fontWeight: 500}}>
               LKR. {rentingItem.price} | {rentingItem.scale}
             </Typography>
             <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem', marginTop: '1rem' }}>

@@ -6,7 +6,6 @@ import Typography from '@mui/material/Typography';
 import { FunctionComponent } from 'react';
 
 import '../../assets/font.css';
-import { Blog } from '../../redux/BlogsReducer';
 import TimeAgo from '../TimeAgo';
 
 interface BlogCardProps {
