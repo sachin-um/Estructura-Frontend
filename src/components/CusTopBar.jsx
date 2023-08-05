@@ -21,7 +21,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 
-const pages = ['Home', 'Professionals', 'Products', 'Blog'];
+const pages = ['Professionals', 'Products', 'Blog'];
 const settings = ['Profile', 'Account', 'Logout'];
 const professionalsTopics = [
   'Architects',
@@ -108,7 +108,7 @@ function CusTopBar() {
             noWrap
             variant="h6"
           >
-            <img alt="" height={65} src={webLogo} width={65} />
+            <img src={webLogo} alt="" height={65}  />
           </Typography>
 
           <Box sx={{ display: { md: 'none', xs: 'flex' }, flexGrow: 1 }}>
@@ -189,15 +189,11 @@ function CusTopBar() {
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <ListItemIcon>
                     {/* Add Material-UI icons */}
-                    {setting === 'Profile' && <PersonIcon color="secondary" />}
-                    {setting === 'Account' && (
-                      <SettingsIcon color="secondary" />
-                    )}
-                    {setting === 'Logout' && (
-                      <ExitToAppIcon color="secondary" />
-                    )}
+                    {setting === 'Profile' && <PersonIcon color="grey" />}
+                    {setting === 'Account' && <SettingsIcon color="grey" />}
+                    {setting === 'Logout' && <ExitToAppIcon color="grey" />}
                   </ListItemIcon>
-                  <Typography sx={{ color: 'green' }} textAlign="center">
+                  <Typography textAlign="center" sx={{ color: '#304422' }}>
                     {setting}
                   </Typography>
                 </MenuItem>
@@ -216,7 +212,7 @@ function CusTopBar() {
               {professionalsTopics.map((topic) => (
                 <Grid item key={topic} xs={6}>
                   <MenuItem onClick={handleCloseProfessionalsMenu}>
-                    <Typography sx={{ color: 'green' }} textAlign="center">
+                    <Typography textAlign="center" sx={{ color: '#304422' }}>
                       {topic}
                     </Typography>
                   </MenuItem>
@@ -236,7 +232,7 @@ function CusTopBar() {
               {productsTopics.map((topic) => (
                 <Grid item key={topic} xs={6}>
                   <MenuItem onClick={handleCloseProductsMenu}>
-                    <Typography sx={{ color: 'green' }} textAlign="center">
+                    <Typography textAlign="center" sx={{ color: '#304422' }}>
                       {topic}
                     </Typography>
                   </MenuItem>

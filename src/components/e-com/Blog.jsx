@@ -5,58 +5,45 @@ import { mobile } from '../../responsive';
 
 const Container = styled.div`
   height: 60vh;
-  background-color: #fcf5f5;
+  background-image: url("https://www.venuscreatives.com/wp-content/uploads/2021/04/livingroom-banner5.jpg");
+  background-size: cover;
+  background-position: center;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 `;
 const Title = styled.h1`
-  font-size: 70px;
+  font-size: 40px;
   margin-bottom: 20px;
+  color: white;
+  margin-top: 50px;
 `;
 
 const Desc = styled.div`
-  font-size: 24px;
-  font-weight: 300;
+  font-size: 22px;
+  font-weight: 500;
   margin-bottom: 20px;
-  ${mobile({ textAlign: 'center' })}
-`;
+  color: white;
+  ${mobile({ textAlign: "center" })}
 
-const InputContainer = styled.div`
-  width: 50%;
-  height: 40px;
-  background-color: white;
-  display: flex;
-  justify-content: space-between;
-  border: 1px solid lightgray;
-  ${mobile({ width: '80%' })}
-`;
-
-const Input = styled.input`
-  border: none;
-  flex: 8;
-  padding-left: 20px;
 `;
 
 const Button = styled.button`
-  flex: 1;
+  padding: 10px 20px;
+  font-size: 20px;
   border: none;
-  background-color: teal;
+  background-color: #435834;
   color: white;
+  cursor: pointer;
 `;
 
 const Blog = () => {
   return (
     <Container>
-      <Title>Newsletter</Title>
-      <Desc>Get timely updates from your favorite products.</Desc>
-      <InputContainer>
-        <Input placeholder="Your email" />
-        <Button>
-          <Send />
-        </Button>
-      </InputContainer>
+      <Title>Looking for more inspiration?</Title>
+      <Desc>CHECK OUT OUR BLOG FOR THE LATEST STORIES!</Desc>
+      <Button>Head out to our blog</Button>
     </Container>
   );
 };
