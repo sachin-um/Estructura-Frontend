@@ -39,8 +39,8 @@ export const addProject = createAsyncThunk(
       return rejectWithValue(response.data);
     }
     const id: number = response.data.id;
-    const blog = (await API.get<Project>(`/project/${id}`)).data;
-    return blog;
+    const project = (await API.get<Project>(`/projects/project/${id}`)).data;
+    return project;
   },
 );
 

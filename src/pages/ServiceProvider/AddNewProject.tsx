@@ -13,6 +13,7 @@ import {
   FormControlLabel,
   Grid,
   IconButton,
+  InputAdornment,
   InputLabel,
   MenuItem,
   Radio,
@@ -57,17 +58,24 @@ const validationSchema = Yup.object().shape({
         return false;
       }
       return true;
+    })
+    .test('fileSize', 'Each File size should be less than 5MB', (value) => {
+      const fileArr = value as FileList;
+      let totalSize = 0;
+      for (let index = 0; index < fileArr.length; index++) {
+        const element = fileArr[index];
+        if (element.size > 5000000) {
+          console.log('too large');
+          return false;
+        }
+        totalSize += element.size;
+      }
+      if (totalSize > 20000000) {
+        console.log('too large');
+        return false;
+      }
+      return true;
     }),
-  // .test('fileSize', 'File too large', (value) => {
-  //   const fileArr = value as FileList;
-  //   if (fileArr.length < 4) {
-  //     const img = fileArr[0];
-  //     if (img.size >= 5000000) {
-  //       console.log('BIG');
-  //       return false;
-  //     }
-  //   }
-  //   return true;
   extraImages: Yup.mixed()
     .required('Required')
     .test('only 3', 'More than 3', (value) => {
@@ -175,7 +183,7 @@ const AddNewProject: FunctionComponent<ProjectFormProps> = ({
         projectFromEstructura: OriginalProject.projectFromEstructura,
       }
     : {
-        cost: 0.0,
+        cost: 0.01,
         description: '',
         documents: new DataTransfer().files,
         extraImages: new DataTransfer().files,
@@ -508,7 +516,6 @@ const AddNewProject: FunctionComponent<ProjectFormProps> = ({
                         </Button>
                       </Grid>
                     </Grid>
-
                     <Grid container spacing={2}>
                       {images.length > 0 &&
                         images.map((imageUrl, index) => (
@@ -581,7 +588,7 @@ const AddNewProject: FunctionComponent<ProjectFormProps> = ({
                         </Grid>
                       ))}
                     </Grid>
-
+                    {FormikProps.errors.extraImages?.toString()}
                     <Divider sx={{ marginTop: '10px' }} />
                     <Grid
                       style={{
@@ -751,6 +758,7 @@ const AddNewProject: FunctionComponent<ProjectFormProps> = ({
                         </Grid>
                       ))}
                     </Grid>
+                    {FormikProps.errors.documents?.toString()}
                   </Grid>
                   <Grid
                     style={{
@@ -797,11 +805,19 @@ const AddNewProject: FunctionComponent<ProjectFormProps> = ({
                       </Grid>
                       <TextField
                         {...spread('cost')}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              LKR
+                            </InputAdornment>
+                          ),
+                        }}
                         color="secondary"
                         fullWidth
+                        inputProps={{ step: '0.01' }}
                         label="Project Budget"
                         sx={{ borderRadius: 2, margin: 1, width: '1' }}
-                        type="Budget"
+                        type="number"
                         variant="filled"
                       />
                       <TextField
