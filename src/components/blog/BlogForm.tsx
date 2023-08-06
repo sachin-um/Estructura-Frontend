@@ -13,6 +13,7 @@ import { type AnyAction, type ThunkDispatch } from '@reduxjs/toolkit';
 import { Form, Formik, type FormikProps } from 'formik';
 import { FunctionComponent, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import { addBlog, editBlog } from '../../redux/Blogs/SingleBlogReducer';
@@ -61,6 +62,8 @@ const BlogForm: FunctionComponent<BlogFormProps> = ({
 
   const dispatch: ThunkDispatch<Blog, void, AnyAction> = useDispatch();
 
+  const navigate = useNavigate();
+
   const HandleSubmit = (values: BlogAddOrUpdateRequest) => {
     if (FormRef.current) {
       const { setErrors, setSubmitting } = FormRef.current;
@@ -75,8 +78,7 @@ const BlogForm: FunctionComponent<BlogFormProps> = ({
           }),
         ).then((resultAction) => {
           if (editBlog.fulfilled.match(resultAction)) {
-            // ! Handle Edit Success Here
-            console.log('Blog Edited');
+            navigate(`/blogs/${OriginalBlog.id}`);
           } else if (editBlog.rejected.match(resultAction)) {
             try {
               const response =
@@ -93,8 +95,7 @@ const BlogForm: FunctionComponent<BlogFormProps> = ({
         // Create Blog
         dispatch(addBlog(values)).then((resultAction) => {
           if (addBlog.fulfilled.match(resultAction)) {
-            // ! Handle Add Success Here
-            console.log('Blog Added');
+            navigate(`/blogs/${resultAction.payload.id}`, { replace: true });
           } else if (addBlog.rejected.match(resultAction)) {
             try {
               const response =

@@ -4,6 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { FunctionComponent } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import '../../assets/font.css';
 import TimeAgo from '../TimeAgo';
@@ -13,6 +14,7 @@ interface BlogCardProps {
   avatar: string;
   content: string;
   date: Date;
+  id: number;
   imageAlt: string;
   imageSrc: string;
   title: string;
@@ -23,10 +25,12 @@ const BlogViewCard: FunctionComponent<BlogCardProps> = ({
   avatar,
   content,
   date,
+  id,
   imageAlt,
   imageSrc,
   title,
 }) => {
+  const navigate = useNavigate();
   return (
     <Card
       sx={{
@@ -88,8 +92,10 @@ const BlogViewCard: FunctionComponent<BlogCardProps> = ({
           </Box>
         </Box>
         <Button
+          onClick={() => {
+            navigate(`/blogs/${id}`);
+          }}
           color="primary"
-          onClick={() => alert('View the blog!')}
           size="small"
           variant="contained"
         >
@@ -109,6 +115,7 @@ export const blogToCard: FunctionComponent<Blog> = (blog) => {
       avatar={blog.mainImage}
       content={blog.content}
       date={blog.dateAdded}
+      id={blog.id}
       imageAlt={blog.mainImage}
       imageSrc={`http://localhost:8080/files/blog-files/${blog.createdBy}/${blog.id}/${blog.mainImageName}`}
       key={blog.id}

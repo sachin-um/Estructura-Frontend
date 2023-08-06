@@ -34,6 +34,7 @@ const BlogEdit: FunctionComponent = () => {
       <TopAppBar />
       {userInfo && userInfo.id ? (
         <>
+          <Button onClick={() => navigate(`/blogs`)}>Back To Blogs</Button>
           <Button onClick={() => navigate(`/blogs/${blogId}`)}>
             Back To Details
           </Button>

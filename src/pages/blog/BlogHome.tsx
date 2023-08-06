@@ -3,6 +3,7 @@ import { Box, Container, Pagination, Stack, Typography } from '@mui/material';
 import { type AnyAction, type ThunkDispatch } from '@reduxjs/toolkit';
 import { FunctionComponent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import TopAppBar from '../../components/TopAppBar';
 import { blogToCard } from '../../components/blog/BlogViewCard';
@@ -82,6 +83,8 @@ const BlogHome: FunctionComponent<BlogHomeProps> = () => {
 
   const paginatedBlogs = Paginate(filteredBlogs, pageNumber, pageSize);
 
+  const navigate = useNavigate();
+
   return (
     <>
       <TopAppBar />
@@ -135,6 +138,24 @@ const BlogHome: FunctionComponent<BlogHomeProps> = () => {
             >
               All Blogs
             </button>
+            {userInfo && (
+              <button
+                onClick={() => {
+                  navigate('/blogs/add');
+                }}
+                style={{
+                  backgroundColor: 'transparent',
+                  border: '1px solid #804000',
+                  borderRadius: '4px',
+                  color: '#804000',
+                  cursor: 'pointer',
+                  marginLeft: '10px',
+                  padding: '5px 10px',
+                }}
+              >
+                Write a new blog
+              </button>
+            )}
           </div>
         </div>
         {filteredBlogs.length > 0 ? (
