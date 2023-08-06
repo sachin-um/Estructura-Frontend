@@ -16,6 +16,7 @@ import ProductList from "./pages/e-com/ProductList";
 import Cart from "./pages/e-com/Cart";
 import AdminDashboard from "./pages/admin/dash";
 import FindFurniture from "./pages/findfurniture";
+import Billing from "./pages/Billing";
 
 //admin dashboard
 import Dashboard from "./pages/adminDashboard/dashboard";
@@ -152,7 +153,10 @@ const router = createBrowserRouter([
     path: "/findFurniture",
     element: <FindFurniture />
   },
-
+  {
+    path: "/Billing",
+    element: <Billing />
+  },
 
 ]);
 
