@@ -1,67 +1,68 @@
-import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState, useEffect } from "react";
+import { Box, Typography, Card, CardContent, CardMedia } from "@mui/material";
 
 const HomepageCarousel = ({ cards }) => {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
-  const visibleCards = cards
-    .concat(cards)
-    .slice(currentCardIndex, currentCardIndex + 3);
+  const visibleCards = cards.concat(cards).slice(
+    currentCardIndex,
+    currentCardIndex + 3
+  );
 
-  const goToNextCard = useCallback(() => {
+  const goToNextCard = () => {
     setCurrentCardIndex((prevIndex) => (prevIndex + 1) % cards.length);
-  }, [cards.length]);
+  };
 
   useEffect(() => {
     const intervalId = setInterval(goToNextCard, 3000);
     return () => clearInterval(intervalId);
-  }, [goToNextCard, currentCardIndex]);
+  }, [currentCardIndex]);
 
   return (
-    <Box marginBottom={5} overflow="hidden" position="relative">
+    <Box position="relative" overflow="hidden" marginBottom={5}>
       <Box
         display="flex"
         justifyContent="space-between"
-        transform={`translateX(-${currentCardIndex * 33.33}%)`}
         transition="transform 0.5s"
+        transform={`translateX(-${currentCardIndex * 33.33}%)`}
       >
         {visibleCards.map((card, index) => (
           <Card
-            sx={{
-              borderRadius: '0px',
-              flex: '0 0 33.33%',
-              position: 'relative',
-            }}
             key={index}
+            sx={{
+              flex: "0 0 33.33%",
+              borderRadius: "0px",
+              position: "relative",
+            }}
           >
             <CardMedia
-              sx={{
-                filter: 'brightness(60%)',
-                height: '16rem',
-                objectFit: 'cover',
-                width: '100%',
-              }}
-              alt={card.title}
               component="img"
               image={card.image}
+              alt={card.title}
+              sx={{
+                objectFit: "cover",
+                width: "100%",
+                height: "16rem",
+                filter: "brightness(60%)",
+              }}
             />
             <CardContent
-              sx={{
-                alignItems: 'center',
-                background: 'rgba(0, 0, 0, 0.5)',
-                color: 'white',
-                display: 'flex',
-                fontSize: '1.2rem',
-                fontWeight: 'bold',
-                height: '100%',
-                justifyContent: 'center',
-                left: 0,
-                padding: '10px',
-                position: 'absolute',
-                top: 0,
-                width: '100%',
-              }}
               className="overlay"
+              sx={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                background: "rgba(0, 0, 0, 0.5)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "white",
+                fontSize: "1.2rem",
+                fontWeight: "bold",
+                padding: "10px",
+              }}
             >
               <Typography variant="h6">{card.title}</Typography>
             </CardContent>

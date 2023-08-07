@@ -1,13 +1,12 @@
-import { Box } from '@mui/material';
-
-import '../../assets/admindb.css';
-import Header from '../../components/adminDashboard/Header';
-import LineChart from '../../components/adminDashboard/LineChart';
+import { Box } from "@mui/material";
+import Header from "../../components/adminDashboard/Header";
+import LineChart from "../../components/adminDashboard/LineChart";
+import "../../assets/admindb.css"
 
 const Line = () => {
   return (
     <Box m="20px">
-      <Header subtitle="Simple Line Chart" title="Line Chart" />
+      <Header title="Line Chart" subtitle="Simple Line Chart" />
       <Box height="75vh">
         <LineChart />
       </Box>

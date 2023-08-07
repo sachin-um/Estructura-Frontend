@@ -1,41 +1,44 @@
-import MenuIcon from '@mui/icons-material/Menu';
+import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import * as React from 'react';
-import { Link, Link as RouterLink } from 'react-router-dom';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import Container from '@mui/material/Container';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import PersonIcon from '@mui/icons-material/Person';
+import Grid from '@mui/material/Grid';
+import { Link, Link as RouterLink, useLocation } from "react-router-dom";
+
 
 const pages = ['Professionals', 'Products', 'Blog'];
 const professionalsTopics = [
-  { id: 0, link: '/', title: 'All' },
-  { id: 1, link: '/', title: 'Architects' },
-  { id: 2, link: '/', title: 'Interior Designers' },
-  { id: 3, link: '/', title: 'Construction Companies' },
-  { id: 4, link: '/', title: 'Landscape Architects' },
-  { id: 4, link: '/', title: 'Home Builders' },
-  { id: 4, link: '/', title: 'Painters' },
-  { id: 4, link: '/', title: 'Carpenters' },
+  { id: 0, title: "All", link: "/" },
+  { id: 1, title: "Architects", link: "/" },
+  { id: 2, title: "Interior Designers", link: "/" },
+  { id: 3, title: "Construction Companies", link: "/" },
+  { id: 4, title: "Landscape Architects", link: "/" },
+  { id: 4, title: "Home Builders", link: "/" },
+  { id: 4, title: "Painters", link: "/" },
+  { id: 4, title: "Carpenters", link: "/" },
 ];
 const productsTopics = [
-  { id: 0, link: '/e-com/Home', title: 'All' },
-  { id: 1, link: '/', title: 'Furniture' },
-  { id: 2, link: '/', title: 'Hardware Items' },
-  { id: 3, link: '/', title: 'Gardening Items and Tools' },
-  { id: 4, link: '/', title: 'Bathware' },
-  { id: 4, link: '/', title: 'Lighting' },
+  { id: 0, title: "All", link: "/e-com/Home" },
+  { id: 1, title: "Furniture", link: "/" },
+  { id: 2, title: "Hardware Items", link: "/" },
+  { id: 3, title: "Gardening Items and Tools", link: "/" },
+  { id: 4, title: "Bathware", link: "/" },
+  { id: 4, title: "Lighting", link: "/" }
 ];
 
 function TopBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElProfessionals, setAnchorElProfessionals] =
-    React.useState(null);
+  const [anchorElProfessionals, setAnchorElProfessionals] = React.useState(null);
   const [anchorElProducts, setAnchorElProducts] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -63,56 +66,53 @@ function TopBar() {
   };
 
   return (
-    <AppBar
-      position="relative"
-      sx={{ backgroundColor: 'white', color: 'green' }}
-    >
+    <AppBar position ="relative" sx={{ backgroundColor: 'white', color: 'green' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <IconButton
-            aria-label="menu"
-            color="inherit"
             edge="start"
+            color="inherit"
+            aria-label="menu"
             onClick={handleOpenNavMenu}
-            sx={{ display: { md: 'none', xs: 'block' }, mr: 2 }}
+            sx={{ mr: 2, display: { xs: 'block', md: 'none' } }}
           >
             <MenuIcon />
           </IconButton>
           <Typography
-            sx={{
-              alignItems: 'center',
-              display: 'flex',
-              flexGrow: 1,
-              justifyContent: 'flex-start',
-            }}
+            variant="h6"
+            noWrap
             component="a"
             href="/"
-            noWrap
-            variant="h6"
+            sx={{
+              flexGrow: 1,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'flex-start', 
+            }}
           >
             <RouterLink to="/">
-              <img src="/Logo.png" alt="" height={65} />
+              <img src="/Logo.png" alt="" height={65} />  
             </RouterLink>
           </Typography>
 
-          <Box sx={{ display: { md: 'none', xs: 'flex' }, flexGrow: 1 }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <Menu
-              anchorOrigin={{
-                horizontal: 'left',
-                vertical: 'bottom',
-              }}
-              sx={{
-                display: { md: 'none', xs: 'block' },
-              }}
-              transformOrigin={{
-                horizontal: 'left',
-                vertical: 'top',
-              }}
-              anchorEl={anchorElNav}
               id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
               keepMounted
-              onClose={handleCloseNavMenu}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
               open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: 'block', md: 'none' },
+              }}
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
@@ -121,50 +121,38 @@ function TopBar() {
               ))}
             </Menu>
           </Box>
-          <Box sx={{ display: { md: 'flex', xs: 'none' }, flexGrow: 1 }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                onClick={
-                  page === 'Professionals'
-                    ? handleOpenProfessionalsMenu
-                    : page === 'Products'
-                    ? handleOpenProductsMenu
-                    : null
-                }
-                sx={{
-                  color: 'green',
-                  display: 'block',
-                  fontSize: '16px',
-                  letterSpacing: '0.1rem',
-                  mx: 2,
-                  my: 2,
-                  textAlign: 'center',
-                }}
                 key={page}
+                onClick={
+                  page === 'Professionals' ? handleOpenProfessionalsMenu : page === 'Products' ? handleOpenProductsMenu : null
+                }
+                sx={{ my: 2, mx: 2, color: 'green', display: 'block', textAlign: 'center', fontSize: '16px', letterSpacing: '0.1rem' }}
               >
-                {page === 'Blog' ? (
-                  <Link
-                    style={{
-                      color: 'inherit',
-                      display: 'flex',
-                      fontSize: '16px',
-                      textDecoration: 'none',
+                {page==='Blog' ?
+                  <Link 
+                  component={RouterLink}
+                  underline="hover"
+                  to="/blog/"
+                  style={{
+                    textDecoration:"none",
+                    color:"inherit",
+                    fontSize: '16px',
+                    display:'flex',
                     }}
-                    component={RouterLink}
-                    to="/blog/"
-                    underline="hover"
                   >
-                    {page}
+                      {page}
                   </Link>
-                ) : (
+                  :
                   page
-                )}
+                }
               </Button>
             ))}
           </Box>
 
           <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center' }}>
-              <Link
+              <Link 
                       component={RouterLink}
                       underline="hover"
                       to="/SignIn"
@@ -181,6 +169,7 @@ function TopBar() {
                     fontSize: 16,
                     '&:hover': {
                       variant: 'contained',
+                      backgroundColor:'#ddf0dd'
                     }
                   }}
                 >
@@ -188,28 +177,28 @@ function TopBar() {
                 </Button>
               </Link>
 
-            <Box sx={{ width: '15px' }} />
+            <Box sx={{ width: '15px' }} /> 
 
-            <Link
-              style={{
-                color: 'inherit',
-                display: 'flex',
-                textDecoration: 'none',
-              }}
-              component={RouterLink}
-              to="/SignUp"
-              underline="hover"
+            <Link 
+                component={RouterLink}
+                underline="hover"
+                to="/SignUp"
+                style={{
+                  textDecoration:"none",
+                  color:"inherit",
+                  display:'flex',
+                  }}
             >
               <Button
+                color='primary'
+                variant='outlined'
                 sx={{
-                  '&:hover': {
-                    backgroundColor: '#ddf0dd',
-                    variant: 'contained',
-                  },
                   fontSize: 16,
+                  '&:hover': {
+                    variant: 'contained',
+                    backgroundColor:'#ddf0dd'
+                  }
                 }}
-                color="primary"
-                variant="outlined"
               >
                 Sign Up
               </Button>
@@ -217,27 +206,27 @@ function TopBar() {
           </Box>
 
           <Menu
-            anchorEl={anchorElProfessionals}
+            sx={{ mt: '45px', '& .MuiPaper-root': { width: '30rem' } }}
             id="menu-appbar-professionals"
-            onClose={handleCloseProfessionalsMenu}
+            anchorEl={anchorElProfessionals}
             open={Boolean(anchorElProfessionals)}
-            sx={{ '& .MuiPaper-root': { width: '30rem' }, mt: '45px' }}
+            onClose={handleCloseProfessionalsMenu}
           >
             <Grid container sx={{ display: 'flex', flexWrap: 'wrap' }}>
               {professionalsTopics.map((item) => (
-                <Grid item key={item.id} xs={6}>
+                <Grid key={item.id} item xs={6}>
                   <Link
+                    component={RouterLink}
+                    underline="hover"
+                    to={item.link}
                     style={{
+                      textDecoration: 'none',
                       color: 'inherit',
                       display: 'flex',
-                      textDecoration: 'none',
                     }}
-                    component={RouterLink}
-                    to={item.link}
-                    underline="hover"
                   >
                     <MenuItem onClick={handleCloseProfessionalsMenu}>
-                      <Typography textAlign="center" sx={{ color: 'green' }}>
+                      <Typography textAlign="center" sx={{ color: '#304422' }}>
                         {item.title}
                       </Typography>
                     </MenuItem>
@@ -248,27 +237,27 @@ function TopBar() {
           </Menu>
 
           <Menu
-            anchorEl={anchorElProducts}
+            sx={{ mt: '45px', '& .MuiPaper-root': { width: '28rem' } }}
             id="menu-appbar-products"
-            onClose={handleCloseProductsMenu}
+            anchorEl={anchorElProducts}
             open={Boolean(anchorElProducts)}
-            sx={{ '& .MuiPaper-root': { width: '28rem' }, mt: '45px' }}
+            onClose={handleCloseProductsMenu}
           >
             <Grid container sx={{ display: 'flex', flexWrap: 'wrap' }}>
               {productsTopics.map((item) => (
-                <Grid item key={item.id} xs={6}>
+                <Grid key={item.id} item xs={6}>
                   <Link
+                    component={RouterLink}
+                    underline="hover"
+                    to={item.link}
                     style={{
+                      textDecoration: 'none',
                       color: 'inherit',
                       display: 'flex',
-                      textDecoration: 'none',
                     }}
-                    component={RouterLink}
-                    to={item.link}
-                    underline="hover"
                   >
                     <MenuItem onClick={handleCloseProductsMenu}>
-                      <Typography textAlign="center" sx={{ color: 'green' }}>
+                      <Typography textAlign="center" sx={{ color: '#304422' }}>
                         {item.title}
                       </Typography>
                     </MenuItem>
@@ -280,6 +269,7 @@ function TopBar() {
         </Toolbar>
       </Container>
     </AppBar>
+
   );
 }
 

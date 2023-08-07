@@ -8,7 +8,7 @@ const professionalCategoryOptions = [
   'Architects',
   'Interior Designers',
   'Landscape Architects',
-  'Home Builders',
+  'Home Builders', 
   'Carpenters',
   'Painters'
 ]
@@ -60,7 +60,7 @@ function ProfileDetails() {
                 )}
               </Grid>
 
-
+              
               <Grid item xs={3}>
                 <Typography variant="h7">
                   NIC Number:
@@ -204,7 +204,7 @@ function ProfileDetails() {
                     variant='outlined'
                     fullWidth
                     value={professionalCategory}
-                    onChange={(e) => setProfessionalCategory(e.target.value)}
+                    onChange={(e) => setProfessionalCategory(e.target.value)} 
                   >
                     {professionalCategoryOptions.map((option) => (
                       <MenuItem key={option} value={option} >
@@ -222,7 +222,7 @@ function ProfileDetails() {
           </CardContent>
         </Card>
       </Grid>
-
+      
       <Grid style={{ marginTop: '2rem' }}>
         <Typography variant="h6" gutterBottom fontFamily='Poppins'>
           Qualifications

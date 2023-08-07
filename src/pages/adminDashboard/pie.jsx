@@ -1,13 +1,12 @@
-import { Box } from '@mui/material';
-
-import '../../assets/admindb.css';
-import Header from '../../components/adminDashboard/Header';
-import PieChart from '../../components/adminDashboard/PieChart';
+import { Box } from "@mui/material";
+import Header from "../../components/adminDashboard/Header";
+import PieChart from "../../components/adminDashboard/PieChart";
+import "../../assets/admindb.css"
 
 const Pie = () => {
   return (
     <Box m="20px">
-      <Header subtitle="Simple Pie Chart" title="Pie Chart" />
+      <Header title="Pie Chart" subtitle="Simple Pie Chart" />
       <Box height="75vh">
         <PieChart />
       </Box>

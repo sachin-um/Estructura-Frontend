@@ -1,9 +1,14 @@
+import React, { useState } from "react";
 import {
   Box,
   Button,
   Container,
   Grid,
+  Stack,
+  Link,
   TextField,
+  FormControl,
+  InputLabel,
   Typography,
 } from "@mui/material";
 import { Form, Formik } from "formik";
@@ -20,112 +25,112 @@ function ArchitectPage1({
   updateFormData,
   nextPage,
   previousPage,
-  updateFormData,
 }) {
   const formRef=useRef(null);
   const initialValues = {
     nic: formData.nic ?? "",
     sLIARegNumber: formData.sLIARegNumber ?? "",
     website: formData.website ?? "",
+    
   };
   // TODO: Change Layout
   return (
     <>
       <Container
-        style={{
-          alignItems: 'center',
-
-          backgroundColor: '#f7f8f1',
-          display: 'flex',
-        }}
         maxWidth={false}
+        style={{
+          backgroundColor: "#f7f8f1",
+          
+          display: "flex",
+          alignItems: "center",
+        }}
       >
         <Grid container justifyContent="center" spacing={4}>
           <Grid
-            style={{
-              marginTop: '2rem',
-              paddingBottom: '2rem',
-              paddingTop: '2rem',
-            }}
             item
-            md={7}
             xs={12}
+            md={7}
+            style={{
+              paddingTop: "2rem",
+              paddingBottom: "2rem",
+              marginTop: "2rem",
+            }}
           >
             <Grid
-              style={{
-                alignItems: 'flex-end',
-                backgroundImage: 'url("/signup/archi.jpg")',
-                backgroundPosition: 'center',
-                backgroundSize: 'cover',
-                borderRadius: '20px',
-                display: 'flex',
-                height: '100%',
-              }}
               container
+              style={{
+                backgroundImage: 'url("/signup/archi.jpg")',
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                borderRadius: "20px",
+                height: "100%",
+                display: "flex",
+                alignItems: "flex-end",
+              }}
             >
               <Grid
-                style={{
-                  marginBottom: '2rem',
-                  paddingLeft: '4rem',
-                  paddingRight: '1rem',
-                }}
                 item
                 xs={12}
+                style={{
+                  paddingLeft: "4rem",
+                  paddingRight: "1rem",
+                  marginBottom: "2rem",
+                }}
               >
                 <Typography
-                  style={{
-                    color: '#ffffff',
-                    fontSize: '1.5rem',
-                    lineHeight: '1',
-                    marginTop: 'auto',
-                    paddingBottom: '1rem',
-                    textAlign: 'left',
-                  }}
                   variant="h4"
+                  style={{
+                    color: "#ffffff",
+                    fontSize: "1.5rem",
+                    textAlign: "left",
+                    lineHeight: "1",
+                    paddingBottom: "1rem",
+                    marginTop: "auto",
+                  }}
                 >
                   Unleash your home’s potential
                 </Typography>
                 <Typography
-                  style={{
-                    color: '#ffffff',
-                    fontSize: '1.5rem',
-                    lineHeight: '1',
-                    textAlign: 'left',
-                  }}
                   variant="h4"
+                  style={{
+                    color: "#ffffff",
+                    fontSize: "1.5rem",
+                    textAlign: "left",
+                    lineHeight: "1",
+                  }}
                 >
                   with everything at your fingertips
                 </Typography>
               </Grid>
             </Grid>
           </Grid>
-          <Grid item md={5} xs={12}>
+          <Grid item xs={12} md={5}>
             <Grid
-              style={{
-                alignItems: 'center',
-                backgroundColor: '#ffffff',
-                borderRadius: '20px',
-                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                marginBottom: '2rem',
-                marginTop: '2rem',
-                minHeight: '80vh',
-                padding: '1rem 2rem 3rem',
-              }}
               container
+              style={{
+                backgroundColor: "#ffffff",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                borderRadius: "20px",
+                padding: "1rem 2rem 3rem",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: "2rem",
+                marginBottom: "2rem",
+                minHeight: "80vh",
+              }}
             >
               <Grid
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  marginBottom: '1.5rem',
-                }}
                 item
                 xs={12}
+                style={{
+                  marginBottom: "1.5rem",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
               >
-                <img alt="Logo" src="/Logo.png" style={{ width: '40%' }} />
+                <img src="/Logo.png" alt="Logo" style={{ width: "40%" }} />
               </Grid>
               <Grid item xs={12} style={{ marginTop: "1rem" }}>
                 <Formik

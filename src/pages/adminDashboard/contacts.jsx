@@ -1,101 +1,100 @@
-import { useTheme } from '@mui/material';
-import { Box } from '@mui/material';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-
-import '../../assets/admindb.css';
-import Header from '../../components/adminDashboard/Header';
-import { mockDataContacts } from '../../data/mockData';
-import { tokens } from '../../theme';
+import { Box } from "@mui/material";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { tokens } from "../../theme";
+import { mockDataContacts } from "../../data/mockData";
+import Header from "../../components/adminDashboard/Header";
+import { useTheme } from "@mui/material";
+import "../../assets/admindb.css"
 
 const Contacts = () => {
   const theme = useTheme();
   const colors = tokens;
 
   const columns = [
-    { field: 'id', flex: 0.5, headerName: 'ID' },
-    { field: 'registrarId', headerName: 'Registrar ID' },
+    { field: "id", headerName: "ID", flex: 0.5 },
+    { field: "registrarId", headerName: "Registrar ID" },
     {
-      cellClassName: 'name-column--cell',
-      field: 'name',
+      field: "name",
+      headerName: "Name",
       flex: 1,
-      headerName: 'Name',
+      cellClassName: "name-column--cell",
     },
     {
-      align: 'left',
-      field: 'age',
-      headerAlign: 'left',
-      headerName: 'Age',
-      type: 'number',
+      field: "age",
+      headerName: "Age",
+      type: "number",
+      headerAlign: "left",
+      align: "left",
     },
     {
-      field: 'phone',
+      field: "phone",
+      headerName: "Phone Number",
       flex: 1,
-      headerName: 'Phone Number',
     },
     {
-      field: 'email',
+      field: "email",
+      headerName: "Email",
       flex: 1,
-      headerName: 'Email',
     },
     {
-      field: 'address',
+      field: "address",
+      headerName: "Address",
       flex: 1,
-      headerName: 'Address',
     },
     {
-      field: 'city',
+      field: "city",
+      headerName: "City",
       flex: 1,
-      headerName: 'City',
     },
     {
-      field: 'zipCode',
+      field: "zipCode",
+      headerName: "Zip Code",
       flex: 1,
-      headerName: 'Zip Code',
     },
   ];
 
   return (
     <Box m="20px">
       <Header
-        subtitle="List of Contacts for Future Reference"
         title="CONTACTS"
+        subtitle="List of Contacts for Future Reference"
       />
       <Box
+        m="40px 0 0 0"
+        height="75vh"
         sx={{
-          '& .MuiCheckbox-root': {
-            color: `${colors.greenAccent[200]} !important`,
+          "& .MuiDataGrid-root": {
+            border: "none",
           },
-          '& .MuiDataGrid-cell': {
-            borderBottom: 'none',
+          "& .MuiDataGrid-cell": {
+            borderBottom: "none",
           },
-          '& .MuiDataGrid-columnHeaders': {
-            backgroundColor: colors.blueAccent[700],
-            borderBottom: 'none',
-          },
-          '& .MuiDataGrid-footerContainer': {
-            backgroundColor: colors.blueAccent[700],
-            borderTop: 'none',
-          },
-          '& .MuiDataGrid-root': {
-            border: 'none',
-          },
-          '& .MuiDataGrid-toolbarContainer .MuiButton-text': {
-            color: `${colors.grey[100]} !important`,
-          },
-          '& .MuiDataGrid-virtualScroller': {
-            backgroundColor: colors.primary[400],
-          },
-          '& .name-column--cell': {
+          "& .name-column--cell": {
             color: colors.greenAccent[300],
           },
+          "& .MuiDataGrid-columnHeaders": {
+            backgroundColor: colors.blueAccent[700],
+            borderBottom: "none",
+          },
+          "& .MuiDataGrid-virtualScroller": {
+            backgroundColor: colors.primary[400],
+          },
+          "& .MuiDataGrid-footerContainer": {
+            borderTop: "none",
+            backgroundColor: colors.blueAccent[700],
+          },
+          "& .MuiCheckbox-root": {
+            color: `${colors.greenAccent[200]} !important`,
+          },
+          "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+            color: `${colors.grey[100]} !important`,
+          },
         }}
-        height="75vh"
-        m="40px 0 0 0"
       >
         <DataGrid
+          rows={mockDataContacts}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
-          rows={mockDataContacts}
         />
       </Box>
     </Box>

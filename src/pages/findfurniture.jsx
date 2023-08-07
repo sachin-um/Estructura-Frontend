@@ -1,23 +1,14 @@
-import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import DeleteIcon from '@mui/icons-material/Delete';
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  IconButton,
-  Tooltip,
-  Typography,
-} from '@mui/material';
-import axios from 'axios';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-
-import '../assets/font.css';
+import axios from 'axios';
+import { Link } from 'react-router-dom'; 
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Card, CardContent, Typography, TextField, Button, Box, IconButton, Tooltip } from '@mui/material';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import DeleteIcon from '@mui/icons-material/Delete';
 import TopBar from '../components/TopBar';
+import "../assets/font.css"
 import MultiActionAreaCard from '../components/e-com/furnitureCard';
-import { retails } from '../data/retails';
+import {retails} from "../data/retails";
 
 const FindFurniture = () => {
   const [imagePreview, setImagePreview] = useState(null);
@@ -77,92 +68,60 @@ const FindFurniture = () => {
   };
 
   const handleFindFurniture = () => {
-    // After uploading, call the prediction API
-    axios
-      .get('http://localhost:5000/api/predict')
-      .then((predictionResponse) => {
-        console.log('Prediction Result:', predictionResponse.data);
-        setPrediction(predictionResponse.data);
-        setShowMatches(true);
-        if (predictionResponse.data && predictionResponse.data.predicted_type) {
-          // Filter the furniture based on the predicted type
-          const filteredItems = retails.furniture.filter(
-            (item) =>
-              item.interiorType.toLowerCase() ===
-              predictionResponse.data.predicted_type.toLowerCase(),
-          );
-          setFilteredFurniture(filteredItems);
-        }
-      })
-      .catch((error) => {
-        console.error('Error predicting image:', error);
-      });
+      // After uploading, call the prediction API
+      axios
+        .get('http://localhost:5000/api/predict')
+        .then((predictionResponse) => {
+          console.log('Prediction Result:', predictionResponse.data);
+          setPrediction(predictionResponse.data);
+          setShowMatches(true);
+          if (predictionResponse.data && predictionResponse.data.predicted_type) {
+            // Filter the furniture based on the predicted type
+            const filteredItems = retails.furniture.filter(
+              (item) => item.interiorType.toLowerCase() === predictionResponse.data.predicted_type.toLowerCase()
+            );
+            setFilteredFurniture(filteredItems);
+          }
+        })
+        .catch((error) => {
+          console.error('Error predicting image:', error);
+        });
   };
 
   return (
     <>
       <TopBar />
-      <Box sx={{ left: '0.5rem', position: 'absolute', top: '4rem' }}>
-        <IconButton
-          component={Link}
-          sx={{ left: '1rem', position: 'absolute', top: '1rem', zIndex: 1 }}
-          to="/"
-        >
+      <Box sx={{ position: 'absolute', top: '4rem', left: '0.5rem' }}>
+        <IconButton component={Link} to="/" sx={{ position: 'absolute', top: '1rem', left: '1rem', zIndex: 1 }}>
           <ArrowBackIcon />
         </IconButton>
       </Box>
-      <Card
-        sx={{
-          backgroundColor: 'white',
-          borderRadius: 5,
-          height: '30rem',
-          margin: 'auto',
-          marginTop: 5,
-          maxWidth: '75rem',
-        }}
-      >
+      <Card sx={{ backgroundColor: 'white', maxWidth: '75rem', margin: 'auto', borderRadius: 5, marginTop: 5, height: '30rem' }}>
         <Card
           sx={{
-            alignItems: 'center',
             backgroundColor: '#f0f0f0',
-            display: 'flex',
-            height: '30rem',
-            justifyContent: 'center',
             padding: 0,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '30rem'
           }}
           onDoubleClick={handleImageRemove}
           onDragOver={(e) => e.preventDefault()}
           onDrop={handleImageDrop}
         >
           {imagePreview ? (
-            <Box
-              sx={{
-                borderRadius: 5,
-                height: '27rem',
-                position: 'relative',
-                width: '72rem',
-              }}
-            >
+            <Box sx={{ position: 'relative', width: '72rem', height: '27rem', borderRadius: 5 }}>
               <img
-                style={{
-                  borderRadius: 5,
-                  height: '100%',
-                  objectFit: 'cover',
-                  width: '100%',
-                }}
-                alt="Uploaded Preview"
                 src={imagePreview}
+                alt="Uploaded Preview"
+                style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 5 }}
               />
               <IconButton
-                sx={{
-                  backgroundColor: 'white',
-                  position: 'absolute',
-                  right: 5,
-                  top: 5,
-                }}
                 color="primary"
-                onClick={handleImageRemove}
                 size="small"
+                onClick={handleImageRemove}
+                sx={{ position: 'absolute', top: 5, right: 5, backgroundColor: 'white' }}
               >
                 <Tooltip title="Remove Image">
                   <DeleteIcon />
@@ -173,43 +132,35 @@ const FindFurniture = () => {
             <label htmlFor="upload-image">
               <Box
                 sx={{
+                  display: 'flex',
                   alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '72rem',
+                  height: '27rem',
                   border: '2px dashed #ccc',
                   borderRadius: 2,
                   cursor: 'pointer',
-                  display: 'flex',
-                  height: '27rem',
-                  justifyContent: 'center',
-                  width: '72rem',
                 }}
               >
                 <AddPhotoAlternateIcon />
-                <Typography
-                  color="textSecondary"
-                  sx={{ marginLeft: 1 }}
-                  variant="body2"
-                >
+                <Typography variant="body2" color="textSecondary" sx={{ marginLeft: 1 }}>
                   Add Image
                 </Typography>
               </Box>
             </label>
           )}
           <input
-            accept="image/*"
-            id="upload-image"
-            onChange={handleImageChange}
-            style={{ display: 'none' }}
             type="file"
+            id="upload-image"
+            accept="image/*"
+            style={{ display: 'none' }}
+            onChange={handleImageChange}
           />
         </Card>
       </Card>
       <CardContent>
         <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
-          <Button
-            color="primary"
-            onClick={handleFindFurniture}
-            variant="contained"
-          >
+          <Button variant="contained" color="primary" onClick={handleFindFurniture}>
             Find Furniture
           </Button>
         </Box>
@@ -219,14 +170,14 @@ const FindFurniture = () => {
         <Box
           sx={{
             backgroundColor: '#AF7D51',
-            borderRadius: '2px',
-            boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.2)',
-            marginTop: '10px',
             padding: '10px',
             textAlign: 'center',
+            marginTop: '10px',
+            borderRadius: '2px',
+            boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.2)',
           }}
         >
-          <Typography color="white" variant="subtitle1">
+          <Typography variant="subtitle1" color="white">
             Here are the perfect matches for your space!
           </Typography>
         </Box>
@@ -234,73 +185,44 @@ const FindFurniture = () => {
       <Box
         sx={{
           display: 'flex',
-          flexWrap: 'wrap',
-          gap: '10px',
           justifyContent: 'center',
           marginTop: '10px',
+          gap: '10px',
+          flexWrap: 'wrap',
         }}
       >
-        {prediction && (
-          <Card
-            sx={{
-              backgroundColor: '#FFFFF',
-              borderRadius: '5px',
-              padding: '10px',
-              textAlign: 'center',
-              width: '100%',
-            }}
-          >
-            <Typography color="black" fontFamily="Poppins" variant="body2">
+        {prediction &&
+          <Card sx={{ backgroundColor: '#FFFFF', padding: '10px', borderRadius: '5px', textAlign: 'center', width: '100%' }}>
+            <Typography variant="body2" color="black" fontFamily='Poppins'>
               Prediction Type by the trained ML Model
             </Typography>
-            <Typography color="primary" variant="h6">
+            <Typography variant="h6" color="primary">
               {prediction && prediction.predicted_type}
             </Typography>
           </Card>
-        )}
+        }
 
         {prediction &&
-          Object.entries(prediction.probabilities).map(
-            ([type, probability]) => (
-              <Card
-                sx={{
-                  backgroundColor: '#FFFFFF',
-                  borderRadius: '5px',
-                  padding: '10px',
-                  textAlign: 'center',
-                }}
-                key={type}
-              >
-                <Typography color="secondary" variant="body2">
-                  {type}
-                </Typography>
-                <Typography color="primary" variant="h6">
-                  {(probability * 100).toFixed(2)}%
-                </Typography>
-              </Card>
-            ),
-          )}
+          Object.entries(prediction.probabilities).map(([type, probability]) => (
+            <Card key={type} sx={{ backgroundColor: '#FFFFFF', padding: '10px', borderRadius: '5px', textAlign: 'center' }}>
+              <Typography variant="body2" color="secondary">
+                {type}
+              </Typography>
+              <Typography variant="h6" color="primary">
+                {(probability * 100).toFixed(2)}%
+              </Typography>
+            </Card>
+          ))}
       </Box>
-
-      <Box
-        sx={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '15px',
-          justifyContent: 'flex-start',
-          margin: 5,
-        }}
-      >
+      
+      <Box sx={{ display: 'flex', justifyContent: 'flex-start', flexWrap: 'wrap', gap: '15px', margin:5 }}>
         {filteredFurniture.map((item, index) => (
-          <Box
-            key={item.id}
-            sx={{ flex: '1 0 20%', maxWidth: '25%', minWidth: '20%' }}
-          >
+          <Box key={item.id} sx={{ flex: '1 0 20%', minWidth: '20%', maxWidth: '25%' }}>
             <MultiActionAreaCard
               image={item.image}
-              price={item.price}
               title={item.name}
-              type={item.interiorType}
+              price={item.price}
+              type ={item.interiorType}
             />
           </Box>
         ))}

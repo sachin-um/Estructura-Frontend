@@ -1,9 +1,8 @@
-import { ArrowLeftOutlined, ArrowRightOutlined } from '@mui/icons-material';
-import { useEffect, useState } from 'react';
-import styled from 'styled-components';
-
-import { sliderItems } from '../../data/data';
-import { mobile } from '../../responsive';
+import { ArrowLeftOutlined, ArrowRightOutlined } from "@mui/icons-material";
+import { useState, useEffect } from "react";
+import styled from "styled-components";
+import { sliderItems } from "../../data/data";
+import { mobile } from "../../responsive";
 
 const Container = styled.div`
   width: 100%;
@@ -11,7 +10,7 @@ const Container = styled.div`
   display: flex;
   position: relative;
   overflow: hidden;
-  ${mobile({ display: 'none' })}
+  ${mobile({ display: "none" })}
 `;
 
 const Arrow = styled.div`
@@ -25,8 +24,8 @@ const Arrow = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;
-  left: ${(props) => props.direction === 'left' && '10px'};
-  right: ${(props) => props.direction === 'right' && '10px'};
+  left: ${(props) => props.direction === "left" && "10px"};
+  right: ${(props) => props.direction === "right" && "10px"};
   margin: auto;
   cursor: pointer;
   opacity: 0.5;
@@ -119,7 +118,7 @@ const Slider = () => {
   const [slideIndex, setSlideIndex] = useState(0);
 
   const handleClick = (direction) => {
-    if (direction === 'left') {
+    if (direction === "left") {
       setSlideIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : 2));
     } else {
       setSlideIndex((prevIndex) => (prevIndex < 2 ? prevIndex + 1 : 0));
@@ -134,9 +133,10 @@ const Slider = () => {
     return () => clearTimeout(timer);
   }, [slideIndex]);
 
+
   return (
     <Container>
-      <Arrow direction="left" onClick={() => handleClick('left')}>
+      <Arrow direction="left" onClick={() => handleClick("left")}>
         <ArrowLeftOutlined />
       </Arrow>
       <Wrapper slideIndex={slideIndex}>
@@ -153,7 +153,7 @@ const Slider = () => {
           </Slide>
         ))}
       </Wrapper>
-      <Arrow direction="right" onClick={() => handleClick('right')}>
+      <Arrow direction="right" onClick={() => handleClick("right")}>
         <ArrowRightOutlined />
       </Arrow>
     </Container>

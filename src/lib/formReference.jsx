@@ -1,10 +1,7 @@
 /* REFERENCE: */
-import { Form, Formik } from 'formik';
-import * as Yup from 'yup';
-
-import API from '../lib/API';
-import { violationsToErrors } from '../utils/Violations'; // TODO: fix import
-import { useRef } from 'react';
+import { Formik } from "formik";
+import * as Yup from "yup";
+import { violationsToErrors } from "utils/Violations"; // TODO: fix import
 
 const validationSchema = Yup.object().shape({
   // TODO: add validation here
@@ -19,10 +16,13 @@ function Component() {
 
   return (
     <Formik
+      innerRef={FormRef}
+      initialValues={initialValues}
+      validationSchema={validationSchema}
       onSubmit={(values, { setErrors, setSubmitting }) => {
         setSubmitting(true);
         // TODO: do non-auto validation here
-        API.post('/api/endpoint', values)
+        API.post("/api/endpoint", values)
           .then((res) => {
             if (res.status === 200) {
               if (res.data.success === true) {
@@ -43,41 +43,37 @@ function Component() {
             console.log(err.response.data.message);
             console.log(err.response.data.validation_violations);
             setErrors(
-              violationsToErrors(err.response.data.validation_violations),
+              violationsToErrors(err.response.data.validation_violations)
             );
           });
         setSubmitting(false);
       }}
-      initialValues={initialValues}
-      innerRef={FormRef}
-      validationSchema={validationSchema}
     >
-      {({
-        errors,
-        handleBlur,
-        handleChange,
-        handleSubmit,
-        isSubmitting,
-        touched,
+      {(
         values,
-      }) => {
+        errors,
+        touched,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        isSubmitting
+      ) => {
         const spread = (field, helper = true) => {
           return {
-            disabled: isSubmitting,
-            error: touched[field] && !!errors[field],
-            name: field,
-            onBlur: handleBlur,
-            onChange: handleChange,
-            value: values[field],
-            ...(helper && {
-              helperText: touched[field] && errors[field],
-            }),
-          };
+                name: field,
+                onBlur: handleBlur,
+                onChange: handleChange,
+                value: values[field],
+                error: touched[field] && !!errors[field],
+                disabled: isSubmitting,
+                ...(helper && {
+                  helperText: touched[field] && errors[field]})
+              }
         };
         return (
-          <Form onSubmit={handleSubmit}>
-            <input type="text" {...spread('name')} />
-          </Form>
+          <form onSubmit={handleSubmit}>
+            <input type='text' {...spread("name")} />
+          </form>
         );
       }}
     </Formik>

@@ -1,38 +1,39 @@
-import { ArrowBackIosNew, ArrowForwardIos } from '@mui/icons-material';
-import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
-import { styled } from '@mui/system';
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { Box, Typography, Card, CardContent, CardMedia } from "@mui/material";
+import { ArrowBackIosNew, ArrowForwardIos } from "@mui/icons-material";
+import { styled } from "@mui/system";
 
 const StyledArrowBack = styled(ArrowBackIosNew)(({ theme }) => ({
-  '&:hover': {
-    transform: 'scale(1.1)',
-    transition: 'transform 0.3s ease',
+  color: "grey",
+  fontSize: "1.4rem",
+  cursor: "pointer",
+  "&:hover": {
+    transform: "scale(1.1)",
+    transition: "transform 0.3s ease",
   },
-  color: 'grey',
-  cursor: 'pointer',
-  fontSize: '1.4rem',
 }));
 
 const StyledArrowForward = styled(ArrowForwardIos)(({ theme }) => ({
-  '&:hover': {
-    transform: 'scale(1.1)',
-    transition: 'transform 0.3s ease',
+  color: "grey",
+  fontSize: "1.4rem",
+  cursor: "pointer",
+  "&:hover": {
+    transform: "scale(1.1)",
+    transition: "transform 0.3s ease",
   },
-  color: 'grey',
-  cursor: 'pointer',
-  fontSize: '1.4rem',
 }));
 
 const HomepageCarousel = ({ cards }) => {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
-  const visibleCards = cards
-    .concat(cards)
-    .slice(currentCardIndex, currentCardIndex + 4);
+  const visibleCards = cards.concat(cards).slice(
+    currentCardIndex,
+    currentCardIndex + 4
+  );
 
   const goToPreviousCard = () => {
-    setCurrentCardIndex(
-      (prevIndex) => (prevIndex - 1 + cards.length) % cards.length,
+    setCurrentCardIndex((prevIndex) =>
+      (prevIndex - 1 + cards.length) % cards.length
     );
   };
 
@@ -41,26 +42,23 @@ const HomepageCarousel = ({ cards }) => {
   };
 
   return (
-    <Box
-      alignItems="center"
-      display="flex"
-      justifyContent="center"
-      maxWidth="99%"
-    >
-      <Box position="relative" width="100%">
+    <Box display="flex" justifyContent="center" alignItems="center" maxWidth="99%">
+      <Box width="100%" position="relative">
         <Box
-          alignItems="center"
           display="flex"
           justifyContent="flex-end"
+          alignItems="center"
           marginBottom="10px"
         >
           <StyledArrowBack
-            style={{
-              marginRight: '10px',
-            }}
             onClick={goToPreviousCard}
+            style={{
+              marginRight: "10px",
+            }}
           />
-          <StyledArrowForward onClick={goToNextCard} />
+          <StyledArrowForward
+            onClick={goToNextCard}
+          />
         </Box>
         <Box
           display="flex"
@@ -70,47 +68,47 @@ const HomepageCarousel = ({ cards }) => {
         >
           {visibleCards.map((card, index) => (
             <Card
+              key={index}
               sx={{
-                '&:hover': {
-                  '.overlay': {
+                flex: "0 0 24%",
+                position: "relative",
+                margin: "0 10px",
+                "&:hover": {
+                  cursor: "pointer",
+                  img: {
+                    filter: "brightness(70%)",
+                  },
+                  ".overlay": {
                     opacity: 1,
                   },
-                  cursor: 'pointer',
-                  img: {
-                    filter: 'brightness(70%)',
-                  },
                 },
-                flex: '0 0 24%',
-                margin: '0 10px',
-                position: 'relative',
               }}
-              key={index}
             >
               <CardMedia
-                sx={{
-                  '&:hover': {
-                    filter: 'brightness(90%)',
-                  },
-                  objectFit: 'cover',
-                  transition: 'filter 0.3s ease',
-                }}
-                alt={card.title}
                 component="img"
                 height="300"
                 image={card.image}
+                alt={card.title}
+                sx={{
+                  objectFit: "cover",
+                  transition: "filter 0.3s ease",
+                  "&:hover": {
+                    filter: "brightness(90%)",
+                  },
+                }}
               />
               <CardContent
-                sx={{
-                  color: 'white',
-                  left: '50%',
-                  opacity: 0,
-                  position: 'absolute',
-                  textAlign: 'center',
-                  top: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  transition: 'opacity 0.3s ease',
-                }}
                 className="overlay"
+                sx={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  textAlign: "center",
+                  color: "white",
+                  opacity: 0,
+                  transition: "opacity 0.3s ease",
+                }}
               >
                 <Typography variant="h6">{card.title}</Typography>
               </CardContent>
@@ -123,3 +121,16 @@ const HomepageCarousel = ({ cards }) => {
 };
 
 export default HomepageCarousel;
+
+
+
+
+
+
+
+
+
+
+
+
+

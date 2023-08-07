@@ -1,4 +1,3 @@
-import { Add, Remove } from '@mui/icons-material';
 import { useState } from 'react';
 import { Add, Remove, ShoppingCart } from "@mui/icons-material";
 import styled from "styled-components";
@@ -10,7 +9,7 @@ const Container = styled.div``;
 
 const Wrapper = styled.div`
   padding: 20px;
-  ${mobile({ padding: '10px' })}
+  ${mobile({ padding: "10px" })}
 `;
 
 const Title = styled.h1`
@@ -30,14 +29,14 @@ const TopButton = styled.button`
   padding: 10px;
   font-weight: 600;
   cursor: pointer;
-  border: ${(props) => props.type === 'filled' && 'none'};
+  border: ${(props) => props.type === "filled" && "none"};
   background-color: ${(props) =>
     props.type === "filled" ? "#304422" : "transparent"};
   color: ${(props) => props.type === "filled" && "white"};
 `;
 
 const TopTexts = styled.div`
-  ${mobile({ display: 'none' })}
+  ${mobile({ display: "none" })}
 `;
 const TopText = styled.span`
   text-decoration: underline;
@@ -48,7 +47,8 @@ const TopText = styled.span`
 const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
-  ${mobile({ flexDirection: 'column' })}
+  ${mobile({ flexDirection: "column" })}
+
 `;
 
 const Info = styled.div`
@@ -58,7 +58,7 @@ const Info = styled.div`
 const Product = styled.div`
   display: flex;
   justify-content: space-between;
-  ${mobile({ flexDirection: 'column' })}
+  ${mobile({ flexDirection: "column" })}
 `;
 
 const ProductDetail = styled.div`
@@ -154,8 +154,8 @@ const SummaryItem = styled.div`
   margin: 30px 0px;
   display: flex;
   justify-content: space-between;
-  font-weight: ${(props) => props.type === 'total' && '500'};
-  font-size: ${(props) => props.type === 'total' && '24px'};
+  font-weight: ${(props) => props.type === "total" && "500"};
+  font-size: ${(props) => props.type === "total" && "24px"};
 `;
 
 const SummaryItemText = styled.span`
@@ -176,19 +176,14 @@ const Button = styled.button`
 `;
 
 const Cart = () => {
-  const [quantity, setQuantity] = useState(2);
-
-  // const increaseQuantity = () => {
-  //   setQuantity((prevQuantity) => prevQuantity + 1);
-  // };
 
     const [products, setProducts] = useState([
       { id: 1, quantity: 2 },
       { id: 2, quantity: 2 },
     ])
-
+  
     const increaseQuantity = (productId) => {
-      setProducts((prevProducts) =>
+      setProducts((prevProducts) => 
         prevProducts.map((product) =>
           product.id === productId
             ? {...product, quantity: product.quantity + 1 }
@@ -196,7 +191,7 @@ const Cart = () => {
         )
       );
     };
-
+  
     const decreaseQuantity = (productId) => {
       setProducts((prevProducts) =>
         prevProducts.map((product) =>

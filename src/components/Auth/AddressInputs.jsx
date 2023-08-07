@@ -1,3 +1,4 @@
+import * as yup from "yup";
 import {
   FormControl,
   InputLabel,
@@ -5,86 +6,81 @@ import {
   Select,
   TextField,
   Typography,
-} from '@mui/material';
-import * as yup from 'yup';
+} from "@mui/material";
 
 const districts = [
-  'Ampara',
-  'Anuradhapura',
-  'Badulla',
-  'Batticaloa',
-  'Colombo',
-  'Galle',
-  'Gampaha',
-  'Hambantota',
-  'Jaffna',
-  'Kalutara',
-  'Kandy',
-  'Kegalle',
-  'Kilinochchi',
-  'Kurunegala',
-  'Mannar',
-  'Matale',
-  'Matara',
-  'Monaragala',
-  'Mullaitivu',
-  'Nuwara Eliya',
-  'Polonnaruwa',
-  'Puttalam',
-  'Ratnapura',
-  'Trincomalee',
-  'Vavuniya',
+  "Ampara",
+  "Anuradhapura",
+  "Badulla",
+  "Batticaloa",
+  "Colombo",
+  "Galle",
+  "Gampaha",
+  "Hambantota",
+  "Jaffna",
+  "Kalutara",
+  "Kandy",
+  "Kegalle",
+  "Kilinochchi",
+  "Kurunegala",
+  "Mannar",
+  "Matale",
+  "Matara",
+  "Monaragala",
+  "Mullaitivu",
+  "Nuwara Eliya",
+  "Polonnaruwa",
+  "Puttalam",
+  "Ratnapura",
+  "Trincomalee",
+  "Vavuniya",
 ];
 
 function AddressInputs(props) {
   const { spread, errors } = props;
   return (
     <>
-      <Typography sx={{ color: '#435834', textAlign: 'left' }} variant="h8">
-        {' '}
-        Address{' '}
+      <Typography variant='h8' sx={{ textAlign: "left", color: "#435834" }}>
+        {" "}
+        Address{" "}
       </Typography>
       <TextField
-        color="secondary"
+        label='Address Line 1'
+        type='text'
         fullWidth
-        label="Address Line 1"
-        type="text"
-        variant="filled"
-        {...spread('addressLine1')}
+        variant='filled'
+        color='secondary'
+        {...spread("addressLine1")}
       />
       <TextField
-        color="secondary"
+        label='Address Line 2'
+        type='text'
         fullWidth
-        label="Address Line 2"
-        type="text"
-        variant="filled"
-        {...spread('addressLine2')}
+        variant='filled'
+        color='secondary'
+        {...spread("addressLine2")}
       />
       <TextField
-        color="secondary"
+        label='City'
+        type='city'
         fullWidth
-        label="City"
-        type="city"
-        variant="filled"
-        {...spread('city')}
+        variant='filled'
+        color='secondary'
+        {...spread("city")}
       />
       <FormControl
+        variant='filled'
         sx={{
           m: 1,
-          marginLeft: 'auto',
           minWidth: 120,
-          width: '100%',
+          width: "100%",
+          marginLeft: "auto",
         }}
-        variant="filled"
       >
-        <InputLabel color="secondary" id="selectDistrict">
+        <InputLabel id='selectDistrict' color='secondary'>
           Select District
         </InputLabel>
-        <Select
-          displayEmpty
-          labelId="selectDistrict-label"
-          {...spread('district', false)}
-        >
+        <Select displayEmpty labelId='selectDistrict-label' {...spread("district", false)}>
           {districts.map((district) => (
             <MenuItem key={district} value={district}>
               {district}
@@ -98,15 +94,14 @@ function AddressInputs(props) {
 }
 
 const addressValidators = {
-  addressLine1: yup.string().required('Address Line 1 is required'),
-  addressLine2: yup.string().required('Address Line 2 is required'),
-  city: yup.string().required('City is required'),
+  addressLine1: yup.string().required("Address Line 1 is required"),
+  addressLine2: yup.string().required("Address Line 2 is required"),
+  city: yup.string().required("City is required"),
   district: yup
     .string()
-    .oneOf(districts, 'District has to be valid')
-    .required('District is required'),
-};
-
+    .oneOf(districts, "District has to be valid")
+    .required("District is required"),
+}
 
 const addressInitialValues=(formData) => {
 return{
@@ -116,7 +111,6 @@ return{
   district: formData.district ??"",
 }}
 
-
-export { addressInitialValues, addressValidators, districts };
+export { districts, addressValidators, addressInitialValues };
 
 export default AddressInputs;

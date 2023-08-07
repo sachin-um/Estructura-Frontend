@@ -1,1 +1,0 @@
-type createOrEdit = 'create' | 'edit';

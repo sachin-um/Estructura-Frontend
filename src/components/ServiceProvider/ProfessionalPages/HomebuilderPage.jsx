@@ -1,25 +1,29 @@
+import React, { useState } from "react";
 import {
   Box,
   Button,
   Container,
   Grid,
+  Stack,
+  Link,
   TextField,
+  FormControl,
+  InputLabel,
   Typography,
-} from '@mui/material';
-import React from 'react';
+} from "@mui/material";
 // import { Link } from "react-router-dom" ;
 
 function HomebuilderPage({
   formData,
+  updateFormData,
   handleDropdownChange,
   nextPage,
   previousPage,
-  updateFormData,
 }) {
   const HandleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    console.log(formData.get('email'), formData.get('password'));
+    console.log(formData.get("email"), formData.get("password"));
   };
 
   const handleNext = () => {
@@ -32,168 +36,168 @@ function HomebuilderPage({
   return (
     <>
       <Container
-        style={{
-          alignItems: 'center',
-
-          backgroundColor: '#f7f8f1',
-          display: 'flex',
-        }}
         maxWidth={false}
+        style={{
+          backgroundColor: "#f7f8f1",
+          
+          display: "flex",
+          alignItems: "center",
+        }}
       >
         <Grid container justifyContent="center" spacing={4}>
           <Grid
-            style={{
-              marginTop: '2rem',
-              paddingBottom: '2rem',
-              paddingTop: '2rem',
-            }}
             item
-            md={7}
             xs={12}
+            md={7}
+            style={{
+              paddingTop: "2rem",
+              paddingBottom: "2rem",
+              marginTop: "2rem",
+            }}
           >
             <Grid
-              style={{
-                alignItems: 'flex-end',
-                backgroundImage: 'url("/signup/homebuilder.jpg")',
-                backgroundPosition: 'center',
-                backgroundSize: 'cover',
-                borderRadius: '20px',
-                display: 'flex',
-                height: '100%',
-              }}
               container
+              style={{
+                backgroundImage: 'url("/signup/homebuilder.jpg")',
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                borderRadius: "20px",
+                height: "100%",
+                display: "flex",
+                alignItems: "flex-end",
+              }}
             >
               <Grid
-                style={{
-                  marginBottom: '2rem',
-                  paddingLeft: '4rem',
-                  paddingRight: '1rem',
-                }}
                 item
                 xs={12}
+                style={{
+                  paddingLeft: "4rem",
+                  paddingRight: "1rem",
+                  marginBottom: "2rem",
+                }}
               >
                 <Typography
-                  style={{
-                    color: '#ffffff',
-                    fontSize: '1.5rem',
-                    lineHeight: '1',
-                    marginTop: 'auto',
-                    paddingBottom: '1rem',
-                    textAlign: 'left',
-                  }}
                   variant="h4"
+                  style={{
+                    color: "#ffffff",
+                    fontSize: "1.5rem",
+                    textAlign: "left",
+                    lineHeight: "1",
+                    paddingBottom: "1rem",
+                    marginTop: "auto",
+                  }}
                 >
                   Unleash your home’s potential
                 </Typography>
                 <Typography
-                  style={{
-                    color: '#ffffff',
-                    fontSize: '1.5rem',
-                    lineHeight: '1',
-                    textAlign: 'left',
-                  }}
                   variant="h4"
+                  style={{
+                    color: "#ffffff",
+                    fontSize: "1.5rem",
+                    textAlign: "left",
+                    lineHeight: "1",
+                  }}
                 >
                   with everything at your fingertips
                 </Typography>
               </Grid>
             </Grid>
           </Grid>
-          <Grid item md={5} xs={12}>
+          <Grid item xs={12} md={5}>
             <Grid
-              style={{
-                alignItems: 'center',
-                backgroundColor: '#ffffff',
-                borderRadius: '20px',
-                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                marginBottom: '2rem',
-                marginTop: '2rem',
-                minHeight: '80vh',
-                padding: '1rem 2rem 3rem',
-              }}
               container
+              style={{
+                backgroundColor: "#ffffff",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                borderRadius: "20px",
+                padding: "1rem 2rem 3rem",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: "2rem",
+                marginBottom: "2rem",
+                minHeight: "80vh",
+              }}
             >
               <Grid
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  marginBottom: '1.5rem',
-                }}
                 item
                 xs={12}
+                style={{
+                  marginBottom: "1.5rem",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
               >
-                <img alt="Logo" src="/Logo.png" style={{ width: '40%' }} />
+                <img src="/Logo.png" alt="Logo" style={{ width: "40%" }} />
               </Grid>
-              <Grid item style={{ marginTop: '1rem' }} xs={12}>
+              <Grid item xs={12} style={{ marginTop: "1rem" }}>
                 <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '20px',
-                    margin: '10px',
-                  }}
                   component="form"
+                  sx={{
+                    margin: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "20px",
+                  }}
                   onSubmit={HandleSubmit}
                 >
                   <Box
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '30px',
-                      margin: '10px',
-                    }}
                     component="form"
+                    sx={{
+                      margin: "10px",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "30px",
+                    }}
                     onSubmit={HandleSubmit}
                   >
                     {
-                      <Grid style={{ justifyContent: 'center' }}>
+                      <Grid style={{ justifyContent: "center" }}>
                         <TextField
                           InputProps={{ sx: { borderRadius: 2 } }}
-                          label="NIC"
-                          name="nic"
-                          size="small"
-                          sx={{ margin: 1, width: 1 }}
+                          sx={{ width: 1, margin: 1 }}
                           type="nic"
+                          name="nic"
+                          label="NIC"
                           variant="filled"
+                          size="small"
                         />
                         <TextField
                           InputProps={{ sx: { borderRadius: 2 } }}
-                          label="Website"
-                          name="website"
-                          size="small"
-                          sx={{ margin: 1, width: 1 }}
+                          sx={{ width: 1, margin: 1 }}
                           type="website"
+                          name="website"
+                          label="Website"
                           variant="filled"
+                          size="small"
                         />
                         <TextField
                           InputProps={{ sx: { borderRadius: 2 } }}
-                          label="Mention of any Special Qualification"
-                          name="SpecialQualification"
-                          size="small"
-                          sx={{ margin: 1, width: 1 }}
+                          sx={{ width: 1, margin: 1 }}
                           type="SpecialQualification"
+                          name="SpecialQualification"
+                          label="Mention of any Special Qualification"
                           variant="filled"
+                          size="small"
                         />
                         <Grid
-                          style={{ justifyContent: 'center' }}
-                          sx={{ margin: 1, width: 1 }}
+                          style={{ justifyContent: "center" }}
+                          sx={{ width: 1, margin: 1 }}
                         >
                           <Typography sx={{ margin: 1 }}>
-                            Proof of Qualification
+                          Proof of Qualification
                           </Typography>
                           <Button
-                            color="secondary"
-                            component="label"
                             sx={{ width: 1 }}
                             variant="contained"
+                            color="secondary"
+                            component="label"
                           >
                             Upload Documents
                             <input
-                              accept="image/*"
                               hidden
+                              accept="image/*"
                               multiple
                               type="file"
                             />
@@ -206,37 +210,39 @@ function HomebuilderPage({
                   <Button sx={{ width: 1/3,  borderRadius:2 }}type='submit' color="primary" variant="contained" size='large'  href=''>Next</Button>
                   </Grid> } */}
                   </Box>
+
+                 
                 </Box>
                 {
-                  <Grid
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      margin: 10,
-                    }}
-                  >
-                    <Button
-                      color="primary"
-                      onClick={handlePrevious}
-                      size="large"
-                      sx={{ borderRadius: 2, margin: 1, width: 1 / 3 }}
-                      type="submit"
-                      variant="contained"
+                    <Grid
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        margin: 10,
+                      }}
                     >
-                      Previous
-                    </Button>
-                    <Button
-                      color="primary"
-                      onClick={handleNext}
-                      size="large"
-                      sx={{ borderRadius: 2, margin: 1, width: 1 / 3 }}
-                      type="submit"
-                      variant="contained"
-                    >
-                      Next
-                    </Button>
-                  </Grid>
-                }
+                      <Button
+                        sx={{ width: 1 / 3, borderRadius: 2, margin: 1 }}
+                        type="submit"
+                        color="primary"
+                        variant="contained"
+                        size="large"
+                        onClick={handlePrevious}
+                      >
+                        Previous
+                      </Button>
+                      <Button
+                        sx={{ width: 1 / 3, borderRadius: 2, margin: 1 }}
+                        type="submit"
+                        color="primary"
+                        variant="contained"
+                        size="large"
+                        onClick={handleNext}
+                      >
+                        Next
+                      </Button>
+                    </Grid>
+                  }
               </Grid>
             </Grid>
           </Grid>

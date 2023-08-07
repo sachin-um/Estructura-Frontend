@@ -1,67 +1,66 @@
-import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
-import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
-import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined';
-import { Box, Typography, useTheme } from '@mui/material';
-import { DataGrid } from '@mui/x-data-grid';
-
-import '../../assets/admindb.css';
-import Header from '../../components/adminDashboard/Header';
-import { mockDataTeam } from '../../data/mockData';
-import { tokens } from '../../theme';
+import { Box, Typography, useTheme } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
+import { tokens } from "../../theme";
+import { mockDataTeam } from "../../data/mockData";
+import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
+import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
+import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
+import Header from "../../components/adminDashboard/Header";
+import "../../assets/admindb.css"
 
 const Team = () => {
   const theme = useTheme();
   const colors = tokens;
   const columns = [
-    { field: 'id', headerName: 'ID' },
+    { field: "id", headerName: "ID" },
     {
-      cellClassName: 'name-column--cell',
-      field: 'name',
+      field: "name",
+      headerName: "Name",
       flex: 1,
-      headerName: 'Name',
+      cellClassName: "name-column--cell",
     },
     {
-      align: 'left',
-      field: 'age',
-      headerAlign: 'left',
-      headerName: 'Age',
-      type: 'number',
+      field: "age",
+      headerName: "Age",
+      type: "number",
+      headerAlign: "left",
+      align: "left",
     },
     {
-      field: 'phone',
+      field: "phone",
+      headerName: "Phone Number",
       flex: 1,
-      headerName: 'Phone Number',
     },
     {
-      field: 'email',
+      field: "email",
+      headerName: "Email",
       flex: 1,
-      headerName: 'Email',
     },
     {
-      field: 'accessLevel',
+      field: "accessLevel",
+      headerName: "Access Level",
       flex: 1,
-      headerName: 'Access Level',
       renderCell: ({ row: { access } }) => {
         return (
           <Box
+            width="60%"
+            m="0 auto"
+            p="5px"
+            display="flex"
+            justifyContent="center"
             backgroundColor={
-              access === 'admin'
+              access === "admin"
                 ? colors.greenAccent[600]
-                : access === 'manager'
+                : access === "manager"
                 ? colors.greenAccent[700]
                 : colors.greenAccent[700]
             }
             borderRadius="4px"
-            display="flex"
-            justifyContent="center"
-            m="0 auto"
-            p="5px"
-            width="60%"
           >
-            {access === 'admin' && <AdminPanelSettingsOutlinedIcon />}
-            {access === 'manager' && <SecurityOutlinedIcon />}
-            {access === 'user' && <LockOpenOutlinedIcon />}
-            <Typography color={colors.grey[100]} sx={{ ml: '5px' }}>
+            {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
+            {access === "manager" && <SecurityOutlinedIcon />}
+            {access === "user" && <LockOpenOutlinedIcon />}
+            <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
               {access}
             </Typography>
           </Box>
@@ -72,37 +71,37 @@ const Team = () => {
 
   return (
     <Box m="20px">
-      <Header subtitle="Managing the Team Members" title="TEAM" />
+      <Header title="TEAM" subtitle="Managing the Team Members" />
       <Box
+        m="40px 0 0 0"
+        height="75vh"
         sx={{
-          '& .MuiCheckbox-root': {
-            color: `${colors.greenAccent[200]} !important`,
+          "& .MuiDataGrid-root": {
+            border: "none",
           },
-          '& .MuiDataGrid-cell': {
-            borderBottom: 'none',
+          "& .MuiDataGrid-cell": {
+            borderBottom: "none",
           },
-          '& .MuiDataGrid-columnHeaders': {
-            backgroundColor: colors.brownAccent[400],
-            borderBottom: 'none',
-          },
-          '& .MuiDataGrid-footerContainer': {
-            backgroundColor: colors.brownAccent[400],
-            borderTop: 'none',
-          },
-          '& .MuiDataGrid-root': {
-            border: 'none',
-          },
-          '& .MuiDataGrid-virtualScroller': {
-            backgroundColor: colors.primary[400],
-          },
-          '& .name-column--cell': {
+          "& .name-column--cell": {
             color: colors.greenAccent[300],
           },
+          "& .MuiDataGrid-columnHeaders": {
+            backgroundColor: colors.brownAccent[400],
+            borderBottom: "none",
+          },
+          "& .MuiDataGrid-virtualScroller": {
+            backgroundColor: colors.primary[400],
+          },
+          "& .MuiDataGrid-footerContainer": {
+            borderTop: "none",
+            backgroundColor: colors.brownAccent[400],
+          },
+          "& .MuiCheckbox-root": {
+            color: `${colors.greenAccent[200]} !important`,
+          },
         }}
-        height="75vh"
-        m="40px 0 0 0"
       >
-        <DataGrid checkboxSelection columns={columns} rows={mockDataTeam} />
+        <DataGrid checkboxSelection rows={mockDataTeam} columns={columns} />
       </Box>
     </Box>
   );
