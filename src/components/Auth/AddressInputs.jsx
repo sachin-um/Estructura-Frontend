@@ -7,6 +7,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { ErrorMessage} from "formik";
 
 const districts = [
   "Ampara",
@@ -87,7 +88,19 @@ function AddressInputs(props) {
             </MenuItem>
           ))}
         </Select>
-        <span>{errors.district}</span>
+        <ErrorMessage 
+          name="district"
+        >
+          {msg => <span
+              style={{
+              color:"#d32f2f",
+              fontSize: "0.75rem",
+              marginLeft:"14px"
+          }}
+          >
+              {msg}
+          </span>}
+        </ErrorMessage>
       </FormControl>
     </>
   );
