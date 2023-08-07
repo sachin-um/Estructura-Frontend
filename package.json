@@ -22,10 +22,12 @@
     "@nivo/geo": "^0.83.0",
     "@nivo/line": "^0.83.0",
     "@nivo/pie": "^0.83.0",
+    "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
     "axios": "^1.4.0",
+    "date-fns": "^2.30.0",
     "formik": "^2.4.2",
     "hero-slider": "^3.2.0",
     "jwt-decode": "^3.1.2",
@@ -35,6 +37,7 @@
     "react-icons": "^4.10.1",
     "react-material-ui-carousel": "^3.4.2",
     "react-multi-select-component": "^4.3.4",
+    "react-redux": "^8.1.1",
     "react-router-dom": "^6.14.1",
     "styled-components": "^6.0.4",
     "web-vitals": "^3.4.0",
@@ -46,7 +49,11 @@
     "serve": "vite preview",
     "test": "jest --testPathIgnorePatterns=\".*\\.local\\..*\"",
     "testExMail": "jest --testPathIgnorePatterns=\".*Mail.*\"",
-    "testAll": "jest"
+    "testAll": "jest",
+    "lint": "eslint src/ --fix-dry-run --color --ext .ts,.tsx",
+    "lintfr": "eslint src/ --fix --ext .ts,.tsx",
+    "lintall": "eslint src/ --fix-dry-run --color --ext .ts,.tsx,.js,.jsx",
+    "lintallfr": "eslint src/ --fix --ext .ts,.tsx,.js,.jsx"
   },
   "eslintConfig": {
     "extends": [
@@ -67,11 +74,24 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.22.9",
+    "@babel/eslint-parser": "^7.22.9",
+    "@types/react": "^18.2.17",
+    "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^4.0.3",
+    "eslint": "^8.45.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-perfectionist": "^1.5.1",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-react": "^7.33.0",
     "jest": "^29.6.1",
     "jest-environment-jsdom": "^29.6.1",
     "jest-localstorage-mock": "^2.4.26",
     "mailslurp-client": "^15.17.2",
+    "prettier": "^3.0.0",
+    "typescript": "^5.1.6",
     "vite": "^4.4.4",
     "vite-plugin-svgr": "^3.2.0"
   }

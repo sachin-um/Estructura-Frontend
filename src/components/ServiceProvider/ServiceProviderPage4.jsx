@@ -1,23 +1,14 @@
-import React, { useState } from "react";
-import { MultiSelect } from "react-multi-select-component";
 import {
   Box,
   Button,
   Container,
-  Grid,
-  Stack,
-  Link,
-  TextField,
-  FormGroup,
-  FormControlLabel,
   FormControl,
-  Select,
-  MenuItem,
-  InputLabel,
+  Grid,
   Typography,
 } from "@mui/material";
 import { Form, Formik } from "formik";
 import { useRef } from "react";
+
 // import { Link } from "react-router-dom" ;
 
 const options = [
@@ -51,9 +42,12 @@ const options = [
 function ServiceProviderPage4({
   formData,
   updateFormData,
+
   nextPage,
-  previousPage,
+
   pageImage,
+  previousPage,
+  updateFormData,
 }) {
   const [selected, setSelected] = useState([]);
   const formRef=useRef(null);
@@ -63,99 +57,104 @@ function ServiceProviderPage4({
   return (
     <>
       <Container
-        maxWidth={false}
         style={{
-          backgroundColor: "#f7f8f1",
-          display: "flex",
-          alignItems: "center",
+          alignItems: 'center',
+          backgroundColor: '#f7f8f1',
+          display: 'flex',
         }}
+        maxWidth={false}
       >
-        <Grid style={{minHeight:'80vh'}}container justifyContent="center" spacing={4}> 
+        <Grid
+          container
+          justifyContent="center"
+          spacing={4}
+          style={{ minHeight: '80vh' }}
+        >
           <Grid
-            item
-            xs={12}
-            md={7}
             style={{
-              paddingTop: "2rem",
-              paddingBottom: "2rem",
-              marginTop: "2rem",
+              marginTop: '2rem',
+              paddingBottom: '2rem',
+              paddingTop: '2rem',
             }}
+            item
+            md={7}
+            xs={12}
           >
             <Grid
-              container
               style={{
+                alignItems: 'flex-end',
                 backgroundImage: `url(${pageImage})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                borderRadius: "20px",
-                height: "100%",
-                display: "flex",
-                alignItems: "flex-end",
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+                borderRadius: '20px',
+                display: 'flex',
+                height: '100%',
               }}
+              container
             >
               <Grid
+                style={{
+                  marginBottom: '2rem',
+                  paddingLeft: '4rem',
+                  paddingRight: '1rem',
+                }}
                 item
                 xs={12}
-                style={{
-                  paddingLeft: "4rem",
-                  paddingRight: "1rem",
-                  marginBottom: "2rem",
-                }}
               >
                 <Typography
-                  variant="h4"
                   style={{
-                    color: "#ffffff",
-                    fontSize: "1.5rem",
-                    textAlign: "left",
-                    lineHeight: "1",
-                    paddingBottom: "1rem",
-                    marginTop: "auto",
+                    color: '#ffffff',
+                    fontSize: '1.5rem',
+                    lineHeight: '1',
+                    marginTop: 'auto',
+                    paddingBottom: '1rem',
+                    textAlign: 'left',
                   }}
+                  variant="h4"
                 >
                   Unleash your home’s potential
                 </Typography>
                 <Typography
-                  variant="h4"
                   style={{
-                    color: "#ffffff",
-                    fontSize: "1.5rem",
-                    textAlign: "left",
-                    lineHeight: "1",
+                    color: '#ffffff',
+                    fontSize: '1.5rem',
+                    lineHeight: '1',
+                    textAlign: 'left',
                   }}
+                  variant="h4"
                 >
                   with everything at your fingertips
                 </Typography>
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} md={5}>
+          <Grid item md={5} xs={12}>
             <Grid
-              container
               style={{
-                backgroundColor: "#ffffff",
-                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-                borderRadius: "20px",
-                padding: "1rem 2rem 3rem",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                marginTop: "2rem",
-                marginBottom: "2rem",
-                minHeight:'80vh'
+                alignItems: 'center',
+                backgroundColor: '#ffffff',
+                borderRadius: '20px',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                marginBottom: '2rem',
+                marginTop: '2rem',
+                minHeight: '80vh',
+                padding: '1rem 2rem 3rem',
               }}
+              container
             >
               <Grid
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  marginBottom: '1.5rem',
+                }}
                 item
                 xs={12}
-                style={{
-                  marginBottom: "1.5rem",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
               >
-                <img src="/Logo.png" alt="Logo" style={{ width: "40%" }} />
+                <img alt="Logo" src="/Logo.png" style={{ width: '40%' }} />
               </Grid>
               <Grid item xs={12} style={{ marginTop: "1rem" }}>
               <Formik

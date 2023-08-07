@@ -1,8 +1,8 @@
-import { Box, useTheme } from "@mui/material";
-import { tokens } from "../../theme";
+import { Box } from '@mui/material';
 
-const ProgressCircle = ({ progress = "0.75", size = "40" }) => {
-  const theme = useTheme();
+import { tokens } from '../../theme';
+
+const ProgressCircle = ({ progress = '0.75', size = '40' }) => {
   const colors = tokens;
   const angle = progress * 360;
   return (
@@ -11,9 +11,9 @@ const ProgressCircle = ({ progress = "0.75", size = "40" }) => {
         background: `radial-gradient(${colors.primary[400]} 55%, transparent 56%),
             conic-gradient(transparent 0deg ${angle}deg, ${colors.brownAccent[400]} ${angle}deg 360deg),
             ${colors.greenAccent[400]}`,
-        borderRadius: "50%",
-        width: `${size}px`,
+        borderRadius: '50%',
         height: `${size}px`,
+        width: `${size}px`,
       }}
     />
   );

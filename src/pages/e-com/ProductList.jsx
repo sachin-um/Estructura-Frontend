@@ -58,7 +58,7 @@ const SortSelect = styled(Select)`
 
 const Option = styled(MenuItem)`
   &.Mui-selected {
-    color: grey; 
+    color: grey;
   }
 `;
 

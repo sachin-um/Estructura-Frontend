@@ -1,14 +1,65 @@
-import { ResponsivePie } from "@nivo/pie";
-import { tokens } from "../../theme";
-import { useTheme } from "@mui/material";
-import { mockPieData as data } from "../../data/mockData";
+import { ResponsivePie } from '@nivo/pie';
+
+import { mockPieData as data } from '../../data/mockData';
+import { tokens } from '../../theme';
 
 const PieChart = () => {
-  const theme = useTheme();
   const colors = tokens;
   return (
     <ResponsivePie
-      data={data}
+      arcLabelsTextColor={{
+        from: 'color',
+        modifiers: [['darker', 2]],
+      }}
+      borderColor={{
+        from: 'color',
+        modifiers: [['darker', 0.2]],
+      }}
+      defs={[
+        {
+          background: 'inherit',
+          color: 'rgba(255, 255, 255, 0.3)',
+          id: 'dots',
+          padding: 1,
+          size: 4,
+          stagger: true,
+          type: 'patternDots',
+        },
+        {
+          background: 'inherit',
+          color: 'rgba(255, 255, 255, 0.3)',
+          id: 'lines',
+          lineWidth: 6,
+          rotation: -45,
+          spacing: 10,
+          type: 'patternLines',
+        },
+      ]}
+      legends={[
+        {
+          anchor: 'bottom',
+          direction: 'row',
+          effects: [
+            {
+              on: 'hover',
+              style: {
+                itemTextColor: '#000',
+              },
+            },
+          ],
+          itemDirection: 'left-to-right',
+          itemHeight: 18,
+          itemOpacity: 1,
+          itemTextColor: '#999',
+          itemWidth: 100,
+          itemsSpacing: 0,
+          justify: false,
+          symbolShape: 'circle',
+          symbolSize: 18,
+          translateX: 0,
+          translateY: 56,
+        },
+      ]}
       theme={{
         axis: {
           domain: {
@@ -37,71 +88,19 @@ const PieChart = () => {
           },
         },
       }}
-      margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
-      innerRadius={0.5}
-      padAngle={0.7}
-      cornerRadius={3}
       activeOuterRadiusOffset={8}
-      borderColor={{
-        from: "color",
-        modifiers: [["darker", 0.2]],
-      }}
+      arcLabelsRadiusOffset={0.4}
+      arcLabelsSkipAngle={7}
+      arcLinkLabelsColor={{ from: 'color' }}
       arcLinkLabelsSkipAngle={10}
       arcLinkLabelsTextColor={colors.grey[100]}
       arcLinkLabelsThickness={2}
-      arcLinkLabelsColor={{ from: "color" }}
+      cornerRadius={3}
+      data={data}
       enableArcLabels={false}
-      arcLabelsRadiusOffset={0.4}
-      arcLabelsSkipAngle={7}
-      arcLabelsTextColor={{
-        from: "color",
-        modifiers: [["darker", 2]],
-      }}
-      defs={[
-        {
-          id: "dots",
-          type: "patternDots",
-          background: "inherit",
-          color: "rgba(255, 255, 255, 0.3)",
-          size: 4,
-          padding: 1,
-          stagger: true,
-        },
-        {
-          id: "lines",
-          type: "patternLines",
-          background: "inherit",
-          color: "rgba(255, 255, 255, 0.3)",
-          rotation: -45,
-          lineWidth: 6,
-          spacing: 10,
-        },
-      ]}
-      legends={[
-        {
-          anchor: "bottom",
-          direction: "row",
-          justify: false,
-          translateX: 0,
-          translateY: 56,
-          itemsSpacing: 0,
-          itemWidth: 100,
-          itemHeight: 18,
-          itemTextColor: "#999",
-          itemDirection: "left-to-right",
-          itemOpacity: 1,
-          symbolSize: 18,
-          symbolShape: "circle",
-          effects: [
-            {
-              on: "hover",
-              style: {
-                itemTextColor: "#000",
-              },
-            },
-          ],
-        },
-      ]}
+      innerRadius={0.5}
+      margin={{ bottom: 80, left: 80, right: 80, top: 40 }}
+      padAngle={0.7}
     />
   );
 };

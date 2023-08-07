@@ -1,35 +1,36 @@
-import { Box, Typography, useTheme } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
-import { tokens } from "../../theme";
-import { mockDataInvoices } from "../../data/mockData";
-import Header from "../../components/adminDashboard/Header";
-import "../../assets/admindb.css"
+import { Box, Typography, useTheme } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
+
+import '../../assets/admindb.css';
+import Header from '../../components/adminDashboard/Header';
+import { mockDataInvoices } from '../../data/mockData';
+import { tokens } from '../../theme';
 
 const Invoices = () => {
   const theme = useTheme();
   const colors = tokens;
   const columns = [
-    { field: "id", headerName: "ID" },
+    { field: 'id', headerName: 'ID' },
     {
-      field: "name",
-      headerName: "Name",
+      cellClassName: 'name-column--cell',
+      field: 'name',
       flex: 1,
-      cellClassName: "name-column--cell",
+      headerName: 'Name',
     },
     {
-      field: "phone",
-      headerName: "Phone Number",
+      field: 'phone',
       flex: 1,
+      headerName: 'Phone Number',
     },
     {
-      field: "email",
-      headerName: "Email",
+      field: 'email',
       flex: 1,
+      headerName: 'Email',
     },
     {
-      field: "cost",
-      headerName: "Cost",
+      field: 'cost',
       flex: 1,
+      headerName: 'Cost',
       renderCell: (params) => (
         <Typography color={colors.greenAccent[500]}>
           ${params.row.cost}
@@ -37,45 +38,45 @@ const Invoices = () => {
       ),
     },
     {
-      field: "date",
-      headerName: "Date",
+      field: 'date',
       flex: 1,
+      headerName: 'Date',
     },
   ];
 
   return (
     <Box m="20px">
-      <Header title="INVOICES" subtitle="List of Invoice Balances" />
+      <Header subtitle="List of Invoice Balances" title="INVOICES" />
       <Box
-        m="40px 0 0 0"
-        height="75vh"
         sx={{
-          "& .MuiDataGrid-root": {
-            border: "none",
-          },
-          "& .MuiDataGrid-cell": {
-            borderBottom: "none",
-          },
-          "& .name-column--cell": {
-            color: colors.greenAccent[300],
-          },
-          "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
-            borderBottom: "none",
-          },
-          "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.primary[400],
-          },
-          "& .MuiDataGrid-footerContainer": {
-            borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
-          },
-          "& .MuiCheckbox-root": {
+          '& .MuiCheckbox-root': {
             color: `${colors.greenAccent[200]} !important`,
           },
+          '& .MuiDataGrid-cell': {
+            borderBottom: 'none',
+          },
+          '& .MuiDataGrid-columnHeaders': {
+            backgroundColor: colors.blueAccent[700],
+            borderBottom: 'none',
+          },
+          '& .MuiDataGrid-footerContainer': {
+            backgroundColor: colors.blueAccent[700],
+            borderTop: 'none',
+          },
+          '& .MuiDataGrid-root': {
+            border: 'none',
+          },
+          '& .MuiDataGrid-virtualScroller': {
+            backgroundColor: colors.primary[400],
+          },
+          '& .name-column--cell': {
+            color: colors.greenAccent[300],
+          },
         }}
+        height="75vh"
+        m="40px 0 0 0"
       >
-        <DataGrid checkboxSelection rows={mockDataInvoices} columns={columns} />
+        <DataGrid checkboxSelection columns={columns} rows={mockDataInvoices} />
       </Box>
     </Box>
   );

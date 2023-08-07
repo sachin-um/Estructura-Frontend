@@ -5,9 +5,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import ImageIcon from '@mui/icons-material/Image';
 import AddIcon from '@mui/icons-material/Add';
-import AttachFileIcon from "@mui/icons-material/AttachFile";
-import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
-import Divider from "@mui/material/Divider";
+import AttachFileIcon from '@mui/icons-material/AttachFile';
+import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
+import Divider from '@mui/material/Divider';
 import {
   Box,
   Button,
@@ -27,7 +27,7 @@ import {
   Select,
   Snackbar,
   Alert,
-} from "@mui/material";
+} from '@mui/material';
 
 function AddNewProject() {
   const [mainImage, setMainImage] = useState(null);
@@ -72,11 +72,11 @@ function AddNewProject() {
       <Container
         maxWidth={false}
         style={{
-          backgroundColor: "#f7f8f1",
-          minHeight: "100vh",
-          display: "flex",
-          alignItems: "center",
-          margin: "2",
+          backgroundColor: '#f7f8f1',
+          minHeight: '100vh',
+          display: 'flex',
+          alignItems: 'center',
+          margin: '2',
         }}
       >
         <Grid container justifyContent="center" spacing={4}>
@@ -85,19 +85,19 @@ function AddNewProject() {
             xs={12}
             md={6}
             style={{
-              paddingTop: "2rem",
-              paddingBottom: "2rem",
-              marginTop: "2rem",
+              paddingTop: '2rem',
+              paddingBottom: '2rem',
+              marginTop: '2rem',
             }}
           >
             <Typography
               variant="h4"
               style={{
-                fontSize: "1.5rem",
-                textAlign: "left",
-                lineHeight: "1",
-                marginBottom: "5px",
-                fontWeight: "bold",
+                fontSize: '1.5rem',
+                textAlign: 'left',
+                lineHeight: '1',
+                marginBottom: '5px',
+                fontWeight: 'bold',
               }}
             >
               Add Project
@@ -105,36 +105,36 @@ function AddNewProject() {
             <Divider />
             <Typography
               style={{
-                textAlign: "left",
-                marginTop: "5px",
-                marginBottom: "2px",
+                textAlign: 'left',
+                marginTop: '5px',
+                marginBottom: '2px',
               }}
             >
               Add images related to your project
             </Typography>
             {mainImage ? (
               <Box
-                style={{ borderRadius: "5px", backgroundColor: "#F9F6EE" }}
+                style={{ borderRadius: '5px', backgroundColor: '#F9F6EE' }}
                 position="relative"
                 height="300px"
                 width="100%"
                 marginTop="20px"
-                sx={{ borderStyle: "dashed", borderColor: "grey" }}
+                sx={{ borderStyle: 'dashed', borderColor: 'grey' }}
               >
                 <img
                   src={mainImage}
-                  style={{ width: "100%", height: "300px" }}
+                  style={{ width: '100%', height: '300px' }}
                   alt={mainImageName}
                 />
                 <IconButton
                   size="small"
                   onClick={() => removeMainImage()}
                   style={{
-                    position: "absolute",
+                    position: 'absolute',
                     top: 5,
                     right: 5,
-                    backgroundColor: "white",
-                    color: "red",
+                    backgroundColor: 'white',
+                    color: 'red',
                   }}
                 >
                   <Tooltip title="Remove Image">
@@ -144,21 +144,21 @@ function AddNewProject() {
               </Box>
             ) : (
               <Box
-                style={{ borderRadius: "5px", backgroundColor: "#F9F6EE" }}
+                style={{ borderRadius: '5px', backgroundColor: '#F9F6EE' }}
                 position="relative"
                 height="300px"
                 width="100%"
                 marginTop="20px"
-                sx={{ borderStyle: "dashed", borderColor: "grey" }}
+                sx={{ borderStyle: 'dashed', borderColor: 'grey' }}
                 onClick={() =>
-                  document.querySelector(".input-main-img").click()
+                  document.querySelector('.input-main-img').click()
                 }
               >
                 <Grid
                   style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    marginTop: "100px",
+                    display: 'flex',
+                    justifyContent: 'center',
+                    marginTop: '100px',
                   }}
                 >
                   <AddPhotoAlternateIcon />
@@ -177,75 +177,73 @@ function AddNewProject() {
                 </Grid>
                 <Typography
                   style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    marginTop: "10px",
+                    display: 'flex',
+                    justifyContent: 'center',
+                    marginTop: '10px',
                   }}
                 >
                   Main Image
                 </Typography>
               </Box>
             )}
-            <Divider sx={
-              {marginTop:"10px"}
-            }/>
+            <Divider sx={{ marginTop: '10px' }} />
             <Grid
-                style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginTop: "10px",
-                  }}
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                marginTop: '10px',
+              }}
             >
               <Typography
                 style={{
-                  textAlign: "left",
-                  marginTop: "10px",
-                  marginBottom: "2px",
+                  textAlign: 'left',
+                  marginTop: '10px',
+                  marginBottom: '2px',
                 }}
               >
                 Add Extra Images related to your project
               </Typography>
               <Grid>
-              <Button
-                style={{
-                  backgroundColor:"transparent",
-                  border: "2px solid #435834",
-                  color:"#435834"
-                }}
-                variant="contained"
-                fullWidth
-                onClick={() => document.querySelector(".input-field").click()}
-              >
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="input-field"
-                  hidden
-                  multiple
-                  onChange={({ target: { files } }) => {
-                    if (files && files.length > 0) {
-                      const fileArray = Array.from(files).slice(0, 3);
-                      const fileNames = fileArray.map((file) => file.name);
-                      setFileNames(fileNames);
-                      const imageUrls = fileArray.map((file) =>
-                        URL.createObjectURL(file)
-                      );
-                      setImages(imageUrls);
-                    }
-                  }}
-                />
-                <AddIcon/>
-                <Typography
+                <Button
                   style={{
-                    textAlign: "left",
+                    backgroundColor: 'transparent',
+                    border: '2px solid #435834',
+                    color: '#435834',
                   }}
+                  variant="contained"
+                  fullWidth
+                  onClick={() => document.querySelector('.input-field').click()}
                 >
-                  Select
-                </Typography>
-              </Button>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="input-field"
+                    hidden
+                    multiple
+                    onChange={({ target: { files } }) => {
+                      if (files && files.length > 0) {
+                        const fileArray = Array.from(files).slice(0, 3);
+                        const fileNames = fileArray.map((file) => file.name);
+                        setFileNames(fileNames);
+                        const imageUrls = fileArray.map((file) =>
+                          URL.createObjectURL(file),
+                        );
+                        setImages(imageUrls);
+                      }
+                    }}
+                  />
+                  <AddIcon />
+                  <Typography
+                    style={{
+                      textAlign: 'left',
+                    }}
+                  >
+                    Select
+                  </Typography>
+                </Button>
+              </Grid>
             </Grid>
-            </Grid>
-            
+
             <Grid container spacing={2}>
               {images.length > 0 &&
                 images.map((imageUrl, index) => (
@@ -255,22 +253,22 @@ function AddNewProject() {
                       height="150px"
                       width="100%"
                       marginTop="30px"
-                      sx={{ borderStyle: "dashed", borderColor: "grey" }}
+                      sx={{ borderStyle: 'dashed', borderColor: 'grey' }}
                     >
                       <img
                         src={imageUrl}
-                        style={{ width: "100%", height: "150px" }}
+                        style={{ width: '100%', height: '150px' }}
                         alt={fileNames[index]}
                       />
                       <IconButton
                         size="small"
                         onClick={() => removeImage(index)}
                         style={{
-                          position: "absolute",
+                          position: 'absolute',
                           top: 5,
                           right: 5,
-                          backgroundColor: "white",
-                          color: "red",
+                          backgroundColor: 'white',
+                          color: 'red',
                         }}
                       >
                         <Tooltip title="Remove Image">
@@ -287,23 +285,23 @@ function AddNewProject() {
                     height="150px"
                     width="100%"
                     marginTop="30px"
-                    sx={{ borderStyle: "dashed", backgroundColor: "#F9F6EE" }}
+                    sx={{ borderStyle: 'dashed', backgroundColor: '#F9F6EE' }}
                   >
                     <Grid
                       style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        marginTop: "50px",
+                        display: 'flex',
+                        justifyContent: 'center',
+                        marginTop: '50px',
                       }}
                     >
                       <ImageIcon />
                     </Grid>
                     <Grid
                       style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        marginTop: "10px",
-                        backgroundColor: "#F9F6EE",
+                        display: 'flex',
+                        justifyContent: 'center',
+                        marginTop: '10px',
+                        backgroundColor: '#F9F6EE',
                       }}
                     >
                       <p>Optional Images</p>
@@ -312,92 +310,89 @@ function AddNewProject() {
                 </Grid>
               ))}
             </Grid>
-            
-            
-            <Divider sx={
-              {marginTop:"10px"}
-            }/>
+
+            <Divider sx={{ marginTop: '10px' }} />
             <Grid
-                style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginTop: "10px",
-                  }}
-            >
-              <Typography
               style={{
-                textAlign: "left",
-                marginTop: "10px",
-                marginBottom: "2px",
+                display: 'flex',
+                justifyContent: 'space-between',
+                marginTop: '10px',
               }}
             >
-              Add documents related to your project
-            </Typography>
-              <Grid>
-              <Button
+              <Typography
                 style={{
-                  backgroundColor:"transparent",
-                  border: "2px solid #435834",
-                  color:"#435834"
+                  textAlign: 'left',
+                  marginTop: '10px',
+                  marginBottom: '2px',
                 }}
-                variant="contained"
-                fullWidth
-                onClick={() => document.querySelector(".input-field").click()}
               >
-                <input
-                  type="file"
-                  accept=".pdf,.doc,.docx,.pptx,.xls,.xlsx"
-                  className="input-field-doc"
-                  hidden
-                  multiple
-                  onChange={({ target: { files } }) => {
-                    if (files && files.length > 0) {
-                      const fileArray = Array.from(files).slice(0, 3);
-                      const fileNames = fileArray.map((file) => file.name);
-                      setDocNames(fileNames);
-                      const docUrls = fileArray.map((file) =>
-                        URL.createObjectURL(file)
-                      );
-                      setDoc(docUrls);
-                    }
-                  }}
-                />
-                <AddIcon/>
-                <Typography
+                Add documents related to your project
+              </Typography>
+              <Grid>
+                <Button
                   style={{
-                    textAlign: "left",
+                    backgroundColor: 'transparent',
+                    border: '2px solid #435834',
+                    color: '#435834',
                   }}
+                  variant="contained"
+                  fullWidth
+                  onClick={() => document.querySelector('.input-field').click()}
                 >
-                  Select
-                </Typography>
-              </Button>
-            </Grid>
+                  <input
+                    type="file"
+                    accept=".pdf,.doc,.docx,.pptx,.xls,.xlsx"
+                    className="input-field-doc"
+                    hidden
+                    multiple
+                    onChange={({ target: { files } }) => {
+                      if (files && files.length > 0) {
+                        const fileArray = Array.from(files).slice(0, 3);
+                        const fileNames = fileArray.map((file) => file.name);
+                        setDocNames(fileNames);
+                        const docUrls = fileArray.map((file) =>
+                          URL.createObjectURL(file),
+                        );
+                        setDoc(docUrls);
+                      }
+                    }}
+                  />
+                  <AddIcon />
+                  <Typography
+                    style={{
+                      textAlign: 'left',
+                    }}
+                  >
+                    Select
+                  </Typography>
+                </Button>
+              </Grid>
             </Grid>
             <Grid container spacing={2}>
               {docNames.length > 0 &&
                 docNames.map((fileName, index) => (
                   <Grid item xs={4} key={index}>
                     <Box
-                      display={"flex"}
+                      display={'flex'}
                       position="relative"
                       height="50px"
                       width="100%"
                       marginTop="30px"
-                      sx={{ borderStyle: "dashed", borderColor: "grey" }}
+                      sx={{ borderStyle: 'dashed', borderColor: 'grey' }}
                     >
                       <InsertDriveFileIcon
                         style={{
-                          marginTop: "10px",
-                          marginLeft: "10px",
+                          marginTop: '10px',
+                          marginLeft: '10px',
                         }}
                       />
 
                       <Typography
                         style={{
-                          justifyContent: "center",
-                          marginLeft: "20px",
-                          marginTop: "10px",
-                          backgroundColor: "#F9F6EE",
+                          justifyContent: 'center',
+                          marginLeft: '20px',
+                          marginTop: '10px',
+                          backgroundColor: '#F9F6EE',
                         }}
                       >
                         {fileName}
@@ -406,11 +401,11 @@ function AddNewProject() {
                         size="small"
                         onClick={() => removeDoc(index)}
                         style={{
-                          position: "absolute",
+                          position: 'absolute',
                           top: 5,
                           right: 5,
-                          backgroundColor: "white",
-                          color: "red",
+                          backgroundColor: 'white',
+                          color: 'red',
                         }}
                       >
                         <Tooltip title="Remove File">
@@ -423,28 +418,28 @@ function AddNewProject() {
               {docPlaceholders.map((index) => (
                 <Grid item xs={4} key={index}>
                   <Box
-                    style={{ display: "flex", backgroundColor: "#F9F6EE"}}
+                    style={{ display: 'flex', backgroundColor: '#F9F6EE' }}
                     position="relative"
                     height="50px"
                     width="100%"
                     marginTop="30px"
-                    sx={{ borderStyle: "dashed", borderColor: "grey" }}
+                    sx={{ borderStyle: 'dashed', borderColor: 'grey' }}
                   >
                     <AttachFileIcon
                       style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        marginTop: "10px",
-                        marginLeft: "10px",
+                        display: 'flex',
+                        justifyContent: 'center',
+                        marginTop: '10px',
+                        marginLeft: '10px',
                       }}
                     />
 
                     <Typography
                       style={{
-                        justifyContent: "center",
-                        marginLeft: "20px",
-                        marginTop: "10px",
-                        backgroundColor: "#F9F6EE",
+                        justifyContent: 'center',
+                        marginLeft: '20px',
+                        marginTop: '10px',
+                        backgroundColor: '#F9F6EE',
                       }}
                     >
                       Documents
@@ -459,35 +454,35 @@ function AddNewProject() {
             xs={12}
             md={6}
             style={{
-              paddingTop: "2rem",
-              paddingBottom: "2rem",
-              marginTop: "2rem",
-              display: "flex",
-              justifyContent: "center",
+              paddingTop: '2rem',
+              paddingBottom: '2rem',
+              marginTop: '2rem',
+              display: 'flex',
+              justifyContent: 'center',
             }}
           >
             <form
               style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "1.5rem",
-                width: "80%",
-                maxWidth: "800px",
-                marginTop: "30px",
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1.5rem',
+                width: '80%',
+                maxWidth: '800px',
+                marginTop: '30px',
               }}
             >
               <Divider />
               <TextField
-                sx={{ width: "1", borderRadius: 2, margin: 1 }}
+                sx={{ width: '1', borderRadius: 2, margin: 1 }}
                 label="Project Title"
                 type="title"
                 fullWidth
                 variant="filled"
                 color="secondary"
               />
-              <Grid style={{ justifyContent: "center" }}>
+              <Grid style={{ justifyContent: 'center' }}>
                 <TextField
-                  sx={{ width: "1", borderRadius: 2, margin: 1 }}
+                  sx={{ width: '1', borderRadius: 2, margin: 1 }}
                   label="Project Description"
                   id="filled-multiline-static"
                   multiline
@@ -496,7 +491,7 @@ function AddNewProject() {
                 />
               </Grid>
               <TextField
-                sx={{ width: "1", borderRadius: 2, margin: 1 }}
+                sx={{ width: '1', borderRadius: 2, margin: 1 }}
                 label="Project Budget"
                 type="Budget"
                 fullWidth
@@ -504,37 +499,34 @@ function AddNewProject() {
                 color="secondary"
               />
               <TextField
-                sx={{ width: "1", borderRadius: 2, margin: 1 }}
+                sx={{ width: '1', borderRadius: 2, margin: 1 }}
                 label="Location"
                 type="Location"
                 fullWidth
                 variant="filled"
                 color="secondary"
               />
-              <Grid sx={{ width: "1", borderRadius: 2, margin: 1 }}>
+              <Grid sx={{ width: '1', borderRadius: 2, margin: 1 }}>
                 <Typography textAlign="center">
                   Did you connect with this client through our platform
                   Estructura?
                 </Typography>
 
-                <RadioGroup row sx={{ justifyContent: "center" }}>
+                <RadioGroup row sx={{ justifyContent: 'center' }}>
                   <FormControlLabel
                     value="yes"
                     control={<Radio />}
                     label="Yes"
                   />
-                  <FormControlLabel 
-                  value="no"
-                   control={<Radio />} 
-                   label="No" />
+                  <FormControlLabel value="no" control={<Radio />} label="No" />
                 </RadioGroup>
               </Grid>
 
               <Divider />
               <Grid
                 style={{
-                  display: "flex",
-                  justifyContent: "center",
+                  display: 'flex',
+                  justifyContent: 'center',
                   margin: 1,
                 }}
               >

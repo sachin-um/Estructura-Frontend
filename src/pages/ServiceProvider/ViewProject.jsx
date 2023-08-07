@@ -15,7 +15,9 @@ function ViewProject() {
         style={{
           backgroundColor: "#f7f8f1",
           minHeight: "100vh",
+
         }}
+        maxWidth={false}
       >
         <Grid
           style={{
@@ -111,6 +113,8 @@ function ViewProject() {
               width: "100%",
               marginTop: "20px",
             }}
+            alt="main"
+            src="cover.jpg"
           />
           <Typography
             variant="h3"
