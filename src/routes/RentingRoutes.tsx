@@ -4,7 +4,7 @@ import AllRenters from '../pages/renter/AllRenters';
 
 const RentingItemRoutes: RouteObject[] = [
   {
-    path: '/rentingItems',
+    path: '/renting',
     element: <AllRenters />,
   },
   //   {

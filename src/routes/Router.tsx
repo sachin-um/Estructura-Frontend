@@ -5,6 +5,7 @@ import AdminRoutes from './AdminRoutes';
 import AuthRoutes from './AuthRoutes';
 import BlogRoutes from './BlogRoutes';
 import RentingItemRoutes from './RentingRoutes';
+import ShopRoutes from './ShopRoutes';
 
 export const altRouter = createBrowserRouter([
   {
@@ -15,6 +16,7 @@ export const altRouter = createBrowserRouter([
   ...AdminRoutes,
   ...BlogRoutes,
   ...RentingItemRoutes,
+  ...ShopRoutes,
 ]);
 
 export default altRouter;

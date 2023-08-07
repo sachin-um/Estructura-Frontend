@@ -1,33 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import { useEffect, useState } from 'react';
 import TopBar from '../../components/TopBar';
-import Sidebar from '../../components/renter/sideBar';
-import RentingCards from '../../components/renter/rentingCards';
 import Carousel from '../../components/blog/carousel';
-import {allRentersData} from '../../data/renting';
-
-const blogcards = [
-  {
-    image: "https://images.pexels.com/photos/2068478/pexels-photo-2068478.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    title: "Heavy Machinery",
-  },
-  {
-    image: "https://images.pexels.com/photos/17159887/pexels-photo-17159887/free-photo-of-construction-machine-behind-fence.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    title: "Portable Machines",
-  },
-  {
-    image: "https://images.pexels.com/photos/162553/keys-workshop-mechanic-tools-162553.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    title: "Equipment",
-  },
-  {
-    image: "https://images.pexels.com/photos/266125/pexels-photo-266125.jpeg?auto=compress&cs=tinysrgb&w=600",
-    title: "Power Tools",
-  },
-  {
-    image: "https://images.pexels.com/photos/1078884/pexels-photo-1078884.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    title: "Construction Site Vehicles",
-  },
-];
-
+import RentingCards from '../../components/renter/rentingCards';
+import RentingSidebar from '../../components/renter/RentingSideBar';
+import { allRentersData } from '../../data/renting';
 
 const AllRenters = () => {
   const [selectedTab, setSelectedTab] = useState("Heavy Machinery");
@@ -87,7 +63,7 @@ const AllRenters = () => {
     filterDataByLocation();
   }, [locationOption, selectedDistricts, TabedData]);
 
-  
+
   return (
     <>
       <TopBar />
@@ -144,7 +120,7 @@ const AllRenters = () => {
           display: 'flex',
         }}
       >
-        <Sidebar 
+        <RentingSidebar
           handleSortingOptionChange={handleSortingOptionChange}
           locationOption={locationOption}
           setLocationOption={setLocationOption}
@@ -168,3 +144,26 @@ const AllRenters = () => {
 };
 
 export default AllRenters;
+
+const blogcards = [
+  {
+    image: "https://images.pexels.com/photos/2068478/pexels-photo-2068478.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    title: "Heavy Machinery",
+  },
+  {
+    image: "https://images.pexels.com/photos/17159887/pexels-photo-17159887/free-photo-of-construction-machine-behind-fence.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    title: "Portable Machines",
+  },
+  {
+    image: "https://images.pexels.com/photos/162553/keys-workshop-mechanic-tools-162553.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    title: "Equipment",
+  },
+  {
+    image: "https://images.pexels.com/photos/266125/pexels-photo-266125.jpeg?auto=compress&cs=tinysrgb&w=600",
+    title: "Power Tools",
+  },
+  {
+    image: "https://images.pexels.com/photos/1078884/pexels-photo-1078884.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    title: "Construction Site Vehicles",
+  },
+];
