@@ -53,7 +53,9 @@ import AddressInputs,{addressInitialValues,addressValidators} from "../Auth/Addr
                       display: "flex",
                       flexDirection: "column",
                       gap: "30px",
-                      minHeight:'100vh'
+                      padding:"20px",
+                      maxHeight:'350px',
+                      overflowY: 'auto'
                     }}
                   >
                     <Formik
