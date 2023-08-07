@@ -33,7 +33,7 @@ const Footer = () => {
               sx={{
                 display: 'flex',
                 alignItems: 'center',
-                marginLeft: "1rem"
+                marginLeft: "13.5rem"
               }}
             >
               <RouterLink to="/">
@@ -41,7 +41,7 @@ const Footer = () => {
               </RouterLink>
             </Typography>
             <Typography variant="body2" color="textSecondary" sx={{
-              marginLeft: "2rem"
+              marginLeft: "14rem"
             }}>
               Estructura © {new Date().getFullYear()}
             </Typography>
@@ -93,7 +93,7 @@ const Footer = () => {
             </Typography>
           </Grid>
           <Grid item xs={12} sm={4} >
-            <Box sx={{color:"#304422",marginLeft:"12rem",  marginTop:"2rem",}}>
+            <Box sx={{color:"#304422",marginLeft:"7rem",  marginTop:"2rem",}}>
             <IconButton >
               <Mail /> 
             </IconButton>

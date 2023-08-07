@@ -5,44 +5,13 @@ import {
   FormControl,
   Grid,
   Typography,
-} from "@mui/material";
-import { Form, Formik } from "formik";
-import { useRef } from "react";
-
+} from '@mui/material';
+import React, { useState } from 'react';
+import { MultiSelect } from 'react-multi-select-component';
 // import { Link } from "react-router-dom" ;
-
-const options = [
-  { label: "Ampara", value: "ampara" },
-  { label: "Anuradhapura", value: "anuradhapura" },
-  { label: "Badulla", value: "badulla" },
-  { label: "Batticaloa", value: "batticaloa" },
-  { label: "Colombo", value: "colombo" },
-  { label: "Galle", value: "galle" },
-  { label: "Gampaha", value: "gampaha" },
-  { label: "Hambantota", value: "hambantota" },
-  { label: "Jaffna", value: "jaffna" },
-  { label: "Kalutara", value: "kalutara" },
-  { label: "Kandy", value: "kandy" },
-  { label: "Kegalle", value: "kegalle" },
-  { label: "Kilinochchi", value: "kilinochchi" },
-  { label: "Kurunegala", value: "kurunegala" },
-  { label: "Mannar", value: "mannar" },
-  { label: "Matale", value: "matale" },
-  { label: "Matara", value: "matara" },
-  { label: "Monaragala", value: "monaragala" },
-  { label: "Mullaitivu", value: "mullaitivu" },
-  { label: "Nuwara Eliya", value: "nuwaraeliya" },
-  { label: "Polonnaruwa", value: "polonnaruwa" },
-  { label: "Puttalam", value: "puttalam" },
-  { label: "Ratnapura", value: "ratnapura" },
-  { label: "Trincomalee", value: "trincomalee" },
-  { label: "Vavuniya", value: "vavuniya" },
-];
 
 function ServiceProviderPage4({
   formData,
-  updateFormData,
-
   nextPage,
 
   pageImage,
@@ -50,10 +19,46 @@ function ServiceProviderPage4({
   updateFormData,
 }) {
   const [selected, setSelected] = useState([]);
-  const formRef=useRef(null);
-  const initialValues={
-      serviceAreas:formData.serviceAreas ?? ["Islandwide"]
-  }
+  const options = [
+    { label: 'Ampara', value: 'ampara' },
+    { label: 'Anuradhapura', value: 'anuradhapura' },
+    { label: 'Badulla', value: 'badulla' },
+    { label: 'Batticaloa', value: 'batticaloa' },
+    { label: 'Colombo', value: 'colombo' },
+    { label: 'Galle', value: 'galle' },
+    { label: 'Gampaha', value: 'gampaha' },
+    { label: 'Hambantota', value: 'hambantota' },
+    { label: 'Jaffna', value: 'jaffna' },
+    { label: 'Kalutara', value: 'kalutara' },
+    { label: 'Kandy', value: 'kandy' },
+    { label: 'Kegalle', value: 'kegalle' },
+    { label: 'Kilinochchi', value: 'kilinochchi' },
+    { label: 'Kurunegala', value: 'kurunegala' },
+    { label: 'Mannar', value: 'mannar' },
+    { label: 'Matale', value: 'matale' },
+    { label: 'Matara', value: 'matara' },
+    { label: 'Monaragala', value: 'monaragala' },
+    { label: 'Mullaitivu', value: 'mullaitivu' },
+    { label: 'Nuwara Eliya', value: 'nuwaraeliya' },
+    { label: 'Polonnaruwa', value: 'polonnaruwa' },
+    { label: 'Puttalam', value: 'puttalam' },
+    { label: 'Ratnapura', value: 'ratnapura' },
+    { label: 'Trincomalee', value: 'trincomalee' },
+    { label: 'Vavuniya', value: 'vavuniya' },
+  ];
+  const HandleSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    console.log(formData.get('email'), formData.get('password'));
+  };
+
+  const handleNext = () => {
+    nextPage();
+  };
+  const handlePrevious = () => {
+    previousPage();
+  };
+  // TODO: Change Layout
   return (
     <>
       <Container
@@ -156,108 +161,95 @@ function ServiceProviderPage4({
               >
                 <img alt="Logo" src="/Logo.png" style={{ width: '40%' }} />
               </Grid>
-              <Grid item xs={12} style={{ marginTop: "1rem" }}>
-              <Formik
-                  innerRef={formRef}
-                  onSubmit={(values) => {
-                    //: HANDLE PAGE CHANGE HERE!!!
-                    updateFormData(values);
-                    nextPage();
+              <Grid item style={{ marginTop: '1rem' }} xs={12}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '20px',
+                    margin: '10px',
                   }}
-                  initialValues={initialValues}
-                  // validationSchema={validationSchema}
+                  component="form"
+                  onSubmit={HandleSubmit}
                 >
-                  {({
-                    values,
-                    errors,
-                    touched,
-                    setFieldValue,
-                    handleBlur,
-                    handleSubmit,
-                    isSubmitting,
-                  }) => {
-                    const spread = (field, helper = true) => {
-                      return {
-                        name: field,
-                        onBlur: handleBlur,
-                        value: values[field],
-                        error: touched[field] && !!errors[field],
-                        disabled: isSubmitting,
-                        ...(helper && {
-                          helperText: touched[field] && errors[field],
-                        }),
-                      };
-                    };
-                    return (
-                      <Form onSubmit={handleSubmit}>
-                      <Box
-                        sx={{
-                          margin: "10px",
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: "20px",
-                        }}
-                      >
-                          {
-                            <Grid style={{ justifyContent: "center" }}>
-                              <Typography textAlign="center">
-                                Where are you based?
-                              </Typography>
-                                <FormControl fullWidth variant='filled'>
-                                <MultiSelect {...spread("serviceAreas", false)}
-                                  displayEmpty={true} 
-                                  options={options}
-                                  value={selected}
-                                  onChange={(value)=>{
-                                    setSelected(value);
-                                    let valueArray=[];
-                                    if (value.length===25) {
-                                      valueArray=["Islandwide"]
-                                    }
-                                    else{
-                                      valueArray=value.map((option)=>option.value);
-                                    }
-                                    setFieldValue("serviceAreas",valueArray,false)
-                                    }}
-                                  labelledBy={"Select"}
-                                  isCreatable={false}
-                                  overrideStrings={{selectAll:"Islandwide",search:"Search districts..",selectSomeItems:"Select Districts"}}
-                                />
-                                </FormControl>
-                                <Grid
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    width: "100%",
-                                  }}
-                                >
-                                  <Button
-                                    sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
-                                    type='button'
-                                    color='primary'
-                                    variant='contained'
-                                    size='large'
-                                    onClick={previousPage}
-                                  >
-                                    Previous
-                                  </Button>
-                                  <Button
-                                    sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
-                                    type='submit'
-                                    color='primary'
-                                    variant='contained'
-                                    size='large'
-                                  >
-                                    Next
-                                  </Button>
-                                </Grid>
-                            </Grid>
-                          }
-                      </Box>
-                      </Form>
-                    );
-                  }}
-                </Formik>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '30px',
+                      margin: '10px',
+                    }}
+                    component="form"
+                    onSubmit={HandleSubmit}
+                  >
+                    {
+                      <Grid style={{ justifyContent: 'center' }}>
+                        <Typography textAlign="center">
+                          Where are you based?
+                        </Typography>
+                        <Grid
+                          style={{ justifyContent: 'center' }}
+                          sx={{ margin: 1, width: 1 }}
+                        >
+                          <FormControl
+                            sx={{
+                              border: 1,
+                              borderColor: 'primary',
+                              borderRadius: '5px',
+                              m: 1,
+                              maxWidth: 300,
+                              minWidth: 320,
+                            }}
+                          >
+                            <MultiSelect
+                              overrideStrings={{
+                                search: 'Search districts..',
+                                selectAll: 'Islandwide',
+                                selectSomeItems: 'Select Districts',
+                              }}
+                              isCreatable={false}
+                              labelledBy={'Select'}
+                              onChange={setSelected}
+                              options={options}
+                              value={selected}
+                            />
+                          </FormControl>
+                        </Grid>
+                      </Grid>
+                    }
+                  </Box>
+                </Box>
+
+                {
+                  <Grid
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      margin: 10,
+                    }}
+                  >
+                    <Button
+                      color="primary"
+                      onClick={handlePrevious}
+                      size="large"
+                      sx={{ borderRadius: 2, margin: 1, width: 1 / 2 }}
+                      type="submit"
+                      variant="contained"
+                    >
+                      Previous
+                    </Button>
+                    <Button
+                      color="primary"
+                      onClick={handleNext}
+                      size="large"
+                      sx={{ borderRadius: 2, margin: 1, width: 1 / 2 }}
+                      type="submit"
+                      variant="contained"
+                    >
+                      Next
+                    </Button>
+                  </Grid>
+                }
               </Grid>
             </Grid>
           </Grid>
