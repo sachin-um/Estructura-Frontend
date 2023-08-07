@@ -1,225 +1,147 @@
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import TopBar from "../../components/TopBar";
 import Footer from "../../components/Footer";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Divider from "@mui/material/Divider";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+
+import TopBar from '../../components/TopBar';
 
 function ViewProject() {
   return (
     <>
       <TopBar title="" />
       <Container
-        maxWidth={false}
         style={{
-          backgroundColor: "#f7f8f1",
-          minHeight: "100vh",
-
+          alignItems: 'center',
+          backgroundColor: '#f7f8f1',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          minHeight: '100vh',
+          padding: '1rem 3rem 3rem',
         }}
         maxWidth={false}
       >
-        <Grid
+        <Typography
           style={{
-            padding: "1rem 3rem 3rem",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
+            fontSize: '1.5rem',
+            lineHeight: '1',
+            textAlign: 'center',
           }}
+          variant="h4"
         >
-          <Typography
-            variant="h4"
+          Project Title
+        </Typography>
+
+        <Box height="350px" marginTop="40px" position="relative" width="100%">
+          <img
             style={{
-              fontSize: "1.5rem",
-              textAlign: "center",
-              lineHeight: "1",
-            }}
-          >
-            Project Title
-          </Typography>
-
-          <Box position="relative" height="350px" width="100%" marginTop="20px">
-            <img
-              src="cover.jpg"
-              alt="main image"
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-              }}
-            />
-          </Box>
-
-          <Grid container spacing={1}>
-            <Grid item xs={4}>
-              <Box
-                position="relative"
-                height="150px"
-                width="100%"
-                marginTop="30px"
-              >
-                <img
-                  src="formBg.jpg"
-                  alt="Banner"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                />
-              </Box>
-            </Grid>
-            <Grid item xs={4}>
-              <Box
-                position="relative"
-                height="150px"
-                width="100%"
-                marginTop="30px"
-              >
-                <img
-                  src="formBg.jpg"
-                  alt="Banner"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                />
-              </Box>
-            </Grid>
-
-            <Grid item xs={4}>
-              <Box
-                position="relative"
-                height="150px"
-                width="100%"
-                marginTop="30px"
-              >
-                <img
-                  src="formBg.jpg"
-                  alt="Banner"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                />
-              </Box>
-            </Grid>
-          </Grid>
-          <Divider
-            style={{
-              width: "100%",
-              marginTop: "20px",
+              height: '100%',
+              objectFit: 'cover',
+              width: '100%',
             }}
             alt="main"
             src="cover.jpg"
           />
-          <Typography
-            variant="h3"
-            style={{
-              fontSize: "1.2rem",
-              lineHeight: "1",
-              marginTop: "20px",
-            }}
-          >
-            Project Details
-          </Typography>
+        </Box>
 
-          <Divider />
-
-          <Grid container justifyContent="center" spacing={4}>
-            <Grid
-              item
-              xs={12}
-              md={6}
-              style={{
-                marginTop: "2rem",
-              }}
+        <Grid container spacing={1}>
+          <Grid item xs={4}>
+            <Box
+              height="150px"
+              marginTop="30px"
+              position="relative"
+              width="100%"
             >
-              <Card sx={{ minWidth: 200, minHeight: 300 }}>
-                <CardContent>
-                  <Typography variant="h8">Description</Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-
-            <Grid
-              item
-              xs={12}
-              md={6}
-              style={{
-                marginTop: "2rem",
-              }}
-            >
-              <Card sx={{ minWidth: 200, minHeight: 120, marginBottom: 7 }}>
-                <CardContent>
-                  <Typography variant="h8">Budget</Typography>
-                </CardContent>
-              </Card>
-              <Card sx={{ minWidth: 200, minHeight: 120 }}>
-                <CardContent>
-                  <Typography variant="h8">Location</Typography>
-                </CardContent>
-              </Card>
-            </Grid>
+              <img
+                style={{
+                  height: '100%',
+                  objectFit: 'cover',
+                  width: '100%',
+                }}
+                alt="Banner"
+                src="formBg.jpg"
+              />
+            </Box>
           </Grid>
-          <Divider
-            style={{
-              width: "100%",
-              marginTop: "20px",
-            }}
-          />
-          <Typography
-            variant="h4"
-            style={{
-              fontSize: "1.2rem",
-              lineHeight: "1",
-              marginTop: "20px",
-            }}
-          >
-            Documents
-          </Typography>
-
-          <Grid container spacing={2}>
-            <Grid item xs={4}>
-              <Box
-                style={{ display: "flex", backgroundColor: "#F9F6EE" }}
-                position="relative"
-                height="50px"
-                width="100%"
-                marginTop="30px"
-                sx={{ borderStyle: "dashed", borderColor: "grey" }}
-              ></Box>
-            </Grid>
-            <Grid item xs={4}>
-              <Box
-                style={{ display: "flex", backgroundColor: "#F9F6EE" }}
-                position="relative"
-                height="50px"
-                width="100%"
-                marginTop="30px"
-                sx={{ borderStyle: "dashed", borderColor: "grey" }}
-              ></Box>
-            </Grid>
-            <Grid item xs={4}>
-              <Box
-                style={{ display: "flex", backgroundColor: "#F9F6EE" }}
-                position="relative"
-                height="50px"
-                width="100%"
-                marginTop="30px"
-                sx={{ borderStyle: "dashed", borderColor: "grey" }}
-              ></Box>
-            </Grid>
+          <Grid item xs={4}>
+            <Box
+              height="150px"
+              marginTop="30px"
+              position="relative"
+              width="100%"
+            >
+              <img
+                style={{
+                  height: '100%',
+                  objectFit: 'cover',
+                  width: '100%',
+                }}
+                alt="Banner"
+                src="formBg.jpg"
+              />
+            </Box>
+          </Grid>
+          <Grid item xs={4}>
+            <Box
+              height="150px"
+              marginTop="30px"
+              position="relative"
+              width="100%"
+            >
+              <img
+                style={{
+                  height: '100%',
+                  objectFit: 'cover',
+                  width: '100%',
+                }}
+                alt="Banner"
+                src="formBg.jpg"
+              />
+            </Box>
           </Grid>
         </Grid>
-      </Container>
 
-      <Footer />
-    </>
-  );
+        <Grid container justifyContent="center" spacing={4}>
+          <Grid
+            style={{
+              marginTop: '2rem',
+            }}
+            item
+            md={6}
+            xs={12}
+          >
+            <Card sx={{ minHeight: 300, minWidth: 200 }}>
+              <CardContent>
+                <Typography variant="h8">Description</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          <Grid
+            style={{
+              marginTop: '2rem',
+            }}
+            item
+            md={6}
+            xs={12}
+          >
+            <Card sx={{ marginBottom: 7, minHeight: 120, minWidth: 200 }}>
+              <CardContent>
+                <Typography variant="h8">Budget</Typography>
+              </CardContent>
+            </Card>
+            <Card sx={{ minHeight: 120, minWidth: 200 }}>
+              <CardContent>
+                <Typography variant="h8">Location</Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+    </Container>
+    <Footer />
+  </>
+);
 }
 
 export default ViewProject;

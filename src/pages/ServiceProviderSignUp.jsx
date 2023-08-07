@@ -153,7 +153,6 @@ function ServiceProviderSignUp() {
       0,
       <ArchitectPage
         formData={formData}
-        updateFormData={updateFormData}
         nextPage={nextPage}
         previousPage={previousPage}
         updateFormData={updateFormData}
