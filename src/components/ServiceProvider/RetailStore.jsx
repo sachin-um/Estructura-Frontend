@@ -65,7 +65,9 @@ function RetailStore({ nextPage, previousPage, updateFormData, formData }) {
           display: "flex",
           flexDirection: "column",
           gap: "30px",
-          minHeight: "100vh",
+          padding:"20px",
+          maxHeight:'350px',
+          overflowY: 'auto'
         }}
       >
         <Formik
