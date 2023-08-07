@@ -12,6 +12,7 @@ import AddNewProject from "./pages/ServiceProvider/AddNewProject";
 import AddRetailItem from "./pages/ServiceProvider/AddRetailItem";
 import AddRentalItem from "./pages/ServiceProvider/AddRentalItem";
 import ViewProject from "./pages/ServiceProvider/ViewProject";
+import ViewRentalItem from "./pages/ServiceProvider/ViewRentalItem";
 import ViewResponse from "./pages/ServiceProvider/ViewResponse";
 import Product from "./pages/e-com/Product";
 import Home from "./pages/e-com/Home";
@@ -101,6 +102,10 @@ const router = createBrowserRouter([
   {
     path: "/ViewProject",
     element: <ViewProject />,
+  },
+  {
+    path: "/ViewRentalItem",
+    element: < ViewRentalItem />,
   },
   {
     path: "/admin/dashboard",
