@@ -23,19 +23,6 @@ export const fetchBlogs = createAsyncThunk('blogs/fetchBlogs', async () => {
     : [];
 });
 
-export const fetchBlogsByUserId = createAsyncThunk(
-  'blogs/fetchBlogsByUserId',
-  async (userId: number) => {
-    const response = await API.get<Blog[]>(`/blogs/all/${userId}`);
-    return response.status === 200
-      ? response.data.sort(
-          (a, b) =>
-            new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime(),
-        )
-      : [];
-  },
-);
-
 export const BlogsSlice = createSlice({
   name: 'Blogs',
   initialState,
@@ -54,17 +41,6 @@ export const BlogsSlice = createSlice({
         state.blogs = action.payload;
       })
       .addCase(fetchBlogs.rejected, (state) => {
-        state.reqStatus = 'failed';
-        state.error = true;
-      })
-      .addCase(fetchBlogsByUserId.pending, (state) => {
-        state.reqStatus = 'loading';
-      })
-      .addCase(fetchBlogsByUserId.fulfilled, (state, action) => {
-        state.reqStatus = 'succeeded';
-        state.blogs = action.payload;
-      })
-      .addCase(fetchBlogsByUserId.rejected, (state) => {
         state.reqStatus = 'failed';
         state.error = true;
       });

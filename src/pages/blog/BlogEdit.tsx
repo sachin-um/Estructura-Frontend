@@ -32,8 +32,9 @@ const BlogEdit: FunctionComponent = () => {
   return (
     <>
       <TopAppBar />
-      {userInfo && userInfo.id ? (
+      {userInfo && userInfo.id === blog?.createdBy ? (
         <>
+          <Button onClick={() => navigate(`/blogs`)}>Back To Blogs</Button>
           <Button onClick={() => navigate(`/blogs/${blogId}`)}>
             Back To Details
           </Button>
@@ -58,7 +59,7 @@ const BlogEdit: FunctionComponent = () => {
           />
         </>
       ) : (
-        <h1>Please Login to Edit</h1>
+        <h1>Please Login as the creator to Edit</h1>
       )}
     </>
   );

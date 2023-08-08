@@ -32,6 +32,13 @@ const BlogDetails: FunctionComponent = () => {
   return (
     <>
       <TopAppBar />
+      <Button
+        onClick={() => {
+          navigate('/blogs');
+        }}
+      >
+        Back to Blogs
+      </Button>
       {blogError ? (
         <h1>ERROR: {blogError}</h1>
       ) : blogStatus === 'loading' ? (

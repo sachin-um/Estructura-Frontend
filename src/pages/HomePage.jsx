@@ -13,6 +13,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import '../assets/font.css';
 import HomepageCarousel from '../components/Carousel/HomepageCarousel';
 import TopBar from '../components/TopBar';
+import TopAppBar from '../components/TopAppBar';
 
 const Slider = ({ images, interval = 5000 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -31,7 +32,7 @@ const Slider = ({ images, interval = 5000 }) => {
 
   return (
     <>
-      <TopBar title="Home" />
+      <TopAppBar />
       <Box
         alignItems="center"
         display="flex"

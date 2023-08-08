@@ -8,7 +8,7 @@ import Chip from '@mui/material/Chip';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SortIcon from '@mui/icons-material/Sort';
 
-const Sidebar = ({ handleSortingOptionChange, locationOption, setLocationOption, selectedDistricts, setSelectedDistricts }) => {
+const RentingSidebar = ({ handleSortingOptionChange, locationOption, setLocationOption, selectedDistricts, setSelectedDistricts }) => {
 
   const [sortingOption, setSortingOption] = useState('');
 
@@ -26,7 +26,7 @@ const Sidebar = ({ handleSortingOptionChange, locationOption, setLocationOption,
     setSortingOption(sortingValue);
     handleSortingOptionChange(sortingValue); // Pass the selected value to the parent component
   };
-  
+
 
   const districts = [
     "Ampara",
@@ -113,7 +113,7 @@ const Sidebar = ({ handleSortingOptionChange, locationOption, setLocationOption,
           </Box>
         </>
       )}
-  
+
       <p style={{ marginBottom: '1.5rem', marginTop: '2.5rem', fontSize: 15, color: 'grey' }}>
         <SortIcon style={{ marginRight: '5px', color: 'green', fontSize: '1rem', verticalAlign: 'middle' }} />
         Sort by :
@@ -126,7 +126,7 @@ const Sidebar = ({ handleSortingOptionChange, locationOption, setLocationOption,
             id="sorting-option-select"
             value={sortingOption} // Use the selected sorting option state
             label="Sorting Option"
-            onChange={handleSortingOptionChangeLocal} // 
+            onChange={handleSortingOptionChangeLocal} //
           >
             <MenuItem value={10}>Price: Low to High</MenuItem>
             <MenuItem value={20}>Price: High to Low</MenuItem>
@@ -139,4 +139,4 @@ const Sidebar = ({ handleSortingOptionChange, locationOption, setLocationOption,
   );
 };
 
-export default Sidebar;
+export default RentingSidebar;
