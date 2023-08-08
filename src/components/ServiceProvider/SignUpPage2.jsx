@@ -79,7 +79,6 @@ function SignUpPage2({
             style={{
               paddingTop: "2rem",
               paddingBottom: "2rem",
-              marginTop: "4rem",
             }}
           >
             <Grid
@@ -92,6 +91,7 @@ function SignUpPage2({
                 height: "100%",
                 display: "flex",
                 alignItems: "flex-end",
+              marginTop: "2rem",
               }}
             >
               <Grid

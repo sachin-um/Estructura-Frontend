@@ -175,67 +175,28 @@ function CarpenterPage({
                           >
                               {
                                 <Grid style={{ justifyContent: "center" }}>
-                                  <TextField
-                                    InputProps={{ sx: { borderRadius: 2 } }}
-                                    sx={{ width: 1, margin: 1 }}
-                                    type="nic"
-                                    name="nic"
-                                    label="NIC"
-                                    variant="filled"
-                                    size="small"
-                                    {...spread("nic")}
-                                  />
-                                  <TextField
-                                    InputProps={{ sx: { borderRadius: 2 } }}
-                                    sx={{ width: 1, margin: 1 }}
-                                    type="SpecialQualification"
-                                    name="SpecialQualification"
-                                    label="Mention of any Special Qualification"
-                                    variant="filled"
-                                    size="small"
-                                    {...spread("qualification")}
-                                  />
+                     
+                                                <Typography textAlign="left" width={1} margin={1}>
+                                                What are your qualifications?
+                                                </Typography>
+                                                <Grid style={{ justifyContent: "center" }}>
+                                                <TextField sx={{ m: 1, minWidth: 400, maxWidth: 500}}
+                                                    label="Please separate each one with commas."
+                                                    id="filled-multiline-static"
+                                                    multiline
+                                                    rows={5}
+                                                    variant="filled"
+                                                    {...spread("")}
+                                                />
+                                           
+                                            </Grid>
                                   <Grid
                                     style={{ justifyContent: "center" }}
                                     sx={{ width: 1, margin: 1 }}
                                   >
-                                    <Typography sx={{ margin: 1 }}>
-                                    Proof of Qualification
-                                    </Typography>
-                                    <Button
-                                      sx={{ width: 1 }}
-                                      variant="contained"
-                                      color="secondary"
-                                      component="label"
-                                    >
-                                      Upload Documents
-                                      <input
-                                        hidden
-                                        accept="image/*"
-                                        type="file"
-                                        {...spread('qualificationDocument',false)}
-                                          onChange={(event)=>{
-                                            if (event.target.files!==null) {
-                                              // handleUpload(event);
-                                              setFieldValue("qualification",event.target.files,false)
-                                            }
-                                            else{
-                                              setFieldValue("qualificationDocument",new DataTransfer().files,false)
-                                            }
-                                        }}
-                                      />
-                                    </Button>
+                             
                                   </Grid>
-                                  <TextField
-                                    InputProps={{ sx: { borderRadius: 2 } }}
-                                    sx={{ width: 1, margin: 1 }}
-                                    type="website"
-                                    name="website"
-                                    label="Website"
-                                    variant="filled"
-                                    size="small"
-                                    {...spread("website")}
-                                  />
+                              
                                   <Grid
                                   style={{
                                     display: "flex",
