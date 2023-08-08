@@ -8,8 +8,9 @@ import {
   Select,
   Stack,
   TextField,
+  Typography,
 } from "@mui/material";
-import { Form, Formik } from "formik";
+import { Form, Formik , ErrorMessage} from "formik";
 import { useRef } from "react";
 import * as yup from "yup";
 import AddressInputs, {
@@ -36,6 +37,7 @@ const validationSchema = yup.object({
   businessContactNo: yup.string().required("Contact Number is required"),
   firstname: yup.string().required("First Name is required"),
   lastname: yup.string().required("Last Name is required"),
+  nic: yup.string().required("NIC is required"),
   ...addressValidators,
 });
 
@@ -49,6 +51,8 @@ function Professional({
   const formRef = useRef(null);
   const initialValues = {
     // if possible, set from formData
+    nic: formData.nic ?? "",
+    website: formData.website ?? "",
     businessName: formData.businessName ?? "",
     role: formData.role ?? "",
     firstname: formData.firstname ?? "",
@@ -65,7 +69,9 @@ function Professional({
           display: "flex",
           flexDirection: "column",
           gap: "30px",
-          minHeight:'100vh'
+          padding:"20px",
+          maxHeight:'350px',
+          overflowY: 'auto'
         }}
       >
         <Formik
@@ -94,7 +100,7 @@ function Professional({
                 onBlur: handleBlur,
                 onChange: handleChange,
                 value: values[field],
-                error: touched[field] && !!errors[field],
+                error: touched[field]  && !!errors[field] ,
                 disabled: isSubmitting,
                 ...(helper && {
                   helperText: touched[field] && errors[field],
@@ -104,6 +110,10 @@ function Professional({
             return (
               <Form onSubmit={handleSubmit}>
                 <Stack style={{ justifyContent: "center" }} gap={2}>
+                  <Typography variant='h8' sx={{ textAlign: "left", color: "#435834" }}>
+                                      {" "}
+                                      Personal Details{" "}
+                  </Typography>
                   <Box sx={{ display: "flex", gap: 1 }}>
                     <TextField
                       label='Your First Name'
@@ -120,6 +130,18 @@ function Professional({
                       {...spread("lastname")}
                     />
                   </Box>
+                  <TextField
+                      type="nic"
+                      name="nic"
+                      label="NIC"
+                      variant="filled"
+                      size="small"
+                      {...spread("nic")}
+                     />
+                  <Typography variant='h8' sx={{ textAlign: "left", color: "#435834" }}>
+                                    {" "}
+                                    Business Details{" "}
+                  </Typography>
                   <TextField
                     fullWidth
                     label='Business Name'
@@ -146,10 +168,30 @@ function Professional({
                         <MenuItem key={value} value={value}>{label}</MenuItem>
                       ))}
                     </Select>
-                    <span>{errors.role ?? ''}</span>
                   </FormControl>
+                  <ErrorMessage 
+                      name="role"
+                  >
+                    {msg => <span
+                            style={{
+                              color:"#d32f2f",
+                              fontSize: "0.75rem",
+                              marginLeft:"14px"
+                            }}
+                            >
+                              {msg}
+                            </span>}
+                  </ErrorMessage>
                   
                   <AddressInputs spread={spread} errors={errors} />
+                  <TextField
+                    type="website"
+                    name="website"
+                    label="Website"
+                    variant="filled"
+                    size="small"
+                    {...spread("website")}
+                  />
                   <Grid
                     style={{
                       display: "flex",
