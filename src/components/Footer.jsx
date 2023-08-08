@@ -32,20 +32,17 @@ const Footer = () => {
               sx={{
                 display: 'flex',
                 alignItems: 'center',
-                marginLeft: '13.5rem',
+                marginLeft: "1rem"
+
               }}
             >
               <RouterLink to="/">
                 <img src="/Logo.png" alt="" height={90} />
               </RouterLink>
             </Typography>
-            <Typography
-              variant="body2"
-              color="textSecondary"
-              sx={{
-                marginLeft: '14rem',
-              }}
-            >
+            <Typography variant="body2" color="textSecondary" sx={{
+              marginLeft: "2rem"
+            }}>
               Estructura © {new Date().getFullYear()}
             </Typography>
           </Grid>
@@ -98,19 +95,17 @@ const Footer = () => {
               </Link>
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={4}>
-            <Box
-              sx={{ color: '#304422', marginLeft: '7rem', marginTop: '2rem' }}
-            >
-              <IconButton>
-                <Mail />
-              </IconButton>
-              <span>estructura@gmail.com</span> <br />
-              <IconButton>
-                <Phone />
-              </IconButton>
-              <span>+94 12 345 6789</span>
-              <br />
+          <Grid item xs={12} sm={4} >
+            <Box sx={{color:"#304422",marginLeft:"12rem",  marginTop:"2rem",}}>
+            <IconButton >
+              <Mail /> 
+            </IconButton>
+            <span>estructura@gmail.com</span> <br /> 
+            <IconButton>
+              <Phone />
+            </IconButton>
+            <span>+94 12 345 6789</span>
+            <br />
             </Box>
           </Grid>
         </Grid>
