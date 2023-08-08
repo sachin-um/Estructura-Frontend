@@ -77,9 +77,8 @@ function SignUpPage2({
         <Grid container justifyContent="center" spacing={4}>
           <Grid
             style={{
-              marginTop: '4rem',
-              paddingBottom: '2rem',
-              paddingTop: '2rem',
+              paddingTop: "2rem",
+              paddingBottom: "2rem",
             }}
             item
             md={7}
@@ -89,11 +88,13 @@ function SignUpPage2({
               style={{
                 alignItems: 'flex-end',
                 backgroundImage: 'url("/category.jpg")',
-                backgroundPosition: 'center',
-                backgroundSize: 'cover',
-                borderRadius: '20px',
-                display: 'flex',
-                height: '100%',
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                borderRadius: "20px",
+                height: "100%",
+                display: "flex",
+                alignItems: "flex-end",
+              marginTop: "2rem",
               }}
               container
             >

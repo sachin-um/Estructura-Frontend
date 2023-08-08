@@ -20,6 +20,7 @@ function ArchitectPage1({
   updateFormData,
   nextPage,
   previousPage,
+  pageImage,
 }) {
   const formRef=useRef(null);
   const initialValues = {
@@ -41,6 +42,10 @@ function ArchitectPage1({
       >
         <Grid container justifyContent="center" spacing={4}>
           <Grid
+
+            item
+            xs={12}
+            md={7}
             style={{
               marginTop: '2rem',
               paddingBottom: '2rem',
@@ -52,13 +57,13 @@ function ArchitectPage1({
           >
             <Grid
               style={{
-                alignItems: 'flex-end',
-                backgroundImage: 'url("/signup/archi.jpg")',
-                backgroundPosition: 'center',
-                backgroundSize: 'cover',
-                borderRadius: '20px',
-                display: 'flex',
-                height: '100%',
+                backgroundImage: `url(${pageImage})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                borderRadius: "20px",
+                height: "100%",
+                display: "flex",
+                alignItems: "flex-end",
               }}
               container
             >
@@ -101,17 +106,17 @@ function ArchitectPage1({
           <Grid item md={5} xs={12}>
             <Grid
               style={{
-                alignItems: 'center',
-                backgroundColor: '#ffffff',
-                borderRadius: '20px',
-                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                marginBottom: '2rem',
-                marginTop: '2rem',
-                minHeight: '80vh',
-                padding: '1rem 2rem 3rem',
+                backgroundColor: "#ffffff",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                borderRadius: "20px",
+                padding: "1rem 2rem 3rem",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: "2rem",
+                marginBottom: "2rem",
+                minHeight:"85vh"
               }}
               container
             >
@@ -171,36 +176,36 @@ function ArchitectPage1({
                         >
                             {
                               <Grid style={{ justifyContent: "center" }}>
-                                <TextField
-                                  InputProps={{ sx: { borderRadius: 2 } }}
-                                  sx={{ width: 1, margin: 1 }}
-                                  type="nic"
-                                  name="nic"
-                                  label="NIC"
-                                  variant="filled"
-                                  size="small"
-                                  {...spread("nic")}
-                                />
+
+                         <Typography textAlign="left" width={1} margin={1}>
+                            SLIA Membership Number
+                                                </Typography>
                                 <TextField
                                   InputProps={{ sx: { borderRadius: 2 } }}
                                   sx={{ width: 1, margin: 1 }}
                                   type="SLIARegNumber"
                                   name="sLIARegNumber"
-                                  label="SLIA Membership Number"
+                                  label="Ex:A1399"
                                   variant="filled"
                                   size="small"
                                   {...spread("sLIARegNumber")}
                                 />
-                                <TextField
-                                  InputProps={{ sx: { borderRadius: 2 } }}
-                                  sx={{ width: 1, margin: 1 }}
-                                  type="website"
-                                  name="website"
-                                  label="Website"
-                                  variant="filled"
-                                  size="small"
-                                  {...spread("website")}
-                                />
+                             <Grid style={{ justifyContent: "center" }}>
+                                                <Typography textAlign="left" width={1} margin={1}>
+                                                What are your qualifications?
+                                                </Typography>
+                                                <Grid style={{ justifyContent: "center" }}>
+                                                <TextField sx={{ m: 1, minWidth: 400, maxWidth: 500}}
+                                                    label="Please separate each one with commas."
+                                                    id="filled-multiline-static"
+                                                    multiline
+                                                    rows={5}
+                                                    variant="filled"
+                                                    {...spread("")}
+                                                />
+                                                </Grid>
+                                            </Grid>
+
 
                                 {/* <Grid
                                   style={{ justifyContent: "center" }}

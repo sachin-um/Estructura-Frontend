@@ -149,56 +149,37 @@ function LansdcapeArchitectPage({
                     onSubmit={HandleSubmit}
                   >
                     {
-                      <Grid style={{ justifyContent: 'center' }}>
-                        <TextField
-                          InputProps={{ sx: { borderRadius: 2 } }}
-                          label="NIC"
-                          name="nic"
-                          size="small"
-                          sx={{ margin: 1, width: 1 }}
-                          type="nic"
-                          variant="filled"
-                        />
-                        <TextField
-                          InputProps={{ sx: { borderRadius: 2 } }}
-                          label="Website"
-                          name="website"
-                          size="small"
-                          sx={{ margin: 1, width: 1 }}
-                          type="website"
-                          variant="filled"
-                        />
-                        <TextField
-                          InputProps={{ sx: { borderRadius: 2 } }}
-                          label="SLIA Registration Number"
-                          name="SLIARegNumber"
-                          size="small"
-                          sx={{ margin: 1, width: 1 }}
-                          type="SLIARegNumber"
-                          variant="filled"
-                        />
-                        <Grid
-                          style={{ justifyContent: 'center' }}
-                          sx={{ margin: 1, width: 1 }}
-                        >
-                          <Typography sx={{ margin: 1 }}>
-                            SLIA Certificate
-                          </Typography>
-                          <Button
-                            color="secondary"
-                            component="label"
-                            sx={{ width: 1 }}
-                            variant="contained"
-                          >
-                            Upload Certificate
-                            <input
-                              accept="image/*"
-                              hidden
-                              multiple
-                              type="file"
-                            />
-                          </Button>
-                        </Grid>
+                          <Grid style={{ justifyContent: "center" }}>
+                          <Typography textAlign="left" width={1} margin={1}>
+                            SLIA Membership Number
+                                                </Typography>
+                                <TextField
+                                  InputProps={{ sx: { borderRadius: 2 } }}
+                                  sx={{ width: 1, margin: 1 }}
+                                  type="SLIARegNumber"
+                                  name="sLIARegNumber"
+                                  label="Ex:A1399"
+                                  variant="filled"
+                                  size="small"
+
+                                />
+                             <Grid style={{ justifyContent: "center" }}>
+                                                <Typography textAlign="left" width={1} margin={1}>
+                                                What are your qualifications?
+                                                </Typography>
+                                                <Grid style={{ justifyContent: "center" }}>
+                                                <TextField sx={{ m: 1, minWidth: 400, maxWidth: 500}}
+                                                    label="Please separate each one with commas."
+                                                    id="filled-multiline-static"
+                                                    multiline
+                                                    rows={5}
+                                                    variant="filled"
+
+                                                />
+                                                </Grid>
+                                            </Grid>
+
+
                       </Grid>
                     }
 

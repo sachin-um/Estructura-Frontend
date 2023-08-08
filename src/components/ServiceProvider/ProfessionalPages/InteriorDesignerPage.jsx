@@ -31,17 +31,22 @@ function InteriorDesignerPage1({
   // TODO: Change Layout
   return (
     <>
-      <Container
+   <Container
+        maxWidth={false}
         style={{
-          alignItems: 'center',
-          backgroundColor: '#f7f8f1',
-          display: 'flex',
-          minHeight: '100vh',
+          backgroundColor: "#f7f8f1",
+
+          display: "flex",
+          alignItems: "center",
         }}
         maxWidth={false}
       >
         <Grid container justifyContent="center" spacing={4}>
           <Grid
+
+            item
+            xs={12}
+            md={7}
             style={{
               marginTop: '2rem',
               paddingBottom: '2rem',
@@ -53,13 +58,13 @@ function InteriorDesignerPage1({
           >
             <Grid
               style={{
-                alignItems: 'flex-end',
-                backgroundImage: 'url("/signup/designer.jpg")',
-                backgroundPosition: 'center',
-                backgroundSize: 'cover',
-                borderRadius: '20px',
-                display: 'flex',
-                height: '100%',
+                backgroundImage: 'url("/signup/archi.jpg")',
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                borderRadius: "20px",
+                height: "100%",
+                display: "flex",
+                alignItems: "flex-end",
               }}
               container
             >
@@ -102,16 +107,17 @@ function InteriorDesignerPage1({
           <Grid item md={5} xs={12}>
             <Grid
               style={{
-                alignItems: 'center',
-                backgroundColor: '#ffffff',
-                borderRadius: '20px',
-                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                marginBottom: '2rem',
-                marginTop: '2rem',
-                padding: '1rem 2rem 3rem',
+                backgroundColor: "#ffffff",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                borderRadius: "20px",
+                padding: "1rem 2rem 3rem",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: "2rem",
+                marginBottom: "2rem",
+                minHeight:"85vh"
               }}
               container
             >
@@ -126,117 +132,138 @@ function InteriorDesignerPage1({
               >
                 <img alt="Logo" src="/Logo.png" style={{ width: '40%' }} />
               </Grid>
-              <Grid item style={{ marginTop: '1rem' }} xs={12}>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '20px',
-                    margin: '10px',
+              <Grid item xs={12} style={{ marginTop: "1rem" }}>
+                <Formik
+                  innerRef={formRef}
+                  onSubmit={(values) => {
+                    // TODO: HANDLE PAGE CHANGE HERE!!!
+                    updateFormData(values);
+                    nextPage();
                   }}
-                  component="form"
-                  onSubmit={HandleSubmit}
+                  initialValues={initialValues}
+                  validationSchema={validationSchema}
                 >
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '30px',
-                      margin: '10px',
-                    }}
-                    component="form"
-                    onSubmit={HandleSubmit}
-                  >
-                    {
-                      <Grid style={{ justifyContent: 'center' }}>
-                        <TextField
-                          InputProps={{ sx: { borderRadius: 2 } }}
-                          label="NIC"
-                          name="nic"
-                          size="small"
-                          sx={{ margin: 1, width: 1 }}
-                          type="nic"
-                          variant="filled"
-                        />
-                        <TextField
-                          InputProps={{ sx: { borderRadius: 2 } }}
-                          label="Website"
-                          name="website"
-                          size="small"
-                          sx={{ margin: 1, width: 1 }}
-                          type="website"
-                          variant="filled"
-                        />
-                        <TextField
-                          InputProps={{ sx: { borderRadius: 2 } }}
-                          label="SLID Registration Number"
-                          name="SLIDRegNumber"
-                          size="small"
-                          sx={{ margin: 1, width: 1 }}
-                          type="SLIDRegNumber"
-                          variant="filled"
-                        />
-                        <Grid
-                          style={{ justifyContent: 'center' }}
-                          sx={{ margin: 1, width: 1 }}
+                  {({
+                    values,
+                    errors,
+                    touched,
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    isSubmitting,
+                  }) => {
+                    const spread = (field, helper = true) => {
+                      return {
+                        name: field,
+                        onBlur: handleBlur,
+                        onChange: handleChange,
+                        value: values[field],
+                        error: touched[field] && !!errors[field],
+                        disabled: isSubmitting,
+                        ...(helper && {
+                          helperText: touched[field] && errors[field],
+                        }),
+                      };
+                    };
+                    return(
+                      <Form onSubmit={handleSubmit}>
+                        <Box
+                          sx={{
+                            margin: "10px",
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "20px",
+                          }}
                         >
-                          <Typography sx={{ margin: 1 }}>
-                            SLID Certificate
-                          </Typography>
-                          <Button
-                            color="secondary"
-                            component="label"
-                            sx={{ width: 1 }}
-                            variant="contained"
-                          >
-                            Upload Certificate
-                            <input
-                              accept="image/*"
-                              hidden
-                              multiple
-                              type="file"
-                            />
-                          </Button>
-                        </Grid>
-                      </Grid>
-                    }
+                            {
+                              <Grid style={{ justifyContent: "center" }}>
 
-                    {/* { <Grid style={{display:"flex",justifyContent:"center",margin:10}}>
-                  <Button sx={{ width: 1/3,  borderRadius:2 }}type='submit' color="primary" variant="contained" size='large'  href=''>Next</Button>
-                  </Grid> } */}
-                  </Box>
+                         <Typography textAlign="left" width={1} margin={1}>
+                            SLIA Membership Number
+                                                </Typography>
+                                <TextField
+                                  InputProps={{ sx: { borderRadius: 2 } }}
+                                  sx={{ width: 1, margin: 1 }}
+                                  type="SLIARegNumber"
+                                  name="sLIARegNumber"
+                                  label="Ex:A1399"
+                                  variant="filled"
+                                  size="small"
+                                  {...spread("sLIARegNumber")}
+                                />
+                             <Grid style={{ justifyContent: "center" }}>
+                                                <Typography textAlign="left" width={1} margin={1}>
+                                                What are your qualifications?
+                                                </Typography>
+                                                <Grid style={{ justifyContent: "center" }}>
+                                                <TextField sx={{ m: 1, minWidth: 400, maxWidth: 500}}
+                                                    label="Please separate each one with commas."
+                                                    id="filled-multiline-static"
+                                                    multiline
+                                                    rows={5}
+                                                    variant="filled"
+                                                    {...spread("")}
+                                                />
+                                                </Grid>
+                                            </Grid>
 
-                  {
-                    <Grid
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        margin: 10,
-                      }}
-                    >
-                      <Button
-                        color="primary"
-                        onClick={handlePrevious}
-                        size="large"
-                        sx={{ borderRadius: 2, margin: 1, width: 1 / 4 }}
-                        type="submit"
-                        variant="contained"
-                      >
-                        Previous
-                      </Button>
-                      <Button
-                        color="primary"
-                        onClick={handleNext}
-                        size="large"
-                        sx={{ borderRadius: 2, margin: 1, width: 1 / 4 }}
-                        type="submit"
-                        variant="contained"
-                      >
-                        Next
-                      </Button>
-                    </Grid>
-                  }
-                </Box>
+
+                                {/* <Grid
+                                  style={{ justifyContent: "center" }}
+                                  sx={{ width: 1, margin: 1 }}
+                                >
+                                  <Typography sx={{ margin: 1 }}>
+                                    SLIA Certificate
+                                  </Typography>
+                                  <Button
+                                    sx={{ width: 1 }}
+                                    variant="contained"
+                                    color="secondary"
+                                    component="label"
+                                  >
+                                    Upload Certificate
+                                    <input
+                                      hidden
+                                      accept="image/*"
+                                      multiple
+                                      type="file"
+                                    />
+                                  </Button>
+                                </Grid> */}
+                                <Grid
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    width: "100%",
+                                  }}
+                                >
+                                  <Button
+                                    sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
+                                    type='button'
+                                    color='primary'
+                                    variant='contained'
+                                    size='large'
+                                    onClick={previousPage}
+                                  >
+                                    Previous
+                                  </Button>
+                                  <Button
+                                    sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
+                                    type='submit'
+                                    color='primary'
+                                    variant='contained'
+                                    size='large'
+                                  >
+                                    Next
+                                  </Button>
+                                </Grid>
+                              </Grid>
+                            }
+                        </Box>
+                      </Form>
+                    );
+                  }}
+                </Formik>
               </Grid>
             </Grid>
           </Grid>

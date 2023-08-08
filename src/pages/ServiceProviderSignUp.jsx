@@ -152,6 +152,7 @@ function ServiceProviderSignUp() {
       2,
       0,
       <ArchitectPage
+        pageImage={pageImage}
         formData={formData}
         updateFormData={updateFormData}
         nextPage={nextPage}
@@ -160,17 +161,16 @@ function ServiceProviderSignUp() {
       />,
       ...professionalsPages,
     );
-  } else if (selectedOption === 'interiordesigner') {
-    pages.splice(
-      2,
-      0,
-      <InteriorDesignerPage
-        formData={formData}
-        nextPage={nextPage}
-        previousPage={previousPage}
-        updateFormData={updateFormData}
-      />,
-      ...professionalsPages,
+  } else if (selectedOption === "interiordesigner") {
+    pages.splice(2,0,
+      <ArchitectPage
+      pageImage={pageImage}
+      formData={formData}
+      updateFormData={updateFormData}
+      nextPage={nextPage}
+      previousPage={previousPage}
+    />,
+      ...professionalsPages
     );
   } else if (selectedOption === 'constructioncompany') {
     pages.splice(
@@ -189,48 +189,58 @@ function ServiceProviderSignUp() {
       2,
       0,
       <HomebuilderPage
-        formData={formData}
+      pageImage={pageImage}
+      formData={formData}
+        updateFormData={updateFormData}
+
         nextPage={nextPage}
         previousPage={previousPage}
         updateFormData={updateFormData}
       />,
       ...professionalsPages,
     );
-  } else if (selectedOption === 'carpenter') {
-    pages.splice(
-      2,
-      0,
-      <CarpenterPage
-        formData={formData}
+
+  }
+  else if (selectedOption === "carpenter") {
+    pages.splice(2,0,
+      <HomebuilderPage
+      pageImage={pageImage}
+      formData={formData}
+        updateFormData={updateFormData}
+
         nextPage={nextPage}
         previousPage={previousPage}
         updateFormData={updateFormData}
       />,
       ...professionalsPages,
     );
-  } else if (selectedOption === 'painter') {
-    pages.splice(
-      2,
-      0,
-      <PainterPage
-        formData={formData}
+
+  }
+  else if (selectedOption === "painter") {
+    pages.splice(2,0,
+      <HomebuilderPage
+      pageImage={pageImage}
+      formData={formData}
+        updateFormData={updateFormData}
+
         nextPage={nextPage}
         previousPage={previousPage}
         updateFormData={updateFormData}
       />,
       ...professionalsPages,
     );
-  } else if (selectedOption === 'landscapearchitect') {
-    pages.splice(
-      2,
-      0,
-      <LansdcapeArchitectPage
-        formData={formData}
-        nextPage={nextPage}
-        previousPage={previousPage}
-        updateFormData={updateFormData}
-      />,
-      ...professionalsPages,
+
+  }
+  else if (selectedOption === "landscapearchitect") {
+    pages.splice(2,0,
+      <ArchitectPage
+      pageImage={pageImage}
+      formData={formData}
+      updateFormData={updateFormData}
+      nextPage={nextPage}
+      previousPage={previousPage}
+    />,
+      ...professionalsPages
     );
   }
 
