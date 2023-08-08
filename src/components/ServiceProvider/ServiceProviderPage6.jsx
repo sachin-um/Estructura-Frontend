@@ -110,7 +110,7 @@ function ServiceProviderPage6({
                 justifyContent: "center",
                 marginTop: "2rem",
                 marginBottom: "2rem",
-                minHeight:'80vh'
+                minHeight:"85vh"
               }}
             >
               <Grid
@@ -170,7 +170,7 @@ function ServiceProviderPage6({
                               {
                                 <Grid style={{ justifyContent: "center" }}>
                                   <Typography textAlign="center">
-                                    What is the estimated price range for a project?
+                                    What is the estimated service charge for a project?
                                   </Typography>
                                   <Box sx={{ display: "flex", gap: "10px" }}>
                                     <TextField

@@ -67,10 +67,11 @@ function ServiceProviderPage4({
         style={{
           backgroundColor: "#f7f8f1",
           display: "flex",
-          alignItems: "center",
+          alignItems: "center"
+
         }}
       >
-        <Grid style={{minHeight:'80vh'}}container justifyContent="center" spacing={4}> 
+        <Grid container justifyContent="center" spacing={4}> 
           <Grid
             item
             xs={12}
@@ -143,7 +144,7 @@ function ServiceProviderPage4({
                 justifyContent: "center",
                 marginTop: "2rem",
                 marginBottom: "2rem",
-                minHeight:'80vh'
+                minHeight:"85vh"
               }}
             >
               <Grid
@@ -157,7 +158,7 @@ function ServiceProviderPage4({
               >
                 <img src="/Logo.png" alt="Logo" style={{ width: "40%" }} />
               </Grid>
-              <Grid item xs={12} style={{ marginTop: "1rem" }}>
+              <Grid item xs={12} style={{ marginTop: "1rem",width:"80%" }}>
               <Formik
                   innerRef={formRef}
                   onSubmit={(values) => {
@@ -197,14 +198,15 @@ function ServiceProviderPage4({
                           display: "flex",
                           flexDirection: "column",
                           gap: "20px",
+                       
                         }}
                       >
                           {
                             <Grid style={{ justifyContent: "center" }}>
-                              <Typography textAlign="center">
-                                Where are you based?
+                              <Typography textAlign="center" marginBottom={"20px"}>
+                                Where do you offer your services?
                               </Typography>
-                                <FormControl fullWidth variant='filled'>
+                                <FormControl fullWidth variant='filled'  sx={{ m: 1}}>
                                 <MultiSelect {...spread("serviceAreas", false)}
                                   displayEmpty={true} 
                                   options={options}
@@ -222,7 +224,7 @@ function ServiceProviderPage4({
                                     }}
                                   labelledBy={"Select"}
                                   isCreatable={false}
-                                  overrideStrings={{selectAll:"Islandwide",search:"Search districts..",selectSomeItems:"Select Districts"}}
+                                  overrideStrings={{selectAll:"Islandwide",search:"Search districts..",selectSomeItems:"Select Area"}}
                                 />
                                 </FormControl>
                                 <Grid
@@ -230,6 +232,7 @@ function ServiceProviderPage4({
                                     display: "flex",
                                     justifyContent: "center",
                                     width: "100%",
+                                    marginTop:"20px"
                                   }}
                                 >
                                   <Button

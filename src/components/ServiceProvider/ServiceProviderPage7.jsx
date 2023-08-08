@@ -47,7 +47,7 @@ function ServiceProviderPage7({
           alignItems: "center",
         }}
       >
-        <Grid container justifyContent="center" spacing={4}>
+        <Grid container style={{minHeight:'80vh'}} justifyContent="center" spacing={4}>
           <Grid
             item
             xs={12}
@@ -120,7 +120,7 @@ function ServiceProviderPage7({
                 justifyContent: "center",
                 marginTop: "2rem",
                 marginBottom: "2rem",
-                minHeight:'80vh'
+                minHeight:"85vh"
               }}
             >
               <Grid
