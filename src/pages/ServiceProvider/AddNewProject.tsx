@@ -30,6 +30,7 @@ import { type AnyAction, type ThunkDispatch } from '@reduxjs/toolkit';
 import { Form, Formik, type FormikProps } from 'formik';
 import { FunctionComponent, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import Footer from '../../components/Footer';
@@ -119,6 +120,7 @@ const AddNewProject: FunctionComponent<ProjectFormProps> = ({
   const ExtraImageUploadRef = useRef<HTMLInputElement>(null);
   const DocumentUploadRef = useRef<HTMLInputElement>(null);
   const dispatch: ThunkDispatch<Project, void, AnyAction> = useDispatch();
+  const navigate = useNavigate();
   const HandleSubmit = (values: ProjectAddOrUpdateRequest) => {
     console.log(values);
     if (FormRef.current) {
@@ -152,8 +154,7 @@ const AddNewProject: FunctionComponent<ProjectFormProps> = ({
         // Create Project
         dispatch(addProject(values)).then((resultAction) => {
           if (addProject.fulfilled.match(resultAction)) {
-            // ! Handle Add Success Here
-            console.log('Project Added');
+            navigate(`/projects/${resultAction.payload.id}`, { replace: true });
           } else if (addProject.rejected.match(resultAction)) {
             try {
               const response =
@@ -251,18 +252,18 @@ const AddNewProject: FunctionComponent<ProjectFormProps> = ({
     }
     if (OriginalProject && !imagesReset) {
       const extraImages = [
-        `http://localhost:8080/files/project-files/${OriginalProject.createdBy}/${OriginalProject.id}/${OriginalProject.ExtraImage1Name}`,
-        `http://localhost:8080/files/project-files/${OriginalProject.createdBy}/${OriginalProject.id}/${OriginalProject.ExtraImage2Name}`,
-        `http://localhost:8080/files/project-files/${OriginalProject.createdBy}/${OriginalProject.id}/${OriginalProject.ExtraImage3Name}`,
+        `http://localhost:8080/files/project-files/${OriginalProject.createdBy}/${OriginalProject.id}/${OriginalProject.extraImage1Name}`,
+        `http://localhost:8080/files/project-files/${OriginalProject.createdBy}/${OriginalProject.id}/${OriginalProject.extraImage2Name}`,
+        `http://localhost:8080/files/project-files/${OriginalProject.createdBy}/${OriginalProject.id}/${OriginalProject.extraImage3Name}`,
       ];
       setImages(extraImages);
       setImagesReset(true);
     }
     if (OriginalProject && !docReset) {
       const documents = [
-        `http://localhost:8080/files/project-files/${OriginalProject.createdBy}/${OriginalProject.id}/${OriginalProject.Document1Name}`,
-        `http://localhost:8080/files/project-files/${OriginalProject.createdBy}/${OriginalProject.id}/${OriginalProject.Document2Name}`,
-        `http://localhost:8080/files/project-files/${OriginalProject.createdBy}/${OriginalProject.id}/${OriginalProject.Document3Name}`,
+        `http://localhost:8080/files/project-files/${OriginalProject.createdBy}/${OriginalProject.id}/${OriginalProject.document1Name}`,
+        `http://localhost:8080/files/project-files/${OriginalProject.createdBy}/${OriginalProject.id}/${OriginalProject.document2Name}`,
+        `http://localhost:8080/files/project-files/${OriginalProject.createdBy}/${OriginalProject.id}/${OriginalProject.document3Name}`,
       ];
       setDoc(documents);
       setDocReset(true);

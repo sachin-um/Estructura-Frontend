@@ -42,12 +42,9 @@ const options = [
 function ServiceProviderPage4({
   formData,
   updateFormData,
-
   nextPage,
-
   pageImage,
   previousPage,
-  updateFormData,
 }) {
   const [selected, setSelected] = useState([]);
   const formRef=useRef(null);
@@ -205,7 +202,7 @@ function ServiceProviderPage4({
                               </Typography>
                                 <FormControl fullWidth variant='filled'>
                                 <MultiSelect {...spread("serviceAreas", false)}
-                                  displayEmpty={true} 
+                                  displayEmpty={true}
                                   options={options}
                                   value={selected}
                                   onChange={(value)=>{

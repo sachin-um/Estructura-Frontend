@@ -20,7 +20,6 @@ function ArchitectPage1({
   updateFormData,
   nextPage,
   previousPage,
-  updateFormData,
 }) {
   const formRef=useRef(null);
   const initialValues = {
@@ -202,7 +201,7 @@ function ArchitectPage1({
                                   size="small"
                                   {...spread("website")}
                                 />
-                                
+
                                 {/* <Grid
                                   style={{ justifyContent: "center" }}
                                   sx={{ width: 1, margin: 1 }}

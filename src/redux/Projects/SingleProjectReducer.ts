@@ -15,7 +15,7 @@ const initialState: ProjectState = {
 export const fetchProjectByById = createAsyncThunk(
   'projects/fetchProjectByById',
   async (id: number) => {
-    const response = await API.get<Project>(`/project/${id}`);
+    const response = await API.get<Project>(`/projects/project/${id}`);
     return response.status === 200 ? response.data : null;
   },
 );
