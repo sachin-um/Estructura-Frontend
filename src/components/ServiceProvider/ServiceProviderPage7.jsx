@@ -10,16 +10,26 @@ import { Form, Formik } from "formik";
 import { useRef } from "react";
 import * as yup from "yup";
 const validationSchema=yup.object({
-  profileImage:yup.mixed()
-    .required("Required")
-    .test(
-      'fileSize',
-      'File too large',
-      (value) => {
-        console.log(value);
-        return true;
+  profileImage: Yup.mixed()
+  .required('Required')
+  .test('only 1', 'More than 1', (value) => {
+    const fileArr = value;
+    if (fileArr.length > 1) {
+      return false;
+    }
+    return true;
+  })
+  .test('fileSize', 'File too large', (value) => {
+    const fileArr = value;
+    if (fileArr.length === 1) {
+      const img = fileArr[0];
+      if (img.size >= 5000000) {
+        console.log('BIG');
+        return false;
       }
-    )
+    }
+    return true;
+  }),
 })
 function ServiceProviderPage7({
   formData,
