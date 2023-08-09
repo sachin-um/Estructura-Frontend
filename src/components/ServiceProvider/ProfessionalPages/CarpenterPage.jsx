@@ -16,7 +16,6 @@ import { useRef } from "react";
 import * as yup from "yup";
 // import { Link } from "react-router-dom" ;
 const validationSchema = yup.object({
-  nic: yup.string().required("NIC is required"),
   qualification: yup.string().required("Any Qualification required"),
 });
 function CarpenterPage({
@@ -27,9 +26,7 @@ function CarpenterPage({
 }) {
   const formRef=useRef(null);
   const initialValues = {
-    nic: formData.nic ?? "",
     qualification: formData.qualification ?? "",
-    website: formData.website ?? "",
     
   };
   return (
@@ -186,16 +183,11 @@ function CarpenterPage({
                                                     multiline
                                                     rows={5}
                                                     variant="filled"
-                                                    {...spread("")}
+                                                    {...spread("qualification")}
                                                 />
                                            
                                             </Grid>
-                                  <Grid
-                                    style={{ justifyContent: "center" }}
-                                    sx={{ width: 1, margin: 1 }}
-                                  >
-                             
-                                  </Grid>
+                                  
                               
                                   <Grid
                                   style={{
