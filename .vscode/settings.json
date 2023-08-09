@@ -8,7 +8,8 @@
     "firstname",
     "lastname",
     "reduxjs",
-    "RETAILOWNER"
+    "RETAILOWNER",
+    "sliareg"
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
 }

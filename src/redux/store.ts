@@ -7,7 +7,8 @@ import ProjectReducer from './Projects/SingleProjectReducer';
 import RentingItemsReducer from './Renting/RentingItemsReducer';
 import SingleRentingItemReducer from './Renting/SingleRentingItemReducer';
 import UserAuthenticationReducer from './UserAuthenticationReducer';
-import { userInfoReducer } from './UserInfo/UserInfoReducer';
+import userInfoReducer from './UserInfo/UserInfoReducer';
+import usersInfoReducer from './UserInfo/UsersInfoReducer';
 
 export const store = configureStore({
   reducer: {
@@ -17,8 +18,9 @@ export const store = configureStore({
     projects: ProjectsReducer,
     rentingItem: SingleRentingItemReducer,
     rentingItems: RentingItemsReducer,
+    specificUser: userInfoReducer,
     user: UserAuthenticationReducer,
-    userInfo: userInfoReducer,
+    usersInfo: usersInfoReducer,
   },
 });
 

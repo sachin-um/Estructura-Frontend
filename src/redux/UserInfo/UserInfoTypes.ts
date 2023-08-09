@@ -43,9 +43,9 @@ interface User {
   qualifications?: Qualification[];
   registrationNo?: string;
   role: Role;
-  sLIARegNumber?: string;
   sLIDRegNumber?: string;
   serviceAreas?: ServiceArea[];
+  sliaregNumber?: string;
   specializations?: Specialization[];
   teamSize?: number;
 }

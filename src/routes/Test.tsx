@@ -7,7 +7,7 @@ import {
   getAllUsers,
   getUsersError,
   getUsersStatus,
-} from '../redux/UserInfo/UserInfoReducer';
+} from '../redux/UserInfo/UsersInfoReducer';
 
 interface TestProps {
   name?: string;
@@ -31,7 +31,10 @@ const Test: FunctionComponent<TestProps> = () => {
       <pre>{JSON.stringify(usersStatus, null, 2)}</pre>
       <pre>{JSON.stringify(usersError, null, 2)}</pre>
       {usersInfo.map((user) => (
-        <pre key={user.id}>{JSON.stringify(user, null, 2)}</pre>
+        <div key={user.id}>
+          {user.sliaregNumber && 'DASDSADSA'}
+          <pre>{JSON.stringify(user, null, 2)}</pre>
+        </div>
       ))}
     </>
   );

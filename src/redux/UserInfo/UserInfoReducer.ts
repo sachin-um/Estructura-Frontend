@@ -1,49 +1,52 @@
-import { type Reducer, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import API from '../../lib/API';
 import { RootState } from '../store';
 
-interface UserInfoState {
+interface UserState {
   error: null | string;
   status: reqStatus;
-  users: User[];
+  user: User | null;
 }
 
-const initialState: UserInfoState = {
+const initialState: UserState = {
   error: null,
   status: 'idle',
-  users: [],
+  user: null,
 };
 
-export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
-  const response = await API.get<User[]>('/users/all');
-  return response.status === 200 ? response.data : [];
-});
+export const fetchUserById = createAsyncThunk(
+  'user/fetchUserById',
+  async (id: number) => {
+    const response = await API.get<User>(`/users/user/${id}`);
+    return response.status === 200 ? response.data : null;
+  },
+);
 
-export const userInfoSlice = createSlice({
-  name: 'UserInfo',
+export const userSlice = createSlice({
+  name: 'User',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUsers.pending, (state) => {
+      .addCase(fetchUserById.pending, (state) => {
         state.status = 'loading';
         state.error = null;
       })
-      .addCase(fetchUsers.fulfilled, (state, action) => {
+      .addCase(fetchUserById.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.error = null;
-        state.users = action.payload;
+        state.user = action.payload;
       })
-      .addCase(fetchUsers.rejected, (state, action) => {
+      .addCase(fetchUserById.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.error.message ?? 'Failed to fetch users';
+        state.error = action.error.message ?? 'Failed to fetch user';
       });
   },
 });
 
-export const getUsersStatus = (state: RootState) => state.userInfo.status;
-export const getUsersError = (state: RootState) => state.userInfo.error;
-export const getAllUsers = (state: RootState) => state.userInfo.users;
+export const getUserStatus = (state: RootState) => state.specificUser.status;
+export const getUserError = (state: RootState) => state.specificUser.error;
+export const getUser = (state: RootState) => state.specificUser.user;
 
-export const userInfoReducer: Reducer<UserInfoState> = userInfoSlice.reducer;
+export default userSlice.reducer;
