@@ -16,8 +16,7 @@ import { useRef } from "react";
 import * as yup from "yup";
 
 const validationSchema = yup.object({
-  nic: yup.string().required("NIC is required"),
-  qualification: yup.string().required("Any Qualification required"),
+  registrationNo: yup.string().required("Business Registration Number is required"),
 });
 function ConstructionCompanyPage({
   formData,
@@ -27,9 +26,8 @@ function ConstructionCompanyPage({
 }) {
   const formRef=useRef(null);
   const initialValues={
-    nic: formData.nic ?? "",
+    registrationNo: formData.registrationNo ?? "",
     qualification: formData.qualification ?? "",
-    website: formData.website ?? "", 
   }
   // TODO: Change Layout
   return (
@@ -188,6 +186,7 @@ function ConstructionCompanyPage({
                                     label="Ex:"
                                     variant="filled"
                                     size="small"
+                                    {...spread("registrationNo")}
                                   />
                                   <Grid style={{ justifyContent: "center" }}>
                                                 <Typography textAlign="left" width={1} margin={1}>
@@ -200,7 +199,7 @@ function ConstructionCompanyPage({
                                                     multiline
                                                     rows={5}
                                                     variant="filled"
-                                                 
+                                                    {...spread("qualification")}
                                                 />
                                                 </Grid>
                                             </Grid>

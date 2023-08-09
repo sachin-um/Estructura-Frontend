@@ -14,7 +14,11 @@ import {
 } from "@mui/material";
 import { Form, Formik } from "formik";
 import { useRef } from "react";
-
+import * as yup from "yup";
+const validationSchema = yup.object({
+  minRate: yup.string().required("Any Qualification required"),
+  maxRate: yup.string().required("Any Qualification required"),
+});
 function ServiceProviderPage6({
   formData,
   updateFormData,
@@ -133,7 +137,7 @@ function ServiceProviderPage6({
                       nextPage();
                     }}
                     initialValues={initialValues}
-                    // validationSchema={validationSchema}
+                    validationSchema={validationSchema}
                 >
                   {({
                     values,
