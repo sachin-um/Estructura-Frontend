@@ -155,6 +155,7 @@ function ServiceProviderSignUp() {
   if (selectedOption === "architect") {
     pages.splice(2,0,
       <ArchitectPage
+        pageImage={pageImage}
         formData={formData}
         updateFormData={updateFormData}
         nextPage={nextPage}
@@ -164,13 +165,13 @@ function ServiceProviderSignUp() {
     );
   } else if (selectedOption === "interiordesigner") {
     pages.splice(2,0,
-      <InteriorDesignerPage
+      <ArchitectPage
+      pageImage={pageImage}
       formData={formData}
-        updateFormData={updateFormData}
-       
-        nextPage={nextPage}
-        previousPage={previousPage}
-      />,
+      updateFormData={updateFormData}
+      nextPage={nextPage}
+      previousPage={previousPage}
+    />,
       ...professionalsPages
     );
 
@@ -191,6 +192,7 @@ function ServiceProviderSignUp() {
   else if (selectedOption === "homebuilder") {
     pages.splice(2,0,
       <HomebuilderPage
+      pageImage={pageImage}
       formData={formData}
         updateFormData={updateFormData}
       
@@ -203,7 +205,8 @@ function ServiceProviderSignUp() {
   }
   else if (selectedOption === "carpenter") {
     pages.splice(2,0,
-      <CarpenterPage
+      <HomebuilderPage
+      pageImage={pageImage}
       formData={formData}
         updateFormData={updateFormData}
       
@@ -216,10 +219,11 @@ function ServiceProviderSignUp() {
   }
   else if (selectedOption === "painter") {
     pages.splice(2,0,
-      <PainterPage
+      <HomebuilderPage
+      pageImage={pageImage}
       formData={formData}
         updateFormData={updateFormData}
-       
+      
         nextPage={nextPage}
         previousPage={previousPage}
       />,
@@ -229,13 +233,13 @@ function ServiceProviderSignUp() {
   }
   else if (selectedOption === "landscapearchitect") {
     pages.splice(2,0,
-      <LansdcapeArchitectPage
+      <ArchitectPage
+      pageImage={pageImage}
       formData={formData}
-        updateFormData={updateFormData}
-        
-        nextPage={nextPage}
-        previousPage={previousPage}
-      />,
+      updateFormData={updateFormData}
+      nextPage={nextPage}
+      previousPage={previousPage}
+    />,
       ...professionalsPages
     );
 

@@ -153,57 +153,21 @@ function PainterPage({
                     onSubmit={HandleSubmit}
                   >
                     {
-                      <Grid style={{ justifyContent: "center" }}>
-                        <TextField
-                          InputProps={{ sx: { borderRadius: 2 } }}
-                          sx={{ width: 1, margin: 1 }}
-                          type="nic"
-                          name="nic"
-                          label="NIC"
-                          variant="filled"
-                          size="small"
-                        />
-                        <TextField
-                          InputProps={{ sx: { borderRadius: 2 } }}
-                          sx={{ width: 1, margin: 1 }}
-                          type="website"
-                          name="website"
-                          label="Website"
-                          variant="filled"
-                          size="small"
-                        />
-                        <TextField
-                          InputProps={{ sx: { borderRadius: 2 } }}
-                          sx={{ width: 1, margin: 1 }}
-                          type="SpecialQualification"
-                          name="SpecialQualification"
-                          label="Mention of any Special Qualification"
-                          variant="filled"
-                          size="small"
-                        />
-                        <Grid
-                          style={{ justifyContent: "center" }}
-                          sx={{ width: 1, margin: 1 }}
-                        >
-                          <Typography sx={{ margin: 1 }}>
-                          Proof of Qualification
-                          </Typography>
-                          <Button
-                            sx={{ width: 1 }}
-                            variant="contained"
-                            color="secondary"
-                            component="label"
-                          >
-                            Upload Documents
-                            <input
-                              hidden
-                              accept="image/*"
-                              multiple
-                              type="file"
-                            />
-                          </Button>
-                        </Grid>
-                      </Grid>
+                       <Grid style={{ justifyContent: "center" }}>
+                       <Typography textAlign="left" width={1} margin={1}>
+                       What are your qualifications?
+                       </Typography>
+                       <Grid style={{ justifyContent: "center" }}>
+                       <TextField sx={{ m: 1, minWidth: 400, maxWidth: 500}}
+                           label="Please separate each one with commas."
+                           id="filled-multiline-static"
+                           multiline
+                           rows={5}
+                           variant="filled"
+                        
+                       />
+                       </Grid>
+                   </Grid>
                     }
 
                     {/* { <Grid style={{display:"flex",justifyContent:"center",margin:10}}>
