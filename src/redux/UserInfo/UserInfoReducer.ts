@@ -6,7 +6,7 @@ import { RootState } from '../store';
 interface UserInfoState {
   error: null | string;
   status: reqStatus;
-  users: baseUser[];
+  users: User[];
 }
 
 const initialState: UserInfoState = {
@@ -16,7 +16,7 @@ const initialState: UserInfoState = {
 };
 
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
-  const response = await API.get<baseUser[]>('/users/all');
+  const response = await API.get<User[]>('/users/all');
   return response.status === 200 ? response.data : [];
 });
 

@@ -18,7 +18,7 @@ const Test: FunctionComponent<TestProps> = () => {
   const usersError = useSelector(getUsersError);
   const usersInfo = useSelector(getAllUsers);
 
-  const dispatch: ThunkDispatch<baseUser[], void, AnyAction> = useDispatch();
+  const dispatch: ThunkDispatch<User[], void, AnyAction> = useDispatch();
 
   useEffect(() => {
     if (usersStatus === 'idle') {
@@ -30,7 +30,9 @@ const Test: FunctionComponent<TestProps> = () => {
     <>
       <pre>{JSON.stringify(usersStatus, null, 2)}</pre>
       <pre>{JSON.stringify(usersError, null, 2)}</pre>
-      <pre>{JSON.stringify(usersInfo, null, 2)}</pre>
+      {usersInfo.map((user) => (
+        <pre key={user.id}>{JSON.stringify(user, null, 2)}</pre>
+      ))}
     </>
   );
 };
