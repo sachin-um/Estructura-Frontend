@@ -1,4 +1,4 @@
-import { type Reducer, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import API from '../../lib/API';
 import { RootState } from '../store';
