@@ -44,7 +44,7 @@ export const addRetailItem = createAsyncThunk(
       return rejectWithValue(response.data);
     }
     const id: number = response.data.id;
-    const retailItem = (await API.get<RetailItem>(`/retailItems/item/${id}`))
+    const retailItem = (await API.get<RetailItem>(`/retailitems/item/${id}`))
       .data;
     return retailItem;
   },

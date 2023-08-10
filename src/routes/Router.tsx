@@ -4,9 +4,9 @@ import Homepage from '../pages/HomePage';
 import AdminRoutes from './AdminRoutes';
 import AuthRoutes from './AuthRoutes';
 import BlogRoutes from './BlogRoutes';
+import ProjectRoutes from './Projects';
 import RentingItemRoutes from './RentingRoutes';
 import ShopRoutes from './ShopRoutes';
-import ProjectRoutes from './Projects';
 
 export const altRouter = createBrowserRouter([
   {

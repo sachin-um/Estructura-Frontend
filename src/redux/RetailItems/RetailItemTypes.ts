@@ -1,16 +1,16 @@
 interface RetailItem {
-  ExtraImage1?: string;
-  ExtraImage1Name?: string;
-  ExtraImage2?: string;
-  ExtraImage2Name?: string;
-  ExtraImage3?: string;
-  ExtraImage3Name?: string;
-  MainImage: string;
-  MainImageName: string;
   createdBy: number;
   dateAdded: Date;
   description: string;
+  extraImage1?: string;
+  extraImage1Name?: string;
+  extraImage2?: string;
+  extraImage2Name?: string;
+  extraImage3?: string;
+  extraImage3Name?: string;
   id: number;
+  mainImage: string;
+  mainImageName: string;
   name: string;
   price: number;
   quantity: number;
@@ -25,7 +25,6 @@ type RetailItemType =
   | 'LIGHTING';
 
 interface RetailItemAddOrUpdateRequest {
-  RetailStoreId: number;
   description: string;
   extraImages: FileList;
   mainImage: FileList;
@@ -33,6 +32,7 @@ interface RetailItemAddOrUpdateRequest {
   price: number;
   quantity: number;
   retailItemType: RetailItemType;
+  retailStoreId: number;
 }
 
 interface updateRetailItemParams {
