@@ -10,8 +10,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { string } from 'yup';
 
-import TopBar from '../../components/CusTopBar';
 import Footer from '../../components/Footer';
+import TopAppBar from '../../components/TopAppBar';
 import {
   fetchRentingItemById,
   getRentingItemError,
@@ -211,7 +211,7 @@ const ViewRentalItem: FunctionComponent = () => {
 
   return (
     <Container>
-      <TopBar />
+      <TopAppBar />
       {itemError ? (
         <h1>ERROR: {itemError}</h1>
       ) : itemStatus === 'loading' ? (
