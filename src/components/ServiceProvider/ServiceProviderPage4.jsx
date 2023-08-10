@@ -55,18 +55,14 @@ function ServiceProviderPage4({
     <>
       <Container
         style={{
-          alignItems: 'center',
-          backgroundColor: '#f7f8f1',
-          display: 'flex',
+          backgroundColor: "#f7f8f1",
+          display: "flex",
+          alignItems: "center"
+
         }}
         maxWidth={false}
       >
-        <Grid
-          container
-          justifyContent="center"
-          spacing={4}
-          style={{ minHeight: '80vh' }}
-        >
+        <Grid container justifyContent="center" spacing={4}> 
           <Grid
             style={{
               marginTop: '2rem',
@@ -128,17 +124,17 @@ function ServiceProviderPage4({
           <Grid item md={5} xs={12}>
             <Grid
               style={{
-                alignItems: 'center',
-                backgroundColor: '#ffffff',
-                borderRadius: '20px',
-                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                marginBottom: '2rem',
-                marginTop: '2rem',
-                minHeight: '80vh',
-                padding: '1rem 2rem 3rem',
+                backgroundColor: "#ffffff",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                borderRadius: "20px",
+                padding: "1rem 2rem 3rem",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: "2rem",
+                marginBottom: "2rem",
+                minHeight:"85vh"
               }}
               container
             >
@@ -153,7 +149,7 @@ function ServiceProviderPage4({
               >
                 <img alt="Logo" src="/Logo.png" style={{ width: '40%' }} />
               </Grid>
-              <Grid item xs={12} style={{ marginTop: "1rem" }}>
+              <Grid item xs={12} style={{ marginTop: "1rem",width:"80%" }}>
               <Formik
                   innerRef={formRef}
                   onSubmit={(values) => {
@@ -193,14 +189,15 @@ function ServiceProviderPage4({
                           display: "flex",
                           flexDirection: "column",
                           gap: "20px",
+                       
                         }}
                       >
                           {
                             <Grid style={{ justifyContent: "center" }}>
-                              <Typography textAlign="center">
-                                Where are you based?
+                              <Typography textAlign="center" marginBottom={"20px"}>
+                                Where do you offer your services?
                               </Typography>
-                                <FormControl fullWidth variant='filled'>
+                                <FormControl fullWidth variant='filled'  sx={{ m: 1}}>
                                 <MultiSelect {...spread("serviceAreas", false)}
                                   displayEmpty={true}
                                   options={options}
@@ -218,7 +215,7 @@ function ServiceProviderPage4({
                                     }}
                                   labelledBy={"Select"}
                                   isCreatable={false}
-                                  overrideStrings={{selectAll:"Islandwide",search:"Search districts..",selectSomeItems:"Select Districts"}}
+                                  overrideStrings={{selectAll:"Islandwide",search:"Search districts..",selectSomeItems:"Select Area"}}
                                 />
                                 </FormControl>
                                 <Grid
@@ -226,6 +223,7 @@ function ServiceProviderPage4({
                                     display: "flex",
                                     justifyContent: "center",
                                     width: "100%",
+                                    marginTop:"20px"
                                   }}
                                 >
                                   <Button

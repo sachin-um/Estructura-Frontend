@@ -14,7 +14,11 @@ import {
 } from "@mui/material";
 import { Form, Formik } from "formik";
 import { useRef } from "react";
-
+import * as yup from "yup";
+const validationSchema = yup.object({
+  minRate: yup.string().required("Any Qualification required"),
+  maxRate: yup.string().required("Any Qualification required"),
+});
 function ServiceProviderPage6({
   formData,
   updateFormData,
@@ -110,7 +114,7 @@ function ServiceProviderPage6({
                 justifyContent: "center",
                 marginTop: "2rem",
                 marginBottom: "2rem",
-                minHeight:'80vh'
+                minHeight:"85vh"
               }}
             >
               <Grid
@@ -133,7 +137,7 @@ function ServiceProviderPage6({
                       nextPage();
                     }}
                     initialValues={initialValues}
-                    // validationSchema={validationSchema}
+                    validationSchema={validationSchema}
                 >
                   {({
                     values,
@@ -170,7 +174,7 @@ function ServiceProviderPage6({
                               {
                                 <Grid style={{ justifyContent: "center" }}>
                                   <Typography textAlign="center">
-                                    What is the estimated price range for a project?
+                                    What is the estimated service charge for a project?
                                   </Typography>
                                   <Box sx={{ display: "flex", gap: "10px" }}>
                                     <TextField

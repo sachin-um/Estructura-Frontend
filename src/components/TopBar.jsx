@@ -91,7 +91,7 @@ function TopBar() {
             variant="h6"
           >
             <RouterLink to="/">
-              <img src="/Logo.png" alt="" height={65} />
+              <img src="/TopbarLogo.png" alt="" height={65} />  
             </RouterLink>
           </Typography>
 
@@ -286,3 +286,4 @@ function TopBar() {
 export default TopBar;
 
 export { pages };
+

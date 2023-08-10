@@ -84,16 +84,23 @@ function SignUpPage2({
             item
             md={7}
             xs={12}
+            md={7}
+            style={{
+              paddingTop: "2rem",
+              paddingBottom: "2rem",
+            }}
           >
             <Grid
               style={{
                 alignItems: 'flex-end',
                 backgroundImage: 'url("/category.jpg")',
-                backgroundPosition: 'center',
-                backgroundSize: 'cover',
-                borderRadius: '20px',
-                display: 'flex',
-                height: '100%',
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                borderRadius: "20px",
+                height: "100%",
+                display: "flex",
+                alignItems: "flex-end",
+              marginTop: "2rem",
               }}
               container
             >
