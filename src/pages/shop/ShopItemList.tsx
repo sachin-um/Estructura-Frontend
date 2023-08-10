@@ -32,21 +32,57 @@ const ShopItemList = () => {
     if (itemsStatus === 'idle') {
       dispatch(fetchRetailItems());
     }
-  }, [itemsStatus, dispatch]);
+    if (itemsStatus === 'succeeded') {
+      setItems(retailItems.filter((item) => item.retailItemType === category));
+    }
+  }, [itemsStatus, dispatch, retailItems, category]);
 
-  const Items = retailItems.filter((item) => item.retailItemType === category);
+  const [Items, setItems] = useState<RetailItem[]>([]);
 
   const [pageSize, _setPageSize] = useState(8); // Should add a selector
   const [pageNumber, setPageNumber] = useState(1);
 
-  const PaginatedItems = Paginate(Items, pageNumber, pageSize);
+  const [sort, setSort] = useState<sortingOption>('Price: High to Low');
 
+  useEffect(() => {
+    switch (sort) {
+      case 'Price: High to Low':
+        setSortedItems((da) => [...Items].sort((a, b) => b.price - a.price));
+        break;
+      case 'Price: Low to High':
+        setSortedItems((da) => [...Items].sort((a, b) => a.price - b.price));
+        break;
+      case 'Date: Newest on Top':
+        setSortedItems((da) =>
+          [...Items].sort(
+            (a, b) =>
+              new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime(),
+          ),
+        );
+        break;
+      case 'Date: Oldest on Top':
+        setSortedItems((da) =>
+          [...Items].sort(
+            (a, b) =>
+              new Date(a.dateAdded).getTime() - new Date(b.dateAdded).getTime(),
+          ),
+        );
+        break;
+      default:
+        break;
+    }
+  }, [Items, sort]);
+
+  const [sortedItems, setSortedItems] = useState(Items);
+
+  const PaginatedItems = Paginate(sortedItems, pageNumber, pageSize);
   console.log(PaginatedItems);
 
   return (
     <Container>
       <TopAppBar title={`Estructura: Shop ${category}`} />
-      <Banner>Furniture</Banner>
+      <Banner>{category}</Banner>
+      {/* Should change banner Image by category */}
       <SortContainer>
         <SortIcon />
         <SortText>Sort by:</SortText>
@@ -54,20 +90,21 @@ const ShopItemList = () => {
           displayEmpty
           id="sort-by"
           labelId="sort-by-label"
-          value=""
+          onChange={(event) => setSort(event.target.value as sortingOption)}
+          value={sort}
           variant="outlined"
         >
           <Option disabled value="">
             Sorting option
           </Option>
-          <Option value="priceLowToHigh">Price: Low to High</Option>
-          <Option value="priceHighToLow">Price: High to Low</Option>
-          <Option value="dateNewestOnTop">Date: Newest on Top</Option>
-          <Option value="dateOldestOnTop">Date: Oldest on Top</Option>
+          <Option value="Date: Newest on Top">Date: Newest on Top</Option>
+          <Option value="Date: Oldest on Top">Date: Oldest on Top</Option>
+          <Option value="Price: High to Low">Price: High to Low</Option>
+          <Option value="Price: Low to High">Price: Low to High</Option>
         </SortSelect>
       </SortContainer>
       <ShopCategories data={PaginatedItems} />
-      <Box display={'flex'} justifyContent={'center'}>
+      <Box display={'flex'} justifyContent={'center'} marginBottom={'2rem'}>
         <Pagination
           onChange={(_event, value) => {
             setPageNumber(value);

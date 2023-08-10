@@ -17,12 +17,6 @@ import {
   selectAllUsers,
 } from '../../redux/UserInfo/UsersInfoReducer';
 
-type sortingOption =
-  | 'Date: Newest on Top'
-  | 'Date: Oldest on Top'
-  | 'Price: High to Low'
-  | 'Price: Low to High';
-
 const topImages = [
   {
     image:
