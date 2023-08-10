@@ -1,6 +1,6 @@
 interface RentingItem {
   category: RentingCategory;
-  createBy: number;
+  createdBy: number;
   dateAdded: Date;
   description: string;
   extraImage1: string;

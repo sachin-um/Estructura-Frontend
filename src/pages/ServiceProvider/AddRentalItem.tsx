@@ -1,27 +1,18 @@
 import AddIcon from '@mui/icons-material/Add';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import AttachFileIcon from '@mui/icons-material/AttachFile';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ImageIcon from '@mui/icons-material/Image';
-import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import {
-  Alert,
   Box,
   Button,
   Container,
   FormControl,
-  FormControlLabel,
   Grid,
   IconButton,
   InputAdornment,
   InputLabel,
-  Menu,
   MenuItem,
-  Radio,
-  RadioGroup,
   Select,
-  Snackbar,
-  Stack,
   TextField,
   Tooltip,
   Typography,
@@ -34,7 +25,6 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
-import Footer from '../../components/Footer';
 import TopBar from '../../components/TopBar';
 import {
   addRentingItem,
@@ -208,15 +198,15 @@ const AddRentalItem: FunctionComponent<RentingItemFormProps> = ({
     // Set Image if Editing
     if (OriginalRentingItem && !mainImageReset) {
       setMainImage(
-        `http://localhost:8080/files/project-files/${OriginalRentingItem.createBy}/${OriginalRentingItem.id}/${OriginalRentingItem.mainImageName}`,
+        `http://localhost:8080/files/project-files/${OriginalRentingItem.createdBy}/${OriginalRentingItem.id}/${OriginalRentingItem.mainImageName}`,
       );
       setMainImageReset(true);
     }
     if (OriginalRentingItem && !imagesReset) {
       const extraImages = [
-        `http://localhost:8080/files/project-files/${OriginalRentingItem.createBy}/${OriginalRentingItem.id}/${OriginalRentingItem.extraImage1Name}`,
-        `http://localhost:8080/files/project-files/${OriginalRentingItem.createBy}/${OriginalRentingItem.id}/${OriginalRentingItem.extraImage2Name}`,
-        `http://localhost:8080/files/project-files/${OriginalRentingItem.createBy}/${OriginalRentingItem.id}/${OriginalRentingItem.extraImage3Name}`,
+        `http://localhost:8080/files/project-files/${OriginalRentingItem.createdBy}/${OriginalRentingItem.id}/${OriginalRentingItem.extraImage1Name}`,
+        `http://localhost:8080/files/project-files/${OriginalRentingItem.createdBy}/${OriginalRentingItem.id}/${OriginalRentingItem.extraImage2Name}`,
+        `http://localhost:8080/files/project-files/${OriginalRentingItem.createdBy}/${OriginalRentingItem.id}/${OriginalRentingItem.extraImage3Name}`,
       ];
       setImages(extraImages);
       setImagesReset(true);
