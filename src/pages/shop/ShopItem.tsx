@@ -2,7 +2,7 @@ import { Add, Favorite, Remove, ShoppingCart } from '@mui/icons-material';
 import { type AnyAction, type ThunkDispatch } from '@reduxjs/toolkit';
 import { FunctionComponent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Footer from '../../components/Footer';
@@ -14,17 +14,24 @@ import {
   getRetailItemStatus,
   selectRetailItem,
 } from '../../redux/RetailItems/SingleRetailItemReducer';
+import {
+  fetchUserById,
+  getUser,
+  getUserStatus,
+} from '../../redux/UserInfo/SingleUserInfoReducer';
 import { mobile } from '../../responsive';
 
 const ShopItem: FunctionComponent = () => {
   const itemId = parseInt(useParams<{ id: string }>().id ?? '0');
   const dispatch: ThunkDispatch<RetailItem, void, AnyAction> = useDispatch();
+  const dispatchUser: ThunkDispatch<User, void, AnyAction> = useDispatch();
 
   const item = useSelector(selectRetailItem);
   const itemStatus = useSelector(getRetailItemStatus);
   const itemError = useSelector(getRetailItemError);
   const [selectedImage, setSelectedImage] = useState('');
   const [imageUrl, setImageUrl] = useState('');
+  const [userId, setUserId] = useState(0);
 
   useEffect(() => {
     if (itemStatus === 'idle') {
@@ -37,9 +44,21 @@ const ShopItem: FunctionComponent = () => {
       setImageUrl(
         `http://localhost:8080/files/retail-item-files/${item?.createdBy}/${item?.id}/`,
       );
+      setUserId(item.createdBy);
       console.log(item);
     }
   }, [dispatch, item, itemId, itemStatus]);
+
+  const userinfo = useSelector(getUser);
+  const userStatus = useSelector(getUserStatus);
+
+  useEffect(() => {
+    if (userStatus === 'idle') {
+      dispatchUser(fetchUserById(userId));
+    } else {
+      console.log(userinfo);
+    }
+  }, [userStatus, dispatchUser, userinfo, userId]);
 
   const handleImageClick = (image: string) => {
     setSelectedImage(image);

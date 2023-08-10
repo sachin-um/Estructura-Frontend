@@ -1,14 +1,11 @@
-import { Add, Favorite, Remove, ShoppingCart } from '@mui/icons-material';
 import CallIcon from '@mui/icons-material/Call';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import StoreIcon from '@mui/icons-material/Store';
-import { Typography } from '@mui/material';
 import { type AnyAction, type ThunkDispatch } from '@reduxjs/toolkit';
 import { FunctionComponent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { string } from 'yup';
 
 import Footer from '../../components/Footer';
 import TopAppBar from '../../components/TopAppBar';
@@ -18,6 +15,11 @@ import {
   getRentingItemStatus,
   selectRentingItem,
 } from '../../redux/Renting/SingleRentingItemReducer';
+import {
+  fetchUserById,
+  getUser,
+  getUserStatus,
+} from '../../redux/UserInfo/SingleUserInfoReducer';
 import { mobile } from '../../responsive';
 const Container = styled.div`
   display: flex;
@@ -172,11 +174,13 @@ const ButtonText = styled.span`
 const ViewRentalItem: FunctionComponent = () => {
   const itemId = parseInt(useParams<{ id: string }>().id ?? '0');
   const dispatch: ThunkDispatch<RentingItem, void, AnyAction> = useDispatch();
+  const dispatchUser: ThunkDispatch<User, void, AnyAction> = useDispatch();
 
   const item = useSelector(selectRentingItem);
   const itemStatus = useSelector(getRentingItemStatus);
   const itemError = useSelector(getRentingItemError);
   const [selectedImage, setSelectedImage] = useState('');
+  const [userId, setUserId] = useState(0);
   const [imageUrl, setImageUrl] = useState('');
   useEffect(() => {
     if (itemStatus === 'idle') {
@@ -184,14 +188,26 @@ const ViewRentalItem: FunctionComponent = () => {
     }
     if (item) {
       setSelectedImage(
-        `http://localhost:8080/files/renting-item-files/${item?.createBy}/${item?.id}/${item?.mainImageName}`,
+        `http://localhost:8080/files/renting-item-files/${item?.createdBy}/${item?.id}/${item?.mainImageName}`,
       );
       setImageUrl(
-        `http://localhost:8080/files/renting-item-files/${item?.createBy}/${item?.id}/`,
+        `http://localhost:8080/files/renting-item-files/${item?.createdBy}/${item?.id}/`,
       );
+      setUserId(item.createdBy);
       console.log(item);
     }
   }, [dispatch, item, itemId, itemStatus]);
+
+  const userinfo = useSelector(getUser);
+  const userStatus = useSelector(getUserStatus);
+
+  useEffect(() => {
+    if (userStatus === 'idle') {
+      dispatchUser(fetchUserById(userId));
+    } else {
+      console.log(userinfo);
+    }
+  }, [userStatus, dispatchUser, userinfo, userId]);
 
   const handleImageClick = (image: string) => {
     setSelectedImage(image);
@@ -284,17 +300,20 @@ const ViewRentalItem: FunctionComponent = () => {
 
             <ContactContainer>
               <StoreIcon></StoreIcon>
-              <Contact>Engineering Technocracy (Pvt) Ltd</Contact>
+              <Contact>{userinfo?.businessName}</Contact>
             </ContactContainer>
 
             <ContactContainer>
               <CallIcon></CallIcon>
-              <ContactNo>0773394082</ContactNo>
+              <ContactNo>{userinfo?.businessContactNo}</ContactNo>
             </ContactContainer>
 
             <ContactContainer>
               <LocationOnIcon></LocationOnIcon>
-              <Contact>No. 54/3A, Madapatha , Piliyandala , Colombo</Contact>
+              <Contact>
+                {userinfo?.addressline1}, {userinfo?.addressline2},
+                {userinfo?.district}.
+              </Contact>
             </ContactContainer>
           </InfoContainer>
         </Wrapper>
