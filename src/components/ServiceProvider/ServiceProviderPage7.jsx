@@ -10,7 +10,7 @@ import { Form, Formik } from "formik";
 import { useRef } from "react";
 import * as yup from "yup";
 const validationSchema=yup.object({
-  profileImage: Yup.mixed()
+  profileImage: yup.mixed()
   .required('Required')
   .test('only 1', 'More than 1', (value) => {
     const fileArr = value;
