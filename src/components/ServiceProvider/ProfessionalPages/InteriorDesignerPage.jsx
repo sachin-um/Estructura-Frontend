@@ -38,7 +38,6 @@ function InteriorDesignerPage1({
           display: "flex",
           alignItems: "center",
         }}
-        maxWidth={false}
       >
         <Grid container justifyContent="center" spacing={4}>
           <Grid 

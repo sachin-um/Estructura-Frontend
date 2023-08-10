@@ -190,7 +190,6 @@ function ServiceProviderSignUp() {
       
         nextPage={nextPage}
         previousPage={previousPage}
-        updateFormData={updateFormData}
       />,
       ...professionalsPages,
     );
@@ -205,7 +204,6 @@ function ServiceProviderSignUp() {
       
         nextPage={nextPage}
         previousPage={previousPage}
-        updateFormData={updateFormData}
       />,
       ...professionalsPages,
     );
@@ -220,7 +218,6 @@ function ServiceProviderSignUp() {
       
         nextPage={nextPage}
         previousPage={previousPage}
-        updateFormData={updateFormData}
       />,
       ...professionalsPages,
     );

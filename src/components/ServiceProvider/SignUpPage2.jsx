@@ -84,11 +84,6 @@ function SignUpPage2({
             item
             md={7}
             xs={12}
-            md={7}
-            style={{
-              paddingTop: "2rem",
-              paddingBottom: "2rem",
-            }}
           >
             <Grid
               style={{
