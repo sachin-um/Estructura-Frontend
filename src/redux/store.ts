@@ -9,6 +9,8 @@ import SingleRentingItemReducer from './Renting/SingleRentingItemReducer';
 import RetailItemsReducer from './RetailItems/RetailItemsReducer';
 import SingleRetailItemReducer from './RetailItems/SingleRetailItemReducer';
 import UserAuthenticationReducer from './UserAuthenticationReducer';
+import SingleUserInfoReducer from './UserInfo/SingleUserInfoReducer';
+import UsersInfoReducer from './UserInfo/UsersInfoReducer';
 
 export const store = configureStore({
   reducer: {
@@ -20,7 +22,9 @@ export const store = configureStore({
     rentingItems: RentingItemsReducer,
     retailItem: SingleRetailItemReducer,
     retailItems: RetailItemsReducer,
+    specificUser: SingleUserInfoReducer,
     user: UserAuthenticationReducer,
+    usersInfo: UsersInfoReducer,
   },
 });
 

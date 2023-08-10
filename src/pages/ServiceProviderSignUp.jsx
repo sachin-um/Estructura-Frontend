@@ -156,7 +156,6 @@ function ServiceProviderSignUp() {
         updateFormData={updateFormData}
         nextPage={nextPage}
         previousPage={previousPage}
-        updateFormData={updateFormData}
       />,
       ...professionalsPages,
     );
