@@ -16,7 +16,7 @@ const initialState: ProjectsState = {
 export const fetchProjectByProfessional = createAsyncThunk(
   'projects/fetchProjectsByProfessional',
   async (userId: number) => {
-    const response = await API.get<Project[]>(`/all/${userId}`);
+    const response = await API.get<Project[]>(`/projects/all/${userId}`);
     return response.status === 200 ? response.data : [];
   },
 );
@@ -24,7 +24,7 @@ export const fetchProjectByProfessional = createAsyncThunk(
 export const fetchProjects = createAsyncThunk(
   'Projects/fetchProjects',
   async () => {
-    const response = await API.get<Project[]>('/Projects/all');
+    const response = await API.get<Project[]>('/projects/all');
     return response.status === 200 ? response.data : [];
   },
 );
