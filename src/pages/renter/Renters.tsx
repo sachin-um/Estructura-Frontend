@@ -90,7 +90,7 @@ const Renters = () => {
   }, [status, dispatch, data]);
 
   useEffect(() => {
-    if (locationOption !== 'islandwide') {
+    if (locationOption !== 'islandwide' && selectedDistricts.length > 0) {
       setFilteredData((da) =>
         data.filter((item) => {
           const user = usersInfo.find((user) => user.id === item.createdBy);
