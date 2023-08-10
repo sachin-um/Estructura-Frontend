@@ -19,7 +19,11 @@ import {
   selectRentingItem,
 } from '../../redux/Renting/SingleRentingItemReducer';
 import { mobile } from '../../responsive';
-const Container = styled.div``;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 const ContainerImg = styled.div`
   display: flex;
@@ -30,7 +34,7 @@ const ContainerImg = styled.div`
 
 const BigImageContainer = styled.div`
   width: 400px;
-  max-height: 400px;
+  height: 300px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -51,8 +55,8 @@ const SmallImagesContainer = styled.div`
 `;
 
 const SmallImageContainer = styled.div`
-  width: 60px;
-  height: 60px;
+  width: 100px;
+  height: 100px;
   object-fit: cover;
 
   margin: 0 10px;
@@ -92,7 +96,10 @@ const DateText = styled.p`
 
 const Desc = styled.p`
   margin: 20px 0px;
-  color: #435834;
+  min-height: 200px;
+  border-radius: 5px;
+  border: 1px solid #808080;
+  padding: 20px;
 `;
 
 const PriceContainer = styled.div`
@@ -143,6 +150,14 @@ const ContactContainer = styled.div`
 
 const Contact = styled.span`
   font-weight: 400;
+  font-size: 20px;
+  color: #000;
+  margin-right: 10px;
+  margin-left: 10px;
+`;
+
+const ContactNo = styled.span`
+  font-weight: 700;
   font-size: 20px;
   color: #000;
   margin-right: 10px;
@@ -274,7 +289,7 @@ const ViewRentalItem: FunctionComponent = () => {
 
             <ContactContainer>
               <CallIcon></CallIcon>
-              <Contact>0773394082</Contact>
+              <ContactNo>0773394082</ContactNo>
             </ContactContainer>
 
             <ContactContainer>
