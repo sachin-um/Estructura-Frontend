@@ -1,7 +1,6 @@
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
-import { Box, Button, Container, Grid, Link, Typography } from '@mui/material';
+import { Box, Container, Grid, Link, Typography } from '@mui/material';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Divider from '@mui/material/Divider';
 import { type AnyAction, type ThunkDispatch } from '@reduxjs/toolkit';
@@ -10,23 +9,30 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import Footer from '../../components/Footer';
-import TopBar from '../../components/TopBar';
+import TopAppBar from '../../components/TopAppBar';
 import {
   fetchProjectByById,
   getProjectError,
   getProjectStatus,
   selectProject,
 } from '../../redux/Projects/SingleProjectReducer';
+import {
+  fetchUserById,
+  getUser,
+  getUserStatus,
+} from '../../redux/UserInfo/SingleUserInfoReducer';
 
 const ViewProject: FunctionComponent = () => {
   const projectId = parseInt(useParams<{ id: string }>().id ?? '0');
   const dispatch: ThunkDispatch<Project, void, AnyAction> = useDispatch();
+  const dispatchUser: ThunkDispatch<User, void, AnyAction> = useDispatch();
 
   const project = useSelector(selectProject);
   const projectStatus = useSelector(getProjectStatus);
   const projectError = useSelector(getProjectError);
   const [selectedImage, setSelectedImage] = useState('');
   const [imageUrl, setImageUrl] = useState('');
+  const [userId, setUserId] = useState(0);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -40,10 +46,21 @@ const ViewProject: FunctionComponent = () => {
       setImageUrl(
         `http://localhost:8080/files/project-files/${project?.createdBy}/${project?.id}/`,
       );
+      setUserId(project.createdBy);
       console.log(project);
     }
   }, [dispatch, project, projectId, projectStatus]);
 
+  const userinfo = useSelector(getUser);
+  const userStatus = useSelector(getUserStatus);
+
+  useEffect(() => {
+    if (userStatus === 'idle') {
+      dispatchUser(fetchUserById(userId));
+    } else {
+      console.log(userinfo);
+    }
+  }, [userStatus, dispatchUser, userinfo, userId]);
   console.log(selectedImage);
   const handleImageClick = (image: string) => {
     setSelectedImage(image);
@@ -51,7 +68,7 @@ const ViewProject: FunctionComponent = () => {
 
   return (
     <>
-      <TopBar />
+      <TopAppBar />
       {projectError ? (
         <h1>ERROR: {projectError}</h1>
       ) : projectStatus === 'loading' ? (
