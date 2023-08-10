@@ -9,10 +9,10 @@ import {
   Stack,
   TextField,
   Typography,
-} from "@mui/material";
-import { ErrorMessage, Form, Formik } from "formik";
-import { useRef } from "react";
-import * as yup from "yup";
+} from '@mui/material';
+import { ErrorMessage, Form, Formik } from 'formik';
+import { useRef } from 'react';
+import * as yup from 'yup';
 import AddressInputs, {
   addressInitialValues,
   addressValidators,
@@ -33,11 +33,11 @@ const validationSchema = yup.object({
   role: yup
     .string()
     .oneOf(professionalCategories.map((category) => category[0]))
-    .required("Professional Category is required"),
-  businessContactNo: yup.string().required("Contact Number is required"),
-  firstname: yup.string().required("First Name is required"),
-  lastname: yup.string().required("Last Name is required"),
-  nic: yup.string().required("NIC is required"),
+    .required('Professional Category is required'),
+  businessContactNo: yup.string().required('Contact Number is required'),
+  firstname: yup.string().required('First Name is required'),
+  lastname: yup.string().required('Last Name is required'),
+  nic: yup.string().required('NIC is required'),
   ...addressValidators,
 });
 
@@ -51,71 +51,73 @@ function Professional({
   const formRef = useRef(null);
   const initialValues = {
     // if possible, set from formData
-    nic: formData.nic ?? "",
-    website: formData.website ?? "",
-    businessName: formData.businessName ?? "",
-    role: formData.role ?? "",
-    firstname: formData.firstname ?? "",
-    lastname: formData.lastname ?? "",
-    businessContactNo: formData.businessContactNo ??"",
+    nic: formData.nic ?? '',
+    website: formData.website ?? '',
+    businessName: formData.businessName ?? '',
+    role: formData.role ?? '',
+    firstname: formData.firstname ?? '',
+    lastname: formData.lastname ?? '',
+    businessContactNo: formData.businessContactNo ?? '',
     ...addressInitialValues(formData),
-
   };
 
   return (
     <>
-      <Box
-        sx={{
-          margin: "10px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "30px",
-          padding:"20px",
-          maxHeight:'350px',
-          overflowY: 'auto'
+      <Formik
+        innerRef={formRef}
+        onSubmit={(values) => {
+          // TODO: HANDLE PAGE CHANGE HERE!!!
+          updateFormData(values);
+          handleDropdownChange(values.role);
+          nextPage();
         }}
+        initialValues={initialValues}
+        validationSchema={validationSchema}
       >
-        <Formik
-          innerRef={formRef}
-          onSubmit={(values) => {
-            // TODO: HANDLE PAGE CHANGE HERE!!!
-            updateFormData(values);
-            handleDropdownChange(values.role);
-            nextPage();
-          }}
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-        >
-          {({
-            values,
-            errors,
-            touched,
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            isSubmitting,
-          }) => {
-            const spread = (field, helper = true) => {
-              return {
-                name: field,
-                onBlur: handleBlur,
-                onChange: handleChange,
-                value: values[field],
-                error: touched[field]  && !!errors[field] ,
-                disabled: isSubmitting,
-                ...(helper && {
-                  helperText: touched[field] && errors[field],
-                }),
-              };
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          isSubmitting,
+        }) => {
+          const spread = (field, helper = true) => {
+            return {
+              name: field,
+              onBlur: handleBlur,
+              onChange: handleChange,
+              value: values[field],
+              error: touched[field] && !!errors[field],
+              disabled: isSubmitting,
+              ...(helper && {
+                helperText: touched[field] && errors[field],
+              }),
             };
-            return (
-              <Form onSubmit={handleSubmit}>
-                <Stack style={{ justifyContent: "center" }} gap={2}>
-                  <Typography variant='h8' sx={{ textAlign: "left", color: "#435834" }}>
-                                      {" "}
-                                      Personal Details{" "}
+          };
+          return (
+            <Form onSubmit={handleSubmit}>
+              <Box
+                sx={{
+                  margin: '10px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '30px',
+                  padding: '20px',
+                  maxHeight: '350px',
+                  overflowY: 'auto',
+                }}
+              >
+                <Stack style={{ justifyContent: 'center' }} gap={2}>
+                  <Typography
+                    variant="h8"
+                    sx={{ textAlign: 'left', color: '#435834' }}
+                  >
+                    {' '}
+                    Personal Details{' '}
                   </Typography>
-                  <Box sx={{ display: "flex", gap: 1 }}>
+                  <Box sx={{ display: 'flex', gap: 1 }}>
                     <TextField
                       label="Your First Name"
                       variant="filled"
@@ -132,16 +134,19 @@ function Professional({
                     />
                   </Box>
                   <TextField
-                      type="nic"
-                      name="nic"
-                      label="NIC"
-                      variant="filled"
-                      size="small"
-                      {...spread("nic")}
-                     />
-                  <Typography variant='h8' sx={{ textAlign: "left", color: "#435834" }}>
-                                    {" "}
-                                    Business Details{" "}
+                    type="nic"
+                    name="nic"
+                    label="NIC"
+                    variant="filled"
+                    size="small"
+                    {...spread('nic')}
+                  />
+                  <Typography
+                    variant="h8"
+                    sx={{ textAlign: 'left', color: '#435834' }}
+                  >
+                    {' '}
+                    Business Details{' '}
                   </Typography>
                   <TextField
                     fullWidth
@@ -163,9 +168,8 @@ function Professional({
                     <InputLabel id="SelectProfessionalCategory">
                       Professional Category
                     </InputLabel>
-                    
-                    <Select displayEmpty={true} {...spread("role", false)}>
 
+                    <Select displayEmpty={true} {...spread('role', false)}>
                       {professionalCategories.map(([value, label]) => (
                         <MenuItem key={value} value={value}>
                           {label}
@@ -173,20 +177,20 @@ function Professional({
                       ))}
                     </Select>
                   </FormControl>
-                  <ErrorMessage 
-                      name="role"
-                  >
-                    {msg => <span
-                            style={{
-                              color:"#d32f2f",
-                              fontSize: "0.75rem",
-                              marginLeft:"14px"
-                            }}
-                            >
-                              {msg}
-                            </span>}
+                  <ErrorMessage name="role">
+                    {(msg) => (
+                      <span
+                        style={{
+                          color: '#d32f2f',
+                          fontSize: '0.75rem',
+                          marginLeft: '14px',
+                        }}
+                      >
+                        {msg}
+                      </span>
+                    )}
                   </ErrorMessage>
-                  
+
                   <AddressInputs spread={spread} errors={errors} />
                   <TextField
                     type="website"
@@ -194,41 +198,41 @@ function Professional({
                     label="Website"
                     variant="filled"
                     size="small"
-                    {...spread("website")}
+                    {...spread('website')}
                   />
-                  <Grid
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      width: '100%',
-                    }}
-                  >
-                    <Button
-                      sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
-                      type="button"
-                      color="primary"
-                      variant="contained"
-                      size="large"
-                      onClick={previousPage}
-                    >
-                      Previous
-                    </Button>
-                    <Button
-                      sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
-                      type="submit"
-                      color="primary"
-                      variant="contained"
-                      size="large"
-                    >
-                      Next
-                    </Button>
-                  </Grid>
                 </Stack>
-              </Form>
-            );
-          }}
-        </Formik>
-      </Box>
+              </Box>
+              <Grid
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  width: '100%',
+                }}
+              >
+                <Button
+                  sx={{ width: 1 / 2, borderRadius: 2, margin: 3 }}
+                  type="button"
+                  color="primary"
+                  variant="contained"
+                  size="large"
+                  onClick={previousPage}
+                >
+                  Previous
+                </Button>
+                <Button
+                  sx={{ width: 1 / 2, borderRadius: 2, margin: 3 }}
+                  type="submit"
+                  color="primary"
+                  variant="contained"
+                  size="large"
+                >
+                  Next
+                </Button>
+              </Grid>
+            </Form>
+          );
+        }}
+      </Formik>
     </>
   );
 }

@@ -5,8 +5,9 @@ import {
   Select,
   TextField,
   Typography,
-} from "@mui/material";
-import { ErrorMessage } from "formik";
+} from '@mui/material';
+import { ErrorMessage } from 'formik';
+import * as yup from 'yup';
 
 const districts = [
   'Ampara',
@@ -91,18 +92,18 @@ function AddressInputs(props) {
             </MenuItem>
           ))}
         </Select>
-        <ErrorMessage 
-          name="district"
-        >
-          {msg => <span
+        <ErrorMessage name="district">
+          {(msg) => (
+            <span
               style={{
-              color:"#d32f2f",
-              fontSize: "0.75rem",
-              marginLeft:"14px"
-          }}
-          >
+                color: '#d32f2f',
+                fontSize: '0.75rem',
+                marginLeft: '14px',
+              }}
+            >
               {msg}
-          </span>}
+            </span>
+          )}
         </ErrorMessage>
       </FormControl>
     </>
@@ -119,15 +120,14 @@ const addressValidators = {
     .required('District is required'),
 };
 
-
-const addressInitialValues=(formData) => {
-return{
-  addressLine1: formData.addressLine1 ?? "",
-  addressLine2: formData.addressLine2 ??"",
-  city: formData.city ?? "",
-  district: formData.district ??"",
-}}
-
+const addressInitialValues = (formData) => {
+  return {
+    addressLine1: formData.addressLine1 ?? '',
+    addressLine2: formData.addressLine2 ?? '',
+    city: formData.city ?? '',
+    district: formData.district ?? '',
+  };
+};
 
 export { addressInitialValues, addressValidators, districts };
 

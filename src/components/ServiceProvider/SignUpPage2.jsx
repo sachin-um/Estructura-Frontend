@@ -22,7 +22,6 @@ function SignUpPage2({
     handlePageImage(tab);
   };
 
-
   const renderForm = () => {
     let tab = <>Oops! Something went wrong.</>;
     switch (activeTab) {
@@ -77,7 +76,6 @@ function SignUpPage2({
         <Grid container justifyContent="center" spacing={4}>
           <Grid
             style={{
-              marginTop: '4rem',
               paddingBottom: '2rem',
               paddingTop: '2rem',
             }}
@@ -89,13 +87,12 @@ function SignUpPage2({
               style={{
                 alignItems: 'flex-end',
                 backgroundImage: 'url("/category.jpg")',
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                borderRadius: "20px",
-                height: "100%",
-                display: "flex",
-                alignItems: "flex-end",
-              marginTop: "2rem",
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                borderRadius: '20px',
+                height: '100%',
+                display: 'flex',
+                marginTop: '2rem',
               }}
               container
             >
@@ -145,7 +142,6 @@ function SignUpPage2({
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
-                marginBottom: '2rem',
                 marginTop: '2rem',
                 padding: '1rem 2rem 3rem',
               }}
