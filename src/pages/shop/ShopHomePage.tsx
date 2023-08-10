@@ -2,23 +2,22 @@ import { Box, Button, Typography } from '@mui/material';
 import { type AnyAction, type ThunkDispatch } from '@reduxjs/toolkit';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import '../../assets/font.css';
 import Footer from '../../components/Footer';
 import TopAppBar from '../../components/TopAppBar';
 import Newsletter from '../../components/e-com/Blog';
 import Slider from '../../components/e-com/Slider';
-import CategoriesCard from '../../components/shop/ShopCategories';
+import ShopCategories from '../../components/shop/ShopCategories';
 import {
   fetchRetailItems,
-  getRetailItemsError,
   getRetailItemsStatus,
   selectAllRetailItems,
 } from '../../redux/RetailItems/RetailItemsReducer';
 
 const ShopHomePage = () => {
   const itemsStatus = useSelector(getRetailItemsStatus);
-  const itemsError = useSelector(getRetailItemsError);
   const retailItems = useSelector(selectAllRetailItems);
 
   const dispatch: ThunkDispatch<RetailItem[], void, AnyAction> = useDispatch();
@@ -50,6 +49,8 @@ const ShopHomePage = () => {
   const firstFourBathware = Bathware.slice(0, 4);
   const firstFourGardenware = Gardenware.slice(0, 4);
   const firstFourLighting = Lighting.slice(0, 4);
+
+  const navigate = useNavigate();
   return (
     <div>
       <TopAppBar />
@@ -72,11 +73,17 @@ const ShopHomePage = () => {
         >
           Furniture
         </Typography>
-        <Button color="primary" variant="contained">
+        <Button
+          onClick={() => {
+            navigate('/shop/items/FURNITURE');
+          }}
+          color="primary"
+          variant="contained"
+        >
           See More Furniture
         </Button>
       </Box>
-      <CategoriesCard data={firstFourFurniture} />
+      <ShopCategories data={firstFourFurniture} />
       {/* Hardware */}
       <Box
         sx={{
@@ -95,11 +102,17 @@ const ShopHomePage = () => {
         >
           Hardware
         </Typography>
-        <Button color="primary" variant="contained">
+        <Button
+          onClick={() => {
+            navigate('/shop/items/HARDWARE');
+          }}
+          color="primary"
+          variant="contained"
+        >
           See More Hardware
         </Button>
       </Box>
-      <CategoriesCard data={firstFourHardware} />
+      <ShopCategories data={firstFourHardware} />
 
       {/* Bathware */}
       <Box
@@ -119,11 +132,17 @@ const ShopHomePage = () => {
         >
           Bathware
         </Typography>
-        <Button color="primary" variant="contained">
+        <Button
+          onClick={() => {
+            navigate('/shop/items/BATHWARE');
+          }}
+          color="primary"
+          variant="contained"
+        >
           See More Bathware
         </Button>
       </Box>
-      <CategoriesCard data={firstFourBathware} />
+      <ShopCategories data={firstFourBathware} />
 
       {/* Gardenware */}
       <Box
@@ -143,11 +162,17 @@ const ShopHomePage = () => {
         >
           Gardenware
         </Typography>
-        <Button color="primary" variant="contained">
+        <Button
+          onClick={() => {
+            navigate('/shop/items/GARDENWARE');
+          }}
+          color="primary"
+          variant="contained"
+        >
           See More Gardenware
         </Button>
       </Box>
-      <CategoriesCard data={firstFourGardenware} />
+      <ShopCategories data={firstFourGardenware} />
 
       {/* Lighting */}
       <Box
@@ -167,11 +192,17 @@ const ShopHomePage = () => {
         >
           Lighting
         </Typography>
-        <Button color="primary" variant="contained">
+        <Button
+          onClick={() => {
+            navigate('/shop/items/LIGHTING');
+          }}
+          color="primary"
+          variant="contained"
+        >
           See More Lighting
         </Button>
       </Box>
-      <CategoriesCard data={firstFourLighting} />
+      <ShopCategories data={firstFourLighting} />
       <Newsletter />
       <Footer />
     </div>

@@ -1,6 +1,10 @@
+import { Box, Pagination } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import { type AnyAction, type ThunkDispatch } from '@reduxjs/toolkit';
+import { useEffect, useState } from 'react';
 import { FaSort } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -8,18 +12,36 @@ import '../../assets/font.css';
 import Footer from '../../components/Footer';
 import TopAppBar from '../../components/TopAppBar';
 import Newsletter from '../../components/e-com/Blog';
-import Categories from '../../components/e-com/Categories';
-import { Furniture } from '../../data/ProductscardData';
+import ShopCategories from '../../components/shop/ShopCategories';
+import {
+  fetchRetailItems,
+  getRetailItemsStatus,
+  selectAllRetailItems,
+} from '../../redux/RetailItems/RetailItemsReducer';
 import { mobile } from '../../responsive';
-
+import Paginate from '../../utils/Paginate';
 const ShopItemList = () => {
   const category = useParams().category;
 
-  // ! retrieve data from database according to category here
+  const itemsStatus = useSelector(getRetailItemsStatus);
+  const retailItems = useSelector(selectAllRetailItems);
 
-  // TODO: Get data by category | display error if not valid
-  // TODO: Sort according to choice
-  // TODO: Paginate Data
+  const dispatch: ThunkDispatch<RetailItem[], void, AnyAction> = useDispatch();
+
+  useEffect(() => {
+    if (itemsStatus === 'idle') {
+      dispatch(fetchRetailItems());
+    }
+  }, [itemsStatus, dispatch]);
+
+  const Items = retailItems.filter((item) => item.retailItemType === category);
+
+  const [pageSize, _setPageSize] = useState(8); // Should add a selector
+  const [pageNumber, setPageNumber] = useState(1);
+
+  const PaginatedItems = Paginate(Items, pageNumber, pageSize);
+
+  console.log(PaginatedItems);
 
   return (
     <Container>
@@ -44,7 +66,15 @@ const ShopItemList = () => {
           <Option value="dateOldestOnTop">Date: Oldest on Top</Option>
         </SortSelect>
       </SortContainer>
-      <Categories data={Furniture} />
+      <ShopCategories data={PaginatedItems} />
+      <Box display={'flex'} justifyContent={'center'}>
+        <Pagination
+          onChange={(_event, value) => {
+            setPageNumber(value);
+          }}
+          count={Math.ceil(Items.length / pageSize)}
+        />
+      </Box>
       <Newsletter />
       <Footer />
     </Container>

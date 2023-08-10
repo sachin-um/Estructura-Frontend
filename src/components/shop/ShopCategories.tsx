@@ -122,7 +122,7 @@ const ButtonText = styled.span`
 `;
 
 // TODO: REDESIGN
-const CategoriesCard = ({ data }: { data: RetailItem[] }) => {
+const ShopCategories = ({ data }: { data: RetailItem[] }) => {
   return (
     <Container>
       <CardGrid>
@@ -159,4 +159,4 @@ const CategoriesCard = ({ data }: { data: RetailItem[] }) => {
   );
 };
 
-export default CategoriesCard;
+export default ShopCategories;
