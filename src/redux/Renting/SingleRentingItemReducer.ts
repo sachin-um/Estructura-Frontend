@@ -46,7 +46,7 @@ export const addRentingItem = createAsyncThunk(
     }
     const id: number = response.data.id;
     const rentingItem = (
-      await API.get<RentingItem>(`/rentingItems/rentingItem/${id}`)
+      await API.get<RentingItem>(`/renting-items/item/${id}`)
     ).data;
     return rentingItem;
   },
