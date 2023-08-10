@@ -1,5 +1,6 @@
 import { Favorite, ShoppingCart } from '@mui/icons-material';
 import { FaRegClock } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Container = styled.div``;
@@ -123,17 +124,27 @@ const ButtonText = styled.span`
 
 // TODO: REDESIGN
 const ShopCategories = ({ data }: { data: RetailItem[] }) => {
+  const navigate = useNavigate();
   return (
     <Container>
       <CardGrid>
         {data.map((card) => (
           <Card key={card.id}>
             <CardImage
+              onClick={() => {
+                navigate(`/shop/item/${card.id}`);
+              }}
               alt={`Card ${card.id}`}
               src={`http://localhost:8080/files/retail-item-files/${card.createdBy}/${card.id}/${card.mainImageName}`}
             />
             <CardWrapper>
-              <CardText>{card.name}</CardText>
+              <CardText
+                onClick={() => {
+                  navigate(`/shop/item/${card.id}`);
+                }}
+              >
+                {card.name}
+              </CardText>
               <CardPrice>{card.price}</CardPrice>
               <CardButtonsWrapper>
                 <ButtonContainer>
