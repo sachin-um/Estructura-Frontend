@@ -32,7 +32,7 @@ export const fetchRetailItemByStore = createAsyncThunk(
 );
 
 export const fetchRetailItemByCategory = createAsyncThunk(
-  'retailItems/fetchRetailItemsByStore',
+  'retailItems/fetchRetailItemsByCategory',
   async (category: RetailItemType) => {
     const response = await API.get<RetailItem[]>(
       `retailitems/category/${category}`,
