@@ -75,7 +75,8 @@ const ViewProject: FunctionComponent = () => {
           >
             <Typography
               style={{
-                fontSize: '1.5rem',
+                fontSize: '2rem',
+                fontWeight: 'bold',
                 lineHeight: '1',
                 textAlign: 'center',
               }}
@@ -88,7 +89,8 @@ const ViewProject: FunctionComponent = () => {
               height="350px"
               marginTop="20px"
               position="relative"
-              width="100%"
+              sx={{ border: 1, borderColor: 'grey.500' }}
+              width="80%"
             >
               {project.mainImage ? (
                 <img
@@ -105,79 +107,108 @@ const ViewProject: FunctionComponent = () => {
               )}
             </Box>
 
-            <Grid container spacing={1}>
+            <Grid
+              style={{
+                display: 'flex',
+                justifyContent: 'space-around',
+                marginTop: '30px',
+              }}
+              container
+              spacing={1}
+            >
+              {project.mainImage ? (
+                <Box
+                  onClick={() =>
+                    handleImageClick(imageUrl + project.mainImageName)
+                  }
+                  sx={{
+                    border: 1,
+                    borderColor: 'grey.500',
+                    height: '200px',
+                    position: 'relative',
+                  }}
+                >
+                  <img
+                    style={{
+                      height: '200px',
+                      objectFit: 'cover',
+                    }}
+                    alt="Banner"
+                    src={imageUrl + project.mainImageName}
+                  />
+                </Box>
+              ) : (
+                <></>
+              )}
               {project.extraImage1 ? (
-                <Grid item xs={4}>
-                  <Box
-                    onClick={() =>
-                      handleImageClick(imageUrl + project.extraImage1Name)
-                    }
-                    height="150px"
-                    marginTop="30px"
-                    position="relative"
-                    width="100%"
-                  >
-                    <img
-                      style={{
-                        height: '100%',
-                        objectFit: 'cover',
-                        width: '100%',
-                      }}
-                      alt="Banner"
-                      src={imageUrl + project.extraImage1Name}
-                    />
-                  </Box>
-                </Grid>
+                <Box
+                  onClick={() =>
+                    handleImageClick(imageUrl + project.extraImage1Name)
+                  }
+                  sx={{
+                    border: 1,
+                    borderColor: 'grey.500',
+                    height: '200px',
+                    position: 'relative',
+                  }}
+                >
+                  <img
+                    style={{
+                      height: '200px',
+                      objectFit: 'cover',
+                    }}
+                    alt="Banner"
+                    src={imageUrl + project.extraImage1Name}
+                  />
+                </Box>
               ) : (
                 <></>
               )}
               {project.extraImage2 ? (
-                <Grid item xs={4}>
-                  <Box
-                    onClick={() =>
-                      handleImageClick(imageUrl + project.extraImage2Name)
-                    }
-                    height="150px"
-                    marginTop="30px"
-                    position="relative"
-                    width="100%"
-                  >
-                    <img
-                      style={{
-                        height: '100%',
-                        objectFit: 'cover',
-                        width: '100%',
-                      }}
-                      alt="Banner"
-                      src={imageUrl + project.extraImage2Name}
-                    />
-                  </Box>
-                </Grid>
+                <Box
+                  onClick={() =>
+                    handleImageClick(imageUrl + project.extraImage2Name)
+                  }
+                  sx={{
+                    border: 1,
+                    borderColor: 'grey.500',
+                    height: '200px',
+                    position: 'relative',
+                  }}
+                >
+                  <img
+                    style={{
+                      height: '200px',
+                      objectFit: 'cover',
+                    }}
+                    alt="Banner"
+                    src={imageUrl + project.extraImage2Name}
+                  />
+                </Box>
               ) : (
                 <></>
               )}
               {project.extraImage3 ? (
-                <Grid item xs={4}>
-                  <Box
-                    onClick={() =>
-                      handleImageClick(imageUrl + project.extraImage3Name)
-                    }
-                    height="150px"
-                    marginTop="30px"
-                    position="relative"
-                    width="100%"
-                  >
-                    <img
-                      style={{
-                        height: '100%',
-                        objectFit: 'cover',
-                        width: '100%',
-                      }}
-                      alt="Banner"
-                      src={imageUrl + project.extraImage3Name}
-                    />
-                  </Box>
-                </Grid>
+                <Box
+                  onClick={() =>
+                    handleImageClick(imageUrl + project.extraImage3Name)
+                  }
+                  sx={{
+                    border: 1,
+                    borderColor: 'grey.500',
+                    height: '200px',
+                    position: 'relative',
+                  }}
+                >
+                  <img
+                    style={{
+                      height: '200px',
+                      objectFit: 'cover',
+                    }}
+                    alt="Banner"
+                    src={imageUrl + project.extraImage3Name}
+                  />
+                </Box>
               ) : (
                 <></>
               )}
@@ -207,13 +238,17 @@ const ViewProject: FunctionComponent = () => {
                   marginTop: '2rem',
                 }}
                 item
-                md={6}
+                md={8}
                 xs={12}
               >
-                <Card sx={{ minHeight: 300, minWidth: 200 }}>
+                <Card sx={{ minHeight: 300, minWidth: 300 }}>
                   <CardContent>
-                    <Typography>Description</Typography>
-                    {project.description}
+                    <Typography sx={{ marginBottom: '20px' }}>
+                      Description
+                    </Typography>
+                    <Typography sx={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
+                      {project.description}
+                    </Typography>
                   </CardContent>
                 </Card>
               </Grid>
@@ -223,19 +258,27 @@ const ViewProject: FunctionComponent = () => {
                   marginTop: '2rem',
                 }}
                 item
-                md={6}
+                md={4}
                 xs={12}
               >
-                <Card sx={{ marginBottom: 7, minHeight: 120, minWidth: 200 }}>
+                <Card sx={{ marginBottom: 7, minHeight: 120, minWidth: 100 }}>
                   <CardContent>
-                    <Typography>Budget</Typography>
-                    {project.cost}
+                    <Typography sx={{ marginBottom: '20px' }}>
+                      Budget
+                    </Typography>
+                    <Typography sx={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
+                      {project.cost}{' '}
+                    </Typography>
                   </CardContent>
                 </Card>
-                <Card sx={{ minHeight: 120, minWidth: 200 }}>
+                <Card sx={{ minHeight: 120, minWidth: 100 }}>
                   <CardContent>
-                    <Typography>Location</Typography>
-                    {project.location ? project.location : 'Unknown'}
+                    <Typography sx={{ marginBottom: '20px' }}>
+                      Location
+                    </Typography>
+                    <Typography sx={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
+                      {project.location ? project.location : 'Unknown'}
+                    </Typography>
                   </CardContent>
                 </Card>
               </Grid>
@@ -257,28 +300,37 @@ const ViewProject: FunctionComponent = () => {
               Documents
             </Typography>
 
-            <Grid container spacing={2}>
+            <Grid
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                marginTop: '30px',
+                width: '60%',
+              }}
+              container
+              spacing={1}
+            >
               {project.document1 ? (
-                <Grid xs={4}>
-                  <Box
-                    sx={{
-                      borderColor: 'grey',
-                      borderStyle: 'dashed',
+                <Box
+                  sx={{
+                    backgroundColor: '#E7C4A0',
+                    border: 1,
+                    borderColor: 'grey',
+                  }}
+                  display={'flex'}
+                  height="50px"
+                  marginTop="30px"
+                  position="relative"
+                  width="200px"
+                >
+                  <InsertDriveFileIcon
+                    style={{
+                      marginLeft: '10px',
+                      marginTop: '10px',
                     }}
-                    display={'flex'}
-                    height="50px"
-                    marginTop="30px"
-                    position="relative"
-                    width="100%"
-                  >
-                    <InsertDriveFileIcon
-                      style={{
-                        marginLeft: '10px',
-                        marginTop: '10px',
-                      }}
-                    />
+                  />
 
-                    {/* <Typography
+                  {/* <Typography
                       style={{
                         backgroundColor: '#F9F6EE',
                         justifyContent: 'center',
@@ -288,38 +340,46 @@ const ViewProject: FunctionComponent = () => {
                     >
                       {fileName}
                     </Typography> */}
-                    <Link
-                      href={imageUrl + project.document1Name}
-                      underline="hover"
+                  <Link
+                    href={imageUrl + project.document1Name}
+                    underline="hover"
+                  >
+                    <Typography
+                      style={{
+                        fontWeight: 'bold',
+                        marginLeft: '5px',
+                        marginTop: '10px',
+                        textAlign: 'center',
+                      }}
                     >
                       {project.document1}
-                    </Link>
-                  </Box>
-                </Grid>
+                    </Typography>
+                  </Link>
+                </Box>
               ) : (
                 <></>
               )}
               {project.document2 ? (
-                <Grid xs={4}>
-                  <Box
-                    sx={{
-                      borderColor: 'grey',
-                      borderStyle: 'dashed',
+                <Box
+                  sx={{
+                    backgroundColor: '#E7C4A0',
+                    border: 1,
+                    borderColor: 'grey',
+                  }}
+                  display={'flex'}
+                  height="50px"
+                  marginTop="30px"
+                  position="relative"
+                  width="200px"
+                >
+                  <InsertDriveFileIcon
+                    style={{
+                      marginLeft: '10px',
+                      marginTop: '10px',
                     }}
-                    display={'flex'}
-                    height="50px"
-                    marginTop="30px"
-                    position="relative"
-                    width="100%"
-                  >
-                    <InsertDriveFileIcon
-                      style={{
-                        marginLeft: '10px',
-                        marginTop: '10px',
-                      }}
-                    />
+                  />
 
-                    {/* <Typography
+                  {/* <Typography
                       style={{
                         backgroundColor: '#F9F6EE',
                         justifyContent: 'center',
@@ -329,38 +389,46 @@ const ViewProject: FunctionComponent = () => {
                     >
                       {fileName}
                     </Typography> */}
-                    <Link
-                      href={imageUrl + project.document2Name}
-                      underline="hover"
+                  <Link
+                    href={imageUrl + project.document2Name}
+                    underline="hover"
+                  >
+                    <Typography
+                      style={{
+                        fontWeight: 'bold',
+                        marginLeft: '5px',
+                        marginTop: '10px',
+                        textAlign: 'center',
+                      }}
                     >
                       {project.document2}
-                    </Link>
-                  </Box>
-                </Grid>
+                    </Typography>
+                  </Link>
+                </Box>
               ) : (
                 <></>
               )}
               {project.document3 ? (
-                <Grid xs={4}>
-                  <Box
-                    sx={{
-                      borderColor: 'grey',
-                      borderStyle: 'dashed',
+                <Box
+                  sx={{
+                    backgroundColor: '#E7C4A0',
+                    border: 1,
+                    borderColor: 'grey',
+                  }}
+                  display={'flex'}
+                  height="50px"
+                  marginTop="30px"
+                  position="relative"
+                  width="200px"
+                >
+                  <InsertDriveFileIcon
+                    style={{
+                      marginLeft: '10px',
+                      marginTop: '10px',
                     }}
-                    display={'flex'}
-                    height="50px"
-                    marginTop="30px"
-                    position="relative"
-                    width="100%"
-                  >
-                    <InsertDriveFileIcon
-                      style={{
-                        marginLeft: '10px',
-                        marginTop: '10px',
-                      }}
-                    />
+                  />
 
-                    {/* <Typography
+                  {/* <Typography
                       style={{
                         backgroundColor: '#F9F6EE',
                         justifyContent: 'center',
@@ -370,14 +438,22 @@ const ViewProject: FunctionComponent = () => {
                     >
                       {fileName}
                     </Typography> */}
-                    <Link
-                      href={imageUrl + project.document3Name}
-                      underline="hover"
+                  <Link
+                    href={imageUrl + project.document3Name}
+                    underline="hover"
+                  >
+                    <Typography
+                      style={{
+                        fontWeight: 'bold',
+                        marginLeft: '5px',
+                        marginTop: '10px',
+                        textAlign: 'center',
+                      }}
                     >
                       {project.document3}
-                    </Link>
-                  </Box>
-                </Grid>
+                    </Typography>
+                  </Link>
+                </Box>
               ) : (
                 <></>
               )}
