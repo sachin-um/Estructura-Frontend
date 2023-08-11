@@ -1,12 +1,9 @@
 // TODO: Add Service Provider Sign In Page with 2 paths (service provider and retail store)
 import React, { useState } from 'react';
 
-import Professional from '../components/ServiceProvider/Professional';
 import ArchitectPage from '../components/ServiceProvider/ProfessionalPages/ArchitectPage';
 import ConstructionCompanyPage from '../components/ServiceProvider/ProfessionalPages/ConstructionCompanyPage';
 import HomebuilderPage from '../components/ServiceProvider/ProfessionalPages/HomebuilderPage';
-import RentalStore from '../components/ServiceProvider/Rental';
-import RetailStore from '../components/ServiceProvider/RetailStore';
 import ServiceProviderPage4 from '../components/ServiceProvider/ServiceProviderPage4';
 import ServiceProviderPage5 from '../components/ServiceProvider/ServiceProviderPage5';
 import ServiceProviderPage6 from '../components/ServiceProvider/ServiceProviderPage6';
@@ -24,22 +21,6 @@ function ServiceProviderSignUp() {
   console.log(formData);
   const [activeTab, setActiveTab] = useState(1);
   const [value, setValue] = React.useState('one');
-
-  const handleTabChange = (tab) => {
-    setValue(tab);
-    setActiveTab(tab);
-  };
-
-  const renderForm = () => {
-    if (activeTab === 1) {
-      return <Professional formData={formData} />;
-    } else if (activeTab === 2) {
-      return <RetailStore formData={formData} />;
-    } else if (activeTab === 3) {
-      return <RentalStore formData={formData} />;
-    }
-    return <Professional formData={formData} />;
-  };
 
   const nextPage = () => {
     console.log(formData);
@@ -82,9 +63,43 @@ function ServiceProviderSignUp() {
     }
   };
 
-  const handleSubmit = () => {
-    // Handle form submission using the collected form data
-    console.log(formData);
+  const HandleSubmit = (values) => {
+    const { setErrors, setSubmitting } = FormRef.current;
+    setSubmitting(true);
+    clearTokens();
+    const email = values.email;
+    const password = values.password;
+    API.post('/auth/register', {
+      email,
+      password,
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          if (res.data.success === true) {
+            if (from) {
+              Navigate(from, { replace: true });
+            } else {
+              Navigate(`/${res.data.role.toLowerCase()}/dashboard`, {
+                replace: true,
+              });
+            }
+            console.log(from);
+          } else {
+            const violationsToErrors = (violations) => {
+              const result = {};
+              violations.forEach((violation) => {
+                result[violation.field] = violation.message;
+              });
+              return result;
+            };
+            setErrors(violationsToErrors(res.data.validation_violations));
+          }
+        } else {
+          alert('Invalid Credentials');
+        }
+      })
+      .catch((err) => console.log(JSON.stringify(err)));
+    setSubmitting(false);
   };
 
   let initialPages = [
@@ -112,6 +127,7 @@ function ServiceProviderSignUp() {
       pageImage={pageImage}
       previousPage={previousPage}
       updateFormData={updateFormData}
+      HandleSubmit={HandleSubmit}
     />,
   ];
   let pages = [...initialPages]; // Copy the initial pages
@@ -156,16 +172,18 @@ function ServiceProviderSignUp() {
       />,
       ...professionalsPages,
     );
-  } else if (selectedOption === "interiordesigner") {
-    pages.splice(2,0,
+  } else if (selectedOption === 'interiordesigner') {
+    pages.splice(
+      2,
+      0,
       <ArchitectPage
-      pageImage={pageImage}
-      formData={formData}
-      updateFormData={updateFormData}
-      nextPage={nextPage}
-      previousPage={previousPage}
-    />,
-      ...professionalsPages
+        pageImage={pageImage}
+        formData={formData}
+        updateFormData={updateFormData}
+        nextPage={nextPage}
+        previousPage={previousPage}
+      />,
+      ...professionalsPages,
     );
   } else if (selectedOption === 'constructioncompany') {
     pages.splice(
@@ -184,63 +202,60 @@ function ServiceProviderSignUp() {
       2,
       0,
       <HomebuilderPage
-      pageImage={pageImage}
-      formData={formData}
+        pageImage={pageImage}
+        formData={formData}
         updateFormData={updateFormData}
-      
         nextPage={nextPage}
         previousPage={previousPage}
       />,
       ...professionalsPages,
     );
-
-  }
-  else if (selectedOption === "carpenter") {
-    pages.splice(2,0,
+  } else if (selectedOption === 'carpenter') {
+    pages.splice(
+      2,
+      0,
       <HomebuilderPage
-      pageImage={pageImage}
-      formData={formData}
+        pageImage={pageImage}
+        formData={formData}
         updateFormData={updateFormData}
-      
         nextPage={nextPage}
         previousPage={previousPage}
       />,
       ...professionalsPages,
     );
-
-  }
-  else if (selectedOption === "painter") {
-    pages.splice(2,0,
+  } else if (selectedOption === 'painter') {
+    pages.splice(
+      2,
+      0,
       <HomebuilderPage
-      pageImage={pageImage}
-      formData={formData}
+        pageImage={pageImage}
+        formData={formData}
         updateFormData={updateFormData}
-      
         nextPage={nextPage}
         previousPage={previousPage}
       />,
       ...professionalsPages,
     );
-
-  }
-  else if (selectedOption === "landscapearchitect") {
-    pages.splice(2,0,
+  } else if (selectedOption === 'landscapearchitect') {
+    pages.splice(
+      2,
+      0,
       <ArchitectPage
-      pageImage={pageImage}
-      formData={formData}
-      updateFormData={updateFormData}
-      nextPage={nextPage}
-      previousPage={previousPage}
-    />,
-      ...professionalsPages
+        pageImage={pageImage}
+        formData={formData}
+        updateFormData={updateFormData}
+        nextPage={nextPage}
+        previousPage={previousPage}
+      />,
+      ...professionalsPages,
     );
   }
 
-  const HandleSubmit = (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    console.log(formData.get('email'), formData.get('password'));
-  };
+  // const HandleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const formData = new FormData(event.currentTarget);
+  //   console.log(formData.get('email'), formData.get('password'));
+  // };
 
   // TODO: Change Layout
   return (
