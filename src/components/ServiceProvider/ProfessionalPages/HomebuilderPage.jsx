@@ -6,27 +6,20 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React from 'react';
 // import { Link } from "react-router-dom" ;
 
 function HomebuilderPage({
   formData,
   handleDropdownChange,
+  updateFormData,
   nextPage,
   previousPage,
-  updateFormData,
+  pageImage,
 }) {
-  const HandleSubmit = (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    console.log(formData.get('email'), formData.get('password'));
-  };
-
-  const handleNext = () => {
-    nextPage();
-  };
-  const handlePrevious = () => {
-    previousPage();
+  const formRef=useRef(null);
+  const initialValues = {
+    qualification: formData.qualification ?? "",
+    
   };
   // TODO: Change Layout
   return (
@@ -53,13 +46,13 @@ function HomebuilderPage({
           >
             <Grid
               style={{
-                alignItems: 'flex-end',
-                backgroundImage: 'url("/signup/homebuilder.jpg")',
-                backgroundPosition: 'center',
-                backgroundSize: 'cover',
-                borderRadius: '20px',
-                display: 'flex',
-                height: '100%',
+                backgroundImage: `url(${pageImage})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                borderRadius: "20px",
+                height: "100%",
+                display: "flex",
+                alignItems: "flex-end",
               }}
               container
             >
@@ -102,17 +95,17 @@ function HomebuilderPage({
           <Grid item md={5} xs={12}>
             <Grid
               style={{
-                alignItems: 'center',
-                backgroundColor: '#ffffff',
-                borderRadius: '20px',
-                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                marginBottom: '2rem',
-                marginTop: '2rem',
-                minHeight: '80vh',
-                padding: '1rem 2rem 3rem',
+                backgroundColor: "#ffffff",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                borderRadius: "20px",
+                padding: "1rem 2rem 3rem",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: "2rem",
+                marginBottom: "2rem",
+                minHeight:"85vh"
               }}
               container
             >
@@ -127,116 +120,103 @@ function HomebuilderPage({
               >
                 <img alt="Logo" src="/Logo.png" style={{ width: '40%' }} />
               </Grid>
-              <Grid item style={{ marginTop: '1rem' }} xs={12}>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '20px',
-                    margin: '10px',
+              <Grid item xs={12} style={{ marginTop: "1rem" }}>
+                <Formik
+                  innerRef={formRef}
+                  onSubmit={(values) => {
+                    // TODO: HANDLE PAGE CHANGE HERE!!!
+                    updateFormData(values);
+                    nextPage();
                   }}
-                  component="form"
-                  onSubmit={HandleSubmit}
+                  initialValues={initialValues}
+                  validationSchema={validationSchema}
                 >
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '30px',
-                      margin: '10px',
-                    }}
-                    component="form"
-                    onSubmit={HandleSubmit}
-                  >
-                    {
-                      <Grid style={{ justifyContent: 'center' }}>
-                        <TextField
-                          InputProps={{ sx: { borderRadius: 2 } }}
-                          label="NIC"
-                          name="nic"
-                          size="small"
-                          sx={{ margin: 1, width: 1 }}
-                          type="nic"
-                          variant="filled"
-                        />
-                        <TextField
-                          InputProps={{ sx: { borderRadius: 2 } }}
-                          label="Website"
-                          name="website"
-                          size="small"
-                          sx={{ margin: 1, width: 1 }}
-                          type="website"
-                          variant="filled"
-                        />
-                        <TextField
-                          InputProps={{ sx: { borderRadius: 2 } }}
-                          label="Mention of any Special Qualification"
-                          name="SpecialQualification"
-                          size="small"
-                          sx={{ margin: 1, width: 1 }}
-                          type="SpecialQualification"
-                          variant="filled"
-                        />
-                        <Grid
-                          style={{ justifyContent: 'center' }}
-                          sx={{ margin: 1, width: 1 }}
-                        >
-                          <Typography sx={{ margin: 1 }}>
-                            Proof of Qualification
-                          </Typography>
-                          <Button
-                            color="secondary"
-                            component="label"
-                            sx={{ width: 1 }}
-                            variant="contained"
-                          >
-                            Upload Documents
-                            <input
-                              accept="image/*"
-                              hidden
-                              multiple
-                              type="file"
-                            />
-                          </Button>
-                        </Grid>
-                      </Grid>
-                    }
+                  {({
+                    values,
+                    errors,
+                    touched,
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    isSubmitting,
+                  }) => {
+                    const spread = (field, helper = true) => {
+                      return {
+                        name: field,
+                        onBlur: handleBlur,
+                        onChange: handleChange,
+                        value: values[field],
+                        error: touched[field] && !!errors[field],
+                        disabled: isSubmitting,
+                        ...(helper && {
+                          helperText: touched[field] && errors[field],
+                        }),
+                      };
+                    };
+                    return(
+                        <Form onSubmit={handleSubmit}>
+                            <Box
+                              sx={{
+                                margin: "10px",
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: "20px",
+                              }}
+                            >
+                              {
+                                
+                              <Grid style={{ justifyContent: "center" }}>
+                                                            <Typography textAlign="left" width={1} margin={1}>
+                                                            What are your qualifications?
+                                                            </Typography>
+                                                            <Grid style={{ justifyContent: "center" }}>
+                                                            <TextField sx={{ m: 1, minWidth: 400, maxWidth: 500}}
+                                                                label="Please separate each one with commas."
+                                                                id="filled-multiline-static"
+                                                                multiline
+                                                                rows={5}
+                                                                variant="filled"
+                                                                {...spread("qualification")}
+                                                            />
+                                                            </Grid>
+                                                        </Grid>
+                              
+                              
+                                }
+                                <Grid
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    width: "100%",
+                                  }}
+                                >
+                                  <Button
+                                    sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
+                                    type='button'
+                                    color='primary'
+                                    variant='contained'
+                                    size='large'
+                                    onClick={previousPage}
+                                  >
+                                    Previous
+                                  </Button>
+                                  <Button
+                                    sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
+                                    type='submit'
+                                    color='primary'
+                                    variant='contained'
+                                    size='large'
+                                  >
+                                    Next
+                                  </Button>
+                                  </Grid>
 
-                    {/* { <Grid style={{display:"flex",justifyContent:"center",margin:10}}>
-                  <Button sx={{ width: 1/3,  borderRadius:2 }}type='submit' color="primary" variant="contained" size='large'  href=''>Next</Button>
-                  </Grid> } */}
-                  </Box>
-                </Box>
-                {
-                  <Grid
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      margin: 10,
-                    }}
-                  >
-                    <Button
-                      color="primary"
-                      onClick={handlePrevious}
-                      size="large"
-                      sx={{ borderRadius: 2, margin: 1, width: 1 / 3 }}
-                      type="submit"
-                      variant="contained"
-                    >
-                      Previous
-                    </Button>
-                    <Button
-                      color="primary"
-                      onClick={handleNext}
-                      size="large"
-                      sx={{ borderRadius: 2, margin: 1, width: 1 / 3 }}
-                      type="submit"
-                      variant="contained"
-                    >
-                      Next
-                    </Button>
-                  </Grid>
-                }
+                            
+                            </Box>
+                        </Form>
+                    );
+                  }}
+                </Formik>
               </Grid>
             </Grid>
           </Grid>

@@ -3,12 +3,8 @@ import React, { useState } from 'react';
 
 import Professional from '../components/ServiceProvider/Professional';
 import ArchitectPage from '../components/ServiceProvider/ProfessionalPages/ArchitectPage';
-import CarpenterPage from '../components/ServiceProvider/ProfessionalPages/CarpenterPage';
 import ConstructionCompanyPage from '../components/ServiceProvider/ProfessionalPages/ConstructionCompanyPage';
 import HomebuilderPage from '../components/ServiceProvider/ProfessionalPages/HomebuilderPage';
-import InteriorDesignerPage from '../components/ServiceProvider/ProfessionalPages/InteriorDesignerPage';
-import LansdcapeArchitectPage from '../components/ServiceProvider/ProfessionalPages/LansdcapeArchitectPage';
-import PainterPage from '../components/ServiceProvider/ProfessionalPages/PainterPage';
 import RentalStore from '../components/ServiceProvider/Rental';
 import RetailStore from '../components/ServiceProvider/RetailStore';
 import ServiceProviderPage4 from '../components/ServiceProvider/ServiceProviderPage4';
@@ -152,6 +148,7 @@ function ServiceProviderSignUp() {
       2,
       0,
       <ArchitectPage
+        pageImage={pageImage}
         formData={formData}
         updateFormData={updateFormData}
         nextPage={nextPage}
@@ -159,17 +156,16 @@ function ServiceProviderSignUp() {
       />,
       ...professionalsPages,
     );
-  } else if (selectedOption === 'interiordesigner') {
-    pages.splice(
-      2,
-      0,
-      <InteriorDesignerPage
-        formData={formData}
-        nextPage={nextPage}
-        previousPage={previousPage}
-        updateFormData={updateFormData}
-      />,
-      ...professionalsPages,
+  } else if (selectedOption === "interiordesigner") {
+    pages.splice(2,0,
+      <ArchitectPage
+      pageImage={pageImage}
+      formData={formData}
+      updateFormData={updateFormData}
+      nextPage={nextPage}
+      previousPage={previousPage}
+    />,
+      ...professionalsPages
     );
   } else if (selectedOption === 'constructioncompany') {
     pages.splice(
@@ -188,48 +184,55 @@ function ServiceProviderSignUp() {
       2,
       0,
       <HomebuilderPage
-        formData={formData}
+      pageImage={pageImage}
+      formData={formData}
+        updateFormData={updateFormData}
+      
         nextPage={nextPage}
         previousPage={previousPage}
-        updateFormData={updateFormData}
       />,
       ...professionalsPages,
     );
-  } else if (selectedOption === 'carpenter') {
-    pages.splice(
-      2,
-      0,
-      <CarpenterPage
-        formData={formData}
+
+  }
+  else if (selectedOption === "carpenter") {
+    pages.splice(2,0,
+      <HomebuilderPage
+      pageImage={pageImage}
+      formData={formData}
+        updateFormData={updateFormData}
+      
         nextPage={nextPage}
         previousPage={previousPage}
-        updateFormData={updateFormData}
       />,
       ...professionalsPages,
     );
-  } else if (selectedOption === 'painter') {
-    pages.splice(
-      2,
-      0,
-      <PainterPage
-        formData={formData}
+
+  }
+  else if (selectedOption === "painter") {
+    pages.splice(2,0,
+      <HomebuilderPage
+      pageImage={pageImage}
+      formData={formData}
+        updateFormData={updateFormData}
+      
         nextPage={nextPage}
         previousPage={previousPage}
-        updateFormData={updateFormData}
       />,
       ...professionalsPages,
     );
-  } else if (selectedOption === 'landscapearchitect') {
-    pages.splice(
-      2,
-      0,
-      <LansdcapeArchitectPage
-        formData={formData}
-        nextPage={nextPage}
-        previousPage={previousPage}
-        updateFormData={updateFormData}
-      />,
-      ...professionalsPages,
+
+  }
+  else if (selectedOption === "landscapearchitect") {
+    pages.splice(2,0,
+      <ArchitectPage
+      pageImage={pageImage}
+      formData={formData}
+      updateFormData={updateFormData}
+      nextPage={nextPage}
+      previousPage={previousPage}
+    />,
+      ...professionalsPages
     );
   }
 

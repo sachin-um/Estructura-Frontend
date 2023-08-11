@@ -109,7 +109,7 @@ function ServiceProviderPage5({
                         justifyContent: "center",
                         marginTop: "2rem",
                         marginBottom: "2rem",
-                        minHeight:'80vh'
+                        minHeight:"85vh"
 
                     }}
                 >
