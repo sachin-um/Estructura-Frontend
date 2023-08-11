@@ -1,8 +1,7 @@
 import {
+  type PayloadAction,
   createAsyncThunk,
   createSlice,
-  // eslint-disable-next-line perfectionist/sort-named-imports
-  type PayloadAction,
 } from '@reduxjs/toolkit';
 
 import API from '../../lib/API';
