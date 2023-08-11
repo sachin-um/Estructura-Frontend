@@ -20,6 +20,7 @@ import ProductList from "./pages/e-com/ProductList";
 import Cart from "./pages/e-com/Cart";
 import AdminDashboard from "./pages/admin/dash";
 import FindFurniture from "./pages/findfurniture";
+import AddCustomerRequest from "./pages/AddCustomerRequest";
 
 //admin dashboard
 import Dashboard from "./pages/adminDashboard/dashboard";
@@ -180,7 +181,12 @@ const router = createBrowserRouter([
     path: "/renting",
     element: <AllRenters />,
   },
+  {
+    path: "/AddCustomerRequest",
+    element: <AddCustomerRequest />
+  },
 
 ]);
 
 export default router;
+
