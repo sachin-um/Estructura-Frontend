@@ -28,9 +28,9 @@ const validationSchema = yup.object({
 function ServiceProviderPage7({
   formData,
   updateFormData,
-  nextPage,
   previousPage,
   pageImage,
+  handleSubmit,
 }) {
   const [image, setProfileImage] = useState('/User/user.png');
   const formRef = useRef(null);
@@ -149,6 +149,7 @@ function ServiceProviderPage7({
                   onSubmit={(values) => {
                     // TODO: HANDLE PAGE CHANGE HERE!!!
                     updateFormData(values);
+                    handleSubmit(formData);
                   }}
                   initialValues={initialValues}
                   validationSchema={validationSchema}
