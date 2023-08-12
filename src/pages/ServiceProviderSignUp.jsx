@@ -1,5 +1,6 @@
 // TODO: Add Service Provider Sign In Page with 2 paths (service provider and retail store)
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import ArchitectPage from '../components/ServiceProvider/ProfessionalPages/ArchitectPage';
 import ConstructionCompanyPage from '../components/ServiceProvider/ProfessionalPages/ConstructionCompanyPage';
@@ -11,7 +12,7 @@ import ServiceProviderPage7 from '../components/ServiceProvider/ServiceProviderP
 import SignUpPage1 from '../components/ServiceProvider/SignUpPage1';
 import SignUpPage2 from '../components/ServiceProvider/SignUpPage2';
 import TopBar from '../components/TopBar';
-// import { Link } from "react-router-dom" ;
+import API from '../lib/API';
 
 function ServiceProviderSignUp() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,6 +22,8 @@ function ServiceProviderSignUp() {
   console.log(formData);
   const [activeTab, setActiveTab] = useState(1);
   const [value, setValue] = React.useState('one');
+
+  const navigate = useNavigate();
 
   const nextPage = () => {
     console.log(formData);
@@ -63,43 +66,33 @@ function ServiceProviderSignUp() {
     }
   };
 
-  const HandleSubmit = (values) => {
-    const { setErrors, setSubmitting } = FormRef.current;
-    setSubmitting(true);
-    clearTokens();
-    const email = values.email;
-    const password = values.password;
-    API.post('/auth/register', {
-      email,
-      password,
+  const HandleSubmit = () => {
+    setFormData({ ...formData, role: formData.role.toUpperCase() });
+    console.log(formData);
+    API.post('/auth/register', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     })
       .then((res) => {
+        console.log(res);
         if (res.status === 200) {
           if (res.data.success === true) {
-            if (from) {
-              Navigate(from, { replace: true });
-            } else {
-              Navigate(`/${res.data.role.toLowerCase()}/dashboard`, {
-                replace: true,
-              });
-            }
-            console.log(from);
+            // ! Redirect to a page that says, verify your email
+            navigate('/emailNotVerified', { replace: true });
           } else {
-            const violationsToErrors = (violations) => {
-              const result = {};
-              violations.forEach((violation) => {
-                result[violation.field] = violation.message;
-              });
-              return result;
-            };
-            setErrors(violationsToErrors(res.data.validation_violations));
+            // ! Can't actually handle validation errors from backend
+            // ! because of the long process
+            alert(
+              'Something went wrong!, please try again.' +
+                ' If the issue persists, please contact us.',
+            );
           }
         } else {
           alert('Invalid Credentials');
         }
       })
       .catch((err) => console.log(JSON.stringify(err)));
-    setSubmitting(false);
   };
 
   let initialPages = [
@@ -127,7 +120,7 @@ function ServiceProviderSignUp() {
       pageImage={pageImage}
       previousPage={previousPage}
       updateFormData={updateFormData}
-      HandleSubmit={HandleSubmit}
+      handleSubmit={HandleSubmit}
     />,
   ];
   let pages = [...initialPages]; // Copy the initial pages
