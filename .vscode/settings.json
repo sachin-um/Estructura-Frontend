@@ -1,19 +1,24 @@
 {
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
-    "source.organizeImports": true
+    "source.organizeImports": false
   },
   "editor.formatOnSave": true,
   "cSpell.words": [
     "addressline",
     "Bathware",
+    "CONSTRUCTIONCOMPANY",
     "firstname",
     "GARDENWARE",
+    "INTERIORDESIGNER",
     "islandwide",
+    "LANDSCAPEARCHITECT",
     "lastname",
+    "MASONWORKER",
     "reduxjs",
     "retailitems",
-    "RETAILOWNER"
+    "RETAILOWNER",
+    "RETAILSTORE"
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
   "prettier.jsxSingleQuote": true,

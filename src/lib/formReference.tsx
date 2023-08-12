@@ -1,6 +1,8 @@
 /* REFERENCE: */
+import type { FormikProps } from 'formik';
+
 import { TextField } from '@mui/material';
-import { Form, Formik, type FormikProps } from 'formik';
+import { Form, Formik } from 'formik';
 import { useRef } from 'react';
 import * as Yup from 'yup';
 
