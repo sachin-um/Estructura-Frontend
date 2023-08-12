@@ -1,7 +1,8 @@
+import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+
 import { Box, Pagination } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import { type AnyAction, type ThunkDispatch } from '@reduxjs/toolkit';
 import { useEffect, useState } from 'react';
 import { FaSort } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
