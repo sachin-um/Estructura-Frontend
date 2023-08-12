@@ -1,3 +1,7 @@
+import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+import type { FormikProps } from 'formik';
+import type { FunctionComponent } from 'react';
+
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {
@@ -9,9 +13,8 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import { type AnyAction, type ThunkDispatch } from '@reduxjs/toolkit';
-import { Form, Formik, type FormikProps } from 'formik';
-import { FunctionComponent, useEffect, useRef, useState } from 'react';
+import { Form, Formik } from 'formik';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';

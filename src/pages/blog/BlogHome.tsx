@@ -1,7 +1,9 @@
+import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+import type { FunctionComponent } from 'react';
+
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import { Box, Container, Pagination, Stack, Typography } from '@mui/material';
-import { type AnyAction, type ThunkDispatch } from '@reduxjs/toolkit';
-import { FunctionComponent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 

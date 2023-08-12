@@ -7,13 +7,18 @@
   "cSpell.words": [
     "addressline",
     "Bathware",
+    "CONSTRUCTIONCOMPANY",
     "firstname",
     "GARDENWARE",
+    "INTERIORDESIGNER",
     "islandwide",
+    "LANDSCAPEARCHITECT",
     "lastname",
+    "MASONWORKER",
     "reduxjs",
     "retailitems",
-    "RETAILOWNER"
+    "RETAILOWNER",
+    "RETAILSTORE"
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
   "prettier.jsxSingleQuote": true,

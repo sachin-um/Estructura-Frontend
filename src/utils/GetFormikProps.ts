@@ -1,4 +1,4 @@
-import { type FormikProps } from 'formik';
+import type { FormikProps } from 'formik';
 
 /**
  * Call to get a function that gives props for an input field

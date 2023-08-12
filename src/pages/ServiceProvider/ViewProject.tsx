@@ -1,10 +1,12 @@
+import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+import type { FunctionComponent } from 'react';
+
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import { Box, Container, Grid, Link, Typography } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Divider from '@mui/material/Divider';
-import { type AnyAction, type ThunkDispatch } from '@reduxjs/toolkit';
-import { FunctionComponent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 

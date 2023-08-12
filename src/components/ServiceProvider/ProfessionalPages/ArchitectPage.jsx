@@ -11,7 +11,6 @@ import { useRef } from 'react';
 import * as yup from 'yup';
 
 const validationSchema = yup.object({
-  nic: yup.string().required('NIC is required'),
   sLIARegNumber: yup.string().required('SLIA Membership number is required'),
 });
 
@@ -24,7 +23,6 @@ function ArchitectPage1({
 }) {
   const formRef = useRef(null);
   const initialValues = {
-    nic: formData.nic ?? '',
     sLIARegNumber: formData.sLIARegNumber ?? '',
     website: formData.website ?? '',
   };

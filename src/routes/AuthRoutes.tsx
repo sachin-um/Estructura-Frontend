@@ -1,4 +1,4 @@
-import { type RouteObject } from 'react-router-dom';
+import type { RouteObject } from 'react-router-dom';
 
 // import AuthTest from '../AuthTest';
 import ForgotPassword from '../pages/ForgotPassword';

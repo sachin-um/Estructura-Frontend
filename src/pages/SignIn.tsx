@@ -1,3 +1,6 @@
+import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+import type { FormikProps } from 'formik';
+
 import {
   Alert,
   Button,
@@ -7,20 +10,20 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { type AnyAction, type ThunkDispatch } from '@reduxjs/toolkit';
-import { Form, Formik, type FormikProps } from 'formik';
+import { Form, Formik } from 'formik';
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
-import TopBar from '../components/TopBar';
-import {
+import type {
   AuthenticationResponse,
   SignInRequest,
   UserState,
-  signIn,
 } from '../redux/UserAuthenticationReducer';
+
+import TopBar from '../components/TopBar';
+import { signIn } from '../redux/UserAuthenticationReducer';
 import GetFormikProps from '../utils/GetFormikProps';
 import { violationsToErrorsTS } from '../utils/ViolationsTS';
 
@@ -82,9 +85,30 @@ function SignIn() {
             if (from && from !== '/') {
               Navigate(from, { replace: true });
             } else {
-              Navigate(`/${response.role.toLowerCase()}/dashboard`, {
-                replace: true,
-              });
+              // Navigate(`/${response.role.toLowerCase()}/dashboard`, {
+              //   replace: true,
+              // });
+              switch (response.role) {
+                case 'ADMIN':
+                  Navigate('/admin/dashboard', { replace: true });
+                  break;
+                case 'CONSTRUCTIONCOMPANY':
+                case 'ARCHITECT':
+                case 'CARPENTER':
+                case 'ELECTRICIAN':
+                case 'INTERIORDESIGNER':
+                case 'LANDSCAPEARCHITECT':
+                case 'MASONWORKER':
+                case 'PAINTER':
+                case 'RENTER':
+                case 'RETAILSTORE':
+                  Navigate('/ServiceProvider/profile', { replace: true });
+                  break;
+                case 'CUSTOMER':
+                case 'USER':
+                  Navigate('/Customer/profile', { replace: true });
+                  break;
+              }
             }
           }
         }

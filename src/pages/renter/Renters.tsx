@@ -1,4 +1,5 @@
-import { type AnyAction, type ThunkDispatch } from '@reduxjs/toolkit';
+import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 

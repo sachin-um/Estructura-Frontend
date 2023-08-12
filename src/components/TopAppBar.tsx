@@ -1,3 +1,5 @@
+import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+
 import Logout from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import {
@@ -18,18 +20,15 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import { type AnyAction, type ThunkDispatch } from '@reduxjs/toolkit';
 import { useRef, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
+import type { UserState } from '../redux/UserAuthenticationReducer';
+
 import API from '../lib/API';
-import {
-  UserState,
-  clean,
-  selectUser,
-} from '../redux/UserAuthenticationReducer';
+import { clean, selectUser } from '../redux/UserAuthenticationReducer';
 
 const pages: LinkedPage[] = [
   { main: { name: 'Home', path: '/' } },
