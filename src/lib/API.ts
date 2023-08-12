@@ -1,7 +1,7 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 
-import { RefreshTokenResponse } from '../redux/UserAuthenticationReducer';
+import type { RefreshTokenResponse } from '../redux/UserAuthenticationReducer';
 
 const baseURL = 'http://localhost:8080/api/v1/';
 
