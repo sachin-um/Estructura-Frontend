@@ -1,4 +1,5 @@
-import { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
+
 import { useSelector } from 'react-redux';
 
 import TopAppBar from '../../components/TopAppBar';

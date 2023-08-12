@@ -1,6 +1,8 @@
+import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+import type { FunctionComponent } from 'react';
+
 import { Button } from '@mui/material';
-import { type AnyAction, type ThunkDispatch } from '@reduxjs/toolkit';
-import { FunctionComponent, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 

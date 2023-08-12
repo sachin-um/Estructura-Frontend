@@ -21,7 +21,15 @@ module.exports = {
   ],
   root: true,
   rules: {
+    '@typescript-eslint/consistent-type-imports': [
+      'error',
+      {
+        disallowTypeAnnotations: true,
+        prefer: 'type-imports',
+      },
+    ],
     '@typescript-eslint/no-unused-vars': 'off',
+    'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],
     'import/no-unresolved': [2, { caseSensitive: false }],
     'no-console': 'off',
     'prettier/prettier': [
