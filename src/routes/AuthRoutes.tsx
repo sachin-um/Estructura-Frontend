@@ -5,6 +5,7 @@ import HomeOwnerSignUp from '../pages/HomeOwnerSignUp';
 import ServiceProviderSignUp from '../pages/ServiceProviderSignUp';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
+import UnauthorizedAccess from '../pages/unauthorized_access';
 import VerifySuccess from '../pages/verification_success';
 import Verify from '../pages/verify_email';
 
@@ -34,6 +35,7 @@ const AuthRoutes: RouteObject[] = [
     path: '/emailVerified',
     element: <VerifySuccess />,
   },
+  { path: '/unauthorized', element: <UnauthorizedAccess /> },
 ];
 
 export default AuthRoutes;
