@@ -11,16 +11,6 @@ import { useState } from 'react';
 
 import '../../assets/font.css';
 
-const professionalCategoryOptions = [
-  'Construction Companies',
-  'Architects',
-  'Interior Designers',
-  'Landscape Architects',
-  'Home Builders',
-  'Carpenters',
-  'Painters',
-];
-
 function ServiceProviderProfileDetails({ userDetails }: { userDetails: User }) {
   const [firstname, setFirstname] = useState(userDetails.firstname);
   const [lastname, setLastname] = useState(userDetails.lastname);
@@ -49,6 +39,8 @@ function ServiceProviderProfileDetails({ userDetails }: { userDetails: User }) {
   const handleEditProfile = () => {
     setEditMode(!editMode);
   };
+
+  console.log(userDetails);
 
   return (
     <>
@@ -112,9 +104,6 @@ function ServiceProviderProfileDetails({ userDetails }: { userDetails: User }) {
                     {nic}
                   </Typography>
                 )}
-              </Grid>
-              <Grid item xs={3}>
-                <Typography variant="h6">Contact Number:</Typography>
               </Grid>
             </Grid>
           </CardContent>
@@ -182,16 +171,16 @@ function ServiceProviderProfileDetails({ userDetails }: { userDetails: User }) {
                   <div style={{ display: 'inline-flex', gap: '.5rem' }}>
                     <TextField
                       fullWidth
-                      label="City"
+                      label="District"
                       onChange={(e) => setDistrict(e.target.value)}
-                      value={city}
+                      value={district}
                       variant="outlined"
                     />
                     <TextField
                       fullWidth
-                      label="District"
+                      label="City"
                       onChange={(e) => setCity(e.target.value)}
-                      value={district}
+                      value={city}
                       variant="outlined"
                     />
                   </div>
@@ -205,65 +194,97 @@ function ServiceProviderProfileDetails({ userDetails }: { userDetails: User }) {
                   </Typography>
                 )}
               </Grid>
+              {(userDetails.role === 'ARCHITECT' ||
+                userDetails.role === 'LANDSCAPEARCHITECT') && (
+                <>
+                  <Grid item xs={3}>
+                    <Typography variant="h6">
+                      SLIA Registration number:
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <Typography
+                      color="textSecondary"
+                      fontFamily="Poppins"
+                      variant="body1"
+                    >
+                      {userDetails.sliaregNumber}
+                    </Typography>
+                  </Grid>
+                </>
+              )}
             </Grid>
           </CardContent>
         </Card>
       </Grid>
 
-      <Grid style={{ marginTop: '2rem' }}>
-        <Typography fontFamily="Poppins" gutterBottom variant="h6">
-          Qualifications
-        </Typography>
-        <Card sx={{ height: '100px', p: 2, width: '1000px' }}>
-          <CardContent>
-            {editMode ? (
-              <TextField
-                fullWidth
-                label="Qualifications, separated by commas"
-                multiline
-                onChange={(e) => setQualifications(e.target.value.split(','))}
-                rows={2}
-                value={qualifications.join(',')}
-                variant="outlined"
-              />
-            ) : (
-              <div>
-                {qualifications.map((qualification) => (
-                  <Chip
-                    key={qualification}
-                    label={qualification}
-                    sx={{ marginRight: '.5rem' }}
+      {userDetails.role !== 'RENTER' && userDetails.role !== 'RETAILSTORE' && (
+        <>
+          <Grid style={{ marginTop: '2rem' }}>
+            <Typography fontFamily="Poppins" gutterBottom variant="h6">
+              Qualifications
+            </Typography>
+            <Card sx={{ height: '100px', p: 2, width: '1000px' }}>
+              <CardContent>
+                {editMode ? (
+                  <TextField
+                    onChange={(e) =>
+                      setQualifications(e.target.value.split(','))
+                    }
+                    fullWidth
+                    label="Qualifications, separated by commas"
+                    multiline
+                    rows={2}
+                    value={qualifications.join(',')}
+                    variant="outlined"
                   />
-                ))}
-              </div>
-            )}
-          </CardContent>
-        </Card>
-      </Grid>
-
-      <Grid style={{ marginTop: '2rem' }}>
-        <Typography fontFamily="Poppins" gutterBottom variant="h6">
-          Specializations
-        </Typography>
-        <Card sx={{ height: '100px', p: 2, width: '1000px' }}>
-          <CardContent>
-            {editMode ? (
-              <TextField
-                fullWidth
-                multiline
-                onChange={(e) => setSpecializations(e.target.value.split(','))}
-                rows={2}
-                value={specializations?.join(',')}
-                variant="outlined"
-              />
-            ) : (
-              <Typography color="textSecondary" variant="body1">
-                {specializations?.join(',')}
-              </Typography>
-            )}
-          </CardContent>
-        </Card>
-      </Grid>
+                ) : (
+                  <div>
+                    {qualifications.map((qualification) => (
+                      <Chip
+                        key={qualification}
+                        label={qualification}
+                        sx={{ marginRight: '.5rem' }}
+                      />
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid style={{ marginTop: '2rem' }}>
+            <Typography fontFamily="Poppins" gutterBottom variant="h6">
+              Specializations
+            </Typography>
+            <Card sx={{ height: '100px', p: 2, width: '1000px' }}>
+              <CardContent>
+                {editMode ? (
+                  <TextField
+                    onChange={(e) =>
+                      setSpecializations(e.target.value.split(','))
+                    }
+                    fullWidth
+                    multiline
+                    rows={2}
+                    value={specializations?.join(',')}
+                    variant="outlined"
+                  />
+                ) : (
+                  <div>
+                    {specializations?.map((specialization) => (
+                      <Chip
+                        key={specialization}
+                        label={specialization}
+                        sx={{ marginRight: '.5rem' }}
+                      />
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </Grid>
+        </>
+      )}
 
       <Grid
         container

@@ -40,7 +40,7 @@ export const userSlice = createSlice({
         state.user = action.payload;
       })
       .addCase(fetchUserById.rejected, (state, action) => {
-        state.status = 'failed';
+        state.status = 'idle';
         state.error = action.error.message ?? 'Failed to fetch user';
       });
   },
