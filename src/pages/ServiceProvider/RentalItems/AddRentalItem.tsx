@@ -17,7 +17,7 @@ const AddRentalItem: FunctionComponent = () => {
       userInfo.serviceProviderType === 'RENTINGCOMPANY' ? (
         <RentalItemForm userId={userInfo.id} />
       ) : (
-        <h1>Please Login as a Professional to Add a RentalItem</h1>
+        <h1>Please Login as a Renting Company to Add a RentalItem</h1>
       )}
     </>
   );

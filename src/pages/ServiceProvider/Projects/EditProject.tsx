@@ -33,12 +33,12 @@ const EditProject: FunctionComponent = () => {
       userInfo.id &&
       userInfo.serviceProviderType === 'PROFESSIONAL' ? (
         <ProjectForm
-          {...(project
+          {...(project && project.createdBy === userInfo.id
             ? { OriginalProject: project, userId: userInfo.id }
             : { userId: userInfo.id })}
         />
       ) : (
-        <h1>Please Login as a Professional to Add a Project</h1>
+        <h1>Please Login as the Professional to edit a Project</h1>
       )}
     </>
   );

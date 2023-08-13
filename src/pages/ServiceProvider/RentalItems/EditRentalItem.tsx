@@ -33,12 +33,12 @@ const EditRentalItem: FunctionComponent = () => {
       userInfo.id &&
       userInfo.serviceProviderType === 'RENTINGCOMPANY' ? (
         <RentalItemForm
-          {...(rentalItem
+          {...(rentalItem && rentalItem.createdBy === userInfo.id
             ? { OriginalRentalItem: rentalItem, userId: userInfo.id }
             : { userId: userInfo.id })}
         />
       ) : (
-        <h1>Please Login as a Professional to Add a RentalItem</h1>
+        <h1>Please Login as The Renting Company to edit a RentalItem</h1>
       )}
     </>
   );

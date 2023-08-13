@@ -17,7 +17,7 @@ const AddRetailItem: FunctionComponent = () => {
       userInfo.serviceProviderType === 'RETAILER' ? (
         <RetailItemForm userId={userInfo.id} />
       ) : (
-        <h1>Please Login as a Professional to Add a RetailItem</h1>
+        <h1>Please Login as a Retail Store to Add a RetailItem</h1>
       )}
     </>
   );

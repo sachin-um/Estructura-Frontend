@@ -33,12 +33,12 @@ const EditRetailItem: FunctionComponent = () => {
       userInfo.id &&
       userInfo.serviceProviderType === 'RETAILER' ? (
         <RetailItemForm
-          {...(retailItem
+          {...(retailItem && retailItem.createdBy === userInfo.id
             ? { OriginalRetailItem: retailItem, userId: userInfo.id }
             : { userId: userInfo.id })}
         />
       ) : (
-        <h1>Please Login as a Professional to Add a RetailItem</h1>
+        <h1>Please Login as The Retail Store to Edit a RetailItem</h1>
       )}
     </>
   );
