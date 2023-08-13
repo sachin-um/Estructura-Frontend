@@ -14,11 +14,11 @@ const ShopRoutes: RouteObject[] = [
     element: <ShopHomePage />,
   },
   {
-    path: '/shop/u/add',
+    path: '/shop/item/add',
     element: <AddRetailItem />,
   },
   {
-    path: '/shop/u/edit/:id',
+    path: '/shop/item/edit/:id',
     element: <EditRetailItem />,
   },
   {

@@ -14,7 +14,7 @@ const AddProject: FunctionComponent = () => {
       <TopAppBar />
       {userInfo &&
       userInfo.id &&
-      userInfo.serviceProviderType === 'PROFESSIONAL' ? (
+      userInfo.serviceProviderType === ('PROFESSIONAL' as ServiceProviders) ? (
         <ProjectForm userId={userInfo.id} />
       ) : (
         <h1>Please Login as a Professional to Add a Project</h1>

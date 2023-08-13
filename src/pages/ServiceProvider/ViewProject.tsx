@@ -286,7 +286,7 @@ const ViewProject: FunctionComponent = () => {
                       Budget
                     </Typography>
                     <Typography sx={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
-                      {project.cost}{' '}
+                      LKR:{project.cost.toFixed(2)}{' '}
                     </Typography>
                   </CardContent>
                 </Card>
