@@ -21,15 +21,17 @@ import Divider from '@mui/material/Divider';
 import { type AnyAction, type ThunkDispatch } from '@reduxjs/toolkit';
 import { ErrorMessage, Form, Formik, type FormikProps } from 'formik';
 import { FunctionComponent, useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
-import TopBar from '../../components/TopBar';
+import Footer from '../../components/Footer';
+import TopAppBar from '../../components/TopAppBar';
 import {
   addRentingItem,
   editRentingItem,
 } from '../../redux/Renting/SingleRentingItemReducer';
+import { selectUser } from '../../redux/UserAuthenticationReducer';
 import GetFormikProps from '../../utils/GetFormikProps';
 import { violationsToErrorsTS } from '../../utils/ViolationsTS';
 
@@ -89,7 +91,7 @@ const AddRentalItem: FunctionComponent<RentingItemFormProps> = ({
   const FormRef = useRef<FormikProps<RentingItemAddOrUpdateRequest>>(null);
   const MainImageUploadRef = useRef<HTMLInputElement>(null);
   const ExtraImageUploadRef = useRef<HTMLInputElement>(null);
-
+  const userInfo = useSelector(selectUser);
   const dispatch: ThunkDispatch<RentingItem, void, AnyAction> = useDispatch();
   const navigate = useNavigate();
   const HandleSubmit = (values: RentingItemAddOrUpdateRequest) => {
@@ -215,416 +217,462 @@ const AddRentalItem: FunctionComponent<RentingItemFormProps> = ({
 
   return (
     <>
-      <TopBar />
-      <Formik
-        enableReinitialize
-        initialValues={initialValues}
-        innerRef={FormRef}
-        onSubmit={HandleSubmit}
-        validationSchema={validationSchema}
-      >
-        {(FormikProps: FormikProps<RentingItemAddOrUpdateRequest>) => {
-          const spread = GetFormikProps(FormikProps);
-          return (
-            <Form>
-              <Container
-                style={{
-                  alignItems: 'center',
-                  backgroundColor: '#f7f8f1',
-                  display: 'flex',
-                  margin: '2',
-                  minHeight: '100vh',
-                }}
-                maxWidth={false}
-              >
-                <Grid container justifyContent="center" spacing={4}>
-                  <Grid
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      marginTop: '1rem',
-                      paddingBottom: '1rem',
-                      paddingTop: '1rem',
-                    }}
-                    item
-                    md={6}
-                    xs={12}
-                  >
-                    <Box
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '1.5rem',
-                        marginTop: '30px',
-                        maxWidth: '800px',
-                        width: '80%',
-                      }}
-                    >
-                      <Typography
-                        style={{
-                          fontSize: '1.5rem',
-                          fontWeight: 'bold',
-                          lineHeight: '1',
-
-                          textAlign: 'left',
-                        }}
-                        variant="h4"
-                      >
-                        Add Rental Item
-                      </Typography>
-                      <Divider />
-
-                      <TextField
-                        color="secondary"
-                        fullWidth
-                        label="Item Name"
-                        sx={{ borderRadius: 2, margin: 1, width: '1' }}
-                        type="name"
-                        variant="filled"
-                        {...spread('name')}
-                      />
-                      <Grid style={{ justifyContent: 'center' }}>
-                        <TextField
-                          id="filled-multiline-static"
-                          label="Item Description"
-                          multiline
-                          rows={10}
-                          sx={{ borderRadius: 2, margin: 1, width: '1' }}
-                          variant="filled"
-                          {...spread('description')}
-                        />
-                      </Grid>
-                      <TextField
-                        InputProps={{
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              LKR
-                            </InputAdornment>
-                          ),
-                          sx: { borderRadius: 2 },
-                        }}
-                        color="secondary"
-                        fullWidth
-                        label="Rental Price"
-                        sx={{ margin: 1, width: '1' }}
-                        type="price"
-                        variant="filled"
-                        {...spread('price')}
-                      />
-                      <FormControl fullWidth variant="filled">
-                        <InputLabel id="demo-simple-select-label">
-                          Rental Duration
-                        </InputLabel>
-                        <Select
-                          sx={{
-                            justifyContent: 'center',
-                            margin: 1,
-                            width: '1',
-                          }}
-                          color="secondary"
-                          fullWidth
-                          id="demo-simple-select"
-                          label="Rental Duration"
-                          labelId="demo-simple-select-label"
-                          {...spread('scale')}
-                        >
-                          <MenuItem key={'Per Hour'} value={'Per Hour'}>
-                            Per Hour
-                          </MenuItem>
-                          <MenuItem key={'Per Day'} value={'Per Day'}>
-                            Per Day
-                          </MenuItem>
-                          <MenuItem key={'Per Month'} value={'Per Month'}>
-                            Per Month
-                          </MenuItem>
-                          <MenuItem
-                            key={'Per Kilometer'}
-                            value={'Per Kilometer'}
-                          >
-                            Per Kilometer
-                          </MenuItem>
-                        </Select>
-                      </FormControl>
-                      <ErrorMessage name="scale">
-                        {(msg) => (
-                          <span
-                            style={{
-                              color: '#d32f2f',
-                              fontSize: '0.75rem',
-                              marginLeft: '14px',
-                              marginTop: '-25px',
-                            }}
-                          >
-                            {msg}
-                          </span>
-                        )}
-                      </ErrorMessage>
-                      <FormControl fullWidth variant="filled">
-                        <InputLabel id="demo-simple-select-label">
-                          Item Category
-                        </InputLabel>
-                        <Select
-                          sx={{
-                            justifyContent: 'center',
-                            margin: 1,
-                            width: '1',
-                          }}
-                          color="secondary"
-                          fullWidth
-                          id="demo-simple-select"
-                          label="Rental Duration"
-                          labelId="demo-simple-select-label"
-                          {...spread('category')}
-                        >
-                          {categories.map((category) => (
-                            <MenuItem key={category} value={category}>
-                              {category}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </FormControl>
-                      <ErrorMessage name="category">
-                        {(msg) => (
-                          <span
-                            style={{
-                              color: '#d32f2f',
-                              fontSize: '0.75rem',
-                              marginLeft: '14px',
-                              marginTop: '-25px',
-                            }}
-                          >
-                            {msg}
-                          </span>
-                        )}
-                      </ErrorMessage>
-                      <Divider />
-                    </Box>
-                  </Grid>
-                  <Grid
-                    style={{
-                      justifyContent: 'center',
-                      marginTop: '5rem',
-                    }}
-                    item
-                    md={6}
-                    xs={12}
-                  >
-                    <Divider />
-                    <Typography
-                      style={{
-                        marginBottom: '2px',
-                        marginTop: '5px',
-                        textAlign: 'left',
-                      }}
-                    >
-                      Add images of the item
-                    </Typography>
-                    {mainImage ? (
-                      <Box
-                        style={{
-                          backgroundColor: '#F9F6EE',
-                          borderRadius: '5px',
-                        }}
-                        height="300px"
-                        marginBottom="50px"
-                        marginTop="30px"
-                        position="relative"
-                        sx={{ borderColor: 'grey', borderStyle: 'dashed' }}
-                        width="100%"
-                      >
-                        <img
-                          alt={mainImageName}
-                          src={mainImage}
-                          style={{ height: '300px', width: '100%' }}
-                        />
-                        <IconButton
-                          style={{
-                            backgroundColor: 'white',
-                            color: 'red',
-                            position: 'absolute',
-                            right: 5,
-                            top: 5,
-                          }}
-                          onClick={() => removeMainImage()}
-                          size="small"
-                        >
-                          <Tooltip title="Remove Image">
-                            <DeleteIcon />
-                          </Tooltip>
-                        </IconButton>
-                      </Box>
-                    ) : (
-                      <Box
-                        onClick={() => {
-                          if (MainImageUploadRef.current) {
-                            MainImageUploadRef.current.click();
-                          }
-                        }}
-                        style={{
-                          backgroundColor: '#F9F6EE',
-                          borderRadius: '5px',
-                        }}
-                        height="300px"
-                        marginBottom="50px"
-                        marginTop="30px"
-                        position="relative"
-                        sx={{ borderColor: 'grey', borderStyle: 'dashed' }}
-                        width="100%"
-                      >
-                        <Grid
-                          style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            marginTop: '100px',
-                          }}
-                        >
-                          <AddPhotoAlternateIcon />
-                          <input
-                            hidden
-                            ref={MainImageUploadRef}
-                            {...spread('mainImage', false, false, false, false)}
-                            onChange={(event) => {
-                              if (event.target.files !== null) {
-                                FormikProps.setFieldValue(
-                                  'mainImage',
-                                  event.target.files,
-                                  true,
-                                );
-                                if (event.target.files[0]) {
-                                  setMainImage(
-                                    URL.createObjectURL(event.target.files[0]),
-                                  );
-                                } else {
-                                  setMainImage('');
-                                }
-                              } else {
-                                FormikProps.setFieldValue(
-                                  'mainImage',
-                                  new DataTransfer().files,
-                                  true,
-                                );
-                                setMainImage('');
-                              }
-                            }}
-                            accept="image/*"
-                            className="input-main-img"
-                            type="file"
-                          />
-                        </Grid>
-                        <Typography
-                          style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            marginTop: '10px',
-                          }}
-                        >
-                          Main Image
-                        </Typography>
-                      </Box>
-                    )}
-                    {FormikProps.errors.mainImage?.toString()}
-                    <Divider sx={{ marginTop: '10px' }} />
+      <TopAppBar />
+      {userInfo &&
+      userInfo.id &&
+      userInfo.serviceProviderType === ('RETAILER' as ServiceProviders) ? (
+        <Formik
+          enableReinitialize
+          initialValues={initialValues}
+          innerRef={FormRef}
+          onSubmit={HandleSubmit}
+          validationSchema={validationSchema}
+        >
+          {(FormikProps: FormikProps<RentingItemAddOrUpdateRequest>) => {
+            const spread = GetFormikProps(FormikProps);
+            return (
+              <Form>
+                <Container
+                  style={{
+                    alignItems: 'center',
+                    backgroundColor: '#f7f8f1',
+                    display: 'flex',
+                    margin: '2',
+                    minHeight: '100vh',
+                  }}
+                  maxWidth={false}
+                >
+                  <Grid container justifyContent="center" spacing={4}>
                     <Grid
                       style={{
                         display: 'flex',
-                        justifyContent: 'space-between',
-                        marginTop: '10px',
-                        width: '100%',
+                        justifyContent: 'center',
+                        marginTop: '1rem',
+                        paddingBottom: '1rem',
+                        paddingTop: '1rem',
                       }}
+                      item
+                      md={6}
+                      xs={12}
                     >
+                      <Box
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '1.5rem',
+                          marginTop: '30px',
+                          maxWidth: '800px',
+                          width: '80%',
+                        }}
+                      >
+                        <Typography
+                          style={{
+                            fontSize: '1.5rem',
+                            fontWeight: 'bold',
+                            lineHeight: '1',
+
+                            textAlign: 'left',
+                          }}
+                          variant="h4"
+                        >
+                          Add Rental Item
+                        </Typography>
+                        <Divider />
+
+                        <TextField
+                          color="secondary"
+                          fullWidth
+                          label="Item Name"
+                          sx={{ borderRadius: 2, margin: 1, width: '1' }}
+                          type="name"
+                          variant="filled"
+                          {...spread('name')}
+                        />
+                        <Grid style={{ justifyContent: 'center' }}>
+                          <TextField
+                            id="filled-multiline-static"
+                            label="Item Description"
+                            multiline
+                            rows={10}
+                            sx={{ borderRadius: 2, margin: 1, width: '1' }}
+                            variant="filled"
+                            {...spread('description')}
+                          />
+                        </Grid>
+                        <TextField
+                          InputProps={{
+                            startAdornment: (
+                              <InputAdornment position="start">
+                                LKR
+                              </InputAdornment>
+                            ),
+                            sx: { borderRadius: 2 },
+                          }}
+                          color="secondary"
+                          fullWidth
+                          label="Rental Price"
+                          sx={{ margin: 1, width: '1' }}
+                          type="price"
+                          variant="filled"
+                          {...spread('price')}
+                        />
+                        <FormControl fullWidth variant="filled">
+                          <InputLabel id="demo-simple-select-label">
+                            Rental Duration
+                          </InputLabel>
+                          <Select
+                            sx={{
+                              justifyContent: 'center',
+                              margin: 1,
+                              width: '1',
+                            }}
+                            color="secondary"
+                            fullWidth
+                            id="demo-simple-select"
+                            label="Rental Duration"
+                            labelId="demo-simple-select-label"
+                            {...spread('scale')}
+                          >
+                            <MenuItem key={'Per Hour'} value={'Per Hour'}>
+                              Per Hour
+                            </MenuItem>
+                            <MenuItem key={'Per Day'} value={'Per Day'}>
+                              Per Day
+                            </MenuItem>
+                            <MenuItem key={'Per Month'} value={'Per Month'}>
+                              Per Month
+                            </MenuItem>
+                            <MenuItem
+                              key={'Per Kilometer'}
+                              value={'Per Kilometer'}
+                            >
+                              Per Kilometer
+                            </MenuItem>
+                          </Select>
+                        </FormControl>
+                        <ErrorMessage name="scale">
+                          {(msg) => (
+                            <span
+                              style={{
+                                color: '#d32f2f',
+                                fontSize: '0.75rem',
+                                marginLeft: '14px',
+                                marginTop: '-25px',
+                              }}
+                            >
+                              {msg}
+                            </span>
+                          )}
+                        </ErrorMessage>
+                        <FormControl fullWidth variant="filled">
+                          <InputLabel id="demo-simple-select-label">
+                            Item Category
+                          </InputLabel>
+                          <Select
+                            sx={{
+                              justifyContent: 'center',
+                              margin: 1,
+                              width: '1',
+                            }}
+                            color="secondary"
+                            fullWidth
+                            id="demo-simple-select"
+                            label="Rental Duration"
+                            labelId="demo-simple-select-label"
+                            {...spread('category')}
+                          >
+                            {categories.map((category) => (
+                              <MenuItem key={category} value={category}>
+                                {category}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                        <ErrorMessage name="category">
+                          {(msg) => (
+                            <span
+                              style={{
+                                color: '#d32f2f',
+                                fontSize: '0.75rem',
+                                marginLeft: '14px',
+                                marginTop: '-25px',
+                              }}
+                            >
+                              {msg}
+                            </span>
+                          )}
+                        </ErrorMessage>
+                        <Divider />
+                      </Box>
+                    </Grid>
+                    <Grid
+                      style={{
+                        justifyContent: 'center',
+                        marginTop: '5rem',
+                      }}
+                      item
+                      md={6}
+                      xs={12}
+                    >
+                      <Divider />
                       <Typography
                         style={{
                           marginBottom: '2px',
-                          marginTop: '10px',
+                          marginTop: '5px',
                           textAlign: 'left',
                         }}
                       >
-                        Add more images
+                        Add images of the item
                       </Typography>
-                      <Grid>
-                        <Button
+                      {mainImage ? (
+                        <Box
+                          style={{
+                            backgroundColor: '#F9F6EE',
+                            borderRadius: '5px',
+                          }}
+                          height="300px"
+                          marginBottom="50px"
+                          marginTop="30px"
+                          position="relative"
+                          sx={{ borderColor: 'grey', borderStyle: 'dashed' }}
+                          width="100%"
+                        >
+                          <img
+                            alt={mainImageName}
+                            src={mainImage}
+                            style={{ height: '300px', width: '100%' }}
+                          />
+                          <IconButton
+                            style={{
+                              backgroundColor: 'white',
+                              color: 'red',
+                              position: 'absolute',
+                              right: 5,
+                              top: 5,
+                            }}
+                            onClick={() => removeMainImage()}
+                            size="small"
+                          >
+                            <Tooltip title="Remove Image">
+                              <DeleteIcon />
+                            </Tooltip>
+                          </IconButton>
+                        </Box>
+                      ) : (
+                        <Box
                           onClick={() => {
-                            if (ExtraImageUploadRef.current) {
-                              ExtraImageUploadRef.current.click();
+                            if (MainImageUploadRef.current) {
+                              MainImageUploadRef.current.click();
                             }
                           }}
                           style={{
-                            backgroundColor: 'transparent',
-                            border: '2px solid #435834',
-                            color: '#435834',
+                            backgroundColor: '#F9F6EE',
+                            borderRadius: '5px',
                           }}
-                          fullWidth
-                          variant="contained"
+                          height="300px"
+                          marginBottom="50px"
+                          marginTop="30px"
+                          position="relative"
+                          sx={{ borderColor: 'grey', borderStyle: 'dashed' }}
+                          width="100%"
                         >
-                          <input
-                            hidden
-                            ref={ExtraImageUploadRef}
-                            {...spread(
-                              'extraImages',
-                              false,
-                              false,
-                              false,
-                              false,
-                            )}
-                            onChange={(event) => {
-                              if (event.target.files !== null) {
-                                FormikProps.setFieldValue(
-                                  'extraImages',
-                                  event.target.files,
-                                  true,
-                                );
-                                if (event.target.files.length > 0) {
-                                  const fileArray = Array.from(
-                                    event.target.files,
-                                  ).slice(0, 3);
-                                  const fileNames = fileArray.map(
-                                    (file) => file.name,
-                                  );
-                                  setFileNames(fileNames);
-                                  const imageUrls = fileArray.map((file) =>
-                                    URL.createObjectURL(file),
-                                  );
-                                  setImages(imageUrls);
-                                } else {
-                                  setImages([]);
-                                }
-                              } else {
-                                FormikProps.setFieldValue(
-                                  'extraImages',
-                                  new DataTransfer().files,
-                                  true,
-                                );
-                                setImages([]);
-                              }
-                            }}
-                            accept="image/*"
-                            className="input-field"
-                            multiple
-                            type="file"
-                          />
-                          <AddIcon />
-                          <Typography
+                          <Grid
                             style={{
-                              textAlign: 'left',
+                              display: 'flex',
+                              justifyContent: 'center',
+                              marginTop: '100px',
                             }}
                           >
-                            Select
+                            <AddPhotoAlternateIcon />
+                            <input
+                              hidden
+                              ref={MainImageUploadRef}
+                              {...spread(
+                                'mainImage',
+                                false,
+                                false,
+                                false,
+                                false,
+                              )}
+                              onChange={(event) => {
+                                if (event.target.files !== null) {
+                                  FormikProps.setFieldValue(
+                                    'mainImage',
+                                    event.target.files,
+                                    true,
+                                  );
+                                  if (event.target.files[0]) {
+                                    setMainImage(
+                                      URL.createObjectURL(
+                                        event.target.files[0],
+                                      ),
+                                    );
+                                  } else {
+                                    setMainImage('');
+                                  }
+                                } else {
+                                  FormikProps.setFieldValue(
+                                    'mainImage',
+                                    new DataTransfer().files,
+                                    true,
+                                  );
+                                  setMainImage('');
+                                }
+                              }}
+                              accept="image/*"
+                              className="input-main-img"
+                              type="file"
+                            />
+                          </Grid>
+                          <Typography
+                            style={{
+                              display: 'flex',
+                              justifyContent: 'center',
+                              marginTop: '10px',
+                            }}
+                          >
+                            Main Image
                           </Typography>
-                        </Button>
+                        </Box>
+                      )}
+                      {FormikProps.errors.mainImage?.toString()}
+                      <Divider sx={{ marginTop: '10px' }} />
+                      <Grid
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          marginTop: '10px',
+                          width: '100%',
+                        }}
+                      >
+                        <Typography
+                          style={{
+                            marginBottom: '2px',
+                            marginTop: '10px',
+                            textAlign: 'left',
+                          }}
+                        >
+                          Add more images
+                        </Typography>
+                        <Grid>
+                          <Button
+                            onClick={() => {
+                              if (ExtraImageUploadRef.current) {
+                                ExtraImageUploadRef.current.click();
+                              }
+                            }}
+                            style={{
+                              backgroundColor: 'transparent',
+                              border: '2px solid #435834',
+                              color: '#435834',
+                            }}
+                            fullWidth
+                            variant="contained"
+                          >
+                            <input
+                              hidden
+                              ref={ExtraImageUploadRef}
+                              {...spread(
+                                'extraImages',
+                                false,
+                                false,
+                                false,
+                                false,
+                              )}
+                              onChange={(event) => {
+                                if (event.target.files !== null) {
+                                  FormikProps.setFieldValue(
+                                    'extraImages',
+                                    event.target.files,
+                                    true,
+                                  );
+                                  if (event.target.files.length > 0) {
+                                    const fileArray = Array.from(
+                                      event.target.files,
+                                    ).slice(0, 3);
+                                    const fileNames = fileArray.map(
+                                      (file) => file.name,
+                                    );
+                                    setFileNames(fileNames);
+                                    const imageUrls = fileArray.map((file) =>
+                                      URL.createObjectURL(file),
+                                    );
+                                    setImages(imageUrls);
+                                  } else {
+                                    setImages([]);
+                                  }
+                                } else {
+                                  FormikProps.setFieldValue(
+                                    'extraImages',
+                                    new DataTransfer().files,
+                                    true,
+                                  );
+                                  setImages([]);
+                                }
+                              }}
+                              accept="image/*"
+                              className="input-field"
+                              multiple
+                              type="file"
+                            />
+                            <AddIcon />
+                            <Typography
+                              style={{
+                                textAlign: 'left',
+                              }}
+                            >
+                              Select
+                            </Typography>
+                          </Button>
+                        </Grid>
                       </Grid>
-                    </Grid>
 
-                    <Grid
-                      container
-                      spacing={1}
-                      style={{ marginBottom: '60px' }}
-                    >
-                      {images.length > 0 &&
-                        images.map((imageUrl, index) => (
+                      <Grid
+                        container
+                        spacing={1}
+                        style={{ marginBottom: '60px' }}
+                      >
+                        {images.length > 0 &&
+                          images.map((imageUrl, index) => (
+                            <Grid item key={index} xs={4}>
+                              <Box
+                                sx={{
+                                  borderColor: 'grey',
+                                  borderStyle: 'dashed',
+                                }}
+                                height="150px"
+                                marginTop="30px"
+                                position="relative"
+                                width="100%"
+                              >
+                                <img
+                                  alt={fileNames[index]}
+                                  src={imageUrl}
+                                  style={{ height: '150px', width: '100%' }}
+                                />
+                                <IconButton
+                                  style={{
+                                    backgroundColor: 'white',
+                                    color: 'red',
+                                    position: 'absolute',
+                                    right: 5,
+                                    top: 5,
+                                  }}
+                                  onClick={() => removeImage(index)}
+                                  size="small"
+                                >
+                                  <Tooltip title="Remove Image">
+                                    <DeleteIcon />
+                                  </Tooltip>
+                                </IconButton>
+                              </Box>
+                            </Grid>
+                          ))}
+                        {placeholders.map((index) => (
                           <Grid item key={index} xs={4}>
                             <Box
                               sx={{
-                                borderColor: 'grey',
+                                backgroundColor: '#F9F6EE',
                                 borderStyle: 'dashed',
                               }}
                               height="150px"
@@ -632,95 +680,64 @@ const AddRentalItem: FunctionComponent<RentingItemFormProps> = ({
                               position="relative"
                               width="100%"
                             >
-                              <img
-                                alt={fileNames[index]}
-                                src={imageUrl}
-                                style={{ height: '150px', width: '100%' }}
-                              />
-                              <IconButton
+                              <Grid
                                 style={{
-                                  backgroundColor: 'white',
-                                  color: 'red',
-                                  position: 'absolute',
-                                  right: 5,
-                                  top: 5,
+                                  display: 'flex',
+                                  justifyContent: 'center',
+                                  marginTop: '50px',
                                 }}
-                                onClick={() => removeImage(index)}
-                                size="small"
                               >
-                                <Tooltip title="Remove Image">
-                                  <DeleteIcon />
-                                </Tooltip>
-                              </IconButton>
+                                <ImageIcon />
+                              </Grid>
+                              <Grid
+                                style={{
+                                  backgroundColor: '#F9F6EE',
+                                  display: 'flex',
+                                  justifyContent: 'center',
+                                  marginTop: '10px',
+                                }}
+                              >
+                                <p>Optional Images</p>
+                              </Grid>
                             </Box>
                           </Grid>
                         ))}
-                      {placeholders.map((index) => (
-                        <Grid item key={index} xs={4}>
-                          <Box
-                            sx={{
-                              backgroundColor: '#F9F6EE',
-                              borderStyle: 'dashed',
-                            }}
-                            height="150px"
-                            marginTop="30px"
-                            position="relative"
-                            width="100%"
-                          >
-                            <Grid
-                              style={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                marginTop: '50px',
-                              }}
-                            >
-                              <ImageIcon />
-                            </Grid>
-                            <Grid
-                              style={{
-                                backgroundColor: '#F9F6EE',
-                                display: 'flex',
-                                justifyContent: 'center',
-                                marginTop: '10px',
-                              }}
-                            >
-                              <p>Optional Images</p>
-                            </Grid>
-                          </Box>
-                        </Grid>
-                      ))}
+                      </Grid>
+                      {FormikProps.errors.extraImages?.toString()}
+                      <Divider sx={{ marginTop: '20px' }} />
                     </Grid>
-                    {FormikProps.errors.extraImages?.toString()}
-                    <Divider sx={{ marginTop: '20px' }} />
-                  </Grid>
-                  <Grid
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      margin: 1,
-                    }}
-                  >
-                    <Button
-                      sx={{
-                        borderRadius: 2,
-                        height: '45px',
+                    <Grid
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'center',
                         margin: 1,
-                        width: '200px',
                       }}
-                      color="primary"
-                      fullWidth
-                      type="submit"
-                      variant="contained"
                     >
-                      ADD ITEM
-                    </Button>
+                      <Button
+                        sx={{
+                          borderRadius: 2,
+                          height: '45px',
+                          margin: 1,
+                          width: '200px',
+                        }}
+                        color="primary"
+                        fullWidth
+                        type="submit"
+                        variant="contained"
+                      >
+                        ADD ITEM
+                      </Button>
+                    </Grid>
                   </Grid>
-                </Grid>
-              </Container>
-            </Form>
-          );
-        }}
-      </Formik>
+                </Container>
+              </Form>
+            );
+          }}
+        </Formik>
+      ) : (
+        <h1>Please Login to Add an Item</h1>
+      )}
+      <Footer />
     </>
   );
 };

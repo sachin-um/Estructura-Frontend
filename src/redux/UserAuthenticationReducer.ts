@@ -1,7 +1,7 @@
 import {
-  type PayloadAction,
   createAsyncThunk,
   createSlice,
+  type PayloadAction,
 } from '@reduxjs/toolkit';
 
 import API from '../lib/API';
@@ -15,6 +15,7 @@ export interface UserState {
   id: number;
   lastname: string;
   role: Role;
+  serviceProviderType?: ServiceProviders;
 }
 
 export interface SignInRequest {
@@ -116,6 +117,7 @@ const UserAuthenticationSlice = createSlice({
             firstname: action.payload.firstname,
             lastname: action.payload.lastname,
             role: action.payload.role,
+            serviceProviderType: action.payload.serviceProviderType,
           };
           localStorage.setItem('user', JSON.stringify(state.userState));
           state.access_token = action.payload.access_token;
