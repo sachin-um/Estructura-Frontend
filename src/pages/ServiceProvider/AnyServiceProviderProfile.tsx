@@ -271,7 +271,7 @@ function AnyServiceProviderProfile() {
             AllUserInfo?.role !== 'RETAILSTORE' &&
             AllUserInfo?.role !== 'RENTER' && <ProfilePreviousProjects />}
           {activeTab === 'two' && AllUserInfo?.role === 'RETAILSTORE' && (
-            <PlaceHolder />
+            <ProfileRetailItems />
           )}
           {activeTab === 'two' && AllUserInfo?.role === 'RENTER' && (
             <PlaceHolder />

@@ -14,7 +14,9 @@ const initialState: RetailItemsState = {
 export const fetchRetailItemByRetailer = createAsyncThunk(
   'RetailItems/fetchRetailItemsByRetailer',
   async (userId: number) => {
-    const response = await API.get<RetailItem[]>(`/retailitems/all/${userId}`);
+    const response = await API.get<RetailItem[]>(
+      `/retailitems/store/${userId}`,
+    );
     return response.status === 200 ? response.data : [];
   },
 );

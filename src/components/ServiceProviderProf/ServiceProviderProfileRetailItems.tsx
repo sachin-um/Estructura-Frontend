@@ -57,7 +57,7 @@ function ProfileRetailItems() {
                         width: '100%',
                       }}
                       alt="Project 1"
-                      src="BannerImage.jpg"
+                      src={`http://localhost:8080/files/retail-item-files/${retailItem?.createdBy}/${retailItem?.id}/${retailItem?.mainImageName}`}
                     />
                     <CardContent
                       sx={{
