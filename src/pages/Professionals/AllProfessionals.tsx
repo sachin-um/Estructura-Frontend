@@ -1,23 +1,15 @@
 import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 
 import { Box, Button, Typography } from '@mui/material';
-import { useEffect } from 'react';
 import React from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import '../../assets/font.css';
-import TopBar from '../../components/CusTopBar';
 import Footer from '../../components/Footer';
 import ProfessionalCategories from '../../components/Professionals/ProfessionalCategories';
-// import { Architects } from '../../data/ProfessionalscardData';
-// import { ConstructionCompanies } from '../../data/ProfessionalscardData';
-// import { HomeBuilders } from '../../data/ProfessionalscardData';
-// import { Carpenters } from '../../data/ProfessionalscardData';
-// import { InteriorDesigners } from '../../data/ProfessionalscardData';
-// import { LandscapeArchitects } from '../../data/ProfessionalscardData';
-// import { Painters } from '../../data/ProfessionalscardData';
-
+import TopAppBar from '../../components/TopAppBar';
 import {
   fetchProfessionals,
   getProfessionalsStatus,
@@ -65,9 +57,12 @@ const AllProfessionals = () => {
   const firstFourInteriorDesigners = InteriorDesigners.slice(0, 4);
   const firstFourLandscapeArchitects = LandscapeArchitects.slice(0, 4);
   const firstFourPainters = Painters.slice(0, 4);
+
+  const navigate = useNavigate();
+
   return (
     <div>
-      <TopBar />
+      <TopAppBar />
 
       {/* Architects */}
       <Box
@@ -87,7 +82,13 @@ const AllProfessionals = () => {
         >
           Architects
         </Typography>
-        <Button color="primary" variant="contained">
+        <Button
+          onClick={() => {
+            navigate('/Professionals/ARCHITECT');
+          }}
+          color="primary"
+          variant="contained"
+        >
           See More
         </Button>
       </Box>
@@ -111,7 +112,13 @@ const AllProfessionals = () => {
         >
           Construction Companies
         </Typography>
-        <Button color="primary" variant="contained">
+        <Button
+          onClick={() => {
+            navigate('/Professionals/CONSTRUCTIONCOMPANY');
+          }}
+          color="primary"
+          variant="contained"
+        >
           See More
         </Button>
       </Box>
@@ -135,7 +142,13 @@ const AllProfessionals = () => {
         >
           Home Builders
         </Typography>
-        <Button color="primary" variant="contained">
+        <Button
+          onClick={() => {
+            navigate('/Professionals/MASONWORKER');
+          }}
+          color="primary"
+          variant="contained"
+        >
           See More
         </Button>
       </Box>
@@ -159,7 +172,13 @@ const AllProfessionals = () => {
         >
           Carpenters
         </Typography>
-        <Button color="primary" variant="contained">
+        <Button
+          onClick={() => {
+            navigate('/Professionals/CARPENTER');
+          }}
+          color="primary"
+          variant="contained"
+        >
           See More
         </Button>
       </Box>
@@ -183,7 +202,13 @@ const AllProfessionals = () => {
         >
           Interior Designers
         </Typography>
-        <Button color="primary" variant="contained">
+        <Button
+          onClick={() => {
+            navigate('/Professionals/INTERIORDESIGNER');
+          }}
+          color="primary"
+          variant="contained"
+        >
           See More
         </Button>
       </Box>
@@ -207,7 +232,13 @@ const AllProfessionals = () => {
         >
           Landscape Architects
         </Typography>
-        <Button color="primary" variant="contained">
+        <Button
+          onClick={() => {
+            navigate('/Professionals/LANDSCAPEARCHITECT');
+          }}
+          color="primary"
+          variant="contained"
+        >
           See More
         </Button>
       </Box>
@@ -231,7 +262,13 @@ const AllProfessionals = () => {
         >
           Painters
         </Typography>
-        <Button color="primary" variant="contained">
+        <Button
+          onClick={() => {
+            navigate('/Professionals/PAINTER');
+          }}
+          color="primary"
+          variant="contained"
+        >
           See More
         </Button>
       </Box>
