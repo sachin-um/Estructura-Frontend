@@ -9,8 +9,12 @@ import ProductList from '../pages/e-com/ProductList';
 import AdminRoutes from './AdminRoutes';
 import AuthRoutes from './AuthRoutes';
 import BlogRoutes from './BlogRoutes';
+
+import CustomRequestRoutes from './CustomRequestRoutes';
+
 import ProjectRoutes from './Projects';
 import RentingItemRoutes from './RentingRoutes';
+import ServiceProviderRoutes from './ServiceProviderRoutes';
 import ShopRoutes from './ShopRoutes';
 
 export const altRouter = createBrowserRouter([
@@ -32,6 +36,8 @@ export const altRouter = createBrowserRouter([
   ...RentingItemRoutes,
   ...ShopRoutes,
   ...ProjectRoutes,
+  ...ServiceProviderRoutes,
+  ...CustomRequestRoutes,
 ]);
 
 export default altRouter;

@@ -5,14 +5,13 @@ import {
   Grid,
   TextField,
   Typography,
-} from "@mui/material";
-import { Form, Formik } from "formik";
-import { useRef } from "react";
-import * as yup from "yup";
+} from '@mui/material';
+import { Form, Formik } from 'formik';
+import { useRef } from 'react';
+import * as yup from 'yup';
 
 const validationSchema = yup.object({
-  nic: yup.string().required("NIC is required"),
-  sLIARegNumber: yup.string().required("SLIA Membership number is required"),
+  sLIARegNumber: yup.string().required('SLIA Membership number is required'),
 });
 
 function ArchitectPage1({
@@ -20,12 +19,12 @@ function ArchitectPage1({
   updateFormData,
   nextPage,
   previousPage,
+  pageImage,
 }) {
-  const formRef=useRef(null);
+  const formRef = useRef(null);
   const initialValues = {
-    nic: formData.nic ?? "",
-    sLIARegNumber: formData.sLIARegNumber ?? "",
-    website: formData.website ?? "",
+    sLIARegNumber: formData.sLIARegNumber ?? '',
+    website: formData.website ?? '',
   };
   // TODO: Change Layout
   return (
@@ -42,9 +41,9 @@ function ArchitectPage1({
         <Grid container justifyContent="center" spacing={4}>
           <Grid
             style={{
-              marginTop: '2rem',
-              paddingBottom: '2rem',
               paddingTop: '2rem',
+              paddingBottom: '2rem',
+              marginTop: '2rem',
             }}
             item
             md={7}
@@ -52,13 +51,13 @@ function ArchitectPage1({
           >
             <Grid
               style={{
-                alignItems: 'flex-end',
-                backgroundImage: 'url("/signup/archi.jpg")',
-                backgroundPosition: 'center',
+                backgroundImage: `url(${pageImage})`,
                 backgroundSize: 'cover',
+                backgroundPosition: 'center',
                 borderRadius: '20px',
-                display: 'flex',
                 height: '100%',
+                display: 'flex',
+                alignItems: 'flex-end',
               }}
               container
             >
@@ -101,17 +100,17 @@ function ArchitectPage1({
           <Grid item md={5} xs={12}>
             <Grid
               style={{
-                alignItems: 'center',
                 backgroundColor: '#ffffff',
-                borderRadius: '20px',
                 boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                borderRadius: '20px',
+                padding: '1rem 2rem 3rem',
                 display: 'flex',
                 flexDirection: 'column',
+                alignItems: 'center',
                 justifyContent: 'center',
-                marginBottom: '2rem',
                 marginTop: '2rem',
-                minHeight: '80vh',
-                padding: '1rem 2rem 3rem',
+                marginBottom: '2rem',
+                minHeight: '85vh',
               }}
               container
             >
@@ -126,7 +125,7 @@ function ArchitectPage1({
               >
                 <img alt="Logo" src="/Logo.png" style={{ width: '40%' }} />
               </Grid>
-              <Grid item xs={12} style={{ marginTop: "1rem" }}>
+              <Grid item xs={12} style={{ marginTop: '1rem' }}>
                 <Formik
                   innerRef={formRef}
                   onSubmit={(values) => {
@@ -159,50 +158,53 @@ function ArchitectPage1({
                         }),
                       };
                     };
-                    return(
+                    return (
                       <Form onSubmit={handleSubmit}>
                         <Box
                           sx={{
-                            margin: "10px",
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "20px",
+                            margin: '10px',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '20px',
                           }}
                         >
-                            {
-                              <Grid style={{ justifyContent: "center" }}>
-                                <TextField
-                                  InputProps={{ sx: { borderRadius: 2 } }}
-                                  sx={{ width: 1, margin: 1 }}
-                                  type="nic"
-                                  name="nic"
-                                  label="NIC"
-                                  variant="filled"
-                                  size="small"
-                                  {...spread("nic")}
-                                />
-                                <TextField
-                                  InputProps={{ sx: { borderRadius: 2 } }}
-                                  sx={{ width: 1, margin: 1 }}
-                                  type="SLIARegNumber"
-                                  name="sLIARegNumber"
-                                  label="SLIA Membership Number"
-                                  variant="filled"
-                                  size="small"
-                                  {...spread("sLIARegNumber")}
-                                />
-                                <TextField
-                                  InputProps={{ sx: { borderRadius: 2 } }}
-                                  sx={{ width: 1, margin: 1 }}
-                                  type="website"
-                                  name="website"
-                                  label="Website"
-                                  variant="filled"
-                                  size="small"
-                                  {...spread("website")}
-                                />
+                          {
+                            <Grid style={{ width: '96%' }}>
+                              <Typography textAlign="left" width={1} margin={1}>
+                                SLIA Membership Number
+                              </Typography>
+                              <TextField
+                                InputProps={{ sx: { borderRadius: 2 } }}
+                                sx={{ width: 1, margin: 1 }}
+                                type="SLIARegNumber"
+                                name="sLIARegNumber"
+                                label="Ex:A1399"
+                                variant="filled"
+                                size="small"
+                                {...spread('sLIARegNumber')}
+                              />
+                              <Grid style={{ justifyContent: 'center' }}>
+                                <Typography
+                                  textAlign="left"
+                                  width={1}
+                                  margin={1}
+                                >
+                                  What are your qualifications?
+                                </Typography>
+                                <Grid style={{ justifyContent: 'center' }}>
+                                  <TextField
+                                    sx={{ m: 1, minWidth: 400, maxWidth: 500 }}
+                                    label="Please separate each one with commas."
+                                    id="filled-multiline-static"
+                                    multiline
+                                    rows={5}
+                                    variant="filled"
+                                    {...spread('')}
+                                  />
+                                </Grid>
+                              </Grid>
 
-                                {/* <Grid
+                              {/* <Grid
                                   style={{ justifyContent: "center" }}
                                   sx={{ width: 1, margin: 1 }}
                                 >
@@ -224,35 +226,43 @@ function ArchitectPage1({
                                     />
                                   </Button>
                                 </Grid> */}
-                                <Grid
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    width: "100%",
+                              <Grid
+                                style={{
+                                  display: 'flex',
+                                  justifyContent: 'center',
+                                  width: '100%',
+                                }}
+                              >
+                                <Button
+                                  sx={{
+                                    width: 1 / 2,
+                                    borderRadius: 2,
+                                    margin: 2,
                                   }}
+                                  type="button"
+                                  color="primary"
+                                  variant="contained"
+                                  size="large"
+                                  onClick={previousPage}
                                 >
-                                  <Button
-                                    sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
-                                    type='button'
-                                    color='primary'
-                                    variant='contained'
-                                    size='large'
-                                    onClick={previousPage}
-                                  >
-                                    Previous
-                                  </Button>
-                                  <Button
-                                    sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
-                                    type='submit'
-                                    color='primary'
-                                    variant='contained'
-                                    size='large'
-                                  >
-                                    Next
-                                  </Button>
-                                </Grid>
+                                  Previous
+                                </Button>
+                                <Button
+                                  sx={{
+                                    width: 1 / 2,
+                                    borderRadius: 2,
+                                    margin: 2,
+                                  }}
+                                  type="submit"
+                                  color="primary"
+                                  variant="contained"
+                                  size="large"
+                                >
+                                  Next
+                                </Button>
                               </Grid>
-                            }
+                            </Grid>
+                          }
                         </Box>
                       </Form>
                     );

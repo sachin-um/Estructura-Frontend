@@ -1,5 +1,6 @@
+import type { FunctionComponent } from 'react';
+
 import { formatDistanceToNow } from 'date-fns';
-import { FunctionComponent } from 'react';
 
 interface TimeAgoProps {
   timestamp: Date;

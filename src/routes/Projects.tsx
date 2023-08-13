@@ -1,4 +1,4 @@
-import { type RouteObject } from 'react-router-dom';
+import type { RouteObject } from 'react-router-dom';
 
 import AddNewProject from '../pages/ServiceProvider/AddNewProject';
 import ViewProject from '../pages/ServiceProvider/ViewProject';

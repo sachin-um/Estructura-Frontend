@@ -1,14 +1,19 @@
-import { type RouteObject } from 'react-router-dom';
+import type { RouteObject } from 'react-router-dom';
 
+import AddRetailItem from '../pages/ServiceProvider/AddRetailItem';
 import ShopCart from '../pages/shop/ShopCart';
-import ShopCategoryItemList from '../pages/shop/ShopCategoryItemList';
-import ShopHome from '../pages/shop/ShopHome';
+import ShopHomePage from '../pages/shop/ShopHomePage';
 import ShopItem from '../pages/shop/ShopItem';
+import ShopItemList from '../pages/shop/ShopItemList';
 
 const ShopRoutes: RouteObject[] = [
   {
     path: '/shop',
-    element: <ShopHome />,
+    element: <ShopHomePage />,
+  },
+  {
+    path: '/shop/item/add',
+    element: <AddRetailItem userId={3} />,
   },
   {
     path: '/shop/item/:id',
@@ -16,7 +21,7 @@ const ShopRoutes: RouteObject[] = [
   },
   {
     path: '/shop/items/:category',
-    element: <ShopCategoryItemList />,
+    element: <ShopItemList />,
   },
   {
     path: '/shop/cart',

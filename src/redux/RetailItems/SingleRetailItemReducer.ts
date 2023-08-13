@@ -1,11 +1,10 @@
-import {
-  type PayloadAction,
-  createAsyncThunk,
-  createSlice,
-} from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
+
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
+import type { RootState } from '../store';
 
 import API from '../../lib/API';
-import { RootState } from '../store';
 
 const initialState: RetailItemState = {
   error: null,
@@ -44,7 +43,7 @@ export const addRetailItem = createAsyncThunk(
       return rejectWithValue(response.data);
     }
     const id: number = response.data.id;
-    const retailItem = (await API.get<RetailItem>(`/retailItems/item/${id}`))
+    const retailItem = (await API.get<RetailItem>(`/retailitems/item/${id}`))
       .data;
     return retailItem;
   },

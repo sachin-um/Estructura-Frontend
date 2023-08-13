@@ -1,17 +1,48 @@
-import React, { useState } from 'react';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import Chip from '@mui/material/Chip';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SortIcon from '@mui/icons-material/Sort';
+import Box from '@mui/material/Box';
+import Chip from '@mui/material/Chip';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 
-const RentingSidebar = ({ handleSortingOptionChange, locationOption, setLocationOption, selectedDistricts, setSelectedDistricts }) => {
+const districts = [
+  'Ampara',
+  'Anuradhapura',
+  'Badulla',
+  'Batticaloa',
+  'Colombo',
+  'Galle',
+  'Gampaha',
+  'Hambantota',
+  'Jaffna',
+  'Kaluthara',
+  'Kandy',
+  'Kegalle',
+  'Kilinochchi',
+  'Kurunegala',
+  'Mannar',
+  'Matale',
+  'Matara',
+  'Monaragala',
+  'Mullaitivu',
+  'Nuwara Eliya',
+  'Polonnaruwa',
+  'Puttalam',
+  'Ratnapura',
+  'Trincomalee',
+  'Vavuniya',
+];
 
-  const [sortingOption, setSortingOption] = useState('');
-
+const RentingSidebar = ({
+  locationOption,
+  selectedDistricts,
+  setLocationOption,
+  setSelectedDistricts,
+  setSortingOption,
+  sortingOption,
+}) => {
   const handleLocationOptionChange = (event) => {
     setLocationOption(event.target.value);
     setSelectedDistricts([]); // Reset selected districts when changing location option
@@ -27,57 +58,35 @@ const RentingSidebar = ({ handleSortingOptionChange, locationOption, setLocation
     handleSortingOptionChange(sortingValue); // Pass the selected value to the parent component
   };
 
-
-  const districts = [
-    "Ampara",
-    "Anuradhapura",
-    "Badulla",
-    "Batticaloa",
-    "Colombo",
-    "Galle",
-    "Gampaha",
-    "Hambantota",
-    "Jaffna",
-    "Kalutara",
-    "Kandy",
-    "Kegalle",
-    "Kilinochchi",
-    "Kurunegala",
-    "Mannar",
-    "Matale",
-    "Matara",
-    "Monaragala",
-    "Mullaitivu",
-    "Nuwara Eliya",
-    "Polonnaruwa",
-    "Puttalam",
-    "Ratnapura",
-    "Trincomalee",
-    "Vavuniya",
-  ];
-
   return (
     <div
       style={{
-        width: '25%',
-        padding: '1rem',
         borderRight: '1px solid #e0e0e0',
         boxSizing: 'border-box',
+        padding: '1rem',
+        width: '25%',
       }}
     >
-      <p style={{ marginBottom: '1.5rem', fontSize: 15, color: 'grey' }}>
-        <LocationOnIcon style={{ marginRight: '5px', color: 'green', fontSize: '1rem', verticalAlign: 'middle' }} />
+      <p style={{ color: 'grey', fontSize: 15, marginBottom: '1.5rem' }}>
+        <LocationOnIcon
+          style={{
+            color: 'green',
+            fontSize: '1rem',
+            marginRight: '5px',
+            verticalAlign: 'middle',
+          }}
+        />
         Filter by Location :
       </p>
-      <Box sx={{ minWidth: 120, marginRight: '15px' }}>
+      <Box sx={{ marginRight: '15px', minWidth: 120 }}>
         <FormControl fullWidth>
           <InputLabel id="location-option-label">Location Option</InputLabel>
           <Select
-            labelId="location-option-label"
             id="location-option-select"
-            value={locationOption}
             label="Location Option"
+            labelId="location-option-label"
             onChange={handleLocationOptionChange}
+            value={locationOption}
           >
             <MenuItem value="islandwide">Islandwide</MenuItem>
             <MenuItem value="multiple-districts">Multiple Districts</MenuItem>
@@ -86,15 +95,12 @@ const RentingSidebar = ({ handleSortingOptionChange, locationOption, setLocation
       </Box>
       {locationOption === 'multiple-districts' && (
         <>
-          <p style={{ marginBottom: '0.5rem', fontSize: 15, color: 'grey' }}>Districts:</p>
-          <Box sx={{ minWidth: 120, marginRight: '15px' }}>
+          <p style={{ color: 'grey', fontSize: 15, marginBottom: '0.5rem' }}>
+            Districts:
+          </p>
+          <Box sx={{ marginRight: '15px', minWidth: 120 }}>
             <FormControl fullWidth>
               <Select
-                labelId="district-select-label"
-                id="district-select"
-                multiple
-                value={selectedDistricts}
-                onChange={handleDistrictSelection}
                 renderValue={(selected) => (
                   <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                     {selected.map((district) => (
@@ -102,6 +108,11 @@ const RentingSidebar = ({ handleSortingOptionChange, locationOption, setLocation
                     ))}
                   </Box>
                 )}
+                id="district-select"
+                labelId="district-select-label"
+                multiple
+                onChange={handleDistrictSelection}
+                value={selectedDistricts}
               >
                 {districts.map((district) => (
                   <MenuItem key={district} value={district}>
@@ -114,24 +125,47 @@ const RentingSidebar = ({ handleSortingOptionChange, locationOption, setLocation
         </>
       )}
 
-      <p style={{ marginBottom: '1.5rem', marginTop: '2.5rem', fontSize: 15, color: 'grey' }}>
-        <SortIcon style={{ marginRight: '5px', color: 'green', fontSize: '1rem', verticalAlign: 'middle' }} />
+      <p
+        style={{
+          color: 'grey',
+          fontSize: 15,
+          marginBottom: '1.5rem',
+          marginTop: '2.5rem',
+        }}
+      >
+        <SortIcon
+          style={{
+            color: 'green',
+            fontSize: '1rem',
+            marginRight: '5px',
+            verticalAlign: 'middle',
+          }}
+        />
         Sort by :
       </p>
-      <Box sx={{ minWidth: 120, marginRight: '15px' }}>
+      <Box sx={{ marginRight: '15px', minWidth: 120 }}>
         <FormControl fullWidth>
           <InputLabel id="sorting-option-label">Sorting Option</InputLabel>
           <Select
-            labelId="sorting-option-label"
+            onChange={(e, c) => {
+              console.log(e);
+              // setSortingOption(c.props.value);
+              setSortingOption(e.target.value);
+              console.log(sortingOption);
+            }} //
             id="sorting-option-select"
-            value={sortingOption} // Use the selected sorting option state
             label="Sorting Option"
-            onChange={handleSortingOptionChangeLocal} //
+            labelId="sorting-option-label"
+            value={sortingOption} // Use the selected sorting option state
           >
-            <MenuItem value={10}>Price: Low to High</MenuItem>
-            <MenuItem value={20}>Price: High to Low</MenuItem>
-            <MenuItem value={30}>Date: Newest on Top</MenuItem>
-            <MenuItem value={40}>Date: Oldest on Top</MenuItem>
+            <MenuItem value={'Date: Newest on Top'}>
+              Date: Newest on Top
+            </MenuItem>
+            <MenuItem value={'Date: Oldest on Top'}>
+              Date: Oldest on Top
+            </MenuItem>
+            <MenuItem value={'Price: High to Low'}>Price: High to Low</MenuItem>
+            <MenuItem value={'Price: Low to High'}>Price: Low to High</MenuItem>
           </Select>
         </FormControl>
       </Box>

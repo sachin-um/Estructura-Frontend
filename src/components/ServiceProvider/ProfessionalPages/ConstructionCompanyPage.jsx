@@ -16,8 +16,7 @@ import { useRef } from "react";
 import * as yup from "yup";
 
 const validationSchema = yup.object({
-  nic: yup.string().required("NIC is required"),
-  qualification: yup.string().required("Any Qualification required"),
+  registrationNo: yup.string().required("Business Registration Number is required"),
 });
 function ConstructionCompanyPage({
   formData,
@@ -27,9 +26,8 @@ function ConstructionCompanyPage({
 }) {
   const formRef=useRef(null);
   const initialValues={
-    nic: formData.nic ?? "",
+    registrationNo: formData.registrationNo ?? "",
     qualification: formData.qualification ?? "",
-    website: formData.website ?? "", 
   }
   // TODO: Change Layout
   return (
@@ -116,7 +114,7 @@ function ConstructionCompanyPage({
                 justifyContent: "center",
                 marginTop: "2rem",
                 marginBottom: "2rem",
-                minHeight: "80vh",
+                minHeight: "85vh",
               }}
             >
               <Grid
@@ -134,6 +132,7 @@ function ConstructionCompanyPage({
                 <Formik
                   innerRef={formRef}
                   onSubmit={(values) => {
+                    console.log("HI")
                     // TODO: HANDLE PAGE CHANGE HERE!!!
                     updateFormData(values);
                     nextPage();
@@ -176,57 +175,34 @@ function ConstructionCompanyPage({
                             
                               {
                                 <Grid style={{ justifyContent: "center" }}>
-                                  <TextField
-                                    InputProps={{ sx: { borderRadius: 2 } }}
-                                    sx={{ width: 1, margin: 1 }}
-                                    type="nic"
-                                    name="nic"
-                                    label="NIC"
-                                    variant="filled"
-                                    size="small"
-                                    {...spread("nic")}
-                                  />
-                                  <TextField
-                                    InputProps={{ sx: { borderRadius: 2 } }}
-                                    sx={{ width: 1, margin: 1 }}
-                                    type="website"
-                                    name="website"
-                                    label="Website"
-                                    variant="filled"
-                                    size="small"
-                                    {...spread("website")}
-                                  />
+                                 <Typography textAlign="left" width={1} margin={1}>
+                                 Business Registration Number
+                                                </Typography>
                                   <TextField
                                     InputProps={{ sx: { borderRadius: 2 } }}
                                     sx={{ width: 1, margin: 1 }}
                                     type="BusinessRegNumber"
                                     name="BusinessRegNumber"
-                                    label="Business Registration Number"
+                                    label="Ex:"
                                     variant="filled"
                                     size="small"
+                                    {...spread("registrationNo")}
                                   />
-                                  <Grid
-                                    style={{ justifyContent: "center" }}
-                                    sx={{ width: 1, margin: 1 }}
-                                  >
-                                    <Typography sx={{ margin: 1 }}>
-                                    Business Registration Certificate
-                                    </Typography>
-                                    <Button
-                                      sx={{ width: 1 }}
-                                      variant="contained"
-                                      color="secondary"
-                                      component="label"
-                                    >
-                                      Upload Certificate
-                                      <input
-                                        hidden
-                                        accept="image/*"
-                                        multiple
-                                        type="file"
-                                      />
-                                    </Button>
-                                  </Grid>
+                                  <Grid style={{ justifyContent: "center" }}>
+                                                <Typography textAlign="left" width={1} margin={1}>
+                                                Awards and Recognitions
+                                                </Typography>
+                                                <Grid style={{ justifyContent: "center" }}>
+                                                <TextField sx={{ m: 1, minWidth: 400, maxWidth: 500}}
+                                                    label="Please separate each one with commas."
+                                                    id="filled-multiline-static"
+                                                    multiline
+                                                    rows={5}
+                                                    variant="filled"
+                                                    {...spread("qualification")}
+                                                />
+                                                </Grid>
+                                            </Grid>
                                   <Grid
                                   style={{
                                     display: "flex",

@@ -1,8 +1,8 @@
-import { type RouteObject } from 'react-router-dom';
+import type { RouteObject } from 'react-router-dom';
 
 import AddRentalItem from '../pages/ServiceProvider/AddRentalItem';
 import ViewRentalItem from '../pages/ServiceProvider/ViewRentalItem';
-import AllRenters from '../pages/renter/AllRenters';
+import AllRenters from '../pages/renter/Renters';
 
 const RentingItemRoutes: RouteObject[] = [
   {

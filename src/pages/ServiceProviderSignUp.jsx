@@ -1,16 +1,10 @@
 // TODO: Add Service Provider Sign In Page with 2 paths (service provider and retail store)
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import Professional from '../components/ServiceProvider/Professional';
 import ArchitectPage from '../components/ServiceProvider/ProfessionalPages/ArchitectPage';
-import CarpenterPage from '../components/ServiceProvider/ProfessionalPages/CarpenterPage';
 import ConstructionCompanyPage from '../components/ServiceProvider/ProfessionalPages/ConstructionCompanyPage';
 import HomebuilderPage from '../components/ServiceProvider/ProfessionalPages/HomebuilderPage';
-import InteriorDesignerPage from '../components/ServiceProvider/ProfessionalPages/InteriorDesignerPage';
-import LansdcapeArchitectPage from '../components/ServiceProvider/ProfessionalPages/LansdcapeArchitectPage';
-import PainterPage from '../components/ServiceProvider/ProfessionalPages/PainterPage';
-import RentalStore from '../components/ServiceProvider/Rental';
-import RetailStore from '../components/ServiceProvider/RetailStore';
 import ServiceProviderPage4 from '../components/ServiceProvider/ServiceProviderPage4';
 import ServiceProviderPage5 from '../components/ServiceProvider/ServiceProviderPage5';
 import ServiceProviderPage6 from '../components/ServiceProvider/ServiceProviderPage6';
@@ -18,7 +12,7 @@ import ServiceProviderPage7 from '../components/ServiceProvider/ServiceProviderP
 import SignUpPage1 from '../components/ServiceProvider/SignUpPage1';
 import SignUpPage2 from '../components/ServiceProvider/SignUpPage2';
 import TopBar from '../components/TopBar';
-// import { Link } from "react-router-dom" ;
+import API from '../lib/API';
 
 function ServiceProviderSignUp() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,21 +23,7 @@ function ServiceProviderSignUp() {
   const [activeTab, setActiveTab] = useState(1);
   const [value, setValue] = React.useState('one');
 
-  const handleTabChange = (tab) => {
-    setValue(tab);
-    setActiveTab(tab);
-  };
-
-  const renderForm = () => {
-    if (activeTab === 1) {
-      return <Professional formData={formData} />;
-    } else if (activeTab === 2) {
-      return <RetailStore formData={formData} />;
-    } else if (activeTab === 3) {
-      return <RentalStore formData={formData} />;
-    }
-    return <Professional formData={formData} />;
-  };
+  const navigate = useNavigate();
 
   const nextPage = () => {
     console.log(formData);
@@ -86,9 +66,33 @@ function ServiceProviderSignUp() {
     }
   };
 
-  const handleSubmit = () => {
-    // Handle form submission using the collected form data
+  const HandleSubmit = () => {
+    setFormData({ ...formData, role: formData.role.toUpperCase() });
     console.log(formData);
+    API.post('/auth/register', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          if (res.data.success === true) {
+            // ! Redirect to a page that says, verify your email
+            navigate('/emailNotVerified', { replace: true });
+          } else {
+            // ! Can't actually handle validation errors from backend
+            // ! because of the long process
+            alert(
+              'Something went wrong!, please try again.' +
+                ' If the issue persists, please contact us.',
+            );
+          }
+        } else {
+          alert('Invalid Credentials');
+        }
+      })
+      .catch((err) => console.log(JSON.stringify(err)));
   };
 
   let initialPages = [
@@ -116,6 +120,7 @@ function ServiceProviderSignUp() {
       pageImage={pageImage}
       previousPage={previousPage}
       updateFormData={updateFormData}
+      handleSubmit={HandleSubmit}
     />,
   ];
   let pages = [...initialPages]; // Copy the initial pages
@@ -152,6 +157,7 @@ function ServiceProviderSignUp() {
       2,
       0,
       <ArchitectPage
+        pageImage={pageImage}
         formData={formData}
         updateFormData={updateFormData}
         nextPage={nextPage}
@@ -163,11 +169,12 @@ function ServiceProviderSignUp() {
     pages.splice(
       2,
       0,
-      <InteriorDesignerPage
+      <ArchitectPage
+        pageImage={pageImage}
         formData={formData}
+        updateFormData={updateFormData}
         nextPage={nextPage}
         previousPage={previousPage}
-        updateFormData={updateFormData}
       />,
       ...professionalsPages,
     );
@@ -188,10 +195,11 @@ function ServiceProviderSignUp() {
       2,
       0,
       <HomebuilderPage
+        pageImage={pageImage}
         formData={formData}
+        updateFormData={updateFormData}
         nextPage={nextPage}
         previousPage={previousPage}
-        updateFormData={updateFormData}
       />,
       ...professionalsPages,
     );
@@ -199,11 +207,12 @@ function ServiceProviderSignUp() {
     pages.splice(
       2,
       0,
-      <CarpenterPage
+      <HomebuilderPage
+        pageImage={pageImage}
         formData={formData}
+        updateFormData={updateFormData}
         nextPage={nextPage}
         previousPage={previousPage}
-        updateFormData={updateFormData}
       />,
       ...professionalsPages,
     );
@@ -211,11 +220,12 @@ function ServiceProviderSignUp() {
     pages.splice(
       2,
       0,
-      <PainterPage
+      <HomebuilderPage
+        pageImage={pageImage}
         formData={formData}
+        updateFormData={updateFormData}
         nextPage={nextPage}
         previousPage={previousPage}
-        updateFormData={updateFormData}
       />,
       ...professionalsPages,
     );
@@ -223,21 +233,22 @@ function ServiceProviderSignUp() {
     pages.splice(
       2,
       0,
-      <LansdcapeArchitectPage
+      <ArchitectPage
+        pageImage={pageImage}
         formData={formData}
+        updateFormData={updateFormData}
         nextPage={nextPage}
         previousPage={previousPage}
-        updateFormData={updateFormData}
       />,
       ...professionalsPages,
     );
   }
 
-  const HandleSubmit = (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    console.log(formData.get('email'), formData.get('password'));
-  };
+  // const HandleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const formData = new FormData(event.currentTarget);
+  //   console.log(formData.get('email'), formData.get('password'));
+  // };
 
   // TODO: Change Layout
   return (

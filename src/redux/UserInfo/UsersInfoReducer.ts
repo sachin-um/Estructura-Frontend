@@ -1,7 +1,8 @@
-import { type Reducer, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
+import type { RootState } from '../store';
 
 import API from '../../lib/API';
-import { RootState } from '../store';
 
 interface UserInfoState {
   error: null | string;
@@ -44,6 +45,6 @@ export const usersInfoSlice = createSlice({
 
 export const getUsersStatus = (state: RootState) => state.usersInfo.status;
 export const getUsersError = (state: RootState) => state.usersInfo.error;
-export const getAllUsers = (state: RootState) => state.usersInfo.users;
+export const selectAllUsers = (state: RootState) => state.usersInfo.users;
 
 export default usersInfoSlice.reducer;
