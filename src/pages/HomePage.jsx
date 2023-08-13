@@ -155,30 +155,37 @@ const HomePage = (props) => {
     {
       image: '/Professionals/GeneralContractors.jpg',
       title: 'Construction Companies',
+      link: '/Professionals/CONSTRUCTIONCOMPANY',
     },
     {
       image: '/Professionals/Architect.jpg',
       title: 'Architects',
+      link: '/Professionals/ARCHITECT',
     },
     {
       image: '/Professionals/InteriorDesigner.jpg',
       title: 'Interior Designers',
+      link: '/Professionals/INTERIORDESIGNER',
     },
     {
       image: '/Professionals/landscapeArchitects.jpg',
       title: 'Landscape Architects',
+      link: '/Professionals/LANDSCAPEARCHITECT',
     },
     {
       image: '/Professionals/HomeBuilder.jpg',
       title: 'Home Builders',
+      link: '/Professionals/MASONWORKER',
     },
     {
       image: '/Professionals/carpenters.jpg',
       title: 'Carpenters',
+      link: '/Professionals/CARPENTER',
     },
     {
       image: '/Professionals/painters.jpg',
       title: 'Painters',
+      link: '/Professionals/PAINTER',
     },
   ];
 
@@ -186,22 +193,27 @@ const HomePage = (props) => {
     {
       image: '/ShopBy/Furniture.jpg',
       title: 'Furniture',
+      link: '/shop/items/FURNITURE',
     },
     {
       image: '/ShopBy/hardware.jpg',
       title: 'Hardware',
+      link: '/shop/items/HARDWARE',
     },
     {
       image: '/ShopBy/bathroom.png',
       title: 'Bathware',
+      link: '/shop/items/BATHWARE',
     },
     {
       image: '/ShopBy/gardenware.jpeg',
       title: 'Gardenware',
+      link: '/shop/items/GARDENWARE',
     },
     {
       image: '/ShopBy/lighting.jpg',
       title: 'Lighting',
+      link: '/shop/items/LIGHTING',
     },
   ];
 
@@ -209,6 +221,7 @@ const HomePage = (props) => {
     {
       image: '/RentItems/heavyMachinery.webp',
       title: 'Heavy Machinery',
+      link: 'HEAVY_MACHINERY',
     },
     {
       image: '/RentItems/tools.jpg',

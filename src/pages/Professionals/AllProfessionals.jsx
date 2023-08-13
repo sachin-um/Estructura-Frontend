@@ -45,7 +45,13 @@ const AllProfessionals = () => {
         >
           Architects
         </Typography>
-        <Button variant="contained" color="primary">
+        <Button
+          onClick={() => {
+            navigate('/Professionals/ARCHITECT');
+          }}
+          variant="contained"
+          color="primary"
+        >
           See More
         </Button>
       </Box>
@@ -69,7 +75,13 @@ const AllProfessionals = () => {
         >
           Construction Companies
         </Typography>
-        <Button variant="contained" color="primary">
+        <Button
+          onClick={() => {
+            navigate('/Professionals/CONSTRUCTIONCOMPANY');
+          }}
+          variant="contained"
+          color="primary"
+        >
           See More
         </Button>
       </Box>
@@ -93,7 +105,13 @@ const AllProfessionals = () => {
         >
           Home Builders
         </Typography>
-        <Button variant="contained" color="primary">
+        <Button
+          onClick={() => {
+            navigate('/Professionals/MASONWORKER');
+          }}
+          variant="contained"
+          color="primary"
+        >
           See More
         </Button>
       </Box>
@@ -117,7 +135,13 @@ const AllProfessionals = () => {
         >
           Carpenters
         </Typography>
-        <Button variant="contained" color="primary">
+        <Button
+          onClick={() => {
+            navigate('/Professionals/CARPENTER');
+          }}
+          variant="contained"
+          color="primary"
+        >
           See More
         </Button>
       </Box>
@@ -141,7 +165,13 @@ const AllProfessionals = () => {
         >
           Interior Designers
         </Typography>
-        <Button variant="contained" color="primary">
+        <Button
+          onClick={() => {
+            navigate('/Professionals/INTERIORDESIGNER');
+          }}
+          variant="contained"
+          color="primary"
+        >
           See More
         </Button>
       </Box>
@@ -165,7 +195,13 @@ const AllProfessionals = () => {
         >
           Landscape Architects
         </Typography>
-        <Button variant="contained" color="primary">
+        <Button
+          onClick={() => {
+            navigate('/Professionals/LANDSCAPEARCHITECT');
+          }}
+          variant="contained"
+          color="primary"
+        >
           See More
         </Button>
       </Box>
@@ -189,7 +225,13 @@ const AllProfessionals = () => {
         >
           Painters
         </Typography>
-        <Button variant="contained" color="primary">
+        <Button
+          onClick={() => {
+            navigate('/Professionals/PAINTER');
+          }}
+          variant="contained"
+          color="primary"
+        >
           See More
         </Button>
       </Box>

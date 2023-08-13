@@ -2,6 +2,7 @@ import { ArrowBackIosNew, ArrowForwardIos } from '@mui/icons-material';
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const StyledArrowBack = styled(ArrowBackIosNew)(({ theme }) => ({
   '&:hover': {
@@ -24,6 +25,7 @@ const StyledArrowForward = styled(ArrowForwardIos)(({ theme }) => ({
 }));
 
 const HomepageCarousel = ({ cards }) => {
+  const navigate = useNavigate();
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
   const visibleCards = cards
@@ -98,6 +100,9 @@ const HomepageCarousel = ({ cards }) => {
                 component="img"
                 height="300"
                 image={card.image}
+                onClick={() => {
+                  navigate(card.link);
+                }}
               />
               <CardContent
                 sx={{
