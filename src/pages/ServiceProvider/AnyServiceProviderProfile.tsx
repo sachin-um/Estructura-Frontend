@@ -25,6 +25,7 @@ import Responses from '../../components/ServiceProviderProf/Responses';
 import Reviews from '../../components/ServiceProviderProf/Reviews';
 import ServiceProviderProfileDetails from '../../components/ServiceProviderProf/ServiceProviderProfileDetails';
 import ProfilePreviousProjects from '../../components/ServiceProviderProf/ServiceProviderProfilePreviousProjects';
+import ProfileRentingItems from '../../components/ServiceProviderProf/ServiceProviderRentingItems';
 import ProfileRetailItems from '../../components/ServiceProviderProf/ServiceProviderProfileRetailItems';
 import TopAppBar from '../../components/TopAppBar';
 import { selectUser } from '../../redux/UserAuthenticationReducer';
@@ -271,10 +272,10 @@ function AnyServiceProviderProfile() {
             AllUserInfo?.role !== 'RETAILSTORE' &&
             AllUserInfo?.role !== 'RENTER' && <ProfilePreviousProjects />}
           {activeTab === 'two' && AllUserInfo?.role === 'RETAILSTORE' && (
-            <PlaceHolder />
+            <ProfileRetailItems />
           )}
           {activeTab === 'two' && AllUserInfo?.role === 'RENTER' && (
-            <PlaceHolder />
+            <ProfileRentingItems />
           )}
           {activeTab === 'three' && <Responses />}
           {activeTab === 'four' && <Messages />}

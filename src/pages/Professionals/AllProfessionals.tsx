@@ -1,21 +1,55 @@
+import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+
+import { Box, Button, Typography } from '@mui/material';
 import React from 'react';
-import Categories from '../../components/e-com/Categories';
-import ProfessionalCategories from '../../components/Professionals/ProfessionalCategories';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-import TopBar from '../../components/CusTopBar';
-import Footer from '../../components/Footer';
-import { Typography, Button, Box } from '@mui/material';
 import '../../assets/font.css';
-
-import { Architects } from '../../data/ProfessionalscardData';
-import { ConstructionCompanies } from '../../data/ProfessionalscardData';
-import { HomeBuilders } from '../../data/ProfessionalscardData';
-import { Carpenters } from '../../data/ProfessionalscardData';
-import { InteriorDesigners } from '../../data/ProfessionalscardData';
-import { LandscapeArchitects } from '../../data/ProfessionalscardData';
-import { Painters } from '../../data/ProfessionalscardData';
+import Footer from '../../components/Footer';
+import ProfessionalCategories from '../../components/Professionals/ProfessionalCategories';
+import TopAppBar from '../../components/TopAppBar';
+import {
+  fetchProfessionals,
+  getProfessionalsStatus,
+  selectAllProfessionals,
+} from '../../redux/Professionals/ProfessionalsReducer';
 
 const AllProfessionals = () => {
+  const professionalStatus = useSelector(getProfessionalsStatus);
+  const professionals = useSelector(selectAllProfessionals);
+
+  const dispatch: ThunkDispatch<Professional[], void, AnyAction> =
+    useDispatch();
+
+  useEffect(() => {
+    if (professionalStatus === 'idle') {
+      dispatch(fetchProfessionals());
+    }
+  }, [dispatch, professionalStatus]);
+
+  const Architects = professionals.filter(
+    (professional) => professional.role === 'ARCHITECT',
+  );
+  const Carpenters = professionals.filter(
+    (professional) => professional.role === 'CARPENTER',
+  );
+  const InteriorDesigners = professionals.filter(
+    (professional) => professional.role === 'INTERIORDESIGNER',
+  );
+  const HomeBuilders = professionals.filter(
+    (professional) => professional.role === 'MASONWORKER',
+  );
+  const Painters = professionals.filter(
+    (professional) => professional.role === 'PAINTER',
+  );
+  const LandscapeArchitects = professionals.filter(
+    (professional) => professional.role === 'LANDSCAPEARCHITECT',
+  );
+  const ConstructionCompanies = professionals.filter(
+    (professional) => professional.role === 'CONSTRUCTIONCOMPANY',
+  );
   const firstFourArchitects = Architects.slice(0, 4);
   const firstFourConstructionCompanies = ConstructionCompanies.slice(0, 4);
   const firstFourHomeBuilders = HomeBuilders.slice(0, 4);
@@ -23,25 +57,28 @@ const AllProfessionals = () => {
   const firstFourInteriorDesigners = InteriorDesigners.slice(0, 4);
   const firstFourLandscapeArchitects = LandscapeArchitects.slice(0, 4);
   const firstFourPainters = Painters.slice(0, 4);
+
+  const navigate = useNavigate();
+
   return (
     <div>
-      <TopBar title="Products" />
+      <TopAppBar />
 
       {/* Architects */}
       <Box
         sx={{
-          display: 'flex',
           alignItems: 'center',
+          display: 'flex',
           justifyContent: 'space-between',
           margin: '20px',
           marginTop: '50px',
         }}
       >
         <Typography
-          variant="h4"
-          fontSize="30px"
-          fontFamily="Poppins"
           color="#435834"
+          fontFamily="Poppins"
+          fontSize="30px"
+          variant="h4"
         >
           Architects
         </Typography>
@@ -49,8 +86,8 @@ const AllProfessionals = () => {
           onClick={() => {
             navigate('/Professionals/ARCHITECT');
           }}
-          variant="contained"
           color="primary"
+          variant="contained"
         >
           See More
         </Button>
@@ -60,18 +97,18 @@ const AllProfessionals = () => {
       {/* Construction Companies */}
       <Box
         sx={{
-          display: 'flex',
           alignItems: 'center',
+          display: 'flex',
           justifyContent: 'space-between',
           margin: '20px',
           marginTop: '50px',
         }}
       >
         <Typography
-          variant="h4"
-          fontSize="30px"
-          fontFamily="Poppins"
           color="#435834"
+          fontFamily="Poppins"
+          fontSize="30px"
+          variant="h4"
         >
           Construction Companies
         </Typography>
@@ -79,8 +116,8 @@ const AllProfessionals = () => {
           onClick={() => {
             navigate('/Professionals/CONSTRUCTIONCOMPANY');
           }}
-          variant="contained"
           color="primary"
+          variant="contained"
         >
           See More
         </Button>
@@ -90,18 +127,18 @@ const AllProfessionals = () => {
       {/* Home Builders */}
       <Box
         sx={{
-          display: 'flex',
           alignItems: 'center',
+          display: 'flex',
           justifyContent: 'space-between',
           margin: '20px',
           marginTop: '50px',
         }}
       >
         <Typography
-          variant="h4"
-          fontSize="30px"
-          fontFamily="Poppins"
           color="#435834"
+          fontFamily="Poppins"
+          fontSize="30px"
+          variant="h4"
         >
           Home Builders
         </Typography>
@@ -109,8 +146,8 @@ const AllProfessionals = () => {
           onClick={() => {
             navigate('/Professionals/MASONWORKER');
           }}
-          variant="contained"
           color="primary"
+          variant="contained"
         >
           See More
         </Button>
@@ -120,18 +157,18 @@ const AllProfessionals = () => {
       {/* Carpenters */}
       <Box
         sx={{
-          display: 'flex',
           alignItems: 'center',
+          display: 'flex',
           justifyContent: 'space-between',
           margin: '20px',
           marginTop: '50px',
         }}
       >
         <Typography
-          variant="h4"
-          fontSize="30px"
-          fontFamily="Poppins"
           color="#435834"
+          fontFamily="Poppins"
+          fontSize="30px"
+          variant="h4"
         >
           Carpenters
         </Typography>
@@ -139,8 +176,8 @@ const AllProfessionals = () => {
           onClick={() => {
             navigate('/Professionals/CARPENTER');
           }}
-          variant="contained"
           color="primary"
+          variant="contained"
         >
           See More
         </Button>
@@ -150,18 +187,18 @@ const AllProfessionals = () => {
       {/* Interior Designers */}
       <Box
         sx={{
-          display: 'flex',
           alignItems: 'center',
+          display: 'flex',
           justifyContent: 'space-between',
           margin: '20px',
           marginTop: '50px',
         }}
       >
         <Typography
-          variant="h4"
-          fontSize="30px"
-          fontFamily="Poppins"
           color="#435834"
+          fontFamily="Poppins"
+          fontSize="30px"
+          variant="h4"
         >
           Interior Designers
         </Typography>
@@ -169,8 +206,8 @@ const AllProfessionals = () => {
           onClick={() => {
             navigate('/Professionals/INTERIORDESIGNER');
           }}
-          variant="contained"
           color="primary"
+          variant="contained"
         >
           See More
         </Button>
@@ -180,18 +217,18 @@ const AllProfessionals = () => {
       {/* Landscape Architects */}
       <Box
         sx={{
-          display: 'flex',
           alignItems: 'center',
+          display: 'flex',
           justifyContent: 'space-between',
           margin: '20px',
           marginTop: '50px',
         }}
       >
         <Typography
-          variant="h4"
-          fontSize="30px"
-          fontFamily="Poppins"
           color="#435834"
+          fontFamily="Poppins"
+          fontSize="30px"
+          variant="h4"
         >
           Landscape Architects
         </Typography>
@@ -199,8 +236,8 @@ const AllProfessionals = () => {
           onClick={() => {
             navigate('/Professionals/LANDSCAPEARCHITECT');
           }}
-          variant="contained"
           color="primary"
+          variant="contained"
         >
           See More
         </Button>
@@ -210,18 +247,18 @@ const AllProfessionals = () => {
       {/* Painters */}
       <Box
         sx={{
-          display: 'flex',
           alignItems: 'center',
+          display: 'flex',
           justifyContent: 'space-between',
           margin: '20px',
           marginTop: '50px',
         }}
       >
         <Typography
-          variant="h4"
-          fontSize="30px"
-          fontFamily="Poppins"
           color="#435834"
+          fontFamily="Poppins"
+          fontSize="30px"
+          variant="h4"
         >
           Painters
         </Typography>
@@ -229,8 +266,8 @@ const AllProfessionals = () => {
           onClick={() => {
             navigate('/Professionals/PAINTER');
           }}
-          variant="contained"
           color="primary"
+          variant="contained"
         >
           See More
         </Button>

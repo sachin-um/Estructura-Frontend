@@ -1,8 +1,13 @@
 import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import PersonIcon from '@mui/icons-material/Person';
+import RoomIcon from '@mui/icons-material/Room';
 import ScheduleIcon from '@mui/icons-material/Schedule';
+import StoreIcon from '@mui/icons-material/Store';
 import {
   Box,
   Button,
@@ -16,36 +21,37 @@ import {
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import '../../assets/font.css';
 import {
-  fetchRetailItemByRetailer,
-  selectAllRetailItems,
-} from '../../redux/RetailItems/RetailItemsReducer';
-import { getRetailItemStatus } from '../../redux/RetailItems/SingleRetailItemReducer';
+  fetchRentingItemByRenter,
+  selectAllRentingItems,
+} from '../../redux/Renting/RentingItemsReducer';
+import { getRentingItemStatus } from '../../redux/Renting/SingleRentingItemReducer';
 import { selectUser } from '../../redux/UserAuthenticationReducer';
 
-function ProfileRetailItems() {
+function ProfileRentingItems() {
   // TODO: use Previous projects Reducer
   const LoggedInUser = useSelector(selectUser);
-  const retailitems = useSelector(selectAllRetailItems);
-  const retailitemsStatus = useSelector(getRetailItemStatus);
+  const rentingItems = useSelector(selectAllRentingItems);
+  const RentingItemsStatus = useSelector(getRentingItemStatus);
 
-  const dispatch: ThunkDispatch<RetailItem[], void, AnyAction> = useDispatch();
+  const dispatch: ThunkDispatch<RentingItem[], void, AnyAction> = useDispatch();
 
   useEffect(() => {
-    if (retailitemsStatus === 'idle' && LoggedInUser !== null) {
-      dispatch(fetchRetailItemByRetailer(LoggedInUser.id));
+    if (RentingItemsStatus === 'idle' && LoggedInUser !== null) {
+      dispatch(fetchRentingItemByRenter(LoggedInUser.id));
     }
-  }, [LoggedInUser, dispatch, retailitemsStatus]);
+  }, [LoggedInUser, dispatch, RentingItemsStatus]);
 
   return (
     <Container style={{ marginBottom: '2rem' }}>
       <Box display="flex" justifyContent="flex-end" marginBottom="1rem">
-        <Button variant="contained">Add Retail Items</Button>
+        <Button variant="contained">Add Projects</Button>
       </Box>
-      {retailitems.length !== 0 && (
+      {rentingItems.length !== 0 && (
         <Grid container justifyContent="space-evenly" spacing={2} wrap="wrap">
-          {retailitems.map((retailItem) => {
-            console.log(retailItem);
+          {rentingItems.map((rentingItem) => {
+            console.log(rentingItem);
             return (
               <>
                 <Grid item sm={4} xs={12}>
@@ -57,19 +63,18 @@ function ProfileRetailItems() {
                         width: '100%',
                       }}
                       alt="Project 1"
-                      src={`http://localhost:8080/files/retail-item-files/${retailItem?.createdBy}/${retailItem?.id}/${retailItem?.mainImageName}`}
+                      src={`http://localhost:8080/files/renting-item-files/${rentingItem?.createdBy}/${rentingItem?.id}/${rentingItem?.mainImageName}`}
                     />
                     <CardContent
                       sx={{
                         display: 'flex',
                         flexDirection: 'column',
-                        gap: 0,
-                        justifyContent: 'space-between',
-                        paddingTop: '0px',
+                        gap: 1,
+                        paddingTop: '5px',
                       }}
                     >
                       <Typography fontFamily="Poppins" variant="h6">
-                        {retailItem.name ?? 'ERROR'}
+                        {rentingItem.name ?? 'ERROR'}
                       </Typography>
                       <Typography
                         color="primary"
@@ -78,20 +83,48 @@ function ProfileRetailItems() {
                         variant="subtitle1"
                       >
                         <Box alignItems="center" display="flex" gap={1}>
-                          {`LKR. ${retailItem.price ?? 'ERROR'}`}
+                          {`LKR. ${rentingItem.price ?? 'ERROR'} | per hour`}
+                        </Box>
+                        <Box
+                          alignItems="center"
+                          display="flex"
+                          gap={1}
+                          marginBottom={1}
+                          marginTop="10px"
+                        >
+                          <PersonIcon color="primary" fontSize="small" />
+                          <Typography variant="body2">
+                            {rentingItem.name ?? 'Unknown User'}
+                          </Typography>
+                        </Box>
+                        <Box
+                          alignItems="center"
+                          display="flex"
+                          gap={1}
+                          marginBottom={1}
+                        >
+                          <StoreIcon color="primary" fontSize="small" />
+                          <Typography variant="body2">
+                            {rentingItem.createdBy ?? 'Unknown Store'}
+                          </Typography>
+                        </Box>
+                        <Box
+                          alignItems="center"
+                          display="flex"
+                          gap={1}
+                          marginBottom={1}
+                        >
+                          <LocationOnIcon color="primary" fontSize="small" />
+                          <Typography variant="body2">
+                            {rentingItem.location ?? 'Unknown Location'}
+                          </Typography>
                         </Box>
                       </Typography>
                     </CardContent>
-                    <CardActions
-                      sx={{
-                        justifyContent: 'center',
-                        marginBottom: '5px',
-                        marginTop: 'auto',
-                      }}
-                    >
+                    <CardActions sx={{ justifyContent: 'center' }}>
                       <Button
                         startIcon={<EditIcon />}
-                        sx={{ marginRight: 2, width: '130px' }}
+                        sx={{ marginRight: 3, width: '130px' }}
                         variant="outlined"
                       >
                         Edit
@@ -117,7 +150,7 @@ function ProfileRetailItems() {
                         marginTop="5px"
                       >
                         <ScheduleIcon color="inherit" fontSize="inherit" />
-                        {new Date(retailItem.dateAdded).toLocaleDateString(
+                        {new Date(rentingItem.dateAdded).toLocaleDateString(
                           'en-US',
                         )}
                       </Box>
@@ -129,7 +162,7 @@ function ProfileRetailItems() {
           })}
         </Grid>
       )}
-      {retailitems.length === 0 && (
+      {rentingItems.length === 0 && (
         <Box
           sx={{
             alignItems: 'center',
@@ -139,11 +172,11 @@ function ProfileRetailItems() {
           }}
         >
           <Typography color="primary" marginBottom="1rem" variant="h4">
-            {retailitemsStatus === 'loading'
+            {RentingItemsStatus === 'loading'
               ? 'Loading...'
-              : retailitemsStatus === 'failed'
-              ? 'Failed to load retail items'
-              : 'No retail items found'}
+              : RentingItemsStatus === 'failed'
+              ? 'Failed to load projects'
+              : 'No projects found'}
           </Typography>
         </Box>
       )}
@@ -151,4 +184,4 @@ function ProfileRetailItems() {
   );
 }
 
-export default ProfileRetailItems;
+export default ProfileRentingItems;
