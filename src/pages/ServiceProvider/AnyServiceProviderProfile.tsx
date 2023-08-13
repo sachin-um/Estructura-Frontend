@@ -25,6 +25,7 @@ import Responses from '../../components/ServiceProviderProf/Responses';
 import Reviews from '../../components/ServiceProviderProf/Reviews';
 import ServiceProviderProfileDetails from '../../components/ServiceProviderProf/ServiceProviderProfileDetails';
 import ProfilePreviousProjects from '../../components/ServiceProviderProf/ServiceProviderProfilePreviousProjects';
+import ProfileRetailItems from '../../components/ServiceProviderProf/ServiceProviderProfileRetailItems';
 import TopAppBar from '../../components/TopAppBar';
 import { selectUser } from '../../redux/UserAuthenticationReducer';
 import {
