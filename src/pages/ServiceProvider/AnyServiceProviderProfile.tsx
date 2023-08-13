@@ -24,6 +24,7 @@ import Responses from '../../components/ServiceProviderProf/Responses';
 import Reviews from '../../components/ServiceProviderProf/Reviews';
 import ServiceProviderProfileDetails from '../../components/ServiceProviderProf/ServiceProviderProfileDetails';
 import ProfilePreviousProjects from '../../components/ServiceProviderProf/ServiceProviderProfilePreviousProjects';
+import ProfileRentingItems from '../../components/ServiceProviderProf/ServiceProviderRentingItems';
 import TopAppBar from '../../components/TopAppBar';
 import { selectUser } from '../../redux/UserAuthenticationReducer';
 import {
@@ -257,7 +258,7 @@ function AnyServiceProviderProfile() {
           {activeTab === 'one' && AllUserInfo && (
             <ServiceProviderProfileDetails userDetails={AllUserInfo} />
           )}
-          {activeTab === 'two' && <ProfilePreviousProjects />}
+          {activeTab === 'two' && <ProfileRentingItems />}
           {activeTab === 'three' && <Responses />}
           {activeTab === 'four' && <Messages />}
           {activeTab === 'five' && <Reviews />}
