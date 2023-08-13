@@ -23,11 +23,9 @@ import {
   Typography,
 } from '@mui/material';
 import Divider from '@mui/material/Divider';
-import { type AnyAction, type ThunkDispatch } from '@reduxjs/toolkit';
-import { Form, Formik, type FormikProps } from 'formik';
-import { FunctionComponent, useEffect, useRef, useState } from 'react';
+import { Form, Formik } from 'formik';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
