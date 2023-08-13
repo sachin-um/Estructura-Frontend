@@ -16,7 +16,8 @@ import * as yup from 'yup';
 const validationSchema = yup.object({
   confirmpassword: yup
     .string()
-    .oneOf([yup.ref('password')], 'Passwords must match'),
+    .oneOf([yup.ref('password')], 'Passwords must match')
+    .required('Confirm Password is required'),
   email: yup
     .string()
     .email('Enter a valid email')

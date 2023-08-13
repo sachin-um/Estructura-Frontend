@@ -88,7 +88,7 @@ const ProfessionalCategories = ({ data }: { data: Professional[] }) => {
                 navigate(`/shop/item/${card.id}`);
               }}
               alt={`Card ${card.id}`}
-              src={`http://localhost:8080/files/project-files/${card.id}/${card.ProfileImageName}`}
+              src={`http://localhost:8080/files/profile-images/${card.id}/${card.ProfileImageName}`}
             />
             <CardWrapper>
               <CardText>

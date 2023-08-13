@@ -35,6 +35,7 @@ const pages: LinkedPage[] = [
   {
     main: { name: 'Professionals', path: '/' },
     subPages: [
+      { name: 'All', path: '/Professionals/AllProfessionals' },
       { name: 'Architects', path: '/Professionals/ARCHITECT' },
       { name: 'Interior Designers', path: '/Professionals/INTERIORDESIGNER' },
       {
@@ -48,17 +49,18 @@ const pages: LinkedPage[] = [
       { name: 'Home Builders', path: '/Professionals/MASONWORKER' },
       { name: 'Painters', path: '/Professionals/PAINTER' },
       { name: 'Carpenters', path: '/Professionals/CARPENTER' },
+      { name: 'All', path: '/' },
     ],
   },
   {
     main: { name: 'Products', path: '/' },
     subPages: [
+      { name: 'All', path: '/shop' },
       { name: 'Furniture', path: '/shop/items/FURNITURE' },
       { name: 'Hardware Items', path: '/shop/items/HARDWARE' },
       { name: 'Gardening Items and Tools', path: '/shop/items/GARDENWARE' },
       { name: 'Bathware', path: '/shop/items/BATHWARE' },
       { name: 'Lighting', path: '/shop/items/LIGHTING' },
-      { name: 'All', path: '/' },
     ],
   },
   { main: { name: 'Blog', path: '/blogs' } },
