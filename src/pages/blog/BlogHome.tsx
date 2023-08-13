@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
+import NotFound from '../../components/NoResults';
 import TopAppBar from '../../components/TopAppBar';
 import { blogToCard } from '../../components/blog/BlogViewCard';
 import Carousel from '../../components/blog/carousel';
@@ -180,26 +181,7 @@ const BlogHome: FunctionComponent<BlogHomeProps> = () => {
             </Box>
           </Stack>
         ) : (
-          <div
-            style={{
-              alignItems: 'center',
-              display: 'flex',
-              flexDirection: 'column',
-              height: 'calc(100vh - 300px)',
-              justifyContent: 'center',
-              width: '100%',
-            }}
-          >
-            <SentimentVeryDissatisfiedIcon
-              style={{ color: '#999', fontSize: 80 }}
-            />
-            <Typography
-              style={{ color: '#999', marginTop: '20px' }}
-              variant="h6"
-            >
-              There is nothing here...
-            </Typography>
-          </div>
+          <NotFound />
         )}
       </Container>
     </>
