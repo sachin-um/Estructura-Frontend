@@ -2,6 +2,7 @@ import type { RouteObject } from 'react-router-dom';
 
 import AddRetailItem from '../pages/ServiceProvider/RetailItems/AddRetailItem';
 import EditRetailItem from '../pages/ServiceProvider/RetailItems/EditRetailItem';
+import FindFurniture from '../pages/findfurniture';
 import ShopCart from '../pages/shop/ShopCart';
 import ShopHomePage from '../pages/shop/ShopHomePage';
 import ShopItem from '../pages/shop/ShopItem';
@@ -31,6 +32,10 @@ const ShopRoutes: RouteObject[] = [
   {
     path: '/shop/cart',
     element: <ShopCart />,
+  },
+  {
+    path: '/findfurniture',
+    element: <FindFurniture />,
   },
 ];
 
