@@ -11,6 +11,7 @@ import {
 import { Formik } from 'formik';
 import { useRef, useState } from 'react';
 import * as yup from 'yup';
+import { Link, useNavigate } from 'react-router-dom';
 
 import AddressInputs, {
   addressValidators,
@@ -243,6 +244,13 @@ function HomeOwnerSignUp() {
                         }}
                         onSubmit={handleSubmit}
                       >
+                        <Typography
+                          sx={{ color: '#435834', textAlign: 'left' }}
+                          variant="h8"
+                        >
+                          {' '}
+                          Personal Details{' '}
+                        </Typography>
                         <TextField
                           color="secondary"
                           fullWidth
@@ -286,6 +294,8 @@ function HomeOwnerSignUp() {
                           variant="filled"
                           {...spread('contactNo')}
                         />
+
+                        <AddressInputs spread={spread} />
                         <TextField
                           color="secondary"
                           fullWidth
@@ -302,7 +312,21 @@ function HomeOwnerSignUp() {
                           variant="filled"
                           {...spread('confirmPassword')}
                         />
-                        <AddressInputs spread={spread} />
+
+                        <Typography>
+                          By clicking this button you agree to Estructura's{' '}
+                          <Link
+                            style={{
+                              color: '#9D6432',
+                              fontFamily:
+                                '"Roboto","Helvetica","Arial",sans-serif',
+                            }}
+                            to="#"
+                          >
+                            Terms and Conditions
+                          </Link>
+                        </Typography>
+
                         <Button
                           color="primary"
                           fullWidth
@@ -311,6 +335,27 @@ function HomeOwnerSignUp() {
                         >
                           Sign Up
                         </Button>
+                        <Box
+                          style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            margin: 2,
+                          }}
+                        >
+                          <Typography>
+                            Already have an account?{' '}
+                            <Link
+                              style={{
+                                color: '#9D6432',
+                                fontFamily:
+                                  '"Roboto","Helvetica","Arial",sans-serif',
+                              }}
+                              to="/SignIn"
+                            >
+                              Signin
+                            </Link>
+                          </Typography>
+                        </Box>
                       </form>
                     );
                   }}
