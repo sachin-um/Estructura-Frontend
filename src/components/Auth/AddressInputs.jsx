@@ -41,9 +41,12 @@ function AddressInputs(props) {
   const { spread, errors } = props;
   return (
     <>
-      <Typography sx={{ color: '#435834', textAlign: 'left' }} variant="h8">
+      <Typography
+        sx={{ color: '#435834', textAlign: 'left' }}
+        fontSize={'0.9rem'}
+      >
         {' '}
-        Address{' '}
+        Business Address{' '}
       </Typography>
       <TextField
         color="secondary"

@@ -12,6 +12,7 @@ import { useRef } from 'react';
 import * as yup from 'yup';
 const validationSchema = yup.object({
   maxRate: yup.string().required('provide a value here'),
+  minRate: yup.string().required('provide a value here'),
 });
 function ServiceProviderPage6({
   formData,
@@ -22,7 +23,7 @@ function ServiceProviderPage6({
 }) {
   const formRef = useRef(null);
   const initialValues = {
-    minRate: formData.minRate ?? 0,
+    minRate: formData.minRate ?? '',
     maxRate: formData.maxRate ?? '',
   };
   return (
