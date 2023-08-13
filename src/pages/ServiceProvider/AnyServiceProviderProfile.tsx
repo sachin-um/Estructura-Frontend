@@ -25,8 +25,8 @@ import Responses from '../../components/ServiceProviderProf/Responses';
 import Reviews from '../../components/ServiceProviderProf/Reviews';
 import ServiceProviderProfileDetails from '../../components/ServiceProviderProf/ServiceProviderProfileDetails';
 import ProfilePreviousProjects from '../../components/ServiceProviderProf/ServiceProviderProfilePreviousProjects';
-import ProfileRentingItems from '../../components/ServiceProviderProf/ServiceProviderRentingItems';
 import ProfileRetailItems from '../../components/ServiceProviderProf/ServiceProviderProfileRetailItems';
+import ProfileRentingItems from '../../components/ServiceProviderProf/ServiceProviderRentingItems';
 import TopAppBar from '../../components/TopAppBar';
 import { selectUser } from '../../redux/UserAuthenticationReducer';
 import {
@@ -251,6 +251,12 @@ function AnyServiceProviderProfile() {
             {AllUserInfo?.role === 'RETAILSTORE' ? (
               <Tab
                 label="Your Retail Items"
+                sx={{ marginRight: '4rem' }}
+                value="two"
+              />
+            ) : AllUserInfo?.role === 'RENTER' ? (
+              <Tab
+                label="Your Renting Items"
                 sx={{ marginRight: '4rem' }}
                 value="two"
               />

@@ -35,6 +35,7 @@ const pages: LinkedPage[] = [
   {
     main: { name: 'Professionals', path: '/' },
     subPages: [
+      { name: 'All', path: '/' },
       { name: 'Architects', path: '/' },
       { name: 'Interior Designers', path: '/' },
       { name: 'Construction Companies', path: '/' },
@@ -47,6 +48,7 @@ const pages: LinkedPage[] = [
   {
     main: { name: 'Products', path: '/' },
     subPages: [
+      { name: 'All', path: '/' },
       { name: 'Furniture', path: '/' },
       { name: 'Hardware Items', path: '/' },
       { name: 'Gardening Items and Tools', path: '/' },

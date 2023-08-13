@@ -46,7 +46,7 @@ function ProfileRentingItems() {
   return (
     <Container style={{ marginBottom: '2rem' }}>
       <Box display="flex" justifyContent="flex-end" marginBottom="1rem">
-        <Button variant="contained">Add Projects</Button>
+        <Button variant="contained">Add Renting Items</Button>
       </Box>
       {rentingItems.length !== 0 && (
         <Grid container justifyContent="space-evenly" spacing={2} wrap="wrap">
@@ -62,7 +62,7 @@ function ProfileRentingItems() {
                         height: '200px',
                         width: '100%',
                       }}
-                      alt="Project 1"
+                      alt="Renting items 1"
                       src={`http://localhost:8080/files/renting-item-files/${rentingItem?.createdBy}/${rentingItem?.id}/${rentingItem?.mainImageName}`}
                     />
                     <CardContent
@@ -175,8 +175,8 @@ function ProfileRentingItems() {
             {RentingItemsStatus === 'loading'
               ? 'Loading...'
               : RentingItemsStatus === 'failed'
-              ? 'Failed to load projects'
-              : 'No projects found'}
+              ? 'Failed to load renting items'
+              : 'No renting items found'}
           </Typography>
         </Box>
       )}
