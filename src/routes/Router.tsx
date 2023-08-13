@@ -20,14 +20,6 @@ export const altRouter = createBrowserRouter([
     path: '/',
     element: <Homepage />,
   },
-  {
-    path: '/Professionals/AllProfessionals',
-    element: <AllProfessionals />,
-  },
-  {
-    path: '/Professionals/AllArchitects',
-    element: <AllArchitects />,
-  },
   ...AuthRoutes,
   ...AdminRoutes,
   ...BlogRoutes,

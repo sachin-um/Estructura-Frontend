@@ -14,10 +14,6 @@ const ServiceProviderRoutes: RouteObject[] = [
     element: <AllProfessionals />,
   },
   {
-    path: '/Professionals/AllArchitects',
-    element: <AllArchitects />,
-  },
-  {
     path: '/Professionals/:category',
     element: <AllArchitects />,
   },

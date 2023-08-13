@@ -24,7 +24,7 @@ function ArchitectPage1({
   const formRef = useRef(null);
   const initialValues = {
     sLIARegNumber: formData.sLIARegNumber ?? '',
-    website: formData.website ?? '',
+    qualification: formData.qualification ?? '',
   };
   // TODO: Change Layout
   return (
@@ -199,7 +199,7 @@ function ArchitectPage1({
                                     multiline
                                     rows={5}
                                     variant="filled"
-                                    {...spread('')}
+                                    {...spread('qualification')}
                                   />
                                 </Grid>
                               </Grid>
