@@ -21,6 +21,8 @@ import Cart from "./pages/e-com/Cart";
 import AdminDashboard from "./pages/admin/dash";
 import FindFurniture from "./pages/findfurniture";
 import AddCustomerRequest from "./pages/AddCustomerRequest";
+import ViewCustomerRequest from "./pages/ViewCustomerRequest";
+import CustomerRequestDetails from "./pages/CustomerRequestDetails";
 
 //admin dashboard
 import Dashboard from "./pages/adminDashboard/dashboard";
@@ -184,6 +186,14 @@ const router = createBrowserRouter([
   {
     path: "/AddCustomerRequest",
     element: <AddCustomerRequest />
+  },
+  {
+    path: "/ViewCustomerRequest",
+    element: <ViewCustomerRequest />
+  },
+  {
+    path: "/CustomerRequestDetails",
+    element: <CustomerRequestDetails/>
   },
 
 ]);
