@@ -10,14 +10,14 @@ import '../../assets/font.css';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
-import { Architects } from '../../data/ProfessionalscardData';
+import { ConstructionCompanies } from '../../data/ProfessionalscardData';
 
 const Container = styled.div``;
 
 const Banner = styled.div`
   width: 100%;
   height: 300px;
-  background-image: url('https://media.istockphoto.com/id/823322674/photo/male-architect-hands-making-model-house.jpg?s=612x612&w=0&k=20&c=0NwNPlPRYu2OZNE03HQ1bHQIrzEMcssGB6Ne6E6i9VI=');
+  background-image: url('https://www.lankayp.com/img/cats/construction.jpg');
   background-size: cover;
   background-position: center;
   display: flex;
@@ -66,8 +66,8 @@ const SortIcon = styled(FaSort)`
   color: grey;
 `;
 
-const AllArchitects = () => {
-  const [sortedData, setSortedData] = useState(Architects);
+const AllConstructionCompanies = () => {
+  const [sortedData, setSortedData] = useState(ConstructionCompanies);
   const [sortingOption, setSortingOption] = useState('');
 
   const handleSortingOptionChange = (sortingValue) => {
@@ -109,7 +109,7 @@ const AllArchitects = () => {
   return (
     <Container>
       <TopBar title="Products" />
-      <Banner>Architects</Banner>
+      <Banner>Construction Companies</Banner>
       {/* <SortContainer>
         <SortIcon />
         <SortText>Sort by:</SortText>
@@ -137,4 +137,4 @@ const AllArchitects = () => {
   );
 };
 
-export default AllArchitects;
+export default AllConstructionCompanies;
