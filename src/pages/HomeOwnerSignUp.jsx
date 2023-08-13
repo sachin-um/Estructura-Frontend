@@ -17,7 +17,7 @@ import AddressInputs, {
   addressValidators,
   districts,
 } from '../components/Auth/AddressInputs';
-import TopBar from '../components/TopBar';
+import TopBar from '../components/TopAppBar';
 import API, { clearTokens } from '../lib/API';
 import { violationsToErrors } from '../utils/Violations';
 

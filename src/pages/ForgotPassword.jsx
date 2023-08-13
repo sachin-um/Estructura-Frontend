@@ -116,6 +116,7 @@ function ForgotPassword() {
                     marginTop: 'auto',
                     paddingBottom: '1rem',
                     textAlign: 'left',
+                    fontWeight: 'bold'
                   }}
                   variant="h4"
                 >
@@ -127,6 +128,7 @@ function ForgotPassword() {
                     fontSize: '1.5rem',
                     lineHeight: '1',
                     textAlign: 'left',
+                    fontWeight: 'bold'
                   }}
                   variant="h4"
                 >
