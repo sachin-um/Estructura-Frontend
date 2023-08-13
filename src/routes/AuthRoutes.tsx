@@ -1,6 +1,6 @@
 import type { RouteObject } from 'react-router-dom';
 
-import PlaceHoler from '../components/Placeholder';
+import PlaceHolder from '../components/Placeholder';
 import ForgotPassword from '../pages/ForgotPassword';
 import HomeOwnerSignUp from '../pages/HomeOwnerSignUp';
 import ServiceProviderSignUp from '../pages/ServiceProviderSignUp';
@@ -27,7 +27,7 @@ const AuthRoutes: RouteObject[] = [
   },
   {
     path: '/emailNotVerified',
-    element: <PlaceHoler />,
+    element: <PlaceHolder />,
   },
 ];
 

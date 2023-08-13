@@ -28,8 +28,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
-import Footer from '../../components/Footer';
-import TopAppBar from '../../components/TopAppBar';
 import {
   addRetailItem,
   editRetailItem,
@@ -37,6 +35,8 @@ import {
 import { selectUser } from '../../redux/UserAuthenticationReducer';
 import GetFormikProps from '../../utils/GetFormikProps';
 import { violationsToErrorsTS } from '../../utils/ViolationsTS';
+import Footer from '../Footer';
+import TopAppBar from '../TopAppBar';
 
 interface RetailItemFormProps {
   OriginalRetailItem?: RetailItem;
@@ -58,6 +58,23 @@ const validationSchema = Yup.object().shape({
     .test('only 3', 'More than 3', (value) => {
       const fileArr = value as FileList;
       if (fileArr.length > 3) {
+        return false;
+      }
+      return true;
+    })
+    .test('fileSize', 'Each File size should be less than 5MB', (value) => {
+      const fileArr = value as FileList;
+      let totalSize = 0;
+      for (let index = 0; index < fileArr.length; index++) {
+        const element = fileArr[index];
+        if (element.size > 5000000) {
+          console.log('too large');
+          return false;
+        }
+        totalSize += element.size;
+      }
+      if (totalSize > 20000000) {
+        console.log('too large');
         return false;
       }
       return true;
@@ -90,7 +107,7 @@ const validationSchema = Yup.object().shape({
     .oneOf(retailItemTypes, 'RetailItemType has to be valid')
     .required('RetailItemType is required'),
 });
-const AddRetailItem: FunctionComponent<RetailItemFormProps> = ({
+const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
   OriginalRetailItem,
   userId,
 }) => {
@@ -221,7 +238,6 @@ const AddRetailItem: FunctionComponent<RetailItemFormProps> = ({
   }, [OriginalRetailItem, mainImageReset, mainImage, imagesReset]);
   return (
     <>
-      <TopAppBar />
       {userInfo &&
       userInfo.id &&
       userInfo.serviceProviderType === ('RETAILER' as ServiceProviders) ? (
@@ -702,4 +718,4 @@ const AddRetailItem: FunctionComponent<RetailItemFormProps> = ({
   );
 };
 
-export default AddRetailItem;
+export default RetailItemForm;

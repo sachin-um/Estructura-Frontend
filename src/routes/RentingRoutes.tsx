@@ -1,6 +1,7 @@
 import type { RouteObject } from 'react-router-dom';
 
-import AddRentalItem from '../pages/ServiceProvider/AddRentalItem';
+import AddRentalItem from '../pages/ServiceProvider/RentalItems/AddRentalItem';
+import EditRentalItem from '../pages/ServiceProvider/RentalItems/EditRentalItem';
 import ViewRentalItem from '../pages/ServiceProvider/ViewRentalItem';
 import AllRenters from '../pages/renter/Renters';
 
@@ -11,12 +12,12 @@ const RentingItemRoutes: RouteObject[] = [
   },
   {
     path: '/rentingItems/add',
-    element: <AddRentalItem userId={5} />,
+    element: <AddRentalItem />,
   },
-  // {
-  //   path: '/rentingItems/edit/:id',
-  //   element: <RentingItemEdit />,
-  // },
+  {
+    path: '/rentingItems/edit/:id',
+    element: <EditRentalItem />,
+  },
   {
     path: '/rentingItems/:id',
     element: <ViewRentalItem />,

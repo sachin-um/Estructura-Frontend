@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Footer from '../../components/Footer';
+import PlaceHolder from '../../components/Placeholder';
 import Messages from '../../components/ServiceProviderProf/Messages';
 import Responses from '../../components/ServiceProviderProf/Responses';
 import Reviews from '../../components/ServiceProviderProf/Reviews';
@@ -245,11 +246,19 @@ function AnyServiceProviderProfile() {
               sx={{ marginRight: '4rem' }}
               value="one"
             />
-            <Tab
-              label="Previous Projects"
-              sx={{ marginRight: '4rem' }}
-              value="two"
-            />
+            {AllUserInfo?.role === 'RETAILSTORE' ? (
+              <Tab
+                label="Your Retail Items"
+                sx={{ marginRight: '4rem' }}
+                value="two"
+              />
+            ) : (
+              <Tab
+                label="Previous Projects"
+                sx={{ marginRight: '4rem' }}
+                value="two"
+              />
+            )}
             <Tab label="Responses" sx={{ marginRight: '4rem' }} value="three" />
             <Tab label="Messages" sx={{ marginRight: '4rem' }} value="four" />
             <Tab label="Reviews" value="five" />
@@ -257,7 +266,15 @@ function AnyServiceProviderProfile() {
           {activeTab === 'one' && AllUserInfo && (
             <ServiceProviderProfileDetails userDetails={AllUserInfo} />
           )}
-          {activeTab === 'two' && <ProfilePreviousProjects />}
+          {activeTab === 'two' &&
+            AllUserInfo?.role !== 'RETAILSTORE' &&
+            AllUserInfo?.role !== 'RENTER' && <ProfilePreviousProjects />}
+          {activeTab === 'two' && AllUserInfo?.role === 'RETAILSTORE' && (
+            <PlaceHolder />
+          )}
+          {activeTab === 'two' && AllUserInfo?.role === 'RENTER' && (
+            <PlaceHolder />
+          )}
           {activeTab === 'three' && <Responses />}
           {activeTab === 'four' && <Messages />}
           {activeTab === 'five' && <Reviews />}
