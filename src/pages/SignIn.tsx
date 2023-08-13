@@ -273,21 +273,24 @@ function SignIn() {
                         />
                         <Grid container justifyContent="space-between">
                           <Grid item style={{ marginRight: '3rem' }}>
-                            <Link
-                              style={{
-                                color: '#9D6432',
-                                textDecoration: 'none',
-                              }}
-                              to="/SignUp"
-                            >
-                              Don&apos;t have an account? Register
-                            </Link>
+                            <Typography>
+                              Don&apos;t have an account?{' '}
+                              <Link
+                                style={{
+                                  color: '#9D6432',
+                                  fontFamily:
+                                    '"Roboto","Helvetica","Arial",sans-serif',
+                                }}
+                                to="/SignUp"
+                              >
+                                Signup
+                              </Link>
+                            </Typography>
                           </Grid>
                           <Grid item>
                             <Link
                               style={{
                                 color: '#9D6432',
-                                textDecoration: 'none',
                               }}
                               to="/ForgotPassword"
                             >
