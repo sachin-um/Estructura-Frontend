@@ -14,7 +14,8 @@ const AddRentalItem: FunctionComponent = () => {
       <TopAppBar />
       {userInfo &&
       userInfo.id &&
-      userInfo.serviceProviderType === 'RENTINGCOMPANY' ? (
+      userInfo.serviceProviderType ===
+        ('RENTINGCOMPANY' as ServiceProviders) ? (
         <RentalItemForm userId={userInfo.id} />
       ) : (
         <h1>Please Login as a Renting Company to Add a RentalItem</h1>

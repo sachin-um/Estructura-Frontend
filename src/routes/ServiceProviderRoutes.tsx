@@ -17,5 +17,9 @@ const ServiceProviderRoutes: RouteObject[] = [
     path: '/Professionals/AllArchitects',
     element: <AllArchitects />,
   },
+  {
+    path: '/Professionals/:category',
+    element: <AllArchitects />,
+  },
 ];
 export default ServiceProviderRoutes;

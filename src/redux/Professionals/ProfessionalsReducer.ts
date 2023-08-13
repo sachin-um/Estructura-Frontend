@@ -52,7 +52,7 @@ export const ProfessionalsInfoSlice = createSlice({
         state.professionals = action.payload;
       })
       .addCase(fetchProfessionals.rejected, (state, action) => {
-        state.status = 'failed';
+        state.status = 'idle';
         state.error = action.error.message ?? 'Failed to fetch professionals';
       })
       .addCase(fetchProfessionalsRole.pending, (state) => {
@@ -63,7 +63,7 @@ export const ProfessionalsInfoSlice = createSlice({
         state.professionals = action.payload;
       })
       .addCase(fetchProfessionalsRole.rejected, (state, action) => {
-        state.status = 'failed';
+        state.status = 'idle';
         state.error = action.error.message ?? 'Failed to fetch professionals';
       });
   },
