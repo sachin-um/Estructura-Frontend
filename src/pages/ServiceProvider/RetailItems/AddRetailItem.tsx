@@ -14,7 +14,7 @@ const AddRetailItem: FunctionComponent = () => {
       <TopAppBar />
       {userInfo &&
       userInfo.id &&
-      userInfo.serviceProviderType === 'RETAILER' ? (
+      userInfo.serviceProviderType === ('RETAILER' as ServiceProviders) ? (
         <RetailItemForm userId={userInfo.id} />
       ) : (
         <h1>Please Login as a Retail Store to Add a RetailItem</h1>
