@@ -1,11 +1,12 @@
 import type { RouteObject } from 'react-router-dom';
 
-import PlaceHoler from '../components/Placeholder';
 import ForgotPassword from '../pages/ForgotPassword';
 import HomeOwnerSignUp from '../pages/HomeOwnerSignUp';
 import ServiceProviderSignUp from '../pages/ServiceProviderSignUp';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
+import VerifySuccess from '../pages/verification_success';
+import Verify from '../pages/verify_email';
 
 const AuthRoutes: RouteObject[] = [
   { path: '/SignIn', element: <SignIn /> },
@@ -27,7 +28,11 @@ const AuthRoutes: RouteObject[] = [
   },
   {
     path: '/emailNotVerified',
-    element: <PlaceHoler />,
+    element: <Verify />,
+  },
+  {
+    path: '/emailVerified',
+    element: <VerifySuccess />,
   },
 ];
 
