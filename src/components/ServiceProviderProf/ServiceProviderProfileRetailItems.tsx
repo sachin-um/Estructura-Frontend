@@ -15,12 +15,16 @@ import {
 } from '@mui/material';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 import {
   fetchRetailItemByRetailer,
   selectAllRetailItems,
 } from '../../redux/RetailItems/RetailItemsReducer';
-import { getRetailItemStatus } from '../../redux/RetailItems/SingleRetailItemReducer';
+import {
+  deleteRetailItem,
+  getRetailItemStatus,
+} from '../../redux/RetailItems/SingleRetailItemReducer';
 import { selectUser } from '../../redux/UserAuthenticationReducer';
 
 function ProfileRetailItems() {
@@ -37,10 +41,19 @@ function ProfileRetailItems() {
     }
   }, [LoggedInUser, dispatch, retailitemsStatus]);
 
+  const navigate = useNavigate();
+
   return (
     <Container style={{ marginBottom: '2rem' }}>
       <Box display="flex" justifyContent="flex-end" marginBottom="1rem">
-        <Button variant="contained">Add Retail Items</Button>
+        <Button
+          onClick={() => {
+            navigate('/shop/item/add');
+          }}
+          variant="contained"
+        >
+          Add Retail Items
+        </Button>
       </Box>
       {retailitems.length !== 0 && (
         <Grid container justifyContent="space-evenly" spacing={2} wrap="wrap">
@@ -90,6 +103,9 @@ function ProfileRetailItems() {
                       }}
                     >
                       <Button
+                        onClick={() => {
+                          navigate(`/shop/item/edit/${retailItem.id}`);
+                        }}
                         startIcon={<EditIcon />}
                         sx={{ marginRight: 2, width: '130px' }}
                         variant="outlined"
@@ -97,6 +113,19 @@ function ProfileRetailItems() {
                         Edit
                       </Button>
                       <Button
+                        onClick={() => {
+                          dispatch(deleteRetailItem(retailItem.id)).then(
+                            (action) => {
+                              if (deleteRetailItem.fulfilled.match(action)) {
+                                if (LoggedInUser) {
+                                  dispatch(
+                                    fetchRetailItemByRetailer(LoggedInUser.id),
+                                  );
+                                }
+                              }
+                            },
+                          );
+                        }}
                         startIcon={<DeleteIcon />}
                         sx={{ width: '130px' }}
                         variant="outlined"
