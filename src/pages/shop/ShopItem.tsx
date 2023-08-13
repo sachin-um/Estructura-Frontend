@@ -1,6 +1,8 @@
+import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+import type { FunctionComponent } from 'react';
+
 import { Add, Favorite, Remove, ShoppingCart } from '@mui/icons-material';
-import { type AnyAction, type ThunkDispatch } from '@reduxjs/toolkit';
-import { FunctionComponent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';

@@ -1,4 +1,4 @@
-import { type RouteObject } from 'react-router-dom';
+import type { RouteObject } from 'react-router-dom';
 
 import BlogAdd from '../pages/blog/BlogAdd';
 import BlogDetails from '../pages/blog/BlogDetails';

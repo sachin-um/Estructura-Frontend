@@ -1,5 +1,8 @@
-import jwt_decode, { type JwtPayload } from 'jwt-decode';
-import { PropsWithChildren, useEffect } from 'react';
+import type { JwtPayload } from 'jwt-decode';
+import type { PropsWithChildren } from 'react';
+
+import jwt_decode from 'jwt-decode';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -43,7 +46,7 @@ const RolesRequired = (AllowedRoles: Role[]) => {
 
 const AdminAuthenticated = RolesRequired(['ADMIN']);
 const CustomerAuthenticated = RolesRequired(['CUSTOMER']);
-const RetailOwnerAuthenticated = RolesRequired(['RETAILOWNER']);
+const RetailOwnerAuthenticated = RolesRequired(['RETAILSTORE']);
 const ArchitectAuthenticated = RolesRequired(['ARCHITECT']);
 
 export {

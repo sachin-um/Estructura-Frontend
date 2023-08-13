@@ -1,3 +1,7 @@
+import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+import type { FormikProps } from 'formik';
+import type { FunctionComponent } from 'react';
+
 import AddIcon from '@mui/icons-material/Add';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -27,6 +31,7 @@ import * as Yup from 'yup';
 
 import Footer from '../../components/Footer';
 import TopAppBar from '../../components/TopAppBar';
+
 import {
   addRetailItem,
   editRetailItem,

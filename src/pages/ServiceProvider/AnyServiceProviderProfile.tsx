@@ -1,3 +1,5 @@
+import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+
 import { CameraAlt, Email, Phone } from '@mui/icons-material';
 import {
   Box,
@@ -12,17 +14,16 @@ import {
   Tabs,
   Typography,
 } from '@mui/material';
-import { type AnyAction, type ThunkDispatch } from '@reduxjs/toolkit';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Footer from '../../components/Footer';
 import Messages from '../../components/ServiceProviderProf/Messages';
-import PreviousProjects from '../../components/ServiceProviderProf/PreviousProjects';
 import Responses from '../../components/ServiceProviderProf/Responses';
 import Reviews from '../../components/ServiceProviderProf/Reviews';
 import ServiceProviderProfileDetails from '../../components/ServiceProviderProf/ServiceProviderProfileDetails';
+import ProfilePreviousProjects from '../../components/ServiceProviderProf/ServiceProviderProfilePreviousProjects';
 import TopAppBar from '../../components/TopAppBar';
 import { selectUser } from '../../redux/UserAuthenticationReducer';
 import {
@@ -256,7 +257,7 @@ function AnyServiceProviderProfile() {
           {activeTab === 'one' && AllUserInfo && (
             <ServiceProviderProfileDetails userDetails={AllUserInfo} />
           )}
-          {activeTab === 'two' && <PreviousProjects />}
+          {activeTab === 'two' && <ProfilePreviousProjects />}
           {activeTab === 'three' && <Responses />}
           {activeTab === 'four' && <Messages />}
           {activeTab === 'five' && <Reviews />}
@@ -268,7 +269,7 @@ function AnyServiceProviderProfile() {
   ) : (
     <>
       <h1>You must log in to view your profile</h1>
-      <Link to="/SignIn?from=/service/profile">
+      <Link to="/SignIn?from=/ServiceProvider/profile">
         <Button
           color="primary"
           sx={{ height: '50px', width: '200px' }}

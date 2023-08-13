@@ -1,4 +1,4 @@
-import { type RouteObject } from 'react-router-dom';
+import type { RouteObject } from 'react-router-dom';
 
 import AddRetailItem from '../pages/ServiceProvider/AddRetailItem';
 import ShopCart from '../pages/shop/ShopCart';
