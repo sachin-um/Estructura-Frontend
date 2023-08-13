@@ -15,12 +15,16 @@ import {
 } from '@mui/material';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import {
   fetchProjectByProfessional,
   selectAllProjects,
 } from '../../redux/Projects/ProjectsReducer';
-import { getProjectStatus } from '../../redux/Projects/SingleProjectReducer';
+import {
+  deleteProject,
+  getProjectStatus,
+} from '../../redux/Projects/SingleProjectReducer';
 import { selectUser } from '../../redux/UserAuthenticationReducer';
 
 function ProfilePreviousProjects() {
@@ -36,6 +40,8 @@ function ProfilePreviousProjects() {
       dispatch(fetchProjectByProfessional(LoggedInUser.id));
     }
   }, [LoggedInUser, dispatch, projectsStatus]);
+
+  const navigate = useNavigate();
 
   return (
     <Container style={{ marginBottom: '2rem' }}>
@@ -56,8 +62,8 @@ function ProfilePreviousProjects() {
                         height: '200px',
                         width: '100%',
                       }}
-                      alt="Project 1"
-                      src="BannerImage.jpg"
+                      alt={`${project.mainImage}`}
+                      src={`http://localhost:8080/files/project-files/${project.createdBy}/${project.id}/${project.mainImageName}`}
                     />
                     <CardContent
                       sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}
@@ -77,13 +83,25 @@ function ProfilePreviousProjects() {
                     </CardContent>
                     <CardActions sx={{ justifyContent: 'center' }}>
                       <Button
+                        onClick={() => navigate(`/projects/edit/${project.id}`)}
                         startIcon={<EditIcon />}
                         sx={{ marginRight: 2 }}
                         variant="outlined"
                       >
                         Edit
                       </Button>
-                      <Button startIcon={<DeleteIcon />} variant="outlined">
+                      <Button
+                        onClick={() =>
+                          dispatch(deleteProject(project.id)).then(() => {
+                            if (LoggedInUser?.id)
+                              dispatch(
+                                fetchProjectByProfessional(LoggedInUser.id),
+                              );
+                          })
+                        }
+                        startIcon={<DeleteIcon />}
+                        variant="outlined"
+                      >
                         Delete
                       </Button>
                     </CardActions>

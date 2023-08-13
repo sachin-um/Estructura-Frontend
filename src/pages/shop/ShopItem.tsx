@@ -11,7 +11,7 @@ import Footer from '../../components/Footer';
 import TopAppBar from '../../components/TopAppBar';
 import Newsletter from '../../components/e-com/Blog';
 import {
-  fetchRetailItemByById,
+  fetchRetailItemById,
   getRetailItemError,
   getRetailItemStatus,
   selectRetailItem,
@@ -37,7 +37,7 @@ const ShopItem: FunctionComponent = () => {
 
   useEffect(() => {
     if (itemStatus === 'idle') {
-      dispatch(fetchRetailItemByById(itemId));
+      dispatch(fetchRetailItemById(itemId));
     }
     if (item) {
       setSelectedImage(
