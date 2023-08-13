@@ -22,7 +22,7 @@ import type {
   UserState,
 } from '../redux/UserAuthenticationReducer';
 
-import TopBar from '../components/TopBar';
+import TopBar from '../components/TopAppBar';
 import { signIn } from '../redux/UserAuthenticationReducer';
 import GetFormikProps from '../utils/GetFormikProps';
 import { violationsToErrorsTS } from '../utils/ViolationsTS';
@@ -106,7 +106,7 @@ function SignIn() {
                   break;
                 case 'CUSTOMER':
                 case 'USER':
-                  Navigate('/Customer/profile', { replace: true });
+                  Navigate('/', { replace: true });
                   break;
               }
             }

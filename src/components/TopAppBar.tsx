@@ -58,6 +58,7 @@ const pages: LinkedPage[] = [
       { name: 'Gardening Items and Tools', path: '/shop/items/GARDENWARE' },
       { name: 'Bathware', path: '/shop/items/BATHWARE' },
       { name: 'Lighting', path: '/shop/items/LIGHTING' },
+      { name: 'All', path: '/' },
     ],
   },
   { main: { name: 'Blog', path: '/blogs' } },

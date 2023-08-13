@@ -11,7 +11,7 @@ import ServiceProviderPage6 from '../components/ServiceProvider/ServiceProviderP
 import ServiceProviderPage7 from '../components/ServiceProvider/ServiceProviderPage7';
 import SignUpPage1 from '../components/ServiceProvider/SignUpPage1';
 import SignUpPage2 from '../components/ServiceProvider/SignUpPage2';
-import TopBar from '../components/TopBar';
+import TopBar from '../components/TopAppBar';
 import API from '../lib/API';
 
 function ServiceProviderSignUp() {

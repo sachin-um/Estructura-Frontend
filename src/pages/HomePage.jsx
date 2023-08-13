@@ -13,6 +13,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import '../assets/font.css';
 import HomepageCarousel from '../components/Carousel/HomepageCarousel';
 import TopAppBar from '../components/TopAppBar';
+import Footer from '../components/Footer';
 
 const Slider = ({ images, interval = 5000 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -509,7 +510,7 @@ const HomePage = (props) => {
           </Box>
 
           {/* Blog articles */}
-          <Box height="400px" marginTop="10px" position="relative" width="100%">
+          <Box height="400px" marginTop="10px" marginBottom={10} position="relative" width="100%">
             <Box marginLeft="10px" marginTop="50px" textAlign="center">
               <Typography
                 color="#435834"
@@ -615,6 +616,7 @@ const HomePage = (props) => {
           </Box>
         </Box>
       </Box>
+      <Footer />
     </>
   );
 };
