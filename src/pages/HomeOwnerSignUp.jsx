@@ -20,6 +20,7 @@ import AddressInputs, {
 import TopBar from '../components/TopAppBar';
 import API, { clearTokens } from '../lib/API';
 import { violationsToErrors } from '../utils/Violations';
+import TopAppBar from '../components/TopAppBar';
 
 const ValidationSchema = yup.object().shape({
   confirmPassword: yup.string().required('Confirm Password is required'),
@@ -48,6 +49,7 @@ const initialValues = {
   firstname: '',
   lastname: '',
   password: '',
+  role: 'CUSTOMER',
 };
 
 function HomeOwnerSignUp() {
@@ -61,9 +63,11 @@ function HomeOwnerSignUp() {
     setOpen(false);
   };
 
+  const navigate = useNavigate();
+
   return (
     <>
-      <TopBar title="Sign up as a Homeowner" />
+      <TopAppBar />
       <Snackbar
         anchorOrigin={{ horizontal: 'center', vertical: 'top' }}
         autoHideDuration={6000}
@@ -179,13 +183,15 @@ function HomeOwnerSignUp() {
                       setErrors({ confirmPassword: 'Passwords do not match' });
                     } else {
                       console.log(values);
-                      values.role = 'CUSTOMER';
-                      API.post('/auth/register', values)
+                      API.post('/auth/register', values, {
+                        headers: {
+                          'Content-Type': 'multipart/form-data',
+                        },
+                      })
                         .then((res) => {
                           if (res.status === 200) {
                             if (res.data.success === true) {
-                              console.log('Success');
-                              setOpen(true);
+                              navigate('/emailNotVerified');
                             } else {
                               setErrors(
                                 violationsToErrors(
