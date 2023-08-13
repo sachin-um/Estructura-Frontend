@@ -19,11 +19,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Footer from '../../components/Footer';
+import PlaceHolder from '../../components/Placeholder';
 import Messages from '../../components/ServiceProviderProf/Messages';
 import Responses from '../../components/ServiceProviderProf/Responses';
 import Reviews from '../../components/ServiceProviderProf/Reviews';
 import ServiceProviderProfileDetails from '../../components/ServiceProviderProf/ServiceProviderProfileDetails';
 import ProfilePreviousProjects from '../../components/ServiceProviderProf/ServiceProviderProfilePreviousProjects';
+import ProfileRentingItems from '../../components/ServiceProviderProf/ServiceProviderRentingItems';
+import ProfileRetailItems from '../../components/ServiceProviderProf/ServiceProviderProfileRetailItems';
 import TopAppBar from '../../components/TopAppBar';
 import { selectUser } from '../../redux/UserAuthenticationReducer';
 import {
@@ -245,11 +248,19 @@ function AnyServiceProviderProfile() {
               sx={{ marginRight: '4rem' }}
               value="one"
             />
-            <Tab
-              label="Previous Projects"
-              sx={{ marginRight: '4rem' }}
-              value="two"
-            />
+            {AllUserInfo?.role === 'RETAILSTORE' ? (
+              <Tab
+                label="Your Retail Items"
+                sx={{ marginRight: '4rem' }}
+                value="two"
+              />
+            ) : (
+              <Tab
+                label="Previous Projects"
+                sx={{ marginRight: '4rem' }}
+                value="two"
+              />
+            )}
             <Tab label="Responses" sx={{ marginRight: '4rem' }} value="three" />
             <Tab label="Messages" sx={{ marginRight: '4rem' }} value="four" />
             <Tab label="Reviews" value="five" />
@@ -257,7 +268,15 @@ function AnyServiceProviderProfile() {
           {activeTab === 'one' && AllUserInfo && (
             <ServiceProviderProfileDetails userDetails={AllUserInfo} />
           )}
-          {activeTab === 'two' && <ProfilePreviousProjects />}
+          {activeTab === 'two' &&
+            AllUserInfo?.role !== 'RETAILSTORE' &&
+            AllUserInfo?.role !== 'RENTER' && <ProfilePreviousProjects />}
+          {activeTab === 'two' && AllUserInfo?.role === 'RETAILSTORE' && (
+            <ProfileRetailItems />
+          )}
+          {activeTab === 'two' && AllUserInfo?.role === 'RENTER' && (
+            <ProfileRentingItems />
+          )}
           {activeTab === 'three' && <Responses />}
           {activeTab === 'four' && <Messages />}
           {activeTab === 'five' && <Reviews />}

@@ -2,6 +2,9 @@ import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import type { FunctionComponent } from 'react';
 
 import { Add, Favorite, Remove, ShoppingCart } from '@mui/icons-material';
+import CallIcon from '@mui/icons-material/Call';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import StoreIcon from '@mui/icons-material/Store';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -11,7 +14,7 @@ import Footer from '../../components/Footer';
 import TopAppBar from '../../components/TopAppBar';
 import Newsletter from '../../components/e-com/Blog';
 import {
-  fetchRetailItemByById,
+  fetchRetailItemById,
   getRetailItemError,
   getRetailItemStatus,
   selectRetailItem,
@@ -37,7 +40,7 @@ const ShopItem: FunctionComponent = () => {
 
   useEffect(() => {
     if (itemStatus === 'idle') {
-      dispatch(fetchRetailItemByById(itemId));
+      dispatch(fetchRetailItemById(itemId));
     }
     if (item) {
       setSelectedImage(
@@ -166,6 +169,24 @@ const ShopItem: FunctionComponent = () => {
                 <ButtonText>ADD TO PLAN</ButtonText>
               </AddToPlanButton>
             </ActionContainer>
+
+            <ContactContainer>
+              <StoreIcon></StoreIcon>
+              <Contact>{userinfo?.businessName}</Contact>
+            </ContactContainer>
+
+            <ContactContainer>
+              <CallIcon></CallIcon>
+              <ContactNo>{userinfo?.businessContactNo}</ContactNo>
+            </ContactContainer>
+
+            <ContactContainer>
+              <LocationOnIcon></LocationOnIcon>
+              <Contact>
+                {userinfo?.addressline1}, {userinfo?.addressline2},
+                {userinfo?.district}.
+              </Contact>
+            </ContactContainer>
           </InfoContainer>
         </Wrapper>
       ) : (
@@ -191,7 +212,7 @@ const ContainerImg = styled.div`
 
 const BigImageContainer = styled.div`
   width: 400px;
-  max-height: 400px;
+  height: 300px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -212,8 +233,8 @@ const SmallImagesContainer = styled.div`
 `;
 
 const SmallImageContainer = styled.div`
-  width: 60px;
-  height: 60px;
+  width: 100px;
+  height: 100px;
   object-fit: cover;
 
   margin: 0 10px;
@@ -265,7 +286,7 @@ const PriceContainer = styled.div`
 `;
 
 const Price = styled.span`
-  font-weight: 100;
+  font-weight: 200;
   font-size: 30px;
   color: #9d6432;
   margin-right: 20px;
@@ -344,4 +365,28 @@ const AddToPlanButton = styled.button`
 const ButtonText = styled.span`
   flex: 1;
   text-align: center;
+`;
+
+const ContactContainer = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  margin-top: 20px;
+`;
+
+const Contact = styled.span`
+  font-weight: 400;
+  font-size: 30px;
+  color: #000;
+  margin-right: 10px;
+  margin-left: 10px;
+`;
+
+const ContactNo = styled.span`
+  font-weight: 700;
+  font-size: 20px;
+  color: #000;
+  margin-right: 10px;
+  margin-left: 10px;
 `;

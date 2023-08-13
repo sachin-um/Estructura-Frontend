@@ -47,7 +47,7 @@ export const editProject = createAsyncThunk(
   'projects/update',
   async (update: updateProjectParams, { rejectWithValue }) => {
     const response = await API.post<GenericAddOrUpdateResponse>(
-      `/update/${update.project.id}`,
+      `/projects/update/${update.project.id}`,
       update.updatedProject,
       {
         headers: {
@@ -63,15 +63,18 @@ export const editProject = createAsyncThunk(
       return rejectWithValue(response.data);
     }
     const id: number = response.data.id;
-    const projectResponse = (await API.get<Project>(`/project/${id}`)).data;
+    const projectResponse = (await API.get<Project>(`projects/project/${id}`))
+      .data;
     return projectResponse;
   },
 );
 
 export const deleteProject = createAsyncThunk(
-  'project/delete',
+  'projects/delete',
   async (id: number, { rejectWithValue }) => {
-    const response = await API.delete<GenericDeleteResponse>(`/delete/${id}`);
+    const response = await API.delete<GenericDeleteResponse>(
+      `projects/delete/${id}`,
+    );
     if (response.status !== 200 || response.data.success === false) {
       if (response.status !== 200) {
         console.error('DeleteProjectResponse.status !== 200');

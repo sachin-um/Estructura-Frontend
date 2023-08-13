@@ -25,10 +25,6 @@ function ServiceProviderProfileDetails({ userDetails }: { userDetails: User }) {
   const [firstname, setFirstname] = useState(userDetails.firstname);
   const [lastname, setLastname] = useState(userDetails.lastname);
   const [nic, setNic] = useState(userDetails?.nic ?? 'Unknown');
-  const [email, setEmail] = useState(userDetails.email);
-  const [contactNo, setContactNo] = useState(
-    userDetails?.contactNumber ?? 'Unknown',
-  );
   const [businessName, setBusinessName] = useState(
     userDetails?.businessName ?? 'Unknown',
   );
@@ -37,15 +33,16 @@ function ServiceProviderProfileDetails({ userDetails }: { userDetails: User }) {
   );
   const [district, setDistrict] = useState(userDetails?.district ?? 'Unknown');
   const [city, setCity] = useState(userDetails?.city ?? 'Unknown');
-  const [professionalCategory, setProfessionalCategory] = useState(
-    userDetails?.role ?? 'UNKNOWN',
-  );
   const [qualifications, setQualifications] = useState(
     userDetails?.qualifications?.map(
       (qualification) => qualification.qualification,
     ) ?? [],
   );
-  const [services, setServices] = useState('');
+  const [specializations, setSpecializations] = useState(
+    userDetails?.specializations?.map(
+      (specialization) => specialization.specialization,
+    ),
+  );
 
   const [editMode, setEditMode] = useState(false);
 
@@ -118,24 +115,6 @@ function ServiceProviderProfileDetails({ userDetails }: { userDetails: User }) {
               </Grid>
               <Grid item xs={3}>
                 <Typography variant="h6">Contact Number:</Typography>
-              </Grid>
-              <Grid item xs={3}>
-                {editMode ? (
-                  <TextField
-                    fullWidth
-                    onChange={(e) => setContactNo(e.target.value)}
-                    value={contactNo}
-                    variant="outlined"
-                  />
-                ) : (
-                  <Typography
-                    color="textSecondar"
-                    fontFamily="Poppins"
-                    variant="body1"
-                  >
-                    {contactNo}
-                  </Typography>
-                )}
               </Grid>
             </Grid>
           </CardContent>
@@ -211,7 +190,7 @@ function ServiceProviderProfileDetails({ userDetails }: { userDetails: User }) {
                     <TextField
                       fullWidth
                       label="District"
-                      onChange={(e) => setDistrict(e.target.value)}
+                      onChange={(e) => setCity(e.target.value)}
                       value={district}
                       variant="outlined"
                     />
@@ -248,7 +227,7 @@ function ServiceProviderProfileDetails({ userDetails }: { userDetails: User }) {
                 variant="outlined"
               />
             ) : (
-              <Typography color="textSecondary" variant="body1">
+              <div>
                 {qualifications.map((qualification) => (
                   <Chip
                     key={qualification}
@@ -256,15 +235,15 @@ function ServiceProviderProfileDetails({ userDetails }: { userDetails: User }) {
                     sx={{ marginRight: '.5rem' }}
                   />
                 ))}
-              </Typography>
+              </div>
             )}
           </CardContent>
         </Card>
       </Grid>
 
-      {/* <Grid style={{ marginTop: '2rem' }}>
+      <Grid style={{ marginTop: '2rem' }}>
         <Typography fontFamily="Poppins" gutterBottom variant="h6">
-          Services
+          Specializations
         </Typography>
         <Card sx={{ height: '100px', p: 2, width: '1000px' }}>
           <CardContent>
@@ -272,19 +251,19 @@ function ServiceProviderProfileDetails({ userDetails }: { userDetails: User }) {
               <TextField
                 fullWidth
                 multiline
-                onChange={(e) => setServices(e.target.value)}
+                onChange={(e) => setSpecializations(e.target.value.split(','))}
                 rows={2}
-                value={services}
+                value={specializations?.join(',')}
                 variant="outlined"
               />
             ) : (
               <Typography color="textSecondary" variant="body1">
-                {services}
+                {specializations?.join(',')}
               </Typography>
             )}
           </CardContent>
         </Card>
-      </Grid> */}
+      </Grid>
 
       <Grid
         container

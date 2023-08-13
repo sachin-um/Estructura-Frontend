@@ -12,6 +12,16 @@ const initialState: RentingItemsState = {
   reqStatus: 'idle',
 };
 
+export const fetchRentingItemByRenter = createAsyncThunk(
+  'rentingItems/fetchRentingItemsByRenter',
+  async (userId: number) => {
+    const response = await API.get<RentingItem[]>(
+      `/renting-items/allByUser/${userId}`,
+    );
+    return response.status === 200 ? response.data : [];
+  },
+);
+
 export const fetchRentingItems = createAsyncThunk(
   'rentingItems/fetchRentingItems',
   async () => {
@@ -43,6 +53,17 @@ export const RentingItemsSlice = createSlice({
         state.rentingItems = action.payload;
       })
       .addCase(fetchRentingItems.rejected, (state) => {
+        state.reqStatus = 'failed';
+        state.error = true;
+      })
+      .addCase(fetchRentingItemByRenter.pending, (state) => {
+        state.reqStatus = 'loading';
+      })
+      .addCase(fetchRentingItemByRenter.fulfilled, (state, action) => {
+        state.reqStatus = 'succeeded';
+        state.rentingItems = action.payload;
+      })
+      .addCase(fetchRentingItemByRenter.rejected, (state) => {
         state.reqStatus = 'failed';
         state.error = true;
       });

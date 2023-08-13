@@ -2,6 +2,7 @@ import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 import { useRef, useState } from 'react';
 import * as yup from 'yup';
+import { Link, useNavigate } from 'react-router-dom';
 const validationSchema = yup.object({
   profileImage: yup
     .mixed()
@@ -178,20 +179,32 @@ function ServiceProviderPage7({
                       <Form onSubmit={handleSubmit}>
                         <Box
                           sx={{
-                            margin: '10px',
                             display: 'flex',
                             flexDirection: 'column',
                             gap: '30px',
+                            justifyContent: 'center',
                           }}
                         >
                           {
                             <Grid style={{ justifyContent: 'center' }}>
-                              <Typography textAlign="center">
+                              <Typography
+                                textAlign="center"
+                                marginBottom="5px"
+                                fontSize="1.2rem"
+                              >
                                 Upload your profile picture
                               </Typography>
-                              <Grid
+                              <Box
                                 style={{ justifyContent: 'center' }}
-                                sx={{ width: 1, margin: 1 }}
+                                sx={{
+                                  width: '250px',
+                                  height: '250px',
+                                  margin: 'auto',
+                                  border: 1,
+                                  borderWidth: '3px',
+                                  borderRadius: '50%',
+                                  overflow: 'hidden',
+                                }}
                               >
                                 <img
                                   src={image}
@@ -199,11 +212,15 @@ function ServiceProviderPage7({
                                   style={{
                                     width: '100%',
                                     height: '100%',
+                                    objectFit: 'cover',
                                   }}
                                 />
-                              </Grid>
+                              </Box>
                               <Grid
-                                style={{ justifyContent: 'center' }}
+                                style={{
+                                  justifyContent: 'center',
+                                  marginTop: '10px',
+                                }}
                                 sx={{ width: 1, margin: 1 }}
                               >
                                 <Button
@@ -239,6 +256,28 @@ function ServiceProviderPage7({
                               </Grid>
                             </Grid>
                           }
+                          <Box
+                            style={{
+                              display: 'flex',
+                              justifyContent: 'center',
+                              margin: 1,
+                            }}
+                          >
+                            <Typography>
+                              By clicking the signup button you agree to
+                              Estructura's{' '}
+                              <Link
+                                style={{
+                                  color: '#9D6432',
+                                  fontFamily:
+                                    '"Roboto","Helvetica","Arial",sans-serif',
+                                }}
+                                to="#"
+                              >
+                                Terms and Conditions
+                              </Link>
+                            </Typography>
+                          </Box>
                           <Grid
                             style={{
                               display: 'flex',

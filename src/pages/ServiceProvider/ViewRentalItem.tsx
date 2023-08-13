@@ -100,10 +100,7 @@ const DateText = styled.p`
 
 const Desc = styled.p`
   margin: 20px 0px;
-  min-height: 200px;
-  border-radius: 5px;
-  border: 1px solid #808080;
-  padding: 20px;
+  color: #435834;
 `;
 
 const PriceContainer = styled.div`

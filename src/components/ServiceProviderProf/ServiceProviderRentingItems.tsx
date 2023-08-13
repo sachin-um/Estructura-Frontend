@@ -1,8 +1,12 @@
 import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import PersonIcon from '@mui/icons-material/Person';
+import RoomIcon from '@mui/icons-material/Room';
+import StoreIcon from '@mui/icons-material/Store';
 import {
   Box,
   Button,
@@ -15,43 +19,38 @@ import {
 } from '@mui/material';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
+import '../../assets/font.css';
 import {
-  fetchProjectByProfessional,
-  selectAllProjects,
-} from '../../redux/Projects/ProjectsReducer';
-import {
-  deleteProject,
-  getProjectStatus,
-} from '../../redux/Projects/SingleProjectReducer';
+  fetchRentingItemByRenter,
+  selectAllRentingItems,
+} from '../../redux/Renting/RentingItemsReducer';
+import { getRentingItemStatus } from '../../redux/Renting/SingleRentingItemReducer';
 import { selectUser } from '../../redux/UserAuthenticationReducer';
 
-function ProfilePreviousProjects() {
+function ProfileRentingItems() {
   // TODO: use Previous projects Reducer
   const LoggedInUser = useSelector(selectUser);
-  const projects = useSelector(selectAllProjects);
-  const projectsStatus = useSelector(getProjectStatus);
+  const rentingItems = useSelector(selectAllRentingItems);
+  const RentingItemsStatus = useSelector(getRentingItemStatus);
 
-  const dispatch: ThunkDispatch<Project[], void, AnyAction> = useDispatch();
+  const dispatch: ThunkDispatch<RentingItem[], void, AnyAction> = useDispatch();
 
   useEffect(() => {
-    if (projectsStatus === 'idle' && LoggedInUser !== null) {
-      dispatch(fetchProjectByProfessional(LoggedInUser.id));
+    if (RentingItemsStatus === 'idle' && LoggedInUser !== null) {
+      dispatch(fetchRentingItemByRenter(LoggedInUser.id));
     }
-  }, [LoggedInUser, dispatch, projectsStatus]);
-
-  const navigate = useNavigate();
+  }, [LoggedInUser, dispatch, RentingItemsStatus]);
 
   return (
     <Container style={{ marginBottom: '2rem' }}>
       <Box display="flex" justifyContent="flex-end" marginBottom="1rem">
         <Button variant="contained">Add Projects</Button>
       </Box>
-      {projects.length !== 0 && (
+      {rentingItems.length !== 0 && (
         <Grid container justifyContent="space-evenly" spacing={2} wrap="wrap">
-          {projects.map((project) => {
-            console.log(project);
+          {rentingItems.map((rentingItem) => {
+            console.log(rentingItem);
             return (
               <>
                 <Grid item sm={4} xs={12}>
@@ -62,14 +61,14 @@ function ProfilePreviousProjects() {
                         height: '200px',
                         width: '100%',
                       }}
-                      alt={`${project.mainImage}`}
-                      src={`http://localhost:8080/files/project-files/${project.createdBy}/${project.id}/${project.mainImageName}`}
+                      alt="Project 1"
+                      src={`http://localhost:8080/files/renting-item-files/${rentingItem?.createdBy}/${rentingItem?.id}/${rentingItem?.mainImageName}`}
                     />
                     <CardContent
                       sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}
                     >
                       <Typography variant="h6">
-                        {project.name ?? 'ERROR'}
+                        {rentingItem.name ?? 'ERROR'}
                       </Typography>
                       <Typography variant="subtitle1">
                         <Box alignItems="center" display="inline-flex">
@@ -77,31 +76,21 @@ function ProfilePreviousProjects() {
                             fontSize="inherit"
                             sx={{ marginRight: 1 }}
                           />
-                          {project.location ?? 'ERROR'}
+                          {new Date(rentingItem.dateAdded).toLocaleDateString(
+                            'en-US',
+                          )}
                         </Box>
                       </Typography>
                     </CardContent>
                     <CardActions sx={{ justifyContent: 'center' }}>
                       <Button
-                        onClick={() => navigate(`/projects/edit/${project.id}`)}
                         startIcon={<EditIcon />}
                         sx={{ marginRight: 2 }}
                         variant="outlined"
                       >
                         Edit
                       </Button>
-                      <Button
-                        onClick={() =>
-                          dispatch(deleteProject(project.id)).then(() => {
-                            if (LoggedInUser?.id)
-                              dispatch(
-                                fetchProjectByProfessional(LoggedInUser.id),
-                              );
-                          })
-                        }
-                        startIcon={<DeleteIcon />}
-                        variant="outlined"
-                      >
+                      <Button startIcon={<DeleteIcon />} variant="outlined">
                         Delete
                       </Button>
                     </CardActions>
@@ -112,7 +101,7 @@ function ProfilePreviousProjects() {
           })}
         </Grid>
       )}
-      {projects.length === 0 && (
+      {rentingItems.length === 0 && (
         <Box
           sx={{
             alignItems: 'center',
@@ -122,9 +111,9 @@ function ProfilePreviousProjects() {
           }}
         >
           <Typography color="primary" marginBottom="1rem" variant="h4">
-            {projectsStatus === 'loading'
+            {RentingItemsStatus === 'loading'
               ? 'Loading...'
-              : projectsStatus === 'failed'
+              : RentingItemsStatus === 'failed'
               ? 'Failed to load projects'
               : 'No projects found'}
           </Typography>
@@ -134,4 +123,4 @@ function ProfilePreviousProjects() {
   );
 }
 
-export default ProfilePreviousProjects;
+export default ProfileRentingItems;

@@ -28,35 +28,53 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
-import Footer from '../../components/Footer';
-import TopAppBar from '../../components/TopAppBar';
 import {
-  addRentingItem,
-  editRentingItem,
-} from '../../redux/Renting/SingleRentingItemReducer';
+  addRetailItem,
+  editRetailItem,
+} from '../../redux/RetailItems/SingleRetailItemReducer';
 import { selectUser } from '../../redux/UserAuthenticationReducer';
 import GetFormikProps from '../../utils/GetFormikProps';
 import { violationsToErrorsTS } from '../../utils/ViolationsTS';
+import Footer from '../Footer';
+import TopAppBar from '../TopAppBar';
 
-interface RentingItemFormProps {
-  OriginalRentingItem?: RentingItem;
+interface RetailItemFormProps {
+  OriginalRetailItem?: RetailItem;
   userId: number;
 }
-const categories: RentingCategory[] = [
-  'HEAVY_MACHINERY',
-  'PORTABLE_MACHINES',
-  'TOOLS_AND_EQUIPMENT',
+
+const retailItemTypes: RetailItemType[] = [
+  'BATHWARE',
+  'FURNITURE',
+  'GARDENWARE',
+  'HARDWARE',
+  'LIGHTING',
 ];
+
 const validationSchema = Yup.object().shape({
-  category: Yup.string()
-    .oneOf(categories, 'Category has to be valid')
-    .required('Category is required'),
   description: Yup.string().required('You need to provide a Description'),
   extraImages: Yup.mixed()
     .required('Required')
     .test('only 3', 'More than 3', (value) => {
       const fileArr = value as FileList;
       if (fileArr.length > 3) {
+        return false;
+      }
+      return true;
+    })
+    .test('fileSize', 'Each File size should be less than 5MB', (value) => {
+      const fileArr = value as FileList;
+      let totalSize = 0;
+      for (let index = 0; index < fileArr.length; index++) {
+        const element = fileArr[index];
+        if (element.size > 5000000) {
+          console.log('too large');
+          return false;
+        }
+        totalSize += element.size;
+      }
+      if (totalSize > 20000000) {
+        console.log('too large');
         return false;
       }
       return true;
@@ -84,37 +102,39 @@ const validationSchema = Yup.object().shape({
     }),
   name: Yup.string().required('Name is Required'),
   price: Yup.string().required('Price is Required'),
-  scale: Yup.string().required('You need to provide a renting '),
+  quantity: Yup.string().required('You need to provide the quantity '),
+  retailItemType: Yup.string()
+    .oneOf(retailItemTypes, 'RetailItemType has to be valid')
+    .required('RetailItemType is required'),
 });
-
-const AddRentalItem: FunctionComponent<RentingItemFormProps> = ({
-  OriginalRentingItem,
+const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
+  OriginalRetailItem,
   userId,
 }) => {
-  const FormRef = useRef<FormikProps<RentingItemAddOrUpdateRequest>>(null);
+  const FormRef = useRef<FormikProps<RetailItemAddOrUpdateRequest>>(null);
   const MainImageUploadRef = useRef<HTMLInputElement>(null);
   const ExtraImageUploadRef = useRef<HTMLInputElement>(null);
   const userInfo = useSelector(selectUser);
   const dispatch: ThunkDispatch<RentingItem, void, AnyAction> = useDispatch();
   const navigate = useNavigate();
-  const HandleSubmit = (values: RentingItemAddOrUpdateRequest) => {
+  const HandleSubmit = (values: RetailItemAddOrUpdateRequest) => {
     console.log(values);
     if (FormRef.current) {
       const { setErrors, setSubmitting } = FormRef.current;
       setSubmitting(true);
       console.log(values);
-      if (OriginalRentingItem) {
+      if (OriginalRetailItem) {
         // Edit Renting Item
         dispatch(
-          editRentingItem({
-            rentingItem: OriginalRentingItem,
-            updatedRentingItem: values,
+          editRetailItem({
+            retailItem: OriginalRetailItem,
+            updatedRetailItem: values,
           }),
         ).then((resultAction) => {
-          if (editRentingItem.fulfilled.match(resultAction)) {
+          if (editRetailItem.fulfilled.match(resultAction)) {
             // ! Handle Edit Success Here
             console.log('Project Edited');
-          } else if (editRentingItem.rejected.match(resultAction)) {
+          } else if (editRetailItem.rejected.match(resultAction)) {
             try {
               const response =
                 resultAction.payload as GenericAddOrUpdateResponse;
@@ -128,12 +148,12 @@ const AddRentalItem: FunctionComponent<RentingItemFormProps> = ({
         });
       } else {
         // Create Renting Item
-        dispatch(addRentingItem(values)).then((resultAction) => {
-          if (addRentingItem.fulfilled.match(resultAction)) {
-            navigate(`/rentingItems/${resultAction.payload.id}`, {
+        dispatch(addRetailItem(values)).then((resultAction) => {
+          if (addRetailItem.fulfilled.match(resultAction)) {
+            navigate(`/shop/item/${resultAction.payload.id}`, {
               replace: true,
             });
-          } else if (addRentingItem.rejected.match(resultAction)) {
+          } else if (addRetailItem.rejected.match(resultAction)) {
             try {
               const response =
                 resultAction.payload as GenericAddOrUpdateResponse;
@@ -149,27 +169,26 @@ const AddRentalItem: FunctionComponent<RentingItemFormProps> = ({
       setSubmitting(false);
     }
   };
-
-  const initialValues = OriginalRentingItem
+  const initialValues = OriginalRetailItem
     ? {
-        category: OriginalRentingItem.category,
-        description: OriginalRentingItem.description,
+        description: OriginalRetailItem.description,
         extraImages: new DataTransfer().files,
         mainImage: new DataTransfer().files,
-        name: OriginalRentingItem.name,
-        price: OriginalRentingItem.price,
-        renterId: userId,
-        scale: OriginalRentingItem.scale,
+        name: OriginalRetailItem.name,
+        price: OriginalRetailItem.price,
+        quantity: OriginalRetailItem.quantity,
+        retailItemType: OriginalRetailItem.retailItemType,
+        retailStoreId: userId,
       }
     : {
-        category: '' as RentingCategory,
         description: '',
         extraImages: new DataTransfer().files,
         mainImage: new DataTransfer().files,
         name: '',
         price: 0.0,
-        renterId: userId,
-        scale: '',
+        quantity: 0,
+        retailItemType: '' as RetailItemType,
+        retailStoreId: userId,
       };
   console.log(initialValues);
   const [mainImage, setMainImage] = useState<string>('');
@@ -201,26 +220,24 @@ const AddRentalItem: FunctionComponent<RentingItemFormProps> = ({
   };
   useEffect(() => {
     // Set Image if Editing
-    if (OriginalRentingItem && !mainImageReset) {
+    if (OriginalRetailItem && !mainImageReset) {
       setMainImage(
-        `http://localhost:8080/files/project-files/${OriginalRentingItem.createdBy}/${OriginalRentingItem.id}/${OriginalRentingItem.mainImageName}`,
+        `http://localhost:8080/files/retail-item-files/${OriginalRetailItem.createdBy}/${OriginalRetailItem.id}/${OriginalRetailItem.mainImageName}`,
       );
       setMainImageReset(true);
     }
-    if (OriginalRentingItem && !imagesReset) {
+    if (OriginalRetailItem && !imagesReset) {
       const extraImages = [
-        `http://localhost:8080/files/project-files/${OriginalRentingItem.createdBy}/${OriginalRentingItem.id}/${OriginalRentingItem.extraImage1Name}`,
-        `http://localhost:8080/files/project-files/${OriginalRentingItem.createdBy}/${OriginalRentingItem.id}/${OriginalRentingItem.extraImage2Name}`,
-        `http://localhost:8080/files/project-files/${OriginalRentingItem.createdBy}/${OriginalRentingItem.id}/${OriginalRentingItem.extraImage3Name}`,
+        `http://localhost:8080/files/retail-item-files/${OriginalRetailItem.createdBy}/${OriginalRetailItem.id}/${OriginalRetailItem.extraImage1Name}`,
+        `http://localhost:8080/files/retail-item-files/${OriginalRetailItem.createdBy}/${OriginalRetailItem.id}/${OriginalRetailItem.extraImage2Name}`,
+        `http://localhost:8080/files/retail-item-files/${OriginalRetailItem.createdBy}/${OriginalRetailItem.id}/${OriginalRetailItem.extraImage3Name}`,
       ];
       setImages(extraImages);
       setImagesReset(true);
     }
-  }, [OriginalRentingItem, mainImageReset, mainImage, imagesReset]);
-
+  }, [OriginalRetailItem, mainImageReset, mainImage, imagesReset]);
   return (
     <>
-      <TopAppBar />
       {userInfo &&
       userInfo.id &&
       userInfo.serviceProviderType === ('RETAILER' as ServiceProviders) ? (
@@ -231,7 +248,7 @@ const AddRentalItem: FunctionComponent<RentingItemFormProps> = ({
           onSubmit={HandleSubmit}
           validationSchema={validationSchema}
         >
-          {(FormikProps: FormikProps<RentingItemAddOrUpdateRequest>) => {
+          {(FormikProps: FormikProps<RetailItemAddOrUpdateRequest>) => {
             const spread = GetFormikProps(FormikProps);
             return (
               <Form>
@@ -278,7 +295,7 @@ const AddRentalItem: FunctionComponent<RentingItemFormProps> = ({
                           }}
                           variant="h4"
                         >
-                          Add Rental Item
+                          Add Retail Item
                         </Typography>
                         <Divider />
 
@@ -313,60 +330,21 @@ const AddRentalItem: FunctionComponent<RentingItemFormProps> = ({
                           }}
                           color="secondary"
                           fullWidth
-                          label="Rental Price"
+                          label="Retail Price"
                           sx={{ margin: 1, width: '1' }}
                           type="price"
                           variant="filled"
                           {...spread('price')}
                         />
-                        <FormControl fullWidth variant="filled">
-                          <InputLabel id="demo-simple-select-label">
-                            Rental Duration
-                          </InputLabel>
-                          <Select
-                            sx={{
-                              justifyContent: 'center',
-                              margin: 1,
-                              width: '1',
-                            }}
-                            color="secondary"
-                            fullWidth
-                            id="demo-simple-select"
-                            label="Rental Duration"
-                            labelId="demo-simple-select-label"
-                            {...spread('scale')}
-                          >
-                            <MenuItem key={'Per Hour'} value={'Per Hour'}>
-                              Per Hour
-                            </MenuItem>
-                            <MenuItem key={'Per Day'} value={'Per Day'}>
-                              Per Day
-                            </MenuItem>
-                            <MenuItem key={'Per Month'} value={'Per Month'}>
-                              Per Month
-                            </MenuItem>
-                            <MenuItem
-                              key={'Per Kilometer'}
-                              value={'Per Kilometer'}
-                            >
-                              Per Kilometer
-                            </MenuItem>
-                          </Select>
-                        </FormControl>
-                        <ErrorMessage name="scale">
-                          {(msg) => (
-                            <span
-                              style={{
-                                color: '#d32f2f',
-                                fontSize: '0.75rem',
-                                marginLeft: '14px',
-                                marginTop: '-25px',
-                              }}
-                            >
-                              {msg}
-                            </span>
-                          )}
-                        </ErrorMessage>
+                        <TextField
+                          color="secondary"
+                          fullWidth
+                          label="Quantity"
+                          sx={{ borderRadius: 2, margin: 1, width: '1' }}
+                          type="number"
+                          variant="filled"
+                          {...spread('quantity')}
+                        />
                         <FormControl fullWidth variant="filled">
                           <InputLabel id="demo-simple-select-label">
                             Item Category
@@ -382,16 +360,19 @@ const AddRentalItem: FunctionComponent<RentingItemFormProps> = ({
                             id="demo-simple-select"
                             label="Rental Duration"
                             labelId="demo-simple-select-label"
-                            {...spread('category')}
+                            {...spread('retailItemType')}
                           >
-                            {categories.map((category) => (
-                              <MenuItem key={category} value={category}>
-                                {category}
+                            {retailItemTypes.map((retailItemType) => (
+                              <MenuItem
+                                key={retailItemType}
+                                value={retailItemType}
+                              >
+                                {retailItemType}
                               </MenuItem>
                             ))}
                           </Select>
                         </FormControl>
-                        <ErrorMessage name="category">
+                        <ErrorMessage name="quantity">
                           {(msg) => (
                             <span
                               style={{
@@ -706,7 +687,7 @@ const AddRentalItem: FunctionComponent<RentingItemFormProps> = ({
                           </Grid>
                         ))}
                       </Grid>
-                      {FormikProps.errors.extraImages?.toString()}
+
                       <Divider sx={{ marginTop: '20px' }} />
                     </Grid>
                     <Grid
@@ -745,4 +726,4 @@ const AddRentalItem: FunctionComponent<RentingItemFormProps> = ({
   );
 };
 
-export default AddRentalItem;
+export default RetailItemForm;
