@@ -392,10 +392,7 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
                     <Grid
                       style={{
                         justifyContent: 'center',
-                        marginTop: '4.7rem',
-                        paddingBottom: '2rem',
-                        paddingRight: '5rem',
-                        paddingTop: '2rem',
+                        marginTop: '5rem',
                       }}
                       item
                       md={6}
@@ -418,7 +415,8 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
                             borderRadius: '5px',
                           }}
                           height="300px"
-                          marginTop="20px"
+                          marginBottom="50px"
+                          marginTop="30px"
                           position="relative"
                           sx={{ borderColor: 'grey', borderStyle: 'dashed' }}
                           width="100%"
@@ -456,7 +454,8 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
                             borderRadius: '5px',
                           }}
                           height="300px"
-                          marginTop="20px"
+                          marginBottom="50px"
+                          marginTop="30px"
                           position="relative"
                           sx={{ borderColor: 'grey', borderStyle: 'dashed' }}
                           width="100%"
@@ -612,7 +611,11 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
                         </Grid>
                       </Grid>
 
-                      <Grid container spacing={1}>
+                      <Grid
+                        container
+                        spacing={1}
+                        style={{ marginBottom: '60px' }}
+                      >
                         {images.length > 0 &&
                           images.map((imageUrl, index) => (
                             <Grid item key={index} xs={4}>
@@ -695,9 +698,14 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
                       }}
                     >
                       <Button
+                        sx={{
+                          borderRadius: 2,
+                          height: '45px',
+                          margin: 1,
+                          width: '200px',
+                        }}
                         color="primary"
                         fullWidth
-                        sx={{ borderRadius: 2, margin: 1, width: 1 }}
                         type="submit"
                         variant="contained"
                       >
