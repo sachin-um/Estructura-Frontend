@@ -45,6 +45,7 @@ interface User {
   role: Role;
   sLIDRegNumber?: string;
   serviceAreas?: ServiceArea[];
+  serviceProviderType?: ServiceProviders;
   sliaregNumber?: string;
   specializations?: Specialization[];
   teamSize?: number;

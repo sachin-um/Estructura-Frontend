@@ -293,7 +293,9 @@ const ViewRentalItem: FunctionComponent = () => {
           </ContainerImg>
           <InfoContainer>
             <Title>{item.name}</Title>
-            <DateText>{''}</DateText>
+            <DateText>
+              {new Date(item.dateAdded).toLocaleDateString('en-US')}
+            </DateText>
             <Desc>{item.description}</Desc>
             <PriceContainer>
               <Price>LKR. {item.price}</Price>
