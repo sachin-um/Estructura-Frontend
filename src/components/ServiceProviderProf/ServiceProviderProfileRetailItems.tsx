@@ -63,39 +63,65 @@ function ProfileRetailItems() {
                       sx={{
                         display: 'flex',
                         flexDirection: 'column',
-                        gap: 1,
+                        gap: 0,
                         justifyContent: 'space-between',
+                        paddingTop: '0px',
                       }}
                     >
-                      <Typography variant="h6">
+                      <Typography fontFamily="Poppins" variant="h6">
                         {retailItem.name ?? 'ERROR'}
                       </Typography>
-                      <Typography variant="subtitle1">
+                      <Typography
+                        color="primary"
+                        fontFamily="Poppins"
+                        fontWeight="bold"
+                        variant="subtitle1"
+                      >
                         <Box alignItems="center" display="flex" gap={1}>
                           {`LKR. ${retailItem.price ?? 'ERROR'}`}
                         </Box>
                       </Typography>
-                      <Typography variant="subtitle1">
-                        <Box alignItems="center" display="flex" gap={1}>
-                          <ScheduleIcon fontSize="inherit" />
-                          {new Date(retailItem.dateAdded).toLocaleDateString(
-                            'en-US',
-                          )}
-                        </Box>
-                      </Typography>
                     </CardContent>
-                    <CardActions sx={{ justifyContent: 'center' }}>
+                    <CardActions
+                      sx={{
+                        justifyContent: 'center',
+                        marginBottom: '5px',
+                        marginTop: 'auto',
+                      }}
+                    >
                       <Button
                         startIcon={<EditIcon />}
-                        sx={{ marginRight: 2 }}
+                        sx={{ marginRight: 2, width: '130px' }}
                         variant="outlined"
                       >
                         Edit
                       </Button>
-                      <Button startIcon={<DeleteIcon />} variant="outlined">
+                      <Button
+                        startIcon={<DeleteIcon />}
+                        sx={{ width: '130px' }}
+                        variant="outlined"
+                      >
                         Delete
                       </Button>
                     </CardActions>
+                    <Typography variant="subtitle1">
+                      <Box
+                        alignItems="center"
+                        color="grey"
+                        display="flex"
+                        fontSize="13px"
+                        gap={1}
+                        justifyContent="right"
+                        marginBottom={1}
+                        marginRight="5px"
+                        marginTop="5px"
+                      >
+                        <ScheduleIcon color="inherit" fontSize="inherit" />
+                        {new Date(retailItem.dateAdded).toLocaleDateString(
+                          'en-US',
+                        )}
+                      </Box>
+                    </Typography>
                   </Card>
                 </Grid>
               </>

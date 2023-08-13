@@ -6,6 +6,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PersonIcon from '@mui/icons-material/Person';
 import RoomIcon from '@mui/icons-material/Room';
+import ScheduleIcon from '@mui/icons-material/Schedule';
 import StoreIcon from '@mui/icons-material/Store';
 import {
   Box,
@@ -65,35 +66,95 @@ function ProfileRentingItems() {
                       src={`http://localhost:8080/files/renting-item-files/${rentingItem?.createdBy}/${rentingItem?.id}/${rentingItem?.mainImageName}`}
                     />
                     <CardContent
-                      sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 1,
+                        paddingTop: '5px',
+                      }}
                     >
-                      <Typography variant="h6">
+                      <Typography fontFamily="Poppins" variant="h6">
                         {rentingItem.name ?? 'ERROR'}
                       </Typography>
-                      <Typography variant="subtitle1">
-                        <Box alignItems="center" display="inline-flex">
-                          <LocationOnIcon
-                            fontSize="inherit"
-                            sx={{ marginRight: 1 }}
-                          />
-                          {new Date(rentingItem.dateAdded).toLocaleDateString(
-                            'en-US',
-                          )}
+                      <Typography
+                        color="primary"
+                        fontFamily="Poppins"
+                        fontWeight="bold"
+                        variant="subtitle1"
+                      >
+                        <Box alignItems="center" display="flex" gap={1}>
+                          {`LKR. ${rentingItem.price ?? 'ERROR'} | per hour`}
+                        </Box>
+                        <Box
+                          alignItems="center"
+                          display="flex"
+                          gap={1}
+                          marginBottom={1}
+                          marginTop="10px"
+                        >
+                          <PersonIcon color="primary" fontSize="small" />
+                          <Typography variant="body2">
+                            {rentingItem.name ?? 'Unknown User'}
+                          </Typography>
+                        </Box>
+                        <Box
+                          alignItems="center"
+                          display="flex"
+                          gap={1}
+                          marginBottom={1}
+                        >
+                          <StoreIcon color="primary" fontSize="small" />
+                          <Typography variant="body2">
+                            {rentingItem.createdBy ?? 'Unknown Store'}
+                          </Typography>
+                        </Box>
+                        <Box
+                          alignItems="center"
+                          display="flex"
+                          gap={1}
+                          marginBottom={1}
+                        >
+                          <LocationOnIcon color="primary" fontSize="small" />
+                          <Typography variant="body2">
+                            {rentingItem.location ?? 'Unknown Location'}
+                          </Typography>
                         </Box>
                       </Typography>
                     </CardContent>
                     <CardActions sx={{ justifyContent: 'center' }}>
                       <Button
                         startIcon={<EditIcon />}
-                        sx={{ marginRight: 2 }}
+                        sx={{ marginRight: 3, width: '130px' }}
                         variant="outlined"
                       >
                         Edit
                       </Button>
-                      <Button startIcon={<DeleteIcon />} variant="outlined">
+                      <Button
+                        startIcon={<DeleteIcon />}
+                        sx={{ width: '130px' }}
+                        variant="outlined"
+                      >
                         Delete
                       </Button>
                     </CardActions>
+                    <Typography variant="subtitle1">
+                      <Box
+                        alignItems="center"
+                        color="grey"
+                        display="flex"
+                        fontSize="13px"
+                        gap={1}
+                        justifyContent="right"
+                        marginBottom={1}
+                        marginRight="5px"
+                        marginTop="5px"
+                      >
+                        <ScheduleIcon color="inherit" fontSize="inherit" />
+                        {new Date(rentingItem.dateAdded).toLocaleDateString(
+                          'en-US',
+                        )}
+                      </Box>
+                    </Typography>
                   </Card>
                 </Grid>
               </>
