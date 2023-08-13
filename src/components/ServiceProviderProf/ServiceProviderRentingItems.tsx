@@ -25,6 +25,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import '../../assets/font.css';
 import {
   fetchRentingItemByRenter,
+  getRentingItemsStatus,
   selectAllRentingItems,
 } from '../../redux/Renting/RentingItemsReducer';
 import {
@@ -37,7 +38,7 @@ function ProfileRentingItems() {
   // TODO: use Previous projects Reducer
   const LoggedInUser = useSelector(selectUser);
   const rentingItems = useSelector(selectAllRentingItems);
-  const RentingItemsStatus = useSelector(getRentingItemStatus);
+  const RentingItemsStatus = useSelector(getRentingItemsStatus);
 
   const dispatch: ThunkDispatch<RentingItem[], void, AnyAction> = useDispatch();
 

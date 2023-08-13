@@ -19,6 +19,7 @@ import { useNavigate } from 'react-router-dom';
 
 import {
   fetchProjectByProfessional,
+  getProjectsStatus,
   selectAllProjects,
 } from '../../redux/Projects/ProjectsReducer';
 import {
@@ -31,7 +32,7 @@ function ProfilePreviousProjects() {
   // TODO: use Previous projects Reducer
   const LoggedInUser = useSelector(selectUser);
   const projects = useSelector(selectAllProjects);
-  const projectsStatus = useSelector(getProjectStatus);
+  const projectsStatus = useSelector(getProjectsStatus);
 
   const dispatch: ThunkDispatch<Project[], void, AnyAction> = useDispatch();
 
@@ -46,7 +47,14 @@ function ProfilePreviousProjects() {
   return (
     <Container style={{ marginBottom: '2rem' }}>
       <Box display="flex" justifyContent="flex-end" marginBottom="1rem">
-        <Button variant="contained">Add Projects</Button>
+        <Button
+          onClick={() => {
+            navigate('/projects/add');
+          }}
+          variant="contained"
+        >
+          Add Projects
+        </Button>
       </Box>
       {projects.length !== 0 && (
         <Grid container justifyContent="space-evenly" spacing={2} wrap="wrap">
@@ -121,13 +129,15 @@ function ProfilePreviousProjects() {
             justifyContent: 'center',
           }}
         >
-          <Typography color="primary" marginBottom="1rem" variant="h4">
-            {projectsStatus === 'loading'
-              ? 'Loading...'
-              : projectsStatus === 'failed'
-              ? 'Failed to load projects'
-              : 'No projects found'}
-          </Typography>
+          {projectsStatus === 'loading' ? (
+            <Typography color="primary" marginBottom="1rem" variant="h4">
+              Loading...
+            </Typography>
+          ) : projectsStatus === 'failed' ? (
+            'Failed to load projects'
+          ) : (
+            <img alt="hi" src="/noContent.jpg" />
+          )}
         </Box>
       )}
     </Container>

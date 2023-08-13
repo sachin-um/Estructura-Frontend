@@ -15,7 +15,7 @@ import React, { useState } from 'react';
 
 import API from '../../lib/API';
 
-const projectsFetch = [] // TODO: Change 1 to user id
+const projectsFetch = []; // TODO: Change 1 to user id
 // const projectsFetch = await API.get('/projects/all/1') // TODO: Change 1 to user id
 //   .then((res) => {
 //     console.log(res);
@@ -93,9 +93,7 @@ function PreviousProjects() {
             justifyContent: 'center',
           }}
         >
-          <Typography color="primary" marginBottom="1rem" variant="h4">
-            No Projects Found
-          </Typography>
+          <img src="noContent.jpg" alt="" />
         </Box>
       )}
     </Container>
