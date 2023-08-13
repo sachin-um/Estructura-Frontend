@@ -17,9 +17,11 @@
     "lastname",
     "MASONWORKER",
     "reduxjs",
+    "RENTINGCOMPANY",
     "retailitems",
     "RETAILOWNER",
-    "RETAILSTORE"
+    "RETAILSTORE",
+    "svgrepo"
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
   "prettier.jsxSingleQuote": true,

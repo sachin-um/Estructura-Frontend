@@ -29,8 +29,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
-import Footer from '../../components/Footer';
-import TopBar from '../../components/TopBar';
 import {
   addProject,
   editProject,
@@ -38,6 +36,8 @@ import {
 import { selectUser } from '../../redux/UserAuthenticationReducer';
 import GetFormikProps from '../../utils/GetFormikProps';
 import { violationsToErrorsTS } from '../../utils/ViolationsTS';
+import Footer from '../Footer';
+import TopBar from '../TopBar';
 
 interface ProjectFormProps {
   OriginalProject?: Project;
@@ -82,6 +82,23 @@ const validationSchema = Yup.object().shape({
         return false;
       }
       return true;
+    })
+    .test('fileSize', 'Each File size should be less than 5MB', (value) => {
+      const fileArr = value as FileList;
+      let totalSize = 0;
+      for (let index = 0; index < fileArr.length; index++) {
+        const element = fileArr[index];
+        if (element.size > 5000000) {
+          console.log('too large');
+          return false;
+        }
+        totalSize += element.size;
+      }
+      if (totalSize > 20000000) {
+        console.log('too large');
+        return false;
+      }
+      return true;
     }),
   // one Image less than 5MB in size
   mainImage: Yup.mixed()
@@ -99,6 +116,7 @@ const validationSchema = Yup.object().shape({
         const img = fileArr[0];
         if (img.size >= 5000000) {
           console.log('BIG');
+
           return false;
         }
       }
@@ -108,7 +126,7 @@ const validationSchema = Yup.object().shape({
   professionalId: Yup.number().required('Required'),
 });
 
-const AddNewProject: FunctionComponent<ProjectFormProps> = ({
+const ProjectForm: FunctionComponent<ProjectFormProps> = ({
   OriginalProject,
   userId,
 }) => {
@@ -269,7 +287,6 @@ const AddNewProject: FunctionComponent<ProjectFormProps> = ({
   }, [OriginalProject, mainImageReset, mainImage, imagesReset, docReset]);
   return (
     <>
-      <TopBar />
       {userInfo &&
       userInfo.id &&
       userInfo.serviceProviderType === ('PROFESSIONAL' as ServiceProviders) ? (
@@ -895,7 +912,7 @@ const AddNewProject: FunctionComponent<ProjectFormProps> = ({
                             type="submit"
                             variant="contained"
                           >
-                            ADD
+                            {OriginalProject ? 'Edit Project' : 'Add Project'}
                           </Button>
                         </Grid>
                       </Grid>
@@ -915,4 +932,4 @@ const AddNewProject: FunctionComponent<ProjectFormProps> = ({
   );
 };
 
-export default AddNewProject;
+export default ProjectForm;

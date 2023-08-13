@@ -12,7 +12,7 @@ const initialState: RetailItemState = {
   retailItem: null,
 };
 
-export const fetchRetailItemByById = createAsyncThunk(
+export const fetchRetailItemById = createAsyncThunk(
   'retailItems/fetchRetailItemByById',
   async (id: number) => {
     const response = await API.get<RetailItem>(`/retailitems/item/${id}`);
@@ -103,14 +103,14 @@ export const RetailItemSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchRetailItemByById.pending, (state) => {
+      .addCase(fetchRetailItemById.pending, (state) => {
         state.reqStatus = 'loading';
       })
-      .addCase(fetchRetailItemByById.fulfilled, (state, action) => {
+      .addCase(fetchRetailItemById.fulfilled, (state, action) => {
         state.reqStatus = 'succeeded';
         state.retailItem = action.payload;
       })
-      .addCase(fetchRetailItemByById.rejected, (state) => {
+      .addCase(fetchRetailItemById.rejected, (state) => {
         state.reqStatus = 'failed';
         state.error = true;
       })
