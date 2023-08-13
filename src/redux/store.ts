@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import BlogsReducer from './Blogs/BlogsReducer';
 import SingleBlogReducer from './Blogs/SingleBlogReducer';
 import CustomRequestReducer from './CustomRequests/CustomRequestReducer';
+import ProfessionalsReducer from './Professionals/ProfessionalsReducer';
 import ProjectsReducer from './Projects/ProjectsReducer';
 import ProjectReducer from './Projects/SingleProjectReducer';
 import RentingItemsReducer from './Renting/RentingItemsReducer';
@@ -18,6 +19,7 @@ export const store = configureStore({
     blog: SingleBlogReducer,
     blogs: BlogsReducer,
     customRequest: CustomRequestReducer,
+    professionalsInfo: ProfessionalsReducer,
     project: ProjectReducer,
     projects: ProjectsReducer,
     rentingItem: SingleRentingItemReducer,

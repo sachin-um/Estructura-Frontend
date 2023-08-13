@@ -1,6 +1,7 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { mobile } from '../../responsive';
 
+import { mobile } from '../../responsive';
 const Container = styled.div``;
 
 const CardGrid = styled.div`
@@ -75,16 +76,27 @@ const ButtonText = styled.span`
   text-align: center;
 `;
 
-const ProfessionalCategories = ({ data }) => {
+const ProfessionalCategories = ({ data }: { data: Professional[] }) => {
+  const navigate = useNavigate();
   return (
     <Container>
       <CardGrid>
         {data.map((card) => (
           <Card key={card.id}>
-            <CardImage src={card.imageSrc} alt={`Card ${card.id}`} />
+            <CardImage
+              onClick={() => {
+                navigate(`/shop/item/${card.id}`);
+              }}
+              alt={`Card ${card.id}`}
+              src={`http://localhost:8080/files/project-files/${card.id}/${card.ProfileImageName}`}
+            />
             <CardWrapper>
-              <CardText>{card.text}</CardText>
-              <CardPrice>{card.price}</CardPrice>
+              <CardText>
+                {card.firstname} {card.lastname}
+              </CardText>
+              <CardPrice>
+                {card.city} , {card.district}
+              </CardPrice>
             </CardWrapper>
           </Card>
         ))}
