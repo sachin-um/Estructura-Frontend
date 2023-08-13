@@ -36,7 +36,6 @@ import { selectUser } from '../../redux/UserAuthenticationReducer';
 import GetFormikProps from '../../utils/GetFormikProps';
 import { violationsToErrorsTS } from '../../utils/ViolationsTS';
 import Footer from '../Footer';
-import TopAppBar from '../TopAppBar';
 
 interface RetailItemFormProps {
   OriginalRetailItem?: RetailItem;

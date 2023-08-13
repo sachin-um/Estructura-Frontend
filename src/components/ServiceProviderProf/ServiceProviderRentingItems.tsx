@@ -20,13 +20,17 @@ import {
 } from '@mui/material';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 import '../../assets/font.css';
 import {
   fetchRentingItemByRenter,
   selectAllRentingItems,
 } from '../../redux/Renting/RentingItemsReducer';
-import { getRentingItemStatus } from '../../redux/Renting/SingleRentingItemReducer';
+import {
+  deleteRentingItem,
+  getRentingItemStatus,
+} from '../../redux/Renting/SingleRentingItemReducer';
 import { selectUser } from '../../redux/UserAuthenticationReducer';
 
 function ProfileRentingItems() {
@@ -43,10 +47,19 @@ function ProfileRentingItems() {
     }
   }, [LoggedInUser, dispatch, RentingItemsStatus]);
 
+  const navigate = useNavigate();
+
   return (
     <Container style={{ marginBottom: '2rem' }}>
       <Box display="flex" justifyContent="flex-end" marginBottom="1rem">
-        <Button variant="contained">Add Renting Items</Button>
+        <Button
+          onClick={() => {
+            navigate('/rentingItems/add');
+          }}
+          variant="contained"
+        >
+          Add Renting Items
+        </Button>
       </Box>
       {rentingItems.length !== 0 && (
         <Grid container justifyContent="space-evenly" spacing={2} wrap="wrap">
@@ -92,12 +105,13 @@ function ProfileRentingItems() {
                           marginBottom={1}
                           marginTop="10px"
                         >
-                          <PersonIcon color="primary" fontSize="small" />
+                          {/* <PersonIcon color="primary" fontSize="small" /> */}
                           <Typography variant="body2">
-                            {rentingItem.name ?? 'Unknown User'}
+                            {rentingItem.name ?? 'Unknown'}
                           </Typography>
                         </Box>
-                        <Box
+                        {/* Typescript use kare monatada value ekak thiyenawada eke type eka mokadda balannewath nathuwa? */}
+                        {/* <Box
                           alignItems="center"
                           display="flex"
                           gap={1}
@@ -118,11 +132,14 @@ function ProfileRentingItems() {
                           <Typography variant="body2">
                             {rentingItem.location ?? 'Unknown Location'}
                           </Typography>
-                        </Box>
+                        </Box> */}
                       </Typography>
                     </CardContent>
                     <CardActions sx={{ justifyContent: 'center' }}>
                       <Button
+                        onClick={() => {
+                          navigate(`/rentingItems/edit/${rentingItem.id}`);
+                        }}
                         startIcon={<EditIcon />}
                         sx={{ marginRight: 3, width: '130px' }}
                         variant="outlined"
@@ -130,6 +147,19 @@ function ProfileRentingItems() {
                         Edit
                       </Button>
                       <Button
+                        onClick={() => {
+                          dispatch(deleteRentingItem(rentingItem.id)).then(
+                            (action) => {
+                              if (deleteRentingItem.fulfilled.match(action)) {
+                                if (LoggedInUser) {
+                                  dispatch(
+                                    fetchRentingItemByRenter(LoggedInUser.id),
+                                  );
+                                }
+                              }
+                            },
+                          );
+                        }}
                         startIcon={<DeleteIcon />}
                         sx={{ width: '130px' }}
                         variant="outlined"

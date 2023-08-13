@@ -36,7 +36,6 @@ import { selectUser } from '../../redux/UserAuthenticationReducer';
 import GetFormikProps from '../../utils/GetFormikProps';
 import { violationsToErrorsTS } from '../../utils/ViolationsTS';
 import Footer from '../Footer';
-import TopAppBar from '../TopAppBar';
 
 interface RentingItemFormProps {
   OriginalRentingItem?: RentingItem;
@@ -108,6 +107,7 @@ const RentalItemForm: FunctionComponent<RentingItemFormProps> = ({
   OriginalRentingItem,
   userId,
 }) => {
+  console.log(OriginalRentingItem);
   const FormRef = useRef<FormikProps<RentingItemAddOrUpdateRequest>>(null);
   const MainImageUploadRef = useRef<HTMLInputElement>(null);
   const ExtraImageUploadRef = useRef<HTMLInputElement>(null);
@@ -179,14 +179,14 @@ const RentalItemForm: FunctionComponent<RentingItemFormProps> = ({
         scale: OriginalRentingItem.scale,
       }
     : {
-        category: '' as RentingCategory,
+        category: 'HEAVY_MACHINERY' as RentingCategory,
         description: '',
         extraImages: new DataTransfer().files,
         mainImage: new DataTransfer().files,
         name: '',
         price: 0.0,
         renterId: userId,
-        scale: '',
+        scale: 'Per Hour',
       };
   console.log(initialValues);
   const [mainImage, setMainImage] = useState<string>('');
@@ -237,10 +237,10 @@ const RentalItemForm: FunctionComponent<RentingItemFormProps> = ({
 
   return (
     <>
-      <TopAppBar />
       {userInfo &&
       userInfo.id &&
-      userInfo.serviceProviderType === ('RETAILER' as ServiceProviders) ? (
+      userInfo.serviceProviderType ===
+        ('RENTINGCOMPANY' as ServiceProviders) ? (
         <Formik
           enableReinitialize
           initialValues={initialValues}
@@ -295,7 +295,7 @@ const RentalItemForm: FunctionComponent<RentingItemFormProps> = ({
                           }}
                           variant="h4"
                         >
-                          Add Rental Item
+                          {OriginalRentingItem ? 'Edit' : 'Add'} Rental Item
                         </Typography>
                         <Divider />
 
@@ -351,7 +351,7 @@ const RentalItemForm: FunctionComponent<RentingItemFormProps> = ({
                             id="demo-simple-select"
                             label="Rental Duration"
                             labelId="demo-simple-select-label"
-                            {...spread('scale')}
+                            {...spread('scale', false)}
                           >
                             <MenuItem key={'Per Hour'} value={'Per Hour'}>
                               Per Hour
@@ -745,7 +745,7 @@ const RentalItemForm: FunctionComponent<RentingItemFormProps> = ({
                         type="submit"
                         variant="contained"
                       >
-                        ADD ITEM
+                        {OriginalRentingItem ? 'Update' : 'Add'} Item
                       </Button>
                     </Grid>
                   </Grid>

@@ -31,10 +31,11 @@ const EditRentalItem: FunctionComponent = () => {
       <TopAppBar />
       {userInfo &&
       userInfo.id &&
-      userInfo.serviceProviderType === 'RENTINGCOMPANY' ? (
+      userInfo.serviceProviderType ===
+        ('RENTINGCOMPANY' as ServiceProviders) ? (
         <RentalItemForm
           {...(rentalItem && rentalItem.createdBy === userInfo.id
-            ? { OriginalRentalItem: rentalItem, userId: userInfo.id }
+            ? { OriginalRentingItem: rentalItem, userId: userInfo.id }
             : { userId: userInfo.id })}
         />
       ) : (
