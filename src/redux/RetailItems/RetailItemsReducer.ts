@@ -11,6 +11,15 @@ const initialState: RetailItemsState = {
   reqStatus: 'idle',
   retailItems: [],
 };
+export const fetchRetailItemByRetailer = createAsyncThunk(
+  'RetailItems/fetchRetailItemsByRetailer',
+  async (userId: number) => {
+    const response = await API.get<RetailItem[]>(
+      `/retailitems/store/${userId}`,
+    );
+    return response.status === 200 ? response.data : [];
+  },
+);
 
 export const fetchRetailItems = createAsyncThunk(
   'RetailItems/fetchRetailItems',
@@ -80,6 +89,17 @@ export const RetailItemsSlice = createSlice({
         state.retailItems = action.payload;
       })
       .addCase(fetchRetailItems.rejected, (state) => {
+        state.reqStatus = 'failed';
+        state.error = true;
+      })
+      .addCase(fetchRetailItemByRetailer.pending, (state) => {
+        state.reqStatus = 'loading';
+      })
+      .addCase(fetchRetailItemByRetailer.fulfilled, (state, action) => {
+        state.reqStatus = 'succeeded';
+        state.retailItems = action.payload;
+      })
+      .addCase(fetchRetailItemByRetailer.rejected, (state) => {
         state.reqStatus = 'failed';
         state.error = true;
       });

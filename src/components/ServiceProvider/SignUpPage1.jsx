@@ -9,6 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import { Form, Formik } from 'formik';
+import { Link, useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
 import * as yup from 'yup';
 
@@ -218,6 +219,27 @@ function SignUpPage1({ formData, nextPage, updateFormData }) {
                                   Next
                                 </Button>
                               </Grid>
+                              <Box
+                                style={{
+                                  display: 'flex',
+                                  justifyContent: 'center',
+                                  margin: 2,
+                                }}
+                              >
+                                <Typography>
+                                  Already have an account?{' '}
+                                  <Link
+                                    style={{
+                                      color: '#9D6432',
+                                      fontFamily:
+                                        '"Roboto","Helvetica","Arial",sans-serif',
+                                    }}
+                                    to="/SignIn"
+                                  >
+                                    Signin
+                                  </Link>
+                                </Typography>
+                              </Box>
                             </Form>
                           );
                         }}

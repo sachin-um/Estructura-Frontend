@@ -2,7 +2,7 @@ import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+import ScheduleIcon from '@mui/icons-material/Schedule';
 import {
   Box,
   Button,
@@ -15,43 +15,37 @@ import {
 } from '@mui/material';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
 import {
-  fetchProjectByProfessional,
-  selectAllProjects,
-} from '../../redux/Projects/ProjectsReducer';
-import {
-  deleteProject,
-  getProjectStatus,
-} from '../../redux/Projects/SingleProjectReducer';
+  fetchRetailItemByRetailer,
+  selectAllRetailItems,
+} from '../../redux/RetailItems/RetailItemsReducer';
+import { getRetailItemStatus } from '../../redux/RetailItems/SingleRetailItemReducer';
 import { selectUser } from '../../redux/UserAuthenticationReducer';
 
-function ProfilePreviousProjects() {
+function ProfileRetailItems() {
   // TODO: use Previous projects Reducer
   const LoggedInUser = useSelector(selectUser);
-  const projects = useSelector(selectAllProjects);
-  const projectsStatus = useSelector(getProjectStatus);
+  const retailitems = useSelector(selectAllRetailItems);
+  const retailitemsStatus = useSelector(getRetailItemStatus);
 
-  const dispatch: ThunkDispatch<Project[], void, AnyAction> = useDispatch();
+  const dispatch: ThunkDispatch<RetailItem[], void, AnyAction> = useDispatch();
 
   useEffect(() => {
-    if (projectsStatus === 'idle' && LoggedInUser !== null) {
-      dispatch(fetchProjectByProfessional(LoggedInUser.id));
+    if (retailitemsStatus === 'idle' && LoggedInUser !== null) {
+      dispatch(fetchRetailItemByRetailer(LoggedInUser.id));
     }
-  }, [LoggedInUser, dispatch, projectsStatus]);
-
-  const navigate = useNavigate();
+  }, [LoggedInUser, dispatch, retailitemsStatus]);
 
   return (
     <Container style={{ marginBottom: '2rem' }}>
       <Box display="flex" justifyContent="flex-end" marginBottom="1rem">
-        <Button variant="contained">Add Projects</Button>
+        <Button variant="contained">Add Retail Items</Button>
       </Box>
-      {projects.length !== 0 && (
+      {retailitems.length !== 0 && (
         <Grid container justifyContent="space-evenly" spacing={2} wrap="wrap">
-          {projects.map((project) => {
-            console.log(project);
+          {retailitems.map((retailItem) => {
+            console.log(retailItem);
             return (
               <>
                 <Grid item sm={4} xs={12}>
@@ -62,46 +56,43 @@ function ProfilePreviousProjects() {
                         height: '200px',
                         width: '100%',
                       }}
-                      alt={`${project.mainImage}`}
-                      src={`http://localhost:8080/files/project-files/${project.createdBy}/${project.id}/${project.mainImageName}`}
+                      alt="Project 1"
+                      src={`http://localhost:8080/files/retail-item-files/${retailItem?.createdBy}/${retailItem?.id}/${retailItem?.mainImageName}`}
                     />
                     <CardContent
-                      sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 1,
+                        justifyContent: 'space-between',
+                      }}
                     >
                       <Typography variant="h6">
-                        {project.name ?? 'ERROR'}
+                        {retailItem.name ?? 'ERROR'}
                       </Typography>
                       <Typography variant="subtitle1">
-                        <Box alignItems="center" display="inline-flex">
-                          <LocationOnIcon
-                            fontSize="inherit"
-                            sx={{ marginRight: 1 }}
-                          />
-                          {project.location ?? 'ERROR'}
+                        <Box alignItems="center" display="flex" gap={1}>
+                          {`LKR. ${retailItem.price ?? 'ERROR'}`}
+                        </Box>
+                      </Typography>
+                      <Typography variant="subtitle1">
+                        <Box alignItems="center" display="flex" gap={1}>
+                          <ScheduleIcon fontSize="inherit" />
+                          {new Date(retailItem.dateAdded).toLocaleDateString(
+                            'en-US',
+                          )}
                         </Box>
                       </Typography>
                     </CardContent>
                     <CardActions sx={{ justifyContent: 'center' }}>
                       <Button
-                        onClick={() => navigate(`/projects/edit/${project.id}`)}
                         startIcon={<EditIcon />}
                         sx={{ marginRight: 2 }}
                         variant="outlined"
                       >
                         Edit
                       </Button>
-                      <Button
-                        onClick={() =>
-                          dispatch(deleteProject(project.id)).then(() => {
-                            if (LoggedInUser?.id)
-                              dispatch(
-                                fetchProjectByProfessional(LoggedInUser.id),
-                              );
-                          })
-                        }
-                        startIcon={<DeleteIcon />}
-                        variant="outlined"
-                      >
+                      <Button startIcon={<DeleteIcon />} variant="outlined">
                         Delete
                       </Button>
                     </CardActions>
@@ -112,7 +103,7 @@ function ProfilePreviousProjects() {
           })}
         </Grid>
       )}
-      {projects.length === 0 && (
+      {retailitems.length === 0 && (
         <Box
           sx={{
             alignItems: 'center',
@@ -122,11 +113,11 @@ function ProfilePreviousProjects() {
           }}
         >
           <Typography color="primary" marginBottom="1rem" variant="h4">
-            {projectsStatus === 'loading'
+            {retailitemsStatus === 'loading'
               ? 'Loading...'
-              : projectsStatus === 'failed'
-              ? 'Failed to load projects'
-              : 'No projects found'}
+              : retailitemsStatus === 'failed'
+              ? 'Failed to load retail items'
+              : 'No retail items found'}
           </Typography>
         </Box>
       )}
@@ -134,4 +125,4 @@ function ProfilePreviousProjects() {
   );
 }
 
-export default ProfilePreviousProjects;
+export default ProfileRetailItems;

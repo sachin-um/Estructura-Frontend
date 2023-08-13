@@ -290,7 +290,27 @@ function TopAppBar(props: TopAppBarProps) {
                   >
                     <MenuItem
                       onClick={() => {
-                        Navigate('/?profile=true');
+                        switch (userInfo?.role) {
+                          case 'ADMIN':
+                            Navigate('/admin/dashboard');
+                            break;
+                          case 'CONSTRUCTIONCOMPANY':
+                          case 'ARCHITECT':
+                          case 'CARPENTER':
+                          case 'ELECTRICIAN':
+                          case 'INTERIORDESIGNER':
+                          case 'LANDSCAPEARCHITECT':
+                          case 'MASONWORKER':
+                          case 'PAINTER':
+                          case 'RENTER':
+                          case 'RETAILSTORE':
+                            Navigate('/ServiceProvider/profile');
+                            break;
+                          case 'CUSTOMER':
+                          case 'USER':
+                            Navigate('/Customer/profile');
+                            break;
+                        }
                       }}
                       sx={{ display: 'flex', gap: '1rem' }}
                     >

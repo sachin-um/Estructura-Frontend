@@ -1,6 +1,6 @@
 import type { FunctionComponent } from 'react';
 
-const PlaceHoler: FunctionComponent = () => {
+const PlaceHolder: FunctionComponent = () => {
   return (
     <>
       <h1>This page hasn&apos;t been implemented yet.</h1>
@@ -11,4 +11,4 @@ const PlaceHoler: FunctionComponent = () => {
   );
 };
 
-export default PlaceHoler;
+export default PlaceHolder;
