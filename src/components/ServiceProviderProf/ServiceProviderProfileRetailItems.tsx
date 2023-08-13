@@ -72,10 +72,12 @@ function ProfileRetailItems() {
                       </Typography>
                       <Typography variant="subtitle1">
                         <Box alignItems="center" display="flex" gap={1}>
-                          <ScheduleIcon
-                            fontSize="inherit"
-                            sx={{ marginRight: 1 }}
-                          />
+                          {`LKR. ${retailItem.price ?? 'ERROR'}`}
+                        </Box>
+                      </Typography>
+                      <Typography variant="subtitle1">
+                        <Box alignItems="center" display="flex" gap={1}>
+                          <ScheduleIcon fontSize="inherit" />
                           {new Date(retailItem.dateAdded).toLocaleDateString(
                             'en-US',
                           )}
