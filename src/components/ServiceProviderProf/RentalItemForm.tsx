@@ -28,8 +28,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
-import Footer from '../../components/Footer';
-import TopAppBar from '../../components/TopAppBar';
 import {
   addRentingItem,
   editRentingItem,
@@ -37,6 +35,8 @@ import {
 import { selectUser } from '../../redux/UserAuthenticationReducer';
 import GetFormikProps from '../../utils/GetFormikProps';
 import { violationsToErrorsTS } from '../../utils/ViolationsTS';
+import Footer from '../Footer';
+import TopAppBar from '../TopAppBar';
 
 interface RentingItemFormProps {
   OriginalRentingItem?: RentingItem;
@@ -57,6 +57,23 @@ const validationSchema = Yup.object().shape({
     .test('only 3', 'More than 3', (value) => {
       const fileArr = value as FileList;
       if (fileArr.length > 3) {
+        return false;
+      }
+      return true;
+    })
+    .test('fileSize', 'Each File size should be less than 5MB', (value) => {
+      const fileArr = value as FileList;
+      let totalSize = 0;
+      for (let index = 0; index < fileArr.length; index++) {
+        const element = fileArr[index];
+        if (element.size > 5000000) {
+          console.log('too large');
+          return false;
+        }
+        totalSize += element.size;
+      }
+      if (totalSize > 20000000) {
+        console.log('too large');
         return false;
       }
       return true;
@@ -87,7 +104,7 @@ const validationSchema = Yup.object().shape({
   scale: Yup.string().required('You need to provide a renting '),
 });
 
-const AddRentalItem: FunctionComponent<RentingItemFormProps> = ({
+const RentalItemForm: FunctionComponent<RentingItemFormProps> = ({
   OriginalRentingItem,
   userId,
 }) => {
@@ -745,4 +762,4 @@ const AddRentalItem: FunctionComponent<RentingItemFormProps> = ({
   );
 };
 
-export default AddRentalItem;
+export default RentalItemForm;
