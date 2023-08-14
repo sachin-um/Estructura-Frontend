@@ -153,6 +153,7 @@ const ViewProject: FunctionComponent = () => {
                     style={{
                       height: '200px',
                       objectFit: 'cover',
+                      width: '100%',
                     }}
                     alt="Banner"
                     src={imageUrl + project.mainImageName}
@@ -179,6 +180,7 @@ const ViewProject: FunctionComponent = () => {
                     style={{
                       height: '200px',
                       objectFit: 'cover',
+                      width: '100%',
                     }}
                     alt="Banner"
                     src={imageUrl + project.extraImage1Name}
@@ -205,6 +207,7 @@ const ViewProject: FunctionComponent = () => {
                     style={{
                       height: '200px',
                       objectFit: 'cover',
+                      width: '100%',
                     }}
                     alt="Banner"
                     src={imageUrl + project.extraImage2Name}
@@ -231,6 +234,7 @@ const ViewProject: FunctionComponent = () => {
                     style={{
                       height: '200px',
                       objectFit: 'cover',
+                      width: '100%',
                     }}
                     alt="Banner"
                     src={imageUrl + project.extraImage3Name}
@@ -376,7 +380,11 @@ const ViewProject: FunctionComponent = () => {
                         fontWeight: 'bold',
                         marginLeft: '5px',
                         marginTop: '10px',
-                        textAlign: 'center',
+                        maxWidth: '150px',
+                        overflow: 'hidden',
+                        textAlign: 'left',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
                       }}
                     >
                       {project.document1}
@@ -425,7 +433,11 @@ const ViewProject: FunctionComponent = () => {
                         fontWeight: 'bold',
                         marginLeft: '5px',
                         marginTop: '10px',
-                        textAlign: 'center',
+                        maxWidth: '150px',
+                        overflow: 'hidden',
+                        textAlign: 'left',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
                       }}
                     >
                       {project.document2}
@@ -474,7 +486,11 @@ const ViewProject: FunctionComponent = () => {
                         fontWeight: 'bold',
                         marginLeft: '5px',
                         marginTop: '10px',
-                        textAlign: 'center',
+                        maxWidth: '150px',
+                        overflow: 'hidden',
+                        textAlign: 'left',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
                       }}
                     >
                       {project.document3}
