@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import TopAppBar from '../../components/TopAppBar';
 import BlogForm from '../../components/blog/BlogForm';
 import { selectUser } from '../../redux/UserAuthenticationReducer';
+import UnauthorizedAccess from '../unauthorized_access';
 
 const BlogAdd: FunctionComponent = () => {
   const userInfo = useSelector(selectUser);
@@ -15,7 +16,7 @@ const BlogAdd: FunctionComponent = () => {
       {userInfo && userInfo.id ? (
         <BlogForm userId={userInfo.id} />
       ) : (
-        <h1>Please Login to Create a Blog</h1>
+        <UnauthorizedAccess />
       )}
     </>
   );

@@ -1,14 +1,11 @@
 import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import type { FunctionComponent } from 'react';
 
-import backgroundPic from '/Professionals/InteriorDesigner.jpg';
-import userPic from '/User/user.png';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import EmailIcon from '@mui/icons-material/Email';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { Avatar } from '@mui/material';
 import {
   Card,
   CardActions,
@@ -18,6 +15,7 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
+import { Avatar } from '@mui/material';
 import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -228,14 +226,14 @@ const BlogDetails: FunctionComponent = () => {
                     width: '100%',
                   }}
                   alt="Background"
-                  src={backgroundPic}
+                  src={'/Professionals/InteriorDesigner.jpg'}
                 />
               </div>
               <CardContent>
                 <Stack alignItems="center" direction="column" spacing={2}>
                   <Avatar
                     alt="User Avatar"
-                    src={userPic}
+                    src={'/User/user.png'}
                     sx={{ height: 100, marginTop: '-50px', width: 100 }}
                   />
                   <Typography variant="h6">{blog.creatorName}</Typography>

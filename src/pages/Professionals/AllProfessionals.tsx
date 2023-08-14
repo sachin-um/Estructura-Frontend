@@ -16,6 +16,7 @@ import {
   getProfessionalsStatus,
   selectAllProfessionals,
 } from '../../redux/Professionals/ProfessionalsReducer';
+import Loading from '../loading';
 
 const AllProfessionals = () => {
   const professionalStatus = useSelector(getProfessionalsStatus);
@@ -92,10 +93,19 @@ const AllProfessionals = () => {
           See More
         </Button>
       </Box>
-      {firstFourArchitects.length > 0 ? (
+      {firstFourArchitects.length > 0 && (
         <ProfessionalCategories data={firstFourArchitects} />
-      ) : (
-        <NotFound />
+      )}
+      {firstFourArchitects.length === 0 && (
+        <Box>
+          {professionalStatus === 'loading' ? (
+            <Loading />
+          ) : professionalStatus === 'failed' ? (
+            'Failed to load projects'
+          ) : (
+            <NotFound />
+          )}
+        </Box>
       )}
       {/* Construction Companies */}
       <Box
@@ -125,10 +135,19 @@ const AllProfessionals = () => {
           See More
         </Button>
       </Box>
-      {firstFourConstructionCompanies.length > 0 ? (
+      {firstFourConstructionCompanies.length > 0 && (
         <ProfessionalCategories data={firstFourConstructionCompanies} />
-      ) : (
-        <NotFound />
+      )}
+      {firstFourConstructionCompanies.length === 0 && (
+        <Box>
+          {professionalStatus === 'loading' ? (
+            <Loading />
+          ) : professionalStatus === 'failed' ? (
+            'Failed to load projects'
+          ) : (
+            <NotFound />
+          )}
+        </Box>
       )}
 
       {/* Home Builders */}
@@ -159,10 +178,19 @@ const AllProfessionals = () => {
           See More
         </Button>
       </Box>
-      {firstFourHomeBuilders.length > 0 ? (
+      {firstFourHomeBuilders.length > 0 && (
         <ProfessionalCategories data={firstFourHomeBuilders} />
-      ) : (
-        <NotFound />
+      )}
+      {firstFourHomeBuilders.length === 0 && (
+        <Box>
+          {professionalStatus === 'loading' ? (
+            <Loading />
+          ) : professionalStatus === 'failed' ? (
+            'Failed to load projects'
+          ) : (
+            <NotFound />
+          )}
+        </Box>
       )}
       {/* Carpenters */}
       <Box
@@ -192,10 +220,19 @@ const AllProfessionals = () => {
           See More
         </Button>
       </Box>
-      {firstFourCarpenters.length > 0 ? (
+      {firstFourCarpenters.length > 0 && (
         <ProfessionalCategories data={firstFourCarpenters} />
-      ) : (
-        <NotFound />
+      )}
+      {firstFourCarpenters.length === 0 && (
+        <Box>
+          {professionalStatus === 'loading' ? (
+            <Loading />
+          ) : professionalStatus === 'failed' ? (
+            'Failed to load projects'
+          ) : (
+            <NotFound />
+          )}
+        </Box>
       )}
       {/* Interior Designers */}
       <Box
@@ -225,10 +262,19 @@ const AllProfessionals = () => {
           See More
         </Button>
       </Box>
-      {firstFourInteriorDesigners.length > 0 ? (
+      {firstFourInteriorDesigners.length > 0 && (
         <ProfessionalCategories data={firstFourInteriorDesigners} />
-      ) : (
-        <NotFound />
+      )}
+      {firstFourInteriorDesigners.length === 0 && (
+        <Box>
+          {professionalStatus === 'loading' ? (
+            <Loading />
+          ) : professionalStatus === 'failed' ? (
+            'Failed to load projects'
+          ) : (
+            <NotFound />
+          )}
+        </Box>
       )}
       {/* Landscape Architects */}
       <Box
@@ -258,10 +304,19 @@ const AllProfessionals = () => {
           See More
         </Button>
       </Box>
-      {firstFourLandscapeArchitects.length > 0 ? (
+      {firstFourLandscapeArchitects.length > 0 && (
         <ProfessionalCategories data={firstFourLandscapeArchitects} />
-      ) : (
-        <NotFound />
+      )}
+      {firstFourLandscapeArchitects.length === 0 && (
+        <Box>
+          {professionalStatus === 'loading' ? (
+            <Loading />
+          ) : professionalStatus === 'failed' ? (
+            'Failed to load projects'
+          ) : (
+            <NotFound />
+          )}
+        </Box>
       )}
       {/* Painters */}
       <Box
@@ -291,10 +346,19 @@ const AllProfessionals = () => {
           See More
         </Button>
       </Box>
-      {firstFourPainters.length > 0 ? (
+      {firstFourPainters.length > 0 && (
         <ProfessionalCategories data={firstFourPainters} />
-      ) : (
-        <NotFound />
+      )}
+      {firstFourPainters.length === 0 && (
+        <Box>
+          {professionalStatus === 'loading' ? (
+            <Loading />
+          ) : professionalStatus === 'failed' ? (
+            'Failed to load projects'
+          ) : (
+            <NotFound />
+          )}
+        </Box>
       )}
       <Footer />
     </div>

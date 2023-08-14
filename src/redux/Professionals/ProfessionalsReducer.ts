@@ -57,6 +57,7 @@ export const ProfessionalsInfoSlice = createSlice({
       })
       .addCase(fetchProfessionalsRole.pending, (state) => {
         state.status = 'loading';
+        state.error = null;
       })
       .addCase(fetchProfessionalsRole.fulfilled, (state, action) => {
         state.status = 'succeeded';
