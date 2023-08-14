@@ -1,7 +1,9 @@
 import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import type { FunctionComponent } from 'react';
 
-import { Button } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Button, IconButton, Tooltip } from '@mui/material';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -36,24 +38,30 @@ const BlogEdit: FunctionComponent = () => {
       <TopAppBar />
       {userInfo && userInfo.id === blog?.createdBy ? (
         <>
-          <Button onClick={() => navigate(`/blogs`)}>Back To Blogs</Button>
-          <Button onClick={() => navigate(`/blogs/${blogId}`)}>
-            Back To Details
-          </Button>
-          <Button
-            onClick={() => {
-              dispatch(deleteBlog(blogId)).then((resultAction) => {
-                if (deleteBlog.fulfilled.match(resultAction)) {
-                  // ! Handle alerting the user that the Blog was deleted
-                  console.log('Deleted Blog');
+          <Tooltip title="Go Back">
+            <IconButton color="primary" size="small">
+              <ArrowBackIcon
+                onClick={() => {
                   navigate('/blogs');
-                }
-              });
-            }}
-          >
-            {' '}
-            DELETE{' '}
-          </Button>
+                }}
+              />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Delete">
+            <IconButton color="secondary" size="small">
+              <DeleteIcon
+                onClick={() => {
+                  dispatch(deleteBlog(blogId)).then((resultAction) => {
+                    if (deleteBlog.fulfilled.match(resultAction)) {
+                      // ! Handle alerting the user that the Blog was deleted
+                      console.log('Deleted Blog');
+                      navigate('/blogs');
+                    }
+                  });
+                }}
+              />
+            </IconButton>
+          </Tooltip>
           <BlogForm
             {...(blog
               ? { OriginalBlog: blog, userId: userInfo.id }

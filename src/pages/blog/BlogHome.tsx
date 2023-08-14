@@ -2,7 +2,14 @@ import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import type { FunctionComponent } from 'react';
 
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
-import { Box, Container, Pagination, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  Container,
+  Grid,
+  Pagination,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -92,16 +99,16 @@ const BlogHome: FunctionComponent<BlogHomeProps> = () => {
     <>
       <TopAppBar />
       <Carousel cards={blogCards} />
-      <Container sx={{ paddingBottom: '2rem' }}>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            margin: '20px',
-          }}
-        >
-          <Typography variant="h4">Blogs</Typography>
-          <div className="buttons">
+      <div
+        style={{
+          alignItems: 'center', // Align buttons vertically
+          display: 'flex',
+          justifyContent: 'space-between',
+          margin: '20px',
+        }}
+      >
+        <Grid alignItems="center" container justifyContent="flex-end">
+          <Grid item>
             {userInfo && (
               <button
                 onClick={() => {
@@ -123,6 +130,8 @@ const BlogHome: FunctionComponent<BlogHomeProps> = () => {
                 My Blogs
               </button>
             )}
+          </Grid>
+          <Grid item>
             <button
               onClick={() => {
                 if (showMyBlogs) {
@@ -141,6 +150,8 @@ const BlogHome: FunctionComponent<BlogHomeProps> = () => {
             >
               All Blogs
             </button>
+          </Grid>
+          <Grid item>
             {userInfo && (
               <button
                 onClick={() => {
@@ -159,8 +170,10 @@ const BlogHome: FunctionComponent<BlogHomeProps> = () => {
                 Write a new blog
               </button>
             )}
-          </div>
-        </div>
+          </Grid>
+        </Grid>
+      </div>
+      <Container sx={{ paddingBottom: '2rem' }}>
         {filteredBlogs.length > 0 ? (
           <Stack spacing={3}>
             <Box
