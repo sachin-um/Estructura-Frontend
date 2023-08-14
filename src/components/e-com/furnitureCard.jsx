@@ -5,11 +5,12 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-
+import { Link, useNavigate } from 'react-router-dom';
 import '../../assets/font.css';
 
 function MultiActionAreaCard(props) {
   const { image, key, price, title, type } = props;
+  const Navigate = useNavigate();
 
   return (
     <Card
@@ -80,7 +81,7 @@ function MultiActionAreaCard(props) {
       <Box display="flex" justifyContent="center" p={2}>
         <Button
           color="primary"
-          onClick={() => alert('View the item!')}
+          onClick={() => {Navigate('/shop/items/furniture');}}
           size="medium"
           variant="contained"
         >

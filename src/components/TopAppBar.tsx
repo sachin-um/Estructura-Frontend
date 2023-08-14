@@ -49,7 +49,6 @@ const pages: LinkedPage[] = [
       { name: 'Home Builders', path: '/Professionals/MASONWORKER' },
       { name: 'Painters', path: '/Professionals/PAINTER' },
       { name: 'Carpenters', path: '/Professionals/CARPENTER' },
-      { name: 'All', path: '/' },
     ],
   },
   {
@@ -262,7 +261,7 @@ function TopAppBar(props: TopAppBarProps) {
             <Box sx={{ alignItems: 'center', display: 'flex', flexGrow: 0 }}>
               {loggedIn ? (
                 <>
-                  <Tooltip title={'Open Settings'}>
+                  <Tooltip title={'View Profile'}>
                     <IconButton
                       onClick={() => {
                         setAvatarMenuOpen(true);

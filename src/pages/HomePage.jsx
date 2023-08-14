@@ -14,6 +14,7 @@ import '../assets/font.css';
 import HomepageCarousel from '../components/Carousel/HomepageCarousel';
 import TopAppBar from '../components/TopAppBar';
 import Footer from '../components/Footer';
+import { Link as RouterLink } from 'react-router-dom';
 
 const Slider = ({ images, interval = 5000 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -222,15 +223,17 @@ const HomePage = (props) => {
     {
       image: '/RentItems/heavyMachinery.webp',
       title: 'Heavy Machinery',
-      link: 'HEAVY_MACHINERY',
+      link: '/renting',
     },
     {
       image: '/RentItems/tools.jpg',
       title: 'Tools and Equipment',
+      link: '/renting',
     },
     {
       image: '/RentItems/portableMachines.jpg',
       title: 'Portable Machines',
+      link: '/renting',
     },
   ];
 
@@ -242,6 +245,7 @@ const HomePage = (props) => {
         name: 'S.Akarawita',
         profilePic: '/User/user.png',
       },
+      link: '/blogs',
     },
     {
       image: 'HomeOwnerBG.jpg',
@@ -250,6 +254,7 @@ const HomePage = (props) => {
         name: 'P.Guruge',
         profilePic: '/User/user.png',
       },
+      link: '/blogs',
     },
     {
       image: 'ForgotPasswordBG.jpg',
@@ -258,6 +263,7 @@ const HomePage = (props) => {
         name: 'S.Umayangana',
         profilePic: '/User/user.png',
       },
+      link: '/blogs',
     },
   ];
   const [hoveredIndexBrowse, setHoveredIndexBrowse] = useState(null);
@@ -331,46 +337,48 @@ const HomePage = (props) => {
           <Grid container spacing={2}>
             {cardDataRentItems.map((card, index) => (
               <Grid item key={index} sm={4} xs={12}>
-                <Box
-                  sx={{
-                    height: '300px',
-                    marginTop: 4,
-                    position: 'relative',
-                  }}
-                  onMouseEnter={() => setHoveredIndexRentItems(index)}
-                  onMouseLeave={() => setHoveredIndexRentItems(null)}
-                >
-                  <img
-                    style={{
-                      borderRadius: 5,
-                      filter:
-                        hoveredIndexRentItems === index
-                          ? 'brightness(60%)'
-                          : 'none',
-                      height: '100%',
-                      marginLeft: '10px',
-                      objectFit: 'cover',
-                      transition: 'filter 0.3s ease',
-                      width: '100%',
+                <RouterLink to={card.link}>
+                  <Box
+                    sx={{
+                      height: '300px',
+                      marginTop: 4,
+                      position: 'relative',
                     }}
-                    alt={card.title}
-                    src={card.image}
-                  />
-                  {hoveredIndexRentItems === index && (
-                    <Box
-                      sx={{
-                        left: '50%',
-                        position: 'absolute',
-                        top: '50%',
-                        transform: 'translate(-50%, -50%)',
+                    onMouseEnter={() => setHoveredIndexRentItems(index)}
+                    onMouseLeave={() => setHoveredIndexRentItems(null)}
+                  >
+                    <img
+                      style={{
+                        borderRadius: 5,
+                        filter:
+                          hoveredIndexRentItems === index
+                            ? 'brightness(60%)'
+                            : 'none',
+                        height: '100%',
+                        marginLeft: '10px',
+                        objectFit: 'cover',
+                        transition: 'filter 0.3s ease',
+                        width: '100%',
                       }}
-                    >
-                      <Typography color="white" variant="h6">
-                        {card.title}
-                      </Typography>
-                    </Box>
-                  )}
-                </Box>
+                      alt={card.title}
+                      src={card.image}
+                    />
+                    {hoveredIndexRentItems === index && (
+                      <Box
+                        sx={{
+                          left: '50%',
+                          position: 'absolute',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                        }}
+                      >
+                        <Typography color="white" variant="h6">
+                          {card.title}
+                        </Typography>
+                      </Box>
+                    )}
+                  </Box>
+                </RouterLink>
               </Grid>
             ))}
           </Grid>
@@ -510,7 +518,13 @@ const HomePage = (props) => {
           </Box>
 
           {/* Blog articles */}
-          <Box height="400px" marginTop="10px" marginBottom={10} position="relative" width="100%">
+          <Box
+            height="400px"
+            marginTop="10px"
+            marginBottom={10}
+            position="relative"
+            width="100%"
+          >
             <Box marginLeft="10px" marginTop="50px" textAlign="center">
               <Typography
                 color="#435834"
@@ -533,82 +547,84 @@ const HomePage = (props) => {
               <Grid container spacing={2}>
                 {blogCardData.map((card, index) => (
                   <Grid item key={index} marginBottom="40px" sm={4} xs={12}>
-                    <Card
-                      onMouseEnter={() => {
-                        setHoveredIndex(index);
-                        setShowOverlay(true);
-                      }}
-                      onMouseLeave={() => {
-                        setHoveredIndex(null);
-                        setShowOverlay(false);
-                      }}
-                      sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        height: '100%',
-                        justifyContent: 'space-between',
-                        position: 'relative',
-                        transform:
-                          hoveredIndex === index ? 'scale(0.9)' : 'scale(1)',
-                        transition: 'transform 0.3s ease',
-                      }}
-                    >
-                      <CardMedia
-                        alt={card.title}
-                        component="img"
-                        height="300"
-                        image={card.image}
-                        sx={{ objectFit: 'cover' }}
-                      />
-                      {showOverlay && hoveredIndex === index && (
-                        <Paper
-                          sx={{
-                            alignItems: 'center',
-                            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            height: '100%',
-                            justifyContent: 'center',
-                            left: 0,
-                            padding: '16px',
-                            position: 'absolute',
-                            top: 0,
-                            width: '100%',
-                          }}
-                        >
-                          <Typography
-                            color="white"
-                            sx={{ textAlign: 'center' }}
-                            variant="h5"
-                          >
-                            {card.title}
-                          </Typography>
-                          <Box
+                    <RouterLink to={card.link}>
+                      <Card
+                        onMouseEnter={() => {
+                          setHoveredIndex(index);
+                          setShowOverlay(true);
+                        }}
+                        onMouseLeave={() => {
+                          setHoveredIndex(null);
+                          setShowOverlay(false);
+                        }}
+                        sx={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          height: '100%',
+                          justifyContent: 'space-between',
+                          position: 'relative',
+                          transform:
+                            hoveredIndex === index ? 'scale(0.9)' : 'scale(1)',
+                          transition: 'transform 0.3s ease',
+                        }}
+                      >
+                        <CardMedia
+                          alt={card.title}
+                          component="img"
+                          height="300"
+                          image={card.image}
+                          sx={{ objectFit: 'cover' }}
+                        />
+                        {showOverlay && hoveredIndex === index && (
+                          <Paper
                             sx={{
                               alignItems: 'center',
+                              backgroundColor: 'rgba(0, 0, 0, 0.5)',
                               display: 'flex',
-                              flexDirection: 'row',
-                              marginBottom: '16px',
+                              flexDirection: 'column',
+                              height: '100%',
+                              justifyContent: 'center',
+                              left: 0,
+                              padding: '16px',
+                              position: 'absolute',
+                              top: 0,
+                              width: '100%',
                             }}
                           >
-                            <img
-                              style={{
-                                borderRadius: '50%',
-                                height: '40px',
-                                marginRight: '16px',
-                                width: '40px',
-                              }}
-                              alt={card.user.name}
-                              src={card.user.profilePic}
-                            />
-
-                            <Typography color="white" variant="h7">
-                              {card.user.name}
+                            <Typography
+                              color="white"
+                              sx={{ textAlign: 'center' }}
+                              variant="h5"
+                            >
+                              {card.title}
                             </Typography>
-                          </Box>
-                        </Paper>
-                      )}
-                    </Card>
+                            <Box
+                              sx={{
+                                alignItems: 'center',
+                                display: 'flex',
+                                flexDirection: 'row',
+                                marginBottom: '16px',
+                              }}
+                            >
+                              <img
+                                style={{
+                                  borderRadius: '50%',
+                                  height: '40px',
+                                  marginRight: '16px',
+                                  width: '40px',
+                                }}
+                                alt={card.user.name}
+                                src={card.user.profilePic}
+                              />
+
+                              <Typography color="white" variant="h7">
+                                {card.user.name}
+                              </Typography>
+                            </Box>
+                          </Paper>
+                        )}
+                      </Card>
+                    </RouterLink>
                   </Grid>
                 ))}
               </Grid>

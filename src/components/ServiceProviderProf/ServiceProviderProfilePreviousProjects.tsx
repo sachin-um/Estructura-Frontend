@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import NotFound from '../../components/NoResults';
+import Loading from '../../pages/loading';
 import {
   fetchProjectByProfessional,
   getProjectsMutated,
@@ -139,9 +140,7 @@ function ProfilePreviousProjects() {
           }}
         >
           {projectsStatus === 'loading' ? (
-            <Typography color="primary" marginBottom="1rem" variant="h4">
-              Loading...
-            </Typography>
+            <Loading />
           ) : projectsStatus === 'failed' ? (
             'Failed to load projects'
           ) : (
