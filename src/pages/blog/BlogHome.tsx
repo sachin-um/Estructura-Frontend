@@ -21,8 +21,10 @@ import Carousel from '../../components/blog/carousel';
 import {
   fetchBlogs,
   getBlogsError,
+  getBlogsMutated,
   getBlogsStatus,
   selectAllBlogs,
+  setBlogsMutated,
 } from '../../redux/Blogs/BlogsReducer';
 import { selectUser } from '../../redux/UserAuthenticationReducer';
 import Paginate from '../../utils/Paginate';
@@ -64,12 +66,14 @@ const BlogHome: FunctionComponent<BlogHomeProps> = () => {
   const Blogs = useSelector(selectAllBlogs);
   const BlogsStatus = useSelector(getBlogsStatus);
   const BlogsError = useSelector(getBlogsError);
+  const blogItemMuted = useSelector(getBlogsMutated);
 
   useEffect(() => {
-    if (BlogsStatus === 'idle') {
+    if (blogItemMuted) {
       dispatch(fetchBlogs());
+      dispatch(setBlogsMutated(false));
     }
-  }, [BlogsStatus, dispatch]);
+  }, [BlogsStatus, blogItemMuted, dispatch]);
 
   useEffect(() => {
     if (BlogsError !== null && BlogsError) {
