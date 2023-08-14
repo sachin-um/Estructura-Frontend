@@ -8,6 +8,7 @@ import {
   Box,
   Button,
   Card,
+  CardContent,
   IconButton,
   TextField,
   Tooltip,
@@ -181,8 +182,12 @@ const BlogForm: FunctionComponent<BlogFormProps> = ({
             <Card
               sx={{
                 backgroundColor: '#f0f0f0',
+                borderRadius: 5,
                 display: 'flex',
                 justifyContent: 'center',
+                margin: 'auto',
+                marginTop: 5,
+                maxWidth: '85rem',
                 padding: 1.5,
               }}
               onDoubleClick={handleImageRemove}
@@ -195,7 +200,7 @@ const BlogForm: FunctionComponent<BlogFormProps> = ({
                     borderRadius: 5,
                     height: 225,
                     position: 'relative',
-                    width: '33rem',
+                    width: '84rem',
                   }}
                 >
                   <img
@@ -240,7 +245,7 @@ const BlogForm: FunctionComponent<BlogFormProps> = ({
                       display: 'flex',
                       height: 225,
                       justifyContent: 'center',
-                      width: '33rem',
+                      width: '84rem',
                     }}
                   >
                     <AddPhotoAlternateIcon />
@@ -286,23 +291,53 @@ const BlogForm: FunctionComponent<BlogFormProps> = ({
                 type="file"
               />
             </Card>
-            <TextField {...spread('title')} fullWidth label="Title" />
-            <TextField
-              {...spread('content')}
-              fullWidth
-              label="Content"
-              multiline
-              rows={10}
-            />
-            <TextField
-              hidden
-              sx={{ display: 'none' }}
-              {...spread('userId')}
-              fullWidth
-              label="User Id"
-              type="number"
-            />
-            <Button type="submit">Submit</Button>
+            <CardContent
+              sx={{
+                alignItems: 'center',
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              <Typography
+                sx={{
+                  alignSelf: 'flex-start',
+                  fontFamily: 'Poppins',
+                  marginLeft: '10px',
+                }}
+                color="secondary"
+                variant="body2"
+              >
+                Title
+              </Typography>
+
+              <TextField {...spread('title')} fullWidth />
+              <Typography
+                sx={{
+                  alignSelf: 'flex-start',
+                  fontFamily: 'Poppins',
+                  marginLeft: '10px',
+                  marginTop: '50px',
+                }}
+                color="secondary"
+                variant="body2"
+              >
+                Blog Content
+              </Typography>
+              <TextField {...spread('content')} fullWidth multiline rows={10} />
+              <TextField
+                hidden
+                sx={{ display: 'none' }}
+                {...spread('userId')}
+                fullWidth
+                label="User Id"
+                type="number"
+              />
+            </CardContent>
+            <CardContent sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <Button color="primary" type="submit" variant="contained">
+                Publish Now
+              </Button>
+            </CardContent>
           </Form>
         );
       }}

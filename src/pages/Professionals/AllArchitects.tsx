@@ -11,6 +11,7 @@ import styled from 'styled-components';
 
 import '../../assets/font.css';
 import Footer from '../../components/Footer';
+import NotFound from '../../components/NoResults';
 import ProfessionalCategories from '../../components/Professionals/ProfessionalCategories';
 import TopAppBar from '../../components/TopAppBar';
 import {
@@ -159,7 +160,12 @@ const AllArchitects = () => {
           <Option value="dateOldestOnTop">Date: Oldest on Top</Option>
         </SortSelect>
       </SortContainer> */}
-      <ProfessionalCategories data={PaginatedItems} />
+      {PaginatedItems.length > 0 ? (
+        <ProfessionalCategories data={PaginatedItems} />
+      ) : (
+        <NotFound />
+      )}
+
       <Box display={'flex'} justifyContent={'center'} marginBottom={'2rem'}>
         <Pagination
           onChange={(_event, value) => {

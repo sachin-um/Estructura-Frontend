@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 import '../../assets/font.css';
 import Footer from '../../components/Footer';
+import NotFound from '../../components/NoResults';
 import ProfessionalCategories from '../../components/Professionals/ProfessionalCategories';
 import TopAppBar from '../../components/TopAppBar';
 import {
@@ -63,7 +64,6 @@ const AllProfessionals = () => {
   return (
     <div>
       <TopAppBar />
-
       {/* Architects */}
       <Box
         sx={{
@@ -92,8 +92,11 @@ const AllProfessionals = () => {
           See More
         </Button>
       </Box>
-      <ProfessionalCategories data={firstFourArchitects} />
-
+      {firstFourArchitects.length > 0 ? (
+        <ProfessionalCategories data={firstFourArchitects} />
+      ) : (
+        <NotFound />
+      )}
       {/* Construction Companies */}
       <Box
         sx={{
@@ -122,7 +125,11 @@ const AllProfessionals = () => {
           See More
         </Button>
       </Box>
-      <ProfessionalCategories data={firstFourConstructionCompanies} />
+      {firstFourConstructionCompanies.length > 0 ? (
+        <ProfessionalCategories data={firstFourConstructionCompanies} />
+      ) : (
+        <NotFound />
+      )}
 
       {/* Home Builders */}
       <Box
@@ -152,8 +159,11 @@ const AllProfessionals = () => {
           See More
         </Button>
       </Box>
-      <ProfessionalCategories data={firstFourHomeBuilders} />
-
+      {firstFourHomeBuilders.length > 0 ? (
+        <ProfessionalCategories data={firstFourHomeBuilders} />
+      ) : (
+        <NotFound />
+      )}
       {/* Carpenters */}
       <Box
         sx={{
@@ -182,8 +192,11 @@ const AllProfessionals = () => {
           See More
         </Button>
       </Box>
-      <ProfessionalCategories data={firstFourCarpenters} />
-
+      {firstFourCarpenters.length > 0 ? (
+        <ProfessionalCategories data={firstFourCarpenters} />
+      ) : (
+        <NotFound />
+      )}
       {/* Interior Designers */}
       <Box
         sx={{
@@ -212,8 +225,11 @@ const AllProfessionals = () => {
           See More
         </Button>
       </Box>
-      <ProfessionalCategories data={firstFourInteriorDesigners} />
-
+      {firstFourInteriorDesigners.length > 0 ? (
+        <ProfessionalCategories data={firstFourInteriorDesigners} />
+      ) : (
+        <NotFound />
+      )}
       {/* Landscape Architects */}
       <Box
         sx={{
@@ -242,8 +258,11 @@ const AllProfessionals = () => {
           See More
         </Button>
       </Box>
-      <ProfessionalCategories data={firstFourLandscapeArchitects} />
-
+      {firstFourLandscapeArchitects.length > 0 ? (
+        <ProfessionalCategories data={firstFourLandscapeArchitects} />
+      ) : (
+        <NotFound />
+      )}
       {/* Painters */}
       <Box
         sx={{
@@ -272,8 +291,11 @@ const AllProfessionals = () => {
           See More
         </Button>
       </Box>
-      <ProfessionalCategories data={firstFourPainters} />
-
+      {firstFourPainters.length > 0 ? (
+        <ProfessionalCategories data={firstFourPainters} />
+      ) : (
+        <NotFound />
+      )}
       <Footer />
     </div>
   );

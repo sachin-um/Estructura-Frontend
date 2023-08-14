@@ -11,6 +11,7 @@ import styled from 'styled-components';
 
 import '../../assets/font.css';
 import Footer from '../../components/Footer';
+import NotFound from '../../components/NoResults';
 import TopAppBar from '../../components/TopAppBar';
 import Newsletter from '../../components/e-com/Blog';
 import ShopCategories from '../../components/shop/ShopCategories';
@@ -104,7 +105,12 @@ const ShopItemList = () => {
           <Option value="Price: Low to High">Price: Low to High</Option>
         </SortSelect>
       </SortContainer>
-      <ShopCategories data={PaginatedItems} />
+      {PaginatedItems.length > 0 ? (
+        <ShopCategories data={PaginatedItems} />
+      ) : (
+        <NotFound />
+      )}
+
       <Box display={'flex'} justifyContent={'center'} marginBottom={'2rem'}>
         <Pagination
           onChange={(_event, value) => {
