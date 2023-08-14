@@ -74,7 +74,7 @@ function ProfileRetailItems() {
                   <Card elevation={4}>
                     <img
                       onClick={() => {
-                        navigate(`rentingItems/${retailItem?.id}`);
+                        navigate(`/shop/item/${retailItem?.id}`);
                       }}
                       style={{
                         borderBottom: '2px solid #000',
