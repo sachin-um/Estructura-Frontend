@@ -46,6 +46,7 @@ interface RentingItemState {
 
 interface RentingItemsState {
   error: boolean | null;
+  mutated: boolean;
   rentingItems: RentingItem[];
   reqStatus: reqStatus;
 }

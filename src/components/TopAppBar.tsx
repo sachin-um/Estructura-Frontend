@@ -348,6 +348,7 @@ function TopAppBar(props: TopAppBarProps) {
                           res,
                         });
                         Navigate('/');
+                        Navigate(0);
                       }}
                     >
                       <ListItemIcon>

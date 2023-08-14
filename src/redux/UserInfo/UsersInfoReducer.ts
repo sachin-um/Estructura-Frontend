@@ -1,3 +1,5 @@
+import type { PayloadAction } from '@reduxjs/toolkit';
+
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import type { RootState } from '../store';
@@ -6,12 +8,14 @@ import API from '../../lib/API';
 
 interface UserInfoState {
   error: null | string;
+  mutated: boolean;
   status: reqStatus;
   users: User[];
 }
 
 const initialState: UserInfoState = {
   error: null,
+  mutated: false,
   status: 'idle',
   users: [],
 };
@@ -24,7 +28,11 @@ export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
 export const usersInfoSlice = createSlice({
   name: 'UserInfo',
   initialState,
-  reducers: {},
+  reducers: {
+    setUsersMutated(state, action: PayloadAction<boolean>) {
+      state.mutated = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchUsers.pending, (state) => {
@@ -43,6 +51,9 @@ export const usersInfoSlice = createSlice({
   },
 });
 
+export const { setUsersMutated } = usersInfoSlice.actions;
+
+export const getUsersMutated = (state: RootState) => state.usersInfo.mutated;
 export const getUsersStatus = (state: RootState) => state.usersInfo.status;
 export const getUsersError = (state: RootState) => state.usersInfo.error;
 export const selectAllUsers = (state: RootState) => state.usersInfo.users;
