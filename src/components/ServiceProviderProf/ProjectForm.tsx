@@ -327,6 +327,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
                     >
                       <Typography
                         style={{
+                          fontFamily: 'Poppins',
                           fontSize: '1.5rem',
                           fontWeight: 'bold',
                           lineHeight: '1',
@@ -354,10 +355,14 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
                             backgroundColor: '#F9F6EE',
                             borderRadius: '5px',
                           }}
+                          sx={{
+                            borderColor: 'grey',
+                            borderStyle: 'dashed',
+                            borderWidth: '2px',
+                          }}
                           height="300px"
                           marginTop="20px"
                           position="relative"
-                          sx={{ borderColor: 'grey', borderStyle: 'dashed' }}
                           width="100%"
                         >
                           <img
@@ -392,10 +397,14 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
                             backgroundColor: '#F9F6EE',
                             borderRadius: '5px',
                           }}
+                          sx={{
+                            borderColor: 'grey',
+                            borderStyle: 'dashed',
+                            borderWidth: '2px',
+                          }}
                           height="300px"
                           marginTop="20px"
                           position="relative"
-                          sx={{ borderColor: 'grey', borderStyle: 'dashed' }}
                           width="100%"
                         >
                           <Grid
@@ -472,7 +481,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
                             textAlign: 'left',
                           }}
                         >
-                          Add Extra Images related to your project
+                          Add extra images related to your project
                         </Typography>
                         <Grid>
                           <Button
@@ -484,6 +493,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
                             style={{
                               backgroundColor: 'transparent',
                               border: '2px solid #435834',
+                              borderWidth: '2px',
                               color: '#435834',
                             }}
                             fullWidth
@@ -554,6 +564,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
                                 sx={{
                                   borderColor: 'grey',
                                   borderStyle: 'dashed',
+                                  borderWidth: '2px',
                                 }}
                                 height="150px"
                                 marginTop="30px"
@@ -589,6 +600,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
                               sx={{
                                 backgroundColor: '#F9F6EE',
                                 borderStyle: 'dashed',
+                                borderWidth: '2px',
                               }}
                               height="150px"
                               marginTop="30px"
@@ -716,6 +728,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
                                 sx={{
                                   borderColor: 'grey',
                                   borderStyle: 'dashed',
+                                  borderWidth: '2px',
                                 }}
                                 display={'flex'}
                                 height="50px"
@@ -736,6 +749,9 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
                                     justifyContent: 'center',
                                     marginLeft: '20px',
                                     marginTop: '10px',
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
+                                    whiteSpace: 'nowrap',
                                   }}
                                 >
                                   {fileName}
@@ -768,6 +784,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
                               sx={{
                                 borderColor: 'grey',
                                 borderStyle: 'dashed',
+                                borderWidth: '2px',
                               }}
                               height="50px"
                               marginTop="30px"
