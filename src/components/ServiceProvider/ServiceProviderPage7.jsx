@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 import * as yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
 const validationSchema = yup.object({
-  profileImage: yup
+  ProfileImage: yup
     .mixed()
     .required('Required')
     .test('only 1', 'More than 1', (value) => {
@@ -34,12 +34,14 @@ function ServiceProviderPage7({
   handleSubmit,
 }) {
   const [image, setProfileImage] = useState('/User/user.png');
+  const [file, setFile] = useState(new DataTransfer().files);
   const formRef = useRef(null);
   const handleUpload = (e) => {
     setProfileImage(URL.createObjectURL(e.target.files[0]));
+    setFile(e.target.files[0]);
   };
   const initialValues = {
-    profileImage: new DataTransfer().files,
+    ProfileImage: new DataTransfer().files,
   };
 
   return (
@@ -150,7 +152,9 @@ function ServiceProviderPage7({
                   onSubmit={(values) => {
                     // TODO: HANDLE PAGE CHANGE HERE!!!
                     updateFormData(values);
-                    handleSubmit(formData);
+                    console.log('Hi');
+                    console.log(values);
+                    handleSubmit(formData, ...values);
                   }}
                   initialValues={initialValues}
                   validationSchema={validationSchema}
@@ -234,18 +238,18 @@ function ServiceProviderPage7({
                                     hidden
                                     accept="image/*"
                                     type="file"
-                                    {...spread('profileImage', false)}
+                                    {...spread('ProfileImage', false)}
                                     onChange={(event) => {
                                       if (event.target.files !== null) {
                                         handleUpload(event);
                                         setFieldValue(
-                                          'profileImage',
+                                          'ProfileImage',
                                           event.target.files,
                                           false,
                                         );
                                       } else {
                                         setFieldValue(
-                                          'profileImage',
+                                          'ProfileImage',
                                           new DataTransfer().files,
                                           false,
                                         );
