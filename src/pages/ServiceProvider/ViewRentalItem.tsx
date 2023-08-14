@@ -312,8 +312,7 @@ const ViewRentalItem: FunctionComponent = () => {
             <ContactContainer>
               <LocationOnIcon></LocationOnIcon>
               <Contact>
-                {/* {userinfo?.businessAddressLine1},{' '} */}
-                {/* {userinfo?.businessAddressLine2}, */}
+                {userinfo?.addressLine1}, {userinfo?.addressLine2},
                 {userinfo?.district}.
               </Contact>
             </ContactContainer>
