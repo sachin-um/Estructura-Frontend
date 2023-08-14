@@ -331,7 +331,7 @@ const ViewProject: FunctionComponent = () => {
               style={{
                 display: 'flex',
                 justifyContent: 'space-between',
-                marginTop: '30px',
+                marginTop: '10px',
                 width: '60%',
               }}
               container
@@ -340,7 +340,7 @@ const ViewProject: FunctionComponent = () => {
               {project.document1 ? (
                 <Box
                   sx={{
-                    backgroundColor: '#E7C4A0',
+                    backgroundColor: '#f3f3f3',
                     border: 1,
                     borderColor: 'grey',
                   }}
@@ -389,7 +389,7 @@ const ViewProject: FunctionComponent = () => {
               {project.document2 ? (
                 <Box
                   sx={{
-                    backgroundColor: '#E7C4A0',
+                    backgroundColor: '#f3f3f3',
                     border: 1,
                     borderColor: 'grey',
                   }}
@@ -438,7 +438,7 @@ const ViewProject: FunctionComponent = () => {
               {project.document3 ? (
                 <Box
                   sx={{
-                    backgroundColor: '#E7C4A0',
+                    backgroundColor: '#f3f3f3',
                     border: 1,
                     borderColor: 'grey',
                   }}

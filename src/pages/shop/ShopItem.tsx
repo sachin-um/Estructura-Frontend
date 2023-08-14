@@ -217,6 +217,7 @@ const BigImageContainer = styled.div`
   justify-content: center;
   align-items: center;
   display: flex;
+  border: 2px solid black;
 `;
 
 const BigImage = styled.img`
@@ -376,16 +377,16 @@ const ContactContainer = styled.div`
 `;
 
 const Contact = styled.span`
-  font-weight: 400;
-  font-size: 30px;
+  font-weight: 300;
+  font-size: 18px;
   color: #000;
   margin-right: 10px;
   margin-left: 10px;
 `;
 
 const ContactNo = styled.span`
-  font-weight: 700;
-  font-size: 20px;
+  font-weight: 500;
+  font-size: 18px;
   color: #000;
   margin-right: 10px;
   margin-left: 10px;
