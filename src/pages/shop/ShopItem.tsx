@@ -183,7 +183,7 @@ const ShopItem: FunctionComponent = () => {
             <ContactContainer>
               <LocationOnIcon></LocationOnIcon>
               <Contact>
-                {userinfo?.addressline1}, {userinfo?.addressline2},
+                {userinfo?.addressLine1}, {userinfo?.addressLine2},
                 {userinfo?.district}.
               </Contact>
             </ContactContainer>
