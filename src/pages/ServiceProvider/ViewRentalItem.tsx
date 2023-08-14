@@ -10,7 +10,9 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Footer from '../../components/Footer';
+import NotFound from '../../components/NoResults';
 import TopAppBar from '../../components/TopAppBar';
+import Loading from '../../pages/loading';
 import {
   fetchRentingItemById,
   getRentingItemError,
@@ -232,7 +234,7 @@ const ViewRentalItem: FunctionComponent = () => {
       {itemError ? (
         <h1>ERROR: {itemError}</h1>
       ) : itemStatus === 'loading' ? (
-        <h1>Loading...</h1>
+        <Loading />
       ) : item ? (
         <Wrapper>
           <ContainerImg>
@@ -321,7 +323,7 @@ const ViewRentalItem: FunctionComponent = () => {
           </InfoContainer>
         </Wrapper>
       ) : (
-        <h1>Project is Not Found</h1>
+        <NotFound />
       )}
 
       <Footer />

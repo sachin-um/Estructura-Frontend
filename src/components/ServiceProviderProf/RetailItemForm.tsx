@@ -28,6 +28,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
+import UnauthorizedAccess from '../../pages/unauthorized_access';
 import { setRetailItemsMutated } from '../../redux/RetailItems/RetailItemsReducer';
 import {
   addRetailItem,
@@ -721,7 +722,7 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
           }}
         </Formik>
       ) : (
-        <h1>Please Login to Add an Item</h1>
+        <UnauthorizedAccess />
       )}
       <Footer />
     </>

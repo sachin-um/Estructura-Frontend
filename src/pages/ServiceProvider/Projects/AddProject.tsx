@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import ProjectForm from '../../../components/ServiceProviderProf/ProjectForm';
 import TopAppBar from '../../../components/TopAppBar';
 import { selectUser } from '../../../redux/UserAuthenticationReducer';
+import UnauthorizedAccess from '../../unauthorized_access';
 
 const AddProject: FunctionComponent = () => {
   const userInfo = useSelector(selectUser);
@@ -17,7 +18,7 @@ const AddProject: FunctionComponent = () => {
       userInfo.serviceProviderType === ('PROFESSIONAL' as ServiceProviders) ? (
         <ProjectForm userId={userInfo.id} />
       ) : (
-        <h1>Please Login as a Professional to Add a Project</h1>
+        <UnauthorizedAccess />
       )}
     </>
   );

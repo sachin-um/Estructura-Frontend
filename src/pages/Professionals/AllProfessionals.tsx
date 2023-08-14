@@ -101,7 +101,7 @@ const AllProfessionals = () => {
           {professionalStatus === 'loading' ? (
             <Loading />
           ) : professionalStatus === 'failed' ? (
-            'Failed to load projects'
+            <div style={{ textAlign: 'center' }}>Failed to load projects</div>
           ) : (
             <NotFound />
           )}
@@ -143,7 +143,7 @@ const AllProfessionals = () => {
           {professionalStatus === 'loading' ? (
             <Loading />
           ) : professionalStatus === 'failed' ? (
-            'Failed to load projects'
+            <div style={{ textAlign: 'center' }}>Failed to load projects</div>
           ) : (
             <NotFound />
           )}
@@ -186,7 +186,7 @@ const AllProfessionals = () => {
           {professionalStatus === 'loading' ? (
             <Loading />
           ) : professionalStatus === 'failed' ? (
-            'Failed to load projects'
+            <div style={{ textAlign: 'center' }}>Failed to load projects</div>
           ) : (
             <NotFound />
           )}
@@ -228,7 +228,7 @@ const AllProfessionals = () => {
           {professionalStatus === 'loading' ? (
             <Loading />
           ) : professionalStatus === 'failed' ? (
-            'Failed to load projects'
+            <div style={{ textAlign: 'center' }}>Failed to load projects</div>
           ) : (
             <NotFound />
           )}
@@ -270,7 +270,7 @@ const AllProfessionals = () => {
           {professionalStatus === 'loading' ? (
             <Loading />
           ) : professionalStatus === 'failed' ? (
-            'Failed to load projects'
+            <div style={{ textAlign: 'center' }}>Failed to load projects</div>
           ) : (
             <NotFound />
           )}
@@ -312,7 +312,7 @@ const AllProfessionals = () => {
           {professionalStatus === 'loading' ? (
             <Loading />
           ) : professionalStatus === 'failed' ? (
-            'Failed to load projects'
+            <div style={{ textAlign: 'center' }}>Failed to load projects</div>
           ) : (
             <NotFound />
           )}
@@ -354,7 +354,7 @@ const AllProfessionals = () => {
           {professionalStatus === 'loading' ? (
             <Loading />
           ) : professionalStatus === 'failed' ? (
-            'Failed to load projects'
+            <div style={{ textAlign: 'center' }}>Failed to load projects</div>
           ) : (
             <NotFound />
           )}

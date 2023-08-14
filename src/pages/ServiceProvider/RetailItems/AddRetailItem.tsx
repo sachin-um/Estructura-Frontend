@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import RetailItemForm from '../../../components/ServiceProviderProf/RetailItemForm';
 import TopAppBar from '../../../components/TopAppBar';
 import { selectUser } from '../../../redux/UserAuthenticationReducer';
+import UnauthorizedAccess from '../../unauthorized_access';
 
 const AddRetailItem: FunctionComponent = () => {
   const userInfo = useSelector(selectUser);
@@ -17,7 +18,7 @@ const AddRetailItem: FunctionComponent = () => {
       userInfo.serviceProviderType === ('RETAILER' as ServiceProviders) ? (
         <RetailItemForm userId={userInfo.id} />
       ) : (
-        <h1>Please Login as a Retail Store to Add a RetailItem</h1>
+        <UnauthorizedAccess />
       )}
     </>
   );

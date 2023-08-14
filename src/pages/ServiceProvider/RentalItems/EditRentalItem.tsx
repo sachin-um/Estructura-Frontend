@@ -12,6 +12,7 @@ import {
   selectRentingItem,
 } from '../../../redux/Renting/SingleRentingItemReducer';
 import { selectUser } from '../../../redux/UserAuthenticationReducer';
+import UnauthorizedAccess from '../../unauthorized_access';
 
 const EditRentalItem: FunctionComponent = () => {
   const userInfo = useSelector(selectUser);
@@ -39,7 +40,7 @@ const EditRentalItem: FunctionComponent = () => {
             : { userId: userInfo.id })}
         />
       ) : (
-        <h1>Please Login as The Renting Company to edit a RentalItem</h1>
+        <UnauthorizedAccess />
       )}
     </>
   );

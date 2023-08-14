@@ -12,6 +12,7 @@ import {
   selectRetailItem,
 } from '../../../redux/RetailItems/SingleRetailItemReducer';
 import { selectUser } from '../../../redux/UserAuthenticationReducer';
+import UnauthorizedAccess from '../../unauthorized_access';
 
 const EditRetailItem: FunctionComponent = () => {
   const userInfo = useSelector(selectUser);
@@ -38,7 +39,7 @@ const EditRetailItem: FunctionComponent = () => {
             : { userId: userInfo.id })}
         />
       ) : (
-        <h1>Please Login as The Retail Store to Edit a RetailItem</h1>
+        <UnauthorizedAccess />
       )}
     </>
   );

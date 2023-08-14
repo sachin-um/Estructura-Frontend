@@ -86,9 +86,13 @@ const ProfessionalCategories = ({ data }: { data: Professional[] }) => {
             <CardImage
               // onClick={() => {
               //   navigate(`/shop/item/${card.id}`);
+              src={
+                card.ProfileImageName
+                  ? `http://localhost:8080/files/profile-images/${card.id}/${card.ProfileImageName}`
+                  : '/User/user.png'
+              }
               // }}
               alt={`Card ${card.id}`}
-              src={`http://localhost:8080/files/profile-images/${card.id}/${card.ProfileImageName}`}
             />
             <CardWrapper>
               <CardText>

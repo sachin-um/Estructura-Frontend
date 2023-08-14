@@ -12,6 +12,7 @@ import {
   selectProject,
 } from '../../../redux/Projects/SingleProjectReducer';
 import { selectUser } from '../../../redux/UserAuthenticationReducer';
+import UnauthorizedAccess from '../../unauthorized_access';
 
 const EditProject: FunctionComponent = () => {
   const userInfo = useSelector(selectUser);
@@ -38,7 +39,7 @@ const EditProject: FunctionComponent = () => {
             : { userId: userInfo.id })}
         />
       ) : (
-        <h1>Please Login as the Professional to edit a Project</h1>
+        <UnauthorizedAccess />
       )}
     </>
   );

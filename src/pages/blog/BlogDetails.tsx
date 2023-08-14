@@ -21,7 +21,9 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import NotFound from '../../components/NoResults';
 import TopAppBar from '../../components/TopAppBar';
+import Loading from '../../pages/loading';
 import {
   deleteBlog,
   fetchBlogById,
@@ -98,7 +100,7 @@ const BlogDetails: FunctionComponent = () => {
       {blogError ? (
         <h1>ERROR: {blogError}</h1>
       ) : blogStatus === 'loading' ? (
-        <h1>Loading...</h1>
+        <Loading />
       ) : blog ? (
         <div
           style={{
@@ -277,7 +279,7 @@ const BlogDetails: FunctionComponent = () => {
           )}
         </div>
       ) : (
-        <h1>Blog Not Found</h1>
+        <NotFound />
       )}
     </>
   );
