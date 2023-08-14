@@ -24,7 +24,7 @@ const Card = styled.div`
   display: flex;
   flex-direction: column;
   width: 300px;
-  height: 300px;
+  height: 320px;
   cursor: pointer;
 `;
 
