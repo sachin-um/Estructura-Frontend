@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
+import NotFound from '../../components/NoResults';
 import {
   fetchProjectByProfessional,
   selectAllProjects,
@@ -112,24 +113,7 @@ function ProfilePreviousProjects() {
           })}
         </Grid>
       )}
-      {projects.length === 0 && (
-        <Box
-          sx={{
-            alignItems: 'center',
-            display: 'flex',
-            height: '50vh',
-            justifyContent: 'center',
-          }}
-        >
-          <Typography color="primary" marginBottom="1rem" variant="h4">
-            {projectsStatus === 'loading'
-              ? 'Loading...'
-              : projectsStatus === 'failed'
-              ? 'Failed to load projects'
-              : 'No projects found'}
-          </Typography>
-        </Box>
-      )}
+      {projects.length === 0 && <NotFound />}
     </Container>
   );
 }

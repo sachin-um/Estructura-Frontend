@@ -11,8 +11,8 @@ function NoResultsFound() {
     >
       <img
         alt="No Results Found"
-        src="magnifying-glass.png"
-        style={{ height: 'auto', maxWidth: '7%' }}
+        src="/magnifying-glass.png"
+        style={{ height: 'auto', maxWidth: '6%' }}
       />
       <Typography
         align="center"

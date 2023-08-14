@@ -23,6 +23,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 import '../../assets/font.css';
+import NotFound from '../../components/NoResults';
 import {
   fetchRentingItemByRenter,
   selectAllRentingItems,
@@ -192,24 +193,7 @@ function ProfileRentingItems() {
           })}
         </Grid>
       )}
-      {rentingItems.length === 0 && (
-        <Box
-          sx={{
-            alignItems: 'center',
-            display: 'flex',
-            height: '50vh',
-            justifyContent: 'center',
-          }}
-        >
-          <Typography color="primary" marginBottom="1rem" variant="h4">
-            {RentingItemsStatus === 'loading'
-              ? 'Loading...'
-              : RentingItemsStatus === 'failed'
-              ? 'Failed to load renting items'
-              : 'No renting items found'}
-          </Typography>
-        </Box>
-      )}
+      {rentingItems.length === 0 && <NotFound />}
     </Container>
   );
 }

@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 import '../../assets/font.css';
 import Footer from '../../components/Footer';
+import NotFound from '../../components/NoResults';
 import TopAppBar from '../../components/TopAppBar';
 import Newsletter from '../../components/e-com/Blog';
 import Slider from '../../components/e-com/Slider';
@@ -84,7 +85,12 @@ const ShopHomePage = () => {
           See More Furniture
         </Button>
       </Box>
-      <ShopCategories data={firstFourFurniture} />
+      {firstFourFurniture.length > 0 ? (
+        <ShopCategories data={firstFourFurniture} />
+      ) : (
+        <NotFound />
+      )}
+
       {/* Hardware */}
       <Box
         sx={{
@@ -113,7 +119,11 @@ const ShopHomePage = () => {
           See More Hardware
         </Button>
       </Box>
-      <ShopCategories data={firstFourHardware} />
+      {firstFourHardware.length > 0 ? (
+        <ShopCategories data={firstFourHardware} />
+      ) : (
+        <NotFound />
+      )}
 
       {/* Bathware */}
       <Box
@@ -143,7 +153,11 @@ const ShopHomePage = () => {
           See More Bathware
         </Button>
       </Box>
-      <ShopCategories data={firstFourBathware} />
+      {firstFourBathware.length > 0 ? (
+        <ShopCategories data={firstFourBathware} />
+      ) : (
+        <NotFound />
+      )}
 
       {/* Gardenware */}
       <Box
@@ -173,7 +187,11 @@ const ShopHomePage = () => {
           See More Gardenware
         </Button>
       </Box>
-      <ShopCategories data={firstFourGardenware} />
+      {firstFourGardenware.length > 0 ? (
+        <ShopCategories data={firstFourGardenware} />
+      ) : (
+        <NotFound />
+      )}
 
       {/* Lighting */}
       <Box
@@ -203,7 +221,11 @@ const ShopHomePage = () => {
           See More Lighting
         </Button>
       </Box>
-      <ShopCategories data={firstFourLighting} />
+      {firstFourLighting.length > 0 ? (
+        <ShopCategories data={firstFourLighting} />
+      ) : (
+        <NotFound />
+      )}
       <Newsletter />
       <Footer />
     </div>

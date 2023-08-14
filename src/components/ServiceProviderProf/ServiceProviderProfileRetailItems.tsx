@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router-dom';
 
+import NotFound from '../../components/NoResults';
 import {
   fetchRetailItemByRetailer,
   selectAllRetailItems,
@@ -158,24 +159,7 @@ function ProfileRetailItems() {
           })}
         </Grid>
       )}
-      {retailitems.length === 0 && (
-        <Box
-          sx={{
-            alignItems: 'center',
-            display: 'flex',
-            height: '50vh',
-            justifyContent: 'center',
-          }}
-        >
-          <Typography color="primary" marginBottom="1rem" variant="h4">
-            {retailitemsStatus === 'loading'
-              ? 'Loading...'
-              : retailitemsStatus === 'failed'
-              ? 'Failed to load retail items'
-              : 'No retail items found'}
-          </Typography>
-        </Box>
-      )}
+      {retailitems.length === 0 && <NotFound />}
     </Container>
   );
 }
