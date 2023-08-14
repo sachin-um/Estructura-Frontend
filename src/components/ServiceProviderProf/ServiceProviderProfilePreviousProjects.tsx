@@ -77,7 +77,9 @@ function ProfilePreviousProjects() {
                   <Card elevation={4}>
                     <img
                       onClick={() => {
-                        navigate(`/projects/${project.createdBy}`);
+                        navigate(
+                          `/projects/${project.createdBy}/${project.id}`,
+                        );
                       }}
                       style={{
                         borderBottom: '2px solid #000',

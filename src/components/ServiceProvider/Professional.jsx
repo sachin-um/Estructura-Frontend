@@ -19,7 +19,7 @@ import AddressInputs, {
 } from '../Auth/AddressInputs';
 
 const professionalCategories = [
-  ['architect', 'Architect'],
+  ['ARCHITECT', 'Architect'],
   ['interiordesigner', 'Interior Designer'],
   ['constructioncompany', 'Construction Company'],
   ['homebuilder', 'Home Builder'],
