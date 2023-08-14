@@ -6,7 +6,9 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import NotFound from '../../components/NoResults';
 import TopAppBar from '../../components/TopAppBar';
+import Loading from '../../pages/loading';
 import {
   fetchBlogById,
   getBlogError,
@@ -44,7 +46,7 @@ const BlogDetails: FunctionComponent = () => {
       {blogError ? (
         <h1>ERROR: {blogError}</h1>
       ) : blogStatus === 'loading' ? (
-        <h1>Loading...</h1>
+        <Loading />
       ) : blog ? (
         // Blog Found
         // ! TODO: Create a BlogView
@@ -60,7 +62,7 @@ const BlogDetails: FunctionComponent = () => {
           </Button>
         </div>
       ) : (
-        <h1>Blog Not Found</h1>
+        <NotFound />
       )}
     </>
   );

@@ -19,6 +19,7 @@ import '../assets/font.css';
 import TopAppBar from '../components/TopAppBar';
 import MultiActionAreaCard from '../components/e-com/furnitureCard';
 import { retails } from '../data/retails';
+import UnauthorizedAccess from './unauthorized_access';
 
 const FindFurniture = () => {
   const [imagePreview, setImagePreview] = useState(null);
@@ -318,7 +319,7 @@ const FindFurniture = () => {
           </Box>
         </>
       ) : (
-        <h1>Please Login to access this feature</h1>
+        <UnauthorizedAccess />
       )}
     </>
   );

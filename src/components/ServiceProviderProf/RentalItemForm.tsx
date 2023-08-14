@@ -28,6 +28,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
+import UnauthorizedAccess from '../../pages/unauthorized_access';
 import { setRentingItemsMutated } from '../../redux/Renting/RentingItemsReducer';
 import {
   addRentingItem,
@@ -758,7 +759,7 @@ const RentalItemForm: FunctionComponent<RentingItemFormProps> = ({
           }}
         </Formik>
       ) : (
-        <h1>Please Login to Add an Item</h1>
+        <UnauthorizedAccess />
       )}
       <Footer />
     </>

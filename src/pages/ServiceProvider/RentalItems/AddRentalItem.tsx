@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import RentalItemForm from '../../../components/ServiceProviderProf/RentalItemForm';
 import TopAppBar from '../../../components/TopAppBar';
 import { selectUser } from '../../../redux/UserAuthenticationReducer';
+import UnauthorizedAccess from '../../unauthorized_access';
 
 const AddRentalItem: FunctionComponent = () => {
   const userInfo = useSelector(selectUser);
@@ -18,7 +19,7 @@ const AddRentalItem: FunctionComponent = () => {
         ('RENTINGCOMPANY' as ServiceProviders) ? (
         <RentalItemForm userId={userInfo.id} />
       ) : (
-        <h1>Please Login as a Renting Company to Add a RentalItem</h1>
+        <UnauthorizedAccess />
       )}
     </>
   );

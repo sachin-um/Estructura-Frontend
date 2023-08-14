@@ -11,7 +11,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import Footer from '../../components/Footer';
+import NotFound from '../../components/NoResults';
 import TopAppBar from '../../components/TopAppBar';
+import Loading from '../../pages/loading';
 import {
   fetchProjectByById,
   getProjectError,
@@ -74,7 +76,7 @@ const ViewProject: FunctionComponent = () => {
       {projectError ? (
         <h1>ERROR: {projectError}</h1>
       ) : projectStatus === 'loading' ? (
-        <h1>Loading...</h1>
+        <Loading />
       ) : project ? (
         <Container
           style={{
@@ -504,7 +506,7 @@ const ViewProject: FunctionComponent = () => {
           </Grid>
         </Container>
       ) : (
-        <h1>Project is Not Found</h1>
+        <NotFound />
       )}
 
       <Footer />

@@ -29,6 +29,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
+import UnauthorizedAccess from '../../pages/unauthorized_access';
 import { setProjectsMutated } from '../../redux/Projects/ProjectsReducer';
 import {
   addProject,
@@ -944,7 +945,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
           }}
         </Formik>
       ) : (
-        <h1>Please Login to Add a Project</h1>
+        <UnauthorizedAccess />
       )}
 
       <Footer />

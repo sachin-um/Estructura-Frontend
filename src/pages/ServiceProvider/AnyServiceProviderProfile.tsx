@@ -35,6 +35,7 @@ import {
   getUserStatus,
 } from '../../redux/UserInfo/SingleUserInfoReducer';
 import { capitalizeOnlyFirstLetter } from '../../utils/Capitalize';
+import UnauthorizedAccess from '../unauthorized_access';
 
 function AnyServiceProviderProfile() {
   const [value, setValue] = useState('one');
@@ -293,15 +294,23 @@ function AnyServiceProviderProfile() {
     </>
   ) : (
     <>
-      <h1>You must log in to view your profile</h1>
+      <UnauthorizedAccess />
       <Link to="/SignIn?from=/ServiceProvider/profile">
-        <Button
-          color="primary"
-          sx={{ height: '50px', width: '200px' }}
-          variant="contained"
+        <div
+          style={{
+            alignItems: 'center',
+            display: 'flex',
+            justifyContent: 'center',
+          }}
         >
-          Sign In
-        </Button>
+          <Button
+            color="primary"
+            sx={{ height: '50px', width: '200px' }}
+            variant="contained"
+          >
+            Sign In
+          </Button>
+        </div>
       </Link>
     </>
   );

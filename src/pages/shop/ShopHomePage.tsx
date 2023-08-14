@@ -12,6 +12,7 @@ import TopAppBar from '../../components/TopAppBar';
 import Newsletter from '../../components/e-com/Blog';
 import Slider from '../../components/e-com/Slider';
 import ShopCategories from '../../components/shop/ShopCategories';
+import Loading from '../../pages/loading';
 import { setRentingItemsMutated } from '../../redux/Renting/RentingItemsReducer';
 import {
   fetchRetailItems,
@@ -92,10 +93,19 @@ const ShopHomePage = () => {
           See More Furniture
         </Button>
       </Box>
-      {firstFourFurniture.length > 0 ? (
+      {firstFourFurniture.length > 0 && (
         <ShopCategories data={firstFourFurniture} />
-      ) : (
-        <NotFound />
+      )}
+      {firstFourFurniture.length === 0 && (
+        <Box>
+          {itemsStatus === 'loading' ? (
+            <Loading />
+          ) : itemsStatus === 'failed' ? (
+            <div style={{ textAlign: 'center' }}>Failed to load projects</div>
+          ) : (
+            <NotFound />
+          )}
+        </Box>
       )}
 
       {/* Hardware */}
@@ -126,10 +136,19 @@ const ShopHomePage = () => {
           See More Hardware
         </Button>
       </Box>
-      {firstFourHardware.length > 0 ? (
+      {firstFourHardware.length > 0 && (
         <ShopCategories data={firstFourHardware} />
-      ) : (
-        <NotFound />
+      )}
+      {firstFourHardware.length === 0 && (
+        <Box>
+          {itemsStatus === 'loading' ? (
+            <Loading />
+          ) : itemsStatus === 'failed' ? (
+            <div style={{ textAlign: 'center' }}>Failed to load projects</div>
+          ) : (
+            <NotFound />
+          )}
+        </Box>
       )}
 
       {/* Bathware */}
@@ -160,10 +179,19 @@ const ShopHomePage = () => {
           See More Bathware
         </Button>
       </Box>
-      {firstFourBathware.length > 0 ? (
+      {firstFourBathware.length > 0 && (
         <ShopCategories data={firstFourBathware} />
-      ) : (
-        <NotFound />
+      )}
+      {firstFourBathware.length === 0 && (
+        <Box>
+          {itemsStatus === 'loading' ? (
+            <Loading />
+          ) : itemsStatus === 'failed' ? (
+            <div style={{ textAlign: 'center' }}>Failed to load projects</div>
+          ) : (
+            <NotFound />
+          )}
+        </Box>
       )}
 
       {/* Gardenware */}
@@ -194,10 +222,19 @@ const ShopHomePage = () => {
           See More Gardenware
         </Button>
       </Box>
-      {firstFourGardenware.length > 0 ? (
+      {firstFourGardenware.length > 0 && (
         <ShopCategories data={firstFourGardenware} />
-      ) : (
-        <NotFound />
+      )}
+      {firstFourGardenware.length === 0 && (
+        <Box>
+          {itemsStatus === 'loading' ? (
+            <Loading />
+          ) : itemsStatus === 'failed' ? (
+            <div style={{ textAlign: 'center' }}>Failed to load projects</div>
+          ) : (
+            <NotFound />
+          )}
+        </Box>
       )}
 
       {/* Lighting */}
@@ -228,10 +265,19 @@ const ShopHomePage = () => {
           See More Lighting
         </Button>
       </Box>
-      {firstFourLighting.length > 0 ? (
+      {firstFourLighting.length > 0 && (
         <ShopCategories data={firstFourLighting} />
-      ) : (
-        <NotFound />
+      )}
+      {firstFourLighting.length === 0 && (
+        <Box>
+          {itemsStatus === 'loading' ? (
+            <Loading />
+          ) : itemsStatus === 'failed' ? (
+            <div style={{ textAlign: 'center' }}>Failed to load projects</div>
+          ) : (
+            <NotFound />
+          )}
+        </Box>
       )}
       <Newsletter />
       <Footer />
