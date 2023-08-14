@@ -28,6 +28,7 @@ import {
   getRentingItemsMutated,
   getRentingItemsStatus,
   selectAllRentingItems,
+  setRentingItemsMutated,
 } from '../../redux/Renting/RentingItemsReducer';
 import {
   deleteRentingItem,
@@ -53,6 +54,7 @@ function ProfileRentingItems() {
   useEffect(() => {
     if (rentingItemsMutated && LoggedInUser) {
       dispatch(fetchRentingItemByRenter(LoggedInUser.id));
+      dispatch(setRentingItemsMutated(false));
     }
   }, [LoggedInUser, dispatch, rentingItemsMutated]);
 
