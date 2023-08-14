@@ -135,6 +135,7 @@ const UserAuthenticationSlice = createSlice({
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
         localStorage.removeItem('user');
+        API.defaults.headers.common.Authorization = null;
       })
       .addCase(signOut.fulfilled, (state) => {
         state.isAuthenticated = false;

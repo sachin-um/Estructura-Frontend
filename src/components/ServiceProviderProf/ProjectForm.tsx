@@ -29,6 +29,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
+import { setProjectsMutated } from '../../redux/Projects/ProjectsReducer';
 import {
   addProject,
   editProject,
@@ -185,6 +186,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
         });
       }
       setSubmitting(false);
+      dispatch(setProjectsMutated(true));
     }
   };
   const initialValues = OriginalProject
