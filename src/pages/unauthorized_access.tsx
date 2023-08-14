@@ -1,15 +1,10 @@
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
-import React from 'react';
 
 import '../../src/assets/font.css';
-import Footer from '../components/Footer';
-import TopBar from '../components/TopAppBar';
 
 function UnauthorizedAccess() {
   return (
     <>
-      <TopBar title="Unauthorized Access" />
-
       <Container sx={{ marginBottom: 15 }}>
         <Grid
           alignItems="center"
@@ -34,15 +29,13 @@ function UnauthorizedAccess() {
             <Box display="flex" justifyContent="center">
               <img
                 alt="Unauthorized Access"
-                src="unauthorized.png"
+                src="/unauthorized.png"
                 style={{ height: 'auto', maxWidth: '100%' }}
               />
             </Box>
           </Grid>
         </Grid>
       </Container>
-
-      <Footer />
     </>
   );
 }

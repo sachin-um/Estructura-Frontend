@@ -56,7 +56,8 @@ export const ProfessionalsInfoSlice = createSlice({
         state.error = action.error.message ?? 'Failed to fetch professionals';
       })
       .addCase(fetchProfessionalsRole.pending, (state) => {
-        state.status = 'loading' as reqStatus;
+        state.status = 'loading';
+        state.error = null;
       })
       .addCase(fetchProfessionalsRole.fulfilled, (state, action) => {
         state.status = 'succeeded';

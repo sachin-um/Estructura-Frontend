@@ -16,6 +16,7 @@ import {
   selectBlog,
 } from '../../redux/Blogs/SingleBlogReducer';
 import { selectUser } from '../../redux/UserAuthenticationReducer';
+import UnauthorizedAccess from '../unauthorized_access';
 
 // Edit and Delete here
 const BlogEdit: FunctionComponent = () => {
@@ -69,7 +70,7 @@ const BlogEdit: FunctionComponent = () => {
           />
         </>
       ) : (
-        <h1>Please Login as the creator to Edit</h1>
+        <UnauthorizedAccess />
       )}
     </>
   );

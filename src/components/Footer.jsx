@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Facebook,
   Instagram,
@@ -16,7 +17,8 @@ const Footer = () => {
       <Box
         sx={{
           display: 'flex',
-          justifyContent: 'space-between',
+          flexDirection: 'column',
+          justifyContent: 'center',
           alignItems: 'center',
           backgroundColor: '#f3f3f3',
           padding: '1rem',
@@ -30,7 +32,7 @@ const Footer = () => {
               sx={{
                 display: 'flex',
                 alignItems: 'center',
-                marginLeft: '1rem',
+                justifyContent: 'center',
               }}
             >
               <RouterLink to="/">
@@ -41,7 +43,8 @@ const Footer = () => {
               variant="body2"
               color="textSecondary"
               sx={{
-                marginLeft: '2rem',
+                marginTop: '1rem',
+                textAlign: 'center',
               }}
             >
               Estructura © {new Date().getFullYear()}
@@ -61,7 +64,7 @@ const Footer = () => {
               sx={{
                 display: 'flex',
                 alignItems: 'center',
-                marginTop: '2rem',
+                marginTop: '1rem',
                 marginBottom: '1rem',
                 color: '#304422',
               }}
@@ -82,15 +85,17 @@ const Footer = () => {
                 <RssFeed />
               </IconButton>
             </Box>
-            <Typography variant="body2" sx={{ color: '#304422' }}>
+            <Typography
+              variant="body2"
+              sx={{ color: '#304422', textAlign: 'center' }}
+            >
               <Link href="/privacy-policy" style={{ textDecoration: 'none' }}>
-                Privacy Policy
+                Privacy Policy &nbsp;
               </Link>
-
               <Link
                 href="/terms-and-conditions"
                 variant="body2"
-                sx={{ textDecoration: 'none', marginLeft: '0.5rem' }}
+                sx={{ textDecoration: 'none', marginTop: '0.5rem' }}
               >
                 | Terms and Conditions
               </Link>
@@ -98,7 +103,11 @@ const Footer = () => {
           </Grid>
           <Grid item xs={12} sm={4}>
             <Box
-              sx={{ color: '#304422', marginLeft: '12rem', marginTop: '2rem' }}
+              sx={{
+                color: '#304422',
+                marginTop: '1rem',
+                textAlign: 'center',
+              }}
             >
               <IconButton>
                 <Mail />
