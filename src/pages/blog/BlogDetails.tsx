@@ -29,13 +29,20 @@ import {
   getBlogStatus,
   selectBlog,
 } from '../../redux/Blogs/SingleBlogReducer';
+import {
+  fetchUserById,
+  getUser,
+  getUserStatus,
+} from '../../redux/UserInfo/SingleUserInfoReducer';
 
 const BlogDetails: FunctionComponent = () => {
   const blogId = parseInt(useParams<{ id: string }>().id ?? '0');
 
   const dispatch: ThunkDispatch<Blog, void, AnyAction> = useDispatch();
+  const dispatchUser: ThunkDispatch<User, void, AnyAction> = useDispatch();
 
   const blog = useSelector(selectBlog);
+  const [userId, setUserId] = useState(0);
   const blogStatus = useSelector(getBlogStatus);
   const blogError = useSelector(getBlogError);
 
@@ -45,10 +52,22 @@ const BlogDetails: FunctionComponent = () => {
     if (blogStatus === 'idle') {
       dispatch(fetchBlogById(blogId));
     }
-  }, [dispatch, blogId, blogStatus]);
+    if (blog) {
+      setUserId(blog.createdBy);
+    }
+  }, [dispatch, blogId, blogStatus, blog]);
 
   const [isMobile, setIsMobile] = useState(false);
+  const userinfo = useSelector(getUser);
+  const userStatus = useSelector(getUserStatus);
 
+  useEffect(() => {
+    if (userStatus === 'idle') {
+      dispatchUser(fetchUserById(userId));
+    } else {
+      console.log(userinfo);
+    }
+  }, [userStatus, dispatchUser, userinfo, userId]);
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 1000);
@@ -238,18 +257,18 @@ const BlogDetails: FunctionComponent = () => {
                   />
                   <Typography variant="h6">{blog.creatorName}</Typography>
                   <Typography color="textSecondary" variant="body2">
-                    Customer
+                    {userinfo?.role}
                   </Typography>
                   <Stack alignItems="center" direction="row" spacing={1}>
                     <LocationOnIcon sx={{ fontSize: 16 }} />
                     <Typography color="textSecondary" variant="body2">
-                      Colombo, Sri Lanka
+                      {userinfo?.district}, Sri Lanka
                     </Typography>
                   </Stack>
                   <Stack alignItems="center" direction="row" spacing={1}>
                     <EmailIcon sx={{ fontSize: 16 }} />
                     <Typography color="textSecondary" variant="body2">
-                      saneru.akarawita@gmail.com
+                      {userinfo?.email}
                     </Typography>
                   </Stack>
                 </Stack>

@@ -82,6 +82,9 @@ function ProfileRentingItems() {
                 <Grid item sm={4} xs={12}>
                   <Card elevation={4}>
                     <img
+                      onClick={() => {
+                        navigate(`/rentingItems/${rentingItem?.id}`);
+                      }}
                       style={{
                         borderBottom: '2px solid #000',
                         height: '200px',

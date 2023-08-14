@@ -73,6 +73,9 @@ function ProfileRetailItems() {
                 <Grid item sm={4} xs={12}>
                   <Card elevation={4}>
                     <img
+                      onClick={() => {
+                        navigate(`rentingItems/${retailItem?.id}`);
+                      }}
                       style={{
                         borderBottom: '2px solid #000',
                         height: '200px',

@@ -84,9 +84,9 @@ const ProfessionalCategories = ({ data }: { data: Professional[] }) => {
         {data.map((card) => (
           <Card key={card.id}>
             <CardImage
-              onClick={() => {
-                navigate(`/shop/item/${card.id}`);
-              }}
+              // onClick={() => {
+              //   navigate(`/shop/item/${card.id}`);
+              // }}
               alt={`Card ${card.id}`}
               src={`http://localhost:8080/files/profile-images/${card.id}/${card.ProfileImageName}`}
             />
