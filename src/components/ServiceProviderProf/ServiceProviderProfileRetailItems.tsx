@@ -19,6 +19,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 
 import {
   fetchRetailItemByRetailer,
+  getRetailItemsStatus,
   selectAllRetailItems,
 } from '../../redux/RetailItems/RetailItemsReducer';
 import {
@@ -31,7 +32,7 @@ function ProfileRetailItems() {
   // TODO: use Previous projects Reducer
   const LoggedInUser = useSelector(selectUser);
   const retailitems = useSelector(selectAllRetailItems);
-  const retailitemsStatus = useSelector(getRetailItemStatus);
+  const retailitemsStatus = useSelector(getRetailItemsStatus);
 
   const dispatch: ThunkDispatch<RetailItem[], void, AnyAction> = useDispatch();
 
