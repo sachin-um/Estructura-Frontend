@@ -155,6 +155,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
           if (editProject.fulfilled.match(resultAction)) {
             // ! Handle Edit Success Here
             console.log('Project Edited');
+            alert('Project Edited');
           } else if (editProject.rejected.match(resultAction)) {
             try {
               const response =

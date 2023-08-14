@@ -109,11 +109,10 @@ function ProfilePreviousProjects() {
                       </Button>
                       <Button
                         onClick={() =>
-                          dispatch(deleteProject(project.id)).then(() => {
-                            if (LoggedInUser?.id)
-                              dispatch(
-                                fetchProjectByProfessional(LoggedInUser.id),
-                              );
+                          dispatch(deleteProject(project.id)).then((action) => {
+                            if (deleteProject.fulfilled.match(action)) {
+                              dispatch(setProjectsMutated(true));
+                            }
                           })
                         }
                         startIcon={<DeleteIcon />}
