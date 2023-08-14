@@ -12,8 +12,10 @@ import TopAppBar from '../../components/TopAppBar';
 import Newsletter from '../../components/e-com/Blog';
 import Slider from '../../components/e-com/Slider';
 import ShopCategories from '../../components/shop/ShopCategories';
+import { setRentingItemsMutated } from '../../redux/Renting/RentingItemsReducer';
 import {
   fetchRetailItems,
+  getRetailItemsMutated,
   getRetailItemsStatus,
   selectAllRetailItems,
 } from '../../redux/RetailItems/RetailItemsReducer';
@@ -21,7 +23,7 @@ import {
 const ShopHomePage = () => {
   const itemsStatus = useSelector(getRetailItemsStatus);
   const retailItems = useSelector(selectAllRetailItems);
-
+  const retailItemsMutated = useSelector(getRetailItemsMutated);
   const dispatch: ThunkDispatch<RetailItem[], void, AnyAction> = useDispatch();
 
   useEffect(() => {
@@ -29,7 +31,12 @@ const ShopHomePage = () => {
       dispatch(fetchRetailItems());
     }
   }, [itemsStatus, dispatch]);
-
+  useEffect(() => {
+    if (retailItemsMutated) {
+      dispatch(fetchRetailItems());
+      dispatch(setRentingItemsMutated(false));
+    }
+  }, [dispatch, retailItemsMutated]);
   const Furniture = retailItems.filter(
     (item) => item.retailItemType === 'FURNITURE',
   );
