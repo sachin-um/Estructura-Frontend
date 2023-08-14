@@ -150,25 +150,27 @@ const ShopItem: FunctionComponent = () => {
             <DateText>{}</DateText>
             <Desc>{item.description}</Desc>
             <PriceContainer>
-              <Price>LKR. {item.price}</Price>
+              <Price>LKR. {item.price.toFixed(2)}</Price>
             </PriceContainer>
-            <ActionContainer>
-              <ButtonContainer>
-                <AddToCartButton>
-                  <ShoppingCart />
-                  <ButtonText>ADD TO CART</ButtonText>
-                </AddToCartButton>
-                <AmountContainer>
-                  <Remove onClick={handleDecrease} />
-                  <Amount>{amount}</Amount>
-                  <Add onClick={handleIncrease} />
-                </AmountContainer>
-              </ButtonContainer>
-              <AddToPlanButton>
-                <Favorite />
-                <ButtonText>ADD TO PLAN</ButtonText>
-              </AddToPlanButton>
-            </ActionContainer>
+            {userinfo?.role === 'CUSTOMER' && (
+              <ActionContainer>
+                <ButtonContainer>
+                  <AddToCartButton>
+                    <ShoppingCart />
+                    <ButtonText>ADD TO CART</ButtonText>
+                  </AddToCartButton>
+                  <AmountContainer>
+                    <Remove onClick={handleDecrease} />
+                    <Amount>{amount}</Amount>
+                    <Add onClick={handleIncrease} />
+                  </AmountContainer>
+                </ButtonContainer>
+                <AddToPlanButton>
+                  <Favorite />
+                  <ButtonText>ADD TO PLAN</ButtonText>
+                </AddToPlanButton>
+              </ActionContainer>
+            )}
 
             <ContactContainer>
               <StoreIcon></StoreIcon>
@@ -183,7 +185,7 @@ const ShopItem: FunctionComponent = () => {
             <ContactContainer>
               <LocationOnIcon></LocationOnIcon>
               <Contact>
-                {userinfo?.addressLine1}, {userinfo?.addressLine2},
+                {userinfo?.addressLine1}, {userinfo?.addressLine2},{' '}
                 {userinfo?.district}.
               </Contact>
             </ContactContainer>

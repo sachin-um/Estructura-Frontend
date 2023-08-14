@@ -49,7 +49,7 @@ function ServiceProviderSignUp() {
   const handleDropdownChange = (value) => {
     setSelectedOption(value);
     setCurrentPage(2); // Reset to the first page when dropdown changes
-    if (value === 'architect') {
+    if (value === 'ARCHITECT') {
       setPageImage('/signup/archi.jpg');
     } else if (value === 'interiordesigner') {
       setPageImage('/signup/designer.jpg');
@@ -67,7 +67,7 @@ function ServiceProviderSignUp() {
   };
 
   const HandleSubmit = () => {
-    setFormData({ ...formData, role: formData.role.toUpperCase() });
+    setFormData({ ...formData });
     console.log(formData);
     API.post('/auth/register', formData, {
       headers: {
@@ -152,7 +152,7 @@ function ServiceProviderSignUp() {
     />,
   ];
 
-  if (selectedOption === 'architect') {
+  if (selectedOption === 'ARCHITECT') {
     pages.splice(
       2,
       0,
