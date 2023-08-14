@@ -47,6 +47,7 @@ interface RetailItemState {
 }
 interface RetailItemsState {
   error: boolean | null;
+  mutated: boolean;
   reqStatus: reqStatus;
   retailItems: RetailItem[];
 }

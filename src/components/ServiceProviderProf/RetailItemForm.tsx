@@ -28,6 +28,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
+import { setRetailItemsMutated } from '../../redux/RetailItems/RetailItemsReducer';
 import {
   addRetailItem,
   editRetailItem,
@@ -133,6 +134,7 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
           if (editRetailItem.fulfilled.match(resultAction)) {
             // ! Handle Edit Success Here
             console.log('Project Edited');
+            alert('Item Edited');
           } else if (editRetailItem.rejected.match(resultAction)) {
             try {
               const response =
@@ -166,6 +168,7 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
         });
       }
       setSubmitting(false);
+      dispatch(setRetailItemsMutated(true));
     }
   };
   const initialValues = OriginalRetailItem
@@ -294,7 +297,7 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
                           }}
                           variant="h4"
                         >
-                          Add Retail Item
+                          {OriginalRetailItem ? 'Edit' : 'Add'} Retail Item
                         </Typography>
                         <Divider />
 
@@ -708,7 +711,7 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
                         type="submit"
                         variant="contained"
                       >
-                        ADD ITEM
+                        {OriginalRetailItem ? 'Edit' : 'Add'} Item
                       </Button>
                     </Grid>
                   </Grid>

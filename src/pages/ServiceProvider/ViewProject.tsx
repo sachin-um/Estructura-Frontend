@@ -144,7 +144,9 @@ const ViewProject: FunctionComponent = () => {
                     border: 1,
                     borderColor: 'grey.500',
                     height: '200px',
+                    overflow: 'hidden',
                     position: 'relative',
+                    width: '20%',
                   }}
                 >
                   <img
@@ -168,7 +170,9 @@ const ViewProject: FunctionComponent = () => {
                     border: 1,
                     borderColor: 'grey.500',
                     height: '200px',
+                    overflow: 'hidden',
                     position: 'relative',
+                    width: '20%',
                   }}
                 >
                   <img
@@ -192,7 +196,9 @@ const ViewProject: FunctionComponent = () => {
                     border: 1,
                     borderColor: 'grey.500',
                     height: '200px',
+                    overflow: 'hidden',
                     position: 'relative',
+                    width: '20%',
                   }}
                 >
                   <img
@@ -216,7 +222,9 @@ const ViewProject: FunctionComponent = () => {
                     border: 1,
                     borderColor: 'grey.500',
                     height: '200px',
+                    overflow: 'hidden',
                     position: 'relative',
+                    width: '20%',
                   }}
                 >
                   <img

@@ -46,6 +46,7 @@ interface ProjectState {
 }
 interface ProjectsState {
   error: boolean | null;
+  mutated: boolean;
   projects: Project[];
   reqStatus: reqStatus;
 }

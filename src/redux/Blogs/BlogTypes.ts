@@ -30,5 +30,6 @@ interface BlogState {
 interface BlogsState {
   blogs: Blog[];
   error: boolean | null;
+  mutated: boolean;
   reqStatus: reqStatus;
 }

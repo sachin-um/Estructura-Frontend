@@ -9,6 +9,7 @@ import API from '../../lib/API';
 const initialState: BlogsState = {
   blogs: [],
   error: null,
+  mutated: false,
   reqStatus: 'idle',
 };
 
@@ -29,6 +30,9 @@ export const BlogsSlice = createSlice({
     setBlogs(state, action: PayloadAction<Blog[]>) {
       state.blogs = action.payload;
     },
+    setBlogsMutated(state, action: PayloadAction<boolean>) {
+      state.mutated = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -46,7 +50,9 @@ export const BlogsSlice = createSlice({
   },
 });
 
-export const { setBlogs } = BlogsSlice.actions;
+export const { setBlogs, setBlogsMutated } = BlogsSlice.actions;
+
+export const getBlogsMutated = (state: RootState) => state.blogs.mutated;
 
 export const getBlogsStatus = (state: RootState) => state.blogs.reqStatus;
 

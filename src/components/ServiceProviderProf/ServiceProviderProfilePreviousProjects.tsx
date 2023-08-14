@@ -20,7 +20,10 @@ import { useNavigate } from 'react-router-dom';
 import NotFound from '../../components/NoResults';
 import {
   fetchProjectByProfessional,
+  getProjectsMutated,
+  getProjectsStatus,
   selectAllProjects,
+  setProjectsMutated,
 } from '../../redux/Projects/ProjectsReducer';
 import {
   deleteProject,
@@ -32,7 +35,8 @@ function ProfilePreviousProjects() {
   // TODO: use Previous projects Reducer
   const LoggedInUser = useSelector(selectUser);
   const projects = useSelector(selectAllProjects);
-  const projectsStatus = useSelector(getProjectStatus);
+  const projectsStatus = useSelector(getProjectsStatus);
+  const projectsMutated = useSelector(getProjectsMutated);
 
   const dispatch: ThunkDispatch<Project[], void, AnyAction> = useDispatch();
 
@@ -40,19 +44,32 @@ function ProfilePreviousProjects() {
     if (projectsStatus === 'idle' && LoggedInUser !== null) {
       dispatch(fetchProjectByProfessional(LoggedInUser.id));
     }
-  }, [LoggedInUser, dispatch, projectsStatus]);
+  }, [LoggedInUser, dispatch, projectsMutated, projectsStatus]);
+
+  useEffect(() => {
+    if (projectsMutated && LoggedInUser) {
+      dispatch(fetchProjectByProfessional(LoggedInUser.id ?? 0));
+      dispatch(setProjectsMutated(false));
+    }
+  }, [LoggedInUser, dispatch, projectsMutated]);
 
   const navigate = useNavigate();
 
   return (
     <Container style={{ marginBottom: '2rem' }}>
       <Box display="flex" justifyContent="flex-end" marginBottom="1rem">
-        <Button variant="contained">Add Projects</Button>
+        <Button
+          onClick={() => {
+            navigate('/projects/add');
+          }}
+          variant="contained"
+        >
+          Add Projects
+        </Button>
       </Box>
       {projects.length !== 0 && (
         <Grid container justifyContent="space-evenly" spacing={2} wrap="wrap">
           {projects.map((project) => {
-            console.log(project);
             return (
               <>
                 <Grid item sm={4} xs={12}>
@@ -93,11 +110,10 @@ function ProfilePreviousProjects() {
                       </Button>
                       <Button
                         onClick={() =>
-                          dispatch(deleteProject(project.id)).then(() => {
-                            if (LoggedInUser?.id)
-                              dispatch(
-                                fetchProjectByProfessional(LoggedInUser.id),
-                              );
+                          dispatch(deleteProject(project.id)).then((action) => {
+                            if (deleteProject.fulfilled.match(action)) {
+                              dispatch(setProjectsMutated(true));
+                            }
                           })
                         }
                         startIcon={<DeleteIcon />}
@@ -113,7 +129,26 @@ function ProfilePreviousProjects() {
           })}
         </Grid>
       )}
-      {projects.length === 0 && <NotFound />}
+      {projects.length === 0 && (
+        <Box
+          sx={{
+            alignItems: 'center',
+            display: 'flex',
+            height: '50vh',
+            justifyContent: 'center',
+          }}
+        >
+          {projectsStatus === 'loading' ? (
+            <Typography color="primary" marginBottom="1rem" variant="h4">
+              Loading...
+            </Typography>
+          ) : projectsStatus === 'failed' ? (
+            'Failed to load projects'
+          ) : (
+            <img alt="hi" src="/noContent.jpg" />
+          )}
+        </Box>
+      )}
     </Container>
   );
 }

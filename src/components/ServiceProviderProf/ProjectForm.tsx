@@ -29,6 +29,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
+import { setProjectsMutated } from '../../redux/Projects/ProjectsReducer';
 import {
   addProject,
   editProject,
@@ -154,6 +155,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
           if (editProject.fulfilled.match(resultAction)) {
             // ! Handle Edit Success Here
             console.log('Project Edited');
+            alert('Project Edited');
           } else if (editProject.rejected.match(resultAction)) {
             try {
               const response =
@@ -185,6 +187,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
         });
       }
       setSubmitting(false);
+      dispatch(setProjectsMutated(true));
     }
   };
   const initialValues = OriginalProject

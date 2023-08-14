@@ -28,6 +28,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
+import { setRentingItemsMutated } from '../../redux/Renting/RentingItemsReducer';
 import {
   addRentingItem,
   editRentingItem,
@@ -131,6 +132,7 @@ const RentalItemForm: FunctionComponent<RentingItemFormProps> = ({
           if (editRentingItem.fulfilled.match(resultAction)) {
             // ! Handle Edit Success Here
             console.log('Project Edited');
+            alert('Item Edited');
           } else if (editRentingItem.rejected.match(resultAction)) {
             try {
               const response =
@@ -163,6 +165,7 @@ const RentalItemForm: FunctionComponent<RentingItemFormProps> = ({
           }
         });
       }
+      dispatch(setRentingItemsMutated(true));
       setSubmitting(false);
     }
   };
