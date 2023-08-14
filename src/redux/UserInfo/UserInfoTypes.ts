@@ -18,8 +18,8 @@ interface User {
   ProfileImageName: string;
   accountNonExpired: boolean;
   accountNonLocked: boolean;
-  addressline1?: string;
-  addressline2?: string;
+  addressLine1?: string;
+  addressLine2?: string;
   assignedArea?: string;
   authorities: { authority: string }[];
   awards?: Qualification[];
