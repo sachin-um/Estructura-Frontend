@@ -23,6 +23,8 @@ interface User {
   assignedArea?: string;
   authorities: { authority: string }[];
   awards?: Qualification[];
+  businessAddressLine1?: string;
+  businessAddressLine2?: string;
   businessCategory?: string;
   businessContactNo?: string;
   businessName?: string;
@@ -48,5 +50,4 @@ interface User {
   serviceProviderType?: ServiceProviders;
   sliaregNumber?: string;
   specializations?: Specialization[];
-  teamSize?: number;
 }

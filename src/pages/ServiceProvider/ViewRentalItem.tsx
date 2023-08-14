@@ -295,7 +295,7 @@ const ViewRentalItem: FunctionComponent = () => {
             </DateText>
             <Desc>{item.description}</Desc>
             <PriceContainer>
-              <Price>LKR. {item.price}</Price>
+              <Price>LKR. {item.price.toFixed(2)}</Price>
               <Duration>{item.scale}</Duration>
             </PriceContainer>
 
@@ -312,8 +312,8 @@ const ViewRentalItem: FunctionComponent = () => {
             <ContactContainer>
               <LocationOnIcon></LocationOnIcon>
               <Contact>
-                {userinfo?.addressline1}, {userinfo?.addressline2},
-                {userinfo?.district}.
+                {userinfo?.businessAddressLine1},{' '}
+                {userinfo?.businessAddressLine2},{userinfo?.district}.
               </Contact>
             </ContactContainer>
           </InfoContainer>

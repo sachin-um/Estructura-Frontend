@@ -20,6 +20,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
+import { setBlogsMutated } from '../../redux/Blogs/BlogsReducer';
 import { addBlog, editBlog } from '../../redux/Blogs/SingleBlogReducer';
 import GetFormikProps from '../../utils/GetFormikProps';
 import { violationsToErrorsTS } from '../../utils/ViolationsTS';
@@ -114,6 +115,7 @@ const BlogForm: FunctionComponent<BlogFormProps> = ({
         });
       }
       setSubmitting(false);
+      dispatch(setBlogsMutated(true));
     }
   };
 

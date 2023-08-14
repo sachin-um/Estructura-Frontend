@@ -15,7 +15,7 @@ interface ProfessionalInfoState {
 const initialState: ProfessionalInfoState = {
   error: null,
   professionals: [],
-  status: 'idle',
+  status: 'idle' as reqStatus,
 };
 
 export const fetchProfessionals = createAsyncThunk(
@@ -43,7 +43,7 @@ export const ProfessionalsInfoSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchProfessionals.pending, (state) => {
-        state.status = 'loading';
+        state.status = 'loading' as reqStatus;
         state.error = null;
       })
       .addCase(fetchProfessionals.fulfilled, (state, action) => {
