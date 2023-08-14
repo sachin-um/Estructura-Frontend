@@ -69,6 +69,12 @@ const BlogHome: FunctionComponent<BlogHomeProps> = () => {
   const blogItemMuted = useSelector(getBlogsMutated);
 
   useEffect(() => {
+    if (BlogsStatus === 'idle') {
+      dispatch(fetchBlogs());
+    }
+  }, [BlogsStatus, dispatch]);
+
+  useEffect(() => {
     if (blogItemMuted) {
       dispatch(fetchBlogs());
       dispatch(setBlogsMutated(false));
@@ -98,6 +104,10 @@ const BlogHome: FunctionComponent<BlogHomeProps> = () => {
   const paginatedBlogs = Paginate(filteredBlogs, pageNumber, pageSize);
 
   const navigate = useNavigate();
+
+  console.log(Blogs);
+  console.log(filteredBlogs);
+  console.log(paginatedBlogs);
 
   return (
     <>
