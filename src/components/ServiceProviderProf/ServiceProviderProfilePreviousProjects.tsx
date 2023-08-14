@@ -19,8 +19,10 @@ import { useNavigate } from 'react-router-dom';
 
 import {
   fetchProjectByProfessional,
+  getProjectsMutated,
   getProjectsStatus,
   selectAllProjects,
+  setProjectsMutated,
 } from '../../redux/Projects/ProjectsReducer';
 import {
   deleteProject,
@@ -33,6 +35,7 @@ function ProfilePreviousProjects() {
   const LoggedInUser = useSelector(selectUser);
   const projects = useSelector(selectAllProjects);
   const projectsStatus = useSelector(getProjectsStatus);
+  const projectsMutated = useSelector(getProjectsMutated);
 
   const dispatch: ThunkDispatch<Project[], void, AnyAction> = useDispatch();
 
@@ -40,7 +43,14 @@ function ProfilePreviousProjects() {
     if (projectsStatus === 'idle' && LoggedInUser !== null) {
       dispatch(fetchProjectByProfessional(LoggedInUser.id));
     }
-  }, [LoggedInUser, dispatch, projectsStatus]);
+  }, [LoggedInUser, dispatch, projectsMutated, projectsStatus]);
+
+  useEffect(() => {
+    if (projectsMutated && LoggedInUser) {
+      dispatch(fetchProjectByProfessional(LoggedInUser.id ?? 0));
+      dispatch(setProjectsMutated(false));
+    }
+  }, [LoggedInUser, dispatch, projectsMutated]);
 
   const navigate = useNavigate();
 
@@ -59,7 +69,6 @@ function ProfilePreviousProjects() {
       {projects.length !== 0 && (
         <Grid container justifyContent="space-evenly" spacing={2} wrap="wrap">
           {projects.map((project) => {
-            console.log(project);
             return (
               <>
                 <Grid item sm={4} xs={12}>
@@ -100,11 +109,10 @@ function ProfilePreviousProjects() {
                       </Button>
                       <Button
                         onClick={() =>
-                          dispatch(deleteProject(project.id)).then(() => {
-                            if (LoggedInUser?.id)
-                              dispatch(
-                                fetchProjectByProfessional(LoggedInUser.id),
-                              );
+                          dispatch(deleteProject(project.id)).then((action) => {
+                            if (deleteProject.fulfilled.match(action)) {
+                              dispatch(setProjectsMutated(true));
+                            }
                           })
                         }
                         startIcon={<DeleteIcon />}

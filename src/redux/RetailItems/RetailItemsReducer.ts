@@ -8,6 +8,7 @@ import API from '../../lib/API';
 
 const initialState: RetailItemsState = {
   error: null,
+  mutated: false,
   reqStatus: 'idle',
   retailItems: [],
 };
@@ -55,6 +56,9 @@ export const RetailItemsSlice = createSlice({
   reducers: {
     setRetailItems(state, action: PayloadAction<RetailItem[]>) {
       state.retailItems = action.payload;
+    },
+    setRetailItemsMutated(state, action: PayloadAction<boolean>) {
+      state.mutated = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -106,7 +110,11 @@ export const RetailItemsSlice = createSlice({
   },
 });
 
-export const { setRetailItems } = RetailItemsSlice.actions;
+export const { setRetailItems, setRetailItemsMutated } =
+  RetailItemsSlice.actions;
+
+export const getRetailItemsMutated = (state: RootState) =>
+  state.retailItems.mutated;
 
 export const getRetailItemsStatus = (state: RootState) =>
   state.retailItems.reqStatus;

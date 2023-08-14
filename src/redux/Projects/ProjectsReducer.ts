@@ -8,6 +8,7 @@ import API from '../../lib/API';
 
 const initialState: ProjectsState = {
   error: null,
+  mutated: false,
   projects: [],
   reqStatus: 'idle',
 };
@@ -34,6 +35,9 @@ export const ProjectsSlice = createSlice({
   reducers: {
     setProjects(state, action: PayloadAction<Project[]>) {
       state.projects = action.payload;
+    },
+    setProjectsMutated(state, action: PayloadAction<boolean>) {
+      state.mutated = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -63,12 +67,14 @@ export const ProjectsSlice = createSlice({
   },
 });
 
-export const { setProjects } = ProjectsSlice.actions;
+export const { setProjects, setProjectsMutated } = ProjectsSlice.actions;
 
 export const getProjectsStatus = (state: RootState) => state.projects.reqStatus;
 
 export const getProjectsError = (state: RootState) => state.projects.error;
 
 export const selectAllProjects = (state: RootState) => state.projects.projects;
+
+export const getProjectsMutated = (state: RootState) => state.projects.mutated;
 
 export default ProjectsSlice.reducer;

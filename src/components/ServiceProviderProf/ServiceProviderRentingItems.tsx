@@ -25,6 +25,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import '../../assets/font.css';
 import {
   fetchRentingItemByRenter,
+  getRentingItemsMutated,
   getRentingItemsStatus,
   selectAllRentingItems,
 } from '../../redux/Renting/RentingItemsReducer';
@@ -39,6 +40,7 @@ function ProfileRentingItems() {
   const LoggedInUser = useSelector(selectUser);
   const rentingItems = useSelector(selectAllRentingItems);
   const RentingItemsStatus = useSelector(getRentingItemsStatus);
+  const rentingItemsMutated = useSelector(getRentingItemsMutated);
 
   const dispatch: ThunkDispatch<RentingItem[], void, AnyAction> = useDispatch();
 
@@ -47,6 +49,12 @@ function ProfileRentingItems() {
       dispatch(fetchRentingItemByRenter(LoggedInUser.id));
     }
   }, [LoggedInUser, dispatch, RentingItemsStatus]);
+
+  useEffect(() => {
+    if (rentingItemsMutated && LoggedInUser) {
+      dispatch(fetchRentingItemByRenter(LoggedInUser.id));
+    }
+  }, [LoggedInUser, dispatch, rentingItemsMutated]);
 
   const navigate = useNavigate();
 

@@ -19,13 +19,12 @@ import { Navigate, useNavigate } from 'react-router-dom';
 
 import {
   fetchRetailItemByRetailer,
+  getRetailItemsMutated,
   getRetailItemsStatus,
   selectAllRetailItems,
+  setRetailItemsMutated,
 } from '../../redux/RetailItems/RetailItemsReducer';
-import {
-  deleteRetailItem,
-  getRetailItemStatus,
-} from '../../redux/RetailItems/SingleRetailItemReducer';
+import { deleteRetailItem } from '../../redux/RetailItems/SingleRetailItemReducer';
 import { selectUser } from '../../redux/UserAuthenticationReducer';
 
 function ProfileRetailItems() {
@@ -33,6 +32,7 @@ function ProfileRetailItems() {
   const LoggedInUser = useSelector(selectUser);
   const retailitems = useSelector(selectAllRetailItems);
   const retailitemsStatus = useSelector(getRetailItemsStatus);
+  const retailItemsMutated = useSelector(getRetailItemsMutated);
 
   const dispatch: ThunkDispatch<RetailItem[], void, AnyAction> = useDispatch();
 
@@ -41,6 +41,13 @@ function ProfileRetailItems() {
       dispatch(fetchRetailItemByRetailer(LoggedInUser.id));
     }
   }, [LoggedInUser, dispatch, retailitemsStatus]);
+
+  useEffect(() => {
+    if (retailItemsMutated && LoggedInUser) {
+      dispatch(fetchRetailItemByRetailer(LoggedInUser.id ?? 0));
+      dispatch(setRetailItemsMutated(false));
+    }
+  }, [LoggedInUser, dispatch, retailItemsMutated]);
 
   const navigate = useNavigate();
 
@@ -118,11 +125,7 @@ function ProfileRetailItems() {
                           dispatch(deleteRetailItem(retailItem.id)).then(
                             (action) => {
                               if (deleteRetailItem.fulfilled.match(action)) {
-                                if (LoggedInUser) {
-                                  dispatch(
-                                    fetchRetailItemByRetailer(LoggedInUser.id),
-                                  );
-                                }
+                                dispatch(setRetailItemsMutated(true));
                               }
                             },
                           );

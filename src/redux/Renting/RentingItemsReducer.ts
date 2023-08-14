@@ -8,6 +8,7 @@ import API from '../../lib/API';
 
 const initialState: RentingItemsState = {
   error: null,
+  mutated: false,
   rentingItems: [],
   reqStatus: 'idle',
 };
@@ -42,6 +43,9 @@ export const RentingItemsSlice = createSlice({
     setRentingItems(state, action: PayloadAction<RentingItem[]>) {
       state.rentingItems = action.payload;
     },
+    setRentingItemsMutated(state, action: PayloadAction<boolean>) {
+      state.mutated = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -70,7 +74,11 @@ export const RentingItemsSlice = createSlice({
   },
 });
 
-export const { setRentingItems } = RentingItemsSlice.actions;
+export const { setRentingItems, setRentingItemsMutated } =
+  RentingItemsSlice.actions;
+
+export const getRentingItemsMutated = (state: RootState) =>
+  state.rentingItems.mutated;
 
 export const getRentingItemsStatus = (state: RootState) =>
   state.rentingItems.reqStatus;
