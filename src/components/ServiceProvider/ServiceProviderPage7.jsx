@@ -154,7 +154,7 @@ function ServiceProviderPage7({
                     updateFormData(values);
                     console.log('Hi');
                     console.log(values);
-                    handleSubmit(formData, ...values);
+                    handleSubmit(formData);
                   }}
                   initialValues={initialValues}
                   validationSchema={validationSchema}
@@ -172,6 +172,7 @@ function ServiceProviderPage7({
                       return {
                         name: field,
                         onBlur: handleBlur,
+                        value: values[field],
                         error: touched[field] && !!errors[field],
                         disabled: isSubmitting,
                         ...(helper && {
@@ -238,7 +239,6 @@ function ServiceProviderPage7({
                                     hidden
                                     accept="image/*"
                                     type="file"
-                                    {...spread('ProfileImage', false)}
                                     onChange={(event) => {
                                       if (event.target.files !== null) {
                                         handleUpload(event);

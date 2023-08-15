@@ -111,9 +111,11 @@ function ProfileRentingItems() {
                         variant="subtitle1"
                       >
                         <Box alignItems="center" display="flex" gap={1}>
-                          {`LKR. ${rentingItem.price ?? 'ERROR'} | per hour`}
+                          {`LKR. ${rentingItem.price ?? 'ERROR'} | ${
+                            rentingItem.scale ?? 'ERROR'
+                          }`}
                         </Box>
-                        <Box
+                        {/* <Box
                           alignItems="center"
                           display="flex"
                           gap={1}
@@ -121,10 +123,10 @@ function ProfileRentingItems() {
                           marginTop="10px"
                         >
                           {/* <PersonIcon color="primary" fontSize="small" /> */}
-                          <Typography variant="body2">
-                            {rentingItem.name ?? 'Unknown'}
-                          </Typography>
-                        </Box>
+                        {/* <Typography variant="body2">
+                            { ?? 'Unknown'}
+                          </Typography> */}
+                        {/* </Box> */}
                         {/* Typescript use kare monatada value ekak thiyenawada eke type eka mokadda balannewath nathuwa? */}
                         {/* <Box
                           alignItems="center"
