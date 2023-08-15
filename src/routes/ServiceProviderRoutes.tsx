@@ -10,6 +10,10 @@ const ServiceProviderRoutes: RouteObject[] = [
     element: <AnyServiceProviderProfile />,
   },
   {
+    path: '/ServiceProviderProfile/:id',
+    element: <AnyServiceProviderProfile />,
+  },
+  {
     path: '/Professionals/AllProfessionals',
     element: <AllProfessionals />,
   },

@@ -106,8 +106,9 @@ function AnyServiceProviderProfile() {
           >
             <img
               src={
-                profilePicture ||
-                '/account-avatar-person-profile-user-svgrepo-com.svg'
+                currentUserInfo.ProfileImageName
+                  ? `http://localhost:8080/files/profile-images/${currentUserInfo.id}/${currentUserInfo.ProfileImageName}`
+                  : profilePicture || '/User/user.png'
               }
               style={{
                 backgroundColor: 'white',
