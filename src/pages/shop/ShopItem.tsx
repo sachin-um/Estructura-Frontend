@@ -30,6 +30,7 @@ import { mobile } from '../../responsive';
 
 const ShopItem: FunctionComponent = () => {
   const itemId = parseInt(useParams<{ id: string }>().id ?? '0');
+  console.log(itemId);
   const dispatch: ThunkDispatch<RetailItem, void, AnyAction> = useDispatch();
   const dispatchUser: ThunkDispatch<User, void, AnyAction> = useDispatch();
 
@@ -39,6 +40,7 @@ const ShopItem: FunctionComponent = () => {
   const [selectedImage, setSelectedImage] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [userId, setUserId] = useState(0);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     if (itemStatus === 'idle') {
@@ -52,18 +54,22 @@ const ShopItem: FunctionComponent = () => {
         `http://localhost:8080/files/retail-item-files/${item?.createdBy}/${item?.id}/`,
       );
       setUserId(item.createdBy);
-      console.log(item);
     }
   }, [dispatch, item, itemId, itemStatus]);
+
+  useEffect(() => {
+    if (!loaded) {
+      dispatch(fetchRetailItemById(itemId));
+      setLoaded(true);
+    }
+  }, [dispatch, itemId, loaded]);
 
   const userinfo = useSelector(getUser);
   const userStatus = useSelector(getUserStatus);
 
   useEffect(() => {
-    if (userStatus === 'idle') {
+    if (userStatus === 'idle' && userId) {
       dispatchUser(fetchUserById(userId));
-    } else {
-      console.log(userinfo);
     }
   }, [userStatus, dispatchUser, userinfo, userId]);
 
