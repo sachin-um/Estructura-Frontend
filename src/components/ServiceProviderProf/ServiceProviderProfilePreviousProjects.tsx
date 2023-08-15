@@ -147,7 +147,7 @@ function ProfilePreviousProjects() {
           ) : projectsStatus === 'failed' ? (
             'Failed to load projects'
           ) : (
-            <img alt="hi" src="/noContent.jpg" />
+            <NotFound />
           )}
         </Box>
       )}
