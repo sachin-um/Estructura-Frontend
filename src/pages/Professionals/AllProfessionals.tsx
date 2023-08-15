@@ -22,6 +22,8 @@ const AllProfessionals = () => {
   const professionalStatus = useSelector(getProfessionalsStatus);
   const professionals = useSelector(selectAllProfessionals);
 
+  console.log(professionals);
+
   const dispatch: ThunkDispatch<Professional[], void, AnyAction> =
     useDispatch();
 

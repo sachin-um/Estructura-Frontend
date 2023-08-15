@@ -87,8 +87,8 @@ const ProfessionalCategories = ({ data }: { data: Professional[] }) => {
               // onClick={() => {
               //   navigate(`/shop/item/${card.id}`);
               src={
-                card.ProfileImageName
-                  ? `http://localhost:8080/files/profile-images/${card.id}/${card.ProfileImageName}`
+                card.profileImageName
+                  ? `http://localhost:8080/files/profile-images/${card.id}/${card.profileImageName}`
                   : '/User/user.png'
               }
               // }}

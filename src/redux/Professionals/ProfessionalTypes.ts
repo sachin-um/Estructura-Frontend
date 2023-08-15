@@ -16,8 +16,6 @@ interface ServiceArea {
 }
 
 interface Professional {
-  ProfileImage: string;
-  ProfileImageName: string;
   accountNonExpired: boolean;
   accountNonLocked: boolean;
   addressline1?: string;
@@ -42,6 +40,8 @@ interface Professional {
   maxRate?: number;
   minRate?: number;
   nic?: string;
+  profileImage: string;
+  profileImageName: string;
   qualifications?: Qualification[];
   registrationNo?: string;
   role: Role;

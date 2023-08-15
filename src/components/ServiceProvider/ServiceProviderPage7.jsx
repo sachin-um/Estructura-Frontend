@@ -44,6 +44,8 @@ function ServiceProviderPage7({
     ProfileImage: new DataTransfer().files,
   };
 
+  const fileRef = useRef(null);
+
   return (
     <>
       <Container
@@ -153,8 +155,13 @@ function ServiceProviderPage7({
                     // TODO: HANDLE PAGE CHANGE HERE!!!
                     updateFormData(values);
                     console.log('Hi');
-                    console.log(values);
-                    handleSubmit(formData);
+                    console.log('ayy', values, formData);
+                    const newData = {
+                      ...formData,
+                      ProfileImage: fileRef.current.files,
+                    };
+                    console.log('new', newData);
+                    handleSubmit(newData);
                   }}
                   initialValues={initialValues}
                   validationSchema={validationSchema}
@@ -239,6 +246,7 @@ function ServiceProviderPage7({
                                     hidden
                                     accept="image/*"
                                     type="file"
+                                    ref={fileRef}
                                     onChange={(event) => {
                                       if (event.target.files !== null) {
                                         handleUpload(event);
