@@ -76,18 +76,41 @@ const Renters = () => {
   }, [usersStatus, dispatchUsers, usersInfo]);
 
   useEffect(() => {
-    console.log(data);
     if (status === 'idle') {
       dispatch(fetchRentingItems());
     } else if (status === 'succeeded') {
-      setAllRentersData(data);
+      const filteredByCategory = data.filter(
+        (item) => item.category === selectedTab,
+      );
+
+      if (locationOption !== 'islandwide' && selectedDistricts.length > 0) {
+        setAllRentersData(
+          filteredByCategory.filter((item) => {
+            const user = usersInfo.find((u) => u.id === item.createdBy);
+            if (user) {
+              return selectedDistricts.includes(user.district ?? '');
+            }
+            return false;
+          }),
+        );
+      } else {
+        setAllRentersData(filteredByCategory);
+      }
     }
-  }, [status, dispatch, data]);
+  }, [
+    status,
+    dispatch,
+    data,
+    selectedTab,
+    locationOption,
+    selectedDistricts,
+    usersInfo,
+  ]);
 
   useEffect(() => {
     if (locationOption !== 'islandwide' && selectedDistricts.length > 0) {
       setFilteredData((da) =>
-        data.filter((item) => {
+        allRentersData.filter((item) => {
           const user = usersInfo.find((user) => user.id === item.createdBy);
           if (user) {
             return selectedDistricts.includes(user.district ?? '');
@@ -95,6 +118,8 @@ const Renters = () => {
           return false;
         }),
       );
+    } else {
+      setFilteredData(allRentersData);
     }
 
     switch (sortingOption) {
@@ -123,7 +148,13 @@ const Renters = () => {
       default:
         break;
     }
-  }, [data, locationOption, selectedDistricts, sortingOption, usersInfo]);
+  }, [
+    allRentersData,
+    locationOption,
+    selectedDistricts,
+    sortingOption,
+    usersInfo,
+  ]);
 
   useEffect(() => {
     setFilteredData(allRentersData);
