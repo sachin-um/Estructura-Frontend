@@ -81,7 +81,7 @@ function MultiActionAreaCard(props) {
       <Box display="flex" justifyContent="center" p={2}>
         <Button
           color="primary"
-          onClick={() => {Navigate('/shop/items/furniture');}}
+          onClick={() => {Navigate('/shop/items/FURNITURE');}}
           size="medium"
           variant="contained"
         >
