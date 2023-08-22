@@ -1,5 +1,3 @@
-import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
-
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -13,48 +11,16 @@ import {
   Grid,
   Typography,
 } from '@mui/material';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import NotFound from '../../components/NoResults';
 import Loading from '../../pages/loading';
-import {
-  fetchProjectByProfessional,
-  getProjectsMutated,
-  getProjectsStatus,
-  selectAllProjects,
-  setProjectsMutated,
-} from '../../redux/Projects/ProjectsReducer';
-import {
-  deleteProject,
-  getProjectStatus,
-} from '../../redux/Projects/SingleProjectReducer';
-import { selectUser } from '../../redux/UserAuthenticationReducer';
+import { useProjects } from '../../redux/Projects/useProjects';
 
 function ProfilePreviousProjects() {
-  // TODO: use Previous projects Reducer
-  const LoggedInUser = useSelector(selectUser);
-  const projects = useSelector(selectAllProjects);
-  const projectsStatus = useSelector(getProjectsStatus);
-  const projectsMutated = useSelector(getProjectsMutated);
-
-  const dispatch: ThunkDispatch<Project[], void, AnyAction> = useDispatch();
-
-  useEffect(() => {
-    if (projectsStatus === 'idle' && LoggedInUser !== null) {
-      dispatch(fetchProjectByProfessional(LoggedInUser.id));
-    }
-  }, [LoggedInUser, dispatch, projectsMutated, projectsStatus]);
-
-  useEffect(() => {
-    if (projectsMutated && LoggedInUser) {
-      dispatch(fetchProjectByProfessional(LoggedInUser.id ?? 0));
-      dispatch(setProjectsMutated(false));
-    }
-  }, [LoggedInUser, dispatch, projectsMutated]);
-
   const navigate = useNavigate();
+
+  const { deleteProjectById, projects, projectsStatus } = useProjects();
 
   return (
     <Container style={{ marginBottom: '2rem' }}>
@@ -114,9 +80,9 @@ function ProfilePreviousProjects() {
                       </Button>
                       <Button
                         onClick={() =>
-                          dispatch(deleteProject(project.id)).then((action) => {
-                            if (deleteProject.fulfilled.match(action)) {
-                              dispatch(setProjectsMutated(true));
+                          deleteProjectById(project.id).then((deleted) => {
+                            if (deleted) {
+                              alert('Project Deleted');
                             }
                           })
                         }
@@ -142,7 +108,7 @@ function ProfilePreviousProjects() {
             justifyContent: 'center',
           }}
         >
-          {projectsStatus === 'loading' ? (
+          {projectsStatus === 'loading' || projectsStatus === 'idle' ? (
             <Loading />
           ) : projectsStatus === 'failed' ? (
             'Failed to load projects'

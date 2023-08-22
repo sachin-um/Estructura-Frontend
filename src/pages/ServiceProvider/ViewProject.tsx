@@ -1,4 +1,3 @@
-import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import type { FunctionComponent } from 'react';
 
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
@@ -7,42 +6,27 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Divider from '@mui/material/Divider';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import Footer from '../../components/Footer';
 import NotFound from '../../components/NoResults';
 import TopAppBar from '../../components/TopAppBar';
 import Loading from '../../pages/loading';
-import {
-  fetchProjectByById,
-  getProjectError,
-  getProjectStatus,
-  selectProject,
-} from '../../redux/Projects/SingleProjectReducer';
-import {
-  fetchUserById,
-  getUser,
-  getUserStatus,
-} from '../../redux/UserInfo/SingleUserInfoReducer';
+import { useProjects } from '../../redux/Projects/useProjects';
 
 const ViewProject: FunctionComponent = () => {
   const projectId = parseInt(useParams<{ id: string }>().id ?? '0');
-  const dispatch: ThunkDispatch<Project, void, AnyAction> = useDispatch();
-  const dispatchUser: ThunkDispatch<User, void, AnyAction> = useDispatch();
 
-  const project = useSelector(selectProject);
-  const projectStatus = useSelector(getProjectStatus);
-  const projectError = useSelector(getProjectError);
   const [selectedImage, setSelectedImage] = useState('');
   const [imageUrl, setImageUrl] = useState('');
-  const [userId, setUserId] = useState(0);
 
   const navigate = useNavigate();
+
+  const { projectsStatus, selectProjectById } = useProjects();
+
+  const project = selectProjectById(projectId);
+
   useEffect(() => {
-    if (projectStatus === 'idle') {
-      dispatch(fetchProjectByById(projectId));
-    }
     if (project) {
       setSelectedImage(
         `http://localhost:8080/files/project-files/${project?.createdBy}/${project?.id}/${project?.mainImageName}`,
@@ -50,22 +34,10 @@ const ViewProject: FunctionComponent = () => {
       setImageUrl(
         `http://localhost:8080/files/project-files/${project?.createdBy}/${project?.id}/`,
       );
-      setUserId(project.createdBy);
       console.log(project);
     }
-  }, [dispatch, project, projectId, projectStatus]);
+  }, [project]);
 
-  const userinfo = useSelector(getUser);
-  const userStatus = useSelector(getUserStatus);
-
-  useEffect(() => {
-    if (userStatus === 'idle') {
-      dispatchUser(fetchUserById(userId));
-    } else {
-      console.log(userinfo);
-    }
-  }, [userStatus, dispatchUser, userinfo, userId]);
-  console.log(selectedImage);
   const handleImageClick = (image: string) => {
     setSelectedImage(image);
   };
@@ -73,9 +45,7 @@ const ViewProject: FunctionComponent = () => {
   return (
     <>
       <TopAppBar />
-      {projectError ? (
-        <h1>ERROR: {projectError}</h1>
-      ) : projectStatus === 'loading' ? (
+      {projectsStatus === 'loading' || projectsStatus === 'idle' ? (
         <Loading />
       ) : project ? (
         <Container

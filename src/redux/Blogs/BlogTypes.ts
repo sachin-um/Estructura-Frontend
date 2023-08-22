@@ -16,20 +16,8 @@ interface BlogAddOrUpdateRequest {
   userId: number;
 }
 
-interface updateBlogParams {
-  blog: Blog;
-  updatedBlog: BlogAddOrUpdateRequest;
-}
-
-interface BlogState {
-  blog: Blog | null;
-  error: boolean | null;
-  reqStatus: reqStatus;
-}
-
 interface BlogsState {
   blogs: Blog[];
   error: boolean | null;
-  mutated: boolean;
   reqStatus: reqStatus;
 }

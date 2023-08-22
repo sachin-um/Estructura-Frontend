@@ -21,26 +21,24 @@ import {
   getRetailItemStatus,
   selectRetailItem,
 } from '../../redux/RetailItems/SingleRetailItemReducer';
-import {
-  fetchUserById,
-  getUser,
-  getUserStatus,
-} from '../../redux/UserInfo/SingleUserInfoReducer';
+import { useUsers } from '../../redux/UserInfo/useUsers';
 import { mobile } from '../../responsive';
 
 const ShopItem: FunctionComponent = () => {
   const itemId = parseInt(useParams<{ id: string }>().id ?? '0');
   console.log(itemId);
   const dispatch: ThunkDispatch<RetailItem, void, AnyAction> = useDispatch();
-  const dispatchUser: ThunkDispatch<User, void, AnyAction> = useDispatch();
 
   const item = useSelector(selectRetailItem);
   const itemStatus = useSelector(getRetailItemStatus);
   const itemError = useSelector(getRetailItemError);
   const [selectedImage, setSelectedImage] = useState('');
   const [imageUrl, setImageUrl] = useState('');
-  const [userId, setUserId] = useState(0);
   const [loaded, setLoaded] = useState(false);
+
+  const { selectUserById } = useUsers();
+
+  const userinfo = selectUserById(item?.createdBy ?? 0);
 
   useEffect(() => {
     if (itemStatus === 'idle') {
@@ -53,7 +51,6 @@ const ShopItem: FunctionComponent = () => {
       setImageUrl(
         `http://localhost:8080/files/retail-item-files/${item?.createdBy}/${item?.id}/`,
       );
-      setUserId(item.createdBy);
     }
   }, [dispatch, item, itemId, itemStatus]);
 
@@ -63,15 +60,6 @@ const ShopItem: FunctionComponent = () => {
       setLoaded(true);
     }
   }, [dispatch, itemId, loaded]);
-
-  const userinfo = useSelector(getUser);
-  const userStatus = useSelector(getUserStatus);
-
-  useEffect(() => {
-    if (userStatus === 'idle' && userId) {
-      dispatchUser(fetchUserById(userId));
-    }
-  }, [userStatus, dispatchUser, userinfo, userId]);
 
   const handleImageClick = (image: string) => {
     setSelectedImage(image);

@@ -1,20 +1,14 @@
-import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import type { FunctionComponent } from 'react';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Button, IconButton, Tooltip } from '@mui/material';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { IconButton, Tooltip } from '@mui/material';
+import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import TopAppBar from '../../components/TopAppBar';
 import BlogForm from '../../components/blog/BlogForm';
-import {
-  deleteBlog,
-  fetchBlogById,
-  selectBlog,
-} from '../../redux/Blogs/SingleBlogReducer';
+import { useBlogs } from '../../redux/Blogs/useBlogs';
 import { selectUser } from '../../redux/UserAuthenticationReducer';
 import UnauthorizedAccess from '../unauthorized_access';
 
@@ -24,13 +18,9 @@ const BlogEdit: FunctionComponent = () => {
 
   const blogId = parseInt(useParams<{ id: string }>().id ?? '0');
 
-  const dispatch: ThunkDispatch<Blog, void, AnyAction> = useDispatch();
+  const { deleteBlogById, selectBlogById } = useBlogs();
 
-  useEffect(() => {
-    dispatch(fetchBlogById(blogId));
-  }, [dispatch, blogId]);
-
-  const blog = useSelector(selectBlog);
+  const blog = selectBlogById(blogId);
 
   const navigate = useNavigate();
 
@@ -51,14 +41,12 @@ const BlogEdit: FunctionComponent = () => {
           <Tooltip title="Delete">
             <IconButton color="secondary" size="small">
               <DeleteIcon
-                onClick={() => {
-                  dispatch(deleteBlog(blogId)).then((resultAction) => {
-                    if (deleteBlog.fulfilled.match(resultAction)) {
-                      // ! Handle alerting the user that the Blog was deleted
-                      console.log('Deleted Blog');
-                      navigate('/blogs');
-                    }
-                  });
+                onClick={async () => {
+                  // TODO: Add a confirmation menu
+                  const deleted = await deleteBlogById(blogId);
+                  if (deleted) {
+                    navigate('/blogs');
+                  }
                 }}
               />
             </IconButton>

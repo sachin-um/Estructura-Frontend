@@ -1,5 +1,3 @@
-import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
-
 import { CameraAlt, Email, Phone } from '@mui/icons-material';
 import {
   Box,
@@ -14,12 +12,10 @@ import {
   Tabs,
   Typography,
 } from '@mui/material';
-import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Footer from '../../components/Footer';
-import PlaceHolder from '../../components/Placeholder';
 import Messages from '../../components/ServiceProviderProf/Messages';
 import Responses from '../../components/ServiceProviderProf/Responses';
 import Reviews from '../../components/ServiceProviderProf/Reviews';
@@ -28,13 +24,9 @@ import ProfilePreviousProjects from '../../components/ServiceProviderProf/Servic
 import ProfileRetailItems from '../../components/ServiceProviderProf/ServiceProviderProfileRetailItems';
 import ProfileRentingItems from '../../components/ServiceProviderProf/ServiceProviderRentingItems';
 import TopAppBar from '../../components/TopAppBar';
-import { selectUser } from '../../redux/UserAuthenticationReducer';
-import {
-  fetchUserById,
-  getUser,
-  getUserStatus,
-} from '../../redux/UserInfo/SingleUserInfoReducer';
+import { useUsers } from '../../redux/UserInfo/useUsers';
 import { capitalizeOnlyFirstLetter } from '../../utils/Capitalize';
+import Loading from '../loading';
 import UnauthorizedAccess from '../unauthorized_access';
 
 function AnyServiceProviderProfile() {
@@ -45,7 +37,7 @@ function AnyServiceProviderProfile() {
   const profileImageInputRef = useRef<HTMLInputElement>(null);
 
   const handleTabChange = (
-    event: React.SyntheticEvent<Element, Event>,
+    _event: React.SyntheticEvent<Element, Event>,
     value: string,
   ) => {
     setValue(value);
@@ -60,20 +52,9 @@ function AnyServiceProviderProfile() {
     setProfilePicture(URL.createObjectURL(file));
   };
 
-  const currentUserInfo = useSelector(selectUser);
+  const { currentUser, usersState } = useUsers();
 
-  const AllUserInfo = useSelector(getUser);
-  const UserInfoStatus = useSelector(getUserStatus);
-
-  const dispatch: ThunkDispatch<User, void, AnyAction> = useDispatch();
-
-  useEffect(() => {
-    if (UserInfoStatus === 'idle') {
-      if (currentUserInfo) dispatch(fetchUserById(currentUserInfo.id));
-    }
-  }, [UserInfoStatus, currentUserInfo, dispatch]);
-
-  return currentUserInfo ? (
+  return currentUser ? (
     <>
       <TopAppBar title="Service Provider Profile" />
 
@@ -106,8 +87,8 @@ function AnyServiceProviderProfile() {
           >
             <img
               src={
-                currentUserInfo.ProfileImageName
-                  ? `http://localhost:8080/files/profile-images/${currentUserInfo.id}/${currentUserInfo.ProfileImageName}`
+                currentUser.ProfileImageName
+                  ? `http://localhost:8080/files/profile-images/${currentUser.id}/${currentUser.ProfileImageName}`
                   : profilePicture || '/User/user.png'
               }
               style={{
@@ -172,18 +153,18 @@ function AnyServiceProviderProfile() {
           >
             <CardContent>
               <Typography component="div" variant="h5">
-                {currentUserInfo.firstname} {currentUserInfo.lastname}
+                {currentUser.firstname} {currentUser.lastname}
               </Typography>
               <Typography color="text.secondary" sx={{ mb: 1.5 }}>
-                {capitalizeOnlyFirstLetter(currentUserInfo.role)}
+                {capitalizeOnlyFirstLetter(currentUser.role)}
               </Typography>
               <Typography
                 color="text.secondary"
                 gutterBottom
                 sx={{ fontSize: 14 }}
               >
-                Based in {AllUserInfo?.city ?? 'Unknown'},{' '}
-                {AllUserInfo?.district ?? 'Unknown'}
+                Based in {currentUser?.city ?? 'Unknown'},{' '}
+                {currentUser?.district ?? 'Unknown'}
               </Typography>
               <Box mt={6}>
                 <Stack alignItems="center" direction="row" spacing={2}>
@@ -191,7 +172,7 @@ function AnyServiceProviderProfile() {
                     <Phone />
                   </ListItemIcon>
                   <Typography color="text.secondary" variant="body2">
-                    {AllUserInfo?.businessContactNo ?? 'Unknown'}
+                    {currentUser?.businessContactNo ?? 'Unknown'}
                   </Typography>
                 </Stack>
               </Box>
@@ -201,7 +182,7 @@ function AnyServiceProviderProfile() {
                     <Email />
                   </ListItemIcon>
                   <Typography color="text.secondary" variant="body2">
-                    {AllUserInfo?.email ?? 'Unknown'}
+                    {currentUser?.email ?? 'Unknown'}
                   </Typography>
                 </Stack>
               </Box>
@@ -250,13 +231,13 @@ function AnyServiceProviderProfile() {
               sx={{ marginRight: '4rem' }}
               value="one"
             />
-            {AllUserInfo?.role === 'RETAILSTORE' ? (
+            {currentUser?.role === 'RETAILSTORE' ? (
               <Tab
                 label="Your Retail Items"
                 sx={{ marginRight: '4rem' }}
                 value="two"
               />
-            ) : AllUserInfo?.role === 'RENTER' ? (
+            ) : currentUser?.role === 'RENTER' ? (
               <Tab
                 label="Your Renting Items"
                 sx={{ marginRight: '4rem' }}
@@ -273,16 +254,16 @@ function AnyServiceProviderProfile() {
             <Tab label="Messages" sx={{ marginRight: '4rem' }} value="four" />
             <Tab label="Reviews" value="five" />
           </Tabs>
-          {activeTab === 'one' && AllUserInfo && (
-            <ServiceProviderProfileDetails userDetails={AllUserInfo} />
+          {activeTab === 'one' && currentUser && (
+            <ServiceProviderProfileDetails userDetails={currentUser} />
           )}
           {activeTab === 'two' &&
-            AllUserInfo?.role !== 'RETAILSTORE' &&
-            AllUserInfo?.role !== 'RENTER' && <ProfilePreviousProjects />}
-          {activeTab === 'two' && AllUserInfo?.role === 'RETAILSTORE' && (
+            currentUser?.role !== 'RETAILSTORE' &&
+            currentUser?.role !== 'RENTER' && <ProfilePreviousProjects />}
+          {activeTab === 'two' && currentUser?.role === 'RETAILSTORE' && (
             <ProfileRetailItems />
           )}
-          {activeTab === 'two' && AllUserInfo?.role === 'RENTER' && (
+          {activeTab === 'two' && currentUser?.role === 'RENTER' && (
             <ProfileRentingItems />
           )}
           {activeTab === 'three' && <Responses />}
@@ -293,6 +274,8 @@ function AnyServiceProviderProfile() {
 
       <Footer />
     </>
+  ) : usersState === 'loading' || usersState === 'idle' ? (
+    <Loading />
   ) : (
     <>
       <UnauthorizedAccess />

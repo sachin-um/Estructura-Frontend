@@ -1,31 +1,15 @@
-import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import type { FunctionComponent } from 'react';
 
-import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
-import {
-  Box,
-  Container,
-  Grid,
-  Pagination,
-  Stack,
-  Typography,
-} from '@mui/material';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { Box, Container, Grid, Pagination, Stack } from '@mui/material';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import NotFound from '../../components/NoResults';
 import TopAppBar from '../../components/TopAppBar';
 import { blogToCard } from '../../components/blog/BlogViewCard';
 import Carousel from '../../components/blog/carousel';
-import {
-  fetchBlogs,
-  getBlogsError,
-  getBlogsMutated,
-  getBlogsStatus,
-  selectAllBlogs,
-  setBlogsMutated,
-} from '../../redux/Blogs/BlogsReducer';
+import { useBlogs } from '../../redux/Blogs/useBlogs';
 import { selectUser } from '../../redux/UserAuthenticationReducer';
 import Paginate from '../../utils/Paginate';
 
@@ -61,37 +45,13 @@ const blogCards = [
 ];
 
 const BlogHome: FunctionComponent<BlogHomeProps> = () => {
-  const dispatch: ThunkDispatch<Blog[], void, AnyAction> = useDispatch();
-
-  const Blogs = useSelector(selectAllBlogs);
-  const BlogsStatus = useSelector(getBlogsStatus);
-  const BlogsError = useSelector(getBlogsError);
-  const blogItemMuted = useSelector(getBlogsMutated);
-
-  useEffect(() => {
-    if (BlogsStatus === 'idle') {
-      dispatch(fetchBlogs());
-    }
-  }, [BlogsStatus, dispatch]);
-
-  useEffect(() => {
-    if (blogItemMuted) {
-      dispatch(fetchBlogs());
-      dispatch(setBlogsMutated(false));
-    }
-  }, [BlogsStatus, blogItemMuted, dispatch]);
-
-  useEffect(() => {
-    if (BlogsError !== null && BlogsError) {
-      console.log('Blog fetching error!');
-    }
-  }, [BlogsError]);
+  const { blogs } = useBlogs();
 
   const [showMyBlogs, setShowMyBlogs] = useState(false);
 
   const userInfo = useSelector(selectUser);
 
-  const filteredBlogs = Blogs.filter((blog) => {
+  const filteredBlogs = blogs.filter((blog) => {
     if (showMyBlogs) {
       return blog.createdBy === userInfo?.id;
     }
@@ -104,10 +64,6 @@ const BlogHome: FunctionComponent<BlogHomeProps> = () => {
   const paginatedBlogs = Paginate(filteredBlogs, pageNumber, pageSize);
 
   const navigate = useNavigate();
-
-  console.log(Blogs);
-  console.log(filteredBlogs);
-  console.log(paginatedBlogs);
 
   return (
     <>
