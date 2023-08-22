@@ -26,6 +26,7 @@ import ProfileRentingItems from '../../components/ServiceProviderProf/ServicePro
 import TopAppBar from '../../components/TopAppBar';
 import { useUsers } from '../../redux/UserInfo/useUsers';
 import { capitalizeOnlyFirstLetter } from '../../utils/Capitalize';
+import Loading from '../loading';
 import UnauthorizedAccess from '../unauthorized_access';
 
 function AnyServiceProviderProfile() {
@@ -51,7 +52,7 @@ function AnyServiceProviderProfile() {
     setProfilePicture(URL.createObjectURL(file));
   };
 
-  const { currentUser } = useUsers();
+  const { currentUser, usersState } = useUsers();
 
   return currentUser ? (
     <>
@@ -273,6 +274,8 @@ function AnyServiceProviderProfile() {
 
       <Footer />
     </>
+  ) : usersState === 'loading' || usersState === 'idle' ? (
+    <Loading />
   ) : (
     <>
       <UnauthorizedAccess />
