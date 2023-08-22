@@ -19,12 +19,9 @@ import {
   getRentingItemStatus,
   selectRentingItem,
 } from '../../redux/Renting/SingleRentingItemReducer';
-import {
-  fetchUserById,
-  getUser,
-  getUserStatus,
-} from '../../redux/UserInfo/SingleUserInfoReducer';
+import { useUsers } from '../../redux/UserInfo/useUsers';
 import { mobile } from '../../responsive';
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -177,14 +174,13 @@ const ButtonText = styled.span`
 const ViewRentalItem: FunctionComponent = () => {
   const itemId = parseInt(useParams<{ id: string }>().id ?? '0');
   const dispatch: ThunkDispatch<RentingItem, void, AnyAction> = useDispatch();
-  const dispatchUser: ThunkDispatch<User, void, AnyAction> = useDispatch();
 
   const item = useSelector(selectRentingItem);
   const itemStatus = useSelector(getRentingItemStatus);
   const itemError = useSelector(getRentingItemError);
   const [selectedImage, setSelectedImage] = useState('');
-  const [userId, setUserId] = useState(0);
   const [imageUrl, setImageUrl] = useState('');
+
   useEffect(() => {
     if (itemStatus === 'idle') {
       dispatch(fetchRentingItemById(itemId));
@@ -196,37 +192,16 @@ const ViewRentalItem: FunctionComponent = () => {
       setImageUrl(
         `http://localhost:8080/files/renting-item-files/${item?.createdBy}/${item?.id}/`,
       );
-      setUserId(item.createdBy);
-      console.log(item);
     }
   }, [dispatch, item, itemId, itemStatus]);
-
-  const userinfo = useSelector(getUser);
-  const userStatus = useSelector(getUserStatus);
-
-  useEffect(() => {
-    if (userStatus === 'idle') {
-      dispatchUser(fetchUserById(userId));
-    } else {
-      console.log(userinfo);
-    }
-  }, [userStatus, dispatchUser, userinfo, userId]);
 
   const handleImageClick = (image: string) => {
     setSelectedImage(image);
   };
 
-  const [amount, setAmount] = useState(1);
+  const { selectUserById } = useUsers();
 
-  const handleIncrease = () => {
-    setAmount((prevAmount) => prevAmount + 1);
-  };
-
-  const handleDecrease = () => {
-    if (amount > 1) {
-      setAmount((prevAmount) => prevAmount - 1);
-    }
-  };
+  const userinfo = selectUserById(item?.createdBy ?? 0);
 
   return (
     <Container>

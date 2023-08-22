@@ -1,4 +1,3 @@
-import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import type { FunctionComponent } from 'react';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -17,24 +16,16 @@ import {
   Typography,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import NotFound from '../../components/NoResults';
 import TopAppBar from '../../components/TopAppBar';
 import Loading from '../../pages/loading';
 import { useBlogs } from '../../redux/Blogs/useBlogs';
-import { selectUser } from '../../redux/UserAuthenticationReducer';
-import {
-  fetchUserById,
-  getUser,
-  getUserStatus,
-} from '../../redux/UserInfo/SingleUserInfoReducer';
+import { useUsers } from '../../redux/UserInfo/useUsers';
 
 const BlogDetails: FunctionComponent = () => {
   const blogId = parseInt(useParams<{ id: string }>().id ?? '0');
-
-  const dispatchUser: ThunkDispatch<User, void, AnyAction> = useDispatch();
 
   const { blogsStatus, deleteBlogById, selectBlogById } = useBlogs();
 
@@ -43,16 +34,10 @@ const BlogDetails: FunctionComponent = () => {
   const navigate = useNavigate();
 
   const [isMobile, setIsMobile] = useState(false);
-  const loggedInUser = useSelector(selectUser);
 
-  const userInfo = useSelector(getUser);
-  const userStatus = useSelector(getUserStatus);
+  const { currentUser, selectUserById } = useUsers();
 
-  useEffect(() => {
-    if (userStatus === 'idle' && blog) {
-      dispatchUser(fetchUserById(blog.createdBy));
-    }
-  }, [userStatus, dispatchUser, blog]);
+  const userInfo = selectUserById(blog?.createdBy ?? 0);
 
   useEffect(() => {
     const handleResize = () => {
@@ -155,7 +140,7 @@ const BlogDetails: FunctionComponent = () => {
                   />
                 </IconButton>
               </Tooltip>
-              {loggedInUser?.id === blog.createdBy && (
+              {currentUser?.id === blog.createdBy && (
                 <>
                   <Tooltip title="Edit">
                     <IconButton

@@ -1,3 +1,9 @@
+interface UsersInfoState {
+  error: null | string;
+  status: reqStatus;
+  users: User[];
+}
+
 interface Qualification {
   id: number;
   qualification: string;

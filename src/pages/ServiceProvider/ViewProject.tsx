@@ -20,25 +20,19 @@ import {
   getProjectStatus,
   selectProject,
 } from '../../redux/Projects/SingleProjectReducer';
-import {
-  fetchUserById,
-  getUser,
-  getUserStatus,
-} from '../../redux/UserInfo/SingleUserInfoReducer';
 
 const ViewProject: FunctionComponent = () => {
   const projectId = parseInt(useParams<{ id: string }>().id ?? '0');
   const dispatch: ThunkDispatch<Project, void, AnyAction> = useDispatch();
-  const dispatchUser: ThunkDispatch<User, void, AnyAction> = useDispatch();
 
   const project = useSelector(selectProject);
   const projectStatus = useSelector(getProjectStatus);
   const projectError = useSelector(getProjectError);
   const [selectedImage, setSelectedImage] = useState('');
   const [imageUrl, setImageUrl] = useState('');
-  const [userId, setUserId] = useState(0);
 
   const navigate = useNavigate();
+
   useEffect(() => {
     if (projectStatus === 'idle') {
       dispatch(fetchProjectByById(projectId));
@@ -50,22 +44,10 @@ const ViewProject: FunctionComponent = () => {
       setImageUrl(
         `http://localhost:8080/files/project-files/${project?.createdBy}/${project?.id}/`,
       );
-      setUserId(project.createdBy);
       console.log(project);
     }
   }, [dispatch, project, projectId, projectStatus]);
 
-  const userinfo = useSelector(getUser);
-  const userStatus = useSelector(getUserStatus);
-
-  useEffect(() => {
-    if (userStatus === 'idle') {
-      dispatchUser(fetchUserById(userId));
-    } else {
-      console.log(userinfo);
-    }
-  }, [userStatus, dispatchUser, userinfo, userId]);
-  console.log(selectedImage);
   const handleImageClick = (image: string) => {
     setSelectedImage(image);
   };
