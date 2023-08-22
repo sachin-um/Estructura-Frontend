@@ -128,18 +128,12 @@ export const BlogsSlice = createSlice({
         const index = state.blogs.findIndex(
           (blog) => blog.id === action.payload.id,
         );
-        if (index !== -1) {
-          state.blogs.splice(index, 1);
-          state.blogs.push(action.payload);
-        }
+        if (index === -1) throw new Error('Blog not found');
+        state.blogs[index] = action.payload;
+        state.error = null;
       })
       .addCase(deleteBlogThunk.fulfilled, (state, action) => {
-        const index = state.blogs.findIndex(
-          (blog) => blog.id === action.payload,
-        );
-        if (index !== -1) {
-          state.blogs.splice(index);
-        }
+        state.blogs = state.blogs.filter((blog) => blog.id !== action.payload);
       });
   },
 });

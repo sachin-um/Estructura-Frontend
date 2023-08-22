@@ -35,18 +35,12 @@ interface ProjectAddOrUpdateRequest {
 }
 
 interface updateProjectParams {
-  project: Project;
+  projectId: number;
   updatedProject: ProjectAddOrUpdateRequest;
 }
 
-interface ProjectState {
-  error: boolean | null;
-  project: Project | null;
-  reqStatus: reqStatus;
-}
 interface ProjectsState {
   error: boolean | null;
-  mutated: boolean;
   projects: Project[];
   reqStatus: reqStatus;
 }

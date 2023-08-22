@@ -4,7 +4,6 @@ import BlogsReducer from './Blogs/BlogsReducer';
 import CustomRequestReducer from './CustomRequests/CustomRequestReducer';
 import ProfessionalsReducer from './Professionals/ProfessionalsReducer';
 import ProjectsReducer from './Projects/ProjectsReducer';
-import ProjectReducer from './Projects/SingleProjectReducer';
 import RentingItemsReducer from './Renting/RentingItemsReducer';
 import SingleRentingItemReducer from './Renting/SingleRentingItemReducer';
 import RetailItemsReducer from './RetailItems/RetailItemsReducer';
@@ -17,7 +16,6 @@ export const store = configureStore({
     blogs: BlogsReducer,
     customRequest: CustomRequestReducer,
     professionalsInfo: ProfessionalsReducer,
-    project: ProjectReducer,
     projects: ProjectsReducer,
     rentingItem: SingleRentingItemReducer,
     rentingItems: RentingItemsReducer,

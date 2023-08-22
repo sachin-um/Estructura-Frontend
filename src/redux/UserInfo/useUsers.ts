@@ -10,13 +10,13 @@ export const useUsers = () => {
   const users = useSelector(selectAllUsers);
   const usersState = useSelector(getUsersStatus);
 
-  const dispatch: ThunkDispatch<User[], void, AnyAction> = useDispatch();
+  const dispatchUsers: ThunkDispatch<User[], void, AnyAction> = useDispatch();
 
   useEffect(() => {
     if (usersState === 'idle') {
-      dispatch(fetchUsers());
+      dispatchUsers(fetchUsers());
     }
-  }, [dispatch, usersState]);
+  }, [dispatchUsers, usersState]);
 
   const selectUserById = useCallback(
     (userId: number) => users.find((user) => user.id === userId) ?? null,
