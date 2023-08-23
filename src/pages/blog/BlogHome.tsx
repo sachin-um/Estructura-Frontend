@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import NotFound from '../../components/NoResults';
 import TopAppBar from '../../components/TopAppBar';
 import { blogToCard } from '../../components/blog/BlogViewCard';
-import Carousel from '../../components/blog/carousel';
+import HomePageCarousel from '../../components/blog/HomePageCarousel';
 import { useFetchBlogs } from '../../hooks/blog/useFetchBlogs';
 import { selectUser } from '../../redux/UserAuthenticationReducer';
 import Paginate from '../../utils/Paginate';
@@ -78,7 +78,7 @@ const BlogHome: FunctionComponent<BlogHomeProps> = () => {
   ) : (
     <>
       <TopAppBar />
-      <Carousel cards={blogCards} />
+      <HomePageCarousel cards={blogCards} />
       <div
         style={{
           alignItems: 'center', // Align buttons vertically

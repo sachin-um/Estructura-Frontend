@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import TopAppBar from '../../components/TopAppBar';
-import Carousel from '../../components/blog/carousel';
+import HomePageCarousel from '../../components/blog/HomePageCarousel';
 import RentingCards from '../../components/renter/RentingItemCards';
 import RentingSidebar from '../../components/renter/RentingSideBar';
 import {
@@ -163,7 +163,7 @@ const Renters = () => {
   return (
     <>
       <TopAppBar />
-      <Carousel cards={topImages} />
+      <HomePageCarousel cards={topImages} />
       <div
         style={{ display: 'flex', justifyContent: 'flex-end', margin: '20px' }}
       >
