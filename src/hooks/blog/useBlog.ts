@@ -1,3 +1,8 @@
+/**
+ * A custom React hook for managing blog data.
+ *
+ * @returns An object containing functions for adding, editing, and deleting blogs, as well as fetching blog data.
+ */
 import { useCallback, useState } from 'react';
 
 import API from '../../lib/API';
@@ -7,6 +12,10 @@ export const useBlog = () => {
   const [blog, setBlog] = useState<Blog | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  /**
+   * Fetches a blog by its ID and sets the state accordingly.
+   * @param blogId - The ID of the blog to fetch.
+   */
   const fetchBlog = useCallback(async (blogId: number) => {
     setIsLoading(true);
     const response = await API.get<Blog>(`/blogs/blog/${blogId}`);
@@ -18,6 +27,11 @@ export const useBlog = () => {
     setIsLoading(false);
   }, []);
 
+  /**
+   * Adds a new blog to the database.
+   * @param blogAddRequest - The request object containing the blog data to be added.
+   * @returns An object containing the result of the add operation.
+   */
   const addBlog = useCallback(
     async (blogAddRequest: BlogAddOrUpdateRequest) => {
       const result: AddMethodResult<Blog> = {
@@ -52,6 +66,12 @@ export const useBlog = () => {
     [],
   );
 
+  /**
+   * Edit a blog by ID.
+   * @param blogId - The ID of the blog to edit.
+   * @param updatedBlog - The updated blog data.
+   * @returns An object containing information about the update operation.
+   */
   const editBlogById = useCallback(
     async (blogId: number, updatedBlog: BlogAddOrUpdateRequest) => {
       const result: UpdateMethodResult = {
@@ -85,6 +105,11 @@ export const useBlog = () => {
     [],
   );
 
+  /**
+   * Deletes a blog by its ID.
+   * @param id - The ID of the blog to delete.
+   * @returns A boolean indicating whether the deletion was successful or not.
+   */
   const deleteBlogById = useCallback(async (id: number) => {
     const response = await API.delete<GenericDeleteResponse>(
       `/blogs/delete/${id}`,
