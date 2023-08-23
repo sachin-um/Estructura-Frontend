@@ -18,37 +18,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 import NotFound from '../../components/NoResults';
-import {
-  fetchRetailItemByRetailer,
-  getRetailItemsMutated,
-  getRetailItemsStatus,
-  selectAllRetailItems,
-  setRetailItemsMutated,
-} from '../../redux/RetailItems/RetailItemsReducer';
-import { deleteRetailItem } from '../../redux/RetailItems/SingleRetailItemReducer';
-import { selectUser } from '../../redux/UserAuthenticationReducer';
+import { useRetailItems } from '../../redux/RetailItems/useRetailItems';
 
 function ProfileRetailItems() {
-  // TODO: use Previous projects Reducer
-  const LoggedInUser = useSelector(selectUser);
-  const retailitems = useSelector(selectAllRetailItems);
-  const retailitemsStatus = useSelector(getRetailItemsStatus);
-  const retailItemsMutated = useSelector(getRetailItemsMutated);
-
-  const dispatch: ThunkDispatch<RetailItem[], void, AnyAction> = useDispatch();
-
-  useEffect(() => {
-    if (retailitemsStatus === 'idle' && LoggedInUser !== null) {
-      dispatch(fetchRetailItemByRetailer(LoggedInUser.id));
-    }
-  }, [LoggedInUser, dispatch, retailitemsStatus]);
-
-  useEffect(() => {
-    if (retailItemsMutated && LoggedInUser) {
-      dispatch(fetchRetailItemByRetailer(LoggedInUser.id ?? 0));
-      dispatch(setRetailItemsMutated(false));
-    }
-  }, [LoggedInUser, dispatch, retailItemsMutated]);
+  const { deleteRetailItemById, retailItems } = useRetailItems();
 
   const navigate = useNavigate();
 
@@ -64,9 +37,9 @@ function ProfileRetailItems() {
           Add Retail Items
         </Button>
       </Box>
-      {retailitems.length !== 0 && (
+      {retailItems.length !== 0 && (
         <Grid container justifyContent="space-evenly" spacing={2} wrap="wrap">
-          {retailitems.map((retailItem) => {
+          {retailItems.map((retailItem) => {
             console.log(retailItem);
             return (
               <>
@@ -126,10 +99,10 @@ function ProfileRetailItems() {
                       </Button>
                       <Button
                         onClick={() => {
-                          dispatch(deleteRetailItem(retailItem.id)).then(
-                            (action) => {
-                              if (deleteRetailItem.fulfilled.match(action)) {
-                                dispatch(setRetailItemsMutated(true));
+                          deleteRetailItemById(retailItem.id).then(
+                            (deleted) => {
+                              if (deleted) {
+                                alert('Deleted Item');
                               }
                             },
                           );
@@ -166,7 +139,7 @@ function ProfileRetailItems() {
           })}
         </Grid>
       )}
-      {retailitems.length === 0 && <NotFound />}
+      {retailItems.length === 0 && <NotFound />}
     </Container>
   );
 }

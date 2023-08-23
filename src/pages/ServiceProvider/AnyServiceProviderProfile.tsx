@@ -22,7 +22,7 @@ import Reviews from '../../components/ServiceProviderProf/Reviews';
 import ServiceProviderProfileDetails from '../../components/ServiceProviderProf/ServiceProviderProfileDetails';
 import ProfilePreviousProjects from '../../components/ServiceProviderProf/ServiceProviderProfilePreviousProjects';
 import ProfileRetailItems from '../../components/ServiceProviderProf/ServiceProviderProfileRetailItems';
-import ProfileRentingItems from '../../components/ServiceProviderProf/ServiceProviderRentingItems';
+import ProfileRentingItems from '../../components/ServiceProviderProf/ServiceProviderProfileRentingItems';
 import TopAppBar from '../../components/TopAppBar';
 import { useUsers } from '../../redux/UserInfo/useUsers';
 import { capitalizeOnlyFirstLetter } from '../../utils/Capitalize';

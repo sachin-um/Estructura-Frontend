@@ -15,7 +15,7 @@ import ShopCategories from '../../components/shop/ShopCategories';
 import Loading from '../../pages/loading';
 import { setRentingItemsMutated } from '../../redux/Renting/RentingItemsReducer';
 import {
-  fetchRetailItems,
+  fetchRetailItemsThunk,
   getRetailItemsMutated,
   getRetailItemsStatus,
   selectAllRetailItems,
@@ -29,12 +29,12 @@ const ShopHomePage = () => {
 
   useEffect(() => {
     if (itemsStatus === 'idle') {
-      dispatch(fetchRetailItems());
+      dispatch(fetchRetailItemsThunk());
     }
   }, [itemsStatus, dispatch]);
   useEffect(() => {
     if (retailItemsMutated) {
-      dispatch(fetchRetailItems());
+      dispatch(fetchRetailItemsThunk());
       dispatch(setRentingItemsMutated(false));
     }
   }, [dispatch, retailItemsMutated]);

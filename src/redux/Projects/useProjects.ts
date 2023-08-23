@@ -4,27 +4,40 @@ import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { violationsToErrorsTS } from '../../utils/ViolationsTS';
+import { useUsers } from '../UserInfo/useUsers';
 import {
   addProjectThunk,
   deleteProjectThunk,
   editProjectThunk,
-  fetchProjects,
+  fetchProjectsByUserIdThunk,
   getProjectsStatus,
   selectAllProjects,
 } from './ProjectsReducer';
 
-export const useProjects = () => {
+export const useProjects = ({
+  useCurrentUser,
+  userId,
+}: {
+  useCurrentUser?: boolean;
+  userId?: number;
+}) => {
   const projects = useSelector(selectAllProjects);
   const projectsStatus = useSelector(getProjectsStatus);
 
   const dispatchProjects: ThunkDispatch<Project[], void, AnyAction> =
     useDispatch();
 
+  const { currentUser } = useUsers();
+
   useEffect(() => {
     if (projectsStatus === 'idle') {
-      dispatchProjects(fetchProjects());
+      if (userId) {
+        dispatchProjects(fetchProjectsByUserIdThunk(userId));
+      } else if (useCurrentUser && currentUser) {
+        dispatchProjects(fetchProjectsByUserIdThunk(currentUser.id));
+      }
     }
-  }, [dispatchProjects, projectsStatus]);
+  }, [currentUser, dispatchProjects, projectsStatus, useCurrentUser, userId]);
 
   /**
    * ***CREATE***
@@ -52,7 +65,6 @@ export const useProjects = () => {
         );
         if (addProjectThunk.fulfilled.match(value)) {
           console.log('Added Project');
-          // Set projects state as mutated
           result.id = value.payload.id;
         } else if (addProjectThunk.rejected.match(value)) {
           const response = value.payload as GenericAddOrUpdateResponse;

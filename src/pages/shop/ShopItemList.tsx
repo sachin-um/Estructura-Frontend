@@ -1,11 +1,8 @@
-import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
-
 import { Box, Pagination } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { useEffect, useState } from 'react';
 import { FaSort } from 'react-icons/fa';
-import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -15,29 +12,19 @@ import NotFound from '../../components/NoResults';
 import TopAppBar from '../../components/TopAppBar';
 import Newsletter from '../../components/e-com/Blog';
 import ShopCategories from '../../components/shop/ShopCategories';
-import {
-  fetchRetailItems,
-  getRetailItemsStatus,
-  selectAllRetailItems,
-} from '../../redux/RetailItems/RetailItemsReducer';
+import { useRetailItems } from '../../redux/RetailItems/useRetailItems';
 import { mobile } from '../../responsive';
 import Paginate from '../../utils/Paginate';
+
 const ShopItemList = () => {
   const category = useParams().category;
 
-  const itemsStatus = useSelector(getRetailItemsStatus);
-  const retailItems = useSelector(selectAllRetailItems);
-
-  const dispatch: ThunkDispatch<RetailItem[], void, AnyAction> = useDispatch();
+  const { selectRetailItemByCategory } = useRetailItems();
 
   useEffect(() => {
-    if (itemsStatus === 'idle') {
-      dispatch(fetchRetailItems());
-    }
-    if (itemsStatus === 'succeeded') {
-      setItems(retailItems.filter((item) => item.retailItemType === category));
-    }
-  }, [itemsStatus, dispatch, retailItems, category]);
+    if (category)
+      setItems(selectRetailItemByCategory(category as RetailItemType));
+  }, [category, selectRetailItemByCategory]);
 
   const [Items, setItems] = useState<RetailItem[]>([]);
 
@@ -78,7 +65,6 @@ const ShopItemList = () => {
   const [sortedItems, setSortedItems] = useState(Items);
 
   const PaginatedItems = Paginate(sortedItems, pageNumber, pageSize);
-  console.log(PaginatedItems);
 
   return (
     <Container>

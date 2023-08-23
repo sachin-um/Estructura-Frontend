@@ -36,18 +36,12 @@ interface RetailItemAddOrUpdateRequest {
 }
 
 interface updateRetailItemParams {
-  retailItem: RetailItem;
+  retailItemId: number;
   updatedRetailItem: RetailItemAddOrUpdateRequest;
 }
 
-interface RetailItemState {
-  error: boolean | null;
-  reqStatus: reqStatus;
-  retailItem: RetailItem | null;
-}
 interface RetailItemsState {
   error: boolean | null;
-  mutated: boolean;
   reqStatus: reqStatus;
   retailItems: RetailItem[];
 }

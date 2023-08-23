@@ -12,10 +12,10 @@ const initialState: ProjectsState = {
   reqStatus: 'idle',
 };
 
-export const fetchProjects = createAsyncThunk(
+export const fetchProjectsByUserIdThunk = createAsyncThunk(
   'Projects/fetchProjects',
-  async () => {
-    const response = await API.get<Project[]>('/projects/all');
+  async (userId: number) => {
+    const response = await API.get<Project[]>(`/projects/all/${userId}`);
     return response.status === 200 ? response.data : [];
   },
 );
@@ -94,14 +94,14 @@ export const ProjectsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchProjects.pending, (state) => {
+      .addCase(fetchProjectsByUserIdThunk.pending, (state) => {
         state.reqStatus = 'loading';
       })
-      .addCase(fetchProjects.fulfilled, (state, action) => {
+      .addCase(fetchProjectsByUserIdThunk.fulfilled, (state, action) => {
         state.reqStatus = 'succeeded';
         state.projects = action.payload;
       })
-      .addCase(fetchProjects.rejected, (state) => {
+      .addCase(fetchProjectsByUserIdThunk.rejected, (state) => {
         state.reqStatus = 'failed';
         state.error = true;
       })

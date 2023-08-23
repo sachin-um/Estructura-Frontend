@@ -7,7 +7,6 @@ import ProjectsReducer from './Projects/ProjectsReducer';
 import RentingItemsReducer from './Renting/RentingItemsReducer';
 import SingleRentingItemReducer from './Renting/SingleRentingItemReducer';
 import RetailItemsReducer from './RetailItems/RetailItemsReducer';
-import SingleRetailItemReducer from './RetailItems/SingleRetailItemReducer';
 import UserAuthenticationReducer from './UserAuthenticationReducer';
 import UsersInfoReducer from './UserInfo/UsersInfoReducer';
 
@@ -19,7 +18,6 @@ export const store = configureStore({
     projects: ProjectsReducer,
     rentingItem: SingleRentingItemReducer,
     rentingItems: RentingItemsReducer,
-    retailItem: SingleRetailItemReducer,
     retailItems: RetailItemsReducer,
     user: UserAuthenticationReducer,
     usersInfo: UsersInfoReducer,

@@ -1,43 +1,33 @@
-import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import type { FunctionComponent } from 'react';
 
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import RentalItemForm from '../../../components/ServiceProviderProf/RentalItemForm';
 import TopAppBar from '../../../components/TopAppBar';
-import {
-  fetchRentingItemById,
-  selectRentingItem,
-} from '../../../redux/Renting/SingleRentingItemReducer';
-import { selectUser } from '../../../redux/UserAuthenticationReducer';
+import { useRentingItems } from '../../../redux/Renting/useRentingItems';
+import { useUsers } from '../../../redux/UserInfo/useUsers';
 import UnauthorizedAccess from '../../unauthorized_access';
 
 const EditRentalItem: FunctionComponent = () => {
-  const userInfo = useSelector(selectUser);
+  const { currentUser } = useUsers();
 
   const rentalItemId = parseInt(useParams<{ id: string }>().id ?? '0');
 
-  const dispatch: ThunkDispatch<RentingItem, void, AnyAction> = useDispatch();
+  const { selectRentingItemById } = useRentingItems();
 
-  const rentalItem = useSelector(selectRentingItem);
-
-  useEffect(() => {
-    dispatch(fetchRentingItemById(rentalItemId));
-  }, [dispatch, rentalItemId]);
+  const rentalItem = selectRentingItemById(rentalItemId);
 
   return (
     <>
       <TopAppBar />
-      {userInfo &&
-      userInfo.id &&
-      userInfo.serviceProviderType ===
+      {currentUser &&
+      currentUser.id &&
+      currentUser.serviceProviderType ===
         ('RENTINGCOMPANY' as ServiceProviders) ? (
         <RentalItemForm
-          {...(rentalItem && rentalItem.createdBy === userInfo.id
-            ? { OriginalRentingItem: rentalItem, userId: userInfo.id }
-            : { userId: userInfo.id })}
+          {...(rentalItem && rentalItem.createdBy === currentUser.id
+            ? { OriginalRentingItem: rentalItem, userId: currentUser.id }
+            : { userId: currentUser.id })}
         />
       ) : (
         <UnauthorizedAccess />

@@ -57,7 +57,6 @@ export const useBlogs = () => {
         const value = await dispatchBlogs(addBlogThunk(addBlogRequest));
         if (addBlogThunk.fulfilled.match(value)) {
           console.log('Added Blog');
-          // Set blogs state as mutated
           result.id = value.payload.id;
         } else if (addBlogThunk.rejected.match(value)) {
           const response = value.payload as GenericAddOrUpdateResponse;

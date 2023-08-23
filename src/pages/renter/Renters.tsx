@@ -8,7 +8,7 @@ import Carousel from '../../components/blog/carousel';
 import RentingCards from '../../components/renter/RentingItemCards';
 import RentingSidebar from '../../components/renter/RentingSideBar';
 import {
-  fetchRentingItems,
+  fetchRentingItemsThunk,
   getRentingItemsStatus,
   selectAllRentingItems,
 } from '../../redux/Renting/RentingItemsReducer';
@@ -77,7 +77,7 @@ const Renters = () => {
 
   useEffect(() => {
     if (status === 'idle') {
-      dispatch(fetchRentingItems());
+      dispatch(fetchRentingItemsThunk());
     } else if (status === 'succeeded') {
       const filteredByCategory = data.filter(
         (item) => item.category === selectedTab,

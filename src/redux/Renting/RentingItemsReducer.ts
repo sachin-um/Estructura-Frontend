@@ -1,5 +1,3 @@
-import type { PayloadAction } from '@reduxjs/toolkit';
-
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import type { RootState } from '../store';
@@ -8,22 +6,11 @@ import API from '../../lib/API';
 
 const initialState: RentingItemsState = {
   error: null,
-  mutated: false,
   rentingItems: [],
   reqStatus: 'idle',
 };
 
-export const fetchRentingItemByRenter = createAsyncThunk(
-  'rentingItems/fetchRentingItemsByRenter',
-  async (userId: number) => {
-    const response = await API.get<RentingItem[]>(
-      `/renting-items/allByUser/${userId}`,
-    );
-    return response.status === 200 ? response.data : [];
-  },
-);
-
-export const fetchRentingItems = createAsyncThunk(
+export const fetchRentingItemsThunk = createAsyncThunk(
   'rentingItems/fetchRentingItems',
   async () => {
     const response = await API.get<RentingItem[]>('/renting-items/all');
@@ -36,49 +23,117 @@ export const fetchRentingItems = createAsyncThunk(
   },
 );
 
+// ! Make sure to check the user is logged in before calling this function
+export const addRentingItemThunk = createAsyncThunk(
+  'rentingItems/add',
+  async (
+    rentingItemAddRequest: RentingItemAddOrUpdateRequest,
+    { rejectWithValue },
+  ) => {
+    const response = await API.post<GenericAddOrUpdateResponse>(
+      '/renting-items/add',
+      rentingItemAddRequest,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      },
+    );
+    if (response.status !== 200 || response.data.success === false) {
+      if (response.status !== 200) {
+        console.error('AddRentingItemResponse.status !== 200');
+        console.table(response);
+      }
+      return rejectWithValue(response.data);
+    }
+    const id: number = response.data.id;
+    const rentingItem = (
+      await API.get<RentingItem>(`/renting-items/item/${id}`)
+    ).data;
+    return rentingItem;
+  },
+);
+
+// ! Make sure to check the user is logged in before calling this function
+export const editRentingItemThunk = createAsyncThunk(
+  'rentingItems/update',
+  async (update: updateRentingItemParams, { rejectWithValue }) => {
+    const response = await API.post<GenericAddOrUpdateResponse>(
+      `/renting-items/update/${update.rentingItemId}`,
+      update.updatedRentingItem,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      },
+    );
+    if (response.status !== 200 || response.data.success === false) {
+      if (response.status !== 200) {
+        console.error('EditRentingItemResponse.status !== 200');
+        console.table(response);
+      }
+      return rejectWithValue(response.data);
+    }
+    const id: number = response.data.id;
+    const rentingItemResponse = (
+      await API.get<RentingItem>(`/rentingItems/rentingItem/${id}`)
+    ).data;
+    return rentingItemResponse;
+  },
+);
+
+// ! Make sure to check the user is logged in before calling this function
+export const deleteRentingItemThunk = createAsyncThunk(
+  'rentingItems/delete',
+  async (id: number, { rejectWithValue }) => {
+    const response = await API.delete<GenericDeleteResponse>(
+      `/renting-items/delete/${id}`,
+    );
+    if (response.status !== 200 || response.data.success === false) {
+      if (response.status !== 200) {
+        console.error('DeleteRentingItemResponse.status !== 200');
+        console.table(response);
+      }
+      return rejectWithValue(response.data);
+    }
+    return id;
+  },
+);
+
 export const RentingItemsSlice = createSlice({
   name: 'RentingItems',
   initialState,
-  reducers: {
-    setRentingItems(state, action: PayloadAction<RentingItem[]>) {
-      state.rentingItems = action.payload;
-    },
-    setRentingItemsMutated(state, action: PayloadAction<boolean>) {
-      state.mutated = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchRentingItems.pending, (state) => {
+      .addCase(fetchRentingItemsThunk.pending, (state) => {
         state.reqStatus = 'loading';
       })
-      .addCase(fetchRentingItems.fulfilled, (state, action) => {
+      .addCase(fetchRentingItemsThunk.fulfilled, (state, action) => {
         state.reqStatus = 'succeeded';
         state.rentingItems = action.payload;
       })
-      .addCase(fetchRentingItems.rejected, (state) => {
+      .addCase(fetchRentingItemsThunk.rejected, (state) => {
         state.reqStatus = 'failed';
         state.error = true;
       })
-      .addCase(fetchRentingItemByRenter.pending, (state) => {
-        state.reqStatus = 'loading';
+      .addCase(addRentingItemThunk.fulfilled, (state, action) => {
+        state.rentingItems.push(action.payload);
       })
-      .addCase(fetchRentingItemByRenter.fulfilled, (state, action) => {
-        state.reqStatus = 'succeeded';
-        state.rentingItems = action.payload;
+      .addCase(editRentingItemThunk.fulfilled, (state, action) => {
+        const index = state.rentingItems.findIndex(
+          (rentingItem) => rentingItem.id === action.payload.id,
+        );
+        if (index === -1) throw new Error('RentingItem not found');
+        state.rentingItems[index] = action.payload;
       })
-      .addCase(fetchRentingItemByRenter.rejected, (state) => {
-        state.reqStatus = 'failed';
-        state.error = true;
+      .addCase(deleteRentingItemThunk.fulfilled, (state, action) => {
+        state.rentingItems = state.rentingItems.filter(
+          (rentingItem) => rentingItem.id !== action.payload,
+        );
       });
   },
 });
-
-export const { setRentingItems, setRentingItemsMutated } =
-  RentingItemsSlice.actions;
-
-export const getRentingItemsMutated = (state: RootState) =>
-  state.rentingItems.mutated;
 
 export const getRentingItemsStatus = (state: RootState) =>
   state.rentingItems.reqStatus;

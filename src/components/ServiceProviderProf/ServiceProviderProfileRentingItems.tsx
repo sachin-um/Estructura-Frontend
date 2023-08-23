@@ -1,13 +1,6 @@
-import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
-
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import PersonIcon from '@mui/icons-material/Person';
-import RoomIcon from '@mui/icons-material/Room';
 import ScheduleIcon from '@mui/icons-material/Schedule';
-import StoreIcon from '@mui/icons-material/Store';
 import {
   Box,
   Button,
@@ -18,46 +11,14 @@ import {
   Grid,
   Typography,
 } from '@mui/material';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import '../../assets/font.css';
-import NotFound from '../../components/NoResults';
-import {
-  fetchRentingItemByRenter,
-  getRentingItemsMutated,
-  getRentingItemsStatus,
-  selectAllRentingItems,
-  setRentingItemsMutated,
-} from '../../redux/Renting/RentingItemsReducer';
-import {
-  deleteRentingItem,
-  getRentingItemStatus,
-} from '../../redux/Renting/SingleRentingItemReducer';
-import { selectUser } from '../../redux/UserAuthenticationReducer';
+import { useRentingItems } from '../../redux/Renting/useRentingItems';
+import NotFound from '../NoResults';
 
 function ProfileRentingItems() {
-  // TODO: use Previous projects Reducer
-  const LoggedInUser = useSelector(selectUser);
-  const rentingItems = useSelector(selectAllRentingItems);
-  const RentingItemsStatus = useSelector(getRentingItemsStatus);
-  const rentingItemsMutated = useSelector(getRentingItemsMutated);
-
-  const dispatch: ThunkDispatch<RentingItem[], void, AnyAction> = useDispatch();
-
-  useEffect(() => {
-    if (RentingItemsStatus === 'idle' && LoggedInUser !== null) {
-      dispatch(fetchRentingItemByRenter(LoggedInUser.id));
-    }
-  }, [LoggedInUser, dispatch, RentingItemsStatus]);
-
-  useEffect(() => {
-    if (rentingItemsMutated && LoggedInUser) {
-      dispatch(fetchRentingItemByRenter(LoggedInUser.id));
-      dispatch(setRentingItemsMutated(false));
-    }
-  }, [LoggedInUser, dispatch, rentingItemsMutated]);
+  const { rentingItemsOfCurrentUser: rentingItems } = useRentingItems();
 
   const navigate = useNavigate();
 
@@ -115,41 +76,6 @@ function ProfileRentingItems() {
                             rentingItem.scale ?? 'ERROR'
                           }`}
                         </Box>
-                        {/* <Box
-                          alignItems="center"
-                          display="flex"
-                          gap={1}
-                          marginBottom={1}
-                          marginTop="10px"
-                        >
-                          {/* <PersonIcon color="primary" fontSize="small" /> */}
-                        {/* <Typography variant="body2">
-                            { ?? 'Unknown'}
-                          </Typography> */}
-                        {/* </Box> */}
-                        {/* Typescript use kare monatada value ekak thiyenawada eke type eka mokadda balannewath nathuwa? */}
-                        {/* <Box
-                          alignItems="center"
-                          display="flex"
-                          gap={1}
-                          marginBottom={1}
-                        >
-                          <StoreIcon color="primary" fontSize="small" />
-                          <Typography variant="body2">
-                            {rentingItem.createdBy ?? 'Unknown Store'}
-                          </Typography>
-                        </Box>
-                        <Box
-                          alignItems="center"
-                          display="flex"
-                          gap={1}
-                          marginBottom={1}
-                        >
-                          <LocationOnIcon color="primary" fontSize="small" />
-                          <Typography variant="body2">
-                            {rentingItem.location ?? 'Unknown Location'}
-                          </Typography>
-                        </Box> */}
                       </Typography>
                     </CardContent>
                     <CardActions sx={{ justifyContent: 'center' }}>
@@ -165,17 +91,17 @@ function ProfileRentingItems() {
                       </Button>
                       <Button
                         onClick={() => {
-                          dispatch(deleteRentingItem(rentingItem.id)).then(
-                            (action) => {
-                              if (deleteRentingItem.fulfilled.match(action)) {
-                                if (LoggedInUser) {
-                                  dispatch(
-                                    fetchRentingItemByRenter(LoggedInUser.id),
-                                  );
-                                }
-                              }
-                            },
-                          );
+                          // dispatch(deleteRentingItem(rentingItem.id)).then(
+                          //   (action) => {
+                          //     if (deleteRentingItem.fulfilled.match(action)) {
+                          //       if (LoggedInUser) {
+                          //         dispatch(
+                          //           fetchRentingItemByRenter(LoggedInUser.id),
+                          //         );
+                          //       }
+                          //     }
+                          //   },
+                          // );
                         }}
                         startIcon={<DeleteIcon />}
                         sx={{ width: '130px' }}
