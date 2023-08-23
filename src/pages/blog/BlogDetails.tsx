@@ -20,16 +20,21 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import NotFound from '../../components/NoResults';
 import TopAppBar from '../../components/TopAppBar';
+import { useBlog } from '../../hooks/blog/useBlog';
 import Loading from '../../pages/loading';
-import { useBlogs } from '../../redux/Blogs/useBlogs';
 import { useUsers } from '../../redux/UserInfo/useUsers';
 
 const BlogDetails: FunctionComponent = () => {
   const blogId = parseInt(useParams<{ id: string }>().id ?? '0');
 
-  const { blogsStatus, deleteBlogById, selectBlogById } = useBlogs();
+  const {
+    deleteBlogById,
+    getBlog: { blog, fetchBlog, isLoading },
+  } = useBlog();
 
-  const blog = selectBlogById(blogId);
+  useEffect(() => {
+    fetchBlog(blogId);
+  }, [blogId, fetchBlog]);
 
   const navigate = useNavigate();
 
@@ -66,7 +71,7 @@ const BlogDetails: FunctionComponent = () => {
     <>
       <TopAppBar />
 
-      {blogsStatus === 'loading' ? (
+      {isLoading ? (
         <Loading />
       ) : blog ? (
         <div

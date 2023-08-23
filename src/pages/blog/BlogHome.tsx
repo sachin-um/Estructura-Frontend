@@ -1,7 +1,7 @@
 import type { FunctionComponent } from 'react';
 
 import { Box, Container, Grid, Pagination, Stack } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,9 +9,10 @@ import NotFound from '../../components/NoResults';
 import TopAppBar from '../../components/TopAppBar';
 import { blogToCard } from '../../components/blog/BlogViewCard';
 import Carousel from '../../components/blog/carousel';
-import { useBlogs } from '../../redux/Blogs/useBlogs';
+import { useFetchBlogs } from '../../hooks/blog/useFetchBlogs';
 import { selectUser } from '../../redux/UserAuthenticationReducer';
 import Paginate from '../../utils/Paginate';
+import Loading from '../loading';
 
 interface BlogHomeProps {
   children?: React.ReactNode;
@@ -45,7 +46,11 @@ const blogCards = [
 ];
 
 const BlogHome: FunctionComponent<BlogHomeProps> = () => {
-  const { blogs } = useBlogs();
+  const { blogs, fetchBlogs, isLoading } = useFetchBlogs();
+
+  useEffect(() => {
+    fetchBlogs();
+  }, [fetchBlogs]);
 
   const [showMyBlogs, setShowMyBlogs] = useState(false);
 
@@ -65,7 +70,12 @@ const BlogHome: FunctionComponent<BlogHomeProps> = () => {
 
   const navigate = useNavigate();
 
-  return (
+  return isLoading ? (
+    <>
+      <TopAppBar />
+      <Loading />
+    </>
+  ) : (
     <>
       <TopAppBar />
       <Carousel cards={blogCards} />
