@@ -13,8 +13,8 @@ import NotFound from '../../components/NoResults';
 import TopAppBar from '../../components/TopAppBar';
 import Newsletter from '../../components/e-com/Blog';
 import { useRetailItem } from '../../hooks/retailItem/useRetailItem';
+import useFetchUser from '../../hooks/users/useFetchUser';
 import Loading from '../../pages/loading';
-import { useUsers } from '../../redux/UserInfo/useUsers';
 import { mobile } from '../../responsive';
 
 const ShopItem: FunctionComponent = () => {
@@ -31,9 +31,13 @@ const ShopItem: FunctionComponent = () => {
   const [selectedImage, setSelectedImage] = useState('');
   const [imageUrl, setImageUrl] = useState('');
 
-  const { selectUserById } = useUsers();
+  const { fetchUserById, user } = useFetchUser();
 
-  const userinfo = selectUserById(retailItem?.createdBy ?? 0);
+  useEffect(() => {
+    if (retailItem) {
+      fetchUserById(retailItem.createdBy);
+    }
+  }, [retailItem, fetchUserById]);
 
   useEffect(() => {
     if (retailItem) {
@@ -131,7 +135,7 @@ const ShopItem: FunctionComponent = () => {
             <PriceContainer>
               <Price>LKR. {retailItem.price.toFixed(2)}</Price>
             </PriceContainer>
-            {userinfo?.role === 'CUSTOMER' && (
+            {user?.role === 'CUSTOMER' && (
               <ActionContainer>
                 <ButtonContainer>
                   <AddToCartButton>
@@ -153,19 +157,18 @@ const ShopItem: FunctionComponent = () => {
 
             <ContactContainer>
               <StoreIcon></StoreIcon>
-              <Contact>{userinfo?.businessName}</Contact>
+              <Contact>{user?.businessName}</Contact>
             </ContactContainer>
 
             <ContactContainer>
               <CallIcon></CallIcon>
-              <ContactNo>{userinfo?.businessContactNo}</ContactNo>
+              <ContactNo>{user?.businessContactNo}</ContactNo>
             </ContactContainer>
 
             <ContactContainer>
               <LocationOnIcon></LocationOnIcon>
               <Contact>
-                {userinfo?.addressLine1}, {userinfo?.addressLine2},{' '}
-                {userinfo?.district}.
+                {user?.addressLine1}, {user?.addressLine2}, {user?.district}.
               </Contact>
             </ContactContainer>
           </InfoContainer>

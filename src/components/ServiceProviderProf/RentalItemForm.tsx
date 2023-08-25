@@ -27,8 +27,8 @@ import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import { useRentingItem } from '../../hooks/rentingItem/useRentingItem';
+import useCurrentUser from '../../hooks/users/useCurrentUser';
 import UnauthorizedAccess from '../../pages/unauthorized_access';
-import { useUsers } from '../../redux/UserInfo/useUsers';
 import GetFormikProps from '../../utils/GetFormikProps';
 import Footer from '../Footer';
 
@@ -107,7 +107,7 @@ const RentalItemForm: FunctionComponent<RentingItemFormProps> = ({
   const mainImageUploadRef = useRef<HTMLInputElement>(null);
   const extraImageUploadRef = useRef<HTMLInputElement>(null);
 
-  const { currentUser } = useUsers();
+  const currentUser = useCurrentUser();
 
   const { addRentingItem, editRentingItemById } = useRentingItem();
 

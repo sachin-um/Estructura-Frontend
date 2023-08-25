@@ -6,35 +6,6 @@ import type { RootState } from './store';
 
 import API from '../lib/API';
 
-export interface UserState {
-  ProfileImage: null | string;
-  ProfileImageName: null | string;
-  email: string;
-  firstName: string;
-  id: number;
-  lastName: string;
-  role: Role;
-  serviceProviderType?: ServiceProviders;
-}
-
-export interface SignInRequest {
-  email: string;
-  password: string;
-}
-
-export interface AuthenticationResponse extends ValidatedResponse, UserState {
-  accessToken: null | string;
-  refreshToken: null | string;
-  success: boolean;
-}
-
-export interface RefreshTokenResponse {
-  accessToken: null | string;
-  message: null | string;
-  refreshToken: null | string;
-  success: boolean;
-}
-
 const initialState: {
   accessToken: null | string;
   isAuthenticated: boolean;
@@ -138,6 +109,16 @@ const UserAuthenticationSlice = createSlice({
         API.defaults.headers.common.Authorization = null;
       })
       .addCase(signOut.fulfilled, (state) => {
+        state.isAuthenticated = false;
+        state.userState = null;
+        state.accessToken = null;
+        state.refreshToken = null;
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('user');
+        API.defaults.headers.common.Authorization = null;
+      })
+      .addCase(signOut.rejected, (state) => {
         state.isAuthenticated = false;
         state.userState = null;
         state.accessToken = null;

@@ -21,8 +21,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import NotFound from '../../components/NoResults';
 import TopAppBar from '../../components/TopAppBar';
 import { useBlog } from '../../hooks/blog/useBlog';
+import useCurrentUser from '../../hooks/users/useCurrentUser';
+import useFetchUser from '../../hooks/users/useFetchUser';
 import Loading from '../../pages/loading';
-import { useUsers } from '../../redux/UserInfo/useUsers';
 
 const BlogDetails: FunctionComponent = () => {
   const blogId = parseInt(useParams<{ id: string }>().id ?? '0');
@@ -40,9 +41,15 @@ const BlogDetails: FunctionComponent = () => {
 
   const [isMobile, setIsMobile] = useState(false);
 
-  const { currentUser, selectUserById } = useUsers();
+  const currentUser = useCurrentUser();
 
-  const userInfo = selectUserById(blog?.createdBy ?? 0);
+  const { fetchUserById, user } = useFetchUser();
+
+  useEffect(() => {
+    if (blog) {
+      fetchUserById(blog.createdBy);
+    }
+  }, [blog, fetchUserById]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -239,18 +246,18 @@ const BlogDetails: FunctionComponent = () => {
                   />
                   <Typography variant="h6">{blog.creatorName}</Typography>
                   <Typography color="textSecondary" variant="body2">
-                    {userInfo?.role}
+                    {user?.role}
                   </Typography>
                   <Stack alignItems="center" direction="row" spacing={1}>
                     <LocationOnIcon sx={{ fontSize: 16 }} />
                     <Typography color="textSecondary" variant="body2">
-                      {userInfo?.district}, Sri Lanka
+                      {user?.district}, Sri Lanka
                     </Typography>
                   </Stack>
                   <Stack alignItems="center" direction="row" spacing={1}>
                     <EmailIcon sx={{ fontSize: 16 }} />
                     <Typography color="textSecondary" variant="body2">
-                      {userInfo?.email}
+                      {user?.email}
                     </Typography>
                   </Stack>
                 </Stack>

@@ -12,8 +12,8 @@ import { useState } from 'react';
 import '../../assets/font.css';
 
 function ServiceProviderProfileDetails({ userDetails }: { userDetails: User }) {
-  const [firstName, setfirstName] = useState(userDetails.firstName);
-  const [lastName, setlastName] = useState(userDetails.lastName);
+  const [firstName, setFirstName] = useState(userDetails.firstName);
+  const [lastName, setLastName] = useState(userDetails.lastName);
   const [nic, setNic] = useState(userDetails?.nic ?? 'Unknown');
   const [businessName, setBusinessName] = useState(
     userDetails?.businessName ?? 'Unknown',
@@ -60,14 +60,14 @@ function ServiceProviderProfileDetails({ userDetails }: { userDetails: User }) {
                     <TextField
                       fullWidth
                       label="First Name"
-                      onChange={(e) => setfirstName(e.target.value)}
+                      onChange={(e) => setFirstName(e.target.value)}
                       value={firstName}
                       variant="outlined"
                     />
                     <TextField
                       fullWidth
                       label="Last Name"
-                      onChange={(e) => setlastName(e.target.value)}
+                      onChange={(e) => setLastName(e.target.value)}
                       value={lastName}
                       variant="outlined"
                     />
@@ -208,7 +208,7 @@ function ServiceProviderProfileDetails({ userDetails }: { userDetails: User }) {
                       fontFamily="Poppins"
                       variant="body1"
                     >
-                      {userDetails.sliaregNumber}
+                      {userDetails.sliaRegNumber}
                     </Typography>
                   </Grid>
                 </>

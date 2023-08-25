@@ -27,8 +27,8 @@ import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import { useRetailItem } from '../../hooks/retailItem/useRetailItem';
+import useCurrentUser from '../../hooks/users/useCurrentUser';
 import UnauthorizedAccess from '../../pages/unauthorized_access';
-import { useUsers } from '../../redux/UserInfo/useUsers';
 import GetFormikProps from '../../utils/GetFormikProps';
 import Footer from '../Footer';
 
@@ -110,7 +110,7 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
   const extraImageUploadRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
 
-  const { currentUser } = useUsers();
+  const currentUser = useCurrentUser();
 
   const { addRetailItem, editRetailItemById } = useRetailItem();
 
@@ -178,7 +178,7 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
     (_, index) => index + 1,
   );
 
-  const removemainImage = () => {
+  const removeMainImage = () => {
     setMainImage('');
     setMainImageName('');
   };
@@ -407,7 +407,7 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
                               right: 5,
                               top: 5,
                             }}
-                            onClick={() => removemainImage()}
+                            onClick={() => removeMainImage()}
                             size="small"
                           >
                             <Tooltip title="Remove Image">

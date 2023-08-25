@@ -5,7 +5,7 @@ import HomePageCarousel from '../../components/blog/HomePageCarousel';
 import RentingCards from '../../components/renter/RentingItemCards';
 import RentingSidebar from '../../components/renter/RentingSideBar';
 import { useFetchRentingItems } from '../../hooks/rentingItem/useFetchRentingItems';
-import { useUsers } from '../../redux/UserInfo/useUsers';
+import useFetchAllUsers from '../../hooks/users/useFetchAllUsers';
 
 const topImages = [
   {
@@ -52,13 +52,17 @@ const AllRentingItems = () => {
   const [locationOption, setLocationOption] = useState('islandwide');
   const [selectedDistricts, setSelectedDistricts] = useState<string[]>([]);
 
-  const { users: usersInfo } = useUsers();
+  const { fetchAllUsers, users } = useFetchAllUsers();
+
+  useEffect(() => {
+    fetchAllUsers();
+  }, [fetchAllUsers]);
 
   useEffect(() => {
     if (locationOption !== 'islandwide' && selectedDistricts.length > 0) {
       setFilteredData((_da) =>
         rentingItems.filter((item) => {
-          const user = usersInfo.find((user) => user.id === item.createdBy);
+          const user = users.find((user) => user.id === item.createdBy);
           if (user) {
             return selectedDistricts.includes(user.district ?? '');
           }
@@ -95,13 +99,7 @@ const AllRentingItems = () => {
       default:
         break;
     }
-  }, [
-    rentingItems,
-    locationOption,
-    selectedDistricts,
-    sortingOption,
-    usersInfo,
-  ]);
+  }, [rentingItems, locationOption, selectedDistricts, sortingOption, users]);
 
   return (
     <>
@@ -189,7 +187,7 @@ const AllRentingItems = () => {
             padding: '1rem',
           }}
         >
-          <RentingCards data={filteredData} usersInfo={usersInfo} />
+          <RentingCards data={filteredData} usersInfo={users} />
         </div>
       </div>
     </>

@@ -17,10 +17,10 @@ import { useNavigate } from 'react-router-dom';
 import NotFound from '../../components/NoResults';
 import { useFetchRetailItems } from '../../hooks/retailItem/useFetchRetailItems';
 import { useRetailItem } from '../../hooks/retailItem/useRetailItem';
-import { useUsers } from '../../redux/UserInfo/useUsers';
+import useCurrentUser from '../../hooks/users/useCurrentUser';
 
 function ProfileRetailItems() {
-  const { currentUser } = useUsers();
+  const currentUser = useCurrentUser();
   const { deleteRetailItemById } = useRetailItem();
   const { fetchRetailItems, retailItems } = useFetchRetailItems();
 

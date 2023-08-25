@@ -1,8 +1,5 @@
-import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
-
 import { Box, Button, Typography } from '@mui/material';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import '../../assets/font.css';

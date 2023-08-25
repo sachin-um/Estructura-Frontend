@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import ProjectForm from '../../../components/ServiceProviderProf/ProjectForm';
 import TopAppBar from '../../../components/TopAppBar';
 import { useProject } from '../../../hooks/project/useProject';
-import { useUsers } from '../../../redux/UserInfo/useUsers';
+import useCurrentUser from '../../../hooks/users/useCurrentUser';
 import Loading from '../../loading';
 import UnauthorizedAccess from '../../unauthorized_access';
 
@@ -21,7 +21,7 @@ const EditProject: FunctionComponent = () => {
     fetchProject(projectId);
   }, [fetchProject, projectId]);
 
-  const { currentUser } = useUsers();
+  const currentUser = useCurrentUser();
 
   return (
     <>

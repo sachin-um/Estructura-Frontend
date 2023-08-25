@@ -17,11 +17,11 @@ import { useNavigate } from 'react-router-dom';
 import '../../assets/font.css';
 import { useFetchRentingItems } from '../../hooks/rentingItem/useFetchRentingItems';
 import { useRentingItem } from '../../hooks/rentingItem/useRentingItem';
-import { useUsers } from '../../redux/UserInfo/useUsers';
+import useCurrentUser from '../../hooks/users/useCurrentUser';
 import NotFound from '../NoResults';
 
 function ProfileRentingItems() {
-  const { currentUser } = useUsers();
+  const currentUser = useCurrentUser();
   const { fetchRentingItems, rentingItems } = useFetchRentingItems();
   const { deleteRentingItemById } = useRentingItem();
 

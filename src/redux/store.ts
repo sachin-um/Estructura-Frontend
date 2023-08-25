@@ -7,7 +7,7 @@ import ProfessionalsReducer from './Professionals/ProfessionalsReducer';
 // import SingleRentingItemReducer from './Renting/SingleRentingItemReducer';
 // import RetailItemsReducer from './RetailItems/RetailItemsReducer';
 import UserAuthenticationReducer from './UserAuthenticationReducer';
-import UsersInfoReducer from './UserInfo/UsersInfoReducer';
+// import UsersInfoReducer from './UserInfo/UsersInfoReducer';
 
 export const store = configureStore({
   reducer: {
@@ -18,7 +18,7 @@ export const store = configureStore({
     // rentingItems: RentingItemsReducer,
     // retailItems: RetailItemsReducer,
     user: UserAuthenticationReducer,
-    usersInfo: UsersInfoReducer,
+    // usersInfo: UsersInfoReducer,
   },
 });
 

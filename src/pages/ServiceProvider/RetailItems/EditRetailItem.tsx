@@ -6,11 +6,11 @@ import { useParams } from 'react-router-dom';
 import RetailItemForm from '../../../components/ServiceProviderProf/RetailItemForm';
 import TopAppBar from '../../../components/TopAppBar';
 import { useRetailItem } from '../../../hooks/retailItem/useRetailItem';
-import { useUsers } from '../../../redux/UserInfo/useUsers';
+import useCurrentUser from '../../../hooks/users/useCurrentUser';
 import UnauthorizedAccess from '../../unauthorized_access';
 
 const EditRetailItem: FunctionComponent = () => {
-  const { currentUser } = useUsers();
+  const currentUser = useCurrentUser();
 
   const retailItemId = parseInt(useParams<{ id: string }>().id ?? '0');
 

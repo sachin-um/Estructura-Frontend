@@ -11,8 +11,8 @@ import Footer from '../../components/Footer';
 import NotFound from '../../components/NoResults';
 import TopAppBar from '../../components/TopAppBar';
 import { useRentingItem } from '../../hooks/rentingItem/useRentingItem';
+import useFetchUser from '../../hooks/users/useFetchUser';
 import Loading from '../../pages/loading';
-import { useUsers } from '../../redux/UserInfo/useUsers';
 import { mobile } from '../../responsive';
 
 const Container = styled.div`
@@ -193,9 +193,13 @@ const ViewRentalItem: FunctionComponent = () => {
     setSelectedImage(image);
   };
 
-  const { selectUserById } = useUsers();
+  const { fetchUserById, user } = useFetchUser();
 
-  const userinfo = selectUserById(rentingItem?.createdBy ?? 0);
+  useEffect(() => {
+    if (rentingItem) {
+      fetchUserById(rentingItem.createdBy);
+    }
+  }, [rentingItem, fetchUserById]);
 
   return (
     <Container>
@@ -272,19 +276,18 @@ const ViewRentalItem: FunctionComponent = () => {
 
             <ContactContainer>
               <StoreIcon></StoreIcon>
-              <Contact>{userinfo?.businessName}</Contact>
+              <Contact>{user?.businessName}</Contact>
             </ContactContainer>
 
             <ContactContainer>
               <CallIcon></CallIcon>
-              <ContactNo>{userinfo?.businessContactNo}</ContactNo>
+              <ContactNo>{user?.businessContactNo}</ContactNo>
             </ContactContainer>
 
             <ContactContainer>
               <LocationOnIcon></LocationOnIcon>
               <Contact>
-                {userinfo?.addressLine1}, {userinfo?.addressLine2},
-                {userinfo?.district}.
+                {user?.addressLine1}, {user?.addressLine2},{user?.district}.
               </Contact>
             </ContactContainer>
           </InfoContainer>

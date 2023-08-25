@@ -48,7 +48,7 @@ interface Professional {
   sLIDRegNumber?: string;
   serviceAreas?: ServiceArea[];
   serviceProviderType?: ServiceProviders;
-  sliaregNumber?: string;
+  sliaRegNumber?: string;
   specializations?: Specialization[];
   teamSize?: number;
 }

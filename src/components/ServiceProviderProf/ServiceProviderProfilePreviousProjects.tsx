@@ -17,13 +17,13 @@ import { useNavigate } from 'react-router-dom';
 import NotFound from '../../components/NoResults';
 import { useFetchProjects } from '../../hooks/project/useFetchProjects';
 import { useProject } from '../../hooks/project/useProject';
+import useCurrentUser from '../../hooks/users/useCurrentUser';
 import Loading from '../../pages/loading';
-import { useUsers } from '../../redux/UserInfo/useUsers';
 
 function ProfilePreviousProjects() {
   const navigate = useNavigate();
 
-  const { currentUser } = useUsers();
+  const currentUser = useCurrentUser();
 
   const { fetchProjects, isLoading, projects } = useFetchProjects();
 

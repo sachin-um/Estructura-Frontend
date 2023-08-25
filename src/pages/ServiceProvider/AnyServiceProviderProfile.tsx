@@ -24,9 +24,8 @@ import ProfilePreviousProjects from '../../components/ServiceProviderProf/Servic
 import ProfileRentingItems from '../../components/ServiceProviderProf/ServiceProviderProfileRentingItems';
 import ProfileRetailItems from '../../components/ServiceProviderProf/ServiceProviderProfileRetailItems';
 import TopAppBar from '../../components/TopAppBar';
-import { useUsers } from '../../redux/UserInfo/useUsers';
+import useCurrentUser from '../../hooks/users/useCurrentUser';
 import { capitalizeOnlyFirstLetter } from '../../utils/Capitalize';
-import Loading from '../loading';
 import UnauthorizedAccess from '../unauthorized_access';
 
 function AnyServiceProviderProfile() {
@@ -52,7 +51,7 @@ function AnyServiceProviderProfile() {
     setProfilePicture(URL.createObjectURL(file));
   };
 
-  const { currentUser, usersState } = useUsers();
+  const currentUser = useCurrentUser();
 
   return currentUser ? (
     <>
@@ -163,8 +162,8 @@ function AnyServiceProviderProfile() {
                 gutterBottom
                 sx={{ fontSize: 14 }}
               >
-                Based in {currentUser?.city ?? 'Unknown'},{' '}
-                {currentUser?.district ?? 'Unknown'}
+                Based in {currentUser.city ?? 'Unknown'},{' '}
+                {currentUser.district ?? 'Unknown'}
               </Typography>
               <Box mt={6}>
                 <Stack alignItems="center" direction="row" spacing={2}>
@@ -172,7 +171,7 @@ function AnyServiceProviderProfile() {
                     <Phone />
                   </ListItemIcon>
                   <Typography color="text.secondary" variant="body2">
-                    {currentUser?.businessContactNo ?? 'Unknown'}
+                    {currentUser.businessContactNo ?? 'Unknown'}
                   </Typography>
                 </Stack>
               </Box>
@@ -231,13 +230,13 @@ function AnyServiceProviderProfile() {
               sx={{ marginRight: '4rem' }}
               value="one"
             />
-            {currentUser?.role === 'RETAILSTORE' ? (
+            {currentUser.role === 'RETAILSTORE' ? (
               <Tab
                 label="Your Retail Items"
                 sx={{ marginRight: '4rem' }}
                 value="two"
               />
-            ) : currentUser?.role === 'RENTER' ? (
+            ) : currentUser.role === 'RENTER' ? (
               <Tab
                 label="Your Renting Items"
                 sx={{ marginRight: '4rem' }}
@@ -260,10 +259,10 @@ function AnyServiceProviderProfile() {
           {activeTab === 'two' &&
             currentUser?.role !== 'RETAILSTORE' &&
             currentUser?.role !== 'RENTER' && <ProfilePreviousProjects />}
-          {activeTab === 'two' && currentUser?.role === 'RETAILSTORE' && (
+          {activeTab === 'two' && currentUser.role === 'RETAILSTORE' && (
             <ProfileRetailItems />
           )}
-          {activeTab === 'two' && currentUser?.role === 'RENTER' && (
+          {activeTab === 'two' && currentUser.role === 'RENTER' && (
             <ProfileRentingItems />
           )}
           {activeTab === 'three' && <Responses />}
@@ -274,8 +273,6 @@ function AnyServiceProviderProfile() {
 
       <Footer />
     </>
-  ) : usersState === 'loading' || usersState === 'idle' ? (
-    <Loading />
   ) : (
     <>
       <UnauthorizedAccess />

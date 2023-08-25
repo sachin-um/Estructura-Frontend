@@ -2,11 +2,11 @@ import type { FunctionComponent } from 'react';
 
 import RetailItemForm from '../../../components/ServiceProviderProf/RetailItemForm';
 import TopAppBar from '../../../components/TopAppBar';
-import { useUsers } from '../../../redux/UserInfo/useUsers';
+import useCurrentUser from '../../../hooks/users/useCurrentUser';
 import UnauthorizedAccess from '../../unauthorized_access';
 
 const AddRetailItem: FunctionComponent = () => {
-  const { currentUser } = useUsers();
+  const currentUser = useCurrentUser();
 
   return (
     <>
