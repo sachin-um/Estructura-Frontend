@@ -1,4 +1,3 @@
-import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import type { FunctionComponent } from 'react';
 
 import { Add, Favorite, Remove, ShoppingCart } from '@mui/icons-material';
@@ -6,7 +5,6 @@ import CallIcon from '@mui/icons-material/Call';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import StoreIcon from '@mui/icons-material/Store';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -14,22 +12,24 @@ import Footer from '../../components/Footer';
 import NotFound from '../../components/NoResults';
 import TopAppBar from '../../components/TopAppBar';
 import Newsletter from '../../components/e-com/Blog';
+import { useRetailItem } from '../../hooks/retailItem/useRetailItem';
 import Loading from '../../pages/loading';
-import { useRetailItems } from '../../redux/RetailItems/useRetailItems';
 import { useUsers } from '../../redux/UserInfo/useUsers';
 import { mobile } from '../../responsive';
 
 const ShopItem: FunctionComponent = () => {
   const itemId = parseInt(useParams<{ id: string }>().id ?? '0');
-  const dispatch: ThunkDispatch<RetailItem, void, AnyAction> = useDispatch();
 
-  const { retailItemsStatus, selectRetailItemById } = useRetailItems();
+  const {
+    getRetailItem: { fetchRetailItem, isLoading, retailItem },
+  } = useRetailItem();
 
-  const retailItem = selectRetailItemById(itemId);
+  useEffect(() => {
+    fetchRetailItem(itemId);
+  }, [fetchRetailItem, itemId]);
 
   const [selectedImage, setSelectedImage] = useState('');
   const [imageUrl, setImageUrl] = useState('');
-  const [loaded, setLoaded] = useState(false);
 
   const { selectUserById } = useUsers();
 
@@ -65,7 +65,7 @@ const ShopItem: FunctionComponent = () => {
   return (
     <Container>
       <TopAppBar />
-      {retailItemsStatus === 'loading' || retailItemsStatus === 'idle' ? (
+      {isLoading ? (
         <Loading />
       ) : retailItem ? (
         <Wrapper>

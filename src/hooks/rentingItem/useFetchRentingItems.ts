@@ -4,7 +4,6 @@ import API from '../../lib/API';
 
 /**
  * Custom hook to fetch rentingItems from the API.
- * @param userId Optional user ID to fetch rentingItems for a specific user.
  * @returns An object containing the fetched rentingItems, a function to fetch the rentingItems, and a boolean indicating if the fetch is in progress.
  */
 export const useFetchRentingItems = () => {
@@ -13,7 +12,8 @@ export const useFetchRentingItems = () => {
 
   /**
    * Fetches rentingItems from the API and sorts them by date added.
-   * If a userId is provided at hook level, fetches only the rentingItems of that user.
+   * If a userId is provided, fetches only the rentingItems of that user.
+   * If a category is provided, fetches only the rentingItems of that category.
    */
   const fetchRentingItems = useCallback(
     async ({
@@ -23,8 +23,6 @@ export const useFetchRentingItems = () => {
       category?: RentingCategory;
       userId?: number;
     }) => {
-      if (!category && !userId)
-        throw new Error('No category or userId provided');
       if (category && userId)
         throw new Error('Both category and userId provided');
       setIsLoading(true);

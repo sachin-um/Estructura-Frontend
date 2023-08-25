@@ -12,21 +12,18 @@ import NotFound from '../../components/NoResults';
 import TopAppBar from '../../components/TopAppBar';
 import Newsletter from '../../components/e-com/Blog';
 import ShopCategories from '../../components/shop/ShopCategories';
-import { useRetailItems } from '../../redux/RetailItems/useRetailItems';
+import { useFetchRetailItems } from '../../hooks/retailItem/useFetchRetailItems';
 import { mobile } from '../../responsive';
 import Paginate from '../../utils/Paginate';
 
 const ShopItemList = () => {
   const category = useParams().category;
 
-  const { selectRetailItemByCategory } = useRetailItems();
+  const { fetchRetailItems, retailItems } = useFetchRetailItems();
 
   useEffect(() => {
-    if (category)
-      setItems(selectRetailItemByCategory(category as RetailItemType));
-  }, [category, selectRetailItemByCategory]);
-
-  const [Items, setItems] = useState<RetailItem[]>([]);
+    if (category) fetchRetailItems({ category: category as RetailItemType });
+  }, [category, fetchRetailItems]);
 
   const [pageSize, _setPageSize] = useState(8); // Should add a selector
   const [pageNumber, setPageNumber] = useState(1);
@@ -36,14 +33,18 @@ const ShopItemList = () => {
   useEffect(() => {
     switch (sort) {
       case 'Price: High to Low':
-        setSortedItems((da) => [...Items].sort((a, b) => b.price - a.price));
+        setSortedItems((da) =>
+          [...retailItems].sort((a, b) => b.price - a.price),
+        );
         break;
       case 'Price: Low to High':
-        setSortedItems((da) => [...Items].sort((a, b) => a.price - b.price));
+        setSortedItems((da) =>
+          [...retailItems].sort((a, b) => a.price - b.price),
+        );
         break;
       case 'Date: Newest on Top':
         setSortedItems((da) =>
-          [...Items].sort(
+          [...retailItems].sort(
             (a, b) =>
               new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime(),
           ),
@@ -51,7 +52,7 @@ const ShopItemList = () => {
         break;
       case 'Date: Oldest on Top':
         setSortedItems((da) =>
-          [...Items].sort(
+          [...retailItems].sort(
             (a, b) =>
               new Date(a.dateAdded).getTime() - new Date(b.dateAdded).getTime(),
           ),
@@ -60,9 +61,9 @@ const ShopItemList = () => {
       default:
         break;
     }
-  }, [Items, sort]);
+  }, [retailItems, sort]);
 
-  const [sortedItems, setSortedItems] = useState(Items);
+  const [sortedItems, setSortedItems] = useState(retailItems);
 
   const PaginatedItems = Paginate(sortedItems, pageNumber, pageSize);
 
@@ -102,7 +103,7 @@ const ShopItemList = () => {
           onChange={(_event, value) => {
             setPageNumber(value);
           }}
-          count={Math.ceil(Items.length / pageSize)}
+          count={Math.ceil(retailItems.length / pageSize)}
         />
       </Box>
       <Newsletter />

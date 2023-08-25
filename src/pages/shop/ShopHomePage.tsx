@@ -12,32 +12,16 @@ import TopAppBar from '../../components/TopAppBar';
 import Newsletter from '../../components/e-com/Blog';
 import Slider from '../../components/e-com/Slider';
 import ShopCategories from '../../components/shop/ShopCategories';
+import { useFetchRetailItems } from '../../hooks/retailItem/useFetchRetailItems';
 import Loading from '../../pages/loading';
-import { setRentingItemsMutated } from '../../redux/Renting/RentingItemsReducer';
-import {
-  fetchRetailItemsThunk,
-  getRetailItemsMutated,
-  getRetailItemsStatus,
-  selectAllRetailItems,
-} from '../../redux/RetailItems/RetailItemsReducer';
 
 const ShopHomePage = () => {
-  const itemsStatus = useSelector(getRetailItemsStatus);
-  const retailItems = useSelector(selectAllRetailItems);
-  const retailItemsMutated = useSelector(getRetailItemsMutated);
-  const dispatch: ThunkDispatch<RetailItem[], void, AnyAction> = useDispatch();
+  const { fetchRetailItems, isLoading, retailItems } = useFetchRetailItems();
 
   useEffect(() => {
-    if (itemsStatus === 'idle') {
-      dispatch(fetchRetailItemsThunk());
-    }
-  }, [itemsStatus, dispatch]);
-  useEffect(() => {
-    if (retailItemsMutated) {
-      dispatch(fetchRetailItemsThunk());
-      dispatch(setRentingItemsMutated(false));
-    }
-  }, [dispatch, retailItemsMutated]);
+    fetchRetailItems({});
+  }, [fetchRetailItems]);
+
   const Furniture = retailItems.filter(
     (item) => item.retailItemType === 'FURNITURE',
   );
@@ -97,15 +81,7 @@ const ShopHomePage = () => {
         <ShopCategories data={firstFourFurniture} />
       )}
       {firstFourFurniture.length === 0 && (
-        <Box>
-          {itemsStatus === 'loading' ? (
-            <Loading />
-          ) : itemsStatus === 'failed' ? (
-            <div style={{ textAlign: 'center' }}>Failed to load projects</div>
-          ) : (
-            <NotFound />
-          )}
-        </Box>
+        <Box>{isLoading ? <Loading /> : <NotFound />}</Box>
       )}
 
       {/* Hardware */}
@@ -140,15 +116,7 @@ const ShopHomePage = () => {
         <ShopCategories data={firstFourHardware} />
       )}
       {firstFourHardware.length === 0 && (
-        <Box>
-          {itemsStatus === 'loading' ? (
-            <Loading />
-          ) : itemsStatus === 'failed' ? (
-            <div style={{ textAlign: 'center' }}>Failed to load projects</div>
-          ) : (
-            <NotFound />
-          )}
-        </Box>
+        <Box>{isLoading ? <Loading /> : <NotFound />}</Box>
       )}
 
       {/* Bathware */}
@@ -183,15 +151,7 @@ const ShopHomePage = () => {
         <ShopCategories data={firstFourBathware} />
       )}
       {firstFourBathware.length === 0 && (
-        <Box>
-          {itemsStatus === 'loading' ? (
-            <Loading />
-          ) : itemsStatus === 'failed' ? (
-            <div style={{ textAlign: 'center' }}>Failed to load projects</div>
-          ) : (
-            <NotFound />
-          )}
-        </Box>
+        <Box>{isLoading ? <Loading /> : <NotFound />}</Box>
       )}
 
       {/* Gardenware */}
@@ -226,15 +186,7 @@ const ShopHomePage = () => {
         <ShopCategories data={firstFourGardenware} />
       )}
       {firstFourGardenware.length === 0 && (
-        <Box>
-          {itemsStatus === 'loading' ? (
-            <Loading />
-          ) : itemsStatus === 'failed' ? (
-            <div style={{ textAlign: 'center' }}>Failed to load projects</div>
-          ) : (
-            <NotFound />
-          )}
-        </Box>
+        <Box>{isLoading ? <Loading /> : <NotFound />}</Box>
       )}
 
       {/* Lighting */}
@@ -269,15 +221,7 @@ const ShopHomePage = () => {
         <ShopCategories data={firstFourLighting} />
       )}
       {firstFourLighting.length === 0 && (
-        <Box>
-          {itemsStatus === 'loading' ? (
-            <Loading />
-          ) : itemsStatus === 'failed' ? (
-            <div style={{ textAlign: 'center' }}>Failed to load projects</div>
-          ) : (
-            <NotFound />
-          )}
-        </Box>
+        <Box>{isLoading ? <Loading /> : <NotFound />}</Box>
       )}
       <Newsletter />
       <Footer />

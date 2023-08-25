@@ -1,10 +1,11 @@
 import type { FunctionComponent } from 'react';
 
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import RetailItemForm from '../../../components/ServiceProviderProf/RetailItemForm';
 import TopAppBar from '../../../components/TopAppBar';
-import { useRetailItems } from '../../../redux/RetailItems/useRetailItems';
+import { useRetailItem } from '../../../hooks/retailItem/useRetailItem';
 import { useUsers } from '../../../redux/UserInfo/useUsers';
 import UnauthorizedAccess from '../../unauthorized_access';
 
@@ -13,9 +14,13 @@ const EditRetailItem: FunctionComponent = () => {
 
   const retailItemId = parseInt(useParams<{ id: string }>().id ?? '0');
 
-  const { selectRetailItemById } = useRetailItems();
+  const {
+    getRetailItem: { fetchRetailItem, retailItem },
+  } = useRetailItem();
 
-  const retailItem = selectRetailItemById(retailItemId);
+  useEffect(() => {
+    fetchRetailItem(retailItemId);
+  }, [fetchRetailItem, retailItemId]);
 
   return (
     <>

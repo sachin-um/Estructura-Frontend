@@ -1,22 +1,20 @@
 import type { FunctionComponent } from 'react';
 
-import { useSelector } from 'react-redux';
-
 import RetailItemForm from '../../../components/ServiceProviderProf/RetailItemForm';
 import TopAppBar from '../../../components/TopAppBar';
-import { selectUser } from '../../../redux/UserAuthenticationReducer';
+import { useUsers } from '../../../redux/UserInfo/useUsers';
 import UnauthorizedAccess from '../../unauthorized_access';
 
 const AddRetailItem: FunctionComponent = () => {
-  const userInfo = useSelector(selectUser);
+  const { currentUser } = useUsers();
 
   return (
     <>
       <TopAppBar />
-      {userInfo &&
-      userInfo.id &&
-      userInfo.serviceProviderType === ('RETAILER' as ServiceProviders) ? (
-        <RetailItemForm userId={userInfo.id} />
+      {currentUser &&
+      currentUser.id &&
+      currentUser.serviceProviderType === ('RETAILER' as ServiceProviders) ? (
+        <RetailItemForm userId={currentUser.id} />
       ) : (
         <UnauthorizedAccess />
       )}

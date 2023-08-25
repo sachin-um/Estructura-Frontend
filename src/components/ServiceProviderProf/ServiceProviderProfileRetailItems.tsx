@@ -1,5 +1,3 @@
-import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
-
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import ScheduleIcon from '@mui/icons-material/Schedule';
@@ -14,14 +12,21 @@ import {
   Typography,
 } from '@mui/material';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import NotFound from '../../components/NoResults';
-import { useRetailItems } from '../../redux/RetailItems/useRetailItems';
+import { useFetchRetailItems } from '../../hooks/retailItem/useFetchRetailItems';
+import { useRetailItem } from '../../hooks/retailItem/useRetailItem';
+import { useUsers } from '../../redux/UserInfo/useUsers';
 
 function ProfileRetailItems() {
-  const { deleteRetailItemById, retailItems } = useRetailItems();
+  const { currentUser } = useUsers();
+  const { deleteRetailItemById } = useRetailItem();
+  const { fetchRetailItems, retailItems } = useFetchRetailItems();
+
+  useEffect(() => {
+    if (currentUser) fetchRetailItems({ storeId: currentUser.id });
+  }, [currentUser, fetchRetailItems]);
 
   const navigate = useNavigate();
 

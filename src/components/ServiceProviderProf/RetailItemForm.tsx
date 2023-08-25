@@ -26,8 +26,8 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
+import { useRetailItem } from '../../hooks/retailItem/useRetailItem';
 import UnauthorizedAccess from '../../pages/unauthorized_access';
-import { useRetailItems } from '../../redux/RetailItems/useRetailItems';
 import { useUsers } from '../../redux/UserInfo/useUsers';
 import GetFormikProps from '../../utils/GetFormikProps';
 import Footer from '../Footer';
@@ -112,7 +112,7 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
 
   const { currentUser } = useUsers();
 
-  const { addRetailItem, editRetailItemById } = useRetailItems();
+  const { addRetailItem, editRetailItemById } = useRetailItem();
 
   const HandleSubmit = (values: RetailItemAddOrUpdateRequest) => {
     console.log(values);
@@ -130,8 +130,8 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
         });
       } else {
         addRetailItem(values).then((added) => {
-          if (added.id !== -1) {
-            navigate(`/shop/item/${added.id}`, {
+          if (added.item) {
+            navigate(`/shop/item/${added.item.id}`, {
               replace: true,
             });
           } else if (added.errors) {
