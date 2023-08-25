@@ -11,14 +11,23 @@ import {
   Grid,
   Typography,
 } from '@mui/material';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import '../../assets/font.css';
-import { useRentingItems } from '../../redux/Renting/useRentingItems';
+import { useFetchRentingItems } from '../../hooks/rentingItem/useFetchRentingItems';
+import { useRentingItem } from '../../hooks/rentingItem/useRentingItem';
+import { useUsers } from '../../redux/UserInfo/useUsers';
 import NotFound from '../NoResults';
 
 function ProfileRentingItems() {
-  const { rentingItemsOfCurrentUser: rentingItems } = useRentingItems();
+  const { currentUser } = useUsers();
+  const { fetchRentingItems, rentingItems } = useFetchRentingItems();
+  const { deleteRentingItemById } = useRentingItem();
+
+  useEffect(() => {
+    if (currentUser) fetchRentingItems({ userId: currentUser.id });
+  }, [currentUser, fetchRentingItems]);
 
   const navigate = useNavigate();
 
@@ -91,17 +100,13 @@ function ProfileRentingItems() {
                       </Button>
                       <Button
                         onClick={() => {
-                          // dispatch(deleteRentingItem(rentingItem.id)).then(
-                          //   (action) => {
-                          //     if (deleteRentingItem.fulfilled.match(action)) {
-                          //       if (LoggedInUser) {
-                          //         dispatch(
-                          //           fetchRentingItemByRenter(LoggedInUser.id),
-                          //         );
-                          //       }
-                          //     }
-                          //   },
-                          // );
+                          deleteRentingItemById(rentingItem.id).then(
+                            (deleted) => {
+                              if (deleted) {
+                                alert('Renting Item Deleted');
+                              }
+                            },
+                          );
                         }}
                         startIcon={<DeleteIcon />}
                         sx={{ width: '130px' }}

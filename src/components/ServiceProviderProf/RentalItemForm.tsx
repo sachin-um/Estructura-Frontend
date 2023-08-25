@@ -26,8 +26,8 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
+import { useRentingItem } from '../../hooks/rentingItem/useRentingItem';
 import UnauthorizedAccess from '../../pages/unauthorized_access';
-import { useRentingItems } from '../../redux/Renting/useRentingItems';
 import { useUsers } from '../../redux/UserInfo/useUsers';
 import GetFormikProps from '../../utils/GetFormikProps';
 import Footer from '../Footer';
@@ -109,7 +109,7 @@ const RentalItemForm: FunctionComponent<RentingItemFormProps> = ({
 
   const { currentUser } = useUsers();
 
-  const { addRentingItem, editRentingItemById } = useRentingItems();
+  const { addRentingItem, editRentingItemById } = useRentingItem();
 
   const navigate = useNavigate();
   const HandleSubmit = (values: RentingItemAddOrUpdateRequest) => {
@@ -129,8 +129,8 @@ const RentalItemForm: FunctionComponent<RentingItemFormProps> = ({
       } else {
         // Create Renting Item
         addRentingItem(values).then((added) => {
-          if (added.id !== -1) {
-            navigate(`/rentingItems/${added.id}`, {
+          if (added.item) {
+            navigate(`/rentingItems/${added.item.id}`, {
               replace: true,
             });
           } else if (added.errors) {
@@ -178,7 +178,7 @@ const RentalItemForm: FunctionComponent<RentingItemFormProps> = ({
     (_, index) => index + 1,
   );
 
-  const removemainImage = () => {
+  const removeMainImage = () => {
     setMainImage('');
     setMainImageName('');
   };
@@ -445,7 +445,7 @@ const RentalItemForm: FunctionComponent<RentingItemFormProps> = ({
                               right: 5,
                               top: 5,
                             }}
-                            onClick={() => removemainImage()}
+                            onClick={() => removeMainImage()}
                             size="small"
                           >
                             <Tooltip title="Remove Image">

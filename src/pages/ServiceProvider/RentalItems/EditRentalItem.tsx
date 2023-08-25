@@ -1,10 +1,11 @@
 import type { FunctionComponent } from 'react';
 
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import RentalItemForm from '../../../components/ServiceProviderProf/RentalItemForm';
 import TopAppBar from '../../../components/TopAppBar';
-import { useRentingItems } from '../../../redux/Renting/useRentingItems';
+import { useRentingItem } from '../../../hooks/rentingItem/useRentingItem';
 import { useUsers } from '../../../redux/UserInfo/useUsers';
 import UnauthorizedAccess from '../../unauthorized_access';
 
@@ -13,9 +14,13 @@ const EditRentalItem: FunctionComponent = () => {
 
   const rentalItemId = parseInt(useParams<{ id: string }>().id ?? '0');
 
-  const { selectRentingItemById } = useRentingItems();
+  const {
+    getRentingItem: { fetchRentingItem, isLoading, rentingItem },
+  } = useRentingItem();
 
-  const rentalItem = selectRentingItemById(rentalItemId);
+  useEffect(() => {
+    fetchRentingItem(rentalItemId);
+  }, [fetchRentingItem, rentalItemId]);
 
   return (
     <>
@@ -25,8 +30,8 @@ const EditRentalItem: FunctionComponent = () => {
       currentUser.serviceProviderType ===
         ('RENTINGCOMPANY' as ServiceProviders) ? (
         <RentalItemForm
-          {...(rentalItem && rentalItem.createdBy === currentUser.id
-            ? { OriginalRentingItem: rentalItem, userId: currentUser.id }
+          {...(rentingItem && rentingItem.createdBy === currentUser.id
+            ? { OriginalRentingItem: rentingItem, userId: currentUser.id }
             : { userId: currentUser.id })}
         />
       ) : (

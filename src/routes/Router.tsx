@@ -18,7 +18,7 @@ export const altRouter = createBrowserRouter([
   ...AuthRoutes,
   ...AdminRoutes,
   ...BlogRoutes,
-  // ...RentingItemRoutes,
+  ...RentingItemRoutes,
   // ...ShopRoutes,
   ...ProjectRoutes,
   ...ServiceProviderRoutes,
