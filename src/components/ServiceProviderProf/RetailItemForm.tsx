@@ -106,8 +106,8 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
   userId,
 }) => {
   const FormRef = useRef<FormikProps<RetailItemAddOrUpdateRequest>>(null);
-  const MainImageUploadRef = useRef<HTMLInputElement>(null);
-  const ExtraImageUploadRef = useRef<HTMLInputElement>(null);
+  const mainImageUploadRef = useRef<HTMLInputElement>(null);
+  const extraImageUploadRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
 
   const { currentUser } = useUsers();
@@ -178,7 +178,7 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
     (_, index) => index + 1,
   );
 
-  const removeMainImage = () => {
+  const removemainImage = () => {
     setMainImage('');
     setMainImageName('');
   };
@@ -407,7 +407,7 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
                               right: 5,
                               top: 5,
                             }}
-                            onClick={() => removeMainImage()}
+                            onClick={() => removemainImage()}
                             size="small"
                           >
                             <Tooltip title="Remove Image">
@@ -418,8 +418,8 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
                       ) : (
                         <Box
                           onClick={() => {
-                            if (MainImageUploadRef.current) {
-                              MainImageUploadRef.current.click();
+                            if (mainImageUploadRef.current) {
+                              mainImageUploadRef.current.click();
                             }
                           }}
                           style={{
@@ -443,7 +443,7 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
                             <AddPhotoAlternateIcon />
                             <input
                               hidden
-                              ref={MainImageUploadRef}
+                              ref={mainImageUploadRef}
                               {...spread(
                                 'mainImage',
                                 false,
@@ -514,8 +514,8 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
                         <Grid>
                           <Button
                             onClick={() => {
-                              if (ExtraImageUploadRef.current) {
-                                ExtraImageUploadRef.current.click();
+                              if (extraImageUploadRef.current) {
+                                extraImageUploadRef.current.click();
                               }
                             }}
                             style={{
@@ -528,7 +528,7 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
                           >
                             <input
                               hidden
-                              ref={ExtraImageUploadRef}
+                              ref={extraImageUploadRef}
                               {...spread(
                                 'extraImages',
                                 false,

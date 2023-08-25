@@ -89,7 +89,7 @@ const RentingItemCards = ({
                   style={{ marginLeft: '0.5rem' }}
                   variant="body2"
                 >
-                  {user ? user.firstname + ' ' + user.lastname : 'Unknown'}
+                  {user ? user.firstName + ' ' + user.lastName : 'Unknown'}
                 </Typography>
               </div>
               <div

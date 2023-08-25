@@ -14,8 +14,8 @@ const validationSchema = yup.object({
   registrationNo: yup
     .string()
     .required('Business Registration number is required'),
-  firstname: yup.string().required('First Name is required'),
-  lastname: yup.string().required('Last Name is required'),
+  firstName: yup.string().required('First Name is required'),
+  lastName: yup.string().required('Last Name is required'),
   ...addressValidators,
 });
 
@@ -26,14 +26,14 @@ function RentalStore({ nextPage, previousPage, updateFormData, formData }) {
     businessName: formData.businessName ?? '',
     registrationNo: formData.registrationNo ?? '',
     businessContactNo: formData.contactNo ?? '',
-    firstname: formData.firstname ?? '',
-    lastname: formData.lastname ?? '',
+    firstName: formData.firstName ?? '',
+    lastName: formData.lastName ?? '',
     ...addressInitialValues(formData),
   };
   // TODO: Change Layout
   return (
     <>
-      {/* Rental Store Signup*/}
+      {/* Rental Store SignUp*/}
 
       <Formik
         innerRef={formRef}
@@ -93,14 +93,14 @@ function RentalStore({ nextPage, previousPage, updateFormData, formData }) {
                       variant="filled"
                       size="small"
                       color="secondary"
-                      {...spread('firstname')}
+                      {...spread('firstName')}
                     />
                     <TextField
                       variant="filled"
                       size="small"
                       color="secondary"
                       label="Your Last Name"
-                      {...spread('lastname')}
+                      {...spread('lastName')}
                     />
                   </Box>
                   <Typography

@@ -1,23 +1,17 @@
 interface Blog {
+  id: number;
+  title: string;
   content: string;
-  createdBy: number;
   creatorName: string;
   dateAdded: Date;
-  id: number;
   mainImage: string;
   mainImageName: string;
-  title: string;
+  createdBy: number;
 }
 
 interface BlogAddOrUpdateRequest {
+  title: string;
   content: string;
   mainImage: FileList;
-  title: string;
   userId: number;
-}
-
-interface BlogsState {
-  blogs: Blog[];
-  error: boolean | null;
-  reqStatus: reqStatus;
 }

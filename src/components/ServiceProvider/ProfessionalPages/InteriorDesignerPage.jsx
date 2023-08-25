@@ -30,31 +30,26 @@ function InteriorDesignerPage1({
   // TODO: Change Layout
   return (
     <>
-   <Container
+      <Container
         maxWidth={false}
         style={{
-          backgroundColor: "#f7f8f1",
-          
-          display: "flex",
-          alignItems: "center",
+          backgroundColor: '#f7f8f1',
+
+          display: 'flex',
+          alignItems: 'center',
         }}
       >
         <Grid container justifyContent="center" spacing={4}>
-          <Grid 
-      
-            item
-            md={7}
-            xs={12}
-          >
+          <Grid item md={7} xs={12}>
             <Grid
               style={{
                 backgroundImage: 'url("/signup/archi.jpg")',
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                borderRadius: "20px",
-                height: "100%",
-                display: "flex",
-                alignItems: "flex-end",
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                borderRadius: '20px',
+                height: '100%',
+                display: 'flex',
+                alignItems: 'flex-end',
               }}
               container
             >
@@ -97,17 +92,17 @@ function InteriorDesignerPage1({
           <Grid item md={5} xs={12}>
             <Grid
               style={{
-                backgroundColor: "#ffffff",
-                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-                borderRadius: "20px",
-                padding: "1rem 2rem 3rem",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                marginTop: "2rem",
-                marginBottom: "2rem",
-                minHeight:"85vh"
+                backgroundColor: '#ffffff',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                borderRadius: '20px',
+                padding: '1rem 2rem 3rem',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginTop: '2rem',
+                marginBottom: '2rem',
+                minHeight: '85vh',
               }}
               container
             >
@@ -122,8 +117,8 @@ function InteriorDesignerPage1({
               >
                 <img alt="Logo" src="/Logo.png" style={{ width: '40%' }} />
               </Grid>
-              <Grid item xs={12} style={{ marginTop: "1rem" }}>
-              <Formik
+              <Grid item xs={12} style={{ marginTop: '1rem' }}>
+                <Formik
                   innerRef={formRef}
                   onSubmit={(values) => {
                     // TODO: HANDLE PAGE CHANGE HERE!!!
@@ -155,50 +150,53 @@ function InteriorDesignerPage1({
                         }),
                       };
                     };
-                    return(
+                    return (
                       <Form onSubmit={handleSubmit}>
                         <Box
                           sx={{
-                            margin: "10px",
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "20px",
+                            margin: '10px',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '20px',
                           }}
                         >
-                            {
-                              <Grid style={{ justifyContent: "center" }}>
-                         
-                         <Typography textAlign="left" width={1} margin={1}>
-                            SLIA Membership Number
-                                                </Typography>
-                                <TextField
-                                  InputProps={{ sx: { borderRadius: 2 } }}
-                                  sx={{ width: 1, margin: 1 }}
-                                  type="SLIARegNumber"
-                                  name="sLIARegNumber"
-                                  label="Ex:A1399"
-                                  variant="filled"
-                                  size="small"
-                                  {...spread("sLIARegNumber")}
-                                />
-                             <Grid style={{ justifyContent: "center" }}>
-                                                <Typography textAlign="left" width={1} margin={1}>
-                                                What are your qualifications?
-                                                </Typography>
-                                                <Grid style={{ justifyContent: "center" }}>
-                                                <TextField sx={{ m: 1, minWidth: 400, maxWidth: 500}}
-                                                    label="Please separate each one with commas."
-                                                    id="filled-multiline-static"
-                                                    multiline
-                                                    rows={5}
-                                                    variant="filled"
-                                                    {...spread("")}
-                                                />
-                                                </Grid>
-                                            </Grid>
-                              
-                                
-                                {/* <Grid
+                          {
+                            <Grid style={{ justifyContent: 'center' }}>
+                              <Typography textAlign="left" width={1} margin={1}>
+                                SLIA Membership Number
+                              </Typography>
+                              <TextField
+                                InputProps={{ sx: { borderRadius: 2 } }}
+                                sx={{ width: 1, margin: 1 }}
+                                type="SLIARegNumber"
+                                name="sliaRegNumber"
+                                label="Ex:A1399"
+                                variant="filled"
+                                size="small"
+                                {...spread('sliaRegNumber')}
+                              />
+                              <Grid style={{ justifyContent: 'center' }}>
+                                <Typography
+                                  textAlign="left"
+                                  width={1}
+                                  margin={1}
+                                >
+                                  What are your qualifications?
+                                </Typography>
+                                <Grid style={{ justifyContent: 'center' }}>
+                                  <TextField
+                                    sx={{ m: 1, minWidth: 400, maxWidth: 500 }}
+                                    label="Please separate each one with commas."
+                                    id="filled-multiline-static"
+                                    multiline
+                                    rows={5}
+                                    variant="filled"
+                                    {...spread('')}
+                                  />
+                                </Grid>
+                              </Grid>
+
+                              {/* <Grid
                                   style={{ justifyContent: "center" }}
                                   sx={{ width: 1, margin: 1 }}
                                 >
@@ -220,35 +218,43 @@ function InteriorDesignerPage1({
                                     />
                                   </Button>
                                 </Grid> */}
-                                <Grid
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    width: "100%",
+                              <Grid
+                                style={{
+                                  display: 'flex',
+                                  justifyContent: 'center',
+                                  width: '100%',
+                                }}
+                              >
+                                <Button
+                                  sx={{
+                                    width: 1 / 2,
+                                    borderRadius: 2,
+                                    margin: 1,
                                   }}
+                                  type="button"
+                                  color="primary"
+                                  variant="contained"
+                                  size="large"
+                                  onClick={previousPage}
                                 >
-                                  <Button
-                                    sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
-                                    type='button'
-                                    color='primary'
-                                    variant='contained'
-                                    size='large'
-                                    onClick={previousPage}
-                                  >
-                                    Previous
-                                  </Button>
-                                  <Button
-                                    sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
-                                    type='submit'
-                                    color='primary'
-                                    variant='contained'
-                                    size='large'
-                                  >
-                                    Next
-                                  </Button>
-                                </Grid>
+                                  Previous
+                                </Button>
+                                <Button
+                                  sx={{
+                                    width: 1 / 2,
+                                    borderRadius: 2,
+                                    margin: 1,
+                                  }}
+                                  type="submit"
+                                  color="primary"
+                                  variant="contained"
+                                  size="large"
+                                >
+                                  Next
+                                </Button>
                               </Grid>
-                            }
+                            </Grid>
+                          }
                         </Box>
                       </Form>
                     );

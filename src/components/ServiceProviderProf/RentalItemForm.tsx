@@ -104,8 +104,8 @@ const RentalItemForm: FunctionComponent<RentingItemFormProps> = ({
 }) => {
   console.log(OriginalRentingItem);
   const FormRef = useRef<FormikProps<RentingItemAddOrUpdateRequest>>(null);
-  const MainImageUploadRef = useRef<HTMLInputElement>(null);
-  const ExtraImageUploadRef = useRef<HTMLInputElement>(null);
+  const mainImageUploadRef = useRef<HTMLInputElement>(null);
+  const extraImageUploadRef = useRef<HTMLInputElement>(null);
 
   const { currentUser } = useUsers();
 
@@ -178,7 +178,7 @@ const RentalItemForm: FunctionComponent<RentingItemFormProps> = ({
     (_, index) => index + 1,
   );
 
-  const removeMainImage = () => {
+  const removemainImage = () => {
     setMainImage('');
     setMainImageName('');
   };
@@ -445,7 +445,7 @@ const RentalItemForm: FunctionComponent<RentingItemFormProps> = ({
                               right: 5,
                               top: 5,
                             }}
-                            onClick={() => removeMainImage()}
+                            onClick={() => removemainImage()}
                             size="small"
                           >
                             <Tooltip title="Remove Image">
@@ -456,8 +456,8 @@ const RentalItemForm: FunctionComponent<RentingItemFormProps> = ({
                       ) : (
                         <Box
                           onClick={() => {
-                            if (MainImageUploadRef.current) {
-                              MainImageUploadRef.current.click();
+                            if (mainImageUploadRef.current) {
+                              mainImageUploadRef.current.click();
                             }
                           }}
                           style={{
@@ -481,7 +481,7 @@ const RentalItemForm: FunctionComponent<RentingItemFormProps> = ({
                             <AddPhotoAlternateIcon />
                             <input
                               hidden
-                              ref={MainImageUploadRef}
+                              ref={mainImageUploadRef}
                               {...spread(
                                 'mainImage',
                                 false,
@@ -552,8 +552,8 @@ const RentalItemForm: FunctionComponent<RentingItemFormProps> = ({
                         <Grid>
                           <Button
                             onClick={() => {
-                              if (ExtraImageUploadRef.current) {
-                                ExtraImageUploadRef.current.click();
+                              if (extraImageUploadRef.current) {
+                                extraImageUploadRef.current.click();
                               }
                             }}
                             style={{
@@ -566,7 +566,7 @@ const RentalItemForm: FunctionComponent<RentingItemFormProps> = ({
                           >
                             <input
                               hidden
-                              ref={ExtraImageUploadRef}
+                              ref={extraImageUploadRef}
                               {...spread(
                                 'extraImages',
                                 false,

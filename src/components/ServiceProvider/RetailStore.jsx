@@ -37,8 +37,8 @@ const validationSchema = yup.object({
   registrationNo: yup
     .string()
     .required('Business Registration number is required'),
-  firstname: yup.string().required('First Name is required'),
-  lastname: yup.string().required('Last Name is required'),
+  firstName: yup.string().required('First Name is required'),
+  lastName: yup.string().required('Last Name is required'),
   ...addressValidators,
 });
 
@@ -50,8 +50,8 @@ function RetailStore({ nextPage, previousPage, updateFormData, formData }) {
     businessCategory: formData.businessCategory ?? '',
     businessContactNo: formData.businessContactNo ?? '',
     registrationNo: formData.registrationNo ?? '',
-    firstname: formData.firstname ?? '',
-    lastname: formData.lastname ?? '',
+    firstName: formData.firstName ?? '',
+    lastName: formData.lastName ?? '',
     ...addressInitialValues(formData),
   };
 
@@ -119,14 +119,14 @@ function RetailStore({ nextPage, previousPage, updateFormData, formData }) {
                       variant="filled"
                       size="small"
                       color="secondary"
-                      {...spread('firstname')}
+                      {...spread('firstName')}
                     />
                     <TextField
                       variant="filled"
                       size="small"
                       color="secondary"
                       label="Your Last Name"
-                      {...spread('lastname')}
+                      {...spread('lastName')}
                     />
                   </Box>
                   <Typography

@@ -21,8 +21,8 @@ import Responses from '../../components/ServiceProviderProf/Responses';
 import Reviews from '../../components/ServiceProviderProf/Reviews';
 import ServiceProviderProfileDetails from '../../components/ServiceProviderProf/ServiceProviderProfileDetails';
 import ProfilePreviousProjects from '../../components/ServiceProviderProf/ServiceProviderProfilePreviousProjects';
-import ProfileRetailItems from '../../components/ServiceProviderProf/ServiceProviderProfileRetailItems';
 import ProfileRentingItems from '../../components/ServiceProviderProf/ServiceProviderProfileRentingItems';
+import ProfileRetailItems from '../../components/ServiceProviderProf/ServiceProviderProfileRetailItems';
 import TopAppBar from '../../components/TopAppBar';
 import { useUsers } from '../../redux/UserInfo/useUsers';
 import { capitalizeOnlyFirstLetter } from '../../utils/Capitalize';
@@ -153,7 +153,7 @@ function AnyServiceProviderProfile() {
           >
             <CardContent>
               <Typography component="div" variant="h5">
-                {currentUser.firstname} {currentUser.lastname}
+                {currentUser.firstName} {currentUser.lastName}
               </Typography>
               <Typography color="text.secondary" sx={{ mb: 1.5 }}>
                 {capitalizeOnlyFirstLetter(currentUser.role)}

@@ -18,8 +18,8 @@ interface ServiceArea {
 interface Professional {
   accountNonExpired: boolean;
   accountNonLocked: boolean;
-  addressline1?: string;
-  addressline2?: string;
+  addressLine1?: string;
+  addressLine2?: string;
   assignedArea?: string;
   authorities: { authority: string }[];
   awards?: Qualification[];
@@ -32,11 +32,11 @@ interface Professional {
   credentialsNonExpired: boolean;
   district?: string;
   email: string;
-  firstname: string;
+  firstName: string;
   id: number;
   introduction?: string;
   isVerified: boolean;
-  lastname: string;
+  lastName: string;
   maxRate?: number;
   minRate?: number;
   nic?: string;

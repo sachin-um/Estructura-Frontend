@@ -129,8 +129,8 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
   userId,
 }) => {
   const FormRef = useRef<FormikProps<ProjectAddOrUpdateRequest>>(null);
-  const MainImageUploadRef = useRef<HTMLInputElement>(null);
-  const ExtraImageUploadRef = useRef<HTMLInputElement>(null);
+  const mainImageUploadRef = useRef<HTMLInputElement>(null);
+  const extraImageUploadRef = useRef<HTMLInputElement>(null);
   const DocumentUploadRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const userInfo = useSelector(selectUser);
@@ -367,8 +367,8 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
                       ) : (
                         <Box
                           onClick={() => {
-                            if (MainImageUploadRef.current) {
-                              MainImageUploadRef.current.click();
+                            if (mainImageUploadRef.current) {
+                              mainImageUploadRef.current.click();
                             }
                           }}
                           style={{
@@ -395,7 +395,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
                             <AddPhotoAlternateIcon />
                             <input
                               hidden
-                              ref={MainImageUploadRef}
+                              ref={mainImageUploadRef}
                               {...spread(
                                 'mainImage',
                                 false,
@@ -464,8 +464,8 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
                         <Grid>
                           <Button
                             onClick={() => {
-                              if (ExtraImageUploadRef.current) {
-                                ExtraImageUploadRef.current.click();
+                              if (extraImageUploadRef.current) {
+                                extraImageUploadRef.current.click();
                               }
                             }}
                             style={{
@@ -479,7 +479,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
                           >
                             <input
                               hidden
-                              ref={ExtraImageUploadRef}
+                              ref={extraImageUploadRef}
                               {...spread(
                                 'extraImages',
                                 false,
