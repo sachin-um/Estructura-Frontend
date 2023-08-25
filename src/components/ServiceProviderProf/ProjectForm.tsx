@@ -1,4 +1,3 @@
-import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import type { FormikProps } from 'formik';
 import type { FunctionComponent } from 'react';
 
@@ -25,17 +24,15 @@ import {
 import Divider from '@mui/material/Divider';
 import { Form, Formik } from 'formik';
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
+import { useProject } from '../../hooks/project/useProject';
 import UnauthorizedAccess from '../../pages/unauthorized_access';
-import { useProjects } from '../../redux/Projects/useProjects';
 import { selectUser } from '../../redux/UserAuthenticationReducer';
 import GetFormikProps from '../../utils/GetFormikProps';
-import { violationsToErrorsTS } from '../../utils/ViolationsTS';
 import Footer from '../Footer';
-import TopBar from '../TopBar';
 
 interface ProjectFormProps {
   OriginalProject?: Project;
@@ -135,7 +132,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
   const navigate = useNavigate();
   const userInfo = useSelector(selectUser);
 
-  const { addProject, editProjectById } = useProjects();
+  const { addProject, editProjectById } = useProject();
 
   const HandleSubmit = (values: ProjectAddOrUpdateRequest) => {
     console.log(values);
@@ -156,9 +153,9 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
       } else {
         // Create Project
         addProject(values).then((added) => {
-          if (added.id !== -1) {
+          if (added.item) {
             console.log('Project Added');
-            navigate(`/projects/${added.id}`, { replace: true });
+            navigate(`/projects/${added.item.id}`, { replace: true });
           } else if (added.errors) {
             setErrors(added.errors);
           }

@@ -11,16 +11,27 @@ import {
   Grid,
   Typography,
 } from '@mui/material';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import NotFound from '../../components/NoResults';
+import { useFetchProjects } from '../../hooks/project/useFetchProjects';
+import { useProject } from '../../hooks/project/useProject';
 import Loading from '../../pages/loading';
-import { useProjects } from '../../redux/Projects/useProjects';
+import { useUsers } from '../../redux/UserInfo/useUsers';
 
 function ProfilePreviousProjects() {
   const navigate = useNavigate();
 
-  const { deleteProjectById, projects, projectsStatus } = useProjects();
+  const { currentUser } = useUsers();
+
+  const { fetchProjects, isLoading, projects } = useFetchProjects();
+
+  const { deleteProjectById } = useProject();
+
+  useEffect(() => {
+    if (currentUser) fetchProjects(currentUser.id);
+  }, [currentUser, fetchProjects]);
 
   return (
     <Container style={{ marginBottom: '2rem' }}>
@@ -99,7 +110,9 @@ function ProfilePreviousProjects() {
           })}
         </Grid>
       )}
-      {projects.length === 0 && (
+      {isLoading ? (
+        <Loading />
+      ) : projects.length === 0 ? (
         <Box
           sx={{
             alignItems: 'center',
@@ -108,14 +121,10 @@ function ProfilePreviousProjects() {
             justifyContent: 'center',
           }}
         >
-          {projectsStatus === 'loading' || projectsStatus === 'idle' ? (
-            <Loading />
-          ) : projectsStatus === 'failed' ? (
-            'Failed to load projects'
-          ) : (
-            <NotFound />
-          )}
+          <NotFound />
         </Box>
+      ) : (
+        <></>
       )}
     </Container>
   );

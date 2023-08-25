@@ -38,9 +38,3 @@ interface updateProjectParams {
   projectId: number;
   updatedProject: ProjectAddOrUpdateRequest;
 }
-
-interface ProjectsState {
-  error: boolean | null;
-  projects: Project[];
-  reqStatus: reqStatus;
-}
