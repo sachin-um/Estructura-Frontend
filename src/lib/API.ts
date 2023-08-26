@@ -1,8 +1,6 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 
-import type { RefreshTokenResponse } from '../redux/UserAuthenticationReducer';
-
 const baseURL = 'http://localhost:8080/api/v1/';
 
 const API = axios.create({
