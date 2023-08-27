@@ -1,22 +1,11 @@
-import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
-
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 import TopAppBar from '../../components/TopAppBar';
-import Carousel from '../../components/blog/carousel';
+import HomePageCarousel from '../../components/blog/HomePageCarousel';
 import RentingCards from '../../components/renter/RentingItemCards';
 import RentingSidebar from '../../components/renter/RentingSideBar';
-import {
-  fetchRentingItems,
-  getRentingItemsStatus,
-  selectAllRentingItems,
-} from '../../redux/Renting/RentingItemsReducer';
-import {
-  fetchUsers,
-  getUsersStatus,
-  selectAllUsers,
-} from '../../redux/UserInfo/UsersInfoReducer';
+import { useFetchRentingItems } from '../../hooks/rentingItem/useFetchRentingItems';
+import useFetchAllUsers from '../../hooks/users/useFetchAllUsers';
 
 const topImages = [
   {
@@ -46,8 +35,7 @@ const topImages = [
   },
 ];
 
-const Renters = () => {
-  const [allRentersData, setAllRentersData] = useState<RentingItem[]>([]);
+const AllRentingItems = () => {
   const [filteredData, setFilteredData] = useState<RentingItem[]>([]);
 
   const [selectedTab, setSelectedTab] =
@@ -55,63 +43,26 @@ const Renters = () => {
   const [sortingOption, setSortingOption] =
     useState<sortingOption>('Price: High to Low');
 
+  const { fetchRentingItems, rentingItems } = useFetchRentingItems();
+
+  useEffect(() => {
+    fetchRentingItems({ category: selectedTab });
+  }, [fetchRentingItems, selectedTab]);
+
   const [locationOption, setLocationOption] = useState('islandwide');
   const [selectedDistricts, setSelectedDistricts] = useState<string[]>([]);
 
-  const data = useSelector(selectAllRentingItems);
-  const status = useSelector(getRentingItemsStatus);
-
-  const dispatch: ThunkDispatch<RentingItem[], void, AnyAction> = useDispatch();
-  const dispatchUsers: ThunkDispatch<User[], void, AnyAction> = useDispatch();
-
-  const usersInfo = useSelector(selectAllUsers);
-  const usersStatus = useSelector(getUsersStatus);
+  const { fetchAllUsers, users } = useFetchAllUsers();
 
   useEffect(() => {
-    if (usersStatus === 'idle') {
-      dispatchUsers(fetchUsers());
-    } else {
-      console.log(usersInfo);
-    }
-  }, [usersStatus, dispatchUsers, usersInfo]);
-
-  useEffect(() => {
-    if (status === 'idle') {
-      dispatch(fetchRentingItems());
-    } else if (status === 'succeeded') {
-      const filteredByCategory = data.filter(
-        (item) => item.category === selectedTab,
-      );
-
-      if (locationOption !== 'islandwide' && selectedDistricts.length > 0) {
-        setAllRentersData(
-          filteredByCategory.filter((item) => {
-            const user = usersInfo.find((u) => u.id === item.createdBy);
-            if (user) {
-              return selectedDistricts.includes(user.district ?? '');
-            }
-            return false;
-          }),
-        );
-      } else {
-        setAllRentersData(filteredByCategory);
-      }
-    }
-  }, [
-    status,
-    dispatch,
-    data,
-    selectedTab,
-    locationOption,
-    selectedDistricts,
-    usersInfo,
-  ]);
+    fetchAllUsers();
+  }, [fetchAllUsers]);
 
   useEffect(() => {
     if (locationOption !== 'islandwide' && selectedDistricts.length > 0) {
-      setFilteredData((da) =>
-        allRentersData.filter((item) => {
-          const user = usersInfo.find((user) => user.id === item.createdBy);
+      setFilteredData((_da) =>
+        rentingItems.filter((item) => {
+          const user = users.find((user) => user.id === item.createdBy);
           if (user) {
             return selectedDistricts.includes(user.district ?? '');
           }
@@ -119,27 +70,27 @@ const Renters = () => {
         }),
       );
     } else {
-      setFilteredData(allRentersData);
+      setFilteredData(rentingItems);
     }
 
     switch (sortingOption) {
       case 'Price: Low to High': // Price: Low to High
-        setFilteredData((da) => [...da].sort((a, b) => a.price - b.price));
+        setFilteredData((data) => [...data].sort((a, b) => a.price - b.price));
         break;
       case 'Price: High to Low': // Price: High to Low
-        setFilteredData((da) => [...da].sort((a, b) => b.price - a.price));
+        setFilteredData((data) => [...data].sort((a, b) => b.price - a.price));
         break;
       case 'Date: Newest on Top': // Date: Newest on Top
-        setFilteredData((da) =>
-          [...da].sort(
+        setFilteredData((data) =>
+          [...data].sort(
             (a, b) =>
               new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime(),
           ),
         );
         break;
       case 'Date: Oldest on Top': // Date: Oldest on Top
-        setFilteredData((da) =>
-          [...da].sort(
+        setFilteredData((data) =>
+          [...data].sort(
             (a, b) =>
               new Date(a.dateAdded).getTime() - new Date(b.dateAdded).getTime(),
           ),
@@ -148,32 +99,19 @@ const Renters = () => {
       default:
         break;
     }
-  }, [
-    allRentersData,
-    locationOption,
-    selectedDistricts,
-    sortingOption,
-    usersInfo,
-  ]);
-
-  useEffect(() => {
-    setFilteredData(allRentersData);
-  }, [allRentersData]);
+  }, [rentingItems, locationOption, selectedDistricts, sortingOption, users]);
 
   return (
     <>
       <TopAppBar />
-      <Carousel cards={topImages} />
+      <HomePageCarousel cards={topImages} />
       <div
         style={{ display: 'flex', justifyContent: 'flex-end', margin: '20px' }}
       >
         <button
           onClick={() => {
             setSelectedTab('HEAVY_MACHINERY');
-            setAllRentersData((_data) =>
-              data.filter((item) => item.category === 'HEAVY_MACHINERY'),
-            );
-            console.log(allRentersData);
+            console.log(rentingItems);
           }}
           style={{
             backgroundColor:
@@ -192,10 +130,7 @@ const Renters = () => {
         <button
           onClick={() => {
             setSelectedTab('PORTABLE_MACHINES');
-            setAllRentersData((_data) =>
-              data.filter((item) => item.category === 'PORTABLE_MACHINES'),
-            );
-            console.log(allRentersData);
+            console.log(rentingItems);
           }}
           style={{
             backgroundColor:
@@ -214,10 +149,7 @@ const Renters = () => {
         <button
           onClick={() => {
             setSelectedTab('TOOLS_AND_EQUIPMENT');
-            setAllRentersData((_data) =>
-              data.filter((item) => item.category === 'TOOLS_AND_EQUIPMENT'),
-            );
-            console.log(allRentersData);
+            console.log(rentingItems);
           }}
           style={{
             backgroundColor:
@@ -255,11 +187,11 @@ const Renters = () => {
             padding: '1rem',
           }}
         >
-          <RentingCards data={filteredData} usersInfo={usersInfo} />
+          <RentingCards data={filteredData} usersInfo={users} />
         </div>
       </div>
     </>
   );
 };
 
-export default Renters;
+export default AllRentingItems;

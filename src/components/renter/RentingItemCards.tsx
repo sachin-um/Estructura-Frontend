@@ -5,6 +5,7 @@ import StoreIcon from '@mui/icons-material/Store';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import { useNavigate } from 'react-router-dom';
 
 import '../../assets/font.css';
 
@@ -15,6 +16,7 @@ const RentingItemCards = ({
   data: RentingItem[];
   usersInfo: User[];
 }) => {
+  const navigate = useNavigate();
   return (
     <div
       style={{
@@ -29,6 +31,9 @@ const RentingItemCards = ({
         );
         return (
           <Card
+            onClick={() => {
+              navigate(`/rentingItems/${rentingItem.id}`);
+            }}
             sx={{
               '&:hover': {
                 boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
@@ -89,7 +94,7 @@ const RentingItemCards = ({
                   style={{ marginLeft: '0.5rem' }}
                   variant="body2"
                 >
-                  {user ? user.firstname + ' ' + user.lastname : 'Unknown'}
+                  {user ? user.firstName + ' ' + user.lastName : 'Unknown'}
                 </Typography>
               </div>
               <div

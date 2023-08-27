@@ -9,6 +9,35 @@ interface Qualification {
   qualification: string;
 }
 
+interface UserState {
+  ProfileImage: null | string;
+  ProfileImageName: null | string;
+  email: string;
+  firstName: string;
+  id: number;
+  lastName: string;
+  role: Role;
+  serviceProviderType?: ServiceProviders;
+}
+
+interface SignInRequest {
+  email: string;
+  password: string;
+}
+
+interface AuthenticationResponse extends ValidatedResponse, UserState {
+  accessToken: null | string;
+  refreshToken: null | string;
+  success: boolean;
+}
+
+interface RefreshTokenResponse {
+  accessToken: null | string;
+  message: null | string;
+  refreshToken: null | string;
+  success: boolean;
+}
+
 interface Specialization {
   id: number;
   specialization: string;
@@ -40,11 +69,11 @@ interface User {
   credentialsNonExpired: boolean;
   district?: string;
   email: string;
-  firstname: string;
+  firstName: string;
   id: number;
   introduction?: string;
   isVerified: boolean;
-  lastname: string;
+  lastName: string;
   maxRate?: number;
   minRate?: number;
   nic?: string;
@@ -54,6 +83,6 @@ interface User {
   sLIDRegNumber?: string;
   serviceAreas?: ServiceArea[];
   serviceProviderType?: ServiceProviders;
-  sliaregNumber?: string;
+  sliaRegNumber?: string;
   specializations?: Specialization[];
 }

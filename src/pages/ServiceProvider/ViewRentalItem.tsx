@@ -1,25 +1,18 @@
-import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import type { FunctionComponent } from 'react';
 
 import CallIcon from '@mui/icons-material/Call';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import StoreIcon from '@mui/icons-material/Store';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Footer from '../../components/Footer';
 import NotFound from '../../components/NoResults';
 import TopAppBar from '../../components/TopAppBar';
+import { useRentingItem } from '../../hooks/rentingItem/useRentingItem';
+import useFetchUser from '../../hooks/users/useFetchUser';
 import Loading from '../../pages/loading';
-import {
-  fetchRentingItemById,
-  getRentingItemError,
-  getRentingItemStatus,
-  selectRentingItem,
-} from '../../redux/Renting/SingleRentingItemReducer';
-import { useUsers } from '../../redux/UserInfo/useUsers';
 import { mobile } from '../../responsive';
 
 const Container = styled.div`
@@ -173,94 +166,97 @@ const ButtonText = styled.span`
 
 const ViewRentalItem: FunctionComponent = () => {
   const itemId = parseInt(useParams<{ id: string }>().id ?? '0');
-  const dispatch: ThunkDispatch<RentingItem, void, AnyAction> = useDispatch();
 
-  const item = useSelector(selectRentingItem);
-  const itemStatus = useSelector(getRentingItemStatus);
-  const itemError = useSelector(getRentingItemError);
   const [selectedImage, setSelectedImage] = useState('');
   const [imageUrl, setImageUrl] = useState('');
 
+  const {
+    getRentingItem: { fetchRentingItem, isLoading, rentingItem },
+  } = useRentingItem();
+
   useEffect(() => {
-    if (itemStatus === 'idle') {
-      dispatch(fetchRentingItemById(itemId));
-    }
-    if (item) {
+    fetchRentingItem(itemId);
+  }, [fetchRentingItem, itemId]);
+
+  useEffect(() => {
+    if (rentingItem) {
       setSelectedImage(
-        `http://localhost:8080/files/renting-item-files/${item?.createdBy}/${item?.id}/${item?.mainImageName}`,
+        `http://localhost:8080/files/renting-item-files/${rentingItem?.createdBy}/${rentingItem?.id}/${rentingItem?.mainImageName}`,
       );
       setImageUrl(
-        `http://localhost:8080/files/renting-item-files/${item?.createdBy}/${item?.id}/`,
+        `http://localhost:8080/files/renting-item-files/${rentingItem?.createdBy}/${rentingItem?.id}/`,
       );
     }
-  }, [dispatch, item, itemId, itemStatus]);
+  }, [rentingItem, itemId]);
 
   const handleImageClick = (image: string) => {
     setSelectedImage(image);
   };
 
-  const { selectUserById } = useUsers();
+  const { fetchUserById, user } = useFetchUser();
 
-  const userinfo = selectUserById(item?.createdBy ?? 0);
+  useEffect(() => {
+    if (rentingItem) {
+      fetchUserById(rentingItem.createdBy);
+    }
+  }, [rentingItem, fetchUserById]);
 
   return (
     <Container>
       <TopAppBar />
-      {itemError ? (
-        <h1>ERROR: {itemError}</h1>
-      ) : itemStatus === 'loading' ? (
+      {isLoading ? (
         <Loading />
-      ) : item ? (
+      ) : rentingItem ? (
         <Wrapper>
           <ContainerImg>
             <BigImageContainer>
-              {item.mainImage ? <BigImage src={selectedImage} /> : <></>}
+              {rentingItem.mainImage ? <BigImage src={selectedImage} /> : <></>}
             </BigImageContainer>
             <SmallImagesContainer>
-              {item.mainImage ? (
+              {rentingItem.mainImage ? (
                 <SmallImageContainer
                   // isSelected={ (imageUrl+ item.mainImageName) === selectedImage}
                   onClick={() =>
-                    handleImageClick(imageUrl + item.mainImageName)
+                    handleImageClick(imageUrl + rentingItem.mainImageName)
                   }
                 >
-                  <SmallImage src={imageUrl + item.mainImageName} />
+                  <SmallImage src={imageUrl + rentingItem.mainImageName} />
                 </SmallImageContainer>
               ) : (
                 <></>
               )}
-              {item.extraImage1 ? (
+              {rentingItem.extraImage1 ? (
                 <SmallImageContainer
                   // isSelected={ (imageUrl+ item.extraImage1Name) === selectedImage}
                   onClick={() =>
-                    handleImageClick(imageUrl + item.extraImage1Name)
+                    handleImageClick(imageUrl + rentingItem.extraImage1Name)
                   }
                 >
-                  <SmallImage src={imageUrl + item.extraImage1Name} />
+                  <SmallImage src={imageUrl + rentingItem.extraImage1Name} />
                 </SmallImageContainer>
               ) : (
                 <></>
               )}
-              {item.extraImage2 ? (
+              {rentingItem.extraImage2 ? (
                 <SmallImageContainer
                   // isSelected={ (imageUrl+ item.extraImage2Name) === selectedImage}
                   onClick={() =>
-                    handleImageClick(imageUrl + item.extraImage2Name)
+                    handleImageClick(imageUrl + rentingItem.extraImage2Name)
                   }
                 >
-                  <SmallImage src={imageUrl + item.extraImage2Name} />
+                  <SmallImage src={imageUrl + rentingItem.extraImage2Name} />
                 </SmallImageContainer>
               ) : (
                 <></>
               )}
-              {item.extraImage3 ? (
+              {rentingItem.extraImage3 ? (
                 <SmallImageContainer
                   // isSelected={ (imageUrl+ item.extraImage3Name) === selectedImage}
                   onClick={() =>
-                    handleImageClick(imageUrl + item.extraImage3Name)
+                    handleImageClick(imageUrl + rentingItem.extraImage3Name)
                   }
                 >
-                  <SmallImage src={imageUrl + item.extraImage3Name} />
+                  <SmallImage src={imageUrl + rentingItem.extraImage3Name} />
                 </SmallImageContainer>
               ) : (
                 <></>
@@ -268,31 +264,30 @@ const ViewRentalItem: FunctionComponent = () => {
             </SmallImagesContainer>
           </ContainerImg>
           <InfoContainer>
-            <Title>{item.name}</Title>
+            <Title>{rentingItem.name}</Title>
             <DateText>
-              {new Date(item.dateAdded).toLocaleDateString('en-US')}
+              {new Date(rentingItem.dateAdded).toLocaleDateString('en-US')}
             </DateText>
-            <Desc>{item.description}</Desc>
+            <Desc>{rentingItem.description}</Desc>
             <PriceContainer>
-              <Price>LKR. {item.price.toFixed(2)}</Price>
-              <Duration>{item.scale}</Duration>
+              <Price>LKR. {rentingItem.price.toFixed(2)}</Price>
+              <Duration>{rentingItem.scale}</Duration>
             </PriceContainer>
 
             <ContactContainer>
               <StoreIcon></StoreIcon>
-              <Contact>{userinfo?.businessName}</Contact>
+              <Contact>{user?.businessName}</Contact>
             </ContactContainer>
 
             <ContactContainer>
               <CallIcon></CallIcon>
-              <ContactNo>{userinfo?.businessContactNo}</ContactNo>
+              <ContactNo>{user?.businessContactNo}</ContactNo>
             </ContactContainer>
 
             <ContactContainer>
               <LocationOnIcon></LocationOnIcon>
               <Contact>
-                {userinfo?.addressLine1}, {userinfo?.addressLine2},
-                {userinfo?.district}.
+                {user?.addressLine1}, {user?.addressLine2},{user?.district}.
               </Contact>
             </ContactContainer>
           </InfoContainer>

@@ -1,4 +1,3 @@
-import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import type { FormikProps } from 'formik';
 import type { FunctionComponent } from 'react';
 
@@ -24,19 +23,13 @@ import {
 import Divider from '@mui/material/Divider';
 import { ErrorMessage, Form, Formik } from 'formik';
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
+import { useRentingItem } from '../../hooks/rentingItem/useRentingItem';
+import useCurrentUser from '../../hooks/users/useCurrentUser';
 import UnauthorizedAccess from '../../pages/unauthorized_access';
-import { setRentingItemsMutated } from '../../redux/Renting/RentingItemsReducer';
-import {
-  addRentingItem,
-  editRentingItem,
-} from '../../redux/Renting/SingleRentingItemReducer';
-import { selectUser } from '../../redux/UserAuthenticationReducer';
 import GetFormikProps from '../../utils/GetFormikProps';
-import { violationsToErrorsTS } from '../../utils/ViolationsTS';
 import Footer from '../Footer';
 
 interface RentingItemFormProps {
@@ -111,62 +104,40 @@ const RentalItemForm: FunctionComponent<RentingItemFormProps> = ({
 }) => {
   console.log(OriginalRentingItem);
   const FormRef = useRef<FormikProps<RentingItemAddOrUpdateRequest>>(null);
-  const MainImageUploadRef = useRef<HTMLInputElement>(null);
-  const ExtraImageUploadRef = useRef<HTMLInputElement>(null);
-  const userInfo = useSelector(selectUser);
-  const dispatch: ThunkDispatch<RentingItem, void, AnyAction> = useDispatch();
+  const mainImageUploadRef = useRef<HTMLInputElement>(null);
+  const extraImageUploadRef = useRef<HTMLInputElement>(null);
+
+  const currentUser = useCurrentUser();
+
+  const { addRentingItem, editRentingItemById } = useRentingItem();
+
   const navigate = useNavigate();
   const HandleSubmit = (values: RentingItemAddOrUpdateRequest) => {
     console.log(values);
     if (FormRef.current) {
       const { setErrors, setSubmitting } = FormRef.current;
       setSubmitting(true);
-      console.log(values);
       if (OriginalRentingItem) {
         // Edit Renting Item
-        dispatch(
-          editRentingItem({
-            rentingItem: OriginalRentingItem,
-            updatedRentingItem: values,
-          }),
-        ).then((resultAction) => {
-          if (editRentingItem.fulfilled.match(resultAction)) {
-            // ! Handle Edit Success Here
-            console.log('Project Edited');
-            alert('Item Edited');
-          } else if (editRentingItem.rejected.match(resultAction)) {
-            try {
-              const response =
-                resultAction.payload as GenericAddOrUpdateResponse;
-              if (response) {
-                setErrors(violationsToErrorsTS(response.validation_violations));
-              }
-            } catch (error) {
-              console.log(error);
-            }
+        editRentingItemById(OriginalRentingItem.id, values).then((edited) => {
+          if (edited.success) {
+            alert('Item Updated Successfully');
+          } else if (edited.errors) {
+            setErrors(edited.errors);
           }
         });
       } else {
         // Create Renting Item
-        dispatch(addRentingItem(values)).then((resultAction) => {
-          if (addRentingItem.fulfilled.match(resultAction)) {
-            navigate(`/rentingItems/${resultAction.payload.id}`, {
+        addRentingItem(values).then((added) => {
+          if (added.item) {
+            navigate(`/rentingItems/${added.item.id}`, {
               replace: true,
             });
-          } else if (addRentingItem.rejected.match(resultAction)) {
-            try {
-              const response =
-                resultAction.payload as GenericAddOrUpdateResponse;
-              if (response) {
-                setErrors(violationsToErrorsTS(response.validation_violations));
-              }
-            } catch (error) {
-              console.log(error);
-            }
+          } else if (added.errors) {
+            setErrors(added.errors);
           }
         });
       }
-      dispatch(setRentingItemsMutated(true));
       setSubmitting(false);
     }
   };
@@ -241,9 +212,9 @@ const RentalItemForm: FunctionComponent<RentingItemFormProps> = ({
 
   return (
     <>
-      {userInfo &&
-      userInfo.id &&
-      userInfo.serviceProviderType ===
+      {currentUser &&
+      currentUser.id &&
+      currentUser.serviceProviderType ===
         ('RENTINGCOMPANY' as ServiceProviders) ? (
         <Formik
           enableReinitialize
@@ -485,8 +456,8 @@ const RentalItemForm: FunctionComponent<RentingItemFormProps> = ({
                       ) : (
                         <Box
                           onClick={() => {
-                            if (MainImageUploadRef.current) {
-                              MainImageUploadRef.current.click();
+                            if (mainImageUploadRef.current) {
+                              mainImageUploadRef.current.click();
                             }
                           }}
                           style={{
@@ -510,7 +481,7 @@ const RentalItemForm: FunctionComponent<RentingItemFormProps> = ({
                             <AddPhotoAlternateIcon />
                             <input
                               hidden
-                              ref={MainImageUploadRef}
+                              ref={mainImageUploadRef}
                               {...spread(
                                 'mainImage',
                                 false,
@@ -581,8 +552,8 @@ const RentalItemForm: FunctionComponent<RentingItemFormProps> = ({
                         <Grid>
                           <Button
                             onClick={() => {
-                              if (ExtraImageUploadRef.current) {
-                                ExtraImageUploadRef.current.click();
+                              if (extraImageUploadRef.current) {
+                                extraImageUploadRef.current.click();
                               }
                             }}
                             style={{
@@ -595,7 +566,7 @@ const RentalItemForm: FunctionComponent<RentingItemFormProps> = ({
                           >
                             <input
                               hidden
-                              ref={ExtraImageUploadRef}
+                              ref={extraImageUploadRef}
                               {...spread(
                                 'extraImages',
                                 false,

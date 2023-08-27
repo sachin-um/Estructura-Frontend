@@ -34,19 +34,12 @@ interface RentingItemAddOrUpdateRequest {
 }
 
 interface updateRentingItemParams {
-  rentingItem: RentingItem;
+  rentingItemId: number;
   updatedRentingItem: RentingItemAddOrUpdateRequest;
-}
-
-interface RentingItemState {
-  error: boolean | null;
-  rentingItem: RentingItem | null;
-  reqStatus: reqStatus;
 }
 
 interface RentingItemsState {
   error: boolean | null;
-  mutated: boolean;
   rentingItems: RentingItem[];
   reqStatus: reqStatus;
 }

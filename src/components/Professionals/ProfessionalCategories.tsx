@@ -96,7 +96,7 @@ const ProfessionalCategories = ({ data }: { data: Professional[] }) => {
             />
             <CardWrapper>
               <CardText>
-                {card.firstname} {card.lastname}
+                {card.firstName} {card.lastName}
               </CardText>
               <CardPrice>
                 {card.city} , {card.district}

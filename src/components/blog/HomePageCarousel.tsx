@@ -1,7 +1,14 @@
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-const HomepageCarousel = ({ cards }) => {
+const HomePageCarousel = ({
+  cards,
+}: {
+  cards: {
+    image: string;
+    title: string;
+  }[];
+}) => {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
   const visibleCards = cards
@@ -20,10 +27,12 @@ const HomepageCarousel = ({ cards }) => {
   return (
     <Box marginBottom={5} overflow="hidden" position="relative">
       <Box
-        display="flex"
-        justifyContent="space-between"
-        transform={`translateX(-${currentCardIndex * 33.33}%)`}
-        transition="transform 0.5s"
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          transform: `translateX(-${currentCardIndex * 33.33}%)`,
+          transition: 'transform 0.5s',
+        }}
       >
         {visibleCards.map((card, index) => (
           <Card
@@ -72,4 +81,4 @@ const HomepageCarousel = ({ cards }) => {
   );
 };
 
-export default HomepageCarousel;
+export default HomePageCarousel;

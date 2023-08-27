@@ -17,7 +17,6 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <EstructuraTheme>
-        {/* <RouterProvider router={router} /> */}
         <RouterProvider router={altRouter} />
       </EstructuraTheme>
     </Provider>

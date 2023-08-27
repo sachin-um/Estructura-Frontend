@@ -1,23 +1,21 @@
 import type { FunctionComponent } from 'react';
 
-import { useSelector } from 'react-redux';
-
 import RentalItemForm from '../../../components/ServiceProviderProf/RentalItemForm';
 import TopAppBar from '../../../components/TopAppBar';
-import { selectUser } from '../../../redux/UserAuthenticationReducer';
+import useCurrentUser from '../../../hooks/users/useCurrentUser';
 import UnauthorizedAccess from '../../unauthorized_access';
 
 const AddRentalItem: FunctionComponent = () => {
-  const userInfo = useSelector(selectUser);
+  const currentUser = useCurrentUser();
 
   return (
     <>
       <TopAppBar />
-      {userInfo &&
-      userInfo.id &&
-      userInfo.serviceProviderType ===
+      {currentUser &&
+      currentUser.id &&
+      currentUser.serviceProviderType ===
         ('RENTINGCOMPANY' as ServiceProviders) ? (
-        <RentalItemForm userId={userInfo.id} />
+        <RentalItemForm userId={currentUser.id} />
       ) : (
         <UnauthorizedAccess />
       )}

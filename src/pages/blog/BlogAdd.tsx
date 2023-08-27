@@ -1,20 +1,18 @@
 import type { FunctionComponent } from 'react';
 
-import { useSelector } from 'react-redux';
-
 import TopAppBar from '../../components/TopAppBar';
 import BlogForm from '../../components/blog/BlogForm';
-import { selectUser } from '../../redux/UserAuthenticationReducer';
+import useCurrentUser from '../../hooks/users/useCurrentUser';
 import UnauthorizedAccess from '../unauthorized_access';
 
 const BlogAdd: FunctionComponent = () => {
-  const userInfo = useSelector(selectUser);
+  const currentUser = useCurrentUser();
 
   return (
     <>
       <TopAppBar />
-      {userInfo && userInfo.id ? (
-        <BlogForm userId={userInfo.id} />
+      {currentUser && currentUser.id ? (
+        <BlogForm userId={currentUser.id} />
       ) : (
         <UnauthorizedAccess />
       )}
