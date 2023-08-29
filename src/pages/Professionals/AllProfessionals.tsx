@@ -11,27 +11,28 @@ import Footer from '../../components/Footer';
 import NotFound from '../../components/NoResults';
 import ProfessionalCategories from '../../components/Professionals/ProfessionalCategories';
 import TopAppBar from '../../components/TopAppBar';
-import {
-  fetchProfessionals,
-  getProfessionalsStatus,
-  selectAllProfessionals,
-} from '../../redux/Professionals/ProfessionalsReducer';
+import { useFetchAllProfessionals } from '../../hooks/professional/useFetchProfessionals';
+// import {
+//   fetchProfessionals,
+//   getProfessionalsStatus,
+//   selectAllProfessionals,
+// } from '../../redux/Professionals/ProfessionalsReducer';
 import Loading from '../loading';
 
 const AllProfessionals = () => {
-  const professionalStatus = useSelector(getProfessionalsStatus);
-  const professionals = useSelector(selectAllProfessionals);
+  const { fetchAllProfessionals, isLoading, professionals } =
+    useFetchAllProfessionals();
+  // const professionalStatus = useSelector(getProfessionalsStatus);
+  // const professionals = useSelector(selectAllProfessionals);
 
-  console.log(professionals);
+  // console.log(professionals);
 
-  const dispatch: ThunkDispatch<Professional[], void, AnyAction> =
-    useDispatch();
+  // const dispatch: ThunkDispatch<Professional[], void, AnyAction> =
+  //   useDispatch();
 
   useEffect(() => {
-    if (professionalStatus === 'idle') {
-      dispatch(fetchProfessionals());
-    }
-  }, [dispatch, professionalStatus]);
+    fetchAllProfessionals();
+  }, [fetchAllProfessionals]);
 
   const Architects = professionals.filter(
     (professional) => professional.role === 'ARCHITECT',
@@ -100,11 +101,12 @@ const AllProfessionals = () => {
       )}
       {firstFourArchitects.length === 0 && (
         <Box>
-          {professionalStatus === 'loading' ? (
+          {isLoading ? (
             <Loading />
-          ) : professionalStatus === 'failed' ? (
-            <div style={{ textAlign: 'center' }}>Failed to load projects</div>
           ) : (
+            // : professionalStatus === 'failed' ? (
+            //   <div style={{ textAlign: 'center' }}>Failed to load projects</div>
+            // )
             <NotFound />
           )}
         </Box>
@@ -142,11 +144,12 @@ const AllProfessionals = () => {
       )}
       {firstFourConstructionCompanies.length === 0 && (
         <Box>
-          {professionalStatus === 'loading' ? (
+          {isLoading ? (
             <Loading />
-          ) : professionalStatus === 'failed' ? (
-            <div style={{ textAlign: 'center' }}>Failed to load projects</div>
           ) : (
+            //  : professionalStatus === 'failed' ? (
+            //   <div style={{ textAlign: 'center' }}>Failed to load projects</div>
+            // )
             <NotFound />
           )}
         </Box>
@@ -185,11 +188,12 @@ const AllProfessionals = () => {
       )}
       {firstFourHomeBuilders.length === 0 && (
         <Box>
-          {professionalStatus === 'loading' ? (
+          {isLoading ? (
             <Loading />
-          ) : professionalStatus === 'failed' ? (
-            <div style={{ textAlign: 'center' }}>Failed to load projects</div>
           ) : (
+            //  : professionalStatus === 'failed' ? (
+            //   <div style={{ textAlign: 'center' }}>Failed to load projects</div>
+            // )
             <NotFound />
           )}
         </Box>
@@ -227,11 +231,12 @@ const AllProfessionals = () => {
       )}
       {firstFourCarpenters.length === 0 && (
         <Box>
-          {professionalStatus === 'loading' ? (
+          {isLoading ? (
             <Loading />
-          ) : professionalStatus === 'failed' ? (
-            <div style={{ textAlign: 'center' }}>Failed to load projects</div>
           ) : (
+            // : professionalStatus === 'failed' ? (
+            //   <div style={{ textAlign: 'center' }}>Failed to load projects</div>
+            // )
             <NotFound />
           )}
         </Box>
@@ -269,11 +274,12 @@ const AllProfessionals = () => {
       )}
       {firstFourInteriorDesigners.length === 0 && (
         <Box>
-          {professionalStatus === 'loading' ? (
+          {isLoading ? (
             <Loading />
-          ) : professionalStatus === 'failed' ? (
-            <div style={{ textAlign: 'center' }}>Failed to load projects</div>
           ) : (
+            // : professionalStatus === 'failed' ? (
+            //   <div style={{ textAlign: 'center' }}>Failed to load projects</div>
+            // )
             <NotFound />
           )}
         </Box>
@@ -311,11 +317,12 @@ const AllProfessionals = () => {
       )}
       {firstFourLandscapeArchitects.length === 0 && (
         <Box>
-          {professionalStatus === 'loading' ? (
+          {isLoading ? (
             <Loading />
-          ) : professionalStatus === 'failed' ? (
-            <div style={{ textAlign: 'center' }}>Failed to load projects</div>
           ) : (
+            // : professionalStatus === 'failed' ? (
+            //   <div style={{ textAlign: 'center' }}>Failed to load projects</div>
+            // )
             <NotFound />
           )}
         </Box>
@@ -353,11 +360,12 @@ const AllProfessionals = () => {
       )}
       {firstFourPainters.length === 0 && (
         <Box>
-          {professionalStatus === 'loading' ? (
+          {isLoading ? (
             <Loading />
-          ) : professionalStatus === 'failed' ? (
-            <div style={{ textAlign: 'center' }}>Failed to load projects</div>
           ) : (
+            // : professionalStatus === 'failed' ? (
+            //   <div style={{ textAlign: 'center' }}>Failed to load projects</div>
+            // )
             <NotFound />
           )}
         </Box>

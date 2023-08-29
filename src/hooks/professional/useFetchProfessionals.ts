@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 
 import API from '../../lib/API';
 
-const useFetchAllProfessionals = () => {
+export const useFetchAllProfessionals = () => {
   const [professionals, setProfessionals] = useState<Professional[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -18,5 +18,3 @@ const useFetchAllProfessionals = () => {
   }, []);
   return { fetchAllProfessionals, isLoading, professionals };
 };
-
-export default useFetchAllProfessionals;

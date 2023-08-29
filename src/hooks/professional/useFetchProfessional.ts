@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 
 import API from '../../lib/API';
 
-const useFetchProfessionl = () => {
+const useFetchProfessional = () => {
   const [professional, setProfessional] = useState<Professional | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -19,4 +19,4 @@ const useFetchProfessionl = () => {
   return { fetchUserById, isLoading, professional };
 };
 
-export default useFetchProfessionl;
+export default useFetchProfessional;
