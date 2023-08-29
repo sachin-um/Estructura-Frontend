@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Container, Typography, Box, TextField, Button, Grid } from '@mui/material';
 import { Link, useNavigate } from "react-router-dom";
+import CusBar from '../../components/CusTopBar';
+import Footer from '../../components/Footer';
 
 const ChangePassword = () => {
   const [oldPassword, setOldPassword] = useState('');
@@ -36,6 +38,7 @@ const ChangePassword = () => {
 
   return (
     <>
+    <CusBar />
       <Container style={{ marginTop: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         {/* Change Password Panel */}
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2rem', width: '50%' }}>
@@ -84,12 +87,13 @@ const ChangePassword = () => {
               onChange={handleChange}
               style={{ marginBottom: '1.3rem' }}
             />
-            <Button type="submit" variant="contained" color="primary" style={{ marginBottom: '1.3rem' }}>
+            <Button type="submit" variant="contained" color="primary">
               Change Password
             </Button>
           </form>
         </Box>
       </Container>
+      
     </>
   );
 };

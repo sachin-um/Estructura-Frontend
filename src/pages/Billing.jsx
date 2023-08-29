@@ -16,7 +16,7 @@ import {
 import CheckIcon from '@mui/icons-material/Check';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-
+import Footer from '../components/Footer';
 import CusBar from '../components/CusTopBar';
 import ChangePassword from './ChangePassword';
 
@@ -57,21 +57,21 @@ const Billing = () => {
   const isPremiumPlanActive = subscriptionPlan === 'premium';
 
   const standardPlanFeatures = [
-    'Access to Standard Library',
-    'Basic Support',
-    'Limited Storage',
-    'Standard Features',
-    'Access to Standard Library',
-    'Basic Support',
+    'Search retail items & service providers ',
+    'Chat with experts',
+    'Upto 5 blog articles',
+    'Upto 10 retail Items',
+    'Upto 3 previous projects',
+    'Access to e-commerce platform'
   ];
 
   const premiumPlanFeatures = [
-    'Access to Premium Library',
-    'Priority Support',
-    'Extended Storage',
-    'Premium Features',
-    'Access to Premium Library',
-    'Priority Support',
+    'ML furniture suggestion',
+    'Customizable plan creatiion',
+    'Unique request handling',
+    'Unlimited blog articles',
+    'Unlimited retail Items',
+    'Unlimited previous projects',
   ];
 
   const handleAddPaymentMethod = () => {
@@ -205,7 +205,7 @@ const Billing = () => {
                         />
                       </RadioGroup>
                     </FormControl>
-                    <Typography style={{ alignSelf: 'center', color: '#435834', fontSize: '1.7em', fontWeight: 'bold', paddingRight: '10rem', marginTop: '-0.7em' }}>
+                    <Typography style={{ alignSelf: 'center', color: '#435834', fontSize: '1.7em', fontWeight: 'bold', marginLeft:"-16rem", marginTop: '-0.7em' }}>
                       Free
                     </Typography>
                     <ul style={{ paddingLeft: '1.2rem', marginBottom: 0 }}>
@@ -244,8 +244,8 @@ const Billing = () => {
                         />
                       </RadioGroup>
                     </FormControl>
-                    <Typography style={{ alignSelf: 'center', color: '#435834', fontSize: '1.7em', fontWeight: 'bold', paddingRight: '10rem', marginTop: '-0.7em' }}>
-                      $19.9/Yr
+                    <Typography style={{ alignSelf: 'center', color: '#435834', fontSize: '1.7em', fontWeight: 'bold', paddingRight: '5rem', marginTop: '-0.7em',  }}>
+                      Rs 9900/Yr,
                     </Typography>
                     <ul style={{ paddingLeft: '1.2rem', marginBottom: 0 }}>
                       {premiumPlanFeatures.map((feature, index) => (
@@ -263,6 +263,7 @@ const Billing = () => {
                 sx={{
                   marginTop: '2rem',
                   paddingLeft: '1.0rem',
+                  marginBottom: '2rem',
                 }}
               >
                 <Typography variant="h6" style={{ marginTop: '0.5rem' }}>
@@ -328,6 +329,7 @@ const Billing = () => {
           </Box>
         )}
       </Container>
+      <Footer />
     </>
   );
 };
