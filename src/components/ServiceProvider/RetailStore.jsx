@@ -20,11 +20,11 @@ import AddressInputs, {
 } from '../Auth/AddressInputs';
 
 const retailCategories = [
-  ['indoorfurniture', 'Indoor Furniture'],
-  ['outdoorfurniture', 'Outdoor Furniture'],
-  ['hardware', 'Hardware'],
-  ['bathware', 'Bathware'],
-  ['lighting', 'Lighting'],
+  ['Indoor Furniture', 'FURNITURE'],
+  ['Outdoor Furniture', 'GARDENWARE'],
+  ['Hardware', 'HARDWARE'],
+  ['Bathware', 'BATHWARE'],
+  ['Lighting', 'LIGHTING'],
 ];
 
 const validationSchema = yup.object({
@@ -52,6 +52,7 @@ function RetailStore({ nextPage, previousPage, updateFormData, formData }) {
     registrationNo: formData.registrationNo ?? '',
     firstName: formData.firstName ?? '',
     lastName: formData.lastName ?? '',
+    role: formData.role ?? 'RETAILSTORE',
     ...addressInitialValues(formData),
   };
 
@@ -172,6 +173,17 @@ function RetailStore({ nextPage, previousPage, updateFormData, formData }) {
                     variant="filled"
                     size="small"
                     {...spread('registrationNo')}
+                  />
+                  <TextField
+                    style={{ display: 'none' }}
+                    type="hidden"
+                    name="role"
+                    label="role"
+                    variant="filled"
+                    size="small"
+                    value={initialValues.role}
+                    color="secondary"
+                    {...spread('role')}
                   />
                   <AddressInputs spread={spread} errors={errors} />
                 </Stack>
