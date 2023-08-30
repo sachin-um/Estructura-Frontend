@@ -194,9 +194,13 @@ function ServiceProviderPublicProfile() {
                 />
                 <Tab label="Reviews" value="three" />
               </Tabs>
-
               {activeTab === 'one' && <ProfileDetails user={user} />}
-              {activeTab === 'two' && <PreviousProjects userId={user.id} />}
+              {/* TODO: Add other types */}
+              {activeTab === 'two' &&
+                user.role !== 'RENTER' &&
+                user.role !== 'RETAILSTORE' && (
+                  <PreviousProjects userId={user.id} />
+                )}
               {activeTab === 'three' && <Reviews />}
             </Grid>
           </Grid>
