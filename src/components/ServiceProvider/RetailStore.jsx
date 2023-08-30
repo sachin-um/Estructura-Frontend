@@ -20,11 +20,11 @@ import AddressInputs, {
 } from '../Auth/AddressInputs';
 
 const retailCategories = [
-  ['indoorfurniture', 'Indoor Furniture'],
-  ['outdoorfurniture', 'Outdoor Furniture'],
-  ['hardware', 'Hardware'],
-  ['bathware', 'Bathware'],
-  ['lighting', 'Lighting'],
+  ['Indoor Furniture', 'FURNITURE'],
+  ['Outdoor Furniture', 'GARDENWARE'],
+  ['Hardware', 'HARDWARE'],
+  ['Bathware', 'BATHWARE'],
+  ['Lighting', 'LIGHTING'],
 ];
 
 const validationSchema = yup.object({
@@ -37,8 +37,8 @@ const validationSchema = yup.object({
   registrationNo: yup
     .string()
     .required('Business Registration number is required'),
-  firstname: yup.string().required('First Name is required'),
-  lastname: yup.string().required('Last Name is required'),
+  firstName: yup.string().required('First Name is required'),
+  lastName: yup.string().required('Last Name is required'),
   ...addressValidators,
 });
 
@@ -50,8 +50,9 @@ function RetailStore({ nextPage, previousPage, updateFormData, formData }) {
     businessCategory: formData.businessCategory ?? '',
     businessContactNo: formData.businessContactNo ?? '',
     registrationNo: formData.registrationNo ?? '',
-    firstname: formData.firstname ?? '',
-    lastname: formData.lastname ?? '',
+    firstName: formData.firstName ?? '',
+    lastName: formData.lastName ?? '',
+    role: formData.role ?? 'RETAILSTORE',
     ...addressInitialValues(formData),
   };
 
@@ -119,14 +120,14 @@ function RetailStore({ nextPage, previousPage, updateFormData, formData }) {
                       variant="filled"
                       size="small"
                       color="secondary"
-                      {...spread('firstname')}
+                      {...spread('firstName')}
                     />
                     <TextField
                       variant="filled"
                       size="small"
                       color="secondary"
                       label="Your Last Name"
-                      {...spread('lastname')}
+                      {...spread('lastName')}
                     />
                   </Box>
                   <Typography
@@ -172,6 +173,17 @@ function RetailStore({ nextPage, previousPage, updateFormData, formData }) {
                     variant="filled"
                     size="small"
                     {...spread('registrationNo')}
+                  />
+                  <TextField
+                    style={{ display: 'none' }}
+                    type="hidden"
+                    name="role"
+                    label="role"
+                    variant="filled"
+                    size="small"
+                    value={initialValues.role}
+                    color="secondary"
+                    {...spread('role')}
                   />
                   <AddressInputs spread={spread} errors={errors} />
                 </Stack>

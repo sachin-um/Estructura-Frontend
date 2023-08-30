@@ -32,8 +32,8 @@ const ValidationSchema = yup.object().shape({
     .string()
     .email('Email must be a well formed email address')
     .required('Email is required'),
-  firstname: yup.string().required('First Name is required'),
-  lastname: yup.string().required('Last Name is required'),
+  firstName: yup.string().required('First Name is required'),
+  lastName: yup.string().required('Last Name is required'),
   password: yup.string().required('Password is required'),
   ...addressValidators,
 });
@@ -46,8 +46,8 @@ const initialValues = {
   contactNo: '',
   district: districts[0],
   email: '',
-  firstname: '',
-  lastname: '',
+  firstName: '',
+  lastName: '',
   password: '',
   role: 'CUSTOMER',
 };
@@ -280,7 +280,7 @@ function HomeOwnerSignUp() {
                             sx={{ flex: '1', margin: '1px 1px 1px 0' }}
                             type="firstName"
                             variant="filled"
-                            {...spread('firstname')}
+                            {...spread('firstName')}
                           />
                           <TextField
                             color="secondary"
@@ -289,7 +289,7 @@ function HomeOwnerSignUp() {
                             sx={{ flex: '1', margin: '1px 0 1px 1px' }}
                             type="lastName"
                             variant="filled"
-                            {...spread('lastname')}
+                            {...spread('lastName')}
                           />
                         </Box>
                         <TextField

@@ -18,7 +18,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
-import { useBlogs } from '../../redux/Blogs/useBlogs';
+import { useBlog } from '../../hooks/blog/useBlog';
 import GetFormikProps from '../../utils/GetFormikProps';
 
 interface BlogFormProps {
@@ -61,7 +61,7 @@ const BlogForm: FunctionComponent<BlogFormProps> = ({
   const FormRef = useRef<FormikProps<BlogAddOrUpdateRequest>>(null);
   const FileUploadRef = useRef<HTMLInputElement>(null);
 
-  const { addBlog, editBlogById } = useBlogs();
+  const { addBlog, editBlogById } = useBlog();
 
   const navigate = useNavigate();
 
@@ -73,16 +73,18 @@ const BlogForm: FunctionComponent<BlogFormProps> = ({
       if (OriginalBlog) {
         // Edit Blog
         editBlogById(OriginalBlog.id, values).then((edited) => {
+          console.log(edited);
           if (edited.success) {
-            // Alert the user?
+            // alert user
+            alert('Blog Edited');
           } else if (edited.errors) {
             setErrors(edited.errors);
           }
         });
       } else {
         addBlog(values).then((added) => {
-          if (added.id !== -1) {
-            navigate(`/blogs/${added.id}`, { replace: true });
+          if (added.item && added.item.id !== -1) {
+            navigate(`/blogs/${added.item.id}`, { replace: true });
           } else if (added.errors) {
             setErrors(added.errors);
           }

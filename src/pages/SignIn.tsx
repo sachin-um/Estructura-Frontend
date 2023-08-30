@@ -16,12 +16,6 @@ import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
-import type {
-  AuthenticationResponse,
-  SignInRequest,
-  UserState,
-} from '../redux/UserAuthenticationReducer';
-
 import TopBar from '../components/TopAppBar';
 import { signIn } from '../redux/UserAuthenticationReducer';
 import GetFormikProps from '../utils/GetFormikProps';
@@ -82,32 +76,30 @@ function SignIn() {
           if (response.success === false) {
             setErrors(violationsToErrorsTS(response.validation_violations));
           } else {
-            // if (from && from !== '/') {
-            //   Navigate(from, { replace: true });
-            // } else {
-            // Navigate(`/${response.role.toLowerCase()}/dashboard`, {
-            //   replace: true,
-            // });
-            switch (response.role) {
-              case 'ADMIN':
-                Navigate('/admin/dashboard', { replace: true });
-                break;
-              case 'CONSTRUCTIONCOMPANY':
-              case 'ARCHITECT':
-              case 'CARPENTER':
-              case 'ELECTRICIAN':
-              case 'INTERIORDESIGNER':
-              case 'LANDSCAPEARCHITECT':
-              case 'MASONWORKER':
-              case 'PAINTER':
-              case 'RENTER':
-              case 'RETAILSTORE':
-                Navigate('/ServiceProvider/profile', { replace: true });
-                break;
-              case 'CUSTOMER':
-              case 'USER':
-                Navigate('/', { replace: true });
-                break;
+            if (from && from !== '/') {
+              Navigate(from, { replace: true });
+            } else {
+              switch (response.role) {
+                case 'ADMIN':
+                  Navigate('/admin/dashboard', { replace: true });
+                  break;
+                case 'CONSTRUCTIONCOMPANY':
+                case 'ARCHITECT':
+                case 'CARPENTER':
+                case 'ELECTRICIAN':
+                case 'INTERIORDESIGNER':
+                case 'LANDSCAPEARCHITECT':
+                case 'MASONWORKER':
+                case 'PAINTER':
+                case 'RENTER':
+                case 'RETAILSTORE':
+                  Navigate('/ServiceProvider/profile', { replace: true });
+                  break;
+                case 'CUSTOMER':
+                case 'USER':
+                  Navigate('/', { replace: true });
+                  break;
+              }
             }
             // }
           }

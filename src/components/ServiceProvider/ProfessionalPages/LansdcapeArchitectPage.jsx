@@ -148,37 +148,34 @@ function LansdcapeArchitectPage({
                     onSubmit={HandleSubmit}
                   >
                     {
-                          <Grid style={{ justifyContent: "center" }}>
+                      <Grid style={{ justifyContent: 'center' }}>
+                        <Typography textAlign="left" width={1} margin={1}>
+                          SLIA Membership Number
+                        </Typography>
+                        <TextField
+                          InputProps={{ sx: { borderRadius: 2 } }}
+                          sx={{ width: 1, margin: 1 }}
+                          type="SLIARegNumber"
+                          name="sliaRegNumber"
+                          label="Ex:A1399"
+                          variant="filled"
+                          size="small"
+                        />
+                        <Grid style={{ justifyContent: 'center' }}>
                           <Typography textAlign="left" width={1} margin={1}>
-                            SLIA Membership Number
-                                                </Typography>
-                                <TextField
-                                  InputProps={{ sx: { borderRadius: 2 } }}
-                                  sx={{ width: 1, margin: 1 }}
-                                  type="SLIARegNumber"
-                                  name="sLIARegNumber"
-                                  label="Ex:A1399"
-                                  variant="filled"
-                                  size="small"
-                                  
-                                />
-                             <Grid style={{ justifyContent: "center" }}>
-                                                <Typography textAlign="left" width={1} margin={1}>
-                                                What are your qualifications?
-                                                </Typography>
-                                                <Grid style={{ justifyContent: "center" }}>
-                                                <TextField sx={{ m: 1, minWidth: 400, maxWidth: 500}}
-                                                    label="Please separate each one with commas."
-                                                    id="filled-multiline-static"
-                                                    multiline
-                                                    rows={5}
-                                                    variant="filled"
-                                                 
-                                                />
-                                                </Grid>
-                                            </Grid>
-                              
-                        
+                            What are your qualifications?
+                          </Typography>
+                          <Grid style={{ justifyContent: 'center' }}>
+                            <TextField
+                              sx={{ m: 1, minWidth: 400, maxWidth: 500 }}
+                              label="Please separate each one with commas."
+                              id="filled-multiline-static"
+                              multiline
+                              rows={5}
+                              variant="filled"
+                            />
+                          </Grid>
+                        </Grid>
                       </Grid>
                     }
 

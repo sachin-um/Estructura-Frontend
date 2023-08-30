@@ -11,8 +11,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Footer from '../../components/Footer';
 import NotFound from '../../components/NoResults';
 import TopAppBar from '../../components/TopAppBar';
+import { useProject } from '../../hooks/project/useProject';
 import Loading from '../../pages/loading';
-import { useProjects } from '../../redux/Projects/useProjects';
 
 const ViewProject: FunctionComponent = () => {
   const projectId = parseInt(useParams<{ id: string }>().id ?? '0');
@@ -22,9 +22,13 @@ const ViewProject: FunctionComponent = () => {
 
   const navigate = useNavigate();
 
-  const { projectsStatus, selectProjectById } = useProjects();
+  const {
+    getProject: { fetchProject, isLoading, project },
+  } = useProject();
 
-  const project = selectProjectById(projectId);
+  useEffect(() => {
+    fetchProject(projectId);
+  }, [fetchProject, projectId]);
 
   useEffect(() => {
     if (project) {
@@ -45,7 +49,7 @@ const ViewProject: FunctionComponent = () => {
   return (
     <>
       <TopAppBar />
-      {projectsStatus === 'loading' || projectsStatus === 'idle' ? (
+      {isLoading ? (
         <Loading />
       ) : project ? (
         <Container

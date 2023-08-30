@@ -1,8 +1,6 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 
-import type { RefreshTokenResponse } from '../redux/UserAuthenticationReducer';
-
 const baseURL = 'http://localhost:8080/api/v1/';
 
 const API = axios.create({
@@ -16,10 +14,10 @@ const API = axios.create({
 API.interceptors.request.use(
   (config) => {
     // Before sending the request, check if the access token is in the local storage
-    const access_token = localStorage.getItem('access_token');
+    const accessToken = localStorage.getItem('accessToken');
     // if token is present in the local storage, add it to the request's header
-    if (access_token && !config.headers.Authorization) {
-      config.headers.Authorization = `Bearer ${access_token}`;
+    if (accessToken && !config.headers.Authorization) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
     }
     return config;
   },
@@ -39,11 +37,11 @@ API.interceptors.response.use(
     if (response.status !== 403 || config._retry) {
       return Promise.reject(error);
     }
-    const refresh_token = localStorage.getItem('refresh_token');
-    if (refresh_token) {
+    const refreshToken = localStorage.getItem('refreshToken');
+    if (refreshToken) {
       // Send a request to get refreshed tokens using the refresh token
       // decode jwt and log the expiration time
-      const decoded: { exp: number } = jwt_decode(refresh_token);
+      const decoded: { exp: number } = jwt_decode(refreshToken);
       console.log(
         `Refresh token expires at ${new Date(
           decoded.exp * 1000,
@@ -51,29 +49,29 @@ API.interceptors.response.use(
       );
       return API.post<RefreshTokenResponse>('auth/refresh-token', null, {
         headers: {
-          Authorization: `Bearer ${refresh_token}`,
+          Authorization: `Bearer ${refreshToken}`,
         },
       })
         .then((res) => {
           // Store new tokens
           if (res.status === 200) {
             if (
-              res.data.access_token !== null &&
-              res.data.refresh_token !== null
+              res.data.accessToken !== null &&
+              res.data.refreshToken !== null
             ) {
               const decoded: { exp: number } = jwt_decode(
-                res.data.refresh_token,
+                res.data.refreshToken,
               );
               console.log(
                 `Refresh token expires at ${new Date(
                   decoded.exp * 1000,
                 ).toLocaleString()}`,
               );
-              localStorage.setItem('access_token', res.data.access_token);
-              localStorage.setItem('refresh_token', res.data.refresh_token);
+              localStorage.setItem('accessToken', res.data.accessToken);
+              localStorage.setItem('refreshToken', res.data.refreshToken);
             }
             // Set header as default for API and the current request
-            const authHeader = `Bearer ${localStorage.getItem('access_token')}`;
+            const authHeader = `Bearer ${localStorage.getItem('accessToken')}`;
             API.defaults.headers.common['Authorization'] = authHeader;
             config.headers.Authorization = authHeader;
             config._retry = true;
@@ -94,8 +92,8 @@ API.interceptors.response.use(
 );
 
 export const clearTokens = () => {
-  localStorage.removeItem('access_token');
-  localStorage.removeItem('refresh_token');
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('refreshToken');
   localStorage.removeItem('role');
 };
 

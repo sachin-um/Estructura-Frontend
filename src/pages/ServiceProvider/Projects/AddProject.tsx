@@ -1,22 +1,21 @@
 import type { FunctionComponent } from 'react';
 
-import { useSelector } from 'react-redux';
-
 import ProjectForm from '../../../components/ServiceProviderProf/ProjectForm';
 import TopAppBar from '../../../components/TopAppBar';
-import { selectUser } from '../../../redux/UserAuthenticationReducer';
+import useCurrentUser from '../../../hooks/users/useCurrentUser';
 import UnauthorizedAccess from '../../unauthorized_access';
 
 const AddProject: FunctionComponent = () => {
-  const userInfo = useSelector(selectUser);
+  const currentUser = useCurrentUser();
 
   return (
     <>
       <TopAppBar />
-      {userInfo &&
-      userInfo.id &&
-      userInfo.serviceProviderType === ('PROFESSIONAL' as ServiceProviders) ? (
-        <ProjectForm userId={userInfo.id} />
+      {currentUser &&
+      currentUser.id &&
+      currentUser.serviceProviderType ===
+        ('PROFESSIONAL' as ServiceProviders) ? (
+        <ProjectForm userId={currentUser.id} />
       ) : (
         <UnauthorizedAccess />
       )}

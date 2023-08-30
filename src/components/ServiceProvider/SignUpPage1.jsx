@@ -14,7 +14,7 @@ import { useRef } from 'react';
 import * as yup from 'yup';
 
 const validationSchema = yup.object({
-  confirmpassword: yup
+  confirmPassword: yup
     .string()
     .oneOf([yup.ref('password')], 'Passwords must match')
     .required('Confirm Password is required'),
@@ -141,7 +141,7 @@ function SignUpPage1({ formData, nextPage, updateFormData }) {
                     <Grid style={{ justifyContent: 'center' }}>
                       <Formik
                         initialValues={{
-                          confirmpassword: formData.confirmpassword ?? '',
+                          confirmPassword: formData.confirmPassword ?? '',
                           email: formData.email ?? '',
                           password: formData.password ?? '',
                         }}
@@ -201,7 +201,7 @@ function SignUpPage1({ formData, nextPage, updateFormData }) {
                                 sx={{ margin: 2, width: 1 }}
                                 type="password"
                                 variant="filled"
-                                {...spread('confirmpassword')}
+                                {...spread('confirmPassword')}
                               />
                               <Grid
                                 style={{
