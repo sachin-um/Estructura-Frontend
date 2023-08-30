@@ -1,15 +1,16 @@
-import { Container, Typography, TextField, Avatar, Grid, ButtonBase, Button } from "@mui/material";
+import { Container, Typography, TextField, Avatar, Grid, ButtonBase, Button, Box } from "@mui/material";
+import { MdDescription, MdPictureAsPdf, MdInsertDriveFile } from "react-icons/md";
 import TopBar from "../components/CusTopBar";
 import Footer from "../components/Footer";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "../assets/font.css"
-import AddImages from "../components/RequestRespond/AddImages";
-import AddDocuments from "../components/RequestRespond/AddDocuments";
+import CloseIcon from "@mui/icons-material/Close";
 
 const AddCustomerRequest = () => {
     const [selectedCategories, setSelectedCategories] = useState([]);
-    const [selectedImages, setSelectedImages] = useState([]);
-    const [selectedDocuments, setSelectedDocuments] = useState([]);
+    const fileInputRef = useRef(null);
+    const [uploadedImages, setUploadedImages] = useState([]);
+    const [uploadedDocuments, setUploadedDocuments] = useState([]);
 
     const handleCategoryClick = (categoryId) => {
         if (selectedCategories.includes(categoryId)){
@@ -19,24 +20,26 @@ const AddCustomerRequest = () => {
         }
     }
 
-    const handleImageUpload = (files) => {
-        console.log("Selected files:", files);
-        setSelectedImages([...selectedImages, ...files]);
+    const handleUploadClick = () => {
+        fileInputRef.current.click();
     }
 
-    const handleDocumentUpload = (files) => {
-        console.log("Selected documents:", files);
-        setSelectedDocuments([...selectedDocuments, ...files]);
+    const handleFileChange = (event) => {
+        const files = event.target.files;
+        const filesArray = Array.from(files);
+        const imagesArray = filesArray.filter(file => file.type.includes("image"));
+        const documentsArray = filesArray.filter(file => !file.type.includes("image"));
+
+        setUploadedImages((prevImages) => [...prevImages, ...imagesArray]);
+        setUploadedDocuments((prevDocuments) => [...prevDocuments, ...documentsArray]);
     }
 
     const handleRemoveImage = (index) => {
-        const updatedImages = selectedImages.filter((_, i) => i !== index);
-        setSelectedImages(updatedImages);
+        setUploadedImages ((prevImages) => prevImages.filter((_, i) => i !== index));
     }
 
     const handleRemoveDocument = (index) => {
-        const updatedDocuments = selectedDocuments.filter((_, i) => i !== index);
-        setSelectedDocuments(updatedDocuments);
+        setUploadedDocuments((prevDocuments) => prevDocuments.filter((_, i) => i !== index));
     }
 
     const isCategorySelected = (categoryId) => selectedCategories.includes(categoryId);
@@ -113,7 +116,7 @@ const AddCustomerRequest = () => {
         <>
         <TopBar />
         <Container sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-            
+
             <Typography variant="h4" fontFamily="Poppins" color="#435834" sx={{ marginTop: 10, textAlign: "left" }}>
                 Transform Your Vision into a Reality.
                 <br />
@@ -123,7 +126,7 @@ const AddCustomerRequest = () => {
             <Typography fontFamily="Poppins" fontSize="1.2rem" sx={{ marginTop: 8, textAlign: "left"}}>
                 Request Title
             </Typography>
-            <TextField 
+            <TextField
                 label="Your request in one sentence"
                 variant="outlined"
                 margin="normal"
@@ -131,14 +134,14 @@ const AddCustomerRequest = () => {
             />
 
             <Typography fontFamily="Poppins" fontSize="1.2rem" sx={{ marginTop: 5, marginBottom: 3,TextAlign: "left"}}>
-                What category/s of professional/s are you looking for? 
+                What category/s of professional/s are you looking for?
             </Typography>
 
             <Grid container spacing={9} >
                 {categoryList.map((categoryItem) => (
                     <Grid item key={categoryItem.id}>
                     <ButtonBase
-                        onClick={() => handleCategoryClick(categoryItem.id)} 
+                        onClick={() => handleCategoryClick(categoryItem.id)}
                         style={{
                             cursor: "pointer",
                             width: "100px",
@@ -160,7 +163,7 @@ const AddCustomerRequest = () => {
         </Grid>
 
         <Typography fontFamily="Poppins" fontSize="1.2rem" sx={{ marginTop: 5, marginBottom: 3,TextAlign: "left"}}>
-            What type/s of retail item/s are you looking for? 
+            What type/s of retail item/s are you looking for?
         </Typography>
 
         <Grid container spacing={10}>
@@ -194,7 +197,7 @@ const AddCustomerRequest = () => {
             Describe what you have in mind
         </Typography>
 
-        <TextField 
+        <TextField
             label="Your description"
             variant="outlined"
             margin="normal"
@@ -207,8 +210,8 @@ const AddCustomerRequest = () => {
         <Typography fontFamily="Poppins" fontSize="1.2rem" sx={{ marginBottom: 1, marginTop: 4 }}>
             Not sure how to express the idea in your head?  Visualize it into an image.
         </Typography>
-        <Button 
-            variant="contained" 
+        <Button
+            variant="contained"
             color="primary"
             sx={{ mt: 2, ml: 30, width: "180px", height: "40px" }}
         >
@@ -233,7 +236,7 @@ const AddCustomerRequest = () => {
                 <Typography variant="body2">
                     Max
                 </Typography>
-                <TextField 
+                <TextField
                     variant="outlined"
                     margin="normal"
                     sx={{ width: "150px" }}
@@ -244,26 +247,129 @@ const AddCustomerRequest = () => {
         <Typography fontFamily="Poppins" fontSize="1.2rem" sx={{ marginBottom: 3, marginTop: 6 }}>
             Do you have any sketches that you want to share with us?
         </Typography>
-        <AddImages 
-            onFileSelect={handleImageUpload} 
-            selectedFiles={selectedImages} 
-            onRemoveImage={handleRemoveImage}
-        />
-        
-        <AddDocuments 
-            onDocumentSelect={handleDocumentUpload} 
-            selectedDocuments={selectedDocuments} 
-            onRemoveDocument={handleRemoveDocument}
-        />
+        <Box
+            onClick={handleUploadClick}
+            sx={{
+                border: "2px dashed #bdbdbd",
+                borderRadius: "8px",
+                padding: "20px",
+                cursor: "pointer",
+                marginTop: "20px"
+            }}
+        >
+            <Typography variant="body1" fontFamily="Poppins" color="textSecondary">
+                Click here to upload images
+            </Typography>
+            <input
+                type="file"
+                accept="image/*"
+                multiple
+                ref={fileInputRef}
+                style={{ display: "none" }}
+                onChange={handleFileChange}
+            />
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
+            {uploadedImages.map((image, index) => (
+                <div key={index} style={{ position: "relative" }}>
+                    <img
+                        src={URL.createObjectURL(image)}
+                        alt={`Uploaded ${index}`}
+                        style={{ width: "60px", height: "60px", objectFit: "cover", borderRadius: "8px", margin: "5px" }}
+                    />
+                <div
+                    style={{
+                        position: "absolute",
+                        top: 0,
+                        right: 0,
+                        padding: 0,
+                        background: "none",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: "20px",
+                        height: "20px",
+                        borderRadius: "50%",
+                        // eslint-disable-next-line no-dupe-keys
+                        background: "rgba(0, 0, 0, 0.5)",
+                    }}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        handleRemoveImage(index);
+                    }}
+                >
+                    <CloseIcon fontSize="small" style={{ color: "red"}} />
+                </div>
+            </div>
+            ))}
+            </div>
+        </Box>
+
+        <Box
+            onClick={handleUploadClick}
+            sx={{
+                border: "2px dashed #bdbdbd",
+                borderRadius: "8px",
+                padding: "20px",
+                cursor: "pointer",
+                marginTop: "20px"
+            }}
+        >
+            <Typography variant="body1" fontFamily="Poppins" color="textSecondary">
+                Click here to upload documents
+            </Typography>
+            <input
+                type="file"
+                ref={fileInputRef}
+                style={{ display: "none" }}
+                onChange={handleFileChange}
+                multiple
+            />
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
+                {uploadedDocuments.map((document, index) => (
+                    <div key={index} style={{ position: "relative" }}>
+                        {document.type.includes("pdf") ? (
+                            <MdPictureAsPdf size={40} />
+                        ) : document.type.includes("word") || document.type.includes("document") ? (
+                            <MdDescription size={40} />
+                        ) : (
+                            <MdInsertDriveFile size ={40} />
+                        )}
+                        <div
+                            style={{
+                                position: "absolute",
+                                top: 0,
+                                right: 0,
+                                padding: 0,
+                                background: "none",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: 'center',
+                                width: "20px",
+                                height: "20px",
+                                borderRadius: "50%",
+                                // eslint-disable-next-line no-dupe-keys
+                                background: "rgba(0, 0, 0, 0.5)",
+                            }}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        handleRemoveDocument(index);
+                    }}
+                >
+                    <CloseIcon fontSize="small" style={{ color: "red"}} />
+                </div>
+            </div>
+            ))}
+        </div>
+        </Box>
 
         <Button
             variant="contained"
             color="primary"
-            sx={{ ml: 50, marginBottom: "30px" }}
+            sx={{ ml: 60, marginBottom: "30px", marginTop: "30px" }}
         >
             Send Request
         </Button>
-        
+
     </Container>
     <Footer />
     </>
