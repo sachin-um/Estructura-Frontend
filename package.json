@@ -41,6 +41,7 @@
     "react-router-dom": "^6.14.1",
     "styled-components": "^6.0.4",
     "web-vitals": "^3.4.0",
+    "websocket": "^1.0.34",
     "yup": "^1.2.0"
   },
   "scripts": {
@@ -79,6 +80,7 @@
     "@types/react": "^18.2.17",
     "@types/react-dom": "^18.2.7",
     "@types/react-helmet": "^6.1.6",
+    "@types/websocket": "^1.0.6",
     "@vitejs/plugin-react": "^4.0.3",
     "eslint": "^8.45.0",
     "eslint-config-prettier": "^8.8.0",
