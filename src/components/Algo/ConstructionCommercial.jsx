@@ -17,9 +17,15 @@ import {
 import React from 'react';
 
 // import { Link } from "react-router-dom" ;
-import TopAppBar from '../../components/TopAppBar';
+import TopAppBar from '../TopAppBar';
 
-function DesignPlans() {
+function ConstructionCommercial({
+  formData,
+  handlePageChange,
+  nextPage,
+  previousPage,
+  updateFormData,
+}) {
   return (
     <>
       {
@@ -75,7 +81,7 @@ function DesignPlans() {
                 marginBottom="5px"
                 marginTop="5px"
               >
-                What type of a design do you require?
+                What type of a commercial building do you require?
               </Typography>
             </Box>
           </Box>
@@ -87,7 +93,7 @@ function DesignPlans() {
             p={2}
             position="absolute"
             textAlign="center"
-            top="40%"
+            top="38%"
             width="80%"
             zIndex="1"
           >
@@ -99,14 +105,32 @@ function DesignPlans() {
               >
                 <FormControlLabel
                   control={<Radio />}
-                  label="Indoor Design"
-                  value="Indoor Design"
+                  label="Skyscrapers"
+                  value="Skyscrapers"
                 />
                 <Divider />
                 <FormControlLabel
                   control={<Radio />}
-                  label="Outdoor Design"
-                  value="Outdoor Design"
+                  label="Restaurant and Cafes"
+                  value="Restaurant and Cafes"
+                />
+                <Divider />
+                <FormControlLabel
+                  control={<Radio />}
+                  label="Hotels"
+                  value="Hotels"
+                />
+                <Divider />
+                <FormControlLabel
+                  control={<Radio />}
+                  label="Retail Buildings"
+                  value="Retail Buildings"
+                />
+                <Divider />
+                <FormControlLabel
+                  control={<Radio />}
+                  label="Office Buildings"
+                  value="Office Buildings"
                 />
               </RadioGroup>
             </Box>
@@ -146,4 +170,4 @@ function DesignPlans() {
   );
 }
 
-export default DesignPlans;
+export default ConstructionCommercial;

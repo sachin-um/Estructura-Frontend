@@ -17,9 +17,15 @@ import {
 import React from 'react';
 
 // import { Link } from "react-router-dom" ;
-import TopAppBar from '../../components/TopAppBar';
+import TopAppBar from '../TopAppBar';
 
-function ConstructionIndustrial() {
+function ConstructionIndustrial({
+  formData,
+  handlePageChange,
+  nextPage,
+  previousPage,
+  updateFormData,
+}) {
   return (
     <>
       {
@@ -140,6 +146,7 @@ function ConstructionIndustrial() {
               sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
               type="button"
               variant="contained"
+              onClick={previousPage}
             >
               Previous
             </Button>

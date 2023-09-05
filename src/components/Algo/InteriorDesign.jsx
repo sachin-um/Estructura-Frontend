@@ -17,9 +17,15 @@ import {
 import React from 'react';
 
 // import { Link } from "react-router-dom" ;
-import TopAppBar from '../../components/TopAppBar';
+import TopAppBar from '../TopAppBar';
 
-function ConstructionRecreational() {
+function InteriorDesign({
+  formData,
+  handlePageChange,
+  nextPage,
+  previousPage,
+  updateFormData,
+}) {
   return (
     <>
       {
@@ -75,7 +81,7 @@ function ConstructionRecreational() {
                 marginBottom="5px"
                 marginTop="5px"
               >
-                What type of a recreational building do you require?
+                What type of a Interior Design do you require?
               </Typography>
             </Box>
           </Box>
@@ -87,7 +93,7 @@ function ConstructionRecreational() {
             p={2}
             position="absolute"
             textAlign="center"
-            top="40%"
+            top="38%"
             width="80%"
             zIndex="1"
           >
@@ -95,18 +101,42 @@ function ConstructionRecreational() {
               <RadioGroup
                 aria-labelledby="demo-controlled-radio-buttons-group"
                 name="controlled-radio-buttons-group"
-                style={{ margin: '30px' }}
+                style={{ margin: '10px' }}
               >
                 <FormControlLabel
-                  control={<Radio />}
-                  label="Entertainment and Leisure"
-                  value="Entertainment and Leisure"
+                  control={<Checkbox />}
+                  label="Space Planning"
+                  value="Space Planning"
                 />
                 <Divider />
                 <FormControlLabel
-                  control={<Radio />}
-                  label="Swimming Pools"
-                  value="Swimming Pools"
+                  control={<Checkbox />}
+                  label="Furniture and Furnishings"
+                  value="Furniture and Furnishings"
+                />
+                <Divider />
+                <FormControlLabel
+                  control={<Checkbox />}
+                  label="Color scheme and Paint Selection"
+                  value="Color scheme and Paint Selection"
+                />
+                <Divider />
+                <FormControlLabel
+                  control={<Checkbox />}
+                  label="Lighting Design"
+                  value="Lighting Design"
+                />
+                <Divider />
+                <FormControlLabel
+                  control={<Checkbox />}
+                  label="Flooring and Wall Treatments "
+                  value="Flooring and Wall Treatments "
+                />
+                <Divider />
+                <FormControlLabel
+                  control={<Checkbox />}
+                  label="Accessories and decorative elements"
+                  value="Accessories and decorative elements"
                 />
               </RadioGroup>
             </Box>
@@ -127,6 +157,7 @@ function ConstructionRecreational() {
               sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
               type="button"
               variant="contained"
+              onClick={previousPage}
             >
               Previous
             </Button>
@@ -146,4 +177,4 @@ function ConstructionRecreational() {
   );
 }
 
-export default ConstructionRecreational;
+export default InteriorDesign;

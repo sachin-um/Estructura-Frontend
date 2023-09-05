@@ -14,12 +14,27 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 
 // import { Link } from "react-router-dom" ;
-import TopAppBar from '../../components/TopAppBar';
+import TopAppBar from '../TopAppBar';
 
-function Landscaping() {
+function Construction({
+  formData,
+  handlePageChange,
+  nextPage,
+  previousPage,
+  updateFormData,
+}) {
+  const [userSelection, setUserSelection] = useState('');
+
+  const handleNext = () => {
+    handlePageChange(userSelection);
+    nextPage();
+  };
+  const handleChange = (event) => {
+    setUserSelection(event.target.value);
+  };
   return (
     <>
       {
@@ -75,7 +90,7 @@ function Landscaping() {
                 marginBottom="5px"
                 marginTop="5px"
               >
-                What type of Landscaping work do you require?
+                What type of a construction do you require?
               </Typography>
             </Box>
           </Box>
@@ -87,7 +102,7 @@ function Landscaping() {
             p={2}
             position="absolute"
             textAlign="center"
-            top="38%"
+            top="40%"
             width="80%"
             zIndex="1"
           >
@@ -95,43 +110,31 @@ function Landscaping() {
               <RadioGroup
                 aria-labelledby="demo-controlled-radio-buttons-group"
                 name="controlled-radio-buttons-group"
-                style={{ margin: '10px' }}
+                style={{ margin: '30px' }}
+                onChange={handleChange}
               >
                 <FormControlLabel
-                  control={<Checkbox />}
-                  label="Gardening"
-                  value="Gardening"
+                  control={<Radio />}
+                  label="Residence Building"
+                  value="Residence Building"
                 />
                 <Divider />
                 <FormControlLabel
-                  control={<Checkbox />}
-                  label="Hardscaping"
-                  value="Hardscaping"
+                  control={<Radio />}
+                  label="Commercial Building"
+                  value="Commercial Building"
                 />
                 <Divider />
                 <FormControlLabel
-                  control={<Checkbox />}
-                  label="Water features"
-                  value="Water features"
+                  control={<Radio />}
+                  label="Industrial Building"
+                  value="Industrial Building"
                 />
                 <Divider />
                 <FormControlLabel
-                  control={<Checkbox />}
-                  label="Outdoor lighting "
-                  value="Outdoor lighting "
-                />
-                <Divider />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label="Landscape design "
-                  value="Landscape design "
-                />
-                <Divider />
-
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label="Maintenance"
-                  value="Maintenance"
+                  control={<Radio />}
+                  label="Recreational Building"
+                  value="Recreational Building"
                 />
               </RadioGroup>
             </Box>
@@ -152,6 +155,7 @@ function Landscaping() {
               sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
               type="button"
               variant="contained"
+              onClick={previousPage}
             >
               Previous
             </Button>
@@ -161,6 +165,7 @@ function Landscaping() {
               sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
               type="submit"
               variant="contained"
+              onClick={handleNext}
             >
               Next
             </Button>
@@ -171,4 +176,4 @@ function Landscaping() {
   );
 }
 
-export default Landscaping;
+export default Construction;

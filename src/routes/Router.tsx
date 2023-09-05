@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 
+import GetStarted from '../pages/Algo/GetStarted';
 import Homepage from '../pages/HomePage';
 import AllArchitects from '../pages/Professionals/AllArchitects';
 import AllProfessionals from '../pages/Professionals/AllProfessionals';
@@ -19,6 +20,10 @@ export const altRouter = createBrowserRouter([
   {
     path: '/',
     element: <Homepage />,
+  },
+  {
+    path: '/Algo',
+    element: <GetStarted />,
   },
   ...AuthRoutes,
   ...AdminRoutes,
