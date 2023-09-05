@@ -17,9 +17,15 @@ import {
 import React from 'react';
 
 // import { Link } from "react-router-dom" ;
-import TopAppBar from '../../components/TopAppBar';
+import TopAppBar from '../TopAppBar';
 
-function InteriorDesign() {
+function Woodwork({
+  formData,
+  handlePageChange,
+  nextPage,
+  previousPage,
+  updateFormData,
+}) {
   return (
     <>
       {
@@ -75,7 +81,7 @@ function InteriorDesign() {
                 marginBottom="5px"
                 marginTop="5px"
               >
-                What type of a Interior Design do you require?
+                What type of a wooodwork do you require?
               </Typography>
             </Box>
           </Box>
@@ -87,7 +93,7 @@ function InteriorDesign() {
             p={2}
             position="absolute"
             textAlign="center"
-            top="38%"
+            top="33%"
             width="80%"
             zIndex="1"
           >
@@ -99,38 +105,44 @@ function InteriorDesign() {
               >
                 <FormControlLabel
                   control={<Checkbox />}
-                  label="Space Planning"
-                  value="Space Planning"
+                  label="Carpentry"
+                  value="Carpentry"
                 />
                 <Divider />
                 <FormControlLabel
                   control={<Checkbox />}
-                  label="Furniture and Furnishings"
-                  value="Furniture and Furnishings"
+                  label="Cabinetry"
+                  value="Cabinetry"
                 />
                 <Divider />
                 <FormControlLabel
                   control={<Checkbox />}
-                  label="Color scheme and Paint Selection"
-                  value="Color scheme and Paint Selection"
+                  label="Wood Turning"
+                  value="Wood Turning"
                 />
                 <Divider />
                 <FormControlLabel
                   control={<Checkbox />}
-                  label="Lighting Design"
-                  value="Lighting Design"
+                  label="Wood Carving"
+                  value="Wood Carving"
                 />
                 <Divider />
                 <FormControlLabel
                   control={<Checkbox />}
-                  label="Flooring and Wall Treatments "
-                  value="Flooring and Wall Treatments "
+                  label="Restoration and Repair"
+                  value="Restoration and Repair"
                 />
                 <Divider />
                 <FormControlLabel
                   control={<Checkbox />}
-                  label="Accessories and decorative elements"
-                  value="Accessories and decorative elements"
+                  label="Wood Flooring"
+                  value="Wood Flooring"
+                />
+                <Divider />
+                <FormControlLabel
+                  control={<Checkbox />}
+                  label="Wood Finishing"
+                  value="Wood Finishing"
                 />
               </RadioGroup>
             </Box>
@@ -151,6 +163,7 @@ function InteriorDesign() {
               sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
               type="button"
               variant="contained"
+              onClick={previousPage}
             >
               Previous
             </Button>
@@ -170,4 +183,4 @@ function InteriorDesign() {
   );
 }
 
-export default InteriorDesign;
+export default Woodwork;

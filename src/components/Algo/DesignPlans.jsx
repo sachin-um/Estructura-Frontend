@@ -14,12 +14,24 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 
 // import { Link } from "react-router-dom" ;
-import TopAppBar from '../../components/TopAppBar';
+import TopAppBar from '../TopAppBar';
 
-function Construction() {
+function DesignPlans({
+  formData,
+  handlePageChange,
+  nextPage,
+  previousPage,
+  updateFormData,
+}) {
+  const [userSelection, setUserSelection] = useState('Residence Building');
+
+  const handleNext = () => {
+    handlePageChange(userSelection);
+    nextPage();
+  };
   return (
     <>
       {
@@ -75,7 +87,7 @@ function Construction() {
                 marginBottom="5px"
                 marginTop="5px"
               >
-                What type of a construction do you require?
+                What type of a design do you require?
               </Typography>
             </Box>
           </Box>
@@ -99,26 +111,14 @@ function Construction() {
               >
                 <FormControlLabel
                   control={<Radio />}
-                  label="Residence Building"
-                  value="Residence Building"
+                  label="Indoor Design"
+                  value="Indoor Design"
                 />
                 <Divider />
                 <FormControlLabel
                   control={<Radio />}
-                  label="Commercial Building"
-                  value="Commercial Building"
-                />
-                <Divider />
-                <FormControlLabel
-                  control={<Radio />}
-                  label="Industrial Building"
-                  value="Industrial Building"
-                />
-                <Divider />
-                <FormControlLabel
-                  control={<Radio />}
-                  label="Recreational Building"
-                  value="Recreational Building"
+                  label="Outdoor Design"
+                  value="Outdoor Design"
                 />
               </RadioGroup>
             </Box>
@@ -135,6 +135,7 @@ function Construction() {
           >
             <Button
               color="primary"
+              onClick={previousPage}
               size="large"
               sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
               type="button"
@@ -158,4 +159,4 @@ function Construction() {
   );
 }
 
-export default Construction;
+export default DesignPlans;

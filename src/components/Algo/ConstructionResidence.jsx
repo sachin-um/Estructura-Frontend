@@ -17,9 +17,41 @@ import {
 import React from 'react';
 
 // import { Link } from "react-router-dom" ;
-import TopAppBar from '../../components/TopAppBar';
+import TopAppBar from '../TopAppBar';
 
-function ConstructionCommercial() {
+function ConstructionResidence({
+  formData,
+  handlePageChange,
+  nextPage,
+  previousPage,
+  updateFormData,
+}) {
+  const [checkboxState, setCheckboxState] = useState({
+    AllInOne: false,
+    KitchenAndDining: false,
+    Bedroom: false,
+    LivingRoom: false,
+    KitchenAndDining: false,
+    Office: false,
+    Garage: false,
+    Bathroom: false,
+  });
+
+  const handleCheckboxChange = (event) => {
+    const { name, checked } = event.target;
+    setCheckboxState({
+      ...checkboxState,
+      [name]: checked,
+    });
+  };
+
+  const selectedValues = Object.keys(checkboxState).filter(
+    (key) => checkboxState[key],
+  );
+  const handleNext = () => {
+    handlePageChange(userSelection);
+    nextPage();
+  };
   return (
     <>
       {
@@ -75,7 +107,7 @@ function ConstructionCommercial() {
                 marginBottom="5px"
                 marginTop="5px"
               >
-                What type of a commercial building do you require?
+                What type of a residence building do you require?
               </Typography>
             </Box>
           </Box>
@@ -87,7 +119,7 @@ function ConstructionCommercial() {
             p={2}
             position="absolute"
             textAlign="center"
-            top="38%"
+            top="36%"
             width="80%"
             zIndex="1"
           >
@@ -95,36 +127,90 @@ function ConstructionCommercial() {
               <RadioGroup
                 aria-labelledby="demo-controlled-radio-buttons-group"
                 name="controlled-radio-buttons-group"
-                style={{ margin: '30px' }}
+                style={{ margin: '2px' }}
               >
                 <FormControlLabel
-                  control={<Radio />}
-                  label="Skyscrapers"
-                  value="Skyscrapers"
+                  control={
+                    <Checkbox
+                      label="All in one"
+                      value="All in one"
+                      checked={checkboxState.checkbox1}
+                      onChange={handleCheckboxChange}
+                      name="AllInOne"
+                    />
+                  }
                 />
                 <Divider />
                 <FormControlLabel
-                  control={<Radio />}
-                  label="Restaurant and Cafes"
-                  value="Restaurant and Cafes"
+                  control={
+                    <Checkbox
+                      label="Kitchen and Dining"
+                      value="Kitchen and Dining"
+                      checked={checkboxState.checkbox1}
+                      onChange={handleCheckboxChange}
+                      name="KitchenAndDining"
+                    />
+                  }
                 />
                 <Divider />
                 <FormControlLabel
-                  control={<Radio />}
-                  label="Hotels"
-                  value="Hotels"
+                  control={
+                    <Checkbox
+                      label="Bedroom"
+                      value="Bedroom"
+                      checked={checkboxState.checkbox1}
+                      onChange={handleCheckboxChange}
+                      name="Bedroom"
+                    />
+                  }
                 />
                 <Divider />
                 <FormControlLabel
-                  control={<Radio />}
-                  label="Retail Buildings"
-                  value="Retail Buildings"
+                  control={
+                    <Checkbox
+                      label="Living Room"
+                      value="Living Room"
+                      checked={checkboxState.checkbox1}
+                      onChange={handleCheckboxChange}
+                      name="LivingRoom"
+                    />
+                  }
                 />
                 <Divider />
                 <FormControlLabel
-                  control={<Radio />}
-                  label="Office Buildings"
-                  value="Office Buildings"
+                  control={
+                    <Checkbox
+                      label=" Office"
+                      value="Office"
+                      checked={checkboxState.checkbox1}
+                      onChange={handleCheckboxChange}
+                      name="Office"
+                    />
+                  }
+                />
+                <Divider />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      label="Garage"
+                      value="Garage"
+                      checked={checkboxState.checkbox1}
+                      onChange={handleCheckboxChange}
+                      name="Garage"
+                    />
+                  }
+                />
+                <Divider />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      label="Bathroom"
+                      value="Bathroom"
+                      checked={checkboxState.checkbox1}
+                      onChange={handleCheckboxChange}
+                      name="Bathroom"
+                    />
+                  }
                 />
               </RadioGroup>
             </Box>
@@ -145,6 +231,7 @@ function ConstructionCommercial() {
               sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
               type="button"
               variant="contained"
+              onClick={previousPage}
             >
               Previous
             </Button>
@@ -154,6 +241,7 @@ function ConstructionCommercial() {
               sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
               type="submit"
               variant="contained"
+              onClick={handleNext}
             >
               Next
             </Button>
@@ -164,4 +252,4 @@ function ConstructionCommercial() {
   );
 }
 
-export default ConstructionCommercial;
+export default ConstructionResidence;

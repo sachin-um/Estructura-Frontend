@@ -17,9 +17,15 @@ import {
 import React from 'react';
 
 // import { Link } from "react-router-dom" ;
-import TopAppBar from '../../components/TopAppBar';
+import TopAppBar from '../TopAppBar';
 
-function ConstructionResidence() {
+function ConstructionRecreational({
+  formData,
+  handlePageChange,
+  nextPage,
+  previousPage,
+  updateFormData,
+}) {
   return (
     <>
       {
@@ -75,7 +81,7 @@ function ConstructionResidence() {
                 marginBottom="5px"
                 marginTop="5px"
               >
-                What type of a residence building do you require?
+                What type of a recreational building do you require?
               </Typography>
             </Box>
           </Box>
@@ -87,7 +93,7 @@ function ConstructionResidence() {
             p={2}
             position="absolute"
             textAlign="center"
-            top="36%"
+            top="40%"
             width="80%"
             zIndex="1"
           >
@@ -95,48 +101,18 @@ function ConstructionResidence() {
               <RadioGroup
                 aria-labelledby="demo-controlled-radio-buttons-group"
                 name="controlled-radio-buttons-group"
-                style={{ margin: '2px' }}
+                style={{ margin: '30px' }}
               >
                 <FormControlLabel
-                  control={<Checkbox />}
-                  label="All in one"
-                  value="All in one"
+                  control={<Radio />}
+                  label="Entertainment and Leisure"
+                  value="Entertainment and Leisure"
                 />
                 <Divider />
                 <FormControlLabel
-                  control={<Checkbox />}
-                  label="Kitchen and Dining"
-                  value="Kitchen and Dining"
-                />
-                <Divider />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label="Bedroom"
-                  value="Bedroom"
-                />
-                <Divider />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label="Living Room"
-                  value="Living Room"
-                />
-                <Divider />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label=" Office"
-                  value="Office"
-                />
-                <Divider />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label="Garage"
-                  value="Garage"
-                />
-                <Divider />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label="Bathroom"
-                  value="Bathroom"
+                  control={<Radio />}
+                  label="Swimming Pools"
+                  value="Swimming Pools"
                 />
               </RadioGroup>
             </Box>
@@ -157,6 +133,7 @@ function ConstructionResidence() {
               sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
               type="button"
               variant="contained"
+              onClick={previousPage}
             >
               Previous
             </Button>
@@ -176,4 +153,4 @@ function ConstructionResidence() {
   );
 }
 
-export default ConstructionResidence;
+export default ConstructionRecreational;

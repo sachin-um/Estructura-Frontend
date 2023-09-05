@@ -17,9 +17,15 @@ import {
 import React from 'react';
 
 // import { Link } from "react-router-dom" ;
-import TopAppBar from '../../components/TopAppBar';
+import TopAppBar from '../TopAppBar';
 
-function Remodelling() {
+function Landscaping({
+  formData,
+  handlePageChange,
+  nextPage,
+  previousPage,
+  updateFormData,
+}) {
   return (
     <>
       {
@@ -75,7 +81,7 @@ function Remodelling() {
                 marginBottom="5px"
                 marginTop="5px"
               >
-                What type of remodelling do you require?
+                What type of Landscaping work do you require?
               </Typography>
             </Box>
           </Box>
@@ -87,7 +93,7 @@ function Remodelling() {
             p={2}
             position="absolute"
             textAlign="center"
-            top="50%"
+            top="38%"
             width="80%"
             zIndex="1"
           >
@@ -98,15 +104,40 @@ function Remodelling() {
                 style={{ margin: '10px' }}
               >
                 <FormControlLabel
-                  control={<Radio />}
-                  label="Indoor Remodelling"
-                  value="Indoor Remodelling"
+                  control={<Checkbox />}
+                  label="Gardening"
+                  value="Gardening"
                 />
                 <Divider />
                 <FormControlLabel
-                  control={<Radio />}
-                  label="Outdoor Remodelling"
-                  value="Outdoor Remodelling"
+                  control={<Checkbox />}
+                  label="Hardscaping"
+                  value="Hardscaping"
+                />
+                <Divider />
+                <FormControlLabel
+                  control={<Checkbox />}
+                  label="Water features"
+                  value="Water features"
+                />
+                <Divider />
+                <FormControlLabel
+                  control={<Checkbox />}
+                  label="Outdoor lighting "
+                  value="Outdoor lighting "
+                />
+                <Divider />
+                <FormControlLabel
+                  control={<Checkbox />}
+                  label="Landscape design "
+                  value="Landscape design "
+                />
+                <Divider />
+
+                <FormControlLabel
+                  control={<Checkbox />}
+                  label="Maintenance"
+                  value="Maintenance"
                 />
               </RadioGroup>
             </Box>
@@ -127,6 +158,7 @@ function Remodelling() {
               sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
               type="button"
               variant="contained"
+              onClick={previousPage}
             >
               Previous
             </Button>
@@ -146,4 +178,4 @@ function Remodelling() {
   );
 }
 
-export default Remodelling;
+export default Landscaping;

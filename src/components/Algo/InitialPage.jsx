@@ -18,39 +18,23 @@ import React, { useState } from 'react';
 
 // import { Link } from "react-router-dom" ;
 import TopAppBar from '../TopAppBar';
-import Construction from './Construction';
-import DesignPlans from './DesignPlans';
-function GetStarted(
+
+function GetStarted({
   formData,
   nextPage,
   previousPage,
   handlePageChange,
   updateFormData,
-) {
-  const [selectedOption, setSelectedOption] = useState('Construction');
-  const [nextComponent, setNextComponent] = useState('');
-  if (selectedOption === 'Construction') {
-    setNextComponent(
-      <Construction
-        formData={formData}
-        updateFormData={updateFormData}
-        nextPage={nextPage}
-        previousPage={previousPage}
-        handlePageChange={handlePageChange}
-      />,
-    );
-  } else if (selectedOption === 'Design Plans') {
-    setNextComponent(
-      <DesignPlans
-        formData={formData}
-        updateFormData={updateFormData}
-        nextPage={nextPage}
-        previousPage={previousPage}
-        handlePageChange={handlePageChange}
-      />,
-    );
-  }
+}) {
+  const [userSelection, setUserSelection] = useState('');
 
+  const handleNext = () => {
+    handlePageChange(userSelection);
+    nextPage();
+  };
+  const handleChange = (event) => {
+    setUserSelection(event.target.value);
+  };
   return (
     <Box
       height="600px"
@@ -125,6 +109,7 @@ function GetStarted(
             aria-labelledby="demo-controlled-radio-buttons-group"
             name="controlled-radio-buttons-group"
             style={{ margin: '10px' }}
+            onChange={handleChange}
           >
             <FormControlLabel
               control={<Radio />}
@@ -177,6 +162,7 @@ function GetStarted(
           sx={{ borderRadius: 2 }}
           type="submit"
           variant="contained"
+          onClick={handleNext}
         >
           Next
         </Button>

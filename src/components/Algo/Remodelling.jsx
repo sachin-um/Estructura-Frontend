@@ -17,9 +17,15 @@ import {
 import React from 'react';
 
 // import { Link } from "react-router-dom" ;
-import TopAppBar from '../../components/TopAppBar';
+import TopAppBar from '../TopAppBar';
 
-function Woodwork() {
+function Remodelling({
+  formData,
+  handlePageChange,
+  nextPage,
+  previousPage,
+  updateFormData,
+}) {
   return (
     <>
       {
@@ -75,7 +81,7 @@ function Woodwork() {
                 marginBottom="5px"
                 marginTop="5px"
               >
-                What type of a wooodwork do you require?
+                What type of remodelling do you require?
               </Typography>
             </Box>
           </Box>
@@ -87,7 +93,7 @@ function Woodwork() {
             p={2}
             position="absolute"
             textAlign="center"
-            top="33%"
+            top="50%"
             width="80%"
             zIndex="1"
           >
@@ -98,45 +104,15 @@ function Woodwork() {
                 style={{ margin: '10px' }}
               >
                 <FormControlLabel
-                  control={<Checkbox />}
-                  label="Carpentry"
-                  value="Carpentry"
+                  control={<Radio />}
+                  label="Indoor Remodelling"
+                  value="Indoor Remodelling"
                 />
                 <Divider />
                 <FormControlLabel
-                  control={<Checkbox />}
-                  label="Cabinetry"
-                  value="Cabinetry"
-                />
-                <Divider />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label="Woodturning"
-                  value="Woodturning"
-                />
-                <Divider />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label="Wood Carving"
-                  value="Wood Carving"
-                />
-                <Divider />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label="Restoration and Repair"
-                  value="Restoration and Repair"
-                />
-                <Divider />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label="Wood Flooring"
-                  value="Wood Flooring"
-                />
-                <Divider />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label="Wood Finishing"
-                  value="Wood Finishing"
+                  control={<Radio />}
+                  label="Outdoor Remodelling"
+                  value="Outdoor Remodelling"
                 />
               </RadioGroup>
             </Box>
@@ -157,6 +133,7 @@ function Woodwork() {
               sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
               type="button"
               variant="contained"
+              onClick={previousPage}
             >
               Previous
             </Button>
@@ -176,4 +153,4 @@ function Woodwork() {
   );
 }
 
-export default Woodwork;
+export default Remodelling;
