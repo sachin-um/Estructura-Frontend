@@ -3,7 +3,7 @@ import type { RouteObject } from 'react-router-dom';
 import AddRentalItem from '../pages/ServiceProvider/RentalItems/AddRentalItem';
 import EditRentalItem from '../pages/ServiceProvider/RentalItems/EditRentalItem';
 import ViewRentalItem from '../pages/ServiceProvider/ViewRentalItem';
-import AllRenters from '../pages/renter/Renters';
+import AllRenters from '../pages/renter/AllRentingItems';
 
 const RentingItemRoutes: RouteObject[] = [
   {

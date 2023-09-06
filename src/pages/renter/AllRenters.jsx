@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import TopBar from '../../components/TopBar';
-import Carousel from '../../components/blog/carousel';
+import HomePageCarousel from '../../components/blog/HomePageCarousel';
 import RentingCards from '../../components/renter/RentingItemCards';
 import RentingSidebar from '../../components/renter/RentingSideBar';
 import { allRentersData } from '../../data/renting';
@@ -78,7 +78,7 @@ const AllRenters = () => {
   return (
     <>
       <TopBar />
-      <Carousel cards={blogcards} />
+      <HomePageCarousel cards={blogcards} />
       <div
         style={{ margin: '20px', display: 'flex', justifyContent: 'flex-end' }}
       >

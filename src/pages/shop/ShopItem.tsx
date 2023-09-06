@@ -1,4 +1,3 @@
-import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import type { FunctionComponent } from 'react';
 
 import { Add, Favorite, Remove, ShoppingCart } from '@mui/icons-material';
@@ -6,7 +5,6 @@ import CallIcon from '@mui/icons-material/Call';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import StoreIcon from '@mui/icons-material/Store';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -14,58 +12,43 @@ import Footer from '../../components/Footer';
 import NotFound from '../../components/NoResults';
 import TopAppBar from '../../components/TopAppBar';
 import Newsletter from '../../components/e-com/Blog';
+import { useRetailItem } from '../../hooks/retailItem/useRetailItem';
+import useFetchUser from '../../hooks/users/useFetchUser';
 import Loading from '../../pages/loading';
-import {
-  fetchRetailItemById,
-  getRetailItemError,
-  getRetailItemStatus,
-  selectRetailItem,
-} from '../../redux/RetailItems/SingleRetailItemReducer';
-import {
-  fetchUserById,
-  getUser,
-  getUserStatus,
-} from '../../redux/UserInfo/SingleUserInfoReducer';
 import { mobile } from '../../responsive';
 
 const ShopItem: FunctionComponent = () => {
   const itemId = parseInt(useParams<{ id: string }>().id ?? '0');
-  const dispatch: ThunkDispatch<RetailItem, void, AnyAction> = useDispatch();
-  const dispatchUser: ThunkDispatch<User, void, AnyAction> = useDispatch();
 
-  const item = useSelector(selectRetailItem);
-  const itemStatus = useSelector(getRetailItemStatus);
-  const itemError = useSelector(getRetailItemError);
+  const {
+    getRetailItem: { fetchRetailItem, isLoading, retailItem },
+  } = useRetailItem();
+
+  useEffect(() => {
+    fetchRetailItem(itemId);
+  }, [fetchRetailItem, itemId]);
+
   const [selectedImage, setSelectedImage] = useState('');
   const [imageUrl, setImageUrl] = useState('');
-  const [userId, setUserId] = useState(0);
+
+  const { fetchUserById, user } = useFetchUser();
 
   useEffect(() => {
-    if (itemStatus === 'idle') {
-      dispatch(fetchRetailItemById(itemId));
+    if (retailItem) {
+      fetchUserById(retailItem.createdBy);
     }
-    if (item) {
+  }, [retailItem, fetchUserById]);
+
+  useEffect(() => {
+    if (retailItem) {
       setSelectedImage(
-        `http://localhost:8080/files/retail-item-files/${item?.createdBy}/${item?.id}/${item?.mainImageName}`,
+        `http://localhost:8080/files/retail-item-files/${retailItem?.createdBy}/${retailItem?.id}/${retailItem?.mainImageName}`,
       );
       setImageUrl(
-        `http://localhost:8080/files/retail-item-files/${item?.createdBy}/${item?.id}/`,
+        `http://localhost:8080/files/retail-item-files/${retailItem?.createdBy}/${retailItem?.id}/`,
       );
-      setUserId(item.createdBy);
-      console.log(item);
     }
-  }, [dispatch, item, itemId, itemStatus]);
-
-  const userinfo = useSelector(getUser);
-  const userStatus = useSelector(getUserStatus);
-
-  useEffect(() => {
-    if (userStatus === 'idle') {
-      dispatchUser(fetchUserById(userId));
-    } else {
-      console.log(userinfo);
-    }
-  }, [userStatus, dispatchUser, userinfo, userId]);
+  }, [retailItem]);
 
   const handleImageClick = (image: string) => {
     setSelectedImage(image);
@@ -86,61 +69,59 @@ const ShopItem: FunctionComponent = () => {
   return (
     <Container>
       <TopAppBar />
-      {itemError ? (
-        <h1>ERROR: {itemError}</h1>
-      ) : itemStatus === 'loading' ? (
+      {isLoading ? (
         <Loading />
-      ) : item ? (
+      ) : retailItem ? (
         <Wrapper>
           <ContainerImg>
             <BigImageContainer>
-              {item.mainImage ? <BigImage src={selectedImage} /> : <></>}
+              {retailItem.mainImage ? <BigImage src={selectedImage} /> : <></>}
             </BigImageContainer>
             <SmallImagesContainer>
-              {item.mainImage ? (
+              {retailItem.mainImage ? (
                 <SmallImageContainer
                   // isSelected={ (imageUrl+ item.mainImageName) === selectedImage}
                   onClick={() =>
-                    handleImageClick(imageUrl + item.mainImageName)
+                    handleImageClick(imageUrl + retailItem.mainImageName)
                   }
                 >
-                  <SmallImage src={imageUrl + item.mainImageName} />
+                  <SmallImage src={imageUrl + retailItem.mainImageName} />
                 </SmallImageContainer>
               ) : (
                 <></>
               )}
-              {item.extraImage1 ? (
+              {retailItem.extraImage1 ? (
                 <SmallImageContainer
                   // isSelected={ (imageUrl+ item.extraImage1Name) === selectedImage}
                   onClick={() =>
-                    handleImageClick(imageUrl + item.extraImage1Name)
+                    handleImageClick(imageUrl + retailItem.extraImage1Name)
                   }
                 >
-                  <SmallImage src={imageUrl + item.extraImage1Name} />
+                  <SmallImage src={imageUrl + retailItem.extraImage1Name} />
                 </SmallImageContainer>
               ) : (
                 <></>
               )}
-              {item.extraImage2 ? (
+              {retailItem.extraImage2 ? (
                 <SmallImageContainer
                   // isSelected={ (imageUrl+ item.extraImage2Name) === selectedImage}
                   onClick={() =>
-                    handleImageClick(imageUrl + item.extraImage2Name)
+                    handleImageClick(imageUrl + retailItem.extraImage2Name)
                   }
                 >
-                  <SmallImage src={imageUrl + item.extraImage2Name} />
+                  <SmallImage src={imageUrl + retailItem.extraImage2Name} />
                 </SmallImageContainer>
               ) : (
                 <></>
               )}
-              {item.extraImage3 ? (
+              {retailItem.extraImage3 ? (
                 <SmallImageContainer
                   // isSelected={ (imageUrl+ item.extraImage3Name) === selectedImage}
                   onClick={() =>
-                    handleImageClick(imageUrl + item.extraImage3Name)
+                    handleImageClick(imageUrl + retailItem.extraImage3Name)
                   }
                 >
-                  <SmallImage src={imageUrl + item.extraImage3Name} />
+                  <SmallImage src={imageUrl + retailItem.extraImage3Name} />
                 </SmallImageContainer>
               ) : (
                 <></>
@@ -148,13 +129,13 @@ const ShopItem: FunctionComponent = () => {
             </SmallImagesContainer>
           </ContainerImg>
           <InfoContainer>
-            <Title>{item.name}</Title>
+            <Title>{retailItem.name}</Title>
             <DateText>{}</DateText>
-            <Desc>{item.description}</Desc>
+            <Desc>{retailItem.description}</Desc>
             <PriceContainer>
-              <Price>LKR. {item.price.toFixed(2)}</Price>
+              <Price>LKR. {retailItem.price.toFixed(2)}</Price>
             </PriceContainer>
-            {userinfo?.role === 'CUSTOMER' && (
+            {user?.role === 'CUSTOMER' && (
               <ActionContainer>
                 <ButtonContainer>
                   <AddToCartButton>
@@ -176,19 +157,18 @@ const ShopItem: FunctionComponent = () => {
 
             <ContactContainer>
               <StoreIcon></StoreIcon>
-              <Contact>{userinfo?.businessName}</Contact>
+              <Contact>{user?.businessName}</Contact>
             </ContactContainer>
 
             <ContactContainer>
               <CallIcon></CallIcon>
-              <ContactNo>{userinfo?.businessContactNo}</ContactNo>
+              <ContactNo>{user?.businessContactNo}</ContactNo>
             </ContactContainer>
 
             <ContactContainer>
               <LocationOnIcon></LocationOnIcon>
               <Contact>
-                {userinfo?.addressLine1}, {userinfo?.addressLine2},{' '}
-                {userinfo?.district}.
+                {user?.addressLine1}, {user?.addressLine2}, {user?.district}.
               </Contact>
             </ContactContainer>
           </InfoContainer>

@@ -1,42 +1,37 @@
-import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import type { FunctionComponent } from 'react';
 
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import RetailItemForm from '../../../components/ServiceProviderProf/RetailItemForm';
 import TopAppBar from '../../../components/TopAppBar';
-import {
-  fetchRetailItemById,
-  selectRetailItem,
-} from '../../../redux/RetailItems/SingleRetailItemReducer';
-import { selectUser } from '../../../redux/UserAuthenticationReducer';
+import { useRetailItem } from '../../../hooks/retailItem/useRetailItem';
+import useCurrentUser from '../../../hooks/users/useCurrentUser';
 import UnauthorizedAccess from '../../unauthorized_access';
 
 const EditRetailItem: FunctionComponent = () => {
-  const userInfo = useSelector(selectUser);
+  const currentUser = useCurrentUser();
 
   const retailItemId = parseInt(useParams<{ id: string }>().id ?? '0');
 
-  const dispatch: ThunkDispatch<RetailItem, void, AnyAction> = useDispatch();
-
-  const retailItem = useSelector(selectRetailItem);
+  const {
+    getRetailItem: { fetchRetailItem, retailItem },
+  } = useRetailItem();
 
   useEffect(() => {
-    dispatch(fetchRetailItemById(retailItemId));
-  }, [dispatch, retailItemId]);
+    fetchRetailItem(retailItemId);
+  }, [fetchRetailItem, retailItemId]);
 
   return (
     <>
       <TopAppBar />
-      {userInfo &&
-      userInfo.id &&
-      userInfo.serviceProviderType === 'RETAILER' ? (
+      {currentUser &&
+      currentUser.id &&
+      currentUser.serviceProviderType === 'RETAILER' ? (
         <RetailItemForm
-          {...(retailItem && retailItem.createdBy === userInfo.id
-            ? { OriginalRetailItem: retailItem, userId: userInfo.id }
-            : { userId: userInfo.id })}
+          {...(retailItem && retailItem.createdBy === currentUser.id
+            ? { OriginalRetailItem: retailItem, userId: currentUser.id }
+            : { userId: currentUser.id })}
         />
       ) : (
         <UnauthorizedAccess />

@@ -12,8 +12,8 @@ import { useState } from 'react';
 import '../../assets/font.css';
 
 function ServiceProviderProfileDetails({ userDetails }: { userDetails: User }) {
-  const [firstname, setFirstname] = useState(userDetails.firstname);
-  const [lastname, setLastname] = useState(userDetails.lastname);
+  const [firstName, setFirstName] = useState(userDetails.firstName);
+  const [lastName, setLastName] = useState(userDetails.lastName);
   const [nic, setNic] = useState(userDetails?.nic ?? 'Unknown');
   const [businessName, setBusinessName] = useState(
     userDetails?.businessName ?? 'Unknown',
@@ -60,15 +60,15 @@ function ServiceProviderProfileDetails({ userDetails }: { userDetails: User }) {
                     <TextField
                       fullWidth
                       label="First Name"
-                      onChange={(e) => setFirstname(e.target.value)}
-                      value={firstname}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      value={firstName}
                       variant="outlined"
                     />
                     <TextField
                       fullWidth
                       label="Last Name"
-                      onChange={(e) => setLastname(e.target.value)}
-                      value={lastname}
+                      onChange={(e) => setLastName(e.target.value)}
+                      value={lastName}
                       variant="outlined"
                     />
                   </div>
@@ -78,7 +78,7 @@ function ServiceProviderProfileDetails({ userDetails }: { userDetails: User }) {
                     fontFamily="Poppins"
                     variant="body1"
                   >
-                    {`${firstname} ${lastname}`}
+                    {`${firstName} ${lastName}`}
                   </Typography>
                 )}
               </Grid>
@@ -208,7 +208,7 @@ function ServiceProviderProfileDetails({ userDetails }: { userDetails: User }) {
                       fontFamily="Poppins"
                       variant="body1"
                     >
-                      {userDetails.sliaregNumber}
+                      {userDetails.sliaRegNumber}
                     </Typography>
                   </Grid>
                 </>

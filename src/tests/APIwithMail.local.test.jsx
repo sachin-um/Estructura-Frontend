@@ -16,8 +16,8 @@ it('should register a user', async () => {
 
   response = await API.post('/auth/register', {
     email: inbox.emailAddress,
-    firstname: 'TestUser',
-    lastname: inbox.emailAddress,
+    firstName: 'TestUser',
+    lastName: inbox.emailAddress,
     password: password,
     role: 'CUSTOMER',
   });
@@ -53,11 +53,11 @@ it('should login the user and return tokens', async () => {
   expect(response.status).toBe(200);
   expect(response.data.success).toBe(true);
   expect(response.data.role).toBe('CUSTOMER');
-  expect(response.data.access_token).toBeTruthy();
-  expect(response.data.refresh_token).toBeTruthy();
+  expect(response.data.accessToken).toBeTruthy();
+  expect(response.data.refreshToken).toBeTruthy();
 
-  accessToken = response.data.access_token;
-  refreshToken = response.data.refresh_token;
+  accessToken = response.data.accessToken;
+  refreshToken = response.data.refreshToken;
 });
 
 it('should refresh the access token', async () => {
@@ -68,11 +68,11 @@ it('should refresh the access token', async () => {
   console.log(response.data);
 
   expect(response.status).toBe(200);
-  expect(response.data.access_token).toBeTruthy();
-  expect(response.data.refresh_token).toBeTruthy();
+  expect(response.data.accessToken).toBeTruthy();
+  expect(response.data.refreshToken).toBeTruthy();
 
-  accessToken = response.data.access_token;
-  refreshToken = response.data.refresh_token;
+  accessToken = response.data.accessToken;
+  refreshToken = response.data.refreshToken;
 
   API.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 });

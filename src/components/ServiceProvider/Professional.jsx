@@ -35,8 +35,8 @@ const validationSchema = yup.object({
     .oneOf(professionalCategories.map((category) => category[0]))
     .required('Professional Category is required'),
   businessContactNo: yup.string().required('Contact Number is required'),
-  firstname: yup.string().required('First Name is required'),
-  lastname: yup.string().required('Last Name is required'),
+  firstName: yup.string().required('First Name is required'),
+  lastName: yup.string().required('Last Name is required'),
   nic: yup.string().required('NIC is required'),
   ...addressValidators,
 });
@@ -55,8 +55,8 @@ function Professional({
     website: formData.website ?? '',
     businessName: formData.businessName ?? '',
     role: formData.role ?? '',
-    firstname: formData.firstname ?? '',
-    lastname: formData.lastname ?? '',
+    firstName: formData.firstName ?? '',
+    lastName: formData.lastName ?? '',
     businessContactNo: formData.businessContactNo ?? '',
     ...addressInitialValues(formData),
   };
@@ -123,14 +123,14 @@ function Professional({
                       variant="filled"
                       size="small"
                       color="secondary"
-                      {...spread('firstname')}
+                      {...spread('firstName')}
                     />
                     <TextField
                       variant="filled"
                       size="small"
                       color="secondary"
                       label="Your Last Name"
-                      {...spread('lastname')}
+                      {...spread('lastName')}
                     />
                   </Box>
                   <TextField

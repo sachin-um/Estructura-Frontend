@@ -6,44 +6,15 @@ import type { RootState } from './store';
 
 import API from '../lib/API';
 
-export interface UserState {
-  ProfileImage: null | string;
-  ProfileImageName: null | string;
-  email: string;
-  firstname: string;
-  id: number;
-  lastname: string;
-  role: Role;
-  serviceProviderType?: ServiceProviders;
-}
-
-export interface SignInRequest {
-  email: string;
-  password: string;
-}
-
-export interface AuthenticationResponse extends ValidatedResponse, UserState {
-  access_token: null | string;
-  refresh_token: null | string;
-  success: boolean;
-}
-
-export interface RefreshTokenResponse {
-  access_token: null | string;
-  message: null | string;
-  refresh_token: null | string;
-  success: boolean;
-}
-
 const initialState: {
-  access_token: null | string;
+  accessToken: null | string;
   isAuthenticated: boolean;
-  refresh_token: null | string;
+  refreshToken: null | string;
   userState: UserState | null;
 } = {
-  access_token: localStorage.getItem('access_token') || null,
+  accessToken: localStorage.getItem('accessToken') || null,
   isAuthenticated: false,
-  refresh_token: localStorage.getItem('refresh_token') || null,
+  refreshToken: localStorage.getItem('refreshToken') || null,
   userState: JSON.parse(localStorage.getItem('user') || 'null'),
 };
 
@@ -75,22 +46,22 @@ const UserAuthenticationSlice = createSlice({
   reducers: {
     clean: (state) => {
       state.isAuthenticated = false;
-      state.access_token = null;
-      state.refresh_token = null;
+      state.accessToken = null;
+      state.refreshToken = null;
       state.userState = null;
-      localStorage.removeItem('access_token');
-      localStorage.removeItem('refresh_token');
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
       localStorage.removeItem('user');
     },
     setTokens: (
       state,
-      action: PayloadAction<{ access_token: string; refresh_token: string }>,
+      action: PayloadAction<{ accessToken: string; refreshToken: string }>,
     ) => {
-      localStorage.setItem('access_token', action.payload.access_token);
-      localStorage.setItem('refresh_token', action.payload.refresh_token);
+      localStorage.setItem('accessToken', action.payload.accessToken);
+      localStorage.setItem('refreshToken', action.payload.refreshToken);
       state.isAuthenticated = true;
-      state.access_token = action.payload.access_token;
-      state.refresh_token = action.payload.refresh_token;
+      state.accessToken = action.payload.accessToken;
+      state.refreshToken = action.payload.refreshToken;
     },
   },
   extraReducers: (builder) => {
@@ -98,11 +69,11 @@ const UserAuthenticationSlice = createSlice({
       .addCase(signIn.pending, (state) => {
         API.defaults.headers.common.Authorization = null;
         state.isAuthenticated = false;
-        state.access_token = null;
-        state.refresh_token = null;
+        state.accessToken = null;
+        state.refreshToken = null;
         state.userState = null;
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
         localStorage.removeItem('user');
       })
       .addCase(signIn.fulfilled, (state, action) => {
@@ -113,37 +84,47 @@ const UserAuthenticationSlice = createSlice({
             ProfileImage: action.payload.ProfileImage,
             ProfileImageName: action.payload.ProfileImageName,
             email: action.payload.email,
-            firstname: action.payload.firstname,
-            lastname: action.payload.lastname,
+            firstName: action.payload.firstName,
+            lastName: action.payload.lastName,
             role: action.payload.role,
             serviceProviderType: action.payload.serviceProviderType,
           };
           localStorage.setItem('user', JSON.stringify(state.userState));
-          state.access_token = action.payload.access_token;
-          state.refresh_token = action.payload.refresh_token;
-          if (action.payload.access_token !== null)
-            localStorage.setItem('access_token', action.payload.access_token);
-          if (action.payload.refresh_token !== null)
-            localStorage.setItem('refresh_token', action.payload.refresh_token);
+          state.accessToken = action.payload.accessToken;
+          state.refreshToken = action.payload.refreshToken;
+          if (action.payload.accessToken !== null)
+            localStorage.setItem('accessToken', action.payload.accessToken);
+          if (action.payload.refreshToken !== null)
+            localStorage.setItem('refreshToken', action.payload.refreshToken);
         }
       })
       .addCase(signIn.rejected, (state) => {
         state.isAuthenticated = false;
         state.userState = null;
-        state.access_token = null;
-        state.refresh_token = null;
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
+        state.accessToken = null;
+        state.refreshToken = null;
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
         localStorage.removeItem('user');
         API.defaults.headers.common.Authorization = null;
       })
       .addCase(signOut.fulfilled, (state) => {
         state.isAuthenticated = false;
         state.userState = null;
-        state.access_token = null;
-        state.refresh_token = null;
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
+        state.accessToken = null;
+        state.refreshToken = null;
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('user');
+        API.defaults.headers.common.Authorization = null;
+      })
+      .addCase(signOut.rejected, (state) => {
+        state.isAuthenticated = false;
+        state.userState = null;
+        state.accessToken = null;
+        state.refreshToken = null;
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
         localStorage.removeItem('user');
         API.defaults.headers.common.Authorization = null;
       });
@@ -160,8 +141,8 @@ export const selectIsAuthenticated = (state: RootState) =>
 export const { clean, setTokens } = UserAuthenticationSlice.actions;
 
 export const getTokens = (state: RootState) => ({
-  access_token: state.user.access_token,
-  refresh_token: state.user.refresh_token,
+  accessToken: state.user.accessToken,
+  refreshToken: state.user.refreshToken,
 });
 
 export default UserAuthenticationSlice.reducer;

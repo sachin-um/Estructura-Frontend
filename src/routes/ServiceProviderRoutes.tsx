@@ -1,8 +1,9 @@
 import type { RouteObject } from 'react-router-dom';
 
-import AllArchitects from '../pages/Professionals/AllArchitects';
 import AllProfessionals from '../pages/Professionals/AllProfessionals';
+import ProfessionalCategory from '../pages/Professionals/ProfessionalCategory';
 import AnyServiceProviderProfile from '../pages/ServiceProvider/AnyServiceProviderProfile';
+import ServiceProviderPublicProfile from '../pages/ServiceProviderPublicProfile';
 
 const ServiceProviderRoutes: RouteObject[] = [
   {
@@ -15,7 +16,11 @@ const ServiceProviderRoutes: RouteObject[] = [
   },
   {
     path: '/Professionals/:category',
-    element: <AllArchitects />,
+    element: <ProfessionalCategory />,
+  },
+  {
+    path: '/ServiceProvider/:id',
+    element: <ServiceProviderPublicProfile />,
   },
 ];
 export default ServiceProviderRoutes;

@@ -1,11 +1,8 @@
-import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
-
 import { Box, Pagination } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { useEffect, useState } from 'react';
 import { FaSort } from 'react-icons/fa';
-import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -15,31 +12,18 @@ import NotFound from '../../components/NoResults';
 import TopAppBar from '../../components/TopAppBar';
 import Newsletter from '../../components/e-com/Blog';
 import ShopCategories from '../../components/shop/ShopCategories';
-import {
-  fetchRetailItems,
-  getRetailItemsStatus,
-  selectAllRetailItems,
-} from '../../redux/RetailItems/RetailItemsReducer';
+import { useFetchRetailItems } from '../../hooks/retailItem/useFetchRetailItems';
 import { mobile } from '../../responsive';
 import Paginate from '../../utils/Paginate';
+
 const ShopItemList = () => {
   const category = useParams().category;
 
-  const itemsStatus = useSelector(getRetailItemsStatus);
-  const retailItems = useSelector(selectAllRetailItems);
-
-  const dispatch: ThunkDispatch<RetailItem[], void, AnyAction> = useDispatch();
+  const { fetchRetailItems, retailItems } = useFetchRetailItems();
 
   useEffect(() => {
-    if (itemsStatus === 'idle') {
-      dispatch(fetchRetailItems());
-    }
-    if (itemsStatus === 'succeeded') {
-      setItems(retailItems.filter((item) => item.retailItemType === category));
-    }
-  }, [itemsStatus, dispatch, retailItems, category]);
-
-  const [Items, setItems] = useState<RetailItem[]>([]);
+    if (category) fetchRetailItems({ category: category as RetailItemType });
+  }, [category, fetchRetailItems]);
 
   const [pageSize, _setPageSize] = useState(8); // Should add a selector
   const [pageNumber, setPageNumber] = useState(1);
@@ -49,14 +33,18 @@ const ShopItemList = () => {
   useEffect(() => {
     switch (sort) {
       case 'Price: High to Low':
-        setSortedItems((da) => [...Items].sort((a, b) => b.price - a.price));
+        setSortedItems((da) =>
+          [...retailItems].sort((a, b) => b.price - a.price),
+        );
         break;
       case 'Price: Low to High':
-        setSortedItems((da) => [...Items].sort((a, b) => a.price - b.price));
+        setSortedItems((da) =>
+          [...retailItems].sort((a, b) => a.price - b.price),
+        );
         break;
       case 'Date: Newest on Top':
         setSortedItems((da) =>
-          [...Items].sort(
+          [...retailItems].sort(
             (a, b) =>
               new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime(),
           ),
@@ -64,7 +52,7 @@ const ShopItemList = () => {
         break;
       case 'Date: Oldest on Top':
         setSortedItems((da) =>
-          [...Items].sort(
+          [...retailItems].sort(
             (a, b) =>
               new Date(a.dateAdded).getTime() - new Date(b.dateAdded).getTime(),
           ),
@@ -73,12 +61,11 @@ const ShopItemList = () => {
       default:
         break;
     }
-  }, [Items, sort]);
+  }, [retailItems, sort]);
 
-  const [sortedItems, setSortedItems] = useState(Items);
+  const [sortedItems, setSortedItems] = useState(retailItems);
 
   const PaginatedItems = Paginate(sortedItems, pageNumber, pageSize);
-  console.log(PaginatedItems);
 
   return (
     <Container>
@@ -116,7 +103,7 @@ const ShopItemList = () => {
           onChange={(_event, value) => {
             setPageNumber(value);
           }}
-          count={Math.ceil(Items.length / pageSize)}
+          count={Math.ceil(retailItems.length / pageSize)}
         />
       </Box>
       <Newsletter />

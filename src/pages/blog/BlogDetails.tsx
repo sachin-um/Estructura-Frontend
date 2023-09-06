@@ -1,4 +1,3 @@
-import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import type { FunctionComponent } from 'react';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -7,6 +6,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import EmailIcon from '@mui/icons-material/Email';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import {
+  Avatar,
   Card,
   CardActions,
   CardContent,
@@ -15,61 +15,42 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import { Avatar } from '@mui/material';
-import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import NotFound from '../../components/NoResults';
 import TopAppBar from '../../components/TopAppBar';
+import { useBlog } from '../../hooks/blog/useBlog';
+import useCurrentUser from '../../hooks/users/useCurrentUser';
+import useFetchUser from '../../hooks/users/useFetchUser';
 import Loading from '../../pages/loading';
-import {
-  deleteBlog,
-  fetchBlogById,
-  getBlogError,
-  getBlogStatus,
-  selectBlog,
-} from '../../redux/Blogs/SingleBlogReducer';
-import {
-  fetchUserById,
-  getUser,
-  getUserStatus,
-} from '../../redux/UserInfo/SingleUserInfoReducer';
 
 const BlogDetails: FunctionComponent = () => {
   const blogId = parseInt(useParams<{ id: string }>().id ?? '0');
 
-  const dispatch: ThunkDispatch<Blog, void, AnyAction> = useDispatch();
-  const dispatchUser: ThunkDispatch<User, void, AnyAction> = useDispatch();
+  const {
+    deleteBlogById,
+    getBlog: { blog, fetchBlog, isLoading },
+  } = useBlog();
 
-  const blog = useSelector(selectBlog);
-  const [userId, setUserId] = useState(0);
-  const blogStatus = useSelector(getBlogStatus);
-  const blogError = useSelector(getBlogError);
+  useEffect(() => {
+    fetchBlog(blogId);
+  }, [blogId, fetchBlog]);
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (blogStatus === 'idle') {
-      dispatch(fetchBlogById(blogId));
-    }
-    if (blog) {
-      setUserId(blog.createdBy);
-    }
-  }, [dispatch, blogId, blogStatus, blog]);
-
   const [isMobile, setIsMobile] = useState(false);
-  const userinfo = useSelector(getUser);
-  const userStatus = useSelector(getUserStatus);
+
+  const currentUser = useCurrentUser();
+
+  const { fetchUserById, user } = useFetchUser();
 
   useEffect(() => {
-    if (userStatus === 'idle') {
-      dispatchUser(fetchUserById(userId));
-    } else {
-      console.log(userinfo);
+    if (blog) {
+      fetchUserById(blog.createdBy);
     }
-  }, [userStatus, dispatchUser, userinfo, userId]);
+  }, [blog, fetchUserById]);
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 1000);
@@ -83,7 +64,7 @@ const BlogDetails: FunctionComponent = () => {
 
   const paragraphs =
     typeof blog?.content === 'string'
-      ? blog.content.split('. ').reduce((acc, sentence) => {
+      ? blog.content.split('. ').reduce<string[]>((acc, sentence) => {
           if (!acc.length || acc[acc.length - 1].split('. ').length >= 7) {
             acc.push(sentence);
           } else {
@@ -97,9 +78,7 @@ const BlogDetails: FunctionComponent = () => {
     <>
       <TopAppBar />
 
-      {blogError ? (
-        <h1>ERROR: {blogError}</h1>
-      ) : blogStatus === 'loading' ? (
+      {isLoading ? (
         <Loading />
       ) : blog ? (
         <div
@@ -173,28 +152,36 @@ const BlogDetails: FunctionComponent = () => {
                   />
                 </IconButton>
               </Tooltip>
-              <Tooltip title="Edit">
-                <IconButton color="primary" size="small">
-                  <EditIcon
-                    onClick={() => navigate(`/blogs/edit/${blog.id}`)}
-                  />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Delete">
-                <IconButton color="secondary" size="small">
-                  <DeleteIcon
-                    onClick={() => {
-                      dispatch(deleteBlog(blogId)).then((resultAction) => {
-                        if (deleteBlog.fulfilled.match(resultAction)) {
-                          // ! Handle alerting the user that the Blog was deleted
-                          console.log('Deleted Blog');
-                          navigate('/blogs');
-                        }
-                      });
-                    }}
-                  />
-                </IconButton>
-              </Tooltip>
+              {currentUser?.id === blog.createdBy && (
+                <>
+                  <Tooltip title="Edit">
+                    <IconButton
+                      color="primary"
+                      onClick={() => navigate(`/blogs/edit/${blog.id}`)}
+                      size="small"
+                    >
+                      <EditIcon />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="Delete">
+                    <IconButton
+                      onClick={() => {
+                        deleteBlogById(blog.id).then((deleted) => {
+                          if (deleted) {
+                            navigate('/blogs');
+                          } else {
+                            alert('Failed to delete blog');
+                          }
+                        });
+                      }}
+                      color="secondary"
+                      size="small"
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </Tooltip>
+                </>
+              )}
             </CardActions>
             {/* <Card sx={{ borderColor: 'green', borderWidth: 2, boxShadow: 'none', borderStyle: 'solid', marginTop: 2, borderRadius: 3 }}> */}
             <Card
@@ -259,18 +246,18 @@ const BlogDetails: FunctionComponent = () => {
                   />
                   <Typography variant="h6">{blog.creatorName}</Typography>
                   <Typography color="textSecondary" variant="body2">
-                    {userinfo?.role}
+                    {user?.role}
                   </Typography>
                   <Stack alignItems="center" direction="row" spacing={1}>
                     <LocationOnIcon sx={{ fontSize: 16 }} />
                     <Typography color="textSecondary" variant="body2">
-                      {userinfo?.district}, Sri Lanka
+                      {user?.district}, Sri Lanka
                     </Typography>
                   </Stack>
                   <Stack alignItems="center" direction="row" spacing={1}>
                     <EmailIcon sx={{ fontSize: 16 }} />
                     <Typography color="textSecondary" variant="body2">
-                      {userinfo?.email}
+                      {user?.email}
                     </Typography>
                   </Stack>
                 </Stack>

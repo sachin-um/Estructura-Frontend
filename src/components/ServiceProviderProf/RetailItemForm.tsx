@@ -1,4 +1,3 @@
-import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import type { FormikProps } from 'formik';
 import type { FunctionComponent } from 'react';
 
@@ -24,19 +23,13 @@ import {
 import Divider from '@mui/material/Divider';
 import { ErrorMessage, Form, Formik } from 'formik';
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
+import { useRetailItem } from '../../hooks/retailItem/useRetailItem';
+import useCurrentUser from '../../hooks/users/useCurrentUser';
 import UnauthorizedAccess from '../../pages/unauthorized_access';
-import { setRetailItemsMutated } from '../../redux/RetailItems/RetailItemsReducer';
-import {
-  addRetailItem,
-  editRetailItem,
-} from '../../redux/RetailItems/SingleRetailItemReducer';
-import { selectUser } from '../../redux/UserAuthenticationReducer';
 import GetFormikProps from '../../utils/GetFormikProps';
-import { violationsToErrorsTS } from '../../utils/ViolationsTS';
 import Footer from '../Footer';
 
 interface RetailItemFormProps {
@@ -113,11 +106,14 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
   userId,
 }) => {
   const FormRef = useRef<FormikProps<RetailItemAddOrUpdateRequest>>(null);
-  const MainImageUploadRef = useRef<HTMLInputElement>(null);
-  const ExtraImageUploadRef = useRef<HTMLInputElement>(null);
-  const userInfo = useSelector(selectUser);
-  const dispatch: ThunkDispatch<RentingItem, void, AnyAction> = useDispatch();
+  const mainImageUploadRef = useRef<HTMLInputElement>(null);
+  const extraImageUploadRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
+
+  const currentUser = useCurrentUser();
+
+  const { addRetailItem, editRetailItemById } = useRetailItem();
+
   const HandleSubmit = (values: RetailItemAddOrUpdateRequest) => {
     console.log(values);
     if (FormRef.current) {
@@ -125,51 +121,25 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
       setSubmitting(true);
       console.log(values);
       if (OriginalRetailItem) {
-        // Edit Renting Item
-        dispatch(
-          editRetailItem({
-            retailItem: OriginalRetailItem,
-            updatedRetailItem: values,
-          }),
-        ).then((resultAction) => {
-          if (editRetailItem.fulfilled.match(resultAction)) {
-            // ! Handle Edit Success Here
-            console.log('Project Edited');
+        editRetailItemById(OriginalRetailItem.id, values).then((edited) => {
+          if (edited.success) {
             alert('Item Edited');
-          } else if (editRetailItem.rejected.match(resultAction)) {
-            try {
-              const response =
-                resultAction.payload as GenericAddOrUpdateResponse;
-              if (response) {
-                setErrors(violationsToErrorsTS(response.validation_violations));
-              }
-            } catch (error) {
-              console.log(error);
-            }
+          } else if (edited.errors) {
+            setErrors(edited.errors);
           }
         });
       } else {
-        // Create Renting Item
-        dispatch(addRetailItem(values)).then((resultAction) => {
-          if (addRetailItem.fulfilled.match(resultAction)) {
-            navigate(`/shop/item/${resultAction.payload.id}`, {
+        addRetailItem(values).then((added) => {
+          if (added.item) {
+            navigate(`/shop/item/${added.item.id}`, {
               replace: true,
             });
-          } else if (addRetailItem.rejected.match(resultAction)) {
-            try {
-              const response =
-                resultAction.payload as GenericAddOrUpdateResponse;
-              if (response) {
-                setErrors(violationsToErrorsTS(response.validation_violations));
-              }
-            } catch (error) {
-              console.log(error);
-            }
+          } else if (added.errors) {
+            setErrors(added.errors);
           }
         });
       }
       setSubmitting(false);
-      dispatch(setRetailItemsMutated(true));
     }
   };
   const initialValues = OriginalRetailItem
@@ -241,9 +211,9 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
   }, [OriginalRetailItem, mainImageReset, mainImage, imagesReset]);
   return (
     <>
-      {userInfo &&
-      userInfo.id &&
-      userInfo.serviceProviderType === ('RETAILER' as ServiceProviders) ? (
+      {currentUser &&
+      currentUser.id &&
+      currentUser.serviceProviderType === ('RETAILER' as ServiceProviders) ? (
         <Formik
           enableReinitialize
           initialValues={initialValues}
@@ -448,8 +418,8 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
                       ) : (
                         <Box
                           onClick={() => {
-                            if (MainImageUploadRef.current) {
-                              MainImageUploadRef.current.click();
+                            if (mainImageUploadRef.current) {
+                              mainImageUploadRef.current.click();
                             }
                           }}
                           style={{
@@ -473,7 +443,7 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
                             <AddPhotoAlternateIcon />
                             <input
                               hidden
-                              ref={MainImageUploadRef}
+                              ref={mainImageUploadRef}
                               {...spread(
                                 'mainImage',
                                 false,
@@ -544,8 +514,8 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
                         <Grid>
                           <Button
                             onClick={() => {
-                              if (ExtraImageUploadRef.current) {
-                                ExtraImageUploadRef.current.click();
+                              if (extraImageUploadRef.current) {
+                                extraImageUploadRef.current.click();
                               }
                             }}
                             style={{
@@ -558,7 +528,7 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
                           >
                             <input
                               hidden
-                              ref={ExtraImageUploadRef}
+                              ref={extraImageUploadRef}
                               {...spread(
                                 'extraImages',
                                 false,

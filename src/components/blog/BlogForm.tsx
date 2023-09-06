@@ -1,4 +1,3 @@
-import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import type { FormikProps } from 'formik';
 import type { FunctionComponent } from 'react';
 
@@ -16,14 +15,11 @@ import {
 } from '@mui/material';
 import { Form, Formik } from 'formik';
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
-import { setBlogsMutated } from '../../redux/Blogs/BlogsReducer';
-import { addBlog, editBlog } from '../../redux/Blogs/SingleBlogReducer';
+import { useBlog } from '../../hooks/blog/useBlog';
 import GetFormikProps from '../../utils/GetFormikProps';
-import { violationsToErrorsTS } from '../../utils/ViolationsTS';
 
 interface BlogFormProps {
   OriginalBlog?: Blog;
@@ -65,7 +61,7 @@ const BlogForm: FunctionComponent<BlogFormProps> = ({
   const FormRef = useRef<FormikProps<BlogAddOrUpdateRequest>>(null);
   const FileUploadRef = useRef<HTMLInputElement>(null);
 
-  const dispatch: ThunkDispatch<Blog, void, AnyAction> = useDispatch();
+  const { addBlog, editBlogById } = useBlog();
 
   const navigate = useNavigate();
 
@@ -76,46 +72,25 @@ const BlogForm: FunctionComponent<BlogFormProps> = ({
       console.log(values);
       if (OriginalBlog) {
         // Edit Blog
-        dispatch(
-          editBlog({
-            blog: OriginalBlog,
-            updatedBlog: values,
-          }),
-        ).then((resultAction) => {
-          if (editBlog.fulfilled.match(resultAction)) {
-            navigate(`/blogs/${OriginalBlog.id}`);
-          } else if (editBlog.rejected.match(resultAction)) {
-            try {
-              const response =
-                resultAction.payload as GenericAddOrUpdateResponse;
-              if (response) {
-                setErrors(violationsToErrorsTS(response.validation_violations));
-              }
-            } catch (error) {
-              console.log(error);
-            }
+        editBlogById(OriginalBlog.id, values).then((edited) => {
+          console.log(edited);
+          if (edited.success) {
+            // alert user
+            alert('Blog Edited');
+          } else if (edited.errors) {
+            setErrors(edited.errors);
           }
         });
       } else {
-        // Create Blog
-        dispatch(addBlog(values)).then((resultAction) => {
-          if (addBlog.fulfilled.match(resultAction)) {
-            navigate(`/blogs/${resultAction.payload.id}`, { replace: true });
-          } else if (addBlog.rejected.match(resultAction)) {
-            try {
-              const response =
-                resultAction.payload as GenericAddOrUpdateResponse;
-              if (response) {
-                setErrors(violationsToErrorsTS(response.validation_violations));
-              }
-            } catch (error) {
-              console.log(error);
-            }
+        addBlog(values).then((added) => {
+          if (added.item && added.item.id !== -1) {
+            navigate(`/blogs/${added.item.id}`, { replace: true });
+          } else if (added.errors) {
+            setErrors(added.errors);
           }
         });
       }
       setSubmitting(false);
-      dispatch(setBlogsMutated(true));
     }
   };
 

@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { mobile } from '../../responsive';
 const Container = styled.div``;
 
 const CardGrid = styled.div`
@@ -82,21 +81,23 @@ const ProfessionalCategories = ({ data }: { data: Professional[] }) => {
     <Container>
       <CardGrid>
         {data.map((card) => (
-          <Card key={card.id}>
+          <Card
+            onClick={() => {
+              navigate('/ServiceProvider/' + card.id);
+            }}
+            key={card.id}
+          >
             <CardImage
-              // onClick={() => {
-              //   navigate(`/shop/item/${card.id}`);
               src={
-                card.ProfileImageName
-                  ? `http://localhost:8080/files/profile-images/${card.id}/${card.ProfileImageName}`
+                card.profileImageName
+                  ? `http://localhost:8080/files/profile-images/${card.id}/${card.profileImageName}`
                   : '/User/user.png'
               }
-              // }}
               alt={`Card ${card.id}`}
             />
             <CardWrapper>
               <CardText>
-                {card.firstname} {card.lastname}
+                {card.firstName} {card.lastName}
               </CardText>
               <CardPrice>
                 {card.city} , {card.district}

@@ -66,16 +66,15 @@ function ServiceProviderSignUp() {
     }
   };
 
-  const HandleSubmit = () => {
-    setFormData({ ...formData });
-    console.log(formData);
-    API.post('/auth/register', formData, {
+  const HandleSubmit = (data) => {
+    console.log(formData, 'Got', data);
+    API.post('/auth/register', data, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     })
       .then((res) => {
-        console.log(res);
+        console.table(res);
         if (res.status === 200) {
           if (res.data.success === true) {
             // ! Redirect to a page that says, verify your email

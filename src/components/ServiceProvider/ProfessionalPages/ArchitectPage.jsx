@@ -11,7 +11,7 @@ import { useRef } from 'react';
 import * as yup from 'yup';
 
 const validationSchema = yup.object({
-  sLIARegNumber: yup.string().required('SLIA Membership number is required'),
+  sliaRegNumber: yup.string().required('SLIA Membership number is required'),
 });
 
 function ArchitectPage1({
@@ -23,7 +23,7 @@ function ArchitectPage1({
 }) {
   const formRef = useRef(null);
   const initialValues = {
-    sLIARegNumber: formData.sLIARegNumber ?? '',
+    sliaRegNumber: formData.sliaRegNumber ?? '',
     qualification: formData.qualification ?? '',
   };
   // TODO: Change Layout
@@ -177,11 +177,11 @@ function ArchitectPage1({
                                 InputProps={{ sx: { borderRadius: 2 } }}
                                 sx={{ width: 1, margin: 1 }}
                                 type="SLIARegNumber"
-                                name="sLIARegNumber"
+                                name="sliaRegNumber"
                                 label="Ex:A1399"
                                 variant="filled"
                                 size="small"
-                                {...spread('sLIARegNumber')}
+                                {...spread('sliaRegNumber')}
                               />
                               <Grid style={{ justifyContent: 'center' }}>
                                 <Typography

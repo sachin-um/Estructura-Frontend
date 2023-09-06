@@ -1,4 +1,3 @@
-import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import type { FormikProps } from 'formik';
 import type { FunctionComponent } from 'react';
 
@@ -25,21 +24,15 @@ import {
 import Divider from '@mui/material/Divider';
 import { Form, Formik } from 'formik';
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
+import { useProject } from '../../hooks/project/useProject';
 import UnauthorizedAccess from '../../pages/unauthorized_access';
-import { setProjectsMutated } from '../../redux/Projects/ProjectsReducer';
-import {
-  addProject,
-  editProject,
-} from '../../redux/Projects/SingleProjectReducer';
 import { selectUser } from '../../redux/UserAuthenticationReducer';
 import GetFormikProps from '../../utils/GetFormikProps';
-import { violationsToErrorsTS } from '../../utils/ViolationsTS';
 import Footer from '../Footer';
-import TopBar from '../TopBar';
 
 interface ProjectFormProps {
   OriginalProject?: Project;
@@ -133,12 +126,14 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
   userId,
 }) => {
   const FormRef = useRef<FormikProps<ProjectAddOrUpdateRequest>>(null);
-  const MainImageUploadRef = useRef<HTMLInputElement>(null);
-  const ExtraImageUploadRef = useRef<HTMLInputElement>(null);
+  const mainImageUploadRef = useRef<HTMLInputElement>(null);
+  const extraImageUploadRef = useRef<HTMLInputElement>(null);
   const DocumentUploadRef = useRef<HTMLInputElement>(null);
-  const dispatch: ThunkDispatch<Project, void, AnyAction> = useDispatch();
   const navigate = useNavigate();
   const userInfo = useSelector(selectUser);
+
+  const { addProject, editProjectById } = useProject();
+
   const HandleSubmit = (values: ProjectAddOrUpdateRequest) => {
     console.log(values);
     if (FormRef.current) {
@@ -147,50 +142,29 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
       console.log(values);
       if (OriginalProject) {
         // Edit Project
-        dispatch(
-          editProject({
-            project: OriginalProject,
-            updatedProject: values,
-          }),
-        ).then((resultAction) => {
-          if (editProject.fulfilled.match(resultAction)) {
-            // ! Handle Edit Success Here
+        editProjectById(OriginalProject.id, values).then((edited) => {
+          if (edited.success) {
             console.log('Project Edited');
             alert('Project Edited');
-          } else if (editProject.rejected.match(resultAction)) {
-            try {
-              const response =
-                resultAction.payload as GenericAddOrUpdateResponse;
-              if (response) {
-                setErrors(violationsToErrorsTS(response.validation_violations));
-              }
-            } catch (error) {
-              console.log(error);
-            }
+          } else if (edited.errors) {
+            setErrors(edited.errors);
           }
         });
       } else {
         // Create Project
-        dispatch(addProject(values)).then((resultAction) => {
-          if (addProject.fulfilled.match(resultAction)) {
-            navigate(`/projects/${resultAction.payload.id}`, { replace: true });
-          } else if (addProject.rejected.match(resultAction)) {
-            try {
-              const response =
-                resultAction.payload as GenericAddOrUpdateResponse;
-              if (response) {
-                setErrors(violationsToErrorsTS(response.validation_violations));
-              }
-            } catch (error) {
-              console.log(error);
-            }
+        addProject(values).then((added) => {
+          if (added.item) {
+            console.log('Project Added');
+            navigate(`/projects/${added.item.id}`, { replace: true });
+          } else if (added.errors) {
+            setErrors(added.errors);
           }
         });
+        setSubmitting(false);
       }
-      setSubmitting(false);
-      dispatch(setProjectsMutated(true));
     }
   };
+
   const initialValues = OriginalProject
     ? {
         cost: OriginalProject.cost,
@@ -390,8 +364,8 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
                       ) : (
                         <Box
                           onClick={() => {
-                            if (MainImageUploadRef.current) {
-                              MainImageUploadRef.current.click();
+                            if (mainImageUploadRef.current) {
+                              mainImageUploadRef.current.click();
                             }
                           }}
                           style={{
@@ -418,7 +392,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
                             <AddPhotoAlternateIcon />
                             <input
                               hidden
-                              ref={MainImageUploadRef}
+                              ref={mainImageUploadRef}
                               {...spread(
                                 'mainImage',
                                 false,
@@ -487,8 +461,8 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
                         <Grid>
                           <Button
                             onClick={() => {
-                              if (ExtraImageUploadRef.current) {
-                                ExtraImageUploadRef.current.click();
+                              if (extraImageUploadRef.current) {
+                                extraImageUploadRef.current.click();
                               }
                             }}
                             style={{
@@ -502,7 +476,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
                           >
                             <input
                               hidden
-                              ref={ExtraImageUploadRef}
+                              ref={extraImageUploadRef}
                               {...spread(
                                 'extraImages',
                                 false,
