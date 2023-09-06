@@ -56,7 +56,7 @@ function GetStarted({
       />
       <Box
         alignItems="center"
-        maxWidth="400px"
+        maxWidth="800px"
         p={2}
         position="absolute"
         textAlign="center"

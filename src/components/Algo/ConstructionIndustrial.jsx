@@ -14,7 +14,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 
 // import { Link } from "react-router-dom" ;
 import TopAppBar from '../TopAppBar';
@@ -26,6 +26,15 @@ function ConstructionIndustrial({
   previousPage,
   updateFormData,
 }) {
+  const [userSelection, setUserSelection] = useState('');
+  const handleNext = () => {
+    handlePageChange('Location');
+    nextPage();
+  };
+  const handleChange = (event) => {
+    setUserSelection(event.target.value);
+  };
+
   return (
     <>
       {
@@ -102,6 +111,7 @@ function ConstructionIndustrial({
                 aria-labelledby="demo-controlled-radio-buttons-group"
                 name="controlled-radio-buttons-group"
                 style={{ margin: '30px' }}
+                onChange={handleChange}
               >
                 <FormControlLabel
                   control={<Radio />}
@@ -156,6 +166,7 @@ function ConstructionIndustrial({
               sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
               type="submit"
               variant="contained"
+              onClick={handleNext}
             >
               Next
             </Button>

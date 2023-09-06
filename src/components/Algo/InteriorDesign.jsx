@@ -14,7 +14,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 
 // import { Link } from "react-router-dom" ;
 import TopAppBar from '../TopAppBar';
@@ -26,6 +26,31 @@ function InteriorDesign({
   previousPage,
   updateFormData,
 }) {
+  const [userSelection, setUserSelection] = useState('');
+  const [checkboxState, setCheckboxState] = useState({
+    SpacePlanning: false,
+    FurnitureAndFurnishings: false,
+    ColorSchemeAndPaintSelection: false,
+    LightingDesign: false,
+    FlooringAndWallTreatments: false,
+    AccessoriesAndDecorativeElements: false,
+  });
+
+  const handleCheckboxChange = (event) => {
+    const { name, checked } = event.target;
+    setCheckboxState({
+      ...checkboxState,
+      [name]: checked,
+    });
+  };
+
+  const selectedValues = Object.keys(checkboxState).filter(
+    (key) => checkboxState[key],
+  );
+  const handleNext = () => {
+    handlePageChange('Location');
+    nextPage();
+  };
   return (
     <>
       {
@@ -104,39 +129,75 @@ function InteriorDesign({
                 style={{ margin: '10px' }}
               >
                 <FormControlLabel
-                  control={<Checkbox />}
+                  control={
+                    <Checkbox
+                      value="Space Planning"
+                      checked={checkboxState.SpacePlanning}
+                      onChange={handleCheckboxChange}
+                      name="SpacePlanning"
+                    />
+                  }
                   label="Space Planning"
-                  value="Space Planning"
                 />
                 <Divider />
                 <FormControlLabel
-                  control={<Checkbox />}
+                  control={
+                    <Checkbox
+                      value="Furniture and Furnishings"
+                      checked={checkboxState.FurnitureAndFurnishings}
+                      onChange={handleCheckboxChange}
+                      name="FurnitureAndFurnishings"
+                    />
+                  }
                   label="Furniture and Furnishings"
-                  value="Furniture and Furnishings"
                 />
                 <Divider />
                 <FormControlLabel
-                  control={<Checkbox />}
+                  control={
+                    <Checkbox
+                      value="Color scheme and Paint Selection"
+                      checked={checkboxState.ColorSchemeAndPaintSelection}
+                      onChange={handleCheckboxChange}
+                      name="ColorSchemeAndPaintSelection"
+                    />
+                  }
                   label="Color scheme and Paint Selection"
-                  value="Color scheme and Paint Selection"
                 />
                 <Divider />
                 <FormControlLabel
-                  control={<Checkbox />}
+                  control={
+                    <Checkbox
+                      value="Lighting Design"
+                      checked={checkboxState.LightingDesign}
+                      onChange={handleCheckboxChange}
+                      name="LightingDesign"
+                    />
+                  }
                   label="Lighting Design"
-                  value="Lighting Design"
                 />
                 <Divider />
                 <FormControlLabel
-                  control={<Checkbox />}
-                  label="Flooring and Wall Treatments "
-                  value="Flooring and Wall Treatments "
+                  control={
+                    <Checkbox
+                      value="Flooring and Wall Treatments"
+                      checked={checkboxState.FlooringAndWallTreatments}
+                      onChange={handleCheckboxChange}
+                      name="FlooringAndWallTreatments"
+                    />
+                  }
+                  label="Flooring and Wall Treatments"
                 />
                 <Divider />
                 <FormControlLabel
-                  control={<Checkbox />}
-                  label="Accessories and decorative elements"
-                  value="Accessories and decorative elements"
+                  control={
+                    <Checkbox
+                      value="Accessories and Decorative Elements"
+                      checked={checkboxState.AccessoriesAndDecorativeElements}
+                      onChange={handleCheckboxChange}
+                      name="AccessoriesAndDecorativeElements"
+                    />
+                  }
+                  label="Accessories and Decorative Elements"
                 />
               </RadioGroup>
             </Box>
@@ -167,6 +228,7 @@ function InteriorDesign({
               sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
               type="submit"
               variant="contained"
+              onClick={handleNext}
             >
               Next
             </Button>

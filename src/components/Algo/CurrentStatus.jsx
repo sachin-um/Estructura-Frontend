@@ -19,7 +19,7 @@ import React, { useState } from 'react';
 // import { Link } from "react-router-dom" ;
 import TopAppBar from '../TopAppBar';
 
-function AlgoPage2({
+function CurrentStatus({
   formData,
   handlePageChange,
   nextPage,
@@ -29,7 +29,7 @@ function AlgoPage2({
   const [userSelection, setUserSelection] = useState('');
 
   const handleNext = () => {
-    handlePageChange(userSelection);
+    handlePageChange('Price');
     nextPage();
   };
   const handleChange = (event) => {
@@ -98,17 +98,51 @@ function AlgoPage2({
           <Box
             alignItems="center"
             bgcolor="#f2f2f2"
-            maxWidth="400px"
             p={2}
             position="absolute"
             textAlign="center"
             top="40%"
-            width="80%"
             zIndex="1"
           >
-            {/* <Box>
+            <Box>
+              <RadioGroup
+                row
+                aria-labelledby="demo-controlled-radio-buttons-group"
+                name="controlled-radio-buttons-group"
+                style={{
+                  margin: '30px',
+                }}
+                onChange={handleChange}
+              >
+                <FormControlLabel
+                  control={<Radio />}
+                  labelPlacement="bottom"
+                  label="Just exploring an idea"
+                  value="Just exploring an idea"
+                />
 
-            </Box> */}
+                <FormControlLabel
+                  control={<Radio />}
+                  labelPlacement="bottom"
+                  label="Planning and Budgeting"
+                  value="Planning and Budgeting"
+                />
+
+                <FormControlLabel
+                  control={<Radio />}
+                  labelPlacement="bottom"
+                  label="Ready to hire"
+                  value="Ready to hire"
+                />
+
+                <FormControlLabel
+                  control={<Radio />}
+                  labelPlacement="bottom"
+                  label="Project already in progress"
+                  value="Project already in progress"
+                />
+              </RadioGroup>
+            </Box>
           </Box>
           <Grid
             style={{
@@ -147,4 +181,4 @@ function AlgoPage2({
   );
 }
 
-export default AlgoPage2;
+export default CurrentStatus;

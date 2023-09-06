@@ -26,6 +26,7 @@ function ConstructionResidence({
   previousPage,
   updateFormData,
 }) {
+  const [userSelection, setUserSelection] = useState('');
   const [checkboxState, setCheckboxState] = useState({
     AllInOne: false,
     KitchenAndDining: false,
@@ -49,7 +50,7 @@ function ConstructionResidence({
     (key) => checkboxState[key],
   );
   const handleNext = () => {
-    handlePageChange(userSelection);
+    handlePageChange('Location');
     nextPage();
   };
   return (
@@ -132,85 +133,85 @@ function ConstructionResidence({
                 <FormControlLabel
                   control={
                     <Checkbox
-                      label="All in one"
                       value="All in one"
-                      checked={checkboxState.checkbox1}
+                      checked={checkboxState.AllInOne}
                       onChange={handleCheckboxChange}
                       name="AllInOne"
                     />
                   }
+                  label="All in one"
                 />
                 <Divider />
                 <FormControlLabel
                   control={
                     <Checkbox
-                      label="Kitchen and Dining"
                       value="Kitchen and Dining"
-                      checked={checkboxState.checkbox1}
+                      checked={checkboxState.KitchenAndDining}
                       onChange={handleCheckboxChange}
                       name="KitchenAndDining"
                     />
                   }
+                  label="Kitchen and Dining"
                 />
                 <Divider />
                 <FormControlLabel
                   control={
                     <Checkbox
-                      label="Bedroom"
                       value="Bedroom"
-                      checked={checkboxState.checkbox1}
+                      checked={checkboxState.Bedroom}
                       onChange={handleCheckboxChange}
                       name="Bedroom"
                     />
                   }
+                  label="Bedroom"
                 />
                 <Divider />
                 <FormControlLabel
                   control={
                     <Checkbox
-                      label="Living Room"
                       value="Living Room"
-                      checked={checkboxState.checkbox1}
+                      checked={checkboxState.LivingRoom}
                       onChange={handleCheckboxChange}
                       name="LivingRoom"
                     />
                   }
+                  label="Living Room"
                 />
                 <Divider />
                 <FormControlLabel
                   control={
                     <Checkbox
-                      label=" Office"
                       value="Office"
-                      checked={checkboxState.checkbox1}
+                      checked={checkboxState.Office}
                       onChange={handleCheckboxChange}
                       name="Office"
                     />
                   }
+                  label=" Office"
                 />
                 <Divider />
                 <FormControlLabel
                   control={
                     <Checkbox
-                      label="Garage"
                       value="Garage"
-                      checked={checkboxState.checkbox1}
+                      checked={checkboxState.Garage}
                       onChange={handleCheckboxChange}
                       name="Garage"
                     />
                   }
+                  label="Garage"
                 />
                 <Divider />
                 <FormControlLabel
                   control={
                     <Checkbox
-                      label="Bathroom"
                       value="Bathroom"
-                      checked={checkboxState.checkbox1}
+                      checked={checkboxState.Bathroom}
                       onChange={handleCheckboxChange}
                       name="Bathroom"
                     />
                   }
+                  label="Bathroom"
                 />
               </RadioGroup>
             </Box>

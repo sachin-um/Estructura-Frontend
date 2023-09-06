@@ -19,7 +19,7 @@ import React, { useState } from 'react';
 // import { Link } from "react-router-dom" ;
 import TopAppBar from '../TopAppBar';
 
-function AlgoPage3({
+function Price({
   formData,
   handlePageChange,
   nextPage,
@@ -98,17 +98,51 @@ function AlgoPage3({
           <Box
             alignItems="center"
             bgcolor="#f2f2f2"
-            maxWidth="400px"
             p={2}
             position="absolute"
             textAlign="center"
             top="40%"
-            width="80%"
             zIndex="1"
           >
-            {/* <Box>
+            <Box>
+              <RadioGroup
+                row
+                aria-labelledby="demo-controlled-radio-buttons-group"
+                name="controlled-radio-buttons-group"
+                style={{
+                  margin: '30px',
+                }}
+                onChange={handleChange}
+              >
+                <FormControlLabel
+                  control={<Radio />}
+                  labelPlacement="bottom"
+                  label="Minimizing the cost"
+                  value="I want to minimize the cost"
+                />
 
-            </Box> */}
+                <FormControlLabel
+                  control={<Radio />}
+                  labelPlacement="bottom"
+                  label="Low to Mid Price Quality"
+                  value="Low to Mid Price Quality"
+                />
+
+                <FormControlLabel
+                  control={<Radio />}
+                  labelPlacement="bottom"
+                  label="Mid to High Price Quality"
+                  value="Mid to High Price Quality"
+                />
+
+                <FormControlLabel
+                  control={<Radio />}
+                  labelPlacement="bottom"
+                  label="I want the best results"
+                  value="I want the best results"
+                />
+              </RadioGroup>
+            </Box>
           </Box>
           <Grid
             style={{
@@ -147,4 +181,4 @@ function AlgoPage3({
   );
 }
 
-export default AlgoPage3;
+export default Price;
