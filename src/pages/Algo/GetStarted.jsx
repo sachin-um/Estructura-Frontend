@@ -19,6 +19,9 @@ import ConstructionResidence from '../../components/Algo/ConstructionResidence';
 import ConstructionCommercial from '../../components/Algo/ConstructionCommercial';
 import ConstructionIndustrial from '../../components/Algo/ConstructionIndustrial';
 import ConstructionRecreational from '../../components/Algo/ConstructionRecreational';
+import Location from '../../components/Algo/Location';
+import CurrentStatus from '../../components/Algo/CurrentStatus';
+import Price from '../../components/Algo/Price';
 import Construction from '../../components/Algo/Construction';
 import DesignPlans from '../../components/Algo/DesignPlans';
 import GetStarted from '../../components/Algo/InitialPage';
@@ -176,6 +179,39 @@ function RecAlgo() {
             />
           );
           break;
+        case 'Location':
+          newPage = (
+            <Location
+              formData={formData}
+              updateFormData={updateFormData}
+              nextPage={nextPage}
+              previousPage={previousPage}
+              handlePageChange={handlePageChange}
+            />
+          );
+          break;
+        case 'CurrentStatus':
+          newPage = (
+            <CurrentStatus
+              formData={formData}
+              updateFormData={updateFormData}
+              nextPage={nextPage}
+              previousPage={previousPage}
+              handlePageChange={handlePageChange}
+            />
+          );
+          break;
+        case 'Price':
+          newPage = (
+            <Price
+              formData={formData}
+              updateFormData={updateFormData}
+              nextPage={nextPage}
+              previousPage={previousPage}
+              handlePageChange={handlePageChange}
+            />
+          );
+          break;
 
         default:
           break;
@@ -199,7 +235,6 @@ function RecAlgo() {
       <TopAppBar />
       {
         <Box style={{ display: 'flex', justifyContent: 'center' }}>
-          {console.log(pages)}
           {pages[currentPage]}
         </Box>
       }

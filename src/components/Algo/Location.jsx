@@ -5,21 +5,53 @@ import {
   Divider,
   FormControlLabel,
   Grid,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
   List,
   ListItem,
   ListItemButton,
   ListItemText,
   Radio,
   RadioGroup,
-  TextField,
-  Typography,
 } from '@mui/material';
 import React, { useState } from 'react';
 
 // import { Link } from "react-router-dom" ;
 import TopAppBar from '../TopAppBar';
 
-function ConstructionIndustrial({
+const districts = [
+  'Ampara',
+  'Anuradhapura',
+  'Badulla',
+  'Batticaloa',
+  'Colombo',
+  'Galle',
+  'Gampaha',
+  'Hambantota',
+  'Jaffna',
+  'Kalutara',
+  'Kandy',
+  'Kegalle',
+  'Kilinochchi',
+  'Kurunegala',
+  'Mannar',
+  'Matale',
+  'Matara',
+  'Monaragala',
+  'Mullaitivu',
+  'Nuwara Eliya',
+  'Polonnaruwa',
+  'Puttalam',
+  'Ratnapura',
+  'Trincomalee',
+  'Vavuniya',
+];
+
+function Location({
   formData,
   handlePageChange,
   nextPage,
@@ -27,14 +59,14 @@ function ConstructionIndustrial({
   updateFormData,
 }) {
   const [userSelection, setUserSelection] = useState('');
+
   const handleNext = () => {
-    handlePageChange('Location');
+    handlePageChange('CurrentStatus');
     nextPage();
   };
   const handleChange = (event) => {
     setUserSelection(event.target.value);
   };
-
   return (
     <>
       {
@@ -90,14 +122,14 @@ function ConstructionIndustrial({
                 marginBottom="5px"
                 marginTop="5px"
               >
-                What type of a industrial building do you require?
+                Where do you want your professionals to be?
               </Typography>
             </Box>
           </Box>
           <Divider />
           <Box
             alignItems="center"
-            bgcolor="#f2f2f2"
+            bgcolor="#f2f0f0"
             maxWidth="400px"
             p={2}
             position="absolute"
@@ -106,40 +138,40 @@ function ConstructionIndustrial({
             width="80%"
             zIndex="1"
           >
-            <Box>
-              <RadioGroup
-                aria-labelledby="demo-controlled-radio-buttons-group"
-                name="controlled-radio-buttons-group"
-                style={{ margin: '30px' }}
-                onChange={handleChange}
-              >
-                <FormControlLabel
-                  control={<Radio />}
-                  label="Warehouse"
-                  value="Warehouse"
-                />
-                <Divider />
-                <FormControlLabel
-                  control={<Radio />}
-                  label="Educational Building"
-                  value="Educational Building"
-                />
-                <Divider />
-                <FormControlLabel
-                  control={<Radio />}
-                  label="Healthcare"
-                  value="Healthcare"
-                />
-                <Divider />
-                <FormControlLabel
-                  control={<Radio />}
-                  label="Religious and Government Building"
-                  value="Religious and Government Building"
-                />
-              </RadioGroup>
-            </Box>
+            <FormControl
+              sx={{
+                m: 1,
+                marginLeft: 'auto',
+                minWidth: 120,
+                width: '100%',
+              }}
+              variant="standard"
+            >
+              <InputLabel color="secondary" id="selectDistrict">
+                Select District
+              </InputLabel>
+              <Select displayEmpty labelId="selectDistrict-label">
+                {districts.map((district) => (
+                  <MenuItem key={district} value={district}>
+                    {district}
+                  </MenuItem>
+                ))}
+              </Select>
+              {/* <ErrorMessage name="district">
+                {(msg) => (
+                  <span
+                    style={{
+                      color: '#d32f2f',
+                      fontSize: '0.75rem',
+                      marginLeft: '14px',
+                    }}
+                  >
+                    {msg}
+                  </span>
+                )}
+              </ErrorMessage> */}
+            </FormControl>
           </Box>
-
           <Grid
             style={{
               width: '30%',
@@ -177,4 +209,4 @@ function ConstructionIndustrial({
   );
 }
 
-export default ConstructionIndustrial;
+export default Location;

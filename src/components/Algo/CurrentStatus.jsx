@@ -19,7 +19,7 @@ import React, { useState } from 'react';
 // import { Link } from "react-router-dom" ;
 import TopAppBar from '../TopAppBar';
 
-function ConstructionIndustrial({
+function CurrentStatus({
   formData,
   handlePageChange,
   nextPage,
@@ -27,14 +27,14 @@ function ConstructionIndustrial({
   updateFormData,
 }) {
   const [userSelection, setUserSelection] = useState('');
+
   const handleNext = () => {
-    handlePageChange('Location');
+    handlePageChange('Price');
     nextPage();
   };
   const handleChange = (event) => {
     setUserSelection(event.target.value);
   };
-
   return (
     <>
       {
@@ -90,7 +90,7 @@ function ConstructionIndustrial({
                 marginBottom="5px"
                 marginTop="5px"
               >
-                What type of a industrial building do you require?
+                What is the current status of your project?
               </Typography>
             </Box>
           </Box>
@@ -98,48 +98,52 @@ function ConstructionIndustrial({
           <Box
             alignItems="center"
             bgcolor="#f2f2f2"
-            maxWidth="400px"
             p={2}
             position="absolute"
             textAlign="center"
             top="40%"
-            width="80%"
             zIndex="1"
           >
             <Box>
               <RadioGroup
+                row
                 aria-labelledby="demo-controlled-radio-buttons-group"
                 name="controlled-radio-buttons-group"
-                style={{ margin: '30px' }}
+                style={{
+                  margin: '30px',
+                }}
                 onChange={handleChange}
               >
                 <FormControlLabel
                   control={<Radio />}
-                  label="Warehouse"
-                  value="Warehouse"
+                  labelPlacement="bottom"
+                  label="Just exploring an idea"
+                  value="Just exploring an idea"
                 />
-                <Divider />
+
                 <FormControlLabel
                   control={<Radio />}
-                  label="Educational Building"
-                  value="Educational Building"
+                  labelPlacement="bottom"
+                  label="Planning and Budgeting"
+                  value="Planning and Budgeting"
                 />
-                <Divider />
+
                 <FormControlLabel
                   control={<Radio />}
-                  label="Healthcare"
-                  value="Healthcare"
+                  labelPlacement="bottom"
+                  label="Ready to hire"
+                  value="Ready to hire"
                 />
-                <Divider />
+
                 <FormControlLabel
                   control={<Radio />}
-                  label="Religious and Government Building"
-                  value="Religious and Government Building"
+                  labelPlacement="bottom"
+                  label="Project already in progress"
+                  value="Project already in progress"
                 />
               </RadioGroup>
             </Box>
           </Box>
-
           <Grid
             style={{
               width: '30%',
@@ -177,4 +181,4 @@ function ConstructionIndustrial({
   );
 }
 
-export default ConstructionIndustrial;
+export default CurrentStatus;

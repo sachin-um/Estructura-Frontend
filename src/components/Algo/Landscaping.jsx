@@ -14,7 +14,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 
 // import { Link } from "react-router-dom" ;
 import TopAppBar from '../TopAppBar';
@@ -26,6 +26,31 @@ function Landscaping({
   previousPage,
   updateFormData,
 }) {
+  const [userSelection, setUserSelection] = useState('');
+  const [checkboxState, setCheckboxState] = useState({
+    Gardening: false,
+    Hardscaping: false,
+    WaterFeatures: false,
+    OutdoorLighting: false,
+    LandscapeDesign: false,
+    Maintenance: false,
+  });
+
+  const handleCheckboxChange = (event) => {
+    const { name, checked } = event.target;
+    setCheckboxState({
+      ...checkboxState,
+      [name]: checked,
+    });
+  };
+
+  const selectedValues = Object.keys(checkboxState).filter(
+    (key) => checkboxState[key],
+  );
+  const handleNext = () => {
+    handlePageChange('Location');
+    nextPage();
+  };
   return (
     <>
       {
@@ -104,40 +129,76 @@ function Landscaping({
                 style={{ margin: '10px' }}
               >
                 <FormControlLabel
-                  control={<Checkbox />}
+                  control={
+                    <Checkbox
+                      value="Gardening"
+                      checked={checkboxState.Gardening}
+                      onChange={handleCheckboxChange}
+                      name="Gardening"
+                    />
+                  }
                   label="Gardening"
-                  value="Gardening"
                 />
                 <Divider />
                 <FormControlLabel
-                  control={<Checkbox />}
+                  control={
+                    <Checkbox
+                      value="Hardscaping"
+                      checked={checkboxState.Hardscaping}
+                      onChange={handleCheckboxChange}
+                      name="Hardscaping"
+                    />
+                  }
                   label="Hardscaping"
-                  value="Hardscaping"
                 />
                 <Divider />
                 <FormControlLabel
-                  control={<Checkbox />}
-                  label="Water features"
-                  value="Water features"
+                  control={
+                    <Checkbox
+                      value="Water Features"
+                      checked={checkboxState.WaterFeatures}
+                      onChange={handleCheckboxChange}
+                      name="WaterFeatures"
+                    />
+                  }
+                  label="Water Features"
                 />
                 <Divider />
                 <FormControlLabel
-                  control={<Checkbox />}
+                  control={
+                    <Checkbox
+                      value="Outdoor Lighting"
+                      checked={checkboxState.OutdoorLighting}
+                      onChange={handleCheckboxChange}
+                      name="OutdoorLighting"
+                    />
+                  }
                   label="Outdoor lighting "
-                  value="Outdoor lighting "
                 />
                 <Divider />
                 <FormControlLabel
-                  control={<Checkbox />}
-                  label="Landscape design "
-                  value="Landscape design "
+                  control={
+                    <Checkbox
+                      value="Landscape Design"
+                      checked={checkboxState.LandscapeDesign}
+                      onChange={handleCheckboxChange}
+                      name="LandscapeDesign"
+                    />
+                  }
+                  label="Landscape Design"
                 />
                 <Divider />
 
                 <FormControlLabel
-                  control={<Checkbox />}
+                  control={
+                    <Checkbox
+                      value="Maintenance"
+                      checked={checkboxState.Maintenance}
+                      onChange={handleCheckboxChange}
+                      name="Maintenance"
+                    />
+                  }
                   label="Maintenance"
-                  value="Maintenance"
                 />
               </RadioGroup>
             </Box>
@@ -168,6 +229,7 @@ function Landscaping({
               sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
               type="submit"
               variant="contained"
+              onClick={handleNext}
             >
               Next
             </Button>

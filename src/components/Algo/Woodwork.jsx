@@ -14,7 +14,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 
 // import { Link } from "react-router-dom" ;
 import TopAppBar from '../TopAppBar';
@@ -26,6 +26,31 @@ function Woodwork({
   previousPage,
   updateFormData,
 }) {
+  const [checkboxState, setCheckboxState] = useState({
+    Carpentry: false,
+    Cabinetry: false,
+    WoodTurning: false,
+    WoodCarving: false,
+    RestorationAndRepair: false,
+    WoodFlooring: false,
+    WoodFinishing: false,
+  });
+  const [userSelection, setUserSelection] = useState('');
+  const handleCheckboxChange = (event) => {
+    const { name, checked } = event.target;
+    setCheckboxState({
+      ...checkboxState,
+      [name]: checked,
+    });
+  };
+
+  const selectedValues = Object.keys(checkboxState).filter(
+    (key) => checkboxState[key],
+  );
+  const handleNext = () => {
+    handlePageChange('Location');
+    nextPage();
+  };
   return (
     <>
       {
@@ -81,7 +106,7 @@ function Woodwork({
                 marginBottom="5px"
                 marginTop="5px"
               >
-                What type of a wooodwork do you require?
+                What type of a Woodwork do you require?
               </Typography>
             </Box>
           </Box>
@@ -104,45 +129,87 @@ function Woodwork({
                 style={{ margin: '10px' }}
               >
                 <FormControlLabel
-                  control={<Checkbox />}
+                  control={
+                    <Checkbox
+                      value="Carpentry"
+                      checked={checkboxState.Carpentry}
+                      onChange={handleCheckboxChange}
+                      name="Carpentry"
+                    />
+                  }
                   label="Carpentry"
-                  value="Carpentry"
                 />
                 <Divider />
                 <FormControlLabel
-                  control={<Checkbox />}
+                  control={
+                    <Checkbox
+                      value="Cabinetry"
+                      checked={checkboxState.Cabinetry}
+                      onChange={handleCheckboxChange}
+                      name="Cabinetry"
+                    />
+                  }
                   label="Cabinetry"
-                  value="Cabinetry"
                 />
                 <Divider />
                 <FormControlLabel
-                  control={<Checkbox />}
+                  control={
+                    <Checkbox
+                      value="Wood Turning"
+                      checked={checkboxState.WoodTurning}
+                      onChange={handleCheckboxChange}
+                      name="WoodTurning"
+                    />
+                  }
                   label="Wood Turning"
-                  value="Wood Turning"
                 />
                 <Divider />
                 <FormControlLabel
-                  control={<Checkbox />}
+                  control={
+                    <Checkbox
+                      value="Wood Carving"
+                      checked={checkboxState.WoodCarving}
+                      onChange={handleCheckboxChange}
+                      name="WoodCarving"
+                    />
+                  }
                   label="Wood Carving"
-                  value="Wood Carving"
                 />
                 <Divider />
                 <FormControlLabel
-                  control={<Checkbox />}
+                  control={
+                    <Checkbox
+                      value="Restoration and Repair"
+                      checked={checkboxState.RestorationAndRepair}
+                      onChange={handleCheckboxChange}
+                      name="RestorationAndRepair"
+                    />
+                  }
                   label="Restoration and Repair"
-                  value="Restoration and Repair"
                 />
                 <Divider />
                 <FormControlLabel
-                  control={<Checkbox />}
+                  control={
+                    <Checkbox
+                      value="Wood Flooring"
+                      checked={checkboxState.WoodFlooring}
+                      onChange={handleCheckboxChange}
+                      name="WoodFlooring"
+                    />
+                  }
                   label="Wood Flooring"
-                  value="Wood Flooring"
                 />
                 <Divider />
                 <FormControlLabel
-                  control={<Checkbox />}
+                  control={
+                    <Checkbox
+                      value="Wood Finishing"
+                      checked={checkboxState.WoodFinishing}
+                      onChange={handleCheckboxChange}
+                      name="WoodFinishing"
+                    />
+                  }
                   label="Wood Finishing"
-                  value="Wood Finishing"
                 />
               </RadioGroup>
             </Box>
@@ -173,6 +240,7 @@ function Woodwork({
               sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
               type="submit"
               variant="contained"
+              onClick={handleNext}
             >
               Next
             </Button>
