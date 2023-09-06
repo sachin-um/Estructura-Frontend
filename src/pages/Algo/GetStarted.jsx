@@ -29,14 +29,15 @@ import Woodwork from '../../components/Algo/Woodwork';
 // import { Link } from "react-router-dom" ;
 import TopAppBar from '../../components/TopAppBar';
 function RecAlgo() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [additionalPages, setAdditionalPages] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+
   const nextPage = () => {
-    // console.log(formData)
     setCurrentPage(currentPage + 1);
   };
   const previousPage = () => {
-    setCurrentPage(currentPage - 1);
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
   };
   const updateFormData = (data) => {
     setFormData({ ...formData, ...data });
@@ -45,8 +46,10 @@ function RecAlgo() {
   const [formData, setFormData] = useState({});
   const handlePageChange = (value) => {
     setSelectedOption(value);
+    // setPages((prevStack) => [...prevStack, currentPage]);
+    console.log(pages);
   };
-  let initialPage = [
+  const initialPage = [
     <GetStarted
       formData={formData}
       nextPage={nextPage}
@@ -55,10 +58,9 @@ function RecAlgo() {
       updateFormData={updateFormData}
     />,
   ];
-
+  const [pages, setPages] = useState(initialPage);
   useEffect(() => {
     if (selectedOption !== null) {
-      setAdditionalPages([]);
       console.log(selectedOption);
       let newPage = null;
       switch (selectedOption) {
@@ -178,18 +180,27 @@ function RecAlgo() {
         default:
           break;
       }
-      setAdditionalPages([...additionalPages, newPage]);
+      const updatedStack = [...pages];
+      updatedStack[currentPage] = newPage;
+      setPages(updatedStack);
     }
   }, [selectedOption, formData]);
-  const pages = [initialPage, ...additionalPages];
+  // let pages = [initialPage, ...additionalPages];
+  // useEffect(() => {
+  //   if (previousPageState === true) {
+  //     console.log('Byeeeeeeeeee');
+  //     const updatedPages = pages.slice(0, -1);
+  //     setPages(updatedPages);
+  //   }
+  // }, [pages]);
 
   return (
     <>
       <TopAppBar />
       {
         <Box style={{ display: 'flex', justifyContent: 'center' }}>
-          {pages[currentPage - 1]}
           {console.log(pages)}
+          {pages[currentPage]}
         </Box>
       }
     </>
