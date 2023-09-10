@@ -11,12 +11,10 @@ const HomePageCarousel = ({
 }) => {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
-  const visibleCards = cards
-    .concat(cards)
-    .slice(currentCardIndex, currentCardIndex + 3);
+  const visibleCards = cards.concat(cards).slice(0, cards.length);
 
   const goToNextCard = useCallback(() => {
-    setCurrentCardIndex((prevIndex) => (prevIndex + 1) % cards.length);
+    setCurrentCardIndex((prevIndex) => (prevIndex + 1) % (cards.length - 2));
   }, [cards.length]);
 
   useEffect(() => {
