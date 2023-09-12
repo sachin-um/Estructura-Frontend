@@ -103,6 +103,7 @@ function Price({
             textAlign="center"
             top="40%"
             zIndex="1"
+            borderRadius="10px"
           >
             <Box>
               <RadioGroup

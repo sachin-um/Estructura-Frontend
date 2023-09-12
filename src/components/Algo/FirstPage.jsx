@@ -19,17 +19,11 @@ import React, { useState } from 'react';
 // import { Link } from "react-router-dom" ;
 import TopAppBar from '../TopAppBar';
 
-function CurrentStatus({
-  formData,
-  handlePageChange,
-  nextPage,
-  previousPage,
-  updateFormData,
-}) {
+function FirstPage({}) {
   const [userSelection, setUserSelection] = useState('');
 
   const handleNext = () => {
-    handlePageChange('Price');
+    handlePageChange(userSelection);
     nextPage();
   };
   const handleChange = (event) => {
@@ -84,66 +78,50 @@ function CurrentStatus({
 
               <Divider style={{ backgroundColor: '#AF7D51', height: '1px' }} />
 
-              <Typography
+              {/* <Typography
                 fontSize="1.2rem"
                 fontWeight="500px"
                 marginBottom="5px"
                 marginTop="5px"
               >
-                What is the current status of your project?
-              </Typography>
+                What type of a construction do you require?
+              </Typography> */}
             </Box>
           </Box>
           <Divider />
           <Box
             alignItems="center"
             bgcolor="#f2f2f2"
+            maxWidth="400px"
             p={2}
             position="absolute"
             textAlign="center"
-            top="40%"
+            top="28%"
+            width="80%"
             zIndex="1"
             borderRadius="10px"
           >
             <Box>
-              <RadioGroup
-                row
-                aria-labelledby="demo-controlled-radio-buttons-group"
-                name="controlled-radio-buttons-group"
-                style={{
-                  margin: '30px',
-                }}
-                onChange={handleChange}
+              <Typography
+                fontFamily="Helvetica Neue"
+                fontSize="1rem"
+                fontWeight="500px"
+                textAlign="center"
+                marginBottom="5px"
+                marginTop="5px"
               >
-                <FormControlLabel
-                  control={<Radio />}
-                  labelPlacement="bottom"
-                  label="Just exploring an idea"
-                  value="Just exploring an idea"
-                />
-
-                <FormControlLabel
-                  control={<Radio />}
-                  labelPlacement="bottom"
-                  label="Planning and Budgeting"
-                  value="Planning and Budgeting"
-                />
-
-                <FormControlLabel
-                  control={<Radio />}
-                  labelPlacement="bottom"
-                  label="Ready to hire"
-                  value="Ready to hire"
-                />
-
-                <FormControlLabel
-                  control={<Radio />}
-                  labelPlacement="bottom"
-                  label="Project already in progress"
-                  value="Project already in progress"
-                />
-              </RadioGroup>
+                Here you'll be guided through a set of questions designed to
+                pinpoint your specific needs. Once you've answered them, we'll
+                provide tailored recommendations that perfectly match your
+                requirements. Simply tell us what you're looking for, and we'll
+                present you with the ideal products and experts.
+              </Typography>
             </Box>
+            <img
+              alt="Home Owner"
+              src="/Logo.png"
+              style={{ height: '80%', width: '50%' }}
+            />
           </Box>
           <Grid
             style={{
@@ -159,21 +137,11 @@ function CurrentStatus({
               color="primary"
               size="large"
               sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
-              type="button"
-              variant="contained"
-              onClick={previousPage}
-            >
-              Previous
-            </Button>
-            <Button
-              color="primary"
-              size="large"
-              sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
               type="submit"
               variant="contained"
               onClick={handleNext}
             >
-              Next
+              Start
             </Button>
           </Grid>
         </Box>
@@ -182,4 +150,4 @@ function CurrentStatus({
   );
 }
 
-export default CurrentStatus;
+export default FirstPage;

@@ -123,6 +123,7 @@ function ConstructionResidence({
             top="36%"
             width="80%"
             zIndex="1"
+            borderRadius="10px"
           >
             <Box>
               <RadioGroup

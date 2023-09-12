@@ -121,6 +121,7 @@ function Landscaping({
             top="38%"
             width="80%"
             zIndex="1"
+            borderRadius="10px"
           >
             <Box>
               <RadioGroup
