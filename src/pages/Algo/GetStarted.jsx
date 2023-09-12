@@ -31,6 +31,7 @@ import Remodelling from '../../components/Algo/Remodelling';
 import Woodwork from '../../components/Algo/Woodwork';
 // import { Link } from "react-router-dom" ;
 import TopAppBar from '../../components/TopAppBar';
+import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 function RecAlgo() {
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -234,9 +235,13 @@ function RecAlgo() {
     <>
       <TopAppBar />
       {
-        <Box style={{ display: 'flex', justifyContent: 'center' }}>
+        <Grid
+          xs={12}
+          md={12}
+          style={{ display: 'flex', justifyContent: 'center' }}
+        >
           {pages[currentPage]}
-        </Box>
+        </Grid>
       }
     </>
   );
