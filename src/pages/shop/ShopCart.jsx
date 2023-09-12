@@ -1,22 +1,45 @@
-import { Add, Remove, ShoppingCart } from '@mui/icons-material';
-import { useState } from 'react';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Footer from '../../components/Footer';
 import TopAppBar from '../../components/TopAppBar';
 import { mobile } from '../../responsive';
+import { useFetchRetailItems } from '../../hooks/retailItem/useFetchRetailItems';
 
 const ShopCart = () => {
   // TODO: Make it work with backend
+  // TODO:when click add to cart,backend table add, then from that table take items to specific id array, then remove nm remove the content from table and reload page
+  // TODO: after checkout if successful clear the cart order from the table
+  const { fetchRetailItems, isLoading, retailItems } = useFetchRetailItems();
 
-  const [products, setProducts] = useState([
-    { id: 1, quantity: 2 },
-    { id: 2, quantity: 2 },
-  ]);
+  useEffect(() => {
+    fetchRetailItems({});
+  }, [fetchRetailItems]);
+
+  console.log(retailItems);
+
+  const specificIds = [1, 2, 3];
+
+  const CartFurniture = retailItems.filter((item) =>
+    specificIds.includes(item.id),
+  );
+
+  console.log(CartFurniture);
+
+  const [products, setProducts] = useState(
+    specificIds.map((id) => ({ id, quantity: 1 })),
+  );
 
   const increaseQuantity = (productId) => {
+    console.log('this is ' + productId);
     setProducts((prevProducts) =>
       prevProducts.map((product) =>
-        product.id === productId
+        product.id === productId &&
+        product.quantity <
+          retailItems.find((item) => item.id === productId)?.quantity
           ? { ...product, quantity: product.quantity + 1 }
           : product,
       ),
@@ -33,12 +56,29 @@ const ShopCart = () => {
     );
   };
 
+  const removeProduct = (productId) => {
+    setProducts((prevProducts) =>
+      prevProducts.filter((product) => product.id !== productId),
+    );
+  };
+
+  const totalPrice = products.reduce((total, product) => {
+    const item = retailItems.find((item) => item.id === product.id);
+
+    // Check if the item exists before accessing its 'price' property
+    if (item) {
+      return total + item.price * product.quantity;
+    }
+
+    return total;
+  }, 0);
+
   return (
     <Container>
       <TopAppBar />
       <Wrapper>
         <Title>
-          <ShoppingCart
+          <ShoppingCartIcon
             sx={{ fontSize: '32px', marginRight: '10px', marginBottom: '-5px' }}
           />
           YOUR CART
@@ -50,77 +90,64 @@ const ShopCart = () => {
         </Top>
         <Bottom>
           <Info>
-            <Product>
-              <ProductDetail>
-                <Image src="https://m.media-amazon.com/images/I/81kxw825MsL.jpg" />
-                <Details>
-                  <ProductName>
-                    <b>Product:</b> MODERN LOVESEAT SOFA
-                  </ProductName>
-                  <ProductId>
-                    <b>ID:</b> 93813718293
-                  </ProductId>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountBox>
-                  <ProductAmountContainer>
-                    <Remove onClick={() => decreaseQuantity(1)} />
-                    <ProductAmount>
-                      {products.find((product) => product.id === 1)?.quantity ||
-                        0}
-                    </ProductAmount>
-                    <Add onClick={() => increaseQuantity(1)} />
-                  </ProductAmountContainer>
-                </ProductAmountBox>
-                <ProductPrice>LKR. 25,000</ProductPrice>
-              </PriceDetail>
-            </Product>
-            <Hr />
-            <Product>
-              <ProductDetail>
-                <Image src="https://foter.com/photos/424/traditional-round-marble-dining-table-for-4.jpeg" />
-                <Details>
-                  <ProductName>
-                    <b>Product:</b> ROUND MARBLE DINING TABLE SET
-                  </ProductName>
-                  <ProductId>
-                    <b>ID:</b> 93813718293
-                  </ProductId>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountBox>
-                  <ProductAmountContainer>
-                    <Remove onClick={() => decreaseQuantity(2)} />
-                    <ProductAmount>
-                      {products.find((product) => product.id === 2)?.quantity ||
-                        0}
-                    </ProductAmount>
-                    <Add onClick={() => increaseQuantity(2)} />
-                  </ProductAmountContainer>
-                </ProductAmountBox>
-                <ProductPrice>LKR. 18,000</ProductPrice>
-              </PriceDetail>
-            </Product>
+            <ScrollableProducts>
+              {CartFurniture.map((item) => (
+                <div key={item.id}>
+                  <Product>
+                    <ProductDetail>
+                      <Image
+                        src={`http://localhost:8080/files/retail-item-files/${item.createdBy}/${item.id}/${item.mainImageName}`}
+                      />
+                      <Details>
+                        <ProductName>
+                          <b>Product:</b> {item.name}
+                        </ProductName>
+                        <ProductId>
+                          <b>Type:</b> {item.retailItemType}
+                        </ProductId>
+                      </Details>
+                    </ProductDetail>
+                    <PriceDetail>
+                      <ProductAmountBox>
+                        <ProductAmountContainer>
+                          <RemoveIcon
+                            onClick={() => decreaseQuantity(item.id)}
+                          />
+                          <ProductAmount>
+                            {products.find((p) => p.id === item.id)?.quantity}
+                          </ProductAmount>
+                          <AddIcon onClick={() => increaseQuantity(item.id)} />
+                        </ProductAmountContainer>
+                      </ProductAmountBox>
+                      <ProductPrice>LKR. {item.price}</ProductPrice>
+                    </PriceDetail>
+                    <DeleteIcon
+                      sx={{ marginTop: 4, marginRight: 2 }}
+                      onClick={() => removeProduct(item.id)}
+                    />
+                  </Product>
+                  <Hr />
+                </div>
+              ))}
+            </ScrollableProducts>
           </Info>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>LKR. 43,000</SummaryItemPrice>
+              <SummaryItemPrice>LKR. {totalPrice}</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
-              <SummaryItemText>Estimated Shipping</SummaryItemText>
+              <SummaryItemText>Estimated Delivery</SummaryItemText>
               <SummaryItemPrice>LKR. 1000</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
-              <SummaryItemText>Shipping Discount</SummaryItemText>
+              <SummaryItemText>Delivery Discount</SummaryItemText>
               <SummaryItemPrice>LKR. -1000</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>LKR. 43,000</SummaryItemPrice>
+              <SummaryItemPrice>LKR. {totalPrice}</SummaryItemPrice>
             </SummaryItem>
             <Button>CHECKOUT NOW</Button>
           </Summary>
@@ -134,6 +161,12 @@ const ShopCart = () => {
 export default ShopCart;
 
 const Container = styled.div``;
+
+const ScrollableProducts = styled.div`
+  max-height: 450px; /* Adjust the height as needed */
+  overflow-y: scroll;
+  margin-bottom: 50px;
+`;
 
 const Wrapper = styled.div`
   padding: 20px;
@@ -208,6 +241,8 @@ const Image = styled.img`
   width: 250px;
   height: 250px;
   object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid black;
 `;
 
 const Details = styled.div`

@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Checkbox,
+  Stack,
   Divider,
   FormControlLabel,
   Grid,
@@ -38,35 +39,28 @@ function CurrentStatus({
   return (
     <>
       {
-        <Box
-          height="600px"
-          position="relative"
-          style={{ display: 'flex', justifyContent: 'center' }}
-          width="60%"
+        <Grid
+          style={{
+            backgroundImage: 'url("/AlgoBG.jpg")',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            objectFit: 'cover',
+            display: 'flex',
+            justifyContent: 'center',
+            width: '60%',
+            marginTop: '3%',
+            borderRadius: '20px',
+            minHeight: '600px',
+          }}
         >
-          <img
-            style={{
-              borderRadius: '20px',
-              height: '100%',
-              margin: '20px',
-              objectFit: 'cover',
-              opacity: '0.9',
-              width: '100%',
-            }}
-            alt="Banner"
-            src="/AlgoBG.jpg"
-          />
-          <Box
-            alignItems="center"
-            maxWidth="400px"
-            p={2}
-            position="absolute"
-            textAlign="center"
-            top="5%"
-            width="80%"
-            zIndex="1"
-          >
-            <Box>
+          <Stack gap={2} alignItems="center" width="90%">
+            <Box
+              alignItems="center"
+              p={2}
+              textAlign="center"
+              top="5%"
+              width="80%"
+            >
               <Typography
                 style={{
                   color: '#435834',
@@ -93,90 +87,81 @@ function CurrentStatus({
                 What is the current status of your project?
               </Typography>
             </Box>
-          </Box>
-          <Divider />
-          <Box
-            alignItems="center"
-            bgcolor="#f2f2f2"
-            p={2}
-            position="absolute"
-            textAlign="center"
-            top="40%"
-            zIndex="1"
-            borderRadius="10px"
-          >
-            <Box>
+            <Divider />
+            <Box alignItems="center" bgcolor="#f2f2f2" p={2} textAlign="center">
               <RadioGroup
-                row
                 aria-labelledby="demo-controlled-radio-buttons-group"
                 name="controlled-radio-buttons-group"
-                style={{
-                  margin: '30px',
-                }}
                 onChange={handleChange}
               >
-                <FormControlLabel
-                  control={<Radio />}
-                  labelPlacement="bottom"
-                  label="Just exploring an idea"
-                  value="Just exploring an idea"
-                />
-
-                <FormControlLabel
-                  control={<Radio />}
-                  labelPlacement="bottom"
-                  label="Planning and Budgeting"
-                  value="Planning and Budgeting"
-                />
-
-                <FormControlLabel
-                  control={<Radio />}
-                  labelPlacement="bottom"
-                  label="Ready to hire"
-                  value="Ready to hire"
-                />
-
-                <FormControlLabel
-                  control={<Radio />}
-                  labelPlacement="bottom"
-                  label="Project already in progress"
-                  value="Project already in progress"
-                />
+                <Grid container spacing={2} padding={3}>
+                  <Grid xs={12} md={3}>
+                    <FormControlLabel
+                      control={<Radio size="small" />}
+                      labelPlacement="bottom"
+                      label="Just exploring an idea"
+                      value="Just exploring an idea"
+                    />
+                  </Grid>
+                  <Grid xs={12} md={3}>
+                    <FormControlLabel
+                      control={<Radio size="small" />}
+                      labelPlacement="bottom"
+                      label="Planning and Budgeting"
+                      value="Planning and Budgeting"
+                    />
+                  </Grid>
+                  <Grid xs={12} md={3}>
+                    <FormControlLabel
+                      control={<Radio size="small" />}
+                      labelPlacement="bottom"
+                      label="Ready to hire"
+                      value="Ready to hire"
+                    />
+                  </Grid>
+                  <Grid xs={12} md={3}>
+                    <FormControlLabel
+                      control={<Radio size="small" />}
+                      labelPlacement="bottom"
+                      label="Project already in progress"
+                      value="Project already in progress"
+                    />
+                  </Grid>
+                </Grid>
               </RadioGroup>
             </Box>
-          </Box>
-          <Grid
-            style={{
-              width: '30%',
-            }}
-            display="flex"
-            justifyContent="center"
-            position="absolute"
-            top="90%"
-            zIndex="1"
-          >
-            <Button
-              color="primary"
-              size="large"
-              sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
-              type="button"
-              variant="contained"
-              onClick={previousPage}
+            <Grid
+              style={{
+                width: '60%',
+                marginTop: '6%',
+                marginBottom: '6%',
+              }}
+              display="flex"
+              justifyContent="center"
             >
-              Previous
-            </Button>
-            <Button
-              color="primary"
-              size="large"
-              sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
-              type="submit"
-              variant="contained"
-              onClick={handleNext}
-            >
-              Next
-            </Button>
-          </Grid>
-        </Box>
+              <Button
+                color="primary"
+                size="large"
+                sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
+                type="button"
+                variant="contained"
+                onClick={previousPage}
+              >
+                Previous
+              </Button>
+              <Button
+                color="primary"
+                size="large"
+                sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
+                type="submit"
+                variant="contained"
+                onClick={handleNext}
+              >
+                Next
+              </Button>
+            </Grid>
+          </Stack>
+        </Grid>
       }
     </>
   );
