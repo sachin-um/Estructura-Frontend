@@ -5,6 +5,7 @@ import {
   Divider,
   FormControlLabel,
   Grid,
+  Stack,
   List,
   ListItem,
   ListItemButton,
@@ -37,35 +38,28 @@ function ConstructionCommercial({
   return (
     <>
       {
-        <Box
-          height="600px"
-          position="relative"
-          style={{ display: 'flex', justifyContent: 'center' }}
-          width="60%"
+        <Grid
+          style={{
+            backgroundImage: 'url("/AlgoBG.jpg")',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            objectFit: 'cover',
+            display: 'flex',
+            justifyContent: 'center',
+            width: '60%',
+            marginTop: '3%',
+            borderRadius: '20px',
+            minHeight: '600px',
+          }}
         >
-          <img
-            style={{
-              borderRadius: '20px',
-              height: '100%',
-              margin: '20px',
-              objectFit: 'cover',
-              opacity: '0.9',
-              width: '100%',
-            }}
-            alt="Banner"
-            src="/AlgoBG.jpg"
-          />
-          <Box
-            alignItems="center"
-            maxWidth="400px"
-            p={2}
-            position="absolute"
-            textAlign="center"
-            top="5%"
-            width="80%"
-            zIndex="1"
-          >
-            <Box>
+          <Stack gap={2} alignItems="center" width="90%">
+            <Box
+              alignItems="center"
+              p={2}
+              textAlign="center"
+              top="5%"
+              width="80%"
+            >
               <Typography
                 style={{
                   color: '#435834',
@@ -92,94 +86,89 @@ function ConstructionCommercial({
                 What type of a commercial building do you require?
               </Typography>
             </Box>
-          </Box>
-          <Divider />
-          <Box
-            alignItems="center"
-            bgcolor="#f2f2f2"
-            maxWidth="400px"
-            p={2}
-            position="absolute"
-            textAlign="center"
-            top="38%"
-            width="80%"
-            zIndex="1"
-            borderRadius="10px"
-          >
-            <Box>
-              <RadioGroup
-                aria-labelledby="demo-controlled-radio-buttons-group"
-                name="controlled-radio-buttons-group"
-                style={{ margin: '30px' }}
-                onChange={handleChange}
-              >
-                <FormControlLabel
-                  control={<Radio />}
-                  label="Skyscrapers"
-                  value="Skyscrapers"
-                />
-                <Divider />
-                <FormControlLabel
-                  control={<Radio />}
-                  label="Restaurant and Cafes"
-                  value="Restaurant and Cafes"
-                />
-                <Divider />
-                <FormControlLabel
-                  control={<Radio />}
-                  label="Hotels"
-                  value="Hotels"
-                />
-                <Divider />
-                <FormControlLabel
-                  control={<Radio />}
-                  label="Retail Buildings"
-                  value="Retail Buildings"
-                />
-                <Divider />
-                <FormControlLabel
-                  control={<Radio />}
-                  label="Office Buildings"
-                  value="Office Buildings"
-                />
-              </RadioGroup>
+            <Divider />
+            <Box
+              alignItems="center"
+              bgcolor="#f2f2f2"
+              maxWidth="400px"
+              p={2}
+              textAlign="center"
+              width="80%"
+              borderRadius="10px"
+            >
+              <Box>
+                <RadioGroup
+                  aria-labelledby="demo-controlled-radio-buttons-group"
+                  name="controlled-radio-buttons-group"
+                  style={{ margin: '30px' }}
+                  onChange={handleChange}
+                >
+                  <FormControlLabel
+                    control={<Radio />}
+                    label="Skyscrapers"
+                    value="Skyscrapers"
+                  />
+                  <Divider />
+                  <FormControlLabel
+                    control={<Radio />}
+                    label="Restaurant and Cafes"
+                    value="Restaurant and Cafes"
+                  />
+                  <Divider />
+                  <FormControlLabel
+                    control={<Radio />}
+                    label="Hotels"
+                    value="Hotels"
+                  />
+                  <Divider />
+                  <FormControlLabel
+                    control={<Radio />}
+                    label="Retail Buildings"
+                    value="Retail Buildings"
+                  />
+                  <Divider />
+                  <FormControlLabel
+                    control={<Radio />}
+                    label="Office Buildings"
+                    value="Office Buildings"
+                  />
+                </RadioGroup>
+              </Box>
             </Box>
-          </Box>
-          <Grid
-            style={{
-              width: '30%',
-            }}
-            display="flex"
-            justifyContent="center"
-            position="absolute"
-            top="90%"
-            zIndex="1"
-          >
-            <Button
-              color="primary"
-              size="large"
-              sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
-              type="button"
-              variant="contained"
-              onClick={previousPage}
+            <Grid
+              style={{
+                width: '30%',
+              }}
+              display="flex"
+              justifyContent="center"
             >
-              Previous
-            </Button>
-            <Button
-              color="primary"
-              size="large"
-              sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
-              type="submit"
-              variant="contained"
-              onClick={handleNext}
-            >
-              Next
-            </Button>
-          </Grid>
-        </Box>
+              <Button
+                color="primary"
+                size="large"
+                sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
+                type="button"
+                variant="contained"
+                onClick={previousPage}
+              >
+                Previous
+              </Button>
+              <Button
+                color="primary"
+                size="large"
+                sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
+                type="submit"
+                variant="contained"
+                onClick={handleNext}
+              >
+                Next
+              </Button>
+            </Grid>
+          </Stack>
+        </Grid>
       }
     </>
   );
 }
 
 export default ConstructionCommercial;
+//What type of a commercial building do you require?

@@ -6,6 +6,7 @@ import {
   FormControlLabel,
   Grid,
   List,
+  Stack,
   ListItem,
   ListItemButton,
   ListItemText,
@@ -54,35 +55,28 @@ function Woodwork({
   return (
     <>
       {
-        <Box
-          height="600px"
-          position="relative"
-          style={{ display: 'flex', justifyContent: 'center' }}
-          width="60%"
+        <Grid
+          style={{
+            backgroundImage: 'url("/AlgoBG.jpg")',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            objectFit: 'cover',
+            display: 'flex',
+            justifyContent: 'center',
+            width: '60%',
+            marginTop: '3%',
+            borderRadius: '20px',
+            minHeight: '600px',
+          }}
         >
-          <img
-            style={{
-              borderRadius: '20px',
-              height: '100%',
-              margin: '20px',
-              objectFit: 'cover',
-              opacity: '0.9',
-              width: '100%',
-            }}
-            alt="Banner"
-            src="/AlgoBG.jpg"
-          />
-          <Box
-            alignItems="center"
-            maxWidth="400px"
-            p={2}
-            position="absolute"
-            textAlign="center"
-            top="5%"
-            width="80%"
-            zIndex="1"
-          >
-            <Box>
+          <Stack gap={2} alignItems="center" width="90%">
+            <Box
+              alignItems="center"
+              p={2}
+              textAlign="center"
+              top="5%"
+              width="80%"
+            >
               <Typography
                 style={{
                   color: '#435834',
@@ -106,147 +100,141 @@ function Woodwork({
                 marginBottom="5px"
                 marginTop="5px"
               >
-                What type of a Woodwork do you require?
+                What type of a woodwork do you require?
               </Typography>
             </Box>
-          </Box>
-          <Divider />
-          <Box
-            alignItems="center"
-            bgcolor="#f2f2f2"
-            maxWidth="400px"
-            p={2}
-            position="absolute"
-            textAlign="center"
-            top="33%"
-            width="80%"
-            zIndex="1"
-            borderRadius="10px"
-          >
-            <Box>
-              <RadioGroup
-                aria-labelledby="demo-controlled-radio-buttons-group"
-                name="controlled-radio-buttons-group"
-                style={{ margin: '10px' }}
-              >
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      value="Carpentry"
-                      checked={checkboxState.Carpentry}
-                      onChange={handleCheckboxChange}
-                      name="Carpentry"
-                    />
-                  }
-                  label="Carpentry"
-                />
-                <Divider />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      value="Cabinetry"
-                      checked={checkboxState.Cabinetry}
-                      onChange={handleCheckboxChange}
-                      name="Cabinetry"
-                    />
-                  }
-                  label="Cabinetry"
-                />
-                <Divider />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      value="Wood Turning"
-                      checked={checkboxState.WoodTurning}
-                      onChange={handleCheckboxChange}
-                      name="WoodTurning"
-                    />
-                  }
-                  label="Wood Turning"
-                />
-                <Divider />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      value="Wood Carving"
-                      checked={checkboxState.WoodCarving}
-                      onChange={handleCheckboxChange}
-                      name="WoodCarving"
-                    />
-                  }
-                  label="Wood Carving"
-                />
-                <Divider />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      value="Restoration and Repair"
-                      checked={checkboxState.RestorationAndRepair}
-                      onChange={handleCheckboxChange}
-                      name="RestorationAndRepair"
-                    />
-                  }
-                  label="Restoration and Repair"
-                />
-                <Divider />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      value="Wood Flooring"
-                      checked={checkboxState.WoodFlooring}
-                      onChange={handleCheckboxChange}
-                      name="WoodFlooring"
-                    />
-                  }
-                  label="Wood Flooring"
-                />
-                <Divider />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      value="Wood Finishing"
-                      checked={checkboxState.WoodFinishing}
-                      onChange={handleCheckboxChange}
-                      name="WoodFinishing"
-                    />
-                  }
-                  label="Wood Finishing"
-                />
-              </RadioGroup>
+            <Divider />
+            <Box
+              alignItems="center"
+              bgcolor="#f2f2f2"
+              maxWidth="400px"
+              p={2}
+              textAlign="center"
+              width="80%"
+              borderRadius="10px"
+            >
+              <Box>
+                <RadioGroup
+                  aria-labelledby="demo-controlled-radio-buttons-group"
+                  name="controlled-radio-buttons-group"
+                  style={{ margin: '10px' }}
+                >
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        value="Carpentry"
+                        checked={checkboxState.Carpentry}
+                        onChange={handleCheckboxChange}
+                        name="Carpentry"
+                      />
+                    }
+                    label="Carpentry"
+                  />
+                  <Divider />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        value="Cabinetry"
+                        checked={checkboxState.Cabinetry}
+                        onChange={handleCheckboxChange}
+                        name="Cabinetry"
+                      />
+                    }
+                    label="Cabinetry"
+                  />
+                  <Divider />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        value="Wood Turning"
+                        checked={checkboxState.WoodTurning}
+                        onChange={handleCheckboxChange}
+                        name="WoodTurning"
+                      />
+                    }
+                    label="Wood Turning"
+                  />
+                  <Divider />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        value="Wood Carving"
+                        checked={checkboxState.WoodCarving}
+                        onChange={handleCheckboxChange}
+                        name="WoodCarving"
+                      />
+                    }
+                    label="Wood Carving"
+                  />
+                  <Divider />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        value="Restoration and Repair"
+                        checked={checkboxState.RestorationAndRepair}
+                        onChange={handleCheckboxChange}
+                        name="RestorationAndRepair"
+                      />
+                    }
+                    label="Restoration and Repair"
+                  />
+                  <Divider />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        value="Wood Flooring"
+                        checked={checkboxState.WoodFlooring}
+                        onChange={handleCheckboxChange}
+                        name="WoodFlooring"
+                      />
+                    }
+                    label="Wood Flooring"
+                  />
+                  <Divider />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        value="Wood Finishing"
+                        checked={checkboxState.WoodFinishing}
+                        onChange={handleCheckboxChange}
+                        name="WoodFinishing"
+                      />
+                    }
+                    label="Wood Finishing"
+                  />
+                </RadioGroup>
+              </Box>
             </Box>
-          </Box>
-          <Grid
-            style={{
-              width: '30%',
-            }}
-            display="flex"
-            justifyContent="center"
-            position="absolute"
-            top="90%"
-            zIndex="1"
-          >
-            <Button
-              color="primary"
-              size="large"
-              sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
-              type="button"
-              variant="contained"
-              onClick={previousPage}
+            <Grid
+              style={{
+                width: '30%',
+              }}
+              display="flex"
+              justifyContent="center"
             >
-              Previous
-            </Button>
-            <Button
-              color="primary"
-              size="large"
-              sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
-              type="submit"
-              variant="contained"
-              onClick={handleNext}
-            >
-              Next
-            </Button>
-          </Grid>
-        </Box>
+              <Button
+                color="primary"
+                size="large"
+                sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
+                type="button"
+                variant="contained"
+                onClick={previousPage}
+              >
+                Previous
+              </Button>
+              <Button
+                color="primary"
+                size="large"
+                sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
+                type="submit"
+                variant="contained"
+                onClick={handleNext}
+              >
+                Next
+              </Button>
+            </Grid>
+          </Stack>
+        </Grid>
       }
     </>
   );
