@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import FirstPage from '../components/Algo/FirstPage';
 import ProfessionalRecommendations from '../components/Algo/ProfessionalRecommendations';
+import FirstPage from '../pages/Algo/FirstPage';
 import GetStarted from '../pages/Algo/GetStarted';
 import Homepage from '../pages/HomePage';
 import AdminRoutes from './AdminRoutes';
@@ -23,9 +23,10 @@ export const altRouter = createBrowserRouter([
     element: <GetStarted />,
   },
   {
-    path: '/FirstPage',
+    path: '/AlgoStart',
     element: <FirstPage />,
   },
+
   {
     path: '/ProfessionalRecommendations',
     element: <ProfessionalRecommendations />,

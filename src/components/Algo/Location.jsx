@@ -5,6 +5,7 @@ import {
   Divider,
   FormControlLabel,
   Grid,
+  Stack,
   FormControl,
   InputLabel,
   MenuItem,
@@ -70,35 +71,28 @@ function Location({
   return (
     <>
       {
-        <Box
-          height="600px"
-          position="relative"
-          style={{ display: 'flex', justifyContent: 'center' }}
-          width="60%"
+        <Grid
+          style={{
+            backgroundImage: 'url("/AlgoBG.jpg")',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            objectFit: 'cover',
+            display: 'flex',
+            justifyContent: 'center',
+            width: '60%',
+            marginTop: '3%',
+            borderRadius: '20px',
+            minHeight: '600px',
+          }}
         >
-          <img
-            style={{
-              borderRadius: '20px',
-              height: '100%',
-              margin: '20px',
-              objectFit: 'cover',
-              opacity: '0.9',
-              width: '100%',
-            }}
-            alt="Banner"
-            src="/AlgoBG.jpg"
-          />
-          <Box
-            alignItems="center"
-            maxWidth="400px"
-            p={2}
-            position="absolute"
-            textAlign="center"
-            top="5%"
-            width="80%"
-            zIndex="1"
-          >
-            <Box>
+          <Stack gap={2} alignItems="center" width="90%">
+            <Box
+              alignItems="center"
+              p={2}
+              textAlign="center"
+              top="5%"
+              width="80%"
+            >
               <Typography
                 style={{
                   color: '#435834',
@@ -125,40 +119,36 @@ function Location({
                 Where do you want your professionals to be?
               </Typography>
             </Box>
-          </Box>
-          <Divider />
-          <Box
-            alignItems="center"
-            bgcolor="#f2f0f0"
-            maxWidth="400px"
-            p={2}
-            position="absolute"
-            textAlign="center"
-            top="40%"
-            width="80%"
-            zIndex="1"
-            borderRadius="10px"
-          >
-            <FormControl
-              sx={{
-                m: 1,
-                marginLeft: 'auto',
-                minWidth: 120,
-                width: '100%',
-              }}
-              variant="standard"
+            <Divider />
+            <Box
+              alignItems="center"
+              bgcolor="#f2f0f0"
+              maxWidth="400px"
+              p={2}
+              textAlign="center"
+              width="80%"
+              borderRadius="10px"
             >
-              <InputLabel color="secondary" id="selectDistrict">
-                Select District
-              </InputLabel>
-              <Select displayEmpty labelId="selectDistrict-label">
-                {districts.map((district) => (
-                  <MenuItem key={district} value={district}>
-                    {district}
-                  </MenuItem>
-                ))}
-              </Select>
-              {/* <ErrorMessage name="district">
+              <FormControl
+                sx={{
+                  m: 1,
+                  marginLeft: 'auto',
+                  minWidth: 120,
+                  width: '100%',
+                }}
+                variant="standard"
+              >
+                <InputLabel color="secondary" id="selectDistrict">
+                  Select District
+                </InputLabel>
+                <Select displayEmpty labelId="selectDistrict-label">
+                  {districts.map((district) => (
+                    <MenuItem key={district} value={district}>
+                      {district}
+                    </MenuItem>
+                  ))}
+                </Select>
+                {/* <ErrorMessage name="district">
                 {(msg) => (
                   <span
                     style={{
@@ -171,40 +161,38 @@ function Location({
                   </span>
                 )}
               </ErrorMessage> */}
-            </FormControl>
-          </Box>
-          <Grid
-            style={{
-              width: '30%',
-            }}
-            display="flex"
-            justifyContent="center"
-            position="absolute"
-            top="90%"
-            zIndex="1"
-          >
-            <Button
-              color="primary"
-              size="large"
-              sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
-              type="button"
-              variant="contained"
-              onClick={previousPage}
+              </FormControl>
+            </Box>
+            <Grid
+              style={{
+                width: '30%',
+              }}
+              display="flex"
+              justifyContent="center"
             >
-              Previous
-            </Button>
-            <Button
-              color="primary"
-              size="large"
-              sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
-              type="submit"
-              variant="contained"
-              onClick={handleNext}
-            >
-              Next
-            </Button>
-          </Grid>
-        </Box>
+              <Button
+                color="primary"
+                size="large"
+                sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
+                type="button"
+                variant="contained"
+                onClick={previousPage}
+              >
+                Previous
+              </Button>
+              <Button
+                color="primary"
+                size="large"
+                sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
+                type="submit"
+                variant="contained"
+                onClick={handleNext}
+              >
+                Next
+              </Button>
+            </Grid>
+          </Stack>
+        </Grid>
       }
     </>
   );
