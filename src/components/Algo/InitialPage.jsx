@@ -103,6 +103,7 @@ function GetStarted({
         top="33%"
         width="80%"
         zIndex="1"
+        borderRadius="10px"
       >
         <Box>
           <RadioGroup
