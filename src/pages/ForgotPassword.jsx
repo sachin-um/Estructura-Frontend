@@ -1,66 +1,38 @@
 // TODO: Add Service Provider Sign In Page with 2 paths (service provider and retail store)
-import { Container, Grid, Typography } from '@mui/material';
-import React, { useState } from 'react';
-
-import ForgotPasswordPage1 from '../components/ForgotPassword/ForgotPasswordPage1';
-import ForgotPasswordPage2 from '../components/ForgotPassword/ForgotPasswordPage2';
+import { Container, Grid, Typography, Button, TextField } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import TopBar from '../components/TopBar';
-// import { Link } from "react-router-dom" ;
 
 function ForgotPassword() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [formData, setFormData] = useState({});
-  const [selectedOption, setSelectedOption] = useState('');
-  const [activeTab, setActiveTab] = useState(1);
-
-  const nextPage = () => {
-    setCurrentPage(currentPage + 1);
-  };
-
-  const previousPage = () => {
-    setCurrentPage(currentPage - 1);
-  };
-
-  const updateFormData = (data) => {
-    setFormData({ ...formData, ...data });
-  };
-
-  const handleDropdownChange = (value) => {
-    setSelectedOption(value);
-    setCurrentPage(1); // Reset to the first page when dropdown changes
-  };
-
-  const handleSubmit = () => {
-    // Handle form submission using the collected form data
-    console.log(formData);
-  };
-
-  let pages = [
-    <ForgotPasswordPage1
-      handleDropdownChange={handleDropdownChange}
-      key={1}
-      nextPage={nextPage}
-      updateFormData={updateFormData}
-    />,
-    <ForgotPasswordPage2
-      key={2}
-      nextPage={nextPage}
-      previousPage={previousPage}
-      updateFormData={updateFormData}
-    />,
-  ];
-
-  // if (selectedOption === 'option1') {
-  //   pages.push(<Page2 updateFormData={updateFormData} />);
-  // } else if (selectedOption === 'option2') {
-  //   pages.push(<Page3 updateFormData={updateFormData} />);
-  // } // ? Why was this even here?
-
-  const HandleSubmit = (event) => {
+  const [formData, setFormData] = useState({ email: '' });
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    console.log(formData.get('email'), formData.get('password'));
+    const formDataList = new FormData(event.currentTarget);
+    setFormData({ email: formDataList.get('email') });
   };
+
+  useEffect(() => {
+    if (formData.email) {
+      API.post('/auth/password-reset-request', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+        .then((res) => {
+          console.table(res);
+          if (res.status === 200) {
+            if (res.data.success === true) {
+              navigate('/emailNotVerified', { replace: true });
+            } else {
+              alert(res.data.message);
+            }
+          } else {
+            alert('Invalid Credentials');
+          }
+        })
+        .catch((err) => console.log(JSON.stringify(err)));
+    }
+  });
 
   // TODO: Change Layout
   return (
@@ -116,7 +88,7 @@ function ForgotPassword() {
                     marginTop: 'auto',
                     paddingBottom: '1rem',
                     textAlign: 'left',
-                    fontWeight: 'bold'
+                    fontWeight: 'bold',
                   }}
                   variant="h4"
                 >
@@ -128,7 +100,7 @@ function ForgotPassword() {
                     fontSize: '1.5rem',
                     lineHeight: '1',
                     textAlign: 'left',
-                    fontWeight: 'bold'
+                    fontWeight: 'bold',
                   }}
                   variant="h4"
                 >
@@ -167,18 +139,54 @@ function ForgotPassword() {
               <Grid item style={{ marginTop: '1rem' }} xs={12}></Grid>
 
               <Grid>
-                <form>
-                  {pages[currentPage - 1]}
-                  {/* {currentPage > 1 && (
-        <button onClick={previousPage}>Previous</button>
-      )}
-      {currentPage < pages.length && (
-        <button onClick={nextPage}>Next</button>
-      )}
-      {currentPage === pages.length && (
-        <button onClick={handleSubmit}>Submit</button>
-      )}
-       */}
+                <form onSubmit={handleSubmit}>
+                  {
+                    <Grid
+                      style={{ justifyContent: 'center', minHeight: '30vh' }}
+                    >
+                      <Typography
+                        style={{
+                          color: '#435834',
+                          marginBottom: '50px',
+                          textAlign: 'center',
+                        }}
+                        gutterBottom
+                        variant="h5"
+                      >
+                        Forgot your Password?
+                      </Typography>
+
+                      <TextField
+                        InputProps={{ sx: { borderRadius: 2 } }}
+                        label="Email"
+                        name="email"
+                        size="small"
+                        sx={{ margin: 2, width: 1 }}
+                        type="email"
+                        variant="filled"
+                      />
+                    </Grid>
+                  }
+
+                  {
+                    <Grid
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        margin: 2,
+                      }}
+                    >
+                      <Button
+                        color="primary"
+                        size="large"
+                        sx={{ borderRadius: 2, width: 1 / 2 }}
+                        type="submit"
+                        variant="contained"
+                      >
+                        Send Link
+                      </Button>
+                    </Grid>
+                  }
                 </form>
               </Grid>
             </Grid>
