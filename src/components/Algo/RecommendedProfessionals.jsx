@@ -1,4 +1,4 @@
-import { Box, Pagination } from '@mui/material';
+import { Box, Pagination, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -27,25 +27,60 @@ const Banner = styled.div`
   font-weight: bold;
 `;
 
-const ProfessionalCategory = () => {
-  const category = useParams().category as Role;
+const RecommendedProfessionals = () => {
+  //   const category = useParams().category as Role;
 
   const [pageSize, _setPageSize] = useState(8); // Should add a selector
   const [pageNumber, setPageNumber] = useState(1);
 
-  const { fetchAllProfessionals, isLoading, professionals } =
-    useFetchAllProfessionals();
+  //   const { fetchAllProfessionals, isLoading, professionals } =
+  //     useFetchAllProfessionals();
 
-  useEffect(() => {
-    fetchAllProfessionals(category);
-  }, [fetchAllProfessionals, category]);
-
+  //   useEffect(() => {
+  //     fetchAllProfessionals(category);
+  //   }, [fetchAllProfessionals, category]);
+  const professionals = [
+    {
+      id: 1,
+      profileImageName: 'wwwwe',
+      firstName: 'Saman',
+      lastName: 'Perera',
+      city: 'Kottawa',
+    },
+    {
+      id: 2,
+      profileImageName: 'wwwwe',
+      firstName: 'Kamal',
+      lastName: 'Wijesuriya',
+      city: 'Nugegoda',
+    },
+    {
+      id: 3,
+      profileImageName: 'wwwwe',
+      firstName: 'Nimali',
+      lastName: 'Jayasekara',
+      city: 'Maharagama',
+    },
+    {
+      id: 4,
+      profileImageName: 'wwwwe',
+      firstName: 'Kasun',
+      lastName: 'Hewage',
+      city: 'Homagama',
+    },
+  ];
   const PaginatedItems = Paginate(professionals, pageNumber, pageSize);
 
   return (
     <Container>
-      <TopAppBar title={`Estructura: Shop ${category}`} />
-      <Banner>{category}</Banner>
+      <Typography
+        color="#435834"
+        fontFamily="Poppins"
+        fontSize="30px"
+        variant="h4"
+      >
+        Architects
+      </Typography>
       {PaginatedItems.length > 0 ? (
         <ProfessionalCategories data={PaginatedItems} />
       ) : (
@@ -65,4 +100,4 @@ const ProfessionalCategory = () => {
   );
 };
 
-export default ProfessionalCategory;
+export default RecommendedProfessionals;

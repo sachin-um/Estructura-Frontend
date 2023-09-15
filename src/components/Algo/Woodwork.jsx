@@ -3,7 +3,9 @@ import {
   Button,
   Checkbox,
   Divider,
+  FormControl,
   FormControlLabel,
+  FormHelperText,
   Grid,
   List,
   Stack,
@@ -44,13 +46,25 @@ function Woodwork({
       [name]: checked,
     });
   };
-
+  const [error, setError] = useState(false);
+  const [helperText, setHelperText] = useState('');
   const selectedValues = Object.keys(checkboxState).filter(
     (key) => checkboxState[key],
   );
-  const handleNext = () => {
-    handlePageChange('Location');
-    nextPage();
+  const handleNext = (event) => {
+    event.preventDefault();
+    if (selectedValues.length !== 0) {
+      handlePageChange('Location');
+      nextPage();
+    } else {
+      setHelperText('Please select an option.');
+      setError(true);
+    }
+  };
+  const customHelperTextStyles = {
+    color: 'red',
+    fontSize: '14px',
+    textAlign: 'center',
   };
   return (
     <>
@@ -114,95 +128,100 @@ function Woodwork({
               borderRadius="10px"
             >
               <Box>
-                <RadioGroup
-                  aria-labelledby="demo-controlled-radio-buttons-group"
-                  name="controlled-radio-buttons-group"
-                  style={{ margin: '10px' }}
-                >
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value="Carpentry"
-                        checked={checkboxState.Carpentry}
-                        onChange={handleCheckboxChange}
-                        name="Carpentry"
-                      />
-                    }
-                    label="Carpentry"
-                  />
-                  <Divider />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value="Cabinetry"
-                        checked={checkboxState.Cabinetry}
-                        onChange={handleCheckboxChange}
-                        name="Cabinetry"
-                      />
-                    }
-                    label="Cabinetry"
-                  />
-                  <Divider />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value="Wood Turning"
-                        checked={checkboxState.WoodTurning}
-                        onChange={handleCheckboxChange}
-                        name="WoodTurning"
-                      />
-                    }
-                    label="Wood Turning"
-                  />
-                  <Divider />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value="Wood Carving"
-                        checked={checkboxState.WoodCarving}
-                        onChange={handleCheckboxChange}
-                        name="WoodCarving"
-                      />
-                    }
-                    label="Wood Carving"
-                  />
-                  <Divider />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value="Restoration and Repair"
-                        checked={checkboxState.RestorationAndRepair}
-                        onChange={handleCheckboxChange}
-                        name="RestorationAndRepair"
-                      />
-                    }
-                    label="Restoration and Repair"
-                  />
-                  <Divider />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value="Wood Flooring"
-                        checked={checkboxState.WoodFlooring}
-                        onChange={handleCheckboxChange}
-                        name="WoodFlooring"
-                      />
-                    }
-                    label="Wood Flooring"
-                  />
-                  <Divider />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value="Wood Finishing"
-                        checked={checkboxState.WoodFinishing}
-                        onChange={handleCheckboxChange}
-                        name="WoodFinishing"
-                      />
-                    }
-                    label="Wood Finishing"
-                  />
-                </RadioGroup>
+                <FormControl error={error} variant="standard">
+                  <RadioGroup
+                    aria-labelledby="demo-controlled-radio-buttons-group"
+                    name="controlled-radio-buttons-group"
+                    style={{ margin: '10px' }}
+                  >
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value="Carpentry"
+                          checked={checkboxState.Carpentry}
+                          onChange={handleCheckboxChange}
+                          name="Carpentry"
+                        />
+                      }
+                      label="Carpentry"
+                    />
+                    <Divider />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value="Cabinetry"
+                          checked={checkboxState.Cabinetry}
+                          onChange={handleCheckboxChange}
+                          name="Cabinetry"
+                        />
+                      }
+                      label="Cabinetry"
+                    />
+                    <Divider />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value="Wood Turning"
+                          checked={checkboxState.WoodTurning}
+                          onChange={handleCheckboxChange}
+                          name="WoodTurning"
+                        />
+                      }
+                      label="Wood Turning"
+                    />
+                    <Divider />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value="Wood Carving"
+                          checked={checkboxState.WoodCarving}
+                          onChange={handleCheckboxChange}
+                          name="WoodCarving"
+                        />
+                      }
+                      label="Wood Carving"
+                    />
+                    <Divider />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value="Restoration and Repair"
+                          checked={checkboxState.RestorationAndRepair}
+                          onChange={handleCheckboxChange}
+                          name="RestorationAndRepair"
+                        />
+                      }
+                      label="Restoration and Repair"
+                    />
+                    <Divider />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value="Wood Flooring"
+                          checked={checkboxState.WoodFlooring}
+                          onChange={handleCheckboxChange}
+                          name="WoodFlooring"
+                        />
+                      }
+                      label="Wood Flooring"
+                    />
+                    <Divider />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value="Wood Finishing"
+                          checked={checkboxState.WoodFinishing}
+                          onChange={handleCheckboxChange}
+                          name="WoodFinishing"
+                        />
+                      }
+                      label="Wood Finishing"
+                    />
+                  </RadioGroup>
+                  <FormHelperText sx={customHelperTextStyles}>
+                    {helperText}
+                  </FormHelperText>
+                </FormControl>
               </Box>
             </Box>
             <Grid

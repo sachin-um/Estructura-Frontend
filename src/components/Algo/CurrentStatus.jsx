@@ -4,7 +4,9 @@ import {
   Checkbox,
   Stack,
   Divider,
+  FormControl,
   FormControlLabel,
+  FormHelperText,
   Grid,
   List,
   ListItem,
@@ -27,14 +29,27 @@ function CurrentStatus({
   previousPage,
   updateFormData,
 }) {
+  const [error, setError] = useState(false);
+  const [helperText, setHelperText] = useState('');
   const [userSelection, setUserSelection] = useState('');
 
-  const handleNext = () => {
-    handlePageChange('Price');
-    nextPage();
+  const handleNext = (event) => {
+    event.preventDefault();
+    if (userSelection !== '') {
+      handlePageChange('Price');
+      nextPage();
+    } else {
+      setHelperText('Please select an option.');
+      setError(true);
+    }
   };
   const handleChange = (event) => {
     setUserSelection(event.target.value);
+  };
+  const customHelperTextStyles = {
+    color: 'red',
+    fontSize: '14px',
+    textAlign: 'center',
   };
   return (
     <>
@@ -89,46 +104,51 @@ function CurrentStatus({
             </Box>
             <Divider />
             <Box alignItems="center" bgcolor="#f2f2f2" p={2} textAlign="center">
-              <RadioGroup
-                aria-labelledby="demo-controlled-radio-buttons-group"
-                name="controlled-radio-buttons-group"
-                onChange={handleChange}
-              >
-                <Grid container spacing={2} padding={3}>
-                  <Grid xs={12} md={3}>
-                    <FormControlLabel
-                      control={<Radio size="small" />}
-                      labelPlacement="bottom"
-                      label="Just exploring an idea"
-                      value="Just exploring an idea"
-                    />
+              <FormControl error={error} variant="standard">
+                <RadioGroup
+                  aria-labelledby="demo-controlled-radio-buttons-group"
+                  name="controlled-radio-buttons-group"
+                  onChange={handleChange}
+                >
+                  <Grid container spacing={2} padding={3}>
+                    <Grid xs={12} md={3}>
+                      <FormControlLabel
+                        control={<Radio size="small" />}
+                        labelPlacement="bottom"
+                        label="Just exploring an idea"
+                        value="Just exploring an idea"
+                      />
+                    </Grid>
+                    <Grid xs={12} md={3}>
+                      <FormControlLabel
+                        control={<Radio size="small" />}
+                        labelPlacement="bottom"
+                        label="Planning and Budgeting"
+                        value="Planning and Budgeting"
+                      />
+                    </Grid>
+                    <Grid xs={12} md={3}>
+                      <FormControlLabel
+                        control={<Radio size="small" />}
+                        labelPlacement="bottom"
+                        label="Ready to hire"
+                        value="Ready to hire"
+                      />
+                    </Grid>
+                    <Grid xs={12} md={3}>
+                      <FormControlLabel
+                        control={<Radio size="small" />}
+                        labelPlacement="bottom"
+                        label="Project already in progress"
+                        value="Project already in progress"
+                      />
+                    </Grid>
                   </Grid>
-                  <Grid xs={12} md={3}>
-                    <FormControlLabel
-                      control={<Radio size="small" />}
-                      labelPlacement="bottom"
-                      label="Planning and Budgeting"
-                      value="Planning and Budgeting"
-                    />
-                  </Grid>
-                  <Grid xs={12} md={3}>
-                    <FormControlLabel
-                      control={<Radio size="small" />}
-                      labelPlacement="bottom"
-                      label="Ready to hire"
-                      value="Ready to hire"
-                    />
-                  </Grid>
-                  <Grid xs={12} md={3}>
-                    <FormControlLabel
-                      control={<Radio size="small" />}
-                      labelPlacement="bottom"
-                      label="Project already in progress"
-                      value="Project already in progress"
-                    />
-                  </Grid>
-                </Grid>
-              </RadioGroup>
+                </RadioGroup>
+                <FormHelperText sx={customHelperTextStyles}>
+                  {helperText}
+                </FormHelperText>
+              </FormControl>
             </Box>
             <Grid
               style={{

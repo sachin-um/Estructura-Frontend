@@ -3,7 +3,9 @@ import {
   Button,
   Checkbox,
   Divider,
+  FormControl,
   FormControlLabel,
+  FormHelperText,
   Grid,
   List,
   Stack,
@@ -27,13 +29,28 @@ function Remodelling({
   previousPage,
   updateFormData,
 }) {
+  const [error, setError] = useState(false);
+  const [helperText, setHelperText] = useState('');
   const [userSelection, setUserSelection] = useState('');
-  const handleNext = () => {
-    handlePageChange('Location');
-    nextPage();
+
+  const handleNext = (event) => {
+    event.preventDefault();
+    if (userSelection !== '') {
+      handlePageChange('Location');
+      nextPage();
+    } else {
+      setHelperText('Please select an option.');
+      setError(true);
+    }
   };
+
   const handleChange = (event) => {
     setUserSelection(event.target.value);
+  };
+  const customHelperTextStyles = {
+    color: 'red',
+    fontSize: '14px',
+    textAlign: 'center',
   };
   return (
     <>
@@ -97,24 +114,29 @@ function Remodelling({
               borderRadius="10px"
             >
               <Box>
-                <RadioGroup
-                  aria-labelledby="demo-controlled-radio-buttons-group"
-                  name="controlled-radio-buttons-group"
-                  style={{ margin: '10px' }}
-                  onChange={handleChange}
-                >
-                  <FormControlLabel
-                    control={<Radio />}
-                    label="Indoor Remodelling"
-                    value="Indoor Remodelling"
-                  />
-                  <Divider />
-                  <FormControlLabel
-                    control={<Radio />}
-                    label="Outdoor Remodelling"
-                    value="Outdoor Remodelling"
-                  />
-                </RadioGroup>
+                <FormControl error={error} variant="standard">
+                  <RadioGroup
+                    aria-labelledby="demo-controlled-radio-buttons-group"
+                    name="controlled-radio-buttons-group"
+                    style={{ margin: '10px' }}
+                    onChange={handleChange}
+                  >
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="Indoor Remodelling"
+                      value="Indoor Remodelling"
+                    />
+                    <Divider />
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="Outdoor Remodelling"
+                      value="Outdoor Remodelling"
+                    />
+                  </RadioGroup>
+                  <FormHelperText sx={customHelperTextStyles}>
+                    {helperText}
+                  </FormHelperText>
+                </FormControl>
               </Box>
             </Box>
             <Grid

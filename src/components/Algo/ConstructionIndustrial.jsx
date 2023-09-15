@@ -3,7 +3,9 @@ import {
   Button,
   Checkbox,
   Divider,
+  FormControl,
   FormControlLabel,
+  FormHelperText,
   Grid,
   Stack,
   List,
@@ -27,13 +29,27 @@ function ConstructionIndustrial({
   previousPage,
   updateFormData,
 }) {
+  const [error, setError] = useState(false);
+  const [helperText, setHelperText] = useState('');
   const [userSelection, setUserSelection] = useState('');
-  const handleNext = () => {
-    handlePageChange('Location');
-    nextPage();
+
+  const handleNext = (event) => {
+    event.preventDefault();
+    if (userSelection !== '') {
+      handlePageChange('Location');
+      nextPage();
+    } else {
+      setHelperText('Please select an option.');
+      setError(true);
+    }
   };
   const handleChange = (event) => {
     setUserSelection(event.target.value);
+  };
+  const customHelperTextStyles = {
+    color: 'red',
+    fontSize: '14px',
+    textAlign: 'center',
   };
 
   return (
@@ -98,36 +114,41 @@ function ConstructionIndustrial({
               borderRadius="10px"
             >
               <Box>
-                <RadioGroup
-                  aria-labelledby="demo-controlled-radio-buttons-group"
-                  name="controlled-radio-buttons-group"
-                  style={{ margin: '30px' }}
-                  onChange={handleChange}
-                >
-                  <FormControlLabel
-                    control={<Radio />}
-                    label="Warehouse"
-                    value="Warehouse"
-                  />
-                  <Divider />
-                  <FormControlLabel
-                    control={<Radio />}
-                    label="Educational Building"
-                    value="Educational Building"
-                  />
-                  <Divider />
-                  <FormControlLabel
-                    control={<Radio />}
-                    label="Healthcare"
-                    value="Healthcare"
-                  />
-                  <Divider />
-                  <FormControlLabel
-                    control={<Radio />}
-                    label="Religious and Government Building"
-                    value="Religious and Government Building"
-                  />
-                </RadioGroup>
+                <FormControl error={error} variant="standard">
+                  <RadioGroup
+                    aria-labelledby="demo-controlled-radio-buttons-group"
+                    name="controlled-radio-buttons-group"
+                    style={{ margin: '30px' }}
+                    onChange={handleChange}
+                  >
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="Warehouse"
+                      value="Warehouse"
+                    />
+                    <Divider />
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="Educational Building"
+                      value="Educational Building"
+                    />
+                    <Divider />
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="Healthcare"
+                      value="Healthcare"
+                    />
+                    <Divider />
+                    <FormControlLabel
+                      control={<Radio />}
+                      label="Religious and Government Building"
+                      value="Religious and Government Building"
+                    />
+                  </RadioGroup>
+                  <FormHelperText sx={customHelperTextStyles}>
+                    {helperText}
+                  </FormHelperText>
+                </FormControl>
               </Box>
             </Box>
 

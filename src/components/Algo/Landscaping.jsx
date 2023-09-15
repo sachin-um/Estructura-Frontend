@@ -3,7 +3,9 @@ import {
   Button,
   Checkbox,
   Divider,
+  FormControl,
   FormControlLabel,
+  FormHelperText,
   Grid,
   Stack,
   List,
@@ -44,13 +46,25 @@ function Landscaping({
       [name]: checked,
     });
   };
-
+  const [error, setError] = useState(false);
+  const [helperText, setHelperText] = useState('');
   const selectedValues = Object.keys(checkboxState).filter(
     (key) => checkboxState[key],
   );
-  const handleNext = () => {
-    handlePageChange('Location');
-    nextPage();
+  const handleNext = (event) => {
+    event.preventDefault();
+    if (selectedValues.length !== 0) {
+      handlePageChange('Location');
+      nextPage();
+    } else {
+      setHelperText('Please select an option.');
+      setError(true);
+    }
+  };
+  const customHelperTextStyles = {
+    color: 'red',
+    fontSize: '14px',
+    textAlign: 'center',
   };
   return (
     <>
@@ -114,84 +128,89 @@ function Landscaping({
               borderRadius="10px"
             >
               <Box>
-                <RadioGroup
-                  aria-labelledby="demo-controlled-radio-buttons-group"
-                  name="controlled-radio-buttons-group"
-                  style={{ margin: '10px' }}
-                >
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value="Gardening"
-                        checked={checkboxState.Gardening}
-                        onChange={handleCheckboxChange}
-                        name="Gardening"
-                      />
-                    }
-                    label="Gardening"
-                  />
-                  <Divider />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value="Hardscaping"
-                        checked={checkboxState.Hardscaping}
-                        onChange={handleCheckboxChange}
-                        name="Hardscaping"
-                      />
-                    }
-                    label="Hardscaping"
-                  />
-                  <Divider />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value="Water Features"
-                        checked={checkboxState.WaterFeatures}
-                        onChange={handleCheckboxChange}
-                        name="WaterFeatures"
-                      />
-                    }
-                    label="Water Features"
-                  />
-                  <Divider />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value="Outdoor Lighting"
-                        checked={checkboxState.OutdoorLighting}
-                        onChange={handleCheckboxChange}
-                        name="OutdoorLighting"
-                      />
-                    }
-                    label="Outdoor lighting "
-                  />
-                  <Divider />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value="Landscape Design"
-                        checked={checkboxState.LandscapeDesign}
-                        onChange={handleCheckboxChange}
-                        name="LandscapeDesign"
-                      />
-                    }
-                    label="Landscape Design"
-                  />
-                  <Divider />
+                <FormControl error={error} variant="standard">
+                  <RadioGroup
+                    aria-labelledby="demo-controlled-radio-buttons-group"
+                    name="controlled-radio-buttons-group"
+                    style={{ margin: '10px' }}
+                  >
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value="Gardening"
+                          checked={checkboxState.Gardening}
+                          onChange={handleCheckboxChange}
+                          name="Gardening"
+                        />
+                      }
+                      label="Gardening"
+                    />
+                    <Divider />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value="Hardscaping"
+                          checked={checkboxState.Hardscaping}
+                          onChange={handleCheckboxChange}
+                          name="Hardscaping"
+                        />
+                      }
+                      label="Hardscaping"
+                    />
+                    <Divider />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value="Water Features"
+                          checked={checkboxState.WaterFeatures}
+                          onChange={handleCheckboxChange}
+                          name="WaterFeatures"
+                        />
+                      }
+                      label="Water Features"
+                    />
+                    <Divider />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value="Outdoor Lighting"
+                          checked={checkboxState.OutdoorLighting}
+                          onChange={handleCheckboxChange}
+                          name="OutdoorLighting"
+                        />
+                      }
+                      label="Outdoor lighting "
+                    />
+                    <Divider />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value="Landscape Design"
+                          checked={checkboxState.LandscapeDesign}
+                          onChange={handleCheckboxChange}
+                          name="LandscapeDesign"
+                        />
+                      }
+                      label="Landscape Design"
+                    />
+                    <Divider />
 
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value="Maintenance"
-                        checked={checkboxState.Maintenance}
-                        onChange={handleCheckboxChange}
-                        name="Maintenance"
-                      />
-                    }
-                    label="Maintenance"
-                  />
-                </RadioGroup>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value="Maintenance"
+                          checked={checkboxState.Maintenance}
+                          onChange={handleCheckboxChange}
+                          name="Maintenance"
+                        />
+                      }
+                      label="Maintenance"
+                    />
+                  </RadioGroup>
+                  <FormHelperText sx={customHelperTextStyles}>
+                    {helperText}
+                  </FormHelperText>
+                </FormControl>
               </Box>
             </Box>
             <Grid

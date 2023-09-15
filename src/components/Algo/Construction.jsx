@@ -4,7 +4,9 @@ import {
   Checkbox,
   Divider,
   Stack,
+  FormControl,
   FormControlLabel,
+  FormHelperText,
   Grid,
   List,
   ListItem,
@@ -27,14 +29,27 @@ function Construction({
   previousPage,
   updateFormData,
 }) {
+  const [error, setError] = useState(false);
+  const [helperText, setHelperText] = useState('');
   const [userSelection, setUserSelection] = useState('');
 
-  const handleNext = () => {
-    handlePageChange(userSelection);
-    nextPage();
+  const handleNext = (event) => {
+    event.preventDefault();
+    if (userSelection !== '') {
+      handlePageChange(userSelection);
+      nextPage();
+    } else {
+      setHelperText('Please select an option.');
+      setError(true);
+    }
   };
   const handleChange = (event) => {
     setUserSelection(event.target.value);
+  };
+  const customHelperTextStyles = {
+    color: 'red',
+    fontSize: '14px',
+    textAlign: 'center',
   };
   return (
     <>
@@ -128,6 +143,9 @@ function Construction({
                     value="Recreational Building"
                   />
                 </RadioGroup>
+                <FormHelperText sx={customHelperTextStyles}>
+                  {helperText}
+                </FormHelperText>
               </Box>
             </Box>
             <Grid
