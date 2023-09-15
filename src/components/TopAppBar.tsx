@@ -274,8 +274,7 @@ function TopAppBar(props: TopAppBarProps) {
                             : undefined
                         }
                         src={
-                          userInfo !== null &&
-                          userInfo.ProfileImageName !== null
+                          userInfo !== null && userInfo.ProfileImageName
                             ? `http://localhost:8080/files/profile-images/${userInfo.id}/${userInfo.ProfileImageName}`
                             : undefined
                         }
