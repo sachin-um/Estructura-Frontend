@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Facebook,
   Instagram,
@@ -16,57 +15,57 @@ const Footer = () => {
     <AppBar position="static">
       <Box
         sx={{
+          alignItems: 'center',
+          backgroundColor: '#f3f3f3',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: '#f3f3f3',
           padding: '1rem',
         }}
       >
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={4}>
+          <Grid item sm={4} xs={12}>
             <Typography
-              variant="h6"
-              noWrap
               sx={{
-                display: 'flex',
                 alignItems: 'center',
+                display: 'flex',
                 justifyContent: 'center',
               }}
+              noWrap
+              variant="h6"
             >
               <RouterLink to="/">
-                <img src="/Logo.png" alt="" height={90} />
+                <img alt="" height={90} src="/Logo.png" />
               </RouterLink>
             </Typography>
             <Typography
-              variant="body2"
-              color="textSecondary"
               sx={{
                 marginTop: '1rem',
                 textAlign: 'center',
               }}
+              color="textSecondary"
+              variant="body2"
             >
               Estructura © {new Date().getFullYear()}
             </Typography>
           </Grid>
           <Grid
-            item
-            xs={12}
-            sm={4}
             sx={{
-              display: 'flex',
               alignItems: 'center',
+              display: 'flex',
               flexDirection: 'column',
             }}
+            item
+            sm={4}
+            xs={12}
           >
             <Box
               sx={{
-                display: 'flex',
                 alignItems: 'center',
-                marginTop: '1rem',
-                marginBottom: '1rem',
                 color: '#304422',
+                display: 'flex',
+                marginBottom: '1rem',
+                marginTop: '1rem',
               }}
             >
               <IconButton>
@@ -86,22 +85,22 @@ const Footer = () => {
               </IconButton>
             </Box>
             <Typography
-              variant="body2"
               sx={{ color: '#304422', textAlign: 'center' }}
+              variant="body2"
             >
               <Link href="/privacy-policy" style={{ textDecoration: 'none' }}>
                 Privacy Policy &nbsp;
               </Link>
               <Link
                 href="/terms-and-conditions"
+                sx={{ marginTop: '0.5rem', textDecoration: 'none' }}
                 variant="body2"
-                sx={{ textDecoration: 'none', marginTop: '0.5rem' }}
               >
                 | Terms and Conditions
               </Link>
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={4}>
+          <Grid item sm={4} xs={12}>
             <Box
               sx={{
                 color: '#304422',
