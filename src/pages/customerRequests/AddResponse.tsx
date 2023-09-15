@@ -1,17 +1,40 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button, Grid, TextField, Typography } from '@mui/material';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   MdDescription,
   MdInsertDriveFile,
   MdPictureAsPdf,
 } from 'react-icons/md';
+import { useParams } from 'react-router-dom';
 
 import '../../assets/font.css';
 import Footer from '../../components/Footer';
 import TopBar from '../../components/TopAppBar';
+import { useCustomerRequest } from '../../hooks/customerRequest/useCustomerRequest';
+import useFetchUser from '../../hooks/users/useFetchUser';
 
 const AddResponse = () => {
+  const requestId = parseInt(useParams<{ id: string }>().id ?? '0');
+
+  const {
+    getCustomerRequest: { customerRequest, fetchCustomerRequest },
+  } = useCustomerRequest();
+
+  useEffect(() => {
+    fetchCustomerRequest(requestId);
+  }, [fetchCustomerRequest, requestId]);
+
+  console.log(customerRequest);
+
+  const { fetchUserById, user } = useFetchUser();
+
+  useEffect(() => {
+    if (customerRequest) fetchUserById(customerRequest.createdBy);
+  }, [customerRequest, fetchUserById]);
+
+  console.log(user, customerRequest);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadedImages, setUploadedImages] = useState<File[]>([]);
   const [uploadedDocuments, setUploadedDocuments] = useState<File[]>([]);

@@ -7,6 +7,7 @@ import Footer from '../../components/Footer';
 import NoResultsFound from '../../components/NoResults';
 import TopBar from '../../components/TopAppBar';
 import { useCustomerRequest } from '../../hooks/customerRequest/useCustomerRequest';
+import useFetchUser from '../../hooks/users/useFetchUser';
 import Loading from '../loading';
 
 const ViewCustomerRequestCard = () => {
@@ -22,13 +23,19 @@ const ViewCustomerRequestCard = () => {
 
   console.log(customerRequest);
 
+  const { fetchUserById, user } = useFetchUser();
+
+  useEffect(() => {
+    if (customerRequest) fetchUserById(customerRequest.createdBy);
+  }, [customerRequest, fetchUserById]);
+
   const backgroundImageUrl =
     'https://images.pexels.com/photos/6434620/pexels-photo-6434620.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
 
   const navigate = useNavigate();
 
   const respond = (id: number) => () => {
-    navigate(`/custom-requsts/req/${id}/respond`);
+    navigate(`/custom-requests/req/${id}/respond`);
   };
 
   const goToResponses = (id: number) => () => {
@@ -74,6 +81,8 @@ const ViewCustomerRequestCard = () => {
             <Typography fontFamily="Poppins" gutterBottom variant="h6">
               {customerRequest.shortDesc}
             </Typography>
+            {/* The creator Details */}
+            <pre>{JSON.stringify(user, null, 2)}</pre>
             <pre>{JSON.stringify(customerRequest, null, 2)}</pre>
             <Divider sx={{ marginBottom: '20px' }} />
             <Box

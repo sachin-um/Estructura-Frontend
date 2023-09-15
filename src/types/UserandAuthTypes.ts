@@ -65,7 +65,7 @@ interface User {
   businessName?: string;
   businessRegNumber?: string;
   city?: string;
-  contactNumber?: string;
+  contactNo?: string;
   credentialsNonExpired: boolean;
   district?: string;
   email: string;
