@@ -46,6 +46,11 @@ function GetStarted({
   const handleChange = (event) => {
     setUserSelection(event.target.value);
   };
+  const customHelperTextStyles = {
+    color: 'red',
+    fontSize: '14px',
+    textAlign: 'center',
+  };
   return (
     <Grid
       style={{
@@ -156,7 +161,9 @@ function GetStarted({
                     value="Woodwork"
                   />
                 </RadioGroup>
-                <FormHelperText>{helperText}</FormHelperText>
+                <FormHelperText sx={customHelperTextStyles}>
+                  {helperText}
+                </FormHelperText>
               </FormControl>
             </Box>
           </Box>

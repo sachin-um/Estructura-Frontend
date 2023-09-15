@@ -3,10 +3,11 @@ import {
   Button,
   Checkbox,
   Divider,
+  FormControl,
   FormControlLabel,
+  FormHelperText,
   Grid,
   Stack,
-  FormControl,
   InputLabel,
   MenuItem,
   Select,
@@ -59,14 +60,27 @@ function Location({
   previousPage,
   updateFormData,
 }) {
+  const [error, setError] = useState(false);
+  const [helperText, setHelperText] = useState('');
   const [userSelection, setUserSelection] = useState('');
 
-  const handleNext = () => {
-    handlePageChange('CurrentStatus');
-    nextPage();
+  const handleNext = (event) => {
+    event.preventDefault();
+    if (userSelection !== '') {
+      handlePageChange('CurrentStatus');
+      nextPage();
+    } else {
+      setHelperText('Please select an option.');
+      setError(true);
+    }
   };
   const handleChange = (event) => {
     setUserSelection(event.target.value);
+  };
+  const customHelperTextStyles = {
+    color: 'red',
+    fontSize: '14px',
+    textAlign: 'center',
   };
   return (
     <>
@@ -141,13 +155,20 @@ function Location({
                 <InputLabel color="secondary" id="selectDistrict">
                   Select District
                 </InputLabel>
-                <Select displayEmpty labelId="selectDistrict-label">
+                <Select
+                  displayEmpty
+                  labelId="selectDistrict-label"
+                  onChange={handleChange}
+                >
                   {districts.map((district) => (
                     <MenuItem key={district} value={district}>
                       {district}
                     </MenuItem>
                   ))}
                 </Select>
+                <FormHelperText sx={customHelperTextStyles}>
+                  {helperText}
+                </FormHelperText>
                 {/* <ErrorMessage name="district">
                 {(msg) => (
                   <span

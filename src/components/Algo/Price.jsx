@@ -3,7 +3,9 @@ import {
   Button,
   Checkbox,
   Divider,
+  FormControl,
   FormControlLabel,
+  FormHelperText,
   Grid,
   Stack,
   List,
@@ -16,7 +18,7 @@ import {
   Typography,
 } from '@mui/material';
 import React, { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 // import { Link } from "react-router-dom" ;
 import TopAppBar from '../TopAppBar';
 
@@ -27,12 +29,20 @@ function Price({
   previousPage,
   updateFormData,
 }) {
+  const [error, setError] = useState(false);
+  const [helperText, setHelperText] = useState('');
   const [userSelection, setUserSelection] = useState('');
 
+  const navigate = useNavigate();
   const handleNext = () => {
-    handlePageChange(userSelection);
-    nextPage();
+    navigate('/RecommendationsPage', { replace: true });
   };
+  const customHelperTextStyles = {
+    color: 'red',
+    fontSize: '14px',
+    textAlign: 'center',
+  };
+
   const handleChange = (event) => {
     setUserSelection(event.target.value);
   };
@@ -96,43 +106,48 @@ function Price({
               borderRadius="10px"
             >
               <Box>
-                <RadioGroup
-                  row
-                  aria-labelledby="demo-controlled-radio-buttons-group"
-                  name="controlled-radio-buttons-group"
-                  style={{
-                    margin: '30px',
-                  }}
-                  onChange={handleChange}
-                >
-                  <FormControlLabel
-                    control={<Radio />}
-                    labelPlacement="bottom"
-                    label="Minimizing the cost"
-                    value="I want to minimize the cost"
-                  />
+                <FormControl error={error} variant="standard">
+                  <RadioGroup
+                    row
+                    aria-labelledby="demo-controlled-radio-buttons-group"
+                    name="controlled-radio-buttons-group"
+                    style={{
+                      margin: '30px',
+                    }}
+                    onChange={handleChange}
+                  >
+                    <FormControlLabel
+                      control={<Radio />}
+                      labelPlacement="bottom"
+                      label="Minimizing the cost"
+                      value="I want to minimize the cost"
+                    />
 
-                  <FormControlLabel
-                    control={<Radio />}
-                    labelPlacement="bottom"
-                    label="Low to Mid Price Quality"
-                    value="Low to Mid Price Quality"
-                  />
+                    <FormControlLabel
+                      control={<Radio />}
+                      labelPlacement="bottom"
+                      label="Low to Mid Price quality"
+                      value="Low to Mid Price quality"
+                    />
 
-                  <FormControlLabel
-                    control={<Radio />}
-                    labelPlacement="bottom"
-                    label="Mid to High Price Quality"
-                    value="Mid to High Price Quality"
-                  />
+                    <FormControlLabel
+                      control={<Radio />}
+                      labelPlacement="bottom"
+                      label="Mid to High Price quality"
+                      value="Mid to High Price quality"
+                    />
 
-                  <FormControlLabel
-                    control={<Radio />}
-                    labelPlacement="bottom"
-                    label="I want the best results"
-                    value="I want the best results"
-                  />
-                </RadioGroup>
+                    <FormControlLabel
+                      control={<Radio />}
+                      labelPlacement="bottom"
+                      label="Best Results"
+                      value="Best Results"
+                    />
+                  </RadioGroup>
+                  <FormHelperText sx={customHelperTextStyles}>
+                    {helperText}
+                  </FormHelperText>
+                </FormControl>
               </Box>
             </Box>
             <Grid
@@ -160,7 +175,7 @@ function Price({
                 variant="contained"
                 onClick={handleNext}
               >
-                Next
+                Find
               </Button>
             </Grid>
           </Stack>

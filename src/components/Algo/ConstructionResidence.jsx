@@ -3,7 +3,9 @@ import {
   Button,
   Checkbox,
   Divider,
+  FormControl,
   FormControlLabel,
+  FormHelperText,
   Grid,
   Stack,
   List,
@@ -27,7 +29,6 @@ function ConstructionResidence({
   previousPage,
   updateFormData,
 }) {
-  const [userSelection, setUserSelection] = useState('');
   const [checkboxState, setCheckboxState] = useState({
     AllInOne: false,
     KitchenAndDining: false,
@@ -46,13 +47,25 @@ function ConstructionResidence({
       [name]: checked,
     });
   };
-
+  const [error, setError] = useState(false);
+  const [helperText, setHelperText] = useState('');
   const selectedValues = Object.keys(checkboxState).filter(
     (key) => checkboxState[key],
   );
-  const handleNext = () => {
-    handlePageChange('Location');
-    nextPage();
+  const handleNext = (event) => {
+    event.preventDefault();
+    if (selectedValues.length !== 0) {
+      handlePageChange('Location');
+      nextPage();
+    } else {
+      setHelperText('Please select an option.');
+      setError(true);
+    }
+  };
+  const customHelperTextStyles = {
+    color: 'red',
+    fontSize: '14px',
+    textAlign: 'center',
   };
   return (
     <>
@@ -116,95 +129,100 @@ function ConstructionResidence({
               borderRadius="10px"
             >
               <Box>
-                <RadioGroup
-                  aria-labelledby="demo-controlled-radio-buttons-group"
-                  name="controlled-radio-buttons-group"
-                  style={{ margin: '2px' }}
-                >
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value="All in one"
-                        checked={checkboxState.AllInOne}
-                        onChange={handleCheckboxChange}
-                        name="AllInOne"
-                      />
-                    }
-                    label="All in one"
-                  />
-                  <Divider />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value="Kitchen and Dining"
-                        checked={checkboxState.KitchenAndDining}
-                        onChange={handleCheckboxChange}
-                        name="KitchenAndDining"
-                      />
-                    }
-                    label="Kitchen and Dining"
-                  />
-                  <Divider />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value="Bedroom"
-                        checked={checkboxState.Bedroom}
-                        onChange={handleCheckboxChange}
-                        name="Bedroom"
-                      />
-                    }
-                    label="Bedroom"
-                  />
-                  <Divider />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value="Living Room"
-                        checked={checkboxState.LivingRoom}
-                        onChange={handleCheckboxChange}
-                        name="LivingRoom"
-                      />
-                    }
-                    label="Living Room"
-                  />
-                  <Divider />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value="Office"
-                        checked={checkboxState.Office}
-                        onChange={handleCheckboxChange}
-                        name="Office"
-                      />
-                    }
-                    label=" Office"
-                  />
-                  <Divider />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value="Garage"
-                        checked={checkboxState.Garage}
-                        onChange={handleCheckboxChange}
-                        name="Garage"
-                      />
-                    }
-                    label="Garage"
-                  />
-                  <Divider />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value="Bathroom"
-                        checked={checkboxState.Bathroom}
-                        onChange={handleCheckboxChange}
-                        name="Bathroom"
-                      />
-                    }
-                    label="Bathroom"
-                  />
-                </RadioGroup>
+                <FormControl error={error} variant="standard">
+                  <RadioGroup
+                    aria-labelledby="demo-controlled-radio-buttons-group"
+                    name="controlled-radio-buttons-group"
+                    style={{ margin: '2px' }}
+                  >
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value="All in one"
+                          checked={checkboxState.AllInOne}
+                          onChange={handleCheckboxChange}
+                          name="AllInOne"
+                        />
+                      }
+                      label="All in one"
+                    />
+                    <Divider />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value="Kitchen and Dining"
+                          checked={checkboxState.KitchenAndDining}
+                          onChange={handleCheckboxChange}
+                          name="KitchenAndDining"
+                        />
+                      }
+                      label="Kitchen and Dining"
+                    />
+                    <Divider />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value="Bedroom"
+                          checked={checkboxState.Bedroom}
+                          onChange={handleCheckboxChange}
+                          name="Bedroom"
+                        />
+                      }
+                      label="Bedroom"
+                    />
+                    <Divider />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value="Living Room"
+                          checked={checkboxState.LivingRoom}
+                          onChange={handleCheckboxChange}
+                          name="LivingRoom"
+                        />
+                      }
+                      label="Living Room"
+                    />
+                    <Divider />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value="Office"
+                          checked={checkboxState.Office}
+                          onChange={handleCheckboxChange}
+                          name="Office"
+                        />
+                      }
+                      label=" Office"
+                    />
+                    <Divider />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value="Garage"
+                          checked={checkboxState.Garage}
+                          onChange={handleCheckboxChange}
+                          name="Garage"
+                        />
+                      }
+                      label="Garage"
+                    />
+                    <Divider />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value="Bathroom"
+                          checked={checkboxState.Bathroom}
+                          onChange={handleCheckboxChange}
+                          name="Bathroom"
+                        />
+                      }
+                      label="Bathroom"
+                    />
+                  </RadioGroup>
+                  <FormHelperText sx={customHelperTextStyles}>
+                    {helperText}
+                  </FormHelperText>
+                </FormControl>
               </Box>
             </Box>
             <Grid

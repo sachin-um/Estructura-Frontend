@@ -3,7 +3,9 @@ import {
   Button,
   Checkbox,
   Divider,
+  FormControl,
   FormControlLabel,
+  FormHelperText,
   Grid,
   Stack,
   List,
@@ -27,7 +29,6 @@ function InteriorDesign({
   previousPage,
   updateFormData,
 }) {
-  const [userSelection, setUserSelection] = useState('');
   const [checkboxState, setCheckboxState] = useState({
     SpacePlanning: false,
     FurnitureAndFurnishings: false,
@@ -44,13 +45,25 @@ function InteriorDesign({
       [name]: checked,
     });
   };
-
+  const [error, setError] = useState(false);
+  const [helperText, setHelperText] = useState('');
   const selectedValues = Object.keys(checkboxState).filter(
     (key) => checkboxState[key],
   );
-  const handleNext = () => {
-    handlePageChange('Location');
-    nextPage();
+  const handleNext = (event) => {
+    event.preventDefault();
+    if (selectedValues.length !== 0) {
+      handlePageChange('Location');
+      nextPage();
+    } else {
+      setHelperText('Please select an option.');
+      setError(true);
+    }
+  };
+  const customHelperTextStyles = {
+    color: 'red',
+    fontSize: '14px',
+    textAlign: 'center',
   };
   return (
     <>
@@ -114,83 +127,90 @@ function InteriorDesign({
               borderRadius="10px"
             >
               <Box>
-                <RadioGroup
-                  aria-labelledby="demo-controlled-radio-buttons-group"
-                  name="controlled-radio-buttons-group"
-                  style={{ margin: '10px' }}
-                >
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value="Space Planning"
-                        checked={checkboxState.SpacePlanning}
-                        onChange={handleCheckboxChange}
-                        name="SpacePlanning"
-                      />
-                    }
-                    label="Space Planning"
-                  />
-                  <Divider />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value="Furniture and Furnishings"
-                        checked={checkboxState.FurnitureAndFurnishings}
-                        onChange={handleCheckboxChange}
-                        name="FurnitureAndFurnishings"
-                      />
-                    }
-                    label="Furniture and Furnishings"
-                  />
-                  <Divider />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value="Color scheme and Paint Selection"
-                        checked={checkboxState.ColorSchemeAndPaintSelection}
-                        onChange={handleCheckboxChange}
-                        name="ColorSchemeAndPaintSelection"
-                      />
-                    }
-                    label="Color scheme and Paint Selection"
-                  />
-                  <Divider />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value="Lighting Design"
-                        checked={checkboxState.LightingDesign}
-                        onChange={handleCheckboxChange}
-                        name="LightingDesign"
-                      />
-                    }
-                    label="Lighting Design"
-                  />
-                  <Divider />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value="Flooring and Wall Treatments"
-                        checked={checkboxState.FlooringAndWallTreatments}
-                        onChange={handleCheckboxChange}
-                        name="FlooringAndWallTreatments"
-                      />
-                    }
-                    label="Flooring and Wall Treatments"
-                  />
-                  <Divider />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value="Accessories and Decorative Elements"
-                        checked={checkboxState.AccessoriesAndDecorativeElements}
-                        onChange={handleCheckboxChange}
-                        name="AccessoriesAndDecorativeElements"
-                      />
-                    }
-                    label="Accessories and Decorative Elements"
-                  />
-                </RadioGroup>
+                <FormControl error={error} variant="standard">
+                  <RadioGroup
+                    aria-labelledby="demo-controlled-radio-buttons-group"
+                    name="controlled-radio-buttons-group"
+                    style={{ margin: '10px' }}
+                  >
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value="Space Planning"
+                          checked={checkboxState.SpacePlanning}
+                          onChange={handleCheckboxChange}
+                          name="SpacePlanning"
+                        />
+                      }
+                      label="Space Planning"
+                    />
+                    <Divider />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value="Furniture and Furnishings"
+                          checked={checkboxState.FurnitureAndFurnishings}
+                          onChange={handleCheckboxChange}
+                          name="FurnitureAndFurnishings"
+                        />
+                      }
+                      label="Furniture and Furnishings"
+                    />
+                    <Divider />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value="Color scheme and Paint Selection"
+                          checked={checkboxState.ColorSchemeAndPaintSelection}
+                          onChange={handleCheckboxChange}
+                          name="ColorSchemeAndPaintSelection"
+                        />
+                      }
+                      label="Color scheme and Paint Selection"
+                    />
+                    <Divider />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value="Lighting Design"
+                          checked={checkboxState.LightingDesign}
+                          onChange={handleCheckboxChange}
+                          name="LightingDesign"
+                        />
+                      }
+                      label="Lighting Design"
+                    />
+                    <Divider />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value="Flooring and Wall Treatments"
+                          checked={checkboxState.FlooringAndWallTreatments}
+                          onChange={handleCheckboxChange}
+                          name="FlooringAndWallTreatments"
+                        />
+                      }
+                      label="Flooring and Wall Treatments"
+                    />
+                    <Divider />
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          value="Accessories and Decorative Elements"
+                          checked={
+                            checkboxState.AccessoriesAndDecorativeElements
+                          }
+                          onChange={handleCheckboxChange}
+                          name="AccessoriesAndDecorativeElements"
+                        />
+                      }
+                      label="Accessories and Decorative Elements"
+                    />
+                  </RadioGroup>
+                  <FormHelperText sx={customHelperTextStyles}>
+                    {helperText}
+                  </FormHelperText>
+                </FormControl>
               </Box>
             </Box>
             <Grid
