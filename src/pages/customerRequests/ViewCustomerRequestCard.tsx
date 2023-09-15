@@ -6,7 +6,7 @@ import Footer from '../../components/Footer';
 import TopBar from '../../components/TopAppBar';
 
 const ViewCustomerRequestCard = () => {
-  const request: CustomRequest = {
+  const request: CustomerRequest = {
     createdBy: 1,
     description: 'bruh',
     document: '',

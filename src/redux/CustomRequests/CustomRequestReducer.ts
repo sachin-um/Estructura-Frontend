@@ -6,7 +6,7 @@ import type { RootState } from '../store';
 
 import API from '../../lib/API';
 
-const initialState: CustomRequestState = {
+const initialState: CustomerRequestState = {
   customRequest: null,
   error: null,
   reqStatus: 'idle',
@@ -15,7 +15,7 @@ const initialState: CustomRequestState = {
 export const fetchCustomRequestById = createAsyncThunk(
   'customRequests/fetchCustomRequestByById',
   async (id: number) => {
-    const response = await API.get<CustomRequest>(`/customrequests/${id}`);
+    const response = await API.get<CustomerRequest>(`/customrequests/${id}`);
     return response.status === 200 ? response.data : null;
   },
 );
@@ -23,7 +23,7 @@ export const fetchCustomRequestById = createAsyncThunk(
 export const addCustomRequest = createAsyncThunk(
   'customRequests/add',
   async (
-    customRequestAddRequest: CustomRequestAddOrUpdateRequest,
+    customRequestAddRequest: CustomerRequestAddOrUpdateRequest,
     { rejectWithValue },
   ) => {
     const response = await API.post<GenericAddOrUpdateResponse>(
@@ -44,7 +44,7 @@ export const addCustomRequest = createAsyncThunk(
     }
     const id: number = response.data.id;
     const customRequest = (
-      await API.get<CustomRequest>(`/customrequests/item/${id}`)
+      await API.get<CustomerRequest>(`/customrequests/item/${id}`)
     ).data;
     return customRequest;
   },
@@ -71,7 +71,7 @@ export const editCustomRequest = createAsyncThunk(
     }
     const id: number = response.data.id;
     const customRequestResponse = (
-      await API.get<CustomRequest>(`/customrequests/item/${id}`)
+      await API.get<CustomerRequest>(`/customrequests/item/${id}`)
     ).data;
     return customRequestResponse;
   },
@@ -98,7 +98,7 @@ export const CustomRequestSlice = createSlice({
   name: 'CustomRequest',
   initialState,
   reducers: {
-    setCustomRequest(state, action: PayloadAction<CustomRequest>) {
+    setCustomRequest(state, action: PayloadAction<CustomerRequest>) {
       state.customRequest = action.payload;
     },
   },
