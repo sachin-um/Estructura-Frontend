@@ -65,6 +65,7 @@ export const useCustomerRequest = () => {
             `/customer-requests/customer-request/${id}`,
           )
         ).data;
+        result.success = true;
       }
       return result;
     },

@@ -11,10 +11,13 @@ interface CustomerRequest {
 }
 
 interface CustomerRequestAddOrUpdateRequest {
+  customerId: number;
   description: string;
-  document: FileList;
+  shortDesc: string;
+  minPrice: number;
+  maxPrice: number;
+  documents: FileList;
   images: FileList;
-  shortDescription: string;
   targetCategories: Role[];
   targetRetailCategories: RetailItemType[];
 }

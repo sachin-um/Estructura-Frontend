@@ -9,16 +9,23 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   MdDescription,
   MdInsertDriveFile,
   MdPictureAsPdf,
 } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 
 import '../../assets/font.css';
 import Footer from '../../components/Footer';
 import TopAppBar from '../../components/TopAppBar';
+import { useCustomerRequest } from '../../hooks/customerRequest/useCustomerRequest';
+import useCurrentUser from '../../hooks/users/useCurrentUser';
+import FileArrayToFileList from '../../utils/FileArrayToFileList';
+import HandleTextFieldChangeOrBlur from '../../utils/HandleTextFieldChangeOrBlur';
+import IsRetailCat from '../../utils/IsRetailCat';
+import IsRole from '../../utils/IsRole';
 
 const AddCustomerRequest = () => {
   const [selectedCategories, setSelectedCategories] = useState<
@@ -71,6 +78,45 @@ const AddCustomerRequest = () => {
     setUploadedDocuments((prevDocuments) =>
       prevDocuments.filter((_, i) => i !== index),
     );
+  };
+
+  const currentUser = useCurrentUser();
+
+  const [description, setDescription] = useState('');
+  const [shortDesc, setShortDesc] = useState('');
+  const [minPrice, setMinPrice] = useState(0.01);
+  const [maxPrice, setMaxPrice] = useState(0.01);
+
+  const navigate = useNavigate();
+
+  const { addCustomerRequest } = useCustomerRequest();
+
+  const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async () => {
+    const customerId = currentUser?.id;
+    alert(`${description} ${customerId} ${shortDesc} ${minPrice} ${maxPrice}`);
+    alert(selectedCategories);
+    if (!customerId) {
+      navigate('/SignIn?from=/custom-requests/add');
+    } else {
+      const data: CustomerRequestAddOrUpdateRequest = {
+        customerId,
+        description,
+        documents: FileArrayToFileList(uploadedDocuments),
+        images: FileArrayToFileList(uploadedImages),
+        maxPrice,
+        minPrice,
+        shortDesc,
+        targetCategories: selectedCategories.filter(IsRole) as Role[],
+        targetRetailCategories: selectedCategories.filter(
+          IsRetailCat,
+        ) as RetailItemType[],
+      };
+      const result = await addCustomerRequest(data);
+      console.log(result);
+      if (result.success) {
+        navigate(`/custom-requests/req/${result.item?.id}`);
+      }
+    }
   };
 
   const isCategorySelected = (categoryId: RetailItemType | Role) =>
@@ -190,6 +236,9 @@ const AddCustomerRequest = () => {
           fullWidth
           label="Your request in one sentence"
           margin="normal"
+          onBlur={HandleTextFieldChangeOrBlur(setShortDesc)}
+          onChange={HandleTextFieldChangeOrBlur(setShortDesc)}
+          value={shortDesc}
           variant="outlined"
         />
 
@@ -296,8 +345,11 @@ const AddCustomerRequest = () => {
           label="Your description"
           margin="normal"
           multiline
+          onBlur={HandleTextFieldChangeOrBlur(setDescription)}
+          onChange={HandleTextFieldChangeOrBlur(setDescription)}
           rows={6}
           sx={{ width: '50%' }}
+          value={description}
           variant="outlined"
         />
 
@@ -331,16 +383,26 @@ const AddCustomerRequest = () => {
           <Grid item>
             <Typography variant="body2">Min</Typography>
             <TextField
+              inputProps={{ step: 0.01 }}
               margin="normal"
+              onBlur={HandleTextFieldChangeOrBlur<number>(setMinPrice)}
+              onChange={HandleTextFieldChangeOrBlur<number>(setMinPrice)}
               sx={{ width: '150px' }}
+              type="number"
+              value={minPrice}
               variant="outlined"
             />
           </Grid>
           <Grid item>
             <Typography variant="body2">Max</Typography>
             <TextField
+              inputProps={{ step: 0.01 }}
               margin="normal"
+              onBlur={HandleTextFieldChangeOrBlur<number>(setMaxPrice)}
+              onChange={HandleTextFieldChangeOrBlur<number>(setMaxPrice)}
               sx={{ width: '150px' }}
+              type="number"
+              value={maxPrice}
               variant="outlined"
             />
           </Grid>
@@ -481,6 +543,7 @@ const AddCustomerRequest = () => {
 
         <Button
           color="primary"
+          onClick={handleSubmit}
           sx={{ marginBottom: '30px', marginTop: '30px', ml: 60 }}
           variant="contained"
         >
