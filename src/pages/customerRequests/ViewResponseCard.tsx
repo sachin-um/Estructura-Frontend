@@ -1,7 +1,8 @@
-import TopBar from '../components/TopAppBar';
-import Footer from '../components/Footer';
-import '../assets/font.css';
-import { Box, Grid, Typography, Divider, Button } from '@mui/material';
+import { Box, Button, Divider, Grid, Typography } from '@mui/material';
+
+import '../../assets/font.css';
+import Footer from '../../components/Footer';
+import TopBar from '../../components/TopAppBar';
 
 const ViewResponseCard = () => {
   const backgroundImageUrl =
@@ -12,138 +13,142 @@ const ViewResponseCard = () => {
       <TopBar />
       <Box display="flex">
         <Grid
-          item
-          xs={12}
-          md={6}
           style={{
-            position: 'relative',
-            height: '110vh',
             borderBottomRightRadius: '50%',
             flex: '0 0 50%',
-            padding: '20px',
+            height: '110vh',
             margin: '40px',
             overflow: 'hidden',
+            padding: '20px',
+            position: 'relative',
           }}
+          item
+          md={6}
+          xs={12}
         >
           <img
-            src={backgroundImageUrl}
-            alt="Background"
             style={{
-              width: '100%',
               height: '100%',
               objectFit: 'cover',
+              width: '100%',
             }}
+            alt="Background"
+            src={backgroundImageUrl}
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item md={6} xs={12}>
           <Box
             height="100vh"
-            paddingTop="50px"
-            paddingRight="20px"
             paddingBottom="50px"
             paddingLeft="20px"
+            paddingRight="20px"
+            paddingTop="50px"
           >
-            <Typography variant="h6" fontFamily="Poppins" gutterBottom>
+            <Typography fontFamily="Poppins" gutterBottom variant="h6">
               Approach to Designing Your Vision of a Modern, Sustainable Dream
               Home
             </Typography>
             <Divider sx={{ marginBottom: '20px' }} />
             <Typography
-              variant="subtitle1"
               fontFamily="Poppins"
               sx={{ marginTop: '20px' }}
+              variant="subtitle1"
             >
               Description of the idea:
             </Typography>
             <Box
               sx={{
                 border: '2px solid green',
-                padding: '10px',
                 marginTop: '10px',
+                padding: '10px',
                 textAlign: 'justify',
               }}
             >
               <Typography
-                variant="body2"
                 fontFamily="Poppins"
                 sx={{ textAlign: 'justify' }}
+                variant="body2"
               >
                 To begin, I will thoroughly analyze your requirements,
-                preferences, and the site's unique characteristics. I'll create
-                a concept that captures the essence of your vision while taking
-                into account factors such as natural light, views, and
-                topography. This phase will involve brainstorming design ideas
-                that encompass your desired aesthetic and sustainability goals.
-                I'll develop a spatial layout that optimizes functionality and
-                flow. Your emphasis on open spaces will guide the arrangement of
-                rooms and common areas. To promote a sense of connection with
-                the outdoors, I'll strategically position windows, glass doors,
-                and skylights to invite natural light and scenic views into the
-                interior spaces.
+                preferences, and the site&apos;s unique characteristics.
+                I&apos;ll create a concept that captures the essence of your
+                vision while taking into account factors such as natural light,
+                views, and topography. This phase will involve brainstorming
+                design ideas that encompass your desired aesthetic and
+                sustainability goals. I&apos;ll develop a spatial layout that
+                optimizes functionality and flow. Your emphasis on open spaces
+                will guide the arrangement of rooms and common areas. To promote
+                a sense of connection with the outdoors, I&apos;ll strategically
+                position windows, glass doors, and skylights to invite natural
+                light and scenic views into the interior spaces.
               </Typography>
             </Box>
 
             <Typography
-              variant="subtitle1"
               fontFamily="Poppins"
               sx={{ marginTop: '20px' }}
+              variant="subtitle1"
             >
               Estimated Budget Range:
             </Typography>
             <Box
               sx={{
-                display: 'inline-block',
                 border: '2px solid green',
-                padding: '5px',
-                marginTop: '10px',
+                display: 'inline-block',
                 marginLeft: '40px',
+                marginTop: '10px',
+                padding: '5px',
               }}
             >
               <Typography
-                variant="body2"
                 fontFamily="Poppins"
-                sx={{ textAlign: 'justify', marginLeft: '5px' }}
+                sx={{ marginLeft: '5px', textAlign: 'justify' }}
+                variant="body2"
               >
                 Min: LKR 150 000 - Max: LKR 250 000
               </Typography>
             </Box>
             <Typography
-              variant="subtitle1"
               fontFamily="Poppins"
               sx={{ marginTop: '20px' }}
+              variant="subtitle1"
             >
               Images/Documents shared:
             </Typography>
             <Box
-              sx={{ marginTop: '20px', display: 'flex', alignItems: 'center' }}
+              sx={{ alignItems: 'center', display: 'flex', marginTop: '20px' }}
             >
               <img
-                src="https://img.freepik.com/premium-photo/modern-living-room-clean-lines-neutral-colors-natural-elements-design-concept_763042-1619.jpg"
-                alt="Generated AI Image"
                 style={{
-                  width: '30vh',
+                  border: '2px solid green',
                   height: '30vh',
                   marginRight: '10px',
-                  border: '2px solid green',
                   padding: '5px',
+                  width: '30vh',
                 }}
+                alt="Generated by AI"
+                src="https://img.freepik.com/premium-photo/modern-living-room-clean-lines-neutral-colors-natural-elements-design-concept_763042-1619.jpg"
               />
               <img
-                src="https://images.squarespace-cdn.com/content/v1/542afd6de4b09148cad4044b/1627069189925-YK8168BE2DCWTIKOOGUT/Interior-Design-Drawing-and-Marker+Rendering-by+Susan-Knof.JPGg"
-                alt="Generated AI Image"
                 style={{
-                  width: '30vh',
+                  border: '2px solid green',
                   height: '30vh',
                   marginRight: '10px',
-                  border: '2px solid green',
                   padding: '5px',
+                  width: '30vh',
                 }}
+                alt="Generated by AI"
+                src="https://images.squarespace-cdn.com/content/v1/542afd6de4b09148cad4044b/1627069189925-YK8168BE2DCWTIKOOGUT/Interior-Design-Drawing-and-Marker+Rendering-by+Susan-Knof.JPGg"
               />
             </Box>
             <Button
-              variant="contained"
+              onClick={() => {
+                //TODO: figure this out
+                alert('What now?');
+              }}
               color="primary"
-              style={{ width: '35%', margin: '50px 150px 0', display: 'block' }}
+              style={{ display: 'block', margin: '50px 150px 0', width: '35%' }}
+              variant="contained"
             >
               Accept Request
             </Button>

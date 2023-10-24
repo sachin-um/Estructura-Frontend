@@ -1,4 +1,5 @@
 import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
+
 import TopBar from '../../components/CusTopBar';
 import Footer from '../../components/Footer';
 
@@ -77,27 +78,27 @@ function ViewResponse() {
                       }}
                     >
                       <img
-                        src="ForgotPasswordBG.jpg"
+                        style={{
+                          height: '100px',
+                          marginRight: '20px',
+                          width: '40%',
+                        }}
                         alt="Document 1"
-                        style={{
-                          width: '40%',
-                          height: '100px',
-                          marginRight: '20px',
-                        }}
+                        src="ForgotPasswordBG.jpg"
                       />
                       <img
-                        src="BannerImage.jpg"
+                        style={{
+                          height: '100px',
+                          marginRight: '20px',
+                          width: '40%',
+                        }}
                         alt="Document 2"
-                        style={{
-                          width: '40%',
-                          height: '100px',
-                          marginRight: '20px',
-                        }}
+                        src="BannerImage.jpg"
                       />
                       <img
-                        src="formBg.jpg"
                         alt="Document 3"
-                        style={{ width: '40%', height: '100px' }}
+                        src="formBg.jpg"
+                        style={{ height: '100px', width: '40%' }}
                       />
                     </Box>
                   </Box>
@@ -111,27 +112,27 @@ function ViewResponse() {
                       }}
                     >
                       <img
-                        src="formBg.jpg"
-                        alt="Image 1"
                         style={{
-                          width: '40%',
                           height: '100px',
                           marginRight: '20px',
+                          width: '40%',
                         }}
+                        alt="1"
+                        src="formBg.jpg"
                       />
                       <img
-                        src="formBg.jpg"
-                        alt="Image 2"
                         style={{
-                          width: '40%',
                           height: '100px',
                           marginRight: '20px',
+                          width: '40%',
                         }}
+                        alt="2"
+                        src="formBg.jpg"
                       />
                       <img
+                        alt="3"
                         src="formBg.jpg"
-                        alt="Image 3"
-                        style={{ width: '40%', height: '100px' }}
+                        style={{ height: '100px', width: '40%' }}
                       />
                     </Box>
                   </Box>

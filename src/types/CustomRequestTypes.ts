@@ -1,4 +1,4 @@
-interface CustomRequest {
+interface CustomerRequest {
   createdBy: number;
   description: string;
   document: string;
@@ -10,7 +10,7 @@ interface CustomRequest {
   targetRetailCategories: RetailItemType[];
 }
 
-interface CustomRequestAddOrUpdateRequest {
+interface CustomerRequestAddOrUpdateRequest {
   description: string;
   document: FileList;
   images: FileList;
@@ -20,12 +20,12 @@ interface CustomRequestAddOrUpdateRequest {
 }
 
 interface updateCustomRequestParams {
-  customRequest: CustomRequest;
-  updatedCustomRequest: CustomRequestAddOrUpdateRequest;
+  customRequest: CustomerRequest;
+  updatedCustomRequest: CustomerRequestAddOrUpdateRequest;
 }
 
-interface CustomRequestState {
-  customRequest: CustomRequest | null;
+interface CustomerRequestState {
+  customRequest: CustomerRequest | null;
   error: boolean | null;
   reqStatus: reqStatus;
 }

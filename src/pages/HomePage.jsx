@@ -9,7 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import React, { useCallback, useEffect, useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import '../assets/font.css';
 import HomepageCarousel from '../components/Carousel/HomepageCarousel';
 import TopAppBar from '../components/TopAppBar';
@@ -30,7 +30,10 @@ const Slider = ({ images, interval = 5000 }) => {
       clearInterval(slideInterval);
     };
   }, [goToNextSlide, interval]);
-
+  const navigate = useNavigate();
+  const handleGetStarted = () => {
+    navigate('/AlgoStart', { replace: true });
+  };
   return (
     <>
       <TopAppBar />
@@ -117,6 +120,7 @@ const Slider = ({ images, interval = 5000 }) => {
                 }}
                 color="primary"
                 variant="contained"
+                onClick={handleGetStarted}
               >
                 Get Started
               </Button>

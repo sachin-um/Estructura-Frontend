@@ -25,8 +25,6 @@ import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
-import type { UserState } from '../redux/UserAuthenticationReducer';
-
 import API from '../lib/API';
 import { clean, selectUser } from '../redux/UserAuthenticationReducer';
 

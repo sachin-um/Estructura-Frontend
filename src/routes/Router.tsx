@@ -1,5 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 
+import FirstPage from '../pages/Algo/FirstPage';
+import GetStarted from '../pages/Algo/GetStarted';
+import RecommendationsPage from '../pages/Algo/RecommendationsPage';
 import Homepage from '../pages/HomePage';
 import AdminRoutes from './AdminRoutes';
 import AuthRoutes from './AuthRoutes';
@@ -15,6 +18,24 @@ export const altRouter = createBrowserRouter([
     path: '/',
     element: <Homepage />,
   },
+  {
+    path: '/Algo',
+    element: <GetStarted />,
+  },
+  {
+    path: '/AlgoStart',
+    element: <FirstPage />,
+  },
+  {
+    path: '/AlgoStart',
+    element: <FirstPage />,
+  },
+
+  {
+    path: '/RecommendationsPage',
+    element: <RecommendationsPage />,
+  },
+
   ...AuthRoutes,
   ...AdminRoutes,
   ...BlogRoutes,
