@@ -4,6 +4,7 @@ import FirstPage from '../pages/Algo/FirstPage';
 import GetStarted from '../pages/Algo/GetStarted';
 import RecommendationsPage from '../pages/Algo/RecommendationsPage';
 import Homepage from '../pages/HomePage';
+import Chat from '../pages/messages/Chat';
 import AdminRoutes from './AdminRoutes';
 import AuthRoutes from './AuthRoutes';
 import BlogRoutes from './BlogRoutes';
@@ -34,6 +35,11 @@ export const altRouter = createBrowserRouter([
   {
     path: '/RecommendationsPage',
     element: <RecommendationsPage />,
+  },
+
+  {
+    path: '/chat/:id',
+    element: <Chat />,
   },
 
   ...AuthRoutes,
