@@ -38,12 +38,12 @@ const districts = [
 ];
 
 function AddressInputs(props) {
-  const { spread, errors } = props;
+  const { spread } = props;
   return (
     <>
       <Typography
-        sx={{ color: '#435834', textAlign: 'left' }}
         fontSize={'0.9rem'}
+        sx={{ color: '#435834', textAlign: 'left' }}
       >
         {' '}
         Business Address{' '}
@@ -123,7 +123,12 @@ const addressValidators = {
     .required('District is required'),
 };
 
-const addressInitialValues = (formData) => {
+const addressInitialValues = (formData: {
+  addressLine1: string;
+  addressLine2: string;
+  city: string;
+  district: string;
+}) => {
   return {
     addressLine1: formData.addressLine1 ?? '',
     addressLine2: formData.addressLine2 ?? '',
