@@ -1,9 +1,11 @@
+import { AllInbox } from '@mui/icons-material';
 import { createBrowserRouter } from 'react-router-dom';
 
 import FirstPage from '../pages/Algo/FirstPage';
 import GetStarted from '../pages/Algo/GetStarted';
 import RecommendationsPage from '../pages/Algo/RecommendationsPage';
 import Homepage from '../pages/HomePage';
+import AllMessagesInbox from '../pages/messages/AllMessagesInbox';
 import Chat from '../pages/messages/Chat';
 import AdminRoutes from './AdminRoutes';
 import AuthRoutes from './AuthRoutes';
@@ -40,6 +42,11 @@ export const altRouter = createBrowserRouter([
   {
     path: '/chat/:id',
     element: <Chat />,
+  },
+
+  {
+    path: '/chat',
+    element: <AllMessagesInbox />,
   },
 
   ...AuthRoutes,

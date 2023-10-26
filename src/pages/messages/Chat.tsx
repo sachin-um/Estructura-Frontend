@@ -2,7 +2,7 @@ import type { FormikHelpers, FormikProps } from 'formik';
 
 import { Button, TextField } from '@mui/material';
 import { Form, Formik } from 'formik';
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import * as Yup from 'yup';
 
@@ -14,8 +14,9 @@ import useFetchUser from '../../hooks/users/useFetchUser';
 import GetFormikProps from '../../utils/GetFormikProps';
 
 const Chat = () => {
+  const [sendCheck, setSend] = useState(1);
   const recipientId = parseInt(useParams<{ id: string }>().id ?? '0');
-  const { fetchMessages, messageList, sendMessage } = useMessages();
+  const { fetchMessages, messageList, seen, sendMessage } = useMessages();
   const currentUser = useCurrentUser();
   const { fetchUserById, user } = useFetchUser();
 
@@ -28,8 +29,27 @@ const Chat = () => {
   }, [fetchMessages, recipientId]);
 
   useEffect(() => {
-    setTimeout(fetcher, 1500);
+    fetcher();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sendCheck]);
+
+  useEffect(() => {
+    setTimeout(fetcher, 5000);
   });
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (document.hasFocus()) {
+        messageList?.forEach((message) => {
+          if (!message.seen && message.recipientId === currentUser?.id) {
+            seen(message.id);
+            setSend(sendCheck - 1);
+          }
+        });
+      }
+    }, 3000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [messageList]);
 
   const FormRef = useRef<FormikProps<SendMessageRequest>>(null);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -45,6 +65,7 @@ const Chat = () => {
         console.log('added', added.data);
         FormRef.current?.setValues(initialValues);
         formikHelpers.resetForm();
+        setSend(sendCheck + 1);
       });
       setSubmitting(false);
     }
@@ -109,6 +130,7 @@ const Chat = () => {
             ))}
             <br />
             created: {TimeAgo({ timestamp: m.createdAt })}
+            {m.seen && 'seen'}
           </div>
         ))}
       </div>

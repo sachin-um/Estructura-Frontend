@@ -9,12 +9,14 @@ const useMessages = () => {
    * Fetches messages by the sender's token and the recipientId and sets the state accordingly.
    * @param recipientId - The ID of the recipient to fetch.
    */
-  const fetchMessages = useCallback(async (recipientId: number) => {
+  const fetchMessages = useCallback(async (recipientId: number | undefined) => {
     console.log('fetching');
     const token = localStorage.getItem('accessToken');
     try {
       const response = await API.get<Message[]>(
-        `/messages?token=${token}&to=${recipientId}`,
+        recipientId
+          ? `/messages?token=${token}&to=${recipientId}`
+          : `/messages/all?token=${token}`,
       );
       if (response.status === 200) {
         setMessageList(() =>
@@ -48,7 +50,22 @@ const useMessages = () => {
     [],
   );
 
-  return { fetchMessages, messageList, sendMessage };
+  const seen = useCallback(async (messageId: number) => {
+    const token = localStorage.getItem('accessToken');
+    await API.post(
+      `/messages/seen?token=${token}&msg=${messageId}`,
+      {
+        messageId,
+      },
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      },
+    );
+  }, []);
+
+  return { fetchMessages, messageList, seen, sendMessage };
 };
 
 export default useMessages;

@@ -5,6 +5,7 @@ type Message = {
   files: string[];
   id: number;
   recipientId: number;
+  seen: boolean;
   senderId: number;
 };
 
