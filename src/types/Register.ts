@@ -14,6 +14,7 @@ interface RegisterRequest {
   district?: string;
   website?: string;
   teamSize?: number;
+  registrationNo?: string;
   registrationCertificate?: FileList;
   introduction?: string;
   minRate?: number;
@@ -26,6 +27,8 @@ interface RegisterRequest {
   businessAddressLine2?: string;
   businessCity?: string;
   businessDistrict?: string;
+  businessCategory?: string;
+  businessContactNo: string;
   nic?: string;
   serviceProviderType?: ServiceProviders;
   specialization?: string;

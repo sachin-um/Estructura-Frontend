@@ -15,6 +15,7 @@ import * as yup from 'yup';
 
 import type { SignUpPageProps } from '../../../pages/ServiceProviderSignUp';
 
+import API from '../../../lib/API';
 import GetFormikProps from '../../../utils/GetFormikProps';
 
 const validationSchema = yup.object({
@@ -153,9 +154,22 @@ const SignUpPage1 = ({
                           email: formData.email ?? '',
                           password: formData.password ?? '',
                         }}
-                        onSubmit={(values) => {
+                        onSubmit={(values, { resetForm, setErrors }) => {
                           updateFormData(values);
-                          nextPage();
+                          API.post('auth/email-check', {
+                            email: values.email,
+                          })
+                            .then((response) => {
+                              if (response.status === 200) nextPage();
+                            })
+                            .catch(() => {
+                              setErrors({
+                                email: 'Email Already taken',
+                              });
+                              setTimeout(() => {
+                                resetForm();
+                              }, 1000);
+                            });
                         }}
                         innerRef={formRef}
                         validationSchema={validationSchema}

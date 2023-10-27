@@ -38,7 +38,7 @@ const districts = [
 ];
 
 function AddressInputs(props: {
-  homeowner: boolean;
+  homeowner?: boolean;
   spread: (
     field: string,
     helper?: boolean,
@@ -132,12 +132,7 @@ const addressValidators = {
     .required('District is required'),
 };
 
-const addressInitialValues = (formData: {
-  addressLine1: string;
-  addressLine2: string;
-  city: string;
-  district: string;
-}) => {
+const addressInitialValues = (formData: Partial<RegisterRequest>) => {
   return {
     addressLine1: formData.addressLine1 ?? '',
     addressLine2: formData.addressLine2 ?? '',

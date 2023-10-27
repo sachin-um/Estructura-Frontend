@@ -1,5 +1,5 @@
 // TODO: Add Service Provider Sign In Page with 2 paths (service provider and retail store)
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import ArchitectPage from '../components/Auth/signup/ProfessionalPages/ArchitectPage';
@@ -17,7 +17,9 @@ import API from '../lib/API';
 function ServiceProviderSignUp() {
   const [currentPage, setCurrentPage] = useState(1);
   const [formData, setFormData] = useState<Partial<RegisterRequest>>({});
-  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedOption, setSelectedOption] = useState<Role | undefined>(
+    undefined,
+  );
   const [pageImage, setPageImage] = useState('');
 
   const navigate = useNavigate();
@@ -34,8 +36,9 @@ function ServiceProviderSignUp() {
   const updateFormData = (data: Partial<RegisterRequest>) => {
     setFormData({ ...formData, ...data });
   };
+
   const handlePageImage = (value: 'one' | 'three' | 'two') => {
-    setSelectedOption('');
+    setSelectedOption(undefined);
     if (value === 'two') {
       setPageImage('/signup/retailstore.jpg');
     } else if (value === 'three') {
@@ -43,7 +46,7 @@ function ServiceProviderSignUp() {
     }
   };
 
-  const handleDropdownChange = (value: Role) => {
+  const handleDropdownChange = (value: Role | undefined) => {
     setSelectedOption(value);
     setCurrentPage(2); // Reset to the first page when dropdown changes
     if (value === 'ARCHITECT') {
@@ -273,7 +276,7 @@ export default ServiceProviderSignUp;
 
 export interface SignUpPageProps {
   formData: Partial<RegisterRequest>;
-  handleDropdownChange: (value: Role) => void;
+  handleDropdownChange?: (value: Role | undefined) => void;
   handlePageImage?: (value: 'one' | 'three' | 'two') => void;
   nextPage: () => void;
   pageImage?: string;
