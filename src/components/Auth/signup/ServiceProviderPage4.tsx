@@ -1,3 +1,5 @@
+import type { FormikProps } from 'formik';
+
 import {
   Box,
   Button,
@@ -9,6 +11,10 @@ import {
 import { Form, Formik } from 'formik';
 import { useRef, useState } from 'react';
 import { MultiSelect } from 'react-multi-select-component';
+
+import type { SignUpPageProps } from '../../../pages/ServiceProviderSignUp';
+
+import GetFormikProps from '../../../utils/GetFormikProps';
 
 const options = [
   { label: 'Ampara', value: 'ampara' },
@@ -40,12 +46,12 @@ const options = [
 
 function ServiceProviderPage4({
   formData,
-  updateFormData,
   nextPage,
   pageImage,
   previousPage,
-}) {
-  const [selected, setSelected] = useState([]);
+  updateFormData,
+}: SignUpPageProps) {
+  const [selected, setSelected] = useState<typeof options>([]);
   const formRef = useRef(null);
   const initialValues = {
     serviceAreas: formData.serviceAreas ?? ['Islandwide'],
@@ -54,9 +60,9 @@ function ServiceProviderPage4({
     <>
       <Container
         style={{
+          alignItems: 'center',
           backgroundColor: '#f7f8f1',
           display: 'flex',
-          alignItems: 'center',
         }}
         maxWidth={false}
       >
@@ -122,17 +128,17 @@ function ServiceProviderPage4({
           <Grid item md={5} xs={12}>
             <Grid
               style={{
+                alignItems: 'center',
                 backgroundColor: '#ffffff',
-                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                 borderRadius: '20px',
-                padding: '1rem 2rem 3rem',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center',
                 justifyContent: 'center',
-                marginTop: '2rem',
                 marginBottom: '2rem',
+                marginTop: '2rem',
                 minHeight: '85vh',
+                padding: '1rem 2rem 3rem',
               }}
               container
             >
@@ -147,67 +153,45 @@ function ServiceProviderPage4({
               >
                 <img alt="Logo" src="/Logo.png" style={{ width: '40%' }} />
               </Grid>
-              <Grid item xs={12} style={{ marginTop: '1rem', width: '80%' }}>
+              <Grid item style={{ marginTop: '1rem', width: '80%' }} xs={12}>
                 <Formik
-                  innerRef={formRef}
                   onSubmit={(values) => {
                     //: HANDLE PAGE CHANGE HERE!!!
                     updateFormData(values);
                     nextPage();
                   }}
                   initialValues={initialValues}
+                  innerRef={formRef}
                   // validationSchema={validationSchema}
                 >
-                  {({
-                    values,
-                    errors,
-                    touched,
-                    setFieldValue,
-                    handleBlur,
-                    handleSubmit,
-                    isSubmitting,
-                  }) => {
-                    const spread = (field, helper = true) => {
-                      return {
-                        name: field,
-                        onBlur: handleBlur,
-                        value: values[field],
-                        error: touched[field] && !!errors[field],
-                        disabled: isSubmitting,
-                        ...(helper && {
-                          helperText: touched[field] && errors[field],
-                        }),
-                      };
-                    };
+                  {(FormikProps: FormikProps<Partial<RegisterRequest>>) => {
+                    const spread = GetFormikProps(FormikProps);
                     return (
-                      <Form onSubmit={handleSubmit}>
+                      <Form onSubmit={FormikProps.handleSubmit}>
                         <Box
                           sx={{
-                            margin: '10px',
                             display: 'flex',
                             flexDirection: 'column',
                             gap: '20px',
+                            margin: '10px',
                           }}
                         >
                           {
                             <Grid style={{ justifyContent: 'center' }}>
                               <Typography
-                                textAlign="center"
                                 marginBottom={'20px'}
+                                textAlign="center"
                               >
                                 Where do you offer your services?
                               </Typography>
                               <FormControl
                                 fullWidth
-                                variant="filled"
                                 sx={{ m: 1 }}
+                                variant="filled"
                               >
                                 <MultiSelect
                                   {...spread('serviceAreas', false)}
-                                  displayEmpty={true}
-                                  options={options}
-                                  value={selected}
-                                  onChange={(value) => {
+                                  onChange={(value: typeof options) => {
                                     setSelected(value);
                                     let valueArray = [];
                                     if (value.length === 25) {
@@ -217,53 +201,55 @@ function ServiceProviderPage4({
                                         (option) => option.value,
                                       );
                                     }
-                                    setFieldValue(
+                                    FormikProps.setFieldValue(
                                       'serviceAreas',
                                       valueArray,
                                       false,
                                     );
                                   }}
-                                  labelledBy={'Select'}
-                                  isCreatable={false}
                                   overrideStrings={{
-                                    selectAll: 'Islandwide',
                                     search: 'Search districts..',
+                                    selectAll: 'Islandwide',
                                     selectSomeItems: 'Select Area',
                                   }}
+                                  isCreatable={false}
+                                  labelledBy={'Select'}
+                                  options={options}
+                                  value={selected}
                                 />
                               </FormControl>
                               <Grid
                                 style={{
                                   display: 'flex',
                                   justifyContent: 'center',
-                                  width: '100%',
                                   marginTop: '20px',
+                                  width: '100%',
                                 }}
                               >
                                 <Button
                                   sx={{
-                                    width: 1 / 2,
                                     borderRadius: 2,
                                     margin: 1,
+                                    width: 1 / 2,
                                   }}
-                                  type="button"
                                   color="primary"
-                                  variant="contained"
-                                  size="large"
                                   onClick={previousPage}
+                                  size="large"
+                                  type="button"
+                                  variant="contained"
                                 >
                                   Previous
                                 </Button>
                                 <Button
                                   sx={{
-                                    width: 1 / 2,
                                     borderRadius: 2,
                                     margin: 1,
+                                    width: 1 / 2,
                                   }}
-                                  type="submit"
                                   color="primary"
-                                  variant="contained"
                                   size="large"
+                                  type="submit"
+                                  variant="contained"
                                 >
                                   Next
                                 </Button>

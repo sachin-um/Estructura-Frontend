@@ -1,3 +1,6 @@
+// import { Link } from "react-router-dom" ;
+import type { FormikProps } from 'formik';
+
 import {
   Box,
   Button,
@@ -10,16 +13,20 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-// import { Link } from "react-router-dom" ;
 import { Form, Formik } from 'formik';
 import { useRef } from 'react';
 import * as yup from 'yup';
+
+import type { SignUpPageProps } from '../../../pages/ServiceProviderSignUp';
+
+import { phone } from '../../../lib/commonValidators';
+import GetFormikProps from '../../../utils/GetFormikProps';
 import AddressInputs, {
   addressInitialValues,
   addressValidators,
-} from '../Auth/AddressInputs';
+} from '../AddressInputs';
 
-const retailCategories = [
+const retailCategories: [string, RetailItemType][] = [
   ['Indoor Furniture', 'FURNITURE'],
   ['Outdoor Furniture', 'GARDENWARE'],
   ['Hardware', 'HARDWARE'],
@@ -28,30 +35,38 @@ const retailCategories = [
 ];
 
 const validationSchema = yup.object({
-  businessName: yup.string().required('Business Name is required'),
   businessCategory: yup
     .string()
     .oneOf(retailCategories.map((category) => category[0]))
     .required('Retail Category is required'),
-  businessContactNo: yup.string().required('Contact Number is required'),
+  businessContactNo: yup
+    .string()
+    .required('Contact Number is required')
+    .matches(phone, 'Invalid Number'),
+  businessName: yup.string().required('Business Name is required'),
+  firstName: yup.string().required('First Name is required'),
+  lastName: yup.string().required('Last Name is required'),
   registrationNo: yup
     .string()
     .required('Business Registration number is required'),
-  firstName: yup.string().required('First Name is required'),
-  lastName: yup.string().required('Last Name is required'),
   ...addressValidators,
 });
 
-function RetailStore({ nextPage, previousPage, updateFormData, formData }) {
+function RetailStore({
+  formData,
+  nextPage,
+  previousPage,
+  updateFormData,
+}: SignUpPageProps) {
   const formRef = useRef(null);
   const initialValues = {
-    // if possible, set from formData
-    businessName: formData.businessName ?? '',
     businessCategory: formData.businessCategory ?? '',
     businessContactNo: formData.businessContactNo ?? '',
-    registrationNo: formData.registrationNo ?? '',
+    // if possible, set from formData
+    businessName: formData.businessName ?? '',
     firstName: formData.firstName ?? '',
     lastName: formData.lastName ?? '',
+    registrationNo: formData.registrationNo ?? '',
     role: formData.role ?? 'RETAILSTORE',
     ...addressInitialValues(formData),
   };
@@ -62,86 +77,65 @@ function RetailStore({ nextPage, previousPage, updateFormData, formData }) {
       {/* Retail Store Signup*/}
 
       <Formik
-        innerRef={formRef}
         onSubmit={(values) => {
           // TODO: HANDLE PAGE CHANGE HERE!!!
           updateFormData(values);
           nextPage();
         }}
         initialValues={initialValues}
+        innerRef={formRef}
         validationSchema={validationSchema}
       >
-        {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          isSubmitting,
-        }) => {
-          const spread = (field, helper = true) => {
-            return {
-              name: field,
-              onBlur: handleBlur,
-              onChange: handleChange,
-              value: values[field],
-              error: touched[field] && !!errors[field],
-              disabled: isSubmitting,
-              ...(helper && {
-                helperText: touched[field] && errors[field],
-              }),
-            };
-          };
+        {(FormikProps: FormikProps<Partial<RegisterRequest>>) => {
+          const spread = GetFormikProps(FormikProps);
           return (
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={FormikProps.handleSubmit}>
               <Box
                 sx={{
-                  margin: '10px',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '30px',
-                  padding: '20px',
+                  margin: '10px',
                   maxHeight: '350px',
                   overflowY: 'auto',
+                  padding: '20px',
                 }}
               >
-                <Stack style={{ justifyContent: 'center' }} gap={2}>
+                <Stack gap={2} style={{ justifyContent: 'center' }}>
                   <Typography
-                    variant="h8"
-                    sx={{ textAlign: 'left', color: '#435834' }}
+                    sx={{ color: '#435834', textAlign: 'left' }}
+                    variant="h6"
                   >
                     {' '}
                     Owner Details{' '}
                   </Typography>
                   <Box sx={{ display: 'flex', gap: 1 }}>
                     <TextField
-                      label="Your First Name"
-                      variant="filled"
-                      size="small"
                       color="secondary"
+                      label="Your First Name"
+                      size="small"
+                      variant="filled"
                       {...spread('firstName')}
                     />
                     <TextField
-                      variant="filled"
-                      size="small"
                       color="secondary"
                       label="Your Last Name"
+                      size="small"
+                      variant="filled"
                       {...spread('lastName')}
                     />
                   </Box>
                   <Typography
-                    variant="h8"
-                    sx={{ textAlign: 'left', color: '#435834' }}
+                    sx={{ color: '#435834', textAlign: 'left' }}
+                    variant="h6"
                   >
-                    {' '}
-                    Business Details{' '}
+                    Business Details
                   </Typography>
                   <TextField
                     fullWidth
                     label="Rental Company Name"
-                    variant="filled"
                     size="small"
+                    variant="filled"
                     {...spread('businessName')}
                   />
                   <FormControl fullWidth variant="filled">
@@ -160,32 +154,32 @@ function RetailStore({ nextPage, previousPage, updateFormData, formData }) {
                     </Select>
                   </FormControl>
                   <TextField
-                    type="contactNo"
-                    name="contactNo"
                     label="Business Contact Number"
-                    variant="filled"
+                    name="contactNo"
                     size="small"
+                    type="contactNo"
+                    variant="filled"
                     {...spread('businessContactNo')}
                   />
                   <TextField
-                    name="contactNo"
                     label="Business Registration Number"
-                    variant="filled"
+                    name="contactNo"
                     size="small"
+                    variant="filled"
                     {...spread('registrationNo')}
                   />
                   <TextField
+                    color="secondary"
+                    label="role"
+                    name="role"
+                    size="small"
                     style={{ display: 'none' }}
                     type="hidden"
-                    name="role"
-                    label="role"
-                    variant="filled"
-                    size="small"
                     value={initialValues.role}
-                    color="secondary"
+                    variant="filled"
                     {...spread('role')}
                   />
-                  <AddressInputs spread={spread} errors={errors} />
+                  <AddressInputs homeowner={false} spread={spread} />
                 </Stack>
               </Box>
               <Grid
@@ -196,21 +190,21 @@ function RetailStore({ nextPage, previousPage, updateFormData, formData }) {
                 }}
               >
                 <Button
-                  sx={{ width: 1 / 2, borderRadius: 2, margin: 3 }}
-                  type="button"
                   color="primary"
-                  variant="contained"
-                  size="large"
                   onClick={previousPage}
+                  size="large"
+                  sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
+                  type="button"
+                  variant="contained"
                 >
                   Previous
                 </Button>
                 <Button
-                  sx={{ width: 1 / 2, borderRadius: 2, margin: 3 }}
-                  type="submit"
                   color="primary"
-                  variant="contained"
                   size="large"
+                  sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
+                  type="submit"
+                  variant="contained"
                 >
                   Next
                 </Button>

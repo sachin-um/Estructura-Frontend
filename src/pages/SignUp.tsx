@@ -1,11 +1,11 @@
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
 
-import TopBar from '../components/TopAppBar';
+import TopAppBar from '../components/TopAppBar';
 
 function SignUp() {
   return (
     <>
-      <TopBar title="Register to Estructura" />
+      <TopAppBar title="Register to Estructura" />
       <Box
         sx={{
           alignItems: 'flex-start',

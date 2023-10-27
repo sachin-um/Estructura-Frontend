@@ -37,16 +37,25 @@ const districts = [
   'Vavuniya',
 ];
 
-function AddressInputs(props) {
-  const { spread, errors } = props;
+function AddressInputs(props: {
+  homeowner?: boolean;
+  spread: (
+    field: string,
+    helper?: boolean,
+    onChange?: boolean,
+    value?: boolean,
+    error?: boolean,
+    setDisabledToIsSubmitting?: boolean,
+  ) => Record<string, unknown>;
+}) {
+  const { homeowner, spread } = props;
   return (
     <>
       <Typography
-        sx={{ color: '#435834', textAlign: 'left' }}
         fontSize={'0.9rem'}
+        sx={{ color: '#435834', textAlign: 'left' }}
       >
-        {' '}
-        Business Address{' '}
+        {homeowner ? 'Your' : 'Business'} Address
       </Typography>
       <TextField
         color="secondary"
@@ -123,7 +132,7 @@ const addressValidators = {
     .required('District is required'),
 };
 
-const addressInitialValues = (formData) => {
+const addressInitialValues = (formData: Partial<RegisterRequest>) => {
   return {
     addressLine1: formData.addressLine1 ?? '',
     addressLine2: formData.addressLine2 ?? '',

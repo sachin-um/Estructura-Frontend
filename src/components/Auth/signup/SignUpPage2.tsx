@@ -3,6 +3,8 @@ import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import { useState } from 'react';
 
+import type { SignUpPageProps } from '../../../pages/ServiceProviderSignUp';
+
 import Professional from './Professional';
 import RentalStore from './Rental';
 import RetailStore from './RetailStore';
@@ -14,10 +16,16 @@ function SignUpPage2({
   nextPage,
   previousPage,
   updateFormData,
+}: SignUpPageProps & {
+  // Mandatory
+  handlePageImage: (value: 'one' | 'three' | 'two') => void;
 }) {
   const [activeTab, setActiveTab] = useState('one');
 
-  const handleTabChange = (_event, tab) => {
+  const handleTabChange: (
+    event: React.SyntheticEvent<Element, Event>,
+    value: 'one' | 'three' | 'two',
+  ) => void = (_event, tab) => {
     setActiveTab(tab);
     handlePageImage(tab);
   };
@@ -87,11 +95,11 @@ function SignUpPage2({
               style={{
                 alignItems: 'flex-end',
                 backgroundImage: 'url("/category.jpg")',
-                backgroundSize: 'cover',
                 backgroundPosition: 'center',
+                backgroundSize: 'cover',
                 borderRadius: '20px',
-                height: '100%',
                 display: 'flex',
+                height: '100%',
                 marginTop: '2rem',
               }}
               container

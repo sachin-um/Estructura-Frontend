@@ -1,3 +1,5 @@
+import type { FormikProps } from 'formik';
+
 import {
   Box,
   Button,
@@ -13,10 +15,15 @@ import {
 import { ErrorMessage, Form, Formik } from 'formik';
 import { useRef } from 'react';
 import * as yup from 'yup';
+
+import type { SignUpPageProps } from '../../../pages/ServiceProviderSignUp';
+
+import { NIC, phone } from '../../../lib/commonValidators';
+import GetFormikProps from '../../../utils/GetFormikProps';
 import AddressInputs, {
   addressInitialValues,
   addressValidators,
-} from '../Auth/AddressInputs';
+} from '../AddressInputs';
 
 const professionalCategories = [
   ['ARCHITECT', 'Architect'],
@@ -29,121 +36,107 @@ const professionalCategories = [
 ];
 
 const validationSchema = yup.object({
+  businessContactNo: yup
+    .string()
+    .required('Contact Number is required')
+    .matches(phone, 'Invalid number'),
   businessName: yup.string().required('Business Name is required'),
+  firstName: yup.string().required('First Name is required'),
+  lastName: yup.string().required('Last Name is required'),
+  nic: yup
+    .string()
+    .required('NIC is required')
+    .matches(NIC, 'NIC Format Invalid'),
   role: yup
     .string()
     .oneOf(professionalCategories.map((category) => category[0]))
     .required('Professional Category is required'),
-  businessContactNo: yup.string().required('Contact Number is required'),
-  firstName: yup.string().required('First Name is required'),
-  lastName: yup.string().required('Last Name is required'),
-  nic: yup.string().required('NIC is required'),
   ...addressValidators,
 });
 
 function Professional({
+  formData,
   handleDropdownChange,
   nextPage,
   previousPage,
   updateFormData,
-  formData,
-}) {
+}: SignUpPageProps) {
   const formRef = useRef(null);
-  const initialValues = {
-    // if possible, set from formData
-    nic: formData.nic ?? '',
-    website: formData.website ?? '',
+  const initialValues: Partial<RegisterRequest> = {
     businessName: formData.businessName ?? '',
-    role: formData.role ?? '',
+    contactNo: formData.contactNo ?? '',
     firstName: formData.firstName ?? '',
     lastName: formData.lastName ?? '',
-    businessContactNo: formData.businessContactNo ?? '',
+    // if possible, set from formData
+    nic: formData.nic ?? '',
+    role: formData.role ?? 'ARCHITECT',
+    website: formData.website ?? '',
     ...addressInitialValues(formData),
   };
 
   return (
     <>
       <Formik
-        innerRef={formRef}
         onSubmit={(values) => {
           // TODO: HANDLE PAGE CHANGE HERE!!!
           updateFormData(values);
-          handleDropdownChange(values.role);
+          if (handleDropdownChange) handleDropdownChange(values.role);
           nextPage();
         }}
         initialValues={initialValues}
+        innerRef={formRef}
         validationSchema={validationSchema}
       >
-        {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          isSubmitting,
-        }) => {
-          const spread = (field, helper = true) => {
-            return {
-              name: field,
-              onBlur: handleBlur,
-              onChange: handleChange,
-              value: values[field],
-              error: touched[field] && !!errors[field],
-              disabled: isSubmitting,
-              ...(helper && {
-                helperText: touched[field] && errors[field],
-              }),
-            };
-          };
+        {(FormikProps: FormikProps<Partial<RegisterRequest>>) => {
+          const spread = GetFormikProps(FormikProps);
           return (
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={FormikProps.handleSubmit}>
               <Box
                 sx={{
-                  margin: '10px',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '30px',
-                  padding: '20px',
+                  margin: '10px',
                   maxHeight: '350px',
                   overflowY: 'auto',
+                  padding: '20px',
                 }}
               >
-                <Stack style={{ justifyContent: 'center' }} gap={2}>
+                <Stack gap={2} style={{ justifyContent: 'center' }}>
                   <Typography
-                    variant="h8"
-                    sx={{ textAlign: 'left', color: '#435834' }}
+                    sx={{ color: '#435834', textAlign: 'left' }}
+                    variant="h6"
                   >
                     {' '}
                     Personal Details{' '}
                   </Typography>
                   <Box sx={{ display: 'flex', gap: 1 }}>
                     <TextField
-                      label="Your First Name"
-                      variant="filled"
-                      size="small"
                       color="secondary"
+                      label="Your First Name"
+                      size="small"
+                      variant="filled"
                       {...spread('firstName')}
                     />
                     <TextField
-                      variant="filled"
-                      size="small"
                       color="secondary"
                       label="Your Last Name"
+                      size="small"
+                      variant="filled"
                       {...spread('lastName')}
                     />
                   </Box>
                   <TextField
-                    type="nic"
-                    name="nic"
                     label="NIC"
-                    variant="filled"
+                    name="nic"
                     size="small"
+                    type="nic"
+                    variant="filled"
                     {...spread('nic')}
                   />
                   <Typography
-                    variant="h8"
-                    sx={{ textAlign: 'left', color: '#435834' }}
+                    sx={{ color: '#435834', textAlign: 'left' }}
+                    variant="h6"
                   >
                     {' '}
                     Business Details{' '}
@@ -151,16 +144,16 @@ function Professional({
                   <TextField
                     fullWidth
                     label="Business Name"
-                    variant="filled"
                     size="small"
+                    variant="filled"
                     {...spread('businessName')}
                   />
                   <TextField // IDK why this was here
-                    type="tel"
-                    label="Business Contact Number"
-                    variant="filled"
-                    size="small"
                     color="secondary"
+                    label="Business Contact Number"
+                    size="small"
+                    type="tel"
+                    variant="filled"
                     {...spread('businessContactNo')}
                     fullWidth
                   />
@@ -191,13 +184,13 @@ function Professional({
                     )}
                   </ErrorMessage>
 
-                  <AddressInputs spread={spread} errors={errors} />
+                  <AddressInputs homeowner={false} spread={spread} />
                   <TextField
-                    type="website"
-                    name="website"
                     label="Website"
-                    variant="filled"
+                    name="website"
                     size="small"
+                    type="website"
+                    variant="filled"
                     {...spread('website')}
                   />
                 </Stack>
@@ -210,21 +203,21 @@ function Professional({
                 }}
               >
                 <Button
-                  sx={{ width: 1 / 2, borderRadius: 2, margin: 3 }}
-                  type="button"
                   color="primary"
-                  variant="contained"
-                  size="large"
                   onClick={previousPage}
+                  size="large"
+                  sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
+                  type="button"
+                  variant="contained"
                 >
                   Previous
                 </Button>
                 <Button
-                  sx={{ width: 1 / 2, borderRadius: 2, margin: 3 }}
-                  type="submit"
                   color="primary"
-                  variant="contained"
                   size="large"
+                  sx={{ borderRadius: 2, margin: 3, width: 1 / 2 }}
+                  type="submit"
+                  variant="contained"
                 >
                   Next
                 </Button>

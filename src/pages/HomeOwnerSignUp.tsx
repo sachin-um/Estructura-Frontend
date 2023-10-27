@@ -1,3 +1,6 @@
+import type { SnackbarCloseReason } from '@mui/material';
+import type { FormikProps } from 'formik';
+
 import {
   Alert,
   Box,
@@ -10,17 +13,17 @@ import {
 } from '@mui/material';
 import { Formik } from 'formik';
 import { useRef, useState } from 'react';
-import * as yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
+import * as yup from 'yup';
 
 import AddressInputs, {
   addressValidators,
   districts,
 } from '../components/Auth/AddressInputs';
-import TopBar from '../components/TopAppBar';
-import API, { clearTokens } from '../lib/API';
-import { violationsToErrors } from '../utils/Violations';
 import TopAppBar from '../components/TopAppBar';
+import API, { clearTokens } from '../lib/API';
+import GetFormikProps from '../utils/GetFormikProps';
+import { violationsToErrors } from '../utils/Violations';
 
 const ValidationSchema = yup.object().shape({
   confirmPassword: yup.string().required('Confirm Password is required'),
@@ -38,25 +41,27 @@ const ValidationSchema = yup.object().shape({
   ...addressValidators,
 });
 
-const initialValues = {
-  addressLine1: '',
-  addressLine2: '',
-  city: '',
-  confirmPassword: '',
-  contactNo: '',
-  district: districts[0],
-  email: '',
-  firstName: '',
-  lastName: '',
-  password: '',
-  role: 'CUSTOMER',
-};
-
 function HomeOwnerSignUp() {
-  const FormRef = useRef();
+  const initialValues = {
+    addressLine1: '',
+    addressLine2: '',
+    city: '',
+    confirmPassword: '',
+    contactNo: '',
+    district: districts[0],
+    email: '',
+    firstName: '',
+    lastName: '',
+    password: '',
+    role: 'CUSTOMER',
+  };
+  const FormRef = useRef<FormikProps<typeof initialValues>>(null);
   const [open, setOpen] = useState(false);
 
-  const handleClose = (event, reason) => {
+  const handleClose: (
+    event: Event | React.SyntheticEvent<Event>,
+    reason: SnackbarCloseReason,
+  ) => void = (_event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
@@ -74,7 +79,12 @@ function HomeOwnerSignUp() {
         onClose={handleClose}
         open={open}
       >
-        <Alert onClose={handleClose} severity="success">
+        <Alert
+          onClose={() => {
+            setOpen(false);
+          }}
+          severity="success"
+        >
           An Email has been sent to your email address. Please verify your email
           to complete the Sign up process.
         </Alert>
@@ -216,28 +226,8 @@ function HomeOwnerSignUp() {
                   innerRef={FormRef}
                   validationSchema={ValidationSchema}
                 >
-                  {({
-                    errors,
-                    handleBlur,
-                    handleChange,
-                    handleSubmit,
-                    isSubmitting,
-                    touched,
-                    values,
-                  }) => {
-                    const spread = (field, helper = true) => {
-                      return {
-                        disabled: isSubmitting,
-                        error: touched[field] && !!errors[field],
-                        name: field,
-                        onBlur: handleBlur,
-                        onChange: handleChange,
-                        value: values[field],
-                        ...(helper && {
-                          helperText: touched[field] && errors[field],
-                        }),
-                      };
-                    };
+                  {(FormikProps: FormikProps<typeof initialValues>) => {
+                    const spread = GetFormikProps(FormikProps);
                     return (
                       <form
                         style={{
@@ -248,11 +238,11 @@ function HomeOwnerSignUp() {
                           maxWidth: '400px',
                           width: '100%',
                         }}
-                        onSubmit={handleSubmit}
+                        onSubmit={FormikProps.handleSubmit}
                       >
                         <Typography
                           sx={{ color: '#435834', textAlign: 'left' }}
-                          variant="h8"
+                          variant="h6"
                         >
                           {' '}
                           Personal Details{' '}
@@ -301,7 +291,7 @@ function HomeOwnerSignUp() {
                           {...spread('contactNo')}
                         />
 
-                        <AddressInputs spread={spread} />
+                        <AddressInputs homeowner={true} spread={spread} />
                         <TextField
                           color="secondary"
                           fullWidth
@@ -320,7 +310,7 @@ function HomeOwnerSignUp() {
                         />
 
                         <Typography>
-                          By clicking this button you agree to Estructura's{' '}
+                          By clicking this button you agree to Estructura&apos;s{' '}
                           <Link
                             style={{
                               color: '#9D6432',
