@@ -66,7 +66,7 @@ function ServiceProviderSignUp() {
     }
   };
 
-  const HandleSubmit = (data: RegisterRequest) => {
+  const HandleSubmit = (data: Partial<RegisterRequest>) => {
     console.log(formData, 'Got', data);
     API.post<RegisterResponse>('/auth/register', data, {
       headers: {
@@ -167,7 +167,7 @@ function ServiceProviderSignUp() {
       />,
       ...professionalsPages,
     );
-  } else if (selectedOption === 'interiordesigner') {
+  } else if (selectedOption === 'INTERIORDESIGNER') {
     pages.splice(
       2,
       0,
@@ -180,7 +180,7 @@ function ServiceProviderSignUp() {
       />,
       ...professionalsPages,
     );
-  } else if (selectedOption === 'constructioncompany') {
+  } else if (selectedOption === 'CONSTRUCTIONCOMPANY') {
     pages.splice(
       2,
       0,
@@ -192,7 +192,7 @@ function ServiceProviderSignUp() {
       />,
       ...professionalsPages,
     );
-  } else if (selectedOption === 'homebuilder') {
+  } else if (selectedOption === 'MASONWORKER') {
     pages.splice(
       2,
       0,
@@ -205,7 +205,7 @@ function ServiceProviderSignUp() {
       />,
       ...professionalsPages,
     );
-  } else if (selectedOption === 'carpenter') {
+  } else if (selectedOption === 'CARPENTER') {
     pages.splice(
       2,
       0,
@@ -218,7 +218,7 @@ function ServiceProviderSignUp() {
       />,
       ...professionalsPages,
     );
-  } else if (selectedOption === 'painter') {
+  } else if (selectedOption === 'PAINTER') {
     pages.splice(
       2,
       0,
@@ -231,7 +231,7 @@ function ServiceProviderSignUp() {
       />,
       ...professionalsPages,
     );
-  } else if (selectedOption === 'landscapearchitect') {
+  } else if (selectedOption === 'LANDSCAPEARCHITECT') {
     pages.splice(
       2,
       0,
@@ -246,28 +246,10 @@ function ServiceProviderSignUp() {
     );
   }
 
-  // const HandleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const formData = new FormData(event.currentTarget);
-  //   console.log(formData.get('email'), formData.get('password'));
-  // };
-
-  // TODO: Change Layout
   return (
     <>
       <TopBar title="Sign In to Estructura" />
-
       {pages[currentPage - 1]}
-      {/* {currentPage > 1 && (
-        <button onClick={previousPage}>Previous</button>
-      )}
-      {currentPage < pages.length && (
-        <button onClick={nextPage}>Next</button>
-      )}
-      {currentPage === pages.length && (
-        <button onClick={handleSubmit}>Submit</button>
-      )}
-       */}
     </>
   );
 }
@@ -278,6 +260,7 @@ export interface SignUpPageProps {
   formData: Partial<RegisterRequest>;
   handleDropdownChange?: (value: Role | undefined) => void;
   handlePageImage?: (value: 'one' | 'three' | 'two') => void;
+  handleSubmit?: (data: Partial<RegisterRequest>) => void;
   nextPage: () => void;
   pageImage?: string;
   previousPage: () => void;

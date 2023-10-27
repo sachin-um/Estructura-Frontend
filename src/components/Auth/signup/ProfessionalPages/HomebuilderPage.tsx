@@ -1,3 +1,5 @@
+import type { FormikProps } from 'formik';
+
 import {
   Box,
   Button,
@@ -9,14 +11,17 @@ import {
 import { Form, Formik } from 'formik';
 import { useRef } from 'react';
 
+import type { SignUpPageProps } from '../../../../pages/ServiceProviderSignUp';
+
+import GetFormikProps from '../../../../utils/GetFormikProps';
+
 function HomebuilderPage({
   formData,
-  handleDropdownChange,
-  updateFormData,
   nextPage,
-  previousPage,
   pageImage,
-}) {
+  previousPage,
+  updateFormData,
+}: SignUpPageProps) {
   const formRef = useRef(null);
   const initialValues = {
     qualification: formData.qualification ?? '',
@@ -46,13 +51,13 @@ function HomebuilderPage({
           >
             <Grid
               style={{
-                backgroundImage: `url(${pageImage})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                borderRadius: '20px',
-                height: '100%',
-                display: 'flex',
                 alignItems: 'flex-end',
+                backgroundImage: `url(${pageImage})`,
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+                borderRadius: '20px',
+                display: 'flex',
+                height: '100%',
               }}
               container
             >
@@ -95,17 +100,17 @@ function HomebuilderPage({
           <Grid item md={5} xs={12}>
             <Grid
               style={{
+                alignItems: 'center',
                 backgroundColor: '#ffffff',
-                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                 borderRadius: '20px',
-                padding: '1rem 2rem 3rem',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center',
                 justifyContent: 'center',
-                marginTop: '2rem',
                 marginBottom: '2rem',
+                marginTop: '2rem',
                 minHeight: '85vh',
+                padding: '1rem 2rem 3rem',
               }}
               container
             >
@@ -120,61 +125,41 @@ function HomebuilderPage({
               >
                 <img alt="Logo" src="/Logo.png" style={{ width: '40%' }} />
               </Grid>
-              <Grid item xs={12} style={{ marginTop: '1rem' }}>
+              <Grid item style={{ marginTop: '1rem' }} xs={12}>
                 <Formik
-                  innerRef={formRef}
                   onSubmit={(values) => {
                     // TODO: HANDLE PAGE CHANGE HERE!!!
                     updateFormData(values);
                     nextPage();
                   }}
                   initialValues={initialValues}
-                  validationSchema={validationSchema}
+                  innerRef={formRef}
+                  // validationSchema={validationSchema}
                 >
-                  {({
-                    values,
-                    errors,
-                    touched,
-                    handleChange,
-                    handleBlur,
-                    handleSubmit,
-                    isSubmitting,
-                  }) => {
-                    const spread = (field, helper = true) => {
-                      return {
-                        name: field,
-                        onBlur: handleBlur,
-                        onChange: handleChange,
-                        value: values[field],
-                        error: touched[field] && !!errors[field],
-                        disabled: isSubmitting,
-                        ...(helper && {
-                          helperText: touched[field] && errors[field],
-                        }),
-                      };
-                    };
+                  {(FormikProps: FormikProps<Partial<RegisterRequest>>) => {
+                    const spread = GetFormikProps(FormikProps);
                     return (
-                      <Form onSubmit={handleSubmit}>
+                      <Form onSubmit={FormikProps.handleSubmit}>
                         <Box
                           sx={{
-                            margin: '10px',
                             display: 'flex',
                             flexDirection: 'column',
                             gap: '20px',
+                            margin: '10px',
                           }}
                         >
                           {
                             <Grid style={{ justifyContent: 'center' }}>
-                              <Typography textAlign="left" width={1} margin={1}>
+                              <Typography margin={1} textAlign="left" width={1}>
                                 What are your qualifications?
                               </Typography>
                               <Grid style={{ justifyContent: 'center' }}>
                                 <TextField
-                                  sx={{ m: 1, minWidth: 400, maxWidth: 500 }}
-                                  label="Please separate each one with commas."
                                   id="filled-multiline-static"
+                                  label="Please separate each one with commas."
                                   multiline
                                   rows={5}
+                                  sx={{ m: 1, maxWidth: 500, minWidth: 400 }}
                                   variant="filled"
                                   {...spread('qualification')}
                                 />
@@ -189,21 +174,21 @@ function HomebuilderPage({
                             }}
                           >
                             <Button
-                              sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
-                              type="button"
                               color="primary"
-                              variant="contained"
-                              size="large"
                               onClick={previousPage}
+                              size="large"
+                              sx={{ borderRadius: 2, margin: 1, width: 1 / 2 }}
+                              type="button"
+                              variant="contained"
                             >
                               Previous
                             </Button>
                             <Button
-                              sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
-                              type="submit"
                               color="primary"
-                              variant="contained"
                               size="large"
+                              sx={{ borderRadius: 2, margin: 1, width: 1 / 2 }}
+                              type="submit"
+                              variant="contained"
                             >
                               Next
                             </Button>

@@ -1,21 +1,27 @@
+import type { FormikProps } from 'formik';
+
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import { Form, Formik } from 'formik';
 import { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import * as yup from 'yup';
-import { Link, useNavigate } from 'react-router-dom';
+
+import type { SignUpPageProps } from '../../../pages/ServiceProviderSignUp';
+
+import GetFormikProps from '../../../utils/GetFormikProps';
 const validationSchema = yup.object({
   ProfileImage: yup
     .mixed()
     .required('Required')
     .test('only 1', 'More than 1', (value) => {
-      const fileArr = value;
+      const fileArr = value as FileList;
       if (fileArr.length > 1) {
         return false;
       }
       return true;
     })
     .test('fileSize', 'File too large', (value) => {
-      const fileArr = value;
+      const fileArr = value as FileList;
       if (fileArr.length === 1) {
         const img = fileArr[0];
         if (img.size >= 5000000) {
@@ -28,167 +34,151 @@ const validationSchema = yup.object({
 });
 function ServiceProviderPage7({
   formData,
-  updateFormData,
-  previousPage,
-  pageImage,
   handleSubmit,
+  pageImage,
+  previousPage,
+  updateFormData,
+}: SignUpPageProps & {
+  handleSubmit: (data: RegisterRequest) => void;
 }) {
   const [image, setProfileImage] = useState('/User/user.png');
   const [file, setFile] = useState(new DataTransfer().files);
   const formRef = useRef(null);
-  const handleUpload = (e) => {
-    setProfileImage(URL.createObjectURL(e.target.files[0]));
-    setFile(e.target.files[0]);
+  const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setProfileImage(URL.createObjectURL(e.target.files[0]));
+      setFile(e.target.files);
+    }
   };
-  const initialValues = {
-    ProfileImage: new DataTransfer().files,
+  const initialValues: Partial<RegisterRequest> = {
+    profileImage: new DataTransfer().files,
   };
 
-  const fileRef = useRef(null);
+  const fileRef = useRef<HTMLInputElement | null>(null);
 
   return (
     <>
       <Container
-        maxWidth={false}
         style={{
+          alignItems: 'center',
           backgroundColor: '#f7f8f1',
           display: 'flex',
-          alignItems: 'center',
         }}
+        maxWidth={false}
       >
         <Grid
           container
-          style={{ minHeight: '80vh' }}
           justifyContent="center"
           spacing={4}
+          style={{ minHeight: '80vh' }}
         >
           <Grid
-            item
-            xs={12}
-            md={7}
             style={{
-              paddingTop: '2rem',
-              paddingBottom: '2rem',
               marginTop: '2rem',
+              paddingBottom: '2rem',
+              paddingTop: '2rem',
             }}
+            item
+            md={7}
+            xs={12}
           >
             <Grid
-              container
               style={{
-                backgroundImage: `url(${pageImage})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                borderRadius: '20px',
-                height: '100%',
-                display: 'flex',
                 alignItems: 'flex-end',
+                backgroundImage: `url(${pageImage})`,
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+                borderRadius: '20px',
+                display: 'flex',
+                height: '100%',
               }}
+              container
             >
               <Grid
-                item
-                xs={12}
                 style={{
+                  marginBottom: '2rem',
                   paddingLeft: '4rem',
                   paddingRight: '1rem',
-                  marginBottom: '2rem',
                 }}
+                item
+                xs={12}
               >
                 <Typography
-                  variant="h4"
                   style={{
                     color: '#ffffff',
                     fontSize: '1.5rem',
-                    textAlign: 'left',
                     lineHeight: '1',
-                    paddingBottom: '1rem',
                     marginTop: 'auto',
+                    paddingBottom: '1rem',
+                    textAlign: 'left',
                   }}
+                  variant="h4"
                 >
                   Unleash your home’s potential
                 </Typography>
                 <Typography
-                  variant="h4"
                   style={{
                     color: '#ffffff',
                     fontSize: '1.5rem',
-                    textAlign: 'left',
                     lineHeight: '1',
+                    textAlign: 'left',
                   }}
+                  variant="h4"
                 >
                   with everything at your fingertips
                 </Typography>
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} md={5}>
+          <Grid item md={5} xs={12}>
             <Grid
-              container
               style={{
+                alignItems: 'center',
                 backgroundColor: '#ffffff',
-                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                 borderRadius: '20px',
-                padding: '1rem 2rem 3rem',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center',
                 justifyContent: 'center',
-                marginTop: '2rem',
                 marginBottom: '2rem',
+                marginTop: '2rem',
                 minHeight: '85vh',
+                padding: '1rem 2rem 3rem',
               }}
+              container
             >
               <Grid
-                item
-                xs={12}
                 style={{
-                  marginBottom: '1.5rem',
                   display: 'flex',
                   justifyContent: 'center',
+                  marginBottom: '1.5rem',
                 }}
+                item
+                xs={12}
               >
-                <img src="/Logo.png" alt="Logo" style={{ width: '40%' }} />
+                <img alt="Logo" src="/Logo.png" style={{ width: '40%' }} />
               </Grid>
-              <Grid item xs={12} style={{ marginTop: '1rem', width: '60%' }}>
+              <Grid item style={{ marginTop: '1rem', width: '60%' }} xs={12}>
                 <Formik
-                  innerRef={formRef}
                   onSubmit={(values) => {
                     // TODO: HANDLE PAGE CHANGE HERE!!!
                     updateFormData(values);
-                    console.log('Hi');
-                    console.log('ayy', values, formData);
-                    const newData = {
+                    const newData: Partial<RegisterRequest> = {
                       ...formData,
-                      ProfileImage: fileRef.current.files,
+                      profileImage:
+                        fileRef.current?.files ?? new DataTransfer().files,
                     };
                     console.log('new', newData);
                     handleSubmit(newData);
                   }}
                   initialValues={initialValues}
+                  innerRef={formRef}
                   validationSchema={validationSchema}
                 >
-                  {({
-                    values,
-                    errors,
-                    touched,
-                    setFieldValue,
-                    handleBlur,
-                    handleSubmit,
-                    isSubmitting,
-                  }) => {
-                    const spread = (field, helper = true) => {
-                      return {
-                        name: field,
-                        onBlur: handleBlur,
-                        value: values[field],
-                        error: touched[field] && !!errors[field],
-                        disabled: isSubmitting,
-                        ...(helper && {
-                          helperText: touched[field] && errors[field],
-                        }),
-                      };
-                    };
+                  {(FormikProps: FormikProps<Partial<RegisterRequest>>) => {
+                    const spread = GetFormikProps(FormikProps);
                     return (
-                      <Form onSubmit={handleSubmit}>
+                      <Form onSubmit={FormikProps.handleSubmit}>
                         <Box
                           sx={{
                             display: 'flex',
@@ -200,32 +190,32 @@ function ServiceProviderPage7({
                           {
                             <Grid style={{ justifyContent: 'center' }}>
                               <Typography
-                                textAlign="center"
-                                marginBottom="5px"
                                 fontSize="1.2rem"
+                                marginBottom="5px"
+                                textAlign="center"
                               >
                                 Upload your profile picture
                               </Typography>
                               <Box
-                                style={{ justifyContent: 'center' }}
                                 sx={{
-                                  width: '250px',
+                                  border: 1,
+                                  borderRadius: '50%',
+                                  borderWidth: '3px',
                                   height: '250px',
                                   margin: 'auto',
-                                  border: 1,
-                                  borderWidth: '3px',
-                                  borderRadius: '50%',
                                   overflow: 'hidden',
+                                  width: '250px',
                                 }}
+                                style={{ justifyContent: 'center' }}
                               >
                                 <img
-                                  src={image}
-                                  alt="user"
                                   style={{
-                                    width: '100%',
                                     height: '100%',
                                     objectFit: 'cover',
+                                    width: '100%',
                                   }}
+                                  alt="user"
+                                  src={image}
                                 />
                               </Box>
                               <Grid
@@ -233,36 +223,36 @@ function ServiceProviderPage7({
                                   justifyContent: 'center',
                                   marginTop: '10px',
                                 }}
-                                sx={{ width: 1, margin: 1 }}
+                                sx={{ margin: 1, width: 1 }}
                               >
                                 <Button
-                                  sx={{ width: 1 }}
-                                  variant="contained"
                                   color="secondary"
                                   component="label"
+                                  sx={{ width: 1 }}
+                                  variant="contained"
                                 >
                                   Upload Photo
                                   <input
-                                    hidden
-                                    accept="image/*"
-                                    type="file"
-                                    ref={fileRef}
                                     onChange={(event) => {
                                       if (event.target.files !== null) {
                                         handleUpload(event);
-                                        setFieldValue(
+                                        FormikProps.setFieldValue(
                                           'ProfileImage',
                                           event.target.files,
                                           false,
                                         );
                                       } else {
-                                        setFieldValue(
+                                        FormikProps.setFieldValue(
                                           'ProfileImage',
                                           new DataTransfer().files,
                                           false,
                                         );
                                       }
                                     }}
+                                    accept="image/*"
+                                    hidden
+                                    ref={fileRef}
+                                    type="file"
                                   />
                                 </Button>
                               </Grid>
@@ -277,7 +267,7 @@ function ServiceProviderPage7({
                           >
                             <Typography>
                               By clicking the signup button you agree to
-                              Estructura's{' '}
+                              Estructura&apos;s
                               <Link
                                 style={{
                                   color: '#9D6432',
@@ -298,21 +288,21 @@ function ServiceProviderPage7({
                             }}
                           >
                             <Button
-                              sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
-                              type="button"
                               color="primary"
-                              variant="contained"
-                              size="large"
                               onClick={previousPage}
+                              size="large"
+                              sx={{ borderRadius: 2, margin: 1, width: 1 / 2 }}
+                              type="button"
+                              variant="contained"
                             >
                               Previous
                             </Button>
                             <Button
-                              sx={{ width: 1 / 2, borderRadius: 2, margin: 1 }}
-                              type="submit"
                               color="primary"
-                              variant="contained"
                               size="large"
+                              sx={{ borderRadius: 2, margin: 1, width: 1 / 2 }}
+                              type="submit"
+                              variant="contained"
                             >
                               Sign Up
                             </Button>
