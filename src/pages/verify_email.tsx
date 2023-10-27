@@ -1,12 +1,12 @@
-import React from 'react';
-import { Box, Button, Container, Grid, Typography } from '@mui/material';
+import { Box, Container, Grid, Typography } from '@mui/material';
+import { useParams } from 'react-router-dom';
 
-import TopBar from '../components/TopAppBar';
-import Footer from '../components/Footer';
 import '../../src/assets/font.css';
+import Footer from '../components/Footer';
+import TopBar from '../components/TopAppBar';
 
 function Verify() {
-  const userEmail = 'user@example.com'; // Replace with dynamic email value
+  const userEmail = useParams<{ email: string }>().email ?? 'user@example.com'; // Replace with dynamic email value
 
   return (
     <>
@@ -14,38 +14,38 @@ function Verify() {
 
       <Container sx={{ marginBottom: 45 }}>
         <Grid
+          alignItems="center"
           container
           justifyContent="center"
-          alignItems="center"
-          style={{ height: '70vh' }}
           marginTop={5}
+          style={{ height: '70vh' }}
         >
           <Grid item xs={12}>
-            <Typography variant="h4" align="center" fontFamily="Poppins">
+            <Typography align="center" fontFamily="Poppins" variant="h4">
               Verify your email
             </Typography>
             <Typography
-              variant="body1"
               align="center"
+              fontFamily="Poppins"
               gutterBottom
               marginTop={2}
-              fontFamily="Poppins"
+              variant="body1"
             >
               You will need to verify your email to complete registration.
             </Typography>
             <Box display="flex" justifyContent="center">
               <img
-                src="verify-via-email-without-text.png"
                 alt="Verify via email"
-                style={{ maxWidth: '100%', height: 'auto' }}
+                src="verify-via-email-without-text.png"
+                style={{ height: 'auto', maxWidth: '100%' }}
               />
             </Box>
             <Typography
-              variant="body1"
               align="center"
-              fontFamily="Poppins"
               color={'grey'}
+              fontFamily="Poppins"
               gutterBottom
+              variant="body1"
             >
               An email has been sent to {userEmail} with a link to verify your
               account. If you have not received the email after a few minutes,

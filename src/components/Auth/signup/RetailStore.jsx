@@ -1,15 +1,38 @@
-import { Box, Button, Grid, Stack, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
+// import { Link } from "react-router-dom" ;
 import { Form, Formik } from 'formik';
 import { useRef } from 'react';
 import * as yup from 'yup';
 import AddressInputs, {
   addressInitialValues,
   addressValidators,
-} from '../Auth/AddressInputs';
-// import { Link } from "react-router-dom" ;
+} from '../AddressInputs';
+
+const retailCategories = [
+  ['Indoor Furniture', 'FURNITURE'],
+  ['Outdoor Furniture', 'GARDENWARE'],
+  ['Hardware', 'HARDWARE'],
+  ['Bathware', 'BATHWARE'],
+  ['Lighting', 'LIGHTING'],
+];
 
 const validationSchema = yup.object({
   businessName: yup.string().required('Business Name is required'),
+  businessCategory: yup
+    .string()
+    .oneOf(retailCategories.map((category) => category[0]))
+    .required('Retail Category is required'),
   businessContactNo: yup.string().required('Contact Number is required'),
   registrationNo: yup
     .string()
@@ -19,25 +42,29 @@ const validationSchema = yup.object({
   ...addressValidators,
 });
 
-function RentalStore({ nextPage, previousPage, updateFormData, formData }) {
+function RetailStore({ nextPage, previousPage, updateFormData, formData }) {
   const formRef = useRef(null);
   const initialValues = {
-    role: formData.role ?? 'RENTER',
+    // if possible, set from formData
     businessName: formData.businessName ?? '',
+    businessCategory: formData.businessCategory ?? '',
+    businessContactNo: formData.businessContactNo ?? '',
     registrationNo: formData.registrationNo ?? '',
-    businessContactNo: formData.contactNo ?? '',
     firstName: formData.firstName ?? '',
     lastName: formData.lastName ?? '',
+    role: formData.role ?? 'RETAILSTORE',
     ...addressInitialValues(formData),
   };
+
   // TODO: Change Layout
   return (
     <>
-      {/* Rental Store SignUp*/}
+      {/* Retail Store Signup*/}
 
       <Formik
         innerRef={formRef}
         onSubmit={(values) => {
+          // TODO: HANDLE PAGE CHANGE HERE!!!
           updateFormData(values);
           nextPage();
         }}
@@ -117,6 +144,36 @@ function RentalStore({ nextPage, previousPage, updateFormData, formData }) {
                     size="small"
                     {...spread('businessName')}
                   />
+                  <FormControl fullWidth variant="filled">
+                    <InputLabel id="SelectRetailCategory">
+                      Retail Category
+                    </InputLabel>
+                    <Select
+                      displayEmpty={true}
+                      {...spread('businessCategory', false)}
+                    >
+                      {retailCategories.map(([value, label]) => (
+                        <MenuItem key={value} value={value}>
+                          {label}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <TextField
+                    type="contactNo"
+                    name="contactNo"
+                    label="Business Contact Number"
+                    variant="filled"
+                    size="small"
+                    {...spread('businessContactNo')}
+                  />
+                  <TextField
+                    name="contactNo"
+                    label="Business Registration Number"
+                    variant="filled"
+                    size="small"
+                    {...spread('registrationNo')}
+                  />
                   <TextField
                     style={{ display: 'none' }}
                     type="hidden"
@@ -127,24 +184,6 @@ function RentalStore({ nextPage, previousPage, updateFormData, formData }) {
                     value={initialValues.role}
                     color="secondary"
                     {...spread('role')}
-                  />
-                  <TextField
-                    fullWidth
-                    name="businessContactNo"
-                    label="Business Contact Number"
-                    variant="filled"
-                    size="small"
-                    color="secondary"
-                    {...spread('businessContactNo')}
-                  />
-                  <TextField
-                    fullWidth
-                    name="registrationNo"
-                    label="Business Registration Number"
-                    variant="filled"
-                    size="small"
-                    color="secondary"
-                    {...spread('registrationNo')}
                   />
                   <AddressInputs spread={spread} errors={errors} />
                 </Stack>
@@ -184,4 +223,4 @@ function RentalStore({ nextPage, previousPage, updateFormData, formData }) {
   );
 }
 
-export default RentalStore;
+export default RetailStore;

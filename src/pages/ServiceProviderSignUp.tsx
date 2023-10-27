@@ -2,26 +2,23 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import ArchitectPage from '../components/ServiceProvider/ProfessionalPages/ArchitectPage';
-import ConstructionCompanyPage from '../components/ServiceProvider/ProfessionalPages/ConstructionCompanyPage';
-import HomebuilderPage from '../components/ServiceProvider/ProfessionalPages/HomebuilderPage';
-import ServiceProviderPage4 from '../components/ServiceProvider/ServiceProviderPage4';
-import ServiceProviderPage5 from '../components/ServiceProvider/ServiceProviderPage5';
-import ServiceProviderPage6 from '../components/ServiceProvider/ServiceProviderPage6';
-import ServiceProviderPage7 from '../components/ServiceProvider/ServiceProviderPage7';
-import SignUpPage1 from '../components/ServiceProvider/SignUpPage1';
-import SignUpPage2 from '../components/ServiceProvider/SignUpPage2';
+import ArchitectPage from '../components/Auth/signup/ProfessionalPages/ArchitectPage';
+import ConstructionCompanyPage from '../components/Auth/signup/ProfessionalPages/ConstructionCompanyPage';
+import HomebuilderPage from '../components/Auth/signup/ProfessionalPages/HomebuilderPage';
+import ServiceProviderPage4 from '../components/Auth/signup/ServiceProviderPage4';
+import ServiceProviderPage5 from '../components/Auth/signup/ServiceProviderPage5';
+import ServiceProviderPage6 from '../components/Auth/signup/ServiceProviderPage6';
+import ServiceProviderPage7 from '../components/Auth/signup/ServiceProviderPage7';
+import SignUpPage1 from '../components/Auth/signup/SignUpPage1';
+import SignUpPage2 from '../components/Auth/signup/SignUpPage2';
 import TopBar from '../components/TopAppBar';
 import API from '../lib/API';
 
 function ServiceProviderSignUp() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState<Partial<RegisterRequest>>({});
   const [selectedOption, setSelectedOption] = useState('');
   const [pageImage, setPageImage] = useState('');
-  console.log(formData);
-  const [activeTab, setActiveTab] = useState(1);
-  const [value, setValue] = React.useState('one');
 
   const navigate = useNavigate();
 
@@ -34,10 +31,10 @@ function ServiceProviderSignUp() {
     setCurrentPage(currentPage - 1);
   };
 
-  const updateFormData = (data) => {
+  const updateFormData = (data: Partial<RegisterRequest>) => {
     setFormData({ ...formData, ...data });
   };
-  const handlePageImage = (value) => {
+  const handlePageImage = (value: 'one' | 'three' | 'two') => {
     setSelectedOption('');
     if (value === 'two') {
       setPageImage('/signup/retailstore.jpg');
@@ -46,29 +43,29 @@ function ServiceProviderSignUp() {
     }
   };
 
-  const handleDropdownChange = (value) => {
+  const handleDropdownChange = (value: Role) => {
     setSelectedOption(value);
     setCurrentPage(2); // Reset to the first page when dropdown changes
     if (value === 'ARCHITECT') {
       setPageImage('/signup/archi.jpg');
-    } else if (value === 'interiordesigner') {
+    } else if (value === 'INTERIORDESIGNER') {
       setPageImage('/signup/designer.jpg');
-    } else if (value === 'constructioncompany') {
+    } else if (value === 'CONSTRUCTIONCOMPANY') {
       setPageImage('/signup/constructioncompany.png');
-    } else if (value === 'homebuilder') {
+    } else if (value === 'MASONWORKER') {
       setPageImage('/signup/homebuilder.jpg');
-    } else if (value === 'landscapearchitect') {
+    } else if (value === 'LANDSCAPEARCHITECT') {
       setPageImage('/signup/landscapearchitect.jpg');
-    } else if (value === 'painter') {
+    } else if (value === 'PAINTER') {
       setPageImage('/signup/painter.jpg');
-    } else if (value === 'carpenter') {
+    } else if (value === 'CARPENTER') {
       setPageImage('/signup/carpenter.jpg');
     }
   };
 
-  const HandleSubmit = (data) => {
+  const HandleSubmit = (data: RegisterRequest) => {
     console.log(formData, 'Got', data);
-    API.post('/auth/register', data, {
+    API.post<RegisterResponse>('/auth/register', data, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -78,7 +75,9 @@ function ServiceProviderSignUp() {
         if (res.status === 200) {
           if (res.data.success === true) {
             // ! Redirect to a page that says, verify your email
-            navigate('/emailNotVerified', { replace: true });
+            navigate('/emailNotVerified?email=' + data.email, {
+              replace: true,
+            });
           } else {
             // ! Can't actually handle validation errors from backend
             // ! because of the long process
@@ -94,13 +93,14 @@ function ServiceProviderSignUp() {
       .catch((err) => console.log(JSON.stringify(err)));
   };
 
-  let initialPages = [
+  const initialPages = [
     <SignUpPage1 // Email
       formData={formData}
-      key={1}
-      updateFormData={updateFormData}
       handleDropdownChange={handleDropdownChange}
+      key={1}
       nextPage={nextPage}
+      previousPage={previousPage}
+      updateFormData={updateFormData}
     />,
     <SignUpPage2 // Select Service Provider Type
       formData={formData}
@@ -114,15 +114,15 @@ function ServiceProviderSignUp() {
     />,
     <ServiceProviderPage7 // Profile Image
       formData={formData}
+      handleSubmit={HandleSubmit}
       key={3}
       nextPage={nextPage}
       pageImage={pageImage}
       previousPage={previousPage}
       updateFormData={updateFormData}
-      handleSubmit={HandleSubmit}
     />,
   ];
-  let pages = [...initialPages]; // Copy the initial pages
+  const pages = [...initialPages]; // Copy the initial pages
 
   const professionalsPages = [
     <ServiceProviderPage4 // Where are you based? Who???
@@ -156,11 +156,11 @@ function ServiceProviderSignUp() {
       2,
       0,
       <ArchitectPage
-        pageImage={pageImage}
         formData={formData}
-        updateFormData={updateFormData}
         nextPage={nextPage}
+        pageImage={pageImage}
         previousPage={previousPage}
+        updateFormData={updateFormData}
       />,
       ...professionalsPages,
     );
@@ -169,11 +169,11 @@ function ServiceProviderSignUp() {
       2,
       0,
       <ArchitectPage
-        pageImage={pageImage}
         formData={formData}
-        updateFormData={updateFormData}
         nextPage={nextPage}
+        pageImage={pageImage}
         previousPage={previousPage}
+        updateFormData={updateFormData}
       />,
       ...professionalsPages,
     );
@@ -194,11 +194,11 @@ function ServiceProviderSignUp() {
       2,
       0,
       <HomebuilderPage
-        pageImage={pageImage}
         formData={formData}
-        updateFormData={updateFormData}
         nextPage={nextPage}
+        pageImage={pageImage}
         previousPage={previousPage}
+        updateFormData={updateFormData}
       />,
       ...professionalsPages,
     );
@@ -207,11 +207,11 @@ function ServiceProviderSignUp() {
       2,
       0,
       <HomebuilderPage
-        pageImage={pageImage}
         formData={formData}
-        updateFormData={updateFormData}
         nextPage={nextPage}
+        pageImage={pageImage}
         previousPage={previousPage}
+        updateFormData={updateFormData}
       />,
       ...professionalsPages,
     );
@@ -220,11 +220,11 @@ function ServiceProviderSignUp() {
       2,
       0,
       <HomebuilderPage
-        pageImage={pageImage}
         formData={formData}
-        updateFormData={updateFormData}
         nextPage={nextPage}
+        pageImage={pageImage}
         previousPage={previousPage}
+        updateFormData={updateFormData}
       />,
       ...professionalsPages,
     );
@@ -233,11 +233,11 @@ function ServiceProviderSignUp() {
       2,
       0,
       <ArchitectPage
-        pageImage={pageImage}
         formData={formData}
-        updateFormData={updateFormData}
         nextPage={nextPage}
+        pageImage={pageImage}
         previousPage={previousPage}
+        updateFormData={updateFormData}
       />,
       ...professionalsPages,
     );
@@ -270,3 +270,13 @@ function ServiceProviderSignUp() {
 }
 
 export default ServiceProviderSignUp;
+
+export interface SignUpPageProps {
+  formData: Partial<RegisterRequest>;
+  handleDropdownChange: (value: Role) => void;
+  handlePageImage?: (value: 'one' | 'three' | 'two') => void;
+  nextPage: () => void;
+  pageImage?: string;
+  previousPage: () => void;
+  updateFormData: (data: Partial<RegisterRequest>) => void;
+}

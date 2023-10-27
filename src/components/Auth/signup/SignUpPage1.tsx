@@ -1,4 +1,4 @@
-// TODO: Add Service Provider Sign In Page with 2 paths (service provider and retail store)
+import type { FormikProps } from 'formik';
 
 import {
   Box,
@@ -9,9 +9,13 @@ import {
   Typography,
 } from '@mui/material';
 import { Form, Formik } from 'formik';
-import { Link, useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import * as yup from 'yup';
+
+import type { SignUpPageProps } from '../../../pages/ServiceProviderSignUp';
+
+import GetFormikProps from '../../../utils/GetFormikProps';
 
 const validationSchema = yup.object({
   confirmPassword: yup
@@ -28,7 +32,11 @@ const validationSchema = yup.object({
     .required('Password is required'),
 });
 
-function SignUpPage1({ formData, nextPage, updateFormData }) {
+const SignUpPage1 = ({
+  formData,
+  nextPage,
+  updateFormData,
+}: SignUpPageProps) => {
   const formRef = useRef(null);
   // TODO: Change Layout
   return (
@@ -152,30 +160,12 @@ function SignUpPage1({ formData, nextPage, updateFormData }) {
                         innerRef={formRef}
                         validationSchema={validationSchema}
                       >
-                        {({
-                          errors,
-                          handleBlur,
-                          handleChange,
-                          handleSubmit,
-                          isSubmitting,
-                          touched,
-                          values,
-                        }) => {
-                          const spread = (field, helper = true) => {
-                            return {
-                              disabled: isSubmitting,
-                              error: touched[field] && !!errors[field],
-                              name: field,
-                              onBlur: handleBlur,
-                              onChange: handleChange,
-                              value: values[field],
-                              ...(helper && {
-                                helperText: touched[field] && errors[field],
-                              }),
-                            };
-                          };
+                        {(
+                          FormikProps: FormikProps<Partial<RegisterRequest>>,
+                        ) => {
+                          const spread = GetFormikProps(FormikProps);
                           return (
-                            <Form onSubmit={handleSubmit}>
+                            <Form onSubmit={FormikProps.handleSubmit}>
                               <TextField
                                 InputProps={{ sx: { borderRadius: 2 } }}
                                 label="Email"
@@ -255,6 +245,6 @@ function SignUpPage1({ formData, nextPage, updateFormData }) {
       </Container>
     </>
   );
-}
+};
 
 export default SignUpPage1;

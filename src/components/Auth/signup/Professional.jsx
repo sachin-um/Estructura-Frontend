@@ -16,7 +16,7 @@ import * as yup from 'yup';
 import AddressInputs, {
   addressInitialValues,
   addressValidators,
-} from '../Auth/AddressInputs';
+} from '../AddressInputs';
 
 const professionalCategories = [
   ['ARCHITECT', 'Architect'],

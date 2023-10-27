@@ -22,6 +22,7 @@ import AddressInputs, {
 } from '../components/Auth/AddressInputs';
 import TopAppBar from '../components/TopAppBar';
 import API, { clearTokens } from '../lib/API';
+import GetFormikProps from '../utils/GetFormikProps';
 import { violationsToErrors } from '../utils/Violations';
 
 const ValidationSchema = yup.object().shape({
@@ -54,7 +55,6 @@ function HomeOwnerSignUp() {
     password: '',
     role: 'CUSTOMER',
   };
-  type localValues = typeof initialValues;
   const FormRef = useRef<FormikProps<typeof initialValues>>(null);
   const [open, setOpen] = useState(false);
 
@@ -226,31 +226,8 @@ function HomeOwnerSignUp() {
                   innerRef={FormRef}
                   validationSchema={ValidationSchema}
                 >
-                  {({
-                    errors,
-                    handleBlur,
-                    handleChange,
-                    handleSubmit,
-                    isSubmitting,
-                    touched,
-                    values,
-                  }) => {
-                    const spread = (
-                      field: keyof localValues,
-                      helper = true,
-                    ) => {
-                      return {
-                        disabled: isSubmitting,
-                        error: touched[field] && !!errors[field],
-                        name: field,
-                        onBlur: handleBlur,
-                        onChange: handleChange,
-                        value: values[field],
-                        ...(helper && {
-                          helperText: touched[field] && errors[field],
-                        }),
-                      };
-                    };
+                  {(FormikProps: FormikProps<typeof initialValues>) => {
+                    const spread = GetFormikProps(FormikProps);
                     return (
                       <form
                         style={{
@@ -261,7 +238,7 @@ function HomeOwnerSignUp() {
                           maxWidth: '400px',
                           width: '100%',
                         }}
-                        onSubmit={handleSubmit}
+                        onSubmit={FormikProps.handleSubmit}
                       >
                         <Typography
                           sx={{ color: '#435834', textAlign: 'left' }}
@@ -314,7 +291,7 @@ function HomeOwnerSignUp() {
                           {...spread('contactNo')}
                         />
 
-                        <AddressInputs spread={spread} />
+                        <AddressInputs homeowner={true} spread={spread} />
                         <TextField
                           color="secondary"
                           fullWidth

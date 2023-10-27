@@ -37,16 +37,25 @@ const districts = [
   'Vavuniya',
 ];
 
-function AddressInputs(props) {
-  const { spread } = props;
+function AddressInputs(props: {
+  homeowner: boolean;
+  spread: (
+    field: string,
+    helper?: boolean,
+    onChange?: boolean,
+    value?: boolean,
+    error?: boolean,
+    setDisabledToIsSubmitting?: boolean,
+  ) => Record<string, unknown>;
+}) {
+  const { homeowner, spread } = props;
   return (
     <>
       <Typography
         fontSize={'0.9rem'}
         sx={{ color: '#435834', textAlign: 'left' }}
       >
-        {' '}
-        Business Address{' '}
+        {homeowner ? 'Your' : 'Business'} Address
       </Typography>
       <TextField
         color="secondary"
