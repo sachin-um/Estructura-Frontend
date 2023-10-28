@@ -28,6 +28,8 @@ function ConstructionResidence({
   nextPage,
   previousPage,
   updateFormData,
+  currentQuestion,
+  totalQuestions,
 }) {
   const [checkboxState, setCheckboxState] = useState({
     AllInOne: false,
@@ -56,6 +58,7 @@ function ConstructionResidence({
     event.preventDefault();
     if (selectedValues.length !== 0) {
       handlePageChange('Location');
+      updateFormData({ thirdChoice: userSelection });
       nextPage();
     } else {
       setHelperText('Please select an option.');
@@ -116,6 +119,13 @@ function ConstructionResidence({
                 marginTop="5px"
               >
                 What type of a residence building do you require?
+              </Typography>
+              <Typography
+                fontSize="0.8rem"
+                fontWeight="500px"
+                fontFamily="poppins"
+              >
+                Question {currentQuestion} out of {totalQuestions}
               </Typography>
             </Box>
             <Divider />

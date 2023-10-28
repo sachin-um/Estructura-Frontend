@@ -28,6 +28,8 @@ function DesignPlans({
   nextPage,
   previousPage,
   updateFormData,
+  currentQuestion,
+  totalQuestions,
 }) {
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState('');
@@ -37,6 +39,7 @@ function DesignPlans({
     event.preventDefault();
     if (userSelection !== '') {
       handlePageChange('Location');
+      updateFormData({ secondChoice: userSelection });
       nextPage();
     } else {
       setHelperText('Please select an option.');
@@ -100,6 +103,13 @@ function DesignPlans({
                 marginTop="5px"
               >
                 What type of a design do you require?
+              </Typography>
+              <Typography
+                fontSize="0.8rem"
+                fontWeight="500px"
+                fontFamily="poppins"
+              >
+                Question {currentQuestion} out of {totalQuestions}
               </Typography>
             </Box>
             <Divider />

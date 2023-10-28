@@ -1,7 +1,7 @@
 import React from 'react';
 import TopBar from '../components/TopAppBar';
 import Footer from '../components/Footer';
-import '../assets/font.css';
+
 import {
   Typography,
   Box,
@@ -11,8 +11,6 @@ import {
   CardContent,
   Button,
 } from '@mui/material';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import PhoneIcon from '@mui/icons-material/Phone';
 
 const ViewResponses = () => {
   const cards = [

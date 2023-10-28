@@ -28,6 +28,8 @@ function Landscaping({
   nextPage,
   previousPage,
   updateFormData,
+  currentQuestion,
+  totalQuestions,
 }) {
   const [userSelection, setUserSelection] = useState('');
   const [checkboxState, setCheckboxState] = useState({
@@ -55,6 +57,7 @@ function Landscaping({
     event.preventDefault();
     if (selectedValues.length !== 0) {
       handlePageChange('Location');
+      updateFormData({ secondChoice: userSelection });
       nextPage();
     } else {
       setHelperText('Please select an option.');
@@ -115,6 +118,13 @@ function Landscaping({
                 marginTop="5px"
               >
                 What type of Landscaping work do you require?
+              </Typography>
+              <Typography
+                fontSize="0.8rem"
+                fontWeight="500px"
+                fontFamily="poppins"
+              >
+                Question {currentQuestion} out of {totalQuestions}
               </Typography>
             </Box>
             <Divider />

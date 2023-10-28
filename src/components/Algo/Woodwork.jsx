@@ -28,6 +28,8 @@ function Woodwork({
   nextPage,
   previousPage,
   updateFormData,
+  currentQuestion,
+  totalQuestions,
 }) {
   const [checkboxState, setCheckboxState] = useState({
     Carpentry: false,
@@ -55,6 +57,7 @@ function Woodwork({
     event.preventDefault();
     if (selectedValues.length !== 0) {
       handlePageChange('Location');
+      updateFormData({ secondChoice: userSelection });
       nextPage();
     } else {
       setHelperText('Please select an option.');
@@ -115,6 +118,13 @@ function Woodwork({
                 marginTop="5px"
               >
                 What type of a woodwork do you require?
+              </Typography>
+              <Typography
+                fontSize="0.8rem"
+                fontWeight="500px"
+                fontFamily="poppins"
+              >
+                Question {currentQuestion} out of {totalQuestions}
               </Typography>
             </Box>
             <Divider />
