@@ -16,6 +16,7 @@ function AddAdmin() {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [assignedArea, setassignedArea] = useState('');
   const [adminList, setAdminList] = useState([]);
   const [adminStatusList, setAdminStatusList] = useState([]);
 
@@ -24,19 +25,22 @@ function AddAdmin() {
       firstName.trim() !== '' &&
       lastName.trim() !== '' &&
       email.trim() !== '' &&
-      password.trim() !== ''
+      password.trim() !== '' &&
+      assignedArea.trim() !== ''
     ) {
       const newAdmin = {
         firstName,
         lastName,
         email,
         password,
+        assignedArea,
       };
       setAdminList([...adminList, newAdmin]);
       setFirstName('');
       setLastName('');
       setEmail('');
       setPassword('');
+      setassignedArea('');
     }
 
     // Initialize status for each admin as "enabled"
@@ -119,7 +123,13 @@ function AddAdmin() {
             onChange={(e) => setPassword(e.target.value)}
             margin="normal"
           />
-
+          <TextField
+            label="Assigned Area"
+            fullWidth
+            value={assignedArea}
+            onChange={(e) => setassignedArea(e.target.value)}
+            margin="normal"
+          />
           <Button variant="contained" color="primary" onClick={handleAddAdmin}>
             Add Admin
           </Button>
@@ -195,6 +205,15 @@ function AddAdmin() {
                           textAlign: 'center',
                         }}
                       >
+                        Assigned Area
+                      </th>
+                      <th
+                        style={{
+                          border: '1px solid #ddd',
+                          padding: '8px',
+                          textAlign: 'center',
+                        }}
+                      >
                         Actions
                       </th>
                     </tr>
@@ -237,6 +256,15 @@ function AddAdmin() {
                           }}
                         >
                           {admin.password}
+                        </td>
+                        <td
+                          style={{
+                            border: '1px solid #ddd',
+                            padding: '8px',
+                            textAlign: 'left',
+                          }}
+                        >
+                          {admin.assignedArea}
                         </td>
                         <td
                           style={{
