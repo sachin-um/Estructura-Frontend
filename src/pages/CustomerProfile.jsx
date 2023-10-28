@@ -39,7 +39,7 @@ function CustomerProfile() {
 
   return (
     <>
-      <TopBar title="Customer Profile" />
+      <TopAppBar title="Customer Profile" />
 
       <Box height="200px" position="relative" width="100%">
         <img

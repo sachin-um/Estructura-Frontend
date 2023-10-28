@@ -280,6 +280,8 @@ const HomePage = (props) => {
     window.location.href = '/findfurniture';
   };
 
+  const navigate = useNavigate();
+
   return (
     <>
       <Box>
@@ -442,6 +444,9 @@ const HomePage = (props) => {
                   onMouseLeave={() => setIsCreateIdeaButtonHovered(false)}
                   size="large"
                   variant={isCreateIdeaButtonHovered ? 'contained' : 'outlined'}
+                  onClick={() => {
+                    navigate('/custom-requests/add');
+                  }}
                 >
                   Create your own idea
                 </Button>

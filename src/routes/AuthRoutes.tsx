@@ -1,5 +1,6 @@
 import type { RouteObject } from 'react-router-dom';
 
+import CustomerProfile from '../pages/CustomerProfile';
 import ForgotPassword from '../pages/ForgotPassword';
 import HomeOwnerSignUp from '../pages/HomeOwnerSignUp';
 import ServiceProviderSignUp from '../pages/ServiceProviderSignUp';
@@ -36,6 +37,10 @@ const AuthRoutes: RouteObject[] = [
     element: <VerifySuccess />,
   },
   { path: '/unauthorized', element: <UnauthorizedAccess /> },
+  {
+    path: '/Customer/profile',
+    element: <CustomerProfile />,
+  },
 ];
 
 export default AuthRoutes;

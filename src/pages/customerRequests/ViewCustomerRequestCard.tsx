@@ -7,6 +7,7 @@ import Footer from '../../components/Footer';
 import NoResultsFound from '../../components/NoResults';
 import TopBar from '../../components/TopAppBar';
 import { useCustomerRequest } from '../../hooks/customerRequest/useCustomerRequest';
+import useCurrentUser from '../../hooks/users/useCurrentUser';
 import useFetchUser from '../../hooks/users/useFetchUser';
 import Loading from '../loading';
 
@@ -20,8 +21,6 @@ const ViewCustomerRequestCard = () => {
   useEffect(() => {
     fetchCustomerRequest(requestId);
   }, [fetchCustomerRequest, requestId]);
-
-  console.log(customerRequest);
 
   const { fetchUserById, user } = useFetchUser();
 
@@ -41,6 +40,8 @@ const ViewCustomerRequestCard = () => {
   const goToResponses = (id: number) => () => {
     navigate(`/custom-requests/req/${id}/responses`);
   };
+
+  const currentUser = useCurrentUser();
 
   return customerRequest !== null ? (
     <>
@@ -257,14 +258,17 @@ const ViewCustomerRequestCard = () => {
               />
             </Box>
             <Box sx={{ justifyContent: 'space-between', marginTop: '50px' }}>
-              <Button
-                color="primary"
-                onClick={respond(customerRequest.id)}
-                style={{ marginRight: '50px', width: '35%' }}
-                variant="contained"
-              >
-                Accept Request
-              </Button>
+              {currentUser?.role !== 'CUSTOMER' &&
+                currentUser?.id !== customerRequest.createdBy && (
+                  <Button
+                    color="primary"
+                    onClick={respond(customerRequest.id)}
+                    style={{ marginRight: '50px', width: '35%' }}
+                    variant="contained"
+                  >
+                    Accept Request
+                  </Button>
+                )}
               <Button
                 color="primary"
                 onClick={goToResponses(customerRequest.id)}
