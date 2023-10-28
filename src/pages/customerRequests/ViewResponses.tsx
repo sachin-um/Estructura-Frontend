@@ -9,12 +9,14 @@ import {
   Grid,
   Typography,
 } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import '../../assets/font.css';
 import Footer from '../../components/Footer';
 import TopBar from '../../components/TopAppBar';
+import { useFetchCustomerRequestResponses } from '../../hooks/customerRequest/useFetchCustomerRequestResponses';
+import useFetchAllUsers from '../../hooks/users/useFetchAllUsers';
 
 const ViewResponses = () => {
   const navigate = useNavigate();
@@ -25,50 +27,21 @@ const ViewResponses = () => {
     navigate(`/custom-requests/req/${reqId}/responses/${id}`);
   };
 
-  const cards = [
-    {
-      amount: 'Min: LKR. 50 000 - LKR. 150 000',
-      id: 1,
-      requesterName: 'UserName',
-      requesterPhone: '+94 77 3829138',
-      title: 'Response Title 1',
-    },
-    {
-      amount: 'Min: LKR. 150 000 - LKR. 250 000',
-      id: 1,
-      requesterName: 'UserName',
-      requesterPhone: '+94 76 3829138',
-      title: 'Response Title 2',
-    },
-    {
-      amount: 'Min: LKR. 150 000 - LKR. 250 000',
-      id: 1,
-      requesterName: 'UserName',
-      requesterPhone: '+94 76 3829138',
-      title: 'Response Title 3',
-    },
-    {
-      amount: 'Min: LKR. 150 000 - LKR. 250 000',
-      id: 1,
-      requesterName: 'UserName',
-      requesterPhone: '+94 76 3829138',
-      title: 'Response Title 4',
-    },
-    {
-      amount: 'Min: LKR. 150 000 - LKR. 250 000',
-      id: 1,
-      requesterName: 'UserName',
-      requesterPhone: '+94 76 3829138',
-      title: 'Response Title 5',
-    },
-    {
-      amount: 'Min: LKR. 150 000 - LKR. 250 000',
-      id: 1,
-      requesterName: 'UserName',
-      requesterPhone: '+94 76 3829138',
-      title: 'Response Title 6',
-    },
-  ];
+  const { customerRequestResponses, fetchCustomerRequestResponses } =
+    useFetchCustomerRequestResponses();
+
+  useEffect(() => {
+    fetchCustomerRequestResponses({ requestId: reqId });
+  }, [fetchCustomerRequestResponses, reqId]);
+
+  console.log(customerRequestResponses);
+
+  const { fetchAllUsers, users } = useFetchAllUsers();
+
+  useEffect(() => {
+    fetchAllUsers();
+  }, [fetchAllUsers]);
+
   return (
     <>
       <TopBar />
@@ -93,38 +66,44 @@ const ViewResponses = () => {
       </Box>
       <Container>
         <Grid container spacing={10}>
-          {cards.map((card, index) => (
-            <Grid item key={index} md={6} xs={12}>
-              <Card style={cardStyle}>
-                <CardContent style={cardContentStyle}>
-                  <Typography style={titleStyle} variant="h6">
-                    {card.title}
-                  </Typography>
-                  <Typography style={amountStyle}>{card.amount}</Typography>
-                  <Box style={contactStyle}>
-                    <AccountCircleIcon />
-                    <Typography style={contactTextStyle}>
-                      {card.requesterName}
+          {customerRequestResponses.map((card, index) => {
+            const creator = users.find((u) => u.id === card.createBy);
+            return (
+              <Grid item key={index} md={6} xs={12}>
+                <Card style={cardStyle}>
+                  <CardContent style={cardContentStyle}>
+                    <Typography style={titleStyle} variant="h6">
+                      {card.shortDesc}
                     </Typography>
-                    <PhoneIcon style={phoneIconStyle} />
-                    <Typography style={contactTextStyle}>
-                      {card.requesterPhone}
+                    <Typography style={amountStyle}>
+                      {card.proposedBudget}
                     </Typography>
-                  </Box>
-                  <Box style={buttonContainerStyle}>
-                    <Button
-                      color="primary"
-                      onClick={gotoResponse(card.id)}
-                      style={viewButtonStyle}
-                      variant="contained"
-                    >
-                      View response
-                    </Button>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
+                    <Box style={contactStyle}>
+                      <AccountCircleIcon />
+                      <Typography style={contactTextStyle}>
+                        {creator?.firstName} {creator?.lastName} [
+                        {creator?.role}]
+                      </Typography>
+                      <PhoneIcon style={phoneIconStyle} />
+                      <Typography style={contactTextStyle}>
+                        {creator?.contactNo ?? creator?.businessContactNo}
+                      </Typography>
+                    </Box>
+                    <Box style={buttonContainerStyle}>
+                      <Button
+                        color="primary"
+                        onClick={gotoResponse(card.id)}
+                        style={viewButtonStyle}
+                        variant="contained"
+                      >
+                        View response
+                      </Button>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
+            );
+          })}
         </Grid>
       </Container>
       <Box style={footerContainerStyle}>

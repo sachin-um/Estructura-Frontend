@@ -12,13 +12,17 @@ import '../../assets/font.css';
 import Footer from '../../components/Footer';
 import TopBar from '../../components/TopAppBar';
 import { useCustomerRequest } from '../../hooks/customerRequest/useCustomerRequest';
-import useFetchUser from '../../hooks/users/useFetchUser';
+import { useCustomerRequestResponse } from '../../hooks/customerRequest/useCustomerRequestResponse';
+import useCurrentUser from '../../hooks/users/useCurrentUser';
+import FileArrayToFileList from '../../utils/FileArrayToFileList';
+import HandleTextFieldChangeOrBlur from '../../utils/HandleTextFieldChangeOrBlur';
+import Loading from '../loading';
 
 const AddResponse = () => {
   const requestId = parseInt(useParams<{ id: string }>().id ?? '0');
 
   const {
-    getCustomerRequest: { customerRequest, fetchCustomerRequest },
+    getCustomerRequest: { customerRequest, fetchCustomerRequest, isLoading },
   } = useCustomerRequest();
 
   useEffect(() => {
@@ -27,17 +31,12 @@ const AddResponse = () => {
 
   console.log(customerRequest);
 
-  const { fetchUserById, user } = useFetchUser();
-
-  useEffect(() => {
-    if (customerRequest) fetchUserById(customerRequest.createdBy);
-  }, [customerRequest, fetchUserById]);
-
-  console.log(user, customerRequest);
-
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadedImages, setUploadedImages] = useState<File[]>([]);
   const [uploadedDocuments, setUploadedDocuments] = useState<File[]>([]);
+  const [shortDesc, setShortDesc] = useState('');
+  const [response, setResponse] = useState('');
+  const [proposedBudget, setProposedBudget] = useState(0);
 
   const handleUploadClick = () => {
     if (fileInputRef.current) fileInputRef.current.click();
@@ -56,11 +55,15 @@ const AddResponse = () => {
         (file) => !file.type.includes('image'),
       );
 
-      setUploadedImages((prevImages) => [...prevImages, ...imagesArray]);
-      setUploadedDocuments((prevDocuments) => [
-        ...prevDocuments,
-        ...documentsArray,
-      ]);
+      if (documentsArray.length + imagesArray.length > 3) {
+        alert('Only 3 image and doument files allowed');
+      } else {
+        setUploadedImages((prevImages) => [...prevImages, ...imagesArray]);
+        setUploadedDocuments((prevDocuments) => [
+          ...prevDocuments,
+          ...documentsArray,
+        ]);
+      }
     }
   };
 
@@ -74,7 +77,51 @@ const AddResponse = () => {
     );
   };
 
-  return (
+  const { addCustomerRequestResponse } = useCustomerRequestResponse();
+
+  const currentUser = useCurrentUser();
+
+  const handleSendResponse = () => {
+    if (
+      customerRequest &&
+      currentUser &&
+      currentUser.id !== customerRequest.createdBy &&
+      currentUser.role !== 'CUSTOMER'
+    ) {
+      console.log({
+        documents: FileArrayToFileList([
+          ...uploadedDocuments,
+          ...uploadedImages,
+        ]),
+        proposedBudget,
+        requestId: customerRequest.id,
+        response,
+        serviceProviderId: currentUser.id,
+        shortDesc,
+      });
+      addCustomerRequestResponse({
+        documents: FileArrayToFileList([
+          ...uploadedDocuments,
+          ...uploadedImages,
+        ]),
+        proposedBudget,
+        requestId: customerRequest.id,
+        response,
+        serviceProviderId: currentUser.id,
+        shortDesc,
+      }).then((added) => {
+        if (added.success) {
+          alert('Added ' + JSON.stringify(added.item));
+        }
+      });
+    } else {
+      alert('ERRROR');
+    }
+  };
+
+  return isLoading ? (
+    <Loading />
+  ) : (
     <>
       <TopBar />
       <Grid container>
@@ -112,6 +159,14 @@ const AddResponse = () => {
             From Vision to Creation
           </Typography>
           <Typography
+            color="primary"
+            fontFamily="Poppins"
+            gutterBottom
+            variant="h5"
+          >
+            Responding to request: {customerRequest?.shortDesc}
+          </Typography>
+          <Typography
             fontFamily="Poppins"
             gutterBottom
             marginTop="20px"
@@ -123,6 +178,8 @@ const AddResponse = () => {
             fullWidth
             id="response-title"
             label="Response Title"
+            onBlur={HandleTextFieldChangeOrBlur(setShortDesc)}
+            onChange={HandleTextFieldChangeOrBlur(setShortDesc)}
             variant="outlined"
           />
 
@@ -139,6 +196,8 @@ const AddResponse = () => {
             id="your-response"
             label="Describe your response"
             multiline
+            onBlur={HandleTextFieldChangeOrBlur(setResponse)}
+            onChange={HandleTextFieldChangeOrBlur(setResponse)}
             rows={6}
             variant="outlined"
           />
@@ -149,24 +208,17 @@ const AddResponse = () => {
             marginTop="20px"
             variant="subtitle1"
           >
-            Enter your estimated budget range
+            Enter your estimated budget
           </Typography>
           <Grid alignItems="center" container spacing={10}>
             <Grid item>
-              <Typography variant="subtitle2">Min</Typography>
               <TextField
-                id="min-price"
-                label="Min Price"
+                id="price"
+                label="Budget"
+                onBlur={HandleTextFieldChangeOrBlur(setProposedBudget)}
+                onChange={HandleTextFieldChangeOrBlur(setProposedBudget)}
                 sx={{ width: '150px' }}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid item>
-              <Typography variant="subtitle2">Max</Typography>
-              <TextField
-                id="max-price"
-                label="Max Price"
-                sx={{ width: '150px' }}
+                type="number"
                 variant="outlined"
               />
             </Grid>
@@ -308,6 +360,7 @@ const AddResponse = () => {
 
           <Button
             color="primary"
+            onClick={handleSendResponse}
             sx={{ marginBottom: '30px', marginTop: '30px', ml: 60 }}
             variant="contained"
           >

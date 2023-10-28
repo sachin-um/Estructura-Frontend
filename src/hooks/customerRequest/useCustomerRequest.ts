@@ -15,13 +15,17 @@ export const useCustomerRequest = () => {
   const fetchCustomerRequest = useCallback(
     async (customerRequestId: number) => {
       setIsLoading(true);
-      const response = await API.get<CustomerRequest>(
-        `/customer-requests/customer-request/${customerRequestId}`,
-      );
-      if (response.status === 200) {
-        setCustomerRequest(response.data);
-      } else {
-        setCustomerRequest(null);
+      try {
+        const response = await API.get<CustomerRequest>(
+          `/customer-requests/customer-request/${customerRequestId}`,
+        );
+        if (response) {
+          setCustomerRequest(response.data);
+        } else {
+          setCustomerRequest(null);
+        }
+      } catch (e) {
+        console.log(e);
       }
       setIsLoading(false);
     },

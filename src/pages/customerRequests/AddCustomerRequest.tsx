@@ -18,6 +18,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 
 import '../../assets/font.css';
+import { CustomerAuthenticated } from '../../components/Auth/Authenticated';
 import Footer from '../../components/Footer';
 import TopAppBar from '../../components/TopAppBar';
 import { useCustomerRequest } from '../../hooks/customerRequest/useCustomerRequest';
@@ -205,7 +206,7 @@ const AddCustomerRequest = () => {
   ];
 
   return (
-    <>
+    <CustomerAuthenticated>
       <TopAppBar />
       <Container
         sx={{
@@ -551,7 +552,7 @@ const AddCustomerRequest = () => {
         </Button>
       </Container>
       <Footer />
-    </>
+    </CustomerAuthenticated>
   );
 };
 
