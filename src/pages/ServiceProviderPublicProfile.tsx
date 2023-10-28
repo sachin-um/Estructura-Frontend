@@ -93,7 +93,7 @@ function ServiceProviderPublicProfile() {
                     width: '100px',
                   }}
                   alt="user"
-                  src={user?.ProfileImageName ?? profilePicture}
+                  src={user?.profileImageName ?? profilePicture}
                 />
               </Box>
             </Box>

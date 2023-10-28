@@ -1,11 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import CustomRequestReducer from './CustomRequests/CustomRequestReducer';
 import UserAuthenticationReducer from './UserAuthenticationReducer';
 
 export const store = configureStore({
   reducer: {
-    customRequest: CustomRequestReducer,
     user: UserAuthenticationReducer,
   },
 });

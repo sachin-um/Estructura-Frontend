@@ -4,17 +4,20 @@ interface CustomerRequest {
   document: string;
   id: number;
   images: string[];
-  shortDescription: string;
+  shortDesc: string;
   status: string;
-  targetCategories: Role[];
-  targetRetailCategories: RetailItemType[];
+  targetCategories: { id: number; role: Role }[];
+  targetRetailCategories: { id: number; retailItemType: RetailItemType }[];
 }
 
 interface CustomerRequestAddOrUpdateRequest {
+  customerId: number;
   description: string;
-  document: FileList;
+  shortDesc: string;
+  minPrice: number;
+  maxPrice: number;
+  documents: FileList;
   images: FileList;
-  shortDescription: string;
   targetCategories: Role[];
   targetRetailCategories: RetailItemType[];
 }

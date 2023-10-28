@@ -86,8 +86,8 @@ function AnyServiceProviderProfile() {
           >
             <img
               src={
-                currentUser.ProfileImageName
-                  ? `http://localhost:8080/files/profile-images/${currentUser.id}/${currentUser.ProfileImageName}`
+                currentUser.profileImageName
+                  ? `http://localhost:8080/files/profile-images/${currentUser.id}/${currentUser.profileImageName}`
                   : profilePicture || '/User/user.png'
               }
               style={{

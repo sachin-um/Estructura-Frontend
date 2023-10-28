@@ -33,7 +33,7 @@ export const useFetchCustomerRequests = () => {
             ? `/all-by-customer/${customerId}`
             : userRole
             ? `/all/${userRole}`
-            : ''),
+            : '/all'),
       );
       if (response.status === 200) {
         setCustomerRequests(response.data);

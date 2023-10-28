@@ -1,22 +1,33 @@
 import { Box, Button, Divider, Grid, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import '../../assets/font.css';
 import Footer from '../../components/Footer';
+import NoResultsFound from '../../components/NoResults';
 import TopBar from '../../components/TopAppBar';
+import { useCustomerRequest } from '../../hooks/customerRequest/useCustomerRequest';
+import useFetchUser from '../../hooks/users/useFetchUser';
+import Loading from '../loading';
 
 const ViewCustomerRequestCard = () => {
-  const request: CustomerRequest = {
-    createdBy: 1,
-    description: 'bruh',
-    document: '',
-    id: 1,
-    images: [],
-    shortDescription: 'Le title',
-    status: '',
-    targetCategories: ['ARCHITECT', 'INTERIORDESIGNER'],
-    targetRetailCategories: ['BATHWARE', 'LIGHTING'],
-  };
+  const requestId = parseInt(useParams<{ id: string }>().id ?? '0');
+
+  const {
+    getCustomerRequest: { customerRequest, fetchCustomerRequest, isLoading },
+  } = useCustomerRequest();
+
+  useEffect(() => {
+    fetchCustomerRequest(requestId);
+  }, [fetchCustomerRequest, requestId]);
+
+  console.log(customerRequest);
+
+  const { fetchUserById, user } = useFetchUser();
+
+  useEffect(() => {
+    if (customerRequest) fetchUserById(customerRequest.createdBy);
+  }, [customerRequest, fetchUserById]);
 
   const backgroundImageUrl =
     'https://images.pexels.com/photos/6434620/pexels-photo-6434620.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
@@ -24,14 +35,14 @@ const ViewCustomerRequestCard = () => {
   const navigate = useNavigate();
 
   const respond = (id: number) => () => {
-    navigate(`/custom-requsts/req/${id}/respond`);
+    navigate(`/custom-requests/req/${id}/respond`);
   };
 
   const goToResponses = (id: number) => () => {
     navigate(`/custom-requests/req/${id}/responses`);
   };
 
-  return (
+  return customerRequest !== null ? (
     <>
       <TopBar />
       <Box display="flex">
@@ -68,9 +79,11 @@ const ViewCustomerRequestCard = () => {
             paddingTop="50px"
           >
             <Typography fontFamily="Poppins" gutterBottom variant="h6">
-              Request for Designing a Modern, Sustainable Dream Home Integrating
-              Nature and Innovation
+              {customerRequest.shortDesc}
             </Typography>
+            {/* The creator Details */}
+            <pre>{JSON.stringify(user, null, 2)}</pre>
+            <pre>{JSON.stringify(customerRequest, null, 2)}</pre>
             <Divider sx={{ marginBottom: '20px' }} />
             <Box
               sx={{ alignItems: 'center', display: 'flex', marginTop: '20px' }}
@@ -246,7 +259,7 @@ const ViewCustomerRequestCard = () => {
             <Box sx={{ justifyContent: 'space-between', marginTop: '50px' }}>
               <Button
                 color="primary"
-                onClick={respond(request.id)}
+                onClick={respond(customerRequest.id)}
                 style={{ marginRight: '50px', width: '35%' }}
                 variant="contained"
               >
@@ -254,7 +267,7 @@ const ViewCustomerRequestCard = () => {
               </Button>
               <Button
                 color="primary"
-                onClick={goToResponses(request.id)}
+                onClick={goToResponses(customerRequest.id)}
                 style={{ width: '35%' }}
                 variant="outlined"
               >
@@ -266,6 +279,10 @@ const ViewCustomerRequestCard = () => {
       </Box>
       <Footer />
     </>
+  ) : isLoading ? (
+    <Loading />
+  ) : (
+    <NoResultsFound />
   );
 };
 
