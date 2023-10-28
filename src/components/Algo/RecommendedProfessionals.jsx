@@ -27,7 +27,7 @@ const Banner = styled.div`
   font-weight: bold;
 `;
 
-const RecommendedProfessionals = () => {
+const RecommendedProfessionals = ({ recommendedProfessionals }) => {
   //   const category = useParams().category as Role;
 
   const [pageSize, _setPageSize] = useState(8); // Should add a selector
@@ -69,7 +69,11 @@ const RecommendedProfessionals = () => {
       city: 'Homagama',
     },
   ];
-  const PaginatedItems = Paginate(professionals, pageNumber, pageSize);
+  const PaginatedItems = Paginate(
+    recommendedProfessionals,
+    pageNumber,
+    pageSize,
+  );
 
   return (
     <Container>

@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import React from 'react';
 import Footer from '../../components/Footer';
@@ -38,6 +39,8 @@ const Banner = styled.div`
 
 const RecommendationsPage = () => {
   const [activeTab, setActiveTab] = React.useState('professionals');
+  const location = useLocation();
+  const data = location.state.data;
 
   const handleChange = (event, newValue) => {
     setActiveTab(newValue);
@@ -46,7 +49,7 @@ const RecommendationsPage = () => {
     let tab = <>Oops! Something went wrong.</>;
     switch (activeTab) {
       case 'professionals':
-        tab = <RecommendedProfessionals />;
+        tab = <RecommendedProfessionals data={data.professionals} />;
         break;
       case 'retailItems':
         tab = <RecommendedItems />;

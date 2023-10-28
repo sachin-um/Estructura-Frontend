@@ -15,6 +15,7 @@ import {
   Typography,
 } from '@mui/material';
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import ConstructionResidence from '../../components/Algo/ConstructionResidence';
 import ConstructionCommercial from '../../components/Algo/ConstructionCommercial';
 import ConstructionIndustrial from '../../components/Algo/ConstructionIndustrial';
@@ -53,7 +54,7 @@ function RecAlgo() {
   const [selectedOption, setSelectedOption] = useState(null);
   const HandleSubmit = (data) => {
     console.log(formData, 'Got', data);
-    API.post('/auth/register', data, {
+    API.post('/recommendation/recommend', data, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -63,17 +64,17 @@ function RecAlgo() {
         if (res.status === 200) {
           if (res.data.success === true) {
             // ! Redirect to a page that says, verify your email
-            navigate('/emailNotVerified', { replace: true });
+            // navigate('/RecommendationsPage', { replace: true });
+            const history = useHistory();
+            history.push('/RecommendationsPage', { data: res.data });
           } else {
-            // ! Can't actually handle validation errors from backend
-            // ! because of the long process
             alert(
               'Something went wrong!, please try again.' +
                 ' If the issue persists, please contact us.',
             );
           }
         } else {
-          alert('Invalid Credentials');
+          alert('Invalid Request');
         }
       })
       .catch((err) => console.log(JSON.stringify(err)));
