@@ -1,10 +1,22 @@
 interface CustomerRequest {
   createdBy: number;
   description: string;
-  document: string;
+  Document1Name: string;
+  Document2Name: string;
+  Document3Name: string;
+  Document1: string;
+  Document2: string;
+  Document3: string;
   id: number;
-  images: string[];
+  image1Name: string;
+  image2Name: string;
+  image3Name: string;
+  image1: string;
+  image2: string;
+  image3: string;
   shortDesc: string;
+  minPrice: number;
+  maxPrice: number;
   status: string;
   targetCategories: { id: number; role: Role }[];
   targetRetailCategories: { id: number; retailItemType: RetailItemType }[];
