@@ -81,11 +81,11 @@ const UserAuthenticationSlice = createSlice({
           state.isAuthenticated = action.payload.success;
           state.userState = {
             id: action.payload.id,
-            ProfileImage: action.payload.ProfileImage,
-            ProfileImageName: action.payload.ProfileImageName,
             email: action.payload.email,
             firstName: action.payload.firstName,
             lastName: action.payload.lastName,
+            profileImage: action.payload.profileImage,
+            profileImageName: action.payload.profileImageName,
             role: action.payload.role,
             serviceProviderType: action.payload.serviceProviderType,
           };

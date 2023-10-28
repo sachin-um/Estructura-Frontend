@@ -10,8 +10,8 @@ interface Qualification {
 }
 
 interface UserState {
-  ProfileImage: null | string;
-  ProfileImageName: null | string;
+  profileImage: null | string;
+  profileImageName: null | string;
   email: string;
   firstName: string;
   id: number;
@@ -49,8 +49,8 @@ interface ServiceArea {
 }
 
 interface User {
-  ProfileImage: string;
-  ProfileImageName: string;
+  profileImage: string;
+  profileImageName: string;
   accountNonExpired: boolean;
   accountNonLocked: boolean;
   addressLine1?: string;
