@@ -25,8 +25,6 @@ import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
-import type { UserState } from '../redux/UserAuthenticationReducer';
-
 import API from '../lib/API';
 import { clean, selectUser } from '../redux/UserAuthenticationReducer';
 
@@ -271,14 +269,13 @@ function TopAppBar(props: TopAppBarProps) {
                     >
                       <Avatar
                         alt={
-                          userInfo !== null && userInfo.ProfileImage !== null
-                            ? userInfo.ProfileImage
+                          userInfo !== null && userInfo.profileImage !== null
+                            ? userInfo.profileImage
                             : undefined
                         }
                         src={
-                          userInfo !== null &&
-                          userInfo.ProfileImageName !== null
-                            ? `http://localhost:8080/files/profile-images/${userInfo.id}/${userInfo.ProfileImageName}`
+                          userInfo !== null && userInfo.profileImageName
+                            ? `http://localhost:8080/files/profile-images/${userInfo.id}/${userInfo.profileImageName}`
                             : undefined
                         }
                       />
@@ -324,14 +321,14 @@ function TopAppBar(props: TopAppBarProps) {
                     >
                       <Avatar
                         alt={
-                          userInfo !== null && userInfo.ProfileImage !== null
-                            ? userInfo.ProfileImage
+                          userInfo !== null && userInfo.profileImage !== null
+                            ? userInfo.profileImage
                             : undefined
                         }
                         src={
                           userInfo !== null &&
-                          userInfo.ProfileImageName !== null
-                            ? userInfo.ProfileImageName
+                          userInfo.profileImageName !== null
+                            ? userInfo.profileImageName
                             : undefined
                         }
                       />

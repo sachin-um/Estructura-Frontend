@@ -64,6 +64,7 @@ export const useRetailItem = () => {
         result.item = (
           await API.get<RetailItem>(`/retailItems/item/${id}`)
         ).data;
+        result.success = true;
       }
       return result;
     },

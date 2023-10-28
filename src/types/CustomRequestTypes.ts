@@ -1,31 +1,34 @@
-interface CustomRequest {
+interface CustomerRequest {
   createdBy: number;
   description: string;
   document: string;
   id: number;
   images: string[];
-  shortDescription: string;
+  shortDesc: string;
   status: string;
-  targetCategories: Role[];
-  targetRetailCategories: RetailItemType[];
+  targetCategories: { id: number; role: Role }[];
+  targetRetailCategories: { id: number; retailItemType: RetailItemType }[];
 }
 
-interface CustomRequestAddOrUpdateRequest {
+interface CustomerRequestAddOrUpdateRequest {
+  customerId: number;
   description: string;
-  document: FileList;
+  shortDesc: string;
+  minPrice: number;
+  maxPrice: number;
+  documents: FileList;
   images: FileList;
-  shortDescription: string;
   targetCategories: Role[];
   targetRetailCategories: RetailItemType[];
 }
 
 interface updateCustomRequestParams {
-  customRequest: CustomRequest;
-  updatedCustomRequest: CustomRequestAddOrUpdateRequest;
+  customRequest: CustomerRequest;
+  updatedCustomRequest: CustomerRequestAddOrUpdateRequest;
 }
 
-interface CustomRequestState {
-  customRequest: CustomRequest | null;
+interface CustomerRequestState {
+  customRequest: CustomerRequest | null;
   error: boolean | null;
   reqStatus: reqStatus;
 }

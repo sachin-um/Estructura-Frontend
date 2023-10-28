@@ -60,6 +60,7 @@ export const useBlog = () => {
       } else {
         const id: number = response.data.id;
         result.item = (await API.get<Blog>(`/blogs/blog/${id}`)).data;
+        result.success = true;
       }
       return result;
     },

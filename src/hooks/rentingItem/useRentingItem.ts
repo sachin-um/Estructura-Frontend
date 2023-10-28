@@ -64,6 +64,7 @@ export const useRentingItem = () => {
         result.item = (
           await API.get<RentingItem>(`/renting-items/item/${id}`)
         ).data;
+        result.success = true;
       }
       return result;
     },

@@ -83,7 +83,6 @@ API.interceptors.response.use(
           }
         })
         .catch((refreshError) => {
-          clearTokens();
           return Promise.reject(refreshError);
         });
     }

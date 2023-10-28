@@ -60,6 +60,7 @@ export const useProject = () => {
       } else {
         const id: number = response.data.id;
         result.item = (await API.get<Project>(`/projects/project/${id}`)).data;
+        result.success = true;
       }
       return result;
     },

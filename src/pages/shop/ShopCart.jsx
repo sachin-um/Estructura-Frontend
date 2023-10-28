@@ -11,7 +11,7 @@ import { useFetchRetailItems } from '../../hooks/retailItem/useFetchRetailItems'
 
 const ShopCart = () => {
   // TODO: Make it work with backend
-  // TODO:when click add to cart,backend table add, then from that table take items to specific id array, then remove nm remove the content from table and reload page
+  // TODO:when click add to cart, backend table add, then from that table take items to specific id array, then remove nm remove the content from table and reload page
   // TODO: after checkout if successful clear the cart order from the table
   const { fetchRetailItems, isLoading, retailItems } = useFetchRetailItems();
 
@@ -86,7 +86,7 @@ const ShopCart = () => {
         <Top>
           <TopButton>CONTINUE SHOPPING</TopButton>
 
-          <TopButton type="filled">CHECKOUT NOW</TopButton>
+          <TopButton type="filled">Save Progress</TopButton>
         </Top>
         <Bottom>
           <Info>
