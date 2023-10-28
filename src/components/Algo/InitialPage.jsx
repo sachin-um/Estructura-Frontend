@@ -28,6 +28,8 @@ function GetStarted({
   previousPage,
   handlePageChange,
   updateFormData,
+  currentQuestion,
+  totalQuestions,
 }) {
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState('');
@@ -37,6 +39,7 @@ function GetStarted({
     event.preventDefault();
     if (userSelection !== '') {
       handlePageChange(userSelection);
+      updateFormData({ firstChoice: userSelection });
       nextPage();
     } else {
       setHelperText('Please select an option.');
@@ -99,6 +102,13 @@ function GetStarted({
               marginTop="5px"
             >
               Tell us what is on your mind
+            </Typography>
+            <Typography
+              fontSize="0.8rem"
+              fontWeight="500px"
+              fontFamily="poppins"
+            >
+              Question {currentQuestion}
             </Typography>
           </Box>
           <Divider />

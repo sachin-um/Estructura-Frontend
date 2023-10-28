@@ -28,14 +28,27 @@ function Price({
   nextPage,
   previousPage,
   updateFormData,
+  currentQuestion,
+  totalQuestions,
+  handleSubmit,
 }) {
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState('');
   const [userSelection, setUserSelection] = useState('');
 
   const navigate = useNavigate();
-  const handleNext = () => {
-    navigate('/RecommendationsPage', { replace: true });
+
+  const handleNext = (event) => {
+    event.preventDefault();
+    if (userSelection !== '') {
+      updateFormData({ price: userSelection });
+      const newData = { ...formData, price: userSelection };
+      handleSubmit(newData);
+      // navigate('/RecommendationsPage', { replace: true });
+    } else {
+      setHelperText('Please select an option.');
+      setError(true);
+    }
   };
   const customHelperTextStyles = {
     color: 'red',
@@ -95,6 +108,13 @@ function Price({
                 marginTop="5px"
               >
                 What is more important to you?
+              </Typography>
+              <Typography
+                fontSize="0.8rem"
+                fontWeight="500px"
+                fontFamily="poppins"
+              >
+                Question {currentQuestion} out of {totalQuestions}
               </Typography>
             </Box>
             <Divider />

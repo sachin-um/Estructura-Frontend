@@ -28,6 +28,8 @@ function InteriorDesign({
   nextPage,
   previousPage,
   updateFormData,
+  currentQuestion,
+  totalQuestions,
 }) {
   const [checkboxState, setCheckboxState] = useState({
     SpacePlanning: false,
@@ -54,6 +56,7 @@ function InteriorDesign({
     event.preventDefault();
     if (selectedValues.length !== 0) {
       handlePageChange('Location');
+      updateFormData({ secondChoice: userSelection });
       nextPage();
     } else {
       setHelperText('Please select an option.');
@@ -114,6 +117,13 @@ function InteriorDesign({
                 marginTop="5px"
               >
                 What type of a Interior Design do you require?
+              </Typography>
+              <Typography
+                fontSize="0.8rem"
+                fontWeight="500px"
+                fontFamily="poppins"
+              >
+                Question {currentQuestion} out of {totalQuestions}
               </Typography>
             </Box>
             <Divider />

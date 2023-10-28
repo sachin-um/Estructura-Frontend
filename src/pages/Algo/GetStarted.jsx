@@ -34,9 +34,13 @@ import TopAppBar from '../../components/TopAppBar';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 function RecAlgo() {
   const [currentPage, setCurrentPage] = useState(0);
-
+  const [totalQuestions, setTotalQuestions] = useState(6);
+  const [currentQuestion, setCurrentQuestion] = useState(1);
+  const [formData, setFormData] = useState({});
   const nextPage = () => {
     setCurrentPage(currentPage + 1);
+    setCurrentQuestion(currentQuestion + 1);
+    console.log(formData);
   };
   const previousPage = () => {
     if (currentPage > 0) {
@@ -47,7 +51,33 @@ function RecAlgo() {
     setFormData({ ...formData, ...data });
   };
   const [selectedOption, setSelectedOption] = useState(null);
-  const [formData, setFormData] = useState({});
+  const HandleSubmit = (data) => {
+    console.log(formData, 'Got', data);
+    API.post('/auth/register', data, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+      .then((res) => {
+        console.table(res);
+        if (res.status === 200) {
+          if (res.data.success === true) {
+            // ! Redirect to a page that says, verify your email
+            navigate('/emailNotVerified', { replace: true });
+          } else {
+            // ! Can't actually handle validation errors from backend
+            // ! because of the long process
+            alert(
+              'Something went wrong!, please try again.' +
+                ' If the issue persists, please contact us.',
+            );
+          }
+        } else {
+          alert('Invalid Credentials');
+        }
+      })
+      .catch((err) => console.log(JSON.stringify(err)));
+  };
   const handlePageChange = (value) => {
     setSelectedOption(value);
     // setPages((prevStack) => [...prevStack, currentPage]);
@@ -60,6 +90,7 @@ function RecAlgo() {
       previousPage={previousPage}
       handlePageChange={handlePageChange}
       updateFormData={updateFormData}
+      currentQuestion={currentQuestion}
     />,
   ];
   const [pages, setPages] = useState(initialPage);
@@ -69,6 +100,7 @@ function RecAlgo() {
       let newPage = null;
       switch (selectedOption) {
         case 'Construction':
+          setTotalQuestions(6);
           newPage = (
             <Construction
               formData={formData}
@@ -76,11 +108,13 @@ function RecAlgo() {
               nextPage={nextPage}
               previousPage={previousPage}
               handlePageChange={handlePageChange}
+              currentQuestion={currentQuestion}
+              totalQuestions={totalQuestions}
             />
           );
           break;
         case 'Design Plans':
-          console.log('design');
+          setTotalQuestions(5);
           newPage = (
             <DesignPlans
               formData={formData}
@@ -88,10 +122,13 @@ function RecAlgo() {
               nextPage={nextPage}
               previousPage={previousPage}
               handlePageChange={handlePageChange}
+              currentQuestion={currentQuestion}
+              totalQuestions={totalQuestions}
             />
           );
           break;
         case 'Landscaping':
+          setTotalQuestions(5);
           newPage = (
             <Landscaping
               formData={formData}
@@ -99,10 +136,13 @@ function RecAlgo() {
               nextPage={nextPage}
               previousPage={previousPage}
               handlePageChange={handlePageChange}
+              currentQuestion={currentQuestion}
+              totalQuestions={totalQuestions}
             />
           );
           break;
         case 'Remodelling':
+          setTotalQuestions(5);
           newPage = (
             <Remodelling
               formData={formData}
@@ -110,10 +150,13 @@ function RecAlgo() {
               nextPage={nextPage}
               previousPage={previousPage}
               handlePageChange={handlePageChange}
+              currentQuestion={currentQuestion}
+              totalQuestions={totalQuestions}
             />
           );
           break;
         case 'Interior Designing':
+          setTotalQuestions(5);
           newPage = (
             <InteriorDesign
               formData={formData}
@@ -121,10 +164,13 @@ function RecAlgo() {
               nextPage={nextPage}
               previousPage={previousPage}
               handlePageChange={handlePageChange}
+              currentQuestion={currentQuestion}
+              totalQuestions={totalQuestions}
             />
           );
           break;
         case 'Woodwork':
+          setTotalQuestions(5);
           newPage = (
             <Woodwork
               formData={formData}
@@ -132,9 +178,26 @@ function RecAlgo() {
               nextPage={nextPage}
               previousPage={previousPage}
               handlePageChange={handlePageChange}
+              currentQuestion={currentQuestion}
+              totalQuestions={totalQuestions}
             />
           );
           break;
+        case 'Painting':
+          setTotalQuestions(4);
+          newPage = (
+            <Location
+              formData={formData}
+              updateFormData={updateFormData}
+              nextPage={nextPage}
+              previousPage={previousPage}
+              handlePageChange={handlePageChange}
+              currentQuestion={currentQuestion}
+              totalQuestions={totalQuestions}
+            />
+          );
+          break;
+
         case 'Residence Building':
           newPage = (
             <ConstructionResidence
@@ -143,6 +206,8 @@ function RecAlgo() {
               nextPage={nextPage}
               previousPage={previousPage}
               handlePageChange={handlePageChange}
+              currentQuestion={currentQuestion}
+              totalQuestions={totalQuestions}
             />
           );
           break;
@@ -154,6 +219,8 @@ function RecAlgo() {
               nextPage={nextPage}
               previousPage={previousPage}
               handlePageChange={handlePageChange}
+              currentQuestion={currentQuestion}
+              totalQuestions={totalQuestions}
             />
           );
           break;
@@ -166,6 +233,8 @@ function RecAlgo() {
               nextPage={nextPage}
               previousPage={previousPage}
               handlePageChange={handlePageChange}
+              currentQuestion={currentQuestion}
+              totalQuestions={totalQuestions}
             />
           );
           break;
@@ -177,6 +246,8 @@ function RecAlgo() {
               nextPage={nextPage}
               previousPage={previousPage}
               handlePageChange={handlePageChange}
+              currentQuestion={currentQuestion}
+              totalQuestions={totalQuestions}
             />
           );
           break;
@@ -188,6 +259,8 @@ function RecAlgo() {
               nextPage={nextPage}
               previousPage={previousPage}
               handlePageChange={handlePageChange}
+              currentQuestion={currentQuestion}
+              totalQuestions={totalQuestions}
             />
           );
           break;
@@ -199,6 +272,8 @@ function RecAlgo() {
               nextPage={nextPage}
               previousPage={previousPage}
               handlePageChange={handlePageChange}
+              currentQuestion={currentQuestion}
+              totalQuestions={totalQuestions}
             />
           );
           break;
@@ -210,6 +285,9 @@ function RecAlgo() {
               nextPage={nextPage}
               previousPage={previousPage}
               handlePageChange={handlePageChange}
+              currentQuestion={currentQuestion}
+              totalQuestions={totalQuestions}
+              handleSubmit={HandleSubmit}
             />
           );
           break;
@@ -221,7 +299,7 @@ function RecAlgo() {
       updatedStack[currentPage] = newPage;
       setPages(updatedStack);
     }
-  }, [selectedOption, formData]);
+  }, [selectedOption, formData, currentQuestion, totalQuestions]);
   // let pages = [initialPage, ...additionalPages];
   // useEffect(() => {
   //   if (previousPageState === true) {

@@ -59,6 +59,8 @@ function Location({
   nextPage,
   previousPage,
   updateFormData,
+  currentQuestion,
+  totalQuestions,
 }) {
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState('');
@@ -68,6 +70,7 @@ function Location({
     event.preventDefault();
     if (userSelection !== '') {
       handlePageChange('CurrentStatus');
+      updateFormData({ location: userSelection });
       nextPage();
     } else {
       setHelperText('Please select an option.');
@@ -131,6 +134,13 @@ function Location({
                 marginTop="5px"
               >
                 Where do you want your professionals to be?
+              </Typography>
+              <Typography
+                fontSize="0.8rem"
+                fontWeight="500px"
+                fontFamily="poppins"
+              >
+                Question {currentQuestion} out of {totalQuestions}
               </Typography>
             </Box>
             <Divider />

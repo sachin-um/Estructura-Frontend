@@ -28,6 +28,8 @@ function CurrentStatus({
   nextPage,
   previousPage,
   updateFormData,
+  currentQuestion,
+  totalQuestions,
 }) {
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState('');
@@ -100,6 +102,13 @@ function CurrentStatus({
                 marginTop="5px"
               >
                 What is the current status of your project?
+              </Typography>
+              <Typography
+                fontSize="0.8rem"
+                fontWeight="500px"
+                fontFamily="poppins"
+              >
+                Question {currentQuestion} out of {totalQuestions}
               </Typography>
             </Box>
             <Divider />

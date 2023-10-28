@@ -28,6 +28,8 @@ function ConstructionIndustrial({
   nextPage,
   previousPage,
   updateFormData,
+  currentQuestion,
+  totalQuestions,
 }) {
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState('');
@@ -37,6 +39,7 @@ function ConstructionIndustrial({
     event.preventDefault();
     if (userSelection !== '') {
       handlePageChange('Location');
+      updateFormData({ thirdChoice: userSelection });
       nextPage();
     } else {
       setHelperText('Please select an option.');
@@ -101,6 +104,13 @@ function ConstructionIndustrial({
                 marginTop="5px"
               >
                 What type of a industrial building do you require?
+              </Typography>
+              <Typography
+                fontSize="0.8rem"
+                fontWeight="500px"
+                fontFamily="poppins"
+              >
+                Question {currentQuestion} out of {totalQuestions}
               </Typography>
             </Box>
             <Divider />
