@@ -83,8 +83,8 @@ const ViewCustomerRequestCard = () => {
               {customerRequest.shortDesc}
             </Typography>
             {/* The creator Details */}
-            <pre>{JSON.stringify(user, null, 2)}</pre>
-            <pre>{JSON.stringify(customerRequest, null, 2)}</pre>
+            {/* <pre>{JSON.stringify(user, null, 2)}</pre>
+            <pre>{JSON.stringify(customerRequest, null, 2)}</pre> */}
             <Divider sx={{ marginBottom: '20px' }} />
             <Box
               sx={{ alignItems: 'center', display: 'flex', marginTop: '20px' }}
@@ -105,18 +105,28 @@ const ViewCustomerRequestCard = () => {
                   padding: '5px',
                 }}
               >
-                <img
-                  style={{
-                    height: '50px',
-                    marginRight: '10px',
-                    width: '50px',
-                  }}
-                  alt="Category Icon"
-                  src="https://designeverest.com/wp-content/uploads/2023/01/what-is-the-role-of-an-architect-in-building-a-house-1629876140.jpg"
-                />
-                <Typography fontFamily="Poppins" variant="body2">
-                  Architect
-                </Typography>
+                {customerRequest.targetCategories.map((category) => {
+                  if (category.role === 'ARCHITECT') {
+                    return (
+                      <>
+                        <img
+                          style={{
+                            height: '50px',
+                            marginRight: '10px',
+                            width: '50px',
+                          }}
+                          alt="Category Icon"
+                          src="https://designeverest.com/wp-content/uploads/2023/01/what-is-the-role-of-an-architect-in-building-a-house-1629876140.jpg"
+                        />
+                        <Typography fontFamily="Poppins" variant="body2">
+                          Architect
+                        </Typography>
+                      </>
+                    );
+                  } else {
+                    return null; // Return null if the condition is not met
+                  }
+                })}
               </Box>
             </Box>
             <Box
@@ -138,18 +148,28 @@ const ViewCustomerRequestCard = () => {
                   padding: '5px',
                 }}
               >
-                <img
-                  style={{
-                    height: '50px',
-                    marginRight: '10px',
-                    width: '50px',
-                  }}
-                  alt="Retail Item Icon"
-                  src="https://images.pexels.com/photos/1123262/pexels-photo-1123262.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" // Replace with actual image URL for "Lighting"
-                />
-                <Typography fontFamily="Poppins" variant="body2">
-                  Lighting
-                </Typography>
+                {customerRequest.targetRetailCategories.map((category) => {
+                  if (category.retailItemType === 'LIGHTING') {
+                    return (
+                      <>
+                        <img
+                          style={{
+                            height: '50px',
+                            marginRight: '10px',
+                            width: '50px',
+                          }}
+                          alt="Retail Item Icon"
+                          src="https://images.pexels.com/photos/1123262/pexels-photo-1123262.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" // Replace with actual image URL for "Lighting"
+                        />
+                        <Typography fontFamily="Poppins" variant="body2">
+                          Lighting
+                        </Typography>
+                      </>
+                    );
+                  } else {
+                    return null; // Return null if the condition is not met
+                  }
+                })}
               </Box>
             </Box>
             <Typography
