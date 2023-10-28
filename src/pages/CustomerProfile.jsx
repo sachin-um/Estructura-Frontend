@@ -21,6 +21,7 @@ import RetailItems from '../components/CustomerProfile/RetailItems';
 import ProfileDetails from '../components/CustomerProfile/ProfileDetails';
 import Plans from '../components/CustomerProfile/Plans';
 import Requests from '../components/CustomerProfile/Requests';
+import RequestsTemp from '../components/CustomerProfile/RequestsTemp';
 
 function CustomerProfile() {
   const [value, setValue] = useState('one');
@@ -188,7 +189,7 @@ function CustomerProfile() {
           {activeTab === 'one' && <ProfileDetails />}
           {activeTab === 'two' && <Plans />}
           {activeTab === 'three' && <RetailItems />}
-          {activeTab === 'four' && <Requests />}
+          {activeTab === 'four' && <RequestsTemp />}
           {activeTab === 'five' && <Messages />}
         </Grid>
       </Grid>
