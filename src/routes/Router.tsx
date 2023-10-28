@@ -4,6 +4,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import FirstPage from '../pages/Algo/FirstPage';
 import GetStarted from '../pages/Algo/GetStarted';
 import RecommendationsPage from '../pages/Algo/RecommendationsPage';
+import CustomerProfile from '../pages/CustomerProfile';
 import Homepage from '../pages/HomePage';
 import AllMessagesInbox from '../pages/messages/AllMessagesInbox';
 import Chat from '../pages/messages/Chat';
@@ -47,6 +48,10 @@ export const altRouter = createBrowserRouter([
   {
     path: '/chat',
     element: <AllMessagesInbox />,
+  },
+  {
+    path: '/customer',
+    element: <CustomerProfile />,
   },
 
   ...AuthRoutes,
