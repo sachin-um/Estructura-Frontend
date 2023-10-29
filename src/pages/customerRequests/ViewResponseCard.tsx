@@ -1,9 +1,10 @@
 import { Alert, Box, Button, Divider, Grid, Typography } from '@mui/material';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import '../../assets/font.css';
 import Footer from '../../components/Footer';
+import AlertDialog from '../../components/Popups/AlertDialog';
 import TopBar from '../../components/TopAppBar';
 import { useCustomerRequest } from '../../hooks/customerRequest/useCustomerRequest';
 import { useCustomerRequestResponse } from '../../hooks/customerRequest/useCustomerRequestResponse';
@@ -15,6 +16,12 @@ const ViewResponseCard = () => {
   const reqId = parseInt(useParams<{ id: string }>().id ?? '0');
   const reqResId = parseInt(useParams<{ resId: string }>().resId ?? '0');
 
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alertStatus, setAlertStatus] = useState('');
+
+  const handleAlertClose = () => {
+    setAlertOpen(false);
+  };
   const {
     acceptOrDecline,
     getResponse: {
@@ -202,33 +209,70 @@ const ViewResponseCard = () => {
               /> */}
             </Box>
             {currentUser?.id === customerRequest?.createdBy && (
-              <Button
-                onClick={() => {
-                  if (currentUser && customerRequestResponse)
-                    acceptOrDecline({
-                      action: 'ACCEPTED',
-                      customer_id: currentUser.id,
-                      response_id: customerRequestResponse.id,
-                    }).then((success) => {
-                      if (success) {
-                        alert('Accepted');
-                      } else {
-                        alert('Failed to accept');
-                      }
-                    });
-                }}
-                style={{
-                  display: 'block',
-                  margin: '50px 150px 0',
-                  width: '35%',
-                }}
-                color="primary"
-                variant="contained"
-              >
-                Accept this Response
-              </Button>
+              <Box>
+                <Button
+                  onClick={() => {
+                    if (currentUser && customerRequestResponse)
+                      acceptOrDecline({
+                        action: 'ACCEPTED',
+                        customer_id: currentUser.id,
+                        response_id: customerRequestResponse.id,
+                      }).then((success) => {
+                        if (success) {
+                          setAlertStatus('Accepted');
+                          setAlertOpen(true);
+                        } else {
+                          setAlertStatus('Failed');
+                          setAlertOpen(true);
+                        }
+                      });
+                  }}
+                  style={{
+                    display: 'block',
+                    margin: '50px 150px 0',
+                    width: '35%',
+                  }}
+                  color="primary"
+                  variant="contained"
+                >
+                  Accept Response
+                </Button>
+                <Button
+                  onClick={() => {
+                    if (currentUser && customerRequestResponse)
+                      acceptOrDecline({
+                        action: 'DECLINE',
+                        customer_id: currentUser.id,
+                        response_id: customerRequestResponse.id,
+                      }).then((success) => {
+                        if (success) {
+                          setAlertStatus('Declined');
+                          setAlertOpen(true);
+                        } else {
+                          setAlertStatus('Failed');
+                          setAlertOpen(true);
+                        }
+                      });
+                  }}
+                  style={{
+                    display: 'block',
+                    margin: '50px 150px 0',
+                    width: '35%',
+                  }}
+                  color="primary"
+                  variant="contained"
+                >
+                  Decline Response
+                </Button>
+              </Box>
             )}
           </Box>
+          <AlertDialog
+            content={alertStatus}
+            onClose={handleAlertClose}
+            open={alertOpen}
+            title={alertStatus}
+          />
         </Grid>
       </Box>
       <Footer />
