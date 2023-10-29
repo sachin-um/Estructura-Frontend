@@ -123,8 +123,108 @@ const ViewCustomerRequestCard = () => {
                         </Typography>
                       </>
                     );
-                  } else {
-                    return null; // Return null if the condition is not met
+                  } else if (category.role === 'CARPENTER') {
+                    return (
+                      <>
+                        <img
+                          style={{
+                            height: '50px',
+                            marginRight: '10px',
+                            width: '50px',
+                          }}
+                          alt="Category Icon"
+                          src="https://generisonline.com/wp-content/uploads/2022/05/The-difference-between-a-joiner-and-a-carpenter-1.jpg"
+                        />
+                        <Typography fontFamily="Poppins" variant="body2">
+                          Carpenter
+                        </Typography>
+                      </>
+                    );
+                  } else if (category.role === 'CONSTRUCTIONCOMPANY') {
+                    return (
+                      <>
+                        <img
+                          style={{
+                            height: '50px',
+                            marginRight: '10px',
+                            width: '50px',
+                          }}
+                          alt="Category Icon"
+                          src="https://www.crystalconstruction.lk/wp-content/uploads/2023/05/The-Benefits-of-Hiring-a-Professional-Construction-Company-in-Sri-Lanka.png"
+                        />
+                        <Typography fontFamily="Poppins" variant="body2">
+                          Construction Company
+                        </Typography>
+                      </>
+                    );
+                  } else if (category.role === 'INTERIORDESIGNER') {
+                    return (
+                      <>
+                        <img
+                          style={{
+                            height: '50px',
+                            marginRight: '10px',
+                            width: '50px',
+                          }}
+                          alt="Category Icon"
+                          src="https://www.myperfectresume.com/wp-content/uploads/2020/09/how-to-become-an-interior-designer.jpg"
+                        />
+                        <Typography fontFamily="Poppins" variant="body2">
+                          Construction Company
+                        </Typography>
+                      </>
+                    );
+                  } else if (category.role === 'LANDSCAPEARCHITECT') {
+                    return (
+                      <>
+                        <img
+                          style={{
+                            height: '50px',
+                            marginRight: '10px',
+                            width: '50px',
+                          }}
+                          alt="Category Icon"
+                          src="https://design.asu.edu/sites/default/files/2022-07/landscape-drawing-pencil.jpg"
+                        />
+                        <Typography fontFamily="Poppins" variant="body2">
+                          Construction Company
+                        </Typography>
+                      </>
+                    );
+                  } else if (category.role === 'MASONWORKER') {
+                    return (
+                      <>
+                        <img
+                          style={{
+                            height: '50px',
+                            marginRight: '10px',
+                            width: '50px',
+                          }}
+                          alt="Category Icon"
+                          src="https://www.ibuildnew.com.au/blog/wp-content/uploads/2018/06/Builder-looking-up.png"
+                        />
+                        <Typography fontFamily="Poppins" variant="body2">
+                          Construction Company
+                        </Typography>
+                      </>
+                    );
+                  } else if (category.role === 'PAINTER') {
+                    return (
+                      <>
+                        <img
+                          style={{
+                            height: '50px',
+                            marginRight: '10px',
+                            width: '50px',
+                          }}
+                          alt="Category Icon"
+                          src="https://blog.renovationfind.com/wp-content/uploads/2019/01/Painter-in-Edmonton.jpg"
+                        />
+                        <Typography fontFamily="Poppins" variant="body2">
+                          Construction Company
+                        </Typography>
+                      </>
+                    );
                   }
                 })}
               </Box>
@@ -166,8 +266,76 @@ const ViewCustomerRequestCard = () => {
                         </Typography>
                       </>
                     );
+                  } else if (category.retailItemType === 'FURNITURE') {
+                    return (
+                      <>
+                        <img
+                          style={{
+                            height: '50px',
+                            marginRight: '10px',
+                            width: '50px',
+                          }}
+                          alt="Retail Item Icon"
+                          src="https://cdn-eu.dynamicyield.com/api/9877108/images/24d111bf06dd1__furniture.jpg" // Replace with actual image URL for "Lighting"
+                        />
+                        <Typography fontFamily="Poppins" variant="body2">
+                          Furniture
+                        </Typography>
+                      </>
+                    );
+                  } else if (category.retailItemType === 'HARDWARE') {
+                    return (
+                      <>
+                        <img
+                          style={{
+                            height: '50px',
+                            marginRight: '10px',
+                            width: '50px',
+                          }}
+                          alt="Retail Item Icon"
+                          src="https://images.pexels.com/photos/220639/pexels-photo-220639.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" // Replace with actual image URL for "Lighting"
+                        />
+                        <Typography fontFamily="Poppins" variant="body2">
+                          Hardware
+                        </Typography>
+                      </>
+                    );
+                  } else if (category.retailItemType === 'BATHWARE') {
+                    return (
+                      <>
+                        <img
+                          style={{
+                            height: '50px',
+                            marginRight: '10px',
+                            width: '50px',
+                          }}
+                          alt="Retail Item Icon"
+                          src="https://images.pexels.com/photos/11125357/pexels-photo-11125357.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" // Replace with actual image URL for "Lighting"
+                        />
+                        <Typography fontFamily="Poppins" variant="body2">
+                          Bathware
+                        </Typography>
+                      </>
+                    );
+                  } else if (category.retailItemType === 'GARDENWARE') {
+                    return (
+                      <>
+                        <img
+                          style={{
+                            height: '50px',
+                            marginRight: '10px',
+                            width: '50px',
+                          }}
+                          alt="Retail Item Icon"
+                          src="https://peakproducts-canada.s3.ca-central-1.amazonaws.com/gardenware-banner-img-2.jpeg" // Replace with actual image URL for "Lighting"
+                        />
+                        <Typography fontFamily="Poppins" variant="body2">
+                          Gaerdenware
+                        </Typography>
+                      </>
+                    );
                   } else {
-                    return null; // Return null if the condition is not met
+                    return <></>;
                   }
                 })}
               </Box>
