@@ -20,7 +20,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -70,6 +70,13 @@ function TopAppBar(props: TopAppBarProps) {
 
   const loggedIn = userInfo !== null;
 
+  useEffect(() => {
+    if (loggedIn && userInfo.serviceProviderType !== null) {
+      pages.push({
+        main: { name: 'Customer Requests', path: '/custom-requests' },
+      });
+    }
+  });
   const MenuButtonRef = useRef<HTMLButtonElement>(null);
   const [MenuOpen, setMenuOpen] = useState(false);
 

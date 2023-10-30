@@ -13,27 +13,27 @@ const CustomRequestRoutes: RouteObject[] = [
     element: <AddCustomerRequest />,
   },
   {
-    path: 'custom-requests',
+    path: '/custom-requests',
     element: <ViewCustomerRequests />,
   },
   {
-    path: 'custom-requests/my',
+    path: '/custom-requests/my',
     element: <ViewCustomerRequests my={true} />,
   },
   {
-    path: 'custom-requests/req/:id',
+    path: '/custom-requests/req/:id',
     element: <ViewCustomerRequestCard />,
   },
   {
-    path: 'custom-requests/req/:id/respond',
+    path: '/custom-requests/req/:id/respond',
     element: <AddResponse />,
   },
   {
-    path: 'custom-requests/req/:id/responses',
+    path: '/custom-requests/req/:id/responses',
     element: <ViewResponses />,
   },
   {
-    path: 'custom-requests/req/:id/responses/:resId',
+    path: '/custom-requests/req/:id/responses/:resId',
     element: <ViewResponseCard />,
   },
 ];
