@@ -80,31 +80,35 @@ const ProfessionalCategories = ({ data }: { data: Professional[] }) => {
   return (
     <Container>
       <CardGrid>
-        {data.map((card) => (
-          <Card
-            onClick={() => {
-              navigate('/ServiceProvider/' + card.id);
-            }}
-            key={card.id}
-          >
-            <CardImage
-              src={
-                card.profileImageName
-                  ? `http://localhost:8080/files/profile-images/${card.id}/${card.profileImageName}`
-                  : '/User/user.png'
-              }
-              alt={`Card ${card.id}`}
-            />
-            <CardWrapper>
-              <CardText>
-                {card.firstName} {card.lastName}
-              </CardText>
-              <CardPrice>
-                {card.city} , {card.district}
-              </CardPrice>
-            </CardWrapper>
-          </Card>
-        ))}
+        {data.map((card) =>
+          card ? (
+            <Card
+              onClick={() => {
+                navigate('/ServiceProvider/' + card.id);
+              }}
+              key={card.id}
+            >
+              <CardImage
+                src={
+                  card.profileImageName
+                    ? `http://localhost:8080/files/profile-images/${card.id}/${card.profileImageName}`
+                    : '/User/user.png'
+                }
+                alt={`Card ${card.id}`}
+              />
+              <CardWrapper>
+                <CardText>
+                  {card.firstName} {card.lastName}
+                </CardText>
+                <CardPrice>
+                  {card.city} , {card.district}
+                </CardPrice>
+              </CardWrapper>
+            </Card>
+          ) : (
+            <></>
+          ),
+        )}
       </CardGrid>
     </Container>
   );

@@ -57,7 +57,7 @@ function Woodwork({
     event.preventDefault();
     if (selectedValues.length !== 0) {
       handlePageChange('Location');
-      updateFormData({ secondChoice: userSelection });
+      updateFormData({ secondChoice: [userSelection] });
       nextPage();
     } else {
       setHelperText('Please select an option.');

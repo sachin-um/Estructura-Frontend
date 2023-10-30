@@ -178,6 +178,7 @@ function AddAdmin() {
                     borderCollapse: 'collapse',
                     width: '100%',
                   }}
+                  // maxWidth="md"
                 >
                   <thead>
                     <tr>

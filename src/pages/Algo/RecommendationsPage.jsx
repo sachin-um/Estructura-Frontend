@@ -49,7 +49,11 @@ const RecommendationsPage = () => {
     let tab = <>Oops! Something went wrong.</>;
     switch (activeTab) {
       case 'professionals':
-        tab = <RecommendedProfessionals data={data.professionals} />;
+        tab = (
+          <RecommendedProfessionals
+            recommendedProfessionals={data.professionals}
+          />
+        );
         break;
       case 'retailItems':
         tab = <RecommendedItems />;
