@@ -85,4 +85,7 @@ interface User {
   serviceProviderType?: ServiceProviders;
   sliaRegNumber?: string;
   specializations?: Specialization[];
+  status: AccountStatus;
 }
+
+type AccountStatus = 'ACTIVE' | 'SUSPEND';
