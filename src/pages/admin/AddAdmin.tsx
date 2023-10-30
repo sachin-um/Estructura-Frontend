@@ -33,6 +33,7 @@ function AddAdmin() {
   const [adminStatusList, setAdminStatusList] = useState<boolean[]>([]);
 
   const {
+    activateOrSuspendAccount,
     addAdmin,
     getAdmins: { admins, fetchAdmins, isLoading },
   } = useAdmin();
@@ -42,10 +43,18 @@ function AddAdmin() {
   }, [fetchAdmins]);
 
   // Toggle the enable/disable status of an admin
-  const handleToggleAdminStatus = (index: number) => {
-    const updatedStatusList = [...adminStatusList];
-    updatedStatusList[index] = !updatedStatusList[index];
-    setAdminStatusList(updatedStatusList);
+  const handleToggleAdminStatus = (adminId: number) => {
+    const admin = admins.find((a) => a.id === adminId);
+    if (admin && admin.assignedArea?.toLowerCase() !== 'super') {
+      const targetStatus = admin.status === 'ACTIVE' ? 'SUSPEND' : 'ACTIVE';
+      activateOrSuspendAccount(admin.id, targetStatus).then((result) => {
+        if (result.success === true) {
+          alert(
+            `Admin: ${admin.firstName} ${admin.lastName} changed status to :${targetStatus}`,
+          );
+        }
+      });
+    }
   };
 
   const HandleSubmit = (values: Partial<RegisterRequest>) => {
@@ -217,15 +226,6 @@ function AddAdmin() {
                           textAlign: 'center',
                         }}
                       >
-                        Password
-                      </th>
-                      <th
-                        style={{
-                          border: '1px solid #ddd',
-                          padding: '8px',
-                          textAlign: 'center',
-                        }}
-                      >
                         Assigned Area
                       </th>
                       <th
@@ -282,23 +282,34 @@ function AddAdmin() {
                           style={{
                             border: '1px solid #ddd',
                             display: 'flex',
+                            gap: '8px',
+                            justifyContent: 'center',
                             padding: '8px',
                             textAlign: 'left',
                           }}
                         >
-                          <Button color="secondary" variant="outlined">
+                          {/* <Button color="secondary" variant="outlined">
                             Remove
-                          </Button>
-                          <Button
-                            color={
-                              adminStatusList[index] ? 'secondary' : 'primary'
-                            }
-                            onClick={() => handleToggleAdminStatus(index)}
-                            style={{ marginLeft: '0.5rem' }}
-                            variant="outlined"
-                          >
-                            {adminStatusList[index] ? 'Disable' : 'Enable'}
-                          </Button>
+                          </Button> */}
+                          {admins[index].assignedArea?.toLowerCase() !==
+                            'super' && (
+                            <Button
+                              color={
+                                admins[index].status === 'ACTIVE'
+                                  ? 'secondary'
+                                  : 'primary'
+                              }
+                              onClick={() =>
+                                handleToggleAdminStatus(admins[index].id)
+                              }
+                              style={{ marginLeft: '0.5rem' }}
+                              variant="outlined"
+                            >
+                              {admins[index].status === 'ACTIVE'
+                                ? 'Disable'
+                                : 'Enable'}
+                            </Button>
+                          )}
                         </td>
                       </tr>
                     ))}
