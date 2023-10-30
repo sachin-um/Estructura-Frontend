@@ -28,41 +28,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import API from '../lib/API';
 import { clean, selectUser } from '../redux/UserAuthenticationReducer';
 
-const pages: LinkedPage[] = [
-  { main: { name: 'Home', path: '/' } },
-  {
-    main: { name: 'Professionals', path: '/' },
-    subPages: [
-      { name: 'All', path: '/Professionals/AllProfessionals' },
-      { name: 'Architects', path: '/Professionals/ARCHITECT' },
-      { name: 'Interior Designers', path: '/Professionals/INTERIORDESIGNER' },
-      {
-        name: 'Construction Companies',
-        path: '/Professionals/CONSTRUCTIONCOMPANY',
-      },
-      {
-        name: 'Landscape Architects',
-        path: '/Professionals/LANDSCAPEARCHITECT',
-      },
-      { name: 'Home Builders', path: '/Professionals/MASONWORKER' },
-      { name: 'Painters', path: '/Professionals/PAINTER' },
-      { name: 'Carpenters', path: '/Professionals/CARPENTER' },
-    ],
-  },
-  {
-    main: { name: 'Products', path: '/' },
-    subPages: [
-      { name: 'All', path: '/shop' },
-      { name: 'Furniture', path: '/shop/items/FURNITURE' },
-      { name: 'Hardware Items', path: '/shop/items/HARDWARE' },
-      { name: 'Gardening Items and Tools', path: '/shop/items/GARDENWARE' },
-      { name: 'Bathware', path: '/shop/items/BATHWARE' },
-      { name: 'Lighting', path: '/shop/items/LIGHTING' },
-    ],
-  },
-  { main: { name: 'Blog', path: '/blogs' } },
-];
-
 function TopAppBar(props: TopAppBarProps) {
   const title = props.title ?? 'Estructura';
 
@@ -70,13 +35,48 @@ function TopAppBar(props: TopAppBarProps) {
 
   const loggedIn = userInfo !== null;
 
-  useEffect(() => {
-    if (loggedIn && userInfo.serviceProviderType !== null) {
-      pages.push({
-        main: { name: 'Customer Requests', path: '/custom-requests' },
-      });
-    }
-  });
+  const pages: LinkedPage[] = [
+    { main: { name: 'Home', path: '/' } },
+    {
+      main: { name: 'Professionals', path: '/' },
+      subPages: [
+        { name: 'All', path: '/Professionals/AllProfessionals' },
+        { name: 'Architects', path: '/Professionals/ARCHITECT' },
+        { name: 'Interior Designers', path: '/Professionals/INTERIORDESIGNER' },
+        {
+          name: 'Construction Companies',
+          path: '/Professionals/CONSTRUCTIONCOMPANY',
+        },
+        {
+          name: 'Landscape Architects',
+          path: '/Professionals/LANDSCAPEARCHITECT',
+        },
+        { name: 'Home Builders', path: '/Professionals/MASONWORKER' },
+        { name: 'Painters', path: '/Professionals/PAINTER' },
+        { name: 'Carpenters', path: '/Professionals/CARPENTER' },
+      ],
+    },
+    {
+      main: { name: 'Products', path: '/' },
+      subPages: [
+        { name: 'All', path: '/shop' },
+        { name: 'Furniture', path: '/shop/items/FURNITURE' },
+        { name: 'Hardware Items', path: '/shop/items/HARDWARE' },
+        { name: 'Gardening Items and Tools', path: '/shop/items/GARDENWARE' },
+        { name: 'Bathware', path: '/shop/items/BATHWARE' },
+        { name: 'Lighting', path: '/shop/items/LIGHTING' },
+      ],
+    },
+    { main: { name: 'Blog', path: '/blogs' } },
+    ...(loggedIn && userInfo.serviceProviderType !== null
+      ? [
+          {
+            main: { name: 'Customer Requests', path: '/custom-requests' },
+          },
+        ]
+      : []),
+  ];
+
   const MenuButtonRef = useRef<HTMLButtonElement>(null);
   const [MenuOpen, setMenuOpen] = useState(false);
 

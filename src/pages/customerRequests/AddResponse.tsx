@@ -6,7 +6,7 @@ import {
   MdInsertDriveFile,
   MdPictureAsPdf,
 } from 'react-icons/md';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import '../../assets/font.css';
 import Footer from '../../components/Footer';
@@ -78,7 +78,7 @@ const AddResponse = () => {
   };
 
   const { addCustomerRequestResponse } = useCustomerRequestResponse();
-
+  const navigate = useNavigate();
   const currentUser = useCurrentUser();
 
   const handleSendResponse = () => {
@@ -111,7 +111,9 @@ const AddResponse = () => {
         shortDesc,
       }).then((added) => {
         if (added.success) {
-          alert('Added ' + JSON.stringify(added.item));
+          navigate(
+            `/custom-requests/req/${added.item?.createBy}/responses/${added.item?.id}`,
+          );
         }
       });
     } else {
