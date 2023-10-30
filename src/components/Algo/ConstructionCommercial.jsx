@@ -39,7 +39,7 @@ function ConstructionCommercial({
     event.preventDefault();
     if (userSelection !== '') {
       handlePageChange('Location');
-      updateFormData({ thirdChoice: userSelection });
+      updateFormData({ thirdChoice: [userSelection] });
       nextPage();
     } else {
       setHelperText('Please select an option.');

@@ -1,14 +1,6 @@
-import React, { useState } from 'react';
-import {
-  TextField,
-  Button,
-  Container,
-  Typography,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
-} from '@mui/material';
+import { Button, Container, TextField, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+
 import CusBar from '../../components/CusTopBar';
 
 function AddAdmin() {
@@ -17,8 +9,10 @@ function AddAdmin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [assignedArea, setassignedArea] = useState('');
-  const [adminList, setAdminList] = useState([]);
-  const [adminStatusList, setAdminStatusList] = useState([]);
+  const [adminList, setAdminList] = useState<
+    (Partial<User> & { password: string })[]
+  >([]);
+  const [adminStatusList, setAdminStatusList] = useState<boolean[]>([]);
 
   const handleAddAdmin = () => {
     if (
@@ -28,12 +22,12 @@ function AddAdmin() {
       password.trim() !== '' &&
       assignedArea.trim() !== ''
     ) {
-      const newAdmin = {
+      const newAdmin: Partial<User> & { password: string } = {
+        assignedArea,
+        email,
         firstName,
         lastName,
-        email,
         password,
-        assignedArea,
       };
       setAdminList([...adminList, newAdmin]);
       setFirstName('');
@@ -44,93 +38,98 @@ function AddAdmin() {
     }
 
     // Initialize status for each admin as "enabled"
-    useEffect(() => {
-      setAdminStatusList(adminList.map(() => true));
-    }, [adminList]);
 
     // Toggle the enable/disable status of an admin
-    const handleToggleAdminStatus = (index) => {
+    const handleToggleAdminStatus = (index: number) => {
       const updatedStatusList = [...adminStatusList];
       updatedStatusList[index] = !updatedStatusList[index];
       setAdminStatusList(updatedStatusList);
     };
   };
 
-  const handleRemoveAdmin = (index) => {
+  useEffect(() => {
+    setAdminStatusList(adminList.map(() => true));
+  }, [adminList]);
+
+  const handleRemoveAdmin = (index: number) => {
     const updatedAdminList = adminList.filter((_, i) => i !== index);
     setAdminList(updatedAdminList);
   };
+
+  function handleToggleAdminStatus(index: number): void {
+    throw new Error('Function not implemented.');
+  }
 
   return (
     <>
       <CusBar />
       <div
         style={{
+          alignItems: 'center',
           backgroundImage:
             'url("https://www.decoraid.com/wp-content/uploads/2021/04/mint-green-living-room-scaled-958x575.jpeg")',
-          backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
-          minHeight: '100vh',
+          backgroundSize: 'cover',
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
+          minHeight: '100vh',
           paddingTop: '2rem',
         }}
       >
         <Container
-          maxWidth="sm"
           style={{
             backgroundColor: 'rgba(255, 255, 255, 0.8)', // Adding a semi-transparent white background
             borderRadius: '10px', // Adding rounded corners
-            padding: '2rem',
             boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // Adding a subtle shadow
+            padding: '2rem',
           }}
+          maxWidth="sm"
         >
           <Typography
-            variant="h4"
-            component="h1"
             align="center"
+            component="h1"
             sx={{ marginTop: '1rem' }}
+            variant="h4"
           >
             Admin
           </Typography>
           <TextField
+            fullWidth
             label="First Name"
-            fullWidth
-            value={firstName}
+            margin="normal"
             onChange={(e) => setFirstName(e.target.value)}
-            margin="normal"
+            value={firstName}
           />
           <TextField
+            fullWidth
             label="Last Name"
-            fullWidth
-            value={lastName}
+            margin="normal"
             onChange={(e) => setLastName(e.target.value)}
-            margin="normal"
+            value={lastName}
           />
           <TextField
+            fullWidth
             label="Email"
-            fullWidth
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
             margin="normal"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
           />
           <TextField
-            label="Password"
             fullWidth
+            label="Password"
+            margin="normal"
+            onChange={(e) => setPassword(e.target.value)}
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            margin="normal"
           />
           <TextField
-            label="Assigned Area"
             fullWidth
-            value={assignedArea}
-            onChange={(e) => setassignedArea(e.target.value)}
+            label="Assigned Area"
             margin="normal"
+            onChange={(e) => setassignedArea(e.target.value)}
+            value={assignedArea}
           />
-          <Button variant="contained" color="primary" onClick={handleAddAdmin}>
+          <Button color="primary" onClick={handleAddAdmin} variant="contained">
             Add Admin
           </Button>
         </Container>
@@ -139,12 +138,12 @@ function AddAdmin() {
           <div
             style={{
               backgroundColor: 'rgba(255, 255, 255, 0.8)',
-              padding: '2rem',
               borderRadius: '10px',
               boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+              padding: '2rem',
             }}
           >
-            <Typography variant="h6" gutterBottom>
+            <Typography gutterBottom variant="h6">
               Admin List
             </Typography>
             <div style={{ overflowX: 'auto' }}>
@@ -152,21 +151,21 @@ function AddAdmin() {
                 <Typography>No admin users added yet.</Typography>
               ) : (
                 <table
-                  maxWidth="md"
                   style={{
-                    borderCollapse: 'collapse',
                     border: '1px solid #ddd',
+                    borderCollapse: 'collapse',
                     width: '100%',
                   }}
+                  // maxWidth="md"
                 >
                   <thead>
                     <tr>
                       <th
                         style={{
+                          backgroundColor: '#f2f2f2',
                           border: '1px solid #ddd',
                           padding: '8px',
                           textAlign: 'center',
-                          backgroundColor: '#f2f2f2',
                         }}
                       >
                         First Name
@@ -269,25 +268,25 @@ function AddAdmin() {
                         <td
                           style={{
                             border: '1px solid #ddd',
+                            display: 'flex',
                             padding: '8px',
                             textAlign: 'left',
-                            display: 'flex',
                           }}
                         >
                           <Button
-                            variant="outlined"
                             color="secondary"
                             onClick={() => handleRemoveAdmin(index)}
+                            variant="outlined"
                           >
                             Remove
                           </Button>
                           <Button
-                            style={{ marginLeft: '0.5rem' }}
-                            variant="outlined"
                             color={
                               adminStatusList[index] ? 'secondary' : 'primary'
                             }
                             onClick={() => handleToggleAdminStatus(index)}
+                            style={{ marginLeft: '0.5rem' }}
+                            variant="outlined"
                           >
                             {adminStatusList[index] ? 'Disable' : 'Enable'}
                           </Button>

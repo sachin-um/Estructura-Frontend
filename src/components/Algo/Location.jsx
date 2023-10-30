@@ -70,7 +70,7 @@ function Location({
     event.preventDefault();
     if (userSelection !== '') {
       handlePageChange('CurrentStatus');
-      updateFormData({ location: userSelection });
+      updateFormData({ district: userSelection });
       nextPage();
     } else {
       setHelperText('Please select an option.');

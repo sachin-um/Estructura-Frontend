@@ -39,7 +39,7 @@ function Construction({
     event.preventDefault();
     if (userSelection !== '') {
       handlePageChange(userSelection);
-      updateFormData({ secondChoice: userSelection });
+      updateFormData({ secondChoice: [userSelection] });
       nextPage();
     } else {
       setHelperText('Please select an option.');

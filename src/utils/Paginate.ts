@@ -6,8 +6,13 @@
  * @returns Array of paginated items in the given page at the given page size
  */
 function Paginate<T>(items: T[], pageNumber: number, pageSize: number): T[] {
+  console.log('Paginating:', items);
   const startIndex = (pageNumber - 1) * pageSize;
-  return items.slice(startIndex, pageNumber * pageSize);
+  if (Array.isArray(items)) {
+    return items.slice(startIndex, pageNumber * pageSize);
+  } else {
+    return [];
+  }
 }
 
 export default Paginate;
