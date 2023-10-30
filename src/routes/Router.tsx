@@ -15,7 +15,12 @@ import CustomRequestRoutes from './CustomRequestRoutes';
 import ProjectRoutes from './ProjectsRoutes';
 import RentingItemRoutes from './RentingRoutes';
 import ServiceProviderRoutes from './ServiceProviderRoutes';
+import AddAdmin from '../pages/admin/AddAdmin';
 import ShopRoutes from './ShopRoutes';
+import AdminDashboard from '../pages/admin/dash';
+import Member from '../pages/admin/Member';
+import RequestTable from '../pages/admin/RequestTable';
+
 
 export const altRouter = createBrowserRouter([
   {
@@ -52,6 +57,24 @@ export const altRouter = createBrowserRouter([
   {
     path: '/customer',
     element: <CustomerProfile />,
+  },
+
+  {
+    path: '/admindashboard',
+    element: <AdminDashboard />,
+  },
+
+  {
+    path: '/addadmin',
+    element: <AddAdmin />,
+  },
+  {
+    path: '/member',
+    element: <Member />,
+  },
+  {
+    path: '/RequestTable',
+    element: <RequestTable />,
   },
 
   ...AuthRoutes,
