@@ -94,8 +94,6 @@ const AddCustomerRequest = () => {
 
   const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async () => {
     const customerId = currentUser?.id;
-    alert(`${description} ${customerId} ${shortDesc} ${minPrice} ${maxPrice}`);
-    alert(selectedCategories);
     if (!customerId) {
       navigate('/SignIn?from=/custom-requests/add');
     } else {

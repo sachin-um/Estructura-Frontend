@@ -57,7 +57,7 @@ const ViewResponses = () => {
             <Grid item>
               <img
                 alt="ViewResponses"
-                src="ViewResponses.png"
+                src="/public/ViewResponses.png"
                 style={imageStyle}
               />
             </Grid>
