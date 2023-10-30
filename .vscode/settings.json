@@ -1,0 +1,42 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.organizeImports": false
+  },
+  "editor.formatOnSave": true,
+  "cSpell.words": [
+    "Bathware",
+    "CONSTRUCTIONCOMPANY",
+    "estructurafrontend",
+    "GARDENWARE",
+    "hasn",
+    "INTERIORDESIGNER",
+    "islandwide",
+    "LANDSCAPEARCHITECT",
+    "MASONWORKER",
+    "reduxjs",
+    "RENTINGCOMPANY",
+    "retailitems",
+    "RETAILOWNER",
+    "RETAILSTORE",
+    "slia",
+    "svgrepo"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "prettier.jsxSingleQuote": true,
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}

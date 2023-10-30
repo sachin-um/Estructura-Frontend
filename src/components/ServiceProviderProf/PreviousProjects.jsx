@@ -1,120 +1,103 @@
-import React, {useState} from "react";
-import { Button, Container, Grid, Typography, Box, Card, CardContent, CardActions } from '@mui/material';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Container,
+  Grid,
+  Typography,
+} from '@mui/material';
+import React, { useState } from 'react';
 
+import API from '../../lib/API';
+
+const projectsFetch = []; // TODO: Change 1 to user id
+// const projectsFetch = await API.get('/projects/all/1') // TODO: Change 1 to user id
+//   .then((res) => {
+//     console.log(res);
+//     return res.data;
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//     return [];
+//   });
 function PreviousProjects() {
-  
+  const [projects, setProjects] = useState(projectsFetch);
   return (
     <Container style={{ marginBottom: '2rem' }}>
-      <Box display='flex' justifyContent='flex-end'>
-        <Button variant='contained'>Add Projects</Button>
+      <Box display="flex" justifyContent="flex-end" marginBottom="1rem">
+        <Button variant="contained">Add Projects</Button>
       </Box>
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={4} style={{ marginLeft: 'auto', marginTop: '2rem' }}>
-          <Card sx={{ height: '100%' }}>
-            <img src="BannerImage.jpg" alt="Project 1" style={{ width: '100%', height: '200px' }} />
-            <CardContent>
-              <Typography variant="subtitle1">Project Name 1</Typography>
-              <Box display="flex" alignItems="center">
-                <LocationOnIcon fontSize="small" />
-                <Typography variant="body2" sx={{ marginLeft: 1 }}>Location 1</Typography>
-              </Box>
-            </CardContent>
-            <CardActions sx={{ justifyContent: 'center' }}>
-              <Button variant="outlined" startIcon={<EditIcon />} sx={{ marginRight: 2 }}>Edit</Button>
-              <Button variant="outlined" startIcon={<DeleteIcon />}>Delete</Button>
-            </CardActions>
-          </Card>
+      {projects.length !== 0 && (
+        <Grid container justifyContent="space-evenly" spacing={2} wrap="wrap">
+          {projects.map((project) => {
+            console.log(project);
+            return (
+              <>
+                <Grid item sm={4} xs={12}>
+                  <Card elevation={4}>
+                    <img
+                      style={{
+                        borderBottom: '2px solid #000',
+                        height: '200px',
+                        width: '100%',
+                      }}
+                      alt="Project 1"
+                      src="BannerImage.jpg"
+                    />
+                    <CardContent
+                      sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}
+                    >
+                      <Typography variant="h6">
+                        {project.name ?? 'ERROR'}
+                      </Typography>
+                      <Typography variant="subtitle1">
+                        <Box alignItems="center" display="inline-flex">
+                          <LocationOnIcon
+                            fontSize="inherit"
+                            sx={{ marginRight: 1 }}
+                          />
+                          {project.location ?? 'ERROR'}
+                        </Box>
+                      </Typography>
+                    </CardContent>
+                    <CardActions sx={{ justifyContent: 'center' }}>
+                      <Button
+                        startIcon={<EditIcon />}
+                        sx={{ marginRight: 2 }}
+                        variant="outlined"
+                      >
+                        Edit
+                      </Button>
+                      <Button startIcon={<DeleteIcon />} variant="outlined">
+                        Delete
+                      </Button>
+                    </CardActions>
+                  </Card>
+                </Grid>
+              </>
+            );
+          })}
         </Grid>
-        <Grid item xs={12} sm={4} style={{ marginLeft: 'auto', marginTop: '2rem' }}>
-          <Card sx={{ height: '100%' }}>
-            <img src="cover.jpg" alt="Project 2" style={{ width: '100%', height: '200px' }} />
-            <CardContent>
-              <Typography variant="subtitle1">Project Name 2</Typography>
-              <Box display="flex" alignItems="center">
-                <LocationOnIcon fontSize="small" />
-                <Typography variant="body2" sx={{ marginLeft: 1 }}>Location 2</Typography>
-              </Box>
-            </CardContent>
-            <CardActions sx={{ justifyContent: 'center' }}>
-              <Button variant="outlined" startIcon={<EditIcon />} sx={{ marginRight: 2 }}>Edit</Button>
-              <Button variant="outlined" startIcon={<DeleteIcon />}>Delete</Button>
-            </CardActions>
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={4} style={{ marginLeft: 'auto', marginTop: '2rem' }}>
-          <Card sx={{ height: '100%' }}>
-            <img src="formBg.jpg" alt="Project 3" style={{ width: '100%', height: '200px' }} />
-            <CardContent>
-              <Typography variant="subtitle1">Project Name 3</Typography>
-              <Box display="flex" alignItems="center">
-                <LocationOnIcon fontSize="small" />
-                <Typography variant="body2" sx={{ marginLeft: 1 }}>Location 3</Typography>
-              </Box>
-            </CardContent>
-            <CardActions sx={{ justifyContent: 'center' }}>
-              <Button variant="outlined" startIcon={<EditIcon />} sx={{ marginRight: 2 }}>Edit</Button>
-              <Button variant="outlined" startIcon={<DeleteIcon />}>Delete</Button>
-            </CardActions>
-          </Card>
-        </Grid>
-
-        <Grid item xs={12} sm={4} style={{ marginLeft: 'auto', marginTop: '2rem' }}>
-          <Card sx={{ height: '100%' }}>
-            <img src="signupLandingBG.jpg" alt="Project 4" style={{ width: '100%', height: '200px' }} />
-            <CardContent>
-              <Typography variant="subtitle1">Project Name 4</Typography>
-              <Box display="flex" alignItems="center">
-                <LocationOnIcon fontSize="small" />
-                <Typography variant="body2" sx={{ marginLeft: 1 }}>Location 4</Typography>
-              </Box>
-            </CardContent>
-            <CardActions sx={{ justifyContent: 'center' }}>
-              <Button variant="outlined" startIcon={<EditIcon />} sx={{ marginRight: 2 }}>Edit</Button>
-              <Button variant="outlined" startIcon={<DeleteIcon />}>Delete</Button>
-            </CardActions>
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={4} style={{ marginLeft: 'auto', marginTop: '2rem' }}>
-          <Card sx={{ height: '100%' }}>
-            <img src="BannerImage.jpg" alt="Project 5" style={{ width: '100%', height: '200px' }} />
-            <CardContent>
-              <Typography variant="subtitle1">Project Name 5</Typography>
-              <Box display="flex" alignItems="center">
-                <LocationOnIcon fontSize="small" />
-                <Typography variant="body2" sx={{ marginLeft: 1 }}>Location 5</Typography>
-              </Box>
-            </CardContent>
-            <CardActions sx={{ justifyContent: 'center' }}>
-              <Button variant="outlined" startIcon={<EditIcon />} sx={{ marginRight: 2 }}>Edit</Button>
-              <Button variant="outlined" startIcon={<DeleteIcon />}>Delete</Button>
-            </CardActions>
-          </Card>
-
-        </Grid>
-        <Grid item xs={12} sm={4} style={{ marginLeft: 'auto', marginTop: '2rem' }}>
-          <Card sx={{ height: '100%' }}>
-            <img src="formBg.jpg" alt="Project 6" style={{ width: '100%', height: '200px' }} />
-            <CardContent>
-              <Typography variant="subtitle1">Project Name 6</Typography>
-              <Box display="flex" alignItems="center">
-                <LocationOnIcon fontSize="small" />
-                <Typography variant="body2" sx={{ marginLeft: 1 }}>Location 6</Typography>
-              </Box>
-            </CardContent>
-            <CardActions sx={{ justifyContent: 'center' }}>
-              <Button variant="outlined" startIcon={<EditIcon />} sx={{ marginRight: 2 }}>Edit</Button>
-              <Button variant="outlined" startIcon={<DeleteIcon />}>Delete</Button>
-            </CardActions>
-          </Card>
-        </Grid>
-      </Grid>
-    </Container> 
+      )}
+      {projects.length === 0 && (
+        <Box
+          sx={{
+            alignItems: 'center',
+            display: 'flex',
+            height: '50vh',
+            justifyContent: 'center',
+          }}
+        >
+          <img src="noContent.jpg" alt="" />
+        </Box>
+      )}
+    </Container>
   );
 }
 
 export default PreviousProjects;
-
-

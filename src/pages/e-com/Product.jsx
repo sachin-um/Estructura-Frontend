@@ -41,7 +41,7 @@ const SmallImageContainer = styled.div`
   width: 60px;
   height: 60px;
   object-fit: cover;
-  border: ${(props) => (props.isSelected ? "2px solid teal" : "none")};
+  border: ${(props) => (props.isSelected ? '2px solid teal' : 'none')};
   margin: 0 10px;
   cursor: pointer;
 `;
@@ -61,7 +61,7 @@ const Wrapper = styled.div`
 const InfoContainer = styled.div`
   flex: 2;
   padding: 0px 50px;
-  ${mobile({ padding: "10px" })}
+  ${mobile({ padding: '10px' })}
 `;
 
 const Title = styled.h1`
@@ -176,9 +176,9 @@ const Product = () => {
     "https://images.pexels.com/photos/1112598/pexels-photo-1112598.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
   );
   const images = [
-    "https://images.pexels.com/photos/11674340/pexels-photo-11674340.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "https://images.pexels.com/photos/13068370/pexels-photo-13068370.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "https://images.pexels.com/photos/1112598/pexels-photo-1112598.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    'https://images.pexels.com/photos/11674340/pexels-photo-11674340.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    'https://images.pexels.com/photos/13068370/pexels-photo-13068370.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+    'https://images.pexels.com/photos/1112598/pexels-photo-1112598.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
   ];
 
   const handleImageClick = (image) => {
@@ -209,8 +209,8 @@ const Product = () => {
             {images.map((image) => (
               <SmallImageContainer
                 isSelected={image === selectedImage}
-                onClick={() => handleImageClick(image)}
                 key={image}
+                onClick={() => handleImageClick(image)}
               >
                 <SmallImage src={image} />
               </SmallImageContainer>

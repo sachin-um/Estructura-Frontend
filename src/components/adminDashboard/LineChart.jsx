@@ -1,15 +1,58 @@
-import { ResponsiveLine } from "@nivo/line";
-import { useTheme } from "@mui/material";
-import { tokens } from "../../theme";
-import { mockLineData as data } from "../../data/mockData";
+import { ResponsiveLine } from '@nivo/line';
+
+import { mockLineData as data } from '../../data/mockData';
+import { tokens } from '../../theme';
 
 const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
-  const theme = useTheme();
   const colors = tokens;
 
   return (
     <ResponsiveLine
-      data={data}
+      axisBottom={{
+        legend: isDashboard ? undefined : 'transportation', // added
+        legendOffset: 36,
+        legendPosition: 'middle',
+        orient: 'bottom',
+        tickPadding: 5,
+        tickRotation: 0,
+        tickSize: 0,
+      }}
+      axisLeft={{
+        legend: isDashboard ? undefined : 'count', // added
+        legendOffset: -40,
+        legendPosition: 'middle',
+        orient: 'left',
+        tickPadding: 5,
+        tickRotation: 0,
+        tickSize: 3,
+        tickValues: 5, // added
+      }}
+      legends={[
+        {
+          anchor: 'bottom-right',
+          direction: 'column',
+          effects: [
+            {
+              on: 'hover',
+              style: {
+                itemBackground: 'rgba(0, 0, 0, .03)',
+                itemOpacity: 1,
+              },
+            },
+          ],
+          itemDirection: 'left-to-right',
+          itemHeight: 20,
+          itemOpacity: 0.75,
+          itemWidth: 80,
+          itemsSpacing: 0,
+          justify: false,
+          symbolBorderColor: 'rgba(0, 0, 0, .5)',
+          symbolShape: 'circle',
+          symbolSize: 12,
+          translateX: 100,
+          translateY: 0,
+        },
+      ]}
       theme={{
         axis: {
           domain: {
@@ -43,73 +86,29 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
           },
         },
       }}
-      colors={isDashboard ? { datum: "color" } : { scheme: "nivo" }} // added
-      margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-      xScale={{ type: "point" }}
       yScale={{
-        type: "linear",
-        min: "auto",
-        max: "auto",
-        stacked: true,
+        max: 'auto',
+        min: 'auto',
         reverse: false,
+        stacked: true,
+        type: 'linear',
       }}
-      yFormat=" >-.2f"
-      curve="catmullRom"
-      axisTop={null}
       axisRight={null}
-      axisBottom={{
-        orient: "bottom",
-        tickSize: 0,
-        tickPadding: 5,
-        tickRotation: 0,
-        legend: isDashboard ? undefined : "transportation", // added
-        legendOffset: 36,
-        legendPosition: "middle",
-      }}
-      axisLeft={{
-        orient: "left",
-        tickValues: 5, // added
-        tickSize: 3,
-        tickPadding: 5,
-        tickRotation: 0,
-        legend: isDashboard ? undefined : "count", // added
-        legendOffset: -40,
-        legendPosition: "middle",
-      }}
+      axisTop={null}
+      colors={isDashboard ? { datum: 'color' } : { scheme: 'nivo' }} // added
+      curve="catmullRom"
+      data={data}
       enableGridX={false}
       enableGridY={false}
-      pointSize={8}
-      pointColor={{ theme: "background" }}
+      margin={{ bottom: 50, left: 60, right: 110, top: 50 }}
+      pointBorderColor={{ from: 'serieColor' }}
       pointBorderWidth={2}
-      pointBorderColor={{ from: "serieColor" }}
+      pointColor={{ theme: 'background' }}
       pointLabelYOffset={-12}
+      pointSize={8}
       useMesh={true}
-      legends={[
-        {
-          anchor: "bottom-right",
-          direction: "column",
-          justify: false,
-          translateX: 100,
-          translateY: 0,
-          itemsSpacing: 0,
-          itemDirection: "left-to-right",
-          itemWidth: 80,
-          itemHeight: 20,
-          itemOpacity: 0.75,
-          symbolSize: 12,
-          symbolShape: "circle",
-          symbolBorderColor: "rgba(0, 0, 0, .5)",
-          effects: [
-            {
-              on: "hover",
-              style: {
-                itemBackground: "rgba(0, 0, 0, .03)",
-                itemOpacity: 1,
-              },
-            },
-          ],
-        },
-      ]}
+      xScale={{ type: 'point' }}
+      yFormat=" >-.2f"
     />
   );
 };

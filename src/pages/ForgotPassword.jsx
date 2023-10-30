@@ -1,162 +1,198 @@
 // TODO: Add Service Provider Sign In Page with 2 paths (service provider and retail store)
-import TopBar from "../components/TopBar";
-
-
-import React,{useState} from "react";
-import ForgotPasswordPage1 from "../components/ForgotPassword/ForgotPasswordPage1";
-import ForgotPasswordPage2 from "../components/ForgotPassword/ForgotPasswordPage2";
-
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  Stack,
-  Link,
-  TextField,
-  Typography,
-} from "@mui/material";
-// import { Link } from "react-router-dom" ;
+import { Container, Grid, Typography, Button, TextField } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import TopBar from '../components/TopBar';
 
 function ForgotPassword() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [formData, setFormData] = useState({});
-  const [selectedOption, setSelectedOption] = useState('');
-  const [activeTab, setActiveTab] = useState(1);
-
-
-
-
-  const nextPage = () => {
-    setCurrentPage(currentPage + 1);
-  };
-
-  const previousPage = () => {
-    setCurrentPage(currentPage - 1);
-  };
-
-  const updateFormData = (data) => {
-    setFormData({ ...formData, ...data });
-  };
-
-  const handleDropdownChange = (value) => {
-    setSelectedOption(value);
-    setCurrentPage(1); // Reset to the first page when dropdown changes
-  };
-
-  const handleSubmit = () => {
-    // Handle form submission using the collected form data
-    console.log(formData);
-  };
-
-  let pages = [<ForgotPasswordPage1 updateFormData={updateFormData} handleDropdownChange={handleDropdownChange} nextPage={nextPage}/>,<ForgotPasswordPage2 updateFormData={updateFormData} nextPage={nextPage} previousPage={previousPage} />];
-
-  if (selectedOption === 'option1') {
-    pages.push(<Page2 updateFormData={updateFormData} />);
-  } else if (selectedOption === 'option2') {
-    pages.push(<Page3 updateFormData={updateFormData} />);
-  }
-
-
-  const HandleSubmit = (event) => {
+  const [formData, setFormData] = useState({ email: '' });
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    console.log(formData.get("email"), formData.get("password"));
+    const formDataList = new FormData(event.currentTarget);
+    setFormData({ email: formDataList.get('email') });
   };
+
+  useEffect(() => {
+    if (formData.email) {
+      API.post('/auth/password-reset-request', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+        .then((res) => {
+          console.table(res);
+          if (res.status === 200) {
+            if (res.data.success === true) {
+              navigate('/emailNotVerified', { replace: true });
+            } else {
+              alert(res.data.message);
+            }
+          } else {
+            alert('Invalid Credentials');
+          }
+        })
+        .catch((err) => console.log(JSON.stringify(err)));
+    }
+  });
 
   // TODO: Change Layout
   return (
     <>
-      <TopBar title='Sign In to Estructura' />
+      <TopBar title="Sign In to Estructura" />
 
-         <Container
+      <Container
+        style={{
+          alignItems: 'center',
+          backgroundColor: '#f7f8f1',
+          display: 'flex',
+          minHeight: '100vh',
+        }}
         maxWidth={false}
-        style={{ backgroundColor: '#f7f8f1', minHeight: '100vh', display: 'flex', alignItems: 'center' }}
       >
         <Grid container justifyContent="center" spacing={4}>
-          <Grid item xs={12} md={7} style={{ paddingTop: '2rem', paddingBottom: '2rem', marginTop: '2rem' }}>
+          <Grid
+            style={{
+              marginTop: '2rem',
+              paddingBottom: '2rem',
+              paddingTop: '2rem',
+            }}
+            item
+            md={7}
+            xs={12}
+          >
             <Grid
-              container
               style={{
-                backgroundImage: 'url("/forgotpassword.jpg")',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                borderRadius: '20px',
-                height: '100%',
-                display: 'flex',
                 alignItems: 'flex-end',
+                backgroundImage: 'url("/forgotpassword.jpg")',
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+                borderRadius: '20px',
+                display: 'flex',
+                height: '100%',
               }}
+              container
             >
-              <Grid item xs={12} style={{ paddingLeft: '4rem', paddingRight: '1rem', marginBottom: '2rem' }}>
+              <Grid
+                style={{
+                  marginBottom: '2rem',
+                  paddingLeft: '4rem',
+                  paddingRight: '1rem',
+                }}
+                item
+                xs={12}
+              >
                 <Typography
-                  variant="h4"
                   style={{
                     color: '#000000',
                     fontSize: '1.5rem',
-                    textAlign: 'left',
                     lineHeight: '1',
-                    paddingBottom: '1rem',
                     marginTop: 'auto',
+                    paddingBottom: '1rem',
+                    textAlign: 'left',
+                    fontWeight: 'bold',
                   }}
+                  variant="h4"
                 >
                   Unleash your home’s potential
                 </Typography>
                 <Typography
-                  variant="h4"
                   style={{
                     color: '#000000',
                     fontSize: '1.5rem',
-                    textAlign: 'left',
                     lineHeight: '1',
+                    textAlign: 'left',
+                    fontWeight: 'bold',
                   }}
+                  variant="h4"
                 >
                   with everything at your fingertips
                 </Typography>
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} md={5}>
+          <Grid item md={5} xs={12}>
             <Grid
-              container
               style={{
+                alignItems: 'center',
                 backgroundColor: '#ffffff',
-                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                 borderRadius: '20px',
-                padding: '1rem 2rem 3rem',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center',
                 justifyContent: 'center',
-                marginTop: '2rem',
                 marginBottom: '2rem',
+                marginTop: '2rem',
+                padding: '1rem 2rem 3rem',
               }}
+              container
             >
-              <Grid item xs={12} style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'center' }}>
-                <img src="/Logo.png" alt="Logo" style={{ width: '40%' }} />
+              <Grid
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  marginBottom: '1.5rem',
+                }}
+                item
+                xs={12}
+              >
+                <img alt="Logo" src="/Logo.png" style={{ width: '40%' }} />
               </Grid>
-              <Grid item xs={12} style={{ marginTop: '1rem' }}></Grid>
-              
+              <Grid item style={{ marginTop: '1rem' }} xs={12}></Grid>
+
               <Grid>
-         <form>  
-       
-      {pages[currentPage - 1]}
-      {/* {currentPage > 1 && (
-        <button onClick={previousPage}>Previous</button>
-      )}
-      {currentPage < pages.length && (
-        <button onClick={nextPage}>Next</button>
-      )}
-      {currentPage === pages.length && (
-        <button onClick={handleSubmit}>Submit</button>
-      )}
-       */}
-     </form>
+                <form onSubmit={handleSubmit}>
+                  {
+                    <Grid
+                      style={{ justifyContent: 'center', minHeight: '30vh' }}
+                    >
+                      <Typography
+                        style={{
+                          color: '#435834',
+                          marginBottom: '50px',
+                          textAlign: 'center',
+                        }}
+                        gutterBottom
+                        variant="h5"
+                      >
+                        Forgot your Password?
+                      </Typography>
+
+                      <TextField
+                        InputProps={{ sx: { borderRadius: 2 } }}
+                        label="Email"
+                        name="email"
+                        size="small"
+                        sx={{ margin: 2, width: 1 }}
+                        type="email"
+                        variant="filled"
+                      />
+                    </Grid>
+                  }
+
+                  {
+                    <Grid
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        margin: 2,
+                      }}
+                    >
+                      <Button
+                        color="primary"
+                        size="large"
+                        sx={{ borderRadius: 2, width: 1 / 2 }}
+                        type="submit"
+                        variant="contained"
+                      >
+                        Send Link
+                      </Button>
+                    </Grid>
+                  }
+                </form>
               </Grid>
-    </Grid>
-    </Grid>
-    </Grid>
-    
-    </Container>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Container>
     </>
   );
 }
@@ -315,4 +351,3 @@ export default ForgotPassword;
 // }
 
 // export default ForgotPassword;
-

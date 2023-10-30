@@ -1,33 +1,50 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
+// eslint-disable-next-line import/no-unresolved
+import webLogo from '/Logo.png';
+// eslint-disable-next-line import/no-unresolved
+import avatarImg from '/User/user.png';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import MenuIcon from '@mui/icons-material/Menu';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
+import AppBar from '@mui/material/AppBar';
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import avatarImg from '/User/user.png'
-import webLogo from '/Logo.png'
+import IconButton from '@mui/material/IconButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Toolbar from '@mui/material/Toolbar';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import * as React from 'react';
 
 const pages = ['Professionals', 'Products', 'Blog'];
 const settings = ['Profile', 'Account', 'Logout'];
-const professionalsTopics = ['Architects', 'Interior Designers', 'Construction Companies', 'Landscape Architects', 'Home Builders', 'Painters', 'Carpenters'];
-const productsTopics = ['Furniture', 'Hardware Items', 'Gardening Items and Tools', 'Bathware', 'Lighting'];
+const professionalsTopics = [
+  'Architects',
+  'Interior Designers',
+  'Construction Companies',
+  'Landscape Architects',
+  'Home Builders',
+  'Painters',
+  'Carpenters',
+];
+const productsTopics = [
+  'Furniture',
+  'Hardware Items',
+  'Gardening Items and Tools',
+  'Bathware',
+  'Lighting',
+];
 
 function CusTopBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [anchorElProfessionals, setAnchorElProfessionals] = React.useState(null);
+  const [anchorElProfessionals, setAnchorElProfessionals] =
+    React.useState(null);
   const [anchorElProducts, setAnchorElProducts] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -64,51 +81,54 @@ function CusTopBar() {
 
   return (
     // <AppBar position={isAppBarFixed ? 'fixed' : 'relative'} sx={{ backgroundColor: 'white', color: 'green', transition: 'position 0.2s ease-in-out', }}>
-    <AppBar position="relative" sx={{ backgroundColor: 'white', color: 'green' }}>
+    <AppBar
+      position="relative"
+      sx={{ backgroundColor: 'white', color: 'green' }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <IconButton
-            edge="start"
-            color="inherit"
             aria-label="menu"
+            color="inherit"
+            edge="start"
             onClick={handleOpenNavMenu}
-            sx={{ mr: 2, display: { xs: 'block', md: 'none' } }}
+            sx={{ display: { md: 'none', xs: 'block' }, mr: 2 }}
           >
             <MenuIcon />
           </IconButton>
           <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
             sx={{
-              flexGrow: 1,
-              display: 'flex',
               alignItems: 'center',
+              display: 'flex',
+              flexGrow: 1,
               justifyContent: 'flex-start', // Logo aligns to the left
             }}
+            component="a"
+            href="/"
+            noWrap
+            variant="h6"
           >
             <img src={webLogo} alt="" height={65}  />
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ display: { md: 'none', xs: 'flex' }, flexGrow: 1 }}>
             <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
               anchorOrigin={{
+                horizontal: 'left',
                 vertical: 'bottom',
-                horizontal: 'left',
               }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', md: 'none' },
+                display: { md: 'none', xs: 'block' },
               }}
+              transformOrigin={{
+                horizontal: 'left',
+                vertical: 'top',
+              }}
+              anchorEl={anchorElNav}
+              id="menu-appbar"
+              keepMounted
+              onClose={handleCloseNavMenu}
+              open={Boolean(anchorElNav)}
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
@@ -117,14 +137,26 @@ function CusTopBar() {
               ))}
             </Menu>
           </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ display: { md: 'flex', xs: 'none' }, flexGrow: 1 }}>
             {pages.map((page) => (
               <Button
-                key={page}
                 onClick={
-                  page === 'Professionals' ? handleOpenProfessionalsMenu : page === 'Products' ? handleOpenProductsMenu : null
+                  page === 'Professionals'
+                    ? handleOpenProfessionalsMenu
+                    : page === 'Products'
+                    ? handleOpenProductsMenu
+                    : null
                 }
-                sx={{ my: 2, mx: 2, color: 'green', display: 'block', textAlign: 'center', fontSize: '16px', letterSpacing: '0.1rem' }}
+                sx={{
+                  color: 'green',
+                  display: 'block',
+                  fontSize: '16px',
+                  letterSpacing: '0.1rem',
+                  mx: 2,
+                  my: 2,
+                  textAlign: 'center',
+                }}
+                key={page}
               >
                 {page}
               </Button>
@@ -138,20 +170,20 @@ function CusTopBar() {
               </IconButton>
             </Tooltip>
             <Menu
-              sx={{ mt: '45px', '& .MuiPaper-root': { minWidth: '200px' } }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
               anchorOrigin={{
-                vertical: 'top',
                 horizontal: 'right',
+                vertical: 'top',
               }}
-              keepMounted
               transformOrigin={{
-                vertical: 'top',
                 horizontal: 'right',
+                vertical: 'top',
               }}
-              open={Boolean(anchorElUser)}
+              anchorEl={anchorElUser}
+              id="menu-appbar"
+              keepMounted
               onClose={handleCloseUserMenu}
+              open={Boolean(anchorElUser)}
+              sx={{ '& .MuiPaper-root': { minWidth: '200px' }, mt: '45px' }}
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
@@ -170,15 +202,15 @@ function CusTopBar() {
           </Box>
 
           <Menu
-            sx={{ mt: '45px', '& .MuiPaper-root': { width: '30rem' } }}
-            id="menu-appbar-professionals"
             anchorEl={anchorElProfessionals}
-            open={Boolean(anchorElProfessionals)}
+            id="menu-appbar-professionals"
             onClose={handleCloseProfessionalsMenu}
+            open={Boolean(anchorElProfessionals)}
+            sx={{ '& .MuiPaper-root': { width: '30rem' }, mt: '45px' }}
           >
             <Grid container>
               {professionalsTopics.map((topic) => (
-                <Grid item xs={6} key={topic}>
+                <Grid item key={topic} xs={6}>
                   <MenuItem onClick={handleCloseProfessionalsMenu}>
                     <Typography textAlign="center" sx={{ color: '#304422' }}>
                       {topic}
@@ -190,15 +222,15 @@ function CusTopBar() {
           </Menu>
 
           <Menu
-            sx={{ mt: '45px', '& .MuiPaper-root': { width: '30rem' } }}
-            id="menu-appbar-products"
             anchorEl={anchorElProducts}
-            open={Boolean(anchorElProducts)}
+            id="menu-appbar-products"
             onClose={handleCloseProductsMenu}
+            open={Boolean(anchorElProducts)}
+            sx={{ '& .MuiPaper-root': { width: '30rem' }, mt: '45px' }}
           >
             <Grid container>
               {productsTopics.map((topic) => (
-                <Grid item xs={6} key={topic}>
+                <Grid item key={topic} xs={6}>
                   <MenuItem onClick={handleCloseProductsMenu}>
                     <Typography textAlign="center" sx={{ color: '#304422' }}>
                       {topic}

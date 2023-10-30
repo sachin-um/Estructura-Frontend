@@ -1,252 +1,273 @@
-import React, { useState, useEffect } from "react";
 import {
   Box,
-  Typography,
-  TextField,
   Button,
-  Grid,
   Card,
   CardMedia,
-  CardContent,
-  Paper
-} from "@mui/material";
-import { Link } from "react-router-dom";
-import TopBar from "../components/TopBar";
-import HomepageCarousel from "../components/Carousel/HomepageCarousel";
-import "../assets/font.css"
-
+  Grid,
+  Paper,
+  TextField,
+  Typography,
+} from '@mui/material';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import '../assets/font.css';
+import HomepageCarousel from '../components/Carousel/HomepageCarousel';
+import TopAppBar from '../components/TopAppBar';
+import Footer from '../components/Footer';
+import { Link as RouterLink } from 'react-router-dom';
 
 const Slider = ({ images, interval = 5000 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  
+
+  const goToNextSlide = useCallback(() => {
+    setCurrentSlide((prevSlide) => (prevSlide + 1) % images.length);
+  }, [images.length]);
+
   useEffect(() => {
     const slideInterval = setInterval(goToNextSlide, interval);
 
     return () => {
       clearInterval(slideInterval);
     };
-  }, [interval]);
-
-  const goToNextSlide = () => {
-    setCurrentSlide((prevSlide) => (prevSlide + 1) % images.length);
+  }, [goToNextSlide, interval]);
+  const navigate = useNavigate();
+  const handleGetStarted = () => {
+    navigate('/AlgoStart', { replace: true });
   };
-
   return (
     <>
-      <TopBar title="Home" />
+      <TopAppBar />
       <Box
+        alignItems="center"
         display="flex"
         justifyContent="center"
-        alignItems="center"
         maxWidth="100vw"
         position="relative"
       >
         <Box width="100%">
           {images.map((image, index) => (
             <img
+              style={{
+                display: index === currentSlide ? 'block' : 'none',
+                height: '100vw',
+                maxHeight: 'calc(110vh - 100px)',
+                maxWidth: '100%',
+                objectFit: 'cover',
+                width: '100vw',
+              }}
+              alt={`Slide ${index + 1}`}
               key={index}
               src={image}
-              alt={`Slide ${index + 1}`}
-              style={{
-                display: index === currentSlide ? "block" : "none",
-                width: "100vw",
-                height: "100vw",
-                maxHeight: "calc(110vh - 100px)",
-                maxWidth: "100%",
-                objectFit: "cover",
-              }}
             />
           ))}
           {currentSlide === images.length - 1 && (
             <Box
+              alignItems="center"
+              cursor="pointer"
+              display="flex"
+              onClick={goToNextSlide}
               position="absolute"
               right="10px"
               top="50%"
               zIndex="2"
-              display="flex"
-              alignItems="center"
-              cursor="pointer"
-              onClick={goToNextSlide}
-            >
-            </Box>
+            ></Box>
           )}
 
           <Box
-            position="absolute"
-            left="120px"
-            top="200px"
-            maxWidth="50%"
             color="white"
+            left="120px"
+            maxWidth="50%"
+            position="absolute"
+            top="200px"
             zIndex="1"
           >
             <Typography
-              variant="h5"
-              paragraph
-              fontFamily="Poppins" 
-              fontSize="2rem"
               color="white"
+              fontFamily="Poppins"
+              fontSize="2rem"
+              paragraph
+              variant="h5"
             >
               Unleash your home’s potential with <br /> everything at your
               fingertips
             </Typography>
-            <Box display="flex" alignItems="center" marginTop="80px">
+            <Box alignItems="center" display="flex" marginTop="80px">
               <TextField
-                label="What service do you need?"
-                variant="outlined"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "white",
-                  },
-                  "& .MuiInputLabel-root": {
-                    color: "grey",
-                  },
-                  width: "400px",
-                }}
                 InputLabelProps={{
                   shrink: false,
                 }}
+                sx={{
+                  '& .MuiInputLabel-root': {
+                    color: 'grey',
+                  },
+                  '& .MuiOutlinedInput-root': {
+                    backgroundColor: 'white',
+                  },
+                  width: '400px',
+                }}
+                label="What service do you need?"
+                variant="outlined"
               />
               <Button
-                variant="contained"
-                color="primary"
                 sx={{
-                  marginLeft: "8px",
-                  width: "200px",
-                  height: "50px",
-                  boxShadow: "0px 3px 5px rgba(0, 0, 0, 0, 3)",
-                  "&:hover": {
-                    boxShadow: "0px 5px 7px rgba(0, 0, 0, 0, 5)",
+                  '&:hover': {
+                    boxShadow: '0px 5px 7px rgba(0, 0, 0, 0, 5)',
                   },
+                  boxShadow: '0px 3px 5px rgba(0, 0, 0, 0, 3)',
+                  height: '50px',
+                  marginLeft: '8px',
+                  width: '200px',
                 }}
+                color="primary"
+                variant="contained"
+                onClick={handleGetStarted}
               >
                 Get Started
               </Button>
             </Box>
           </Box>
           <Box
-            position="absolute"
-            top="30%"
-            right='20px'
-            zIndex="2"
-            display="flex"
             alignItems="center"
             cursor="pointer"
-          >
-          </Box>
-          </Box>
-          </Box>
-          </>
-  )
-}
+            display="flex"
+            position="absolute"
+            right="20px"
+            top="30%"
+            zIndex="2"
+          ></Box>
+        </Box>
+      </Box>
+    </>
+  );
+};
 
-const HomePage = () => {
-  const [isCreateIdeaButtonHovered, setIsCreateIdeaButtonHovered] = useState(false);
-  const [isFurnitureButtonHovered, setIsFurnitureButtonHovered] = useState(false);
+const HomePage = (props) => {
+  const [isCreateIdeaButtonHovered, setIsCreateIdeaButtonHovered] =
+    useState(false);
+  const [isFurnitureButtonHovered, setIsFurnitureButtonHovered] =
+    useState(false);
 
   const images = [
-    "/Home_Slider/1.jpg",
-    "/Home_Slider/2.jpg",
-    "/Home_Slider/3.jpg",
-    "/Home_Slider/4.jpg",
-    "/Home_Slider/5.jpg",
-    "/Home_Slider/6.jpg",
-    "/Home_Slider/7.jpg",
+    '/Home_Slider/1.jpg',
+    '/Home_Slider/2.jpg',
+    '/Home_Slider/3.jpg',
+    '/Home_Slider/4.jpg',
+    '/Home_Slider/5.jpg',
+    '/Home_Slider/6.jpg',
+    '/Home_Slider/7.jpg',
   ];
 
   const cardDataBrowse = [
     {
-      image: "/Professionals/GeneralContractors.jpg",
-      title: "Construction Companies",
+      image: '/Professionals/GeneralContractors.jpg',
+      title: 'Construction Companies',
+      link: '/Professionals/CONSTRUCTIONCOMPANY',
     },
     {
-      image: "/Professionals/Architect.jpg",
-      title: "Architects",
+      image: '/Professionals/Architect.jpg',
+      title: 'Architects',
+      link: '/Professionals/ARCHITECT',
     },
     {
-      image: "/Professionals/InteriorDesigner.jpg",
-      title: "Interior Designers",
+      image: '/Professionals/InteriorDesigner.jpg',
+      title: 'Interior Designers',
+      link: '/Professionals/INTERIORDESIGNER',
     },
     {
-      image: "/Professionals/landscapeArchitects.jpg",
-      title: "Landscape Architects",
+      image: '/Professionals/landscapeArchitects.jpg',
+      title: 'Landscape Architects',
+      link: '/Professionals/LANDSCAPEARCHITECT',
     },
     {
-      image: "/Professionals/HomeBuilder.jpg",
-      title: "Home Builders",
+      image: '/Professionals/HomeBuilder.jpg',
+      title: 'Home Builders',
+      link: '/Professionals/MASONWORKER',
     },
     {
-      image: "/Professionals/carpenters.jpg",
-      title: "Carpenters",
+      image: '/Professionals/carpenters.jpg',
+      title: 'Carpenters',
+      link: '/Professionals/CARPENTER',
     },
     {
-      image: "/Professionals/painters.jpg",
-      title: "Painters",
+      image: '/Professionals/painters.jpg',
+      title: 'Painters',
+      link: '/Professionals/PAINTER',
     },
   ];
 
   const cardDataShopBy = [
     {
-      image: "/ShopBy/Furniture.jpg",
-      title: "Furniture",
+      image: '/ShopBy/Furniture.jpg',
+      title: 'Furniture',
+      link: '/shop/items/FURNITURE',
     },
     {
-      image: "/ShopBy/hardware.jpg",
-      title: "Hardware",
+      image: '/ShopBy/hardware.jpg',
+      title: 'Hardware',
+      link: '/shop/items/HARDWARE',
     },
     {
-      image: "/ShopBy/bathroom.png",
-      title:"Bathware",
+      image: '/ShopBy/bathroom.png',
+      title: 'Bathware',
+      link: '/shop/items/BATHWARE',
     },
     {
-      image: "/ShopBy/gardenware.jpeg",
-      title: "Gardenware",
+      image: '/ShopBy/gardenware.jpeg',
+      title: 'Gardenware',
+      link: '/shop/items/GARDENWARE',
     },
     {
-      image: "/ShopBy/lighting.jpg",
-      title: "Lighting",
+      image: '/ShopBy/lighting.jpg',
+      title: 'Lighting',
+      link: '/shop/items/LIGHTING',
     },
   ];
 
   const cardDataRentItems = [
     {
-      image: "/RentItems/heavyMachinery.webp",
-      title: "Heavy Machinery",
+      image: '/RentItems/heavyMachinery.webp',
+      title: 'Heavy Machinery',
+      link: '/renting',
     },
     {
-      image: "/RentItems/tools.jpg",
-      title: "Tools and Equipment",
+      image: '/RentItems/tools.jpg',
+      title: 'Tools and Equipment',
+      link: '/renting',
     },
     {
-      image: "/RentItems/portableMachines.jpg",
-      title: "Portable Machines",
+      image: '/RentItems/portableMachines.jpg',
+      title: 'Portable Machines',
+      link: '/renting',
     },
   ];
-  
 
   const blogCardData = [
     {
-      image: "formBg.jpg",
+      image: 'formBg.jpg',
       title: 'Estructura Furniture',
       user: {
-        profilePic: '/User/user.png',
         name: 'S.Akarawita',
-      }
+        profilePic: '/User/user.png',
+      },
+      link: '/blogs',
     },
     {
-      image: "HomeOwnerBG.jpg",
+      image: 'HomeOwnerBG.jpg',
       title: 'Gardening Tips',
       user: {
-        profilePic: '/User/user.png',
         name: 'P.Guruge',
-      }
+        profilePic: '/User/user.png',
+      },
+      link: '/blogs',
     },
     {
-      image: "ForgotPasswordBG.jpg",
+      image: 'ForgotPasswordBG.jpg',
       title: 'Bathware Trends',
       user: {
-        profilePic: '/User/user.png',
         name: 'S.Umayangana',
-      }
+        profilePic: '/User/user.png',
+      },
+      link: '/blogs',
     },
   ];
   const [hoveredIndexBrowse, setHoveredIndexBrowse] = useState(null);
@@ -256,369 +277,371 @@ const HomePage = () => {
   const [showOverlay, setShowOverlay] = useState(false);
 
   const handleMLButtonClick = () => {
-    window.location.href = "/findfurniture";
+    window.location.href = '/findfurniture';
   };
+
+  const navigate = useNavigate();
 
   return (
     <>
-    <Box>
-      <Slider images={images} interval={5000} />
+      <Box>
+        <Slider images={images} interval={5000} />
 
-      <Box
-        display="flex"
-        justifyContent="flex-start"
-        alignItems="flex-start"
-        flexDirection="column"
-        marginTop="40px"
-        padding="0 20px"
-        bgcolor="white"
-      >
-        <Typography
-          variant="h5"
-          gutterBottom
-          color="#435834"
-          fontFamily="Poppins" 
-          fontSize="1.7rem"
-          textAlign="left"
-          marginTop="20px"
-          marginBottom="20px"
-          marginLeft='10px'
+        <Box
+          alignItems="flex-start"
+          bgcolor="white"
+          display="flex"
+          flexDirection="column"
+          justifyContent="flex-start"
+          marginTop="40px"
+          padding="0 20px"
         >
-          Explore Professionals
-        </Typography>
-
-        <HomepageCarousel 
-          cards={cardDataBrowse}
-        />
-
-        <Typography
-          variant="h5"
-          gutterBottom
-          color="#435834"
-          fontSize="1.7rem"
-          fontFamily="Poppins" 
-          textAlign="left"
-          marginTop="50px"
-          marginLeft='10px'
-        >
-          Buy Products
-        </Typography>
-
-        <HomepageCarousel 
-          cards={cardDataShopBy} 
-        />
-
-        <Typography
-            variant="h5"
-            gutterBottom
+          <Typography
             color="#435834"
-            fontSize="1.7rem"
             fontFamily="Poppins"
+            fontSize="1.7rem"
+            gutterBottom
+            marginBottom="20px"
+            marginLeft="10px"
+            marginTop="20px"
             textAlign="left"
+            variant="h5"
+          >
+            Explore Professionals
+          </Typography>
+
+          <HomepageCarousel cards={cardDataBrowse} />
+
+          <Typography
+            color="#435834"
+            fontFamily="Poppins"
+            fontSize="1.7rem"
+            gutterBottom
+            marginLeft="10px"
             marginTop="50px"
-            marginLeft='10px'
-        >
-          Rent Items
-        </Typography>
+            textAlign="left"
+            variant="h5"
+          >
+            Buy Products
+          </Typography>
 
-        <Grid container spacing={2}>
-          {cardDataRentItems.map((card, index) => (
-            <Grid item key={index} xs={12} sm={4}>
-              <Box
-                onMouseEnter={() => setHoveredIndexRentItems(index)}
-                onMouseLeave={() => setHoveredIndexRentItems(null)}
-                sx={{
-                  position: 'relative',
-                  height: '300px',
-                  marginTop: 4,
-                }}
-              >
-                <img 
-                  src={card.image}
-                  alt={card.title}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    marginLeft: '10px',
-                    filter: hoveredIndexRentItems === index ? 'brightness(60%)' : 'none',
-                    transition: 'filter 0.3s ease',
-                    borderRadius: 5,
-                  }}
-                />
-                {hoveredIndexRentItems === index && (
+          <HomepageCarousel cards={cardDataShopBy} />
+
+          <Typography
+            color="#435834"
+            fontFamily="Poppins"
+            fontSize="1.7rem"
+            gutterBottom
+            marginLeft="10px"
+            marginTop="50px"
+            textAlign="left"
+            variant="h5"
+          >
+            Rent Items
+          </Typography>
+
+          <Grid container spacing={2}>
+            {cardDataRentItems.map((card, index) => (
+              <Grid item key={index} sm={4} xs={12}>
+                <RouterLink to={card.link}>
                   <Box
-                  sx={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                  }}
-                  >
-                    <Typography variant='h6' color='white'>
-                      {card.title}
-                    </Typography>
-                  </Box>
-                )}
-              </Box>
-            </Grid>
-          ))}
-        </Grid>
-
-        {/* Create your own idea banner */}
-        <Box
-          position="relative"
-          height="400px"
-          width="100%"
-          marginTop="40px"
-        >
-          <img
-            src="BannerImage.jpg"
-            alt="Banner"
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              marginLeft: '10px'
-            }}
-          />
-          <Box
-            position="absolute"
-            top="30%"
-            left="10%"
-            transform="translate(-50%, -50%)"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            textAlign="center"
-            zIndex="1"
-            p={4}
-            bgcolor="rgba(243, 243, 243, 0.7)"
-            width="80%"
-            maxWidth="400px"
-          >
-            <Box>
-              <Typography
-                variant="h4"
-                paragraph
-                fontFamily="Poppins" 
-                fontSize="1.7rem"
-                color="#304422"
-              >
-                Missing that special touch?
-              </Typography>
-              <Typography
-                paragraph
-                fontSize="1.1rem"
-                fontFamily="Poppins" 
-                color="#435834"
-                marginBottom="30px"
-              >
-                Let us know your one-of-a-kind idea!
-              </Typography>
-              <Button
-                variant={isCreateIdeaButtonHovered ? "contained" : "outlined"}
-                color="secondary"
-                size="large"
-                style={{
-                  color: isCreateIdeaButtonHovered ? "#FFFFFF" : "#9D6432",
-                }}
-                onMouseEnter={() => setIsCreateIdeaButtonHovered(true)}
-                onMouseLeave={() => setIsCreateIdeaButtonHovered(false)}
-              >
-                Create your own idea
-              </Button>
-            </Box>
-          </Box>
-        </Box>
-
-        {/* ML furniture suggestion */}
-        <Box
-          position="relative"
-          height="500px"
-          width="100%"
-          marginTop="40px"
-        >
-          <img
-            src="MLsuggestionBanner.jpg"
-            alt="Banner"
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              marginLeft: '10px'
-            }}
-          />
-          <Box
-            position="absolute"
-            top="20%"
-            right="10%"
-            transform="translate(-50%, -50%)"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            textAlign="center"
-            zIndex="1"
-            p={4}
-            bgcolor="rgba(243, 243, 243, 0.7)"
-            width="80%"
-            maxWidth="400px"
-          >
-            <Box>
-              <Typography
-                variant="h4"
-                paragraph
-                fontFamily="Poppins" 
-                fontSize="1.5rem"
-                color="#304422"
-              >
-                Elevate your room's vibe with exclusive furniture!
-              </Typography>
-              <Typography
-                paragraph
-                fontSize="1.1rem"
-                fontFamily="Poppins" 
-                color="#435834"
-                marginBottom="30px"
-              >
-                Discover unique twists that perfectly match your interior.
-              </Typography>
-              <Typography
-                paragraph
-                fontSize="1.1rem"
-                fontFamily="Poppins" 
-                color="#435834"
-                marginBottom="30px"
-              >
-                Click here for a stylish upgrade!
-              </Typography>
-              <Button
-                variant={isFurnitureButtonHovered ? "contained" : "outlined"}
-                color="secondary"
-                size="large"
-                style={{
-                  color: isFurnitureButtonHovered ? "#FFFFFF" : "#9D6432",
-                }}
-                onMouseEnter={() => setIsFurnitureButtonHovered(true)}
-                onMouseLeave={() => setIsFurnitureButtonHovered(false)}
-                onClick={handleMLButtonClick}
-              >
-                Get Started!
-              </Button>
-            </Box>
-          </Box>
-        </Box>
-
-        {/* Blog articles */}
-        <Box
-          position="relative"
-          height="400px"
-          width="100%"
-          marginTop="10px"
-        >
-          <Box marginTop="50px" marginLeft="10px" textAlign="center">
-            <Typography
-              variant="h4"
-              paragraph
-              fontFamily="Poppins" 
-              fontSize="1.8rem"
-              color="#435834"
-            >
-              Looking for more inspiration?
-            </Typography>
-            <Typography
-              paragraph
-              fontSize="1.3rem"
-              fontFamily="Poppins" 
-              color="#435834"
-              marginBottom="30px"
-            >
-              Check out our blog for the latest stories!
-            </Typography>
-            <Grid container spacing={2}>
-              {blogCardData.map((card, index) => (
-                <Grid item key={index} xs={12} sm={4} marginBottom="40px">
-                  <Card
                     sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "space-between",
-                      height: "100%",
-                      transform:
-                        hoveredIndex === index ? "scale(0.9)" : "scale(1)",
-                      transition: "transform 0.3s ease",
+                      height: '300px',
+                      marginTop: 4,
                       position: 'relative',
                     }}
-                    onMouseEnter={() => {
-                      setHoveredIndex(index);
-                      setShowOverlay(true);
-                    }}
-                    onMouseLeave={() => {
-                      setHoveredIndex(null);
-                      setShowOverlay(false);
-                    }}
+                    onMouseEnter={() => setHoveredIndexRentItems(index)}
+                    onMouseLeave={() => setHoveredIndexRentItems(null)}
                   >
-                    <CardMedia
-                      component="img"
-                      height="300"
-                      image={card.image}
+                    <img
+                      style={{
+                        borderRadius: 5,
+                        filter:
+                          hoveredIndexRentItems === index
+                            ? 'brightness(60%)'
+                            : 'none',
+                        height: '100%',
+                        marginLeft: '10px',
+                        objectFit: 'cover',
+                        transition: 'filter 0.3s ease',
+                        width: '100%',
+                      }}
                       alt={card.title}
-                      sx={{ objectFit: "cover" }}
+                      src={card.image}
                     />
-                    {showOverlay && hoveredIndex === index && (
-                      <Paper
+                    {hoveredIndexRentItems === index && (
+                      <Box
                         sx={{
+                          left: '50%',
                           position: 'absolute',
-                          top: 0,
-                          left: 0,
-                          width: '100%',
-                          height: '100%',
-                          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          padding: '16px',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
                         }}
                       >
-                        <Typography variant="h5" color="white" sx={{ textAlign: "center" }}> 
+                        <Typography color="white" variant="h6">
                           {card.title}
                         </Typography>
-                        <Box sx={{
-                            display: "flex",
-                            flexDirection: "row", 
-                            alignItems: "center", 
-                            marginBottom: "16px", 
-                          }}
-                        >
-                          <img
-                            src={card.user.profilePic}
-                            alt={card.user.name}
-                            style={{
-                              width: "40px",
-                              height: "40px",
-                              borderRadius: "50%",
-                              marginRight: '16px',
-
-                            }}
-                          />
-    
-        
-                          <Typography variant="h7" color="white">
-                            {card.user.name}
-                          </Typography>
-
-                        </Box>
-                      </Paper>
+                      </Box>
                     )}
-                  </Card>
-                </Grid>
-              ))}
-            </Grid>
+                  </Box>
+                </RouterLink>
+              </Grid>
+            ))}
+          </Grid>
+
+          {/* Create your own idea banner */}
+          <Box height="400px" marginTop="40px" position="relative" width="100%">
+            <img
+              style={{
+                height: '100%',
+                marginLeft: '10px',
+                objectFit: 'cover',
+                width: '100%',
+              }}
+              alt="Banner"
+              src="BannerImage.jpg"
+            />
+            <Box
+              alignItems="center"
+              bgcolor="rgba(243, 243, 243, 0.7)"
+              display="flex"
+              justifyContent="center"
+              left="10%"
+              maxWidth="400px"
+              p={4}
+              position="absolute"
+              textAlign="center"
+              top="30%"
+              transform="translate(-50%, -50%)"
+              width="80%"
+              zIndex="1"
+            >
+              <Box>
+                <Typography
+                  color="#304422"
+                  fontFamily="Poppins"
+                  fontSize="1.7rem"
+                  paragraph
+                  variant="h4"
+                >
+                  Missing that special touch?
+                </Typography>
+                <Typography
+                  color="#435834"
+                  fontFamily="Poppins"
+                  fontSize="1.1rem"
+                  marginBottom="30px"
+                  paragraph
+                >
+                  Let us know your one-of-a-kind idea!
+                </Typography>
+                <Button
+                  style={{
+                    color: isCreateIdeaButtonHovered ? '#FFFFFF' : '#9D6432',
+                  }}
+                  color="secondary"
+                  onMouseEnter={() => setIsCreateIdeaButtonHovered(true)}
+                  onMouseLeave={() => setIsCreateIdeaButtonHovered(false)}
+                  size="large"
+                  variant={isCreateIdeaButtonHovered ? 'contained' : 'outlined'}
+                  onClick={() => {
+                    navigate('/custom-requests/add');
+                  }}
+                >
+                  Create your own idea
+                </Button>
+              </Box>
+            </Box>
+          </Box>
+
+          {/* ML furniture suggestion */}
+          <Box height="500px" marginTop="40px" position="relative" width="100%">
+            <img
+              style={{
+                height: '100%',
+                marginLeft: '10px',
+                objectFit: 'cover',
+                width: '100%',
+              }}
+              alt="Banner"
+              src="MLsuggestionBanner.jpg"
+            />
+            <Box
+              alignItems="center"
+              bgcolor="rgba(243, 243, 243, 0.7)"
+              display="flex"
+              justifyContent="center"
+              maxWidth="400px"
+              p={4}
+              position="absolute"
+              right="10%"
+              textAlign="center"
+              top="20%"
+              transform="translate(-50%, -50%)"
+              width="80%"
+              zIndex="1"
+            >
+              <Box>
+                <Typography
+                  color="#304422"
+                  fontFamily="Poppins"
+                  fontSize="1.5rem"
+                  paragraph
+                  variant="h4"
+                >
+                  Elevate your room&apos;s vibe with exclusive furniture!
+                </Typography>
+                <Typography
+                  color="#435834"
+                  fontFamily="Poppins"
+                  fontSize="1.1rem"
+                  marginBottom="30px"
+                  paragraph
+                >
+                  Discover unique twists that perfectly match your interior.
+                </Typography>
+                <Typography
+                  color="#435834"
+                  fontFamily="Poppins"
+                  fontSize="1.1rem"
+                  marginBottom="30px"
+                  paragraph
+                >
+                  Click here for a stylish upgrade!
+                </Typography>
+                <Button
+                  style={{
+                    color: isFurnitureButtonHovered ? '#FFFFFF' : '#9D6432',
+                  }}
+                  color="secondary"
+                  onClick={handleMLButtonClick}
+                  onMouseEnter={() => setIsFurnitureButtonHovered(true)}
+                  onMouseLeave={() => setIsFurnitureButtonHovered(false)}
+                  size="large"
+                  variant={isFurnitureButtonHovered ? 'contained' : 'outlined'}
+                >
+                  Get Started!
+                </Button>
+              </Box>
+            </Box>
+          </Box>
+
+          {/* Blog articles */}
+          <Box
+            height="400px"
+            marginTop="10px"
+            marginBottom={10}
+            position="relative"
+            width="100%"
+          >
+            <Box marginLeft="10px" marginTop="50px" textAlign="center">
+              <Typography
+                color="#435834"
+                fontFamily="Poppins"
+                fontSize="1.8rem"
+                paragraph
+                variant="h4"
+              >
+                Looking for more inspiration?
+              </Typography>
+              <Typography
+                paragraph
+                fontSize="1.3rem"
+                fontFamily="Poppins"
+                color="#435834"
+                marginBottom="30px"
+              >
+                Check out our blog for the latest stories!
+              </Typography>
+              <Grid container spacing={2}>
+                {blogCardData.map((card, index) => (
+                  <Grid item key={index} marginBottom="40px" sm={4} xs={12}>
+                    <RouterLink to={card.link}>
+                      <Card
+                        onMouseEnter={() => {
+                          setHoveredIndex(index);
+                          setShowOverlay(true);
+                        }}
+                        onMouseLeave={() => {
+                          setHoveredIndex(null);
+                          setShowOverlay(false);
+                        }}
+                        sx={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          height: '100%',
+                          justifyContent: 'space-between',
+                          position: 'relative',
+                          transform:
+                            hoveredIndex === index ? 'scale(0.9)' : 'scale(1)',
+                          transition: 'transform 0.3s ease',
+                        }}
+                      >
+                        <CardMedia
+                          alt={card.title}
+                          component="img"
+                          height="300"
+                          image={card.image}
+                          sx={{ objectFit: 'cover' }}
+                        />
+                        {showOverlay && hoveredIndex === index && (
+                          <Paper
+                            sx={{
+                              alignItems: 'center',
+                              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                              display: 'flex',
+                              flexDirection: 'column',
+                              height: '100%',
+                              justifyContent: 'center',
+                              left: 0,
+                              padding: '16px',
+                              position: 'absolute',
+                              top: 0,
+                              width: '100%',
+                            }}
+                          >
+                            <Typography
+                              color="white"
+                              sx={{ textAlign: 'center' }}
+                              variant="h5"
+                            >
+                              {card.title}
+                            </Typography>
+                            <Box
+                              sx={{
+                                alignItems: 'center',
+                                display: 'flex',
+                                flexDirection: 'row',
+                                marginBottom: '16px',
+                              }}
+                            >
+                              <img
+                                style={{
+                                  borderRadius: '50%',
+                                  height: '40px',
+                                  marginRight: '16px',
+                                  width: '40px',
+                                }}
+                                alt={card.user.name}
+                                src={card.user.profilePic}
+                              />
+
+                              <Typography color="white" variant="h7">
+                                {card.user.name}
+                              </Typography>
+                            </Box>
+                          </Paper>
+                        )}
+                      </Card>
+                    </RouterLink>
+                  </Grid>
+                ))}
+              </Grid>
+            </Box>
           </Box>
         </Box>
       </Box>
-    </Box>
+      <Footer />
     </>
   );
 };
