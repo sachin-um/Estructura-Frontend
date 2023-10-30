@@ -1,12 +1,12 @@
 interface CustomerRequest {
   createdBy: number;
   description: string;
-  Document1Name: string;
-  Document2Name: string;
-  Document3Name: string;
-  Document1: string;
-  Document2: string;
-  Document3: string;
+  document1Name: string;
+  document2Name: string;
+  document3Name: string;
+  document1: string;
+  document2: string;
+  document3: string;
   id: number;
   image1Name: string;
   image2Name: string;
