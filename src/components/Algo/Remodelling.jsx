@@ -39,7 +39,7 @@ function Remodelling({
     event.preventDefault();
     if (userSelection !== '') {
       handlePageChange('Location');
-      updateFormData({ secondChoice: userSelection });
+      updateFormData({ secondChoice: [userSelection] });
       nextPage();
     } else {
       setHelperText('Please select an option.');

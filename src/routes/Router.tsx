@@ -6,6 +6,10 @@ import GetStarted from '../pages/Algo/GetStarted';
 import RecommendationsPage from '../pages/Algo/RecommendationsPage';
 import CustomerProfile from '../pages/CustomerProfile';
 import Homepage from '../pages/HomePage';
+import AddAdmin from '../pages/admin/AddAdmin';
+import Member from '../pages/admin/Member';
+import RequestTable from '../pages/admin/RequestTable';
+import AdminDashboard from '../pages/admin/dash';
 import AllMessagesInbox from '../pages/messages/AllMessagesInbox';
 import Chat from '../pages/messages/Chat';
 import AdminRoutes from './AdminRoutes';
@@ -15,12 +19,7 @@ import CustomRequestRoutes from './CustomRequestRoutes';
 import ProjectRoutes from './ProjectsRoutes';
 import RentingItemRoutes from './RentingRoutes';
 import ServiceProviderRoutes from './ServiceProviderRoutes';
-import AddAdmin from '../pages/admin/AddAdmin';
 import ShopRoutes from './ShopRoutes';
-import AdminDashboard from '../pages/admin/dash';
-import Member from '../pages/admin/Member';
-import RequestTable from '../pages/admin/RequestTable';
-
 
 export const altRouter = createBrowserRouter([
   {

@@ -1,43 +1,29 @@
-import {
-  Box,
-  Button,
-  Checkbox,
-  Divider,
-  FormControlLabel,
-  Grid,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  Radio,
-  RadioGroup,
-  TextField,
-  Typography,
-} from '@mui/material';
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import ConstructionResidence from '../../components/Algo/ConstructionResidence';
+import { Grid } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Construction from '../../components/Algo/Construction';
 import ConstructionCommercial from '../../components/Algo/ConstructionCommercial';
 import ConstructionIndustrial from '../../components/Algo/ConstructionIndustrial';
 import ConstructionRecreational from '../../components/Algo/ConstructionRecreational';
-import Location from '../../components/Algo/Location';
+import ConstructionResidence from '../../components/Algo/ConstructionResidence';
 import CurrentStatus from '../../components/Algo/CurrentStatus';
-import Price from '../../components/Algo/Price';
-import Construction from '../../components/Algo/Construction';
 import DesignPlans from '../../components/Algo/DesignPlans';
 import GetStarted from '../../components/Algo/InitialPage';
 import InteriorDesign from '../../components/Algo/InteriorDesign';
 import Landscaping from '../../components/Algo/Landscaping';
+import Location from '../../components/Algo/Location';
+import Price from '../../components/Algo/Price';
 import Remodelling from '../../components/Algo/Remodelling';
 import Woodwork from '../../components/Algo/Woodwork';
-// import { Link } from "react-router-dom" ;
 import TopAppBar from '../../components/TopAppBar';
-import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
+import API from '../../lib/API';
+
 function RecAlgo() {
   const [currentPage, setCurrentPage] = useState(0);
   const [totalQuestions, setTotalQuestions] = useState(6);
   const [currentQuestion, setCurrentQuestion] = useState(1);
   const [formData, setFormData] = useState({});
+  const navigator = useNavigate();
   const nextPage = () => {
     setCurrentPage(currentPage + 1);
     setCurrentQuestion(currentQuestion + 1);
@@ -54,19 +40,28 @@ function RecAlgo() {
   const [selectedOption, setSelectedOption] = useState(null);
   const HandleSubmit = (data) => {
     console.log(formData, 'Got', data);
-    API.post('/recommendation/recommend', data, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    })
+    if (!data['secondChoice']) {
+      data['secondChoice'] = [];
+    }
+    if (!data['thirdChoice']) {
+      data['thirdChoice'] = [];
+    }
+    data['firstChoice'] = data['firstChoice'].toLowerCase();
+    data['secondChoice'] = data['secondChoice'].map((s) => s.toLowerCase());
+    data['thirdChoice'] = data['thirdChoice'].map((s) => s.toLowerCase());
+    API.post('/recommendation/recommend', data)
       .then((res) => {
         console.table(res);
         if (res.status === 200) {
           if (res.data.success === true) {
             // ! Redirect to a page that says, verify your email
             // navigate('/RecommendationsPage', { replace: true });
-            const history = useHistory();
-            history.push('/RecommendationsPage', { data: res.data });
+            alert(JSON.stringify(res.data));
+            navigator('/RecommendationsPage', {
+              state: {
+                data: res.data,
+              },
+            });
           } else {
             alert(
               'Something went wrong!, please try again.' +
@@ -77,7 +72,7 @@ function RecAlgo() {
           alert('Invalid Request');
         }
       })
-      .catch((err) => console.log(JSON.stringify(err)));
+      .catch((err) => console.log(err));
   };
   const handlePageChange = (value) => {
     setSelectedOption(value);
