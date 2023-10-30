@@ -1,68 +1,86 @@
-import { Button, Container, TextField, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
+import type { FormikHelpers, FormikProps } from 'formik';
 
-import CusBar from '../../components/CusTopBar';
+import { Button, Container, TextField, Typography } from '@mui/material';
+import { Formik } from 'formik';
+import { useEffect, useRef, useState } from 'react';
+import { Form } from 'react-router-dom';
+import * as Yup from 'yup';
+
+import { AdminAuthenticated } from '../../components/Auth/Authenticated';
+import TopAppBar from '../../components/TopAppBar';
+import { useAdmin } from '../../hooks/admin/useAdmin';
+import GetFormikProps from '../../utils/GetFormikProps';
 
 function AddAdmin() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [assignedArea, setassignedArea] = useState('');
-  const [adminList, setAdminList] = useState<
-    (Partial<User> & { password: string })[]
-  >([]);
+  const initialValues: Partial<RegisterRequest> = {
+    assignedArea: '',
+    email: '',
+    firstName: '',
+    lastName: '',
+    password: '',
+  };
+
+  const validationSchema = Yup.object().shape({
+    assignedArea: Yup.string().required(),
+    email: Yup.string().required().email(),
+    firstName: Yup.string().required(),
+    lastName: Yup.string().required(),
+    password: Yup.string().required(),
+  });
+
+  const FormRef = useRef<FormikProps<Partial<RegisterRequest>>>(null);
+
   const [adminStatusList, setAdminStatusList] = useState<boolean[]>([]);
 
-  const handleAddAdmin = () => {
-    if (
-      firstName.trim() !== '' &&
-      lastName.trim() !== '' &&
-      email.trim() !== '' &&
-      password.trim() !== '' &&
-      assignedArea.trim() !== ''
-    ) {
-      const newAdmin: Partial<User> & { password: string } = {
-        assignedArea,
-        email,
-        firstName,
-        lastName,
-        password,
-      };
-      setAdminList([...adminList, newAdmin]);
-      setFirstName('');
-      setLastName('');
-      setEmail('');
-      setPassword('');
-      setassignedArea('');
-    }
-
-    // Initialize status for each admin as "enabled"
-
-    // Toggle the enable/disable status of an admin
-    const handleToggleAdminStatus = (index: number) => {
-      const updatedStatusList = [...adminStatusList];
-      updatedStatusList[index] = !updatedStatusList[index];
-      setAdminStatusList(updatedStatusList);
-    };
-  };
+  const {
+    activateOrSuspendAccount,
+    addAdmin,
+    getAdmins: { admins, fetchAdmins, isLoading },
+  } = useAdmin();
 
   useEffect(() => {
-    setAdminStatusList(adminList.map(() => true));
-  }, [adminList]);
+    fetchAdmins();
+  }, [fetchAdmins]);
 
-  const handleRemoveAdmin = (index: number) => {
-    const updatedAdminList = adminList.filter((_, i) => i !== index);
-    setAdminList(updatedAdminList);
+  // Toggle the enable/disable status of an admin
+  const handleToggleAdminStatus = (adminId: number) => {
+    const admin = admins.find((a) => a.id === adminId);
+    if (admin && admin.assignedArea?.toLowerCase() !== 'super') {
+      const targetStatus = admin.status === 'ACTIVE' ? 'SUSPEND' : 'ACTIVE';
+      activateOrSuspendAccount(admin.id, targetStatus).then((result) => {
+        if (result.success === true) {
+          alert(
+            `Admin: ${admin.firstName} ${admin.lastName} changed status to :${targetStatus}`,
+          );
+        }
+      });
+    }
   };
 
-  function handleToggleAdminStatus(index: number): void {
-    throw new Error('Function not implemented.');
-  }
+  const HandleSubmit = (values: Partial<RegisterRequest>) => {
+    if (FormRef.current) {
+      const { resetForm, setErrors, setSubmitting } = FormRef.current;
+      setSubmitting(true);
+      values.role = 'ADMIN';
+      console.log(values);
+      addAdmin(values).then((res) => {
+        if (res.success === true) {
+          alert('Admin Added');
+          resetForm();
+          fetchAdmins();
+        } else {
+          if (res.errors) {
+            setErrors(res.errors);
+          }
+        }
+      });
+      setSubmitting(false);
+    }
+  };
 
   return (
-    <>
-      <CusBar />
+    <AdminAuthenticated>
+      <TopAppBar />
       <div
         style={{
           alignItems: 'center',
@@ -85,53 +103,66 @@ function AddAdmin() {
           }}
           maxWidth="sm"
         >
-          <Typography
-            align="center"
-            component="h1"
-            sx={{ marginTop: '1rem' }}
-            variant="h4"
+          <Formik
+            initialValues={initialValues}
+            innerRef={FormRef}
+            onSubmit={HandleSubmit}
+            validationSchema={validationSchema}
           >
-            Admin
-          </Typography>
-          <TextField
-            fullWidth
-            label="First Name"
-            margin="normal"
-            onChange={(e) => setFirstName(e.target.value)}
-            value={firstName}
-          />
-          <TextField
-            fullWidth
-            label="Last Name"
-            margin="normal"
-            onChange={(e) => setLastName(e.target.value)}
-            value={lastName}
-          />
-          <TextField
-            fullWidth
-            label="Email"
-            margin="normal"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-          />
-          <TextField
-            fullWidth
-            label="Password"
-            margin="normal"
-            onChange={(e) => setPassword(e.target.value)}
-            type="password"
-            value={password}
-          />
-          <TextField
-            fullWidth
-            label="Assigned Area"
-            margin="normal"
-            onChange={(e) => setassignedArea(e.target.value)}
-            value={assignedArea}
-          />
-          <Button color="primary" onClick={handleAddAdmin} variant="contained">
-            Add Admin
-          </Button>
+            {(FormikProps: FormikProps<Partial<RegisterRequest>>) => {
+              const spread = GetFormikProps(FormikProps);
+              return (
+                <Form onSubmit={FormikProps.handleSubmit}>
+                  <Typography
+                    align="center"
+                    component="h1"
+                    sx={{ marginTop: '1rem' }}
+                    variant="h4"
+                  >
+                    Admin
+                  </Typography>
+                  <TextField
+                    fullWidth
+                    label="First Name"
+                    {...spread('firstName')}
+                    margin="normal"
+                    type="text"
+                  />
+                  <TextField
+                    fullWidth
+                    label="Last Name"
+                    {...spread('lastName')}
+                    margin="normal"
+                    type="text"
+                  />
+                  <TextField
+                    fullWidth
+                    label="Email"
+                    {...spread('email')}
+                    margin="normal"
+                    type="email"
+                  />
+                  <TextField
+                    fullWidth
+                    label="Password"
+                    margin="normal"
+                    type="password"
+                    {...spread('password')}
+                  />
+                  <TextField
+                    fullWidth
+                    label="Assigned Area"
+                    margin="normal"
+                    {...spread('assignedArea')}
+                    type="text"
+                  />
+                  <Button color="primary" type="submit" variant="contained">
+                    Add Admin
+                  </Button>
+                </Form>
+              );
+            }}
+          </Formik>
         </Container>
 
         <Container style={{ marginTop: '2rem', width: '100%' }}>
@@ -147,7 +178,7 @@ function AddAdmin() {
               Admin List
             </Typography>
             <div style={{ overflowX: 'auto' }}>
-              {adminList.length === 0 ? (
+              {admins.length === 0 ? (
                 <Typography>No admin users added yet.</Typography>
               ) : (
                 <table
@@ -195,15 +226,6 @@ function AddAdmin() {
                           textAlign: 'center',
                         }}
                       >
-                        Password
-                      </th>
-                      <th
-                        style={{
-                          border: '1px solid #ddd',
-                          padding: '8px',
-                          textAlign: 'center',
-                        }}
-                      >
                         Assigned Area
                       </th>
                       <th
@@ -218,7 +240,7 @@ function AddAdmin() {
                     </tr>
                   </thead>
                   <tbody>
-                    {adminList.map((admin, index) => (
+                    {admins.map((admin, index) => (
                       <tr key={index}>
                         <td
                           style={{
@@ -254,42 +276,40 @@ function AddAdmin() {
                             textAlign: 'left',
                           }}
                         >
-                          {admin.password}
-                        </td>
-                        <td
-                          style={{
-                            border: '1px solid #ddd',
-                            padding: '8px',
-                            textAlign: 'left',
-                          }}
-                        >
                           {admin.assignedArea}
                         </td>
                         <td
                           style={{
                             border: '1px solid #ddd',
                             display: 'flex',
+                            gap: '8px',
+                            justifyContent: 'center',
                             padding: '8px',
                             textAlign: 'left',
                           }}
                         >
-                          <Button
-                            color="secondary"
-                            onClick={() => handleRemoveAdmin(index)}
-                            variant="outlined"
-                          >
+                          {/* <Button color="secondary" variant="outlined">
                             Remove
-                          </Button>
-                          <Button
-                            color={
-                              adminStatusList[index] ? 'secondary' : 'primary'
-                            }
-                            onClick={() => handleToggleAdminStatus(index)}
-                            style={{ marginLeft: '0.5rem' }}
-                            variant="outlined"
-                          >
-                            {adminStatusList[index] ? 'Disable' : 'Enable'}
-                          </Button>
+                          </Button> */}
+                          {admins[index].assignedArea?.toLowerCase() !==
+                            'super' && (
+                            <Button
+                              color={
+                                admins[index].status === 'ACTIVE'
+                                  ? 'secondary'
+                                  : 'primary'
+                              }
+                              onClick={() =>
+                                handleToggleAdminStatus(admins[index].id)
+                              }
+                              style={{ marginLeft: '0.5rem' }}
+                              variant="outlined"
+                            >
+                              {admins[index].status === 'ACTIVE'
+                                ? 'Disable'
+                                : 'Enable'}
+                            </Button>
+                          )}
                         </td>
                       </tr>
                     ))}
@@ -300,7 +320,7 @@ function AddAdmin() {
           </div>
         </Container>
       </div>
-    </>
+    </AdminAuthenticated>
   );
 }
 
