@@ -16,7 +16,7 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 
-import Messages from '../components/CustomerProfile/Messages';
+import Orders from '../components/CustomerProfile/Orders';
 import RetailItems from '../components/CustomerProfile/RetailItems';
 import ProfileDetails from '../components/CustomerProfile/ProfileDetails';
 import Plans from '../components/CustomerProfile/Plans';
@@ -183,14 +183,16 @@ function CustomerProfile() {
               value="three"
             />
             <Tab label="Requests" sx={{ marginRight: '4rem' }} value="four" />
-            <Tab label="Messages" sx={{ marginRight: '4rem' }} value="five" />
+            <Tab label="Orders" sx={{ marginRight: '4rem' }} value="five" />
           </Tabs>
 
           {activeTab === 'one' && <ProfileDetails />}
           {activeTab === 'two' && <Plans />}
           {activeTab === 'three' && <RetailItems />}
+
           {activeTab === 'four' && <Requests />}
-          {activeTab === 'five' && <Messages />}
+
+          {activeTab === 'five' && <Orders />}
         </Grid>
       </Grid>
 

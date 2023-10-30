@@ -30,7 +30,7 @@ const ViewCustomerRequestCard = () => {
   }, [customerRequest, fetchUserById]);
 
   const backgroundImageUrl =
-    'https://images.pexels.com/photos/6434620/pexels-photo-6434620.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
+    'https://www.home-designing.com/wp-content/uploads/2018/06/kid-s-decor.jpg';
 
   const navigate = useNavigate();
 
@@ -55,7 +55,6 @@ const ViewCustomerRequestCard = () => {
             margin: '40px',
             overflow: 'hidden',
             padding: '20px',
-            position: 'relative',
           }}
           item
           md={6}
@@ -73,7 +72,6 @@ const ViewCustomerRequestCard = () => {
         </Grid>
         <Grid item md={6} xs={12}>
           <Box
-            height="100vh"
             paddingBottom="50px"
             paddingLeft="20px"
             paddingRight="20px"
@@ -473,7 +471,7 @@ const ViewCustomerRequestCard = () => {
               container
               spacing={1}
             >
-              {customerRequest.Document1 ? (
+              {customerRequest.document1 ? (
                 <Box
                   sx={{
                     backgroundColor: '#f3f3f3',
@@ -519,14 +517,14 @@ const ViewCustomerRequestCard = () => {
                         whiteSpace: 'nowrap',
                       }}
                     >
-                      {customerRequest.Document1}
+                      {customerRequest.document1}
                     </Typography>
                   </Link>
                 </Box>
               ) : (
                 <></>
               )}
-              {customerRequest.Document2 ? (
+              {customerRequest.document2 ? (
                 <Box
                   sx={{
                     backgroundColor: '#f3f3f3',
@@ -572,14 +570,14 @@ const ViewCustomerRequestCard = () => {
                         whiteSpace: 'nowrap',
                       }}
                     >
-                      {customerRequest.Document2}
+                      {customerRequest.document2}
                     </Typography>
                   </Link>
                 </Box>
               ) : (
                 <></>
               )}
-              {customerRequest.Document3 ? (
+              {customerRequest.document3 ? (
                 <Box
                   sx={{
                     backgroundColor: '#f3f3f3',
@@ -625,7 +623,7 @@ const ViewCustomerRequestCard = () => {
                         whiteSpace: 'nowrap',
                       }}
                     >
-                      {customerRequest.Document3}
+                      {customerRequest.document3}
                     </Typography>
                   </Link>
                 </Box>
@@ -648,8 +646,10 @@ const ViewCustomerRequestCard = () => {
               <Button
                 color="primary"
                 onClick={goToResponses(customerRequest.id)}
+                size="large"
                 style={{ width: '35%' }}
-                variant="outlined"
+                sx={{ borderRadius: 2, width: 1 / 2 }}
+                variant="contained"
               >
                 View Responses
               </Button>
