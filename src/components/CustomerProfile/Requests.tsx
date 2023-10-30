@@ -1,5 +1,6 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PhoneIcon from '@mui/icons-material/Phone';
+import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
 import {
   Box,
   Button,
@@ -63,16 +64,64 @@ function Requests() {
       </Button>
       <Grid container spacing={10}>
         {customerRequests.map((customerRequest, index) => {
+          console.log(customerRequest);
           const creator = currentUser;
           return (
             <Grid item key={index} md={6} xs={12}>
-              <Card style={cardStyle}>
+              {/* <Card style={cardStyle}>
                 <CardContent style={cardContentStyle}>
                   <Typography style={titleStyle} variant="h6">
                     {customerRequest.shortDesc}
                   </Typography>
                   <Typography style={amountStyle}></Typography>
                   {customerRequest.description}
+                  <Box style={buttonContainerStyle}>
+                    <Button
+                      color="primary"
+                      onClick={goToRequestView(customerRequest.id)}
+                      style={viewButtonStyle}
+                      variant="contained"
+                    >
+                      View request
+                    </Button>
+                    <Button
+                      color="primary"
+                      onClick={goToResponses(customerRequest.id)}
+                      style={viewResponsesButtonStyle}
+                      variant="outlined"
+                    >
+                      View Responses
+                    </Button>
+                  </Box>
+                </CardContent>
+              </Card> */}
+              <Card style={cardStyle}>
+                <CardContent style={cardContentStyle}>
+                  <Typography style={requestIDStyle} variant="h6">
+                    Request ID : {customerRequest.id}
+                  </Typography>
+
+                  <Typography style={descriptionStyle}>
+                    {customerRequest.description}
+                  </Typography>
+                  <Box style={contactStyle}>
+                    <WorkHistoryIcon />
+                    <Typography style={statusStyle}>
+                      {customerRequest.status == 'AWAITINGFORRESPONSE'
+                        ? 'Awaiting for response'
+                        : customerRequest.status == 'AWAITINGFORACCEPT'
+                        ? 'Awaiting for acceptance'
+                        : customerRequest.status == 'COMPLETED'
+                        ? 'Completed'
+                        : ''}
+                    </Typography>
+                  </Box>
+                  <Typography style={dateStyle}>
+                    created on :
+                    {new Date(customerRequest.dateAdded).toLocaleDateString(
+                      'en-US',
+                    )}
+                  </Typography>
                   <Box style={buttonContainerStyle}>
                     <Button
                       color="primary"
@@ -185,4 +234,31 @@ const viewResponsesButtonStyle: React.CSSProperties = {
 
 const footerContainerStyle: React.CSSProperties = {
   marginTop: '50px',
+};
+
+const requestIDStyle: React.CSSProperties = {
+  fontFamily: 'Poppins',
+  fontSize: '20px',
+  fontWeight: 'bold',
+  marginBottom: '20px',
+};
+
+const descriptionStyle: React.CSSProperties = {
+  fontFamily: 'Poppins',
+  fontSize: '14px',
+  marginBottom: '20px',
+  textAlign: 'left',
+};
+
+const statusStyle: React.CSSProperties = {
+  fontFamily: 'Poppins',
+  fontSize: '15px',
+  marginLeft: '10px',
+};
+
+const dateStyle: React.CSSProperties = {
+  fontFamily: 'Poppins',
+  fontSize: '13px',
+  fontWeight: 'bold',
+  marginBottom: '20px',
 };

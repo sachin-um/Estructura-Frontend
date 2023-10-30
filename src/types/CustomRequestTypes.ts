@@ -18,6 +18,7 @@ interface CustomerRequest {
   minPrice: number;
   maxPrice: number;
   status: string;
+  dateAdded: Date;
   targetCategories: { id: number; role: Role }[];
   targetRetailCategories: { id: number; retailItemType: RetailItemType }[];
 }

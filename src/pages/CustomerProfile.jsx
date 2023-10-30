@@ -189,7 +189,7 @@ function CustomerProfile() {
           {activeTab === 'one' && <ProfileDetails />}
           {activeTab === 'two' && <Plans />}
           {activeTab === 'three' && <RetailItems />}
-          {activeTab === 'four' && <RequestsTemp />}
+          {activeTab === 'four' && <Requests />}
           {activeTab === 'five' && <Messages />}
         </Grid>
       </Grid>
