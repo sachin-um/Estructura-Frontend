@@ -11,6 +11,7 @@ import Slider from '../../components/e-com/Slider';
 import ShopCategories from '../../components/shop/ShopCategories';
 import { useFetchRetailItems } from '../../hooks/retailItem/useFetchRetailItems';
 import Loading from '../../pages/loading';
+import Paginate from '../../utils/Paginate';
 
 const RecommendedItems = ({ recommendedItems }) => {
   //   const { fetchRetailItems, isLoading, retailItems } = useFetchRetailItems();
