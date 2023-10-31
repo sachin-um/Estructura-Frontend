@@ -83,7 +83,8 @@ const UserRequests = () => {
             <Box>
               <DataGrid
                 rows={users.filter(
-                  (p) => p.role === title && p.verified === false,
+                  (p) => p.role === title && p.adminApproved === false,
+
                 )}
                 columns={Columns}
               />
