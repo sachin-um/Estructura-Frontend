@@ -2,7 +2,7 @@
 import { Container, Grid, Typography, Button, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import TopBar from '../components/TopBar';
-import API from '../../lib/API';
+import API from '../lib/API';
 function ForgotPassword() {
   const [formData, setFormData] = useState({ email: '' });
   const handleSubmit = (event) => {
