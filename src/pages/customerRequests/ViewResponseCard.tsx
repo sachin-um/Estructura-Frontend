@@ -353,7 +353,7 @@ const ViewResponseCard = () => {
             <Typography>
               by: {requester?.firstName} {requester?.lastName}
             </Typography>
-            <Divider sx={{ marginBottom: '10px', marginTop: '10px' }} />
+            <Divider sx={{ marginBottom: '5px', marginTop: '5px' }} />
             {currentUser?.id === customerRequest?.createdBy && (
               <Box sx={{ display: 'flex' }}>
                 <Button
