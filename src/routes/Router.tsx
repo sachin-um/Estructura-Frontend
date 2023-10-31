@@ -20,6 +20,7 @@ import ProjectRoutes from './ProjectsRoutes';
 import RentingItemRoutes from './RentingRoutes';
 import ServiceProviderRoutes from './ServiceProviderRoutes';
 import ShopRoutes from './ShopRoutes';
+import PageNotFound from '../pages/PageNotFound';
 
 export const altRouter = createBrowserRouter([
   {
@@ -74,6 +75,10 @@ export const altRouter = createBrowserRouter([
   {
     path: '/RequestTable',
     element: <RequestTable />,
+  },
+  {
+    path: '/PageNotFound',
+    element: <PageNotFound />,
   },
 
   ...AuthRoutes,
