@@ -86,6 +86,7 @@ interface User {
   sliaRegNumber?: string;
   specializations?: Specialization[];
   status: AccountStatus;
+  adminApproved: boolean;
 }
 
 type AccountStatus = 'ACTIVE' | 'SUSPEND';
