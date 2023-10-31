@@ -1,6 +1,7 @@
 import { AllInbox } from '@mui/icons-material';
 import { createBrowserRouter } from 'react-router-dom';
 
+import Billing from '../components/e-com/Billing';
 import FirstPage from '../pages/Algo/FirstPage';
 import GetStarted from '../pages/Algo/GetStarted';
 import RecommendationsPage from '../pages/Algo/RecommendationsPage';
@@ -74,6 +75,10 @@ export const altRouter = createBrowserRouter([
   {
     path: '/RequestTable',
     element: <RequestTable />,
+  },
+  {
+    path: '/billing',
+    element: <Billing />,
   },
 
   ...AuthRoutes,
