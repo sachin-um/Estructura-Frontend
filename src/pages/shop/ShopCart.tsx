@@ -1,13 +1,15 @@
 import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
 import RemoveIcon from '@mui/icons-material/Remove';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+
 import Footer from '../../components/Footer';
 import TopAppBar from '../../components/TopAppBar';
-import { mobile } from '../../responsive';
+import useCart from '../../hooks/cart/useCart';
 import { useFetchRetailItems } from '../../hooks/retailItem/useFetchRetailItems';
+import { mobile } from '../../responsive';
 
 const ShopCart = () => {
   // TODO: Make it work with backend
@@ -21,32 +23,32 @@ const ShopCart = () => {
 
   console.log(retailItems);
 
-  const specificIds = [1, 2, 3];
+  // const itemIds = [1, 2, 3];
+  const { addItem, itemIds, removeItem } = useCart();
 
-  const CartFurniture = retailItems.filter((item) =>
-    specificIds.includes(item.id),
-  );
+  const CartFurniture = retailItems.filter((item) => itemIds.includes(item.id));
 
   console.log(CartFurniture);
 
   const [products, setProducts] = useState(
-    specificIds.map((id) => ({ id, quantity: 1 })),
+    itemIds.map((id) => ({ id, quantity: 1 })),
   );
 
-  const increaseQuantity = (productId) => {
+  const increaseQuantity = (productId: number) => {
     console.log('this is ' + productId);
-    setProducts((prevProducts) =>
-      prevProducts.map((product) =>
-        product.id === productId &&
-        product.quantity <
-          retailItems.find((item) => item.id === productId)?.quantity
-          ? { ...product, quantity: product.quantity + 1 }
-          : product,
-      ),
-    );
+
+    const item = retailItems.find((item) => item.id === productId);
+    if (item)
+      setProducts((prevProducts) =>
+        prevProducts.map((product) =>
+          product.id === productId && product.quantity < item?.quantity
+            ? { ...product, quantity: product.quantity + 1 }
+            : product,
+        ),
+      );
   };
 
-  const decreaseQuantity = (productId) => {
+  const decreaseQuantity = (productId: number) => {
     setProducts((prevProducts) =>
       prevProducts.map((product) =>
         product.id === productId && product.quantity > 1
@@ -56,10 +58,11 @@ const ShopCart = () => {
     );
   };
 
-  const removeProduct = (productId) => {
-    setProducts((prevProducts) =>
-      prevProducts.filter((product) => product.id !== productId),
-    );
+  const removeProduct = (productId: number) => {
+    // setProducts((prevProducts) =>
+    //   prevProducts.filter((product) => product.id !== productId),
+    // );
+    removeItem(productId);
   };
 
   const totalPrice = products.reduce((total, product) => {
@@ -79,7 +82,7 @@ const ShopCart = () => {
       <Wrapper>
         <Title>
           <ShoppingCartIcon
-            sx={{ fontSize: '32px', marginRight: '10px', marginBottom: '-5px' }}
+            sx={{ fontSize: '32px', marginBottom: '-5px', marginRight: '10px' }}
           />
           YOUR CART
         </Title>
@@ -122,8 +125,8 @@ const ShopCart = () => {
                       <ProductPrice>LKR. {item.price}</ProductPrice>
                     </PriceDetail>
                     <DeleteIcon
-                      sx={{ marginTop: 4, marginRight: 2 }}
                       onClick={() => removeProduct(item.id)}
+                      sx={{ marginRight: 2, marginTop: 4 }}
                     />
                   </Product>
                   <Hr />
@@ -186,7 +189,7 @@ const Top = styled.div`
   padding: 20px;
 `;
 
-const TopButton = styled.button`
+const TopButton = styled.button<{ type?: string }>`
   padding: 10px;
   font-weight: 600;
   cursor: pointer;
@@ -311,7 +314,7 @@ const SummaryTitle = styled.h1`
   color: #435834;
 `;
 
-const SummaryItem = styled.div`
+const SummaryItem = styled.div<{ type?: string }>`
   margin: 30px 0px;
   display: flex;
   justify-content: space-between;

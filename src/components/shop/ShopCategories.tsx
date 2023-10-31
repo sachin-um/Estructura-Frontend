@@ -3,6 +3,8 @@ import { FaRegClock } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
+import useCart from '../../hooks/cart/useCart';
+
 const Container = styled.div``;
 
 const CardGrid = styled.div`
@@ -125,6 +127,7 @@ const ButtonText = styled.span`
 // TODO: REDESIGN
 const ShopCategories = ({ data }: { data: RetailItem[] }) => {
   const navigate = useNavigate();
+  const { addItem } = useCart();
   return (
     <Container>
       <CardGrid>
@@ -148,7 +151,12 @@ const ShopCategories = ({ data }: { data: RetailItem[] }) => {
               <CardPrice>{card.price}</CardPrice>
               <CardButtonsWrapper>
                 <ButtonContainer>
-                  <AddToCartButton>
+                  <AddToCartButton
+                    onClick={() => {
+                      console.log(card.id, 'adding');
+                      addItem(card.id);
+                    }}
+                  >
                     <ShoppingCart />
                     <ButtonText>Add to Cart</ButtonText>
                   </AddToCartButton>
