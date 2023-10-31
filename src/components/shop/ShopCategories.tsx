@@ -145,7 +145,7 @@ const ShopCategories = ({ data }: { data: RetailItem[] }) => {
               >
                 {card.name}
               </CardText>
-              <CardPrice>{card.price}</CardPrice>
+              <CardPrice>Rs:{card.price}.00</CardPrice>
               <CardButtonsWrapper>
                 <ButtonContainer>
                   <AddToCartButton>
