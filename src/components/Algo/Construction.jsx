@@ -131,26 +131,26 @@ function Construction({
                 >
                   <FormControlLabel
                     control={<Radio />}
-                    label="Residence Building"
-                    value="Residence Building"
+                    label="Residence Buildings"
+                    value="Residence Buildings"
                   />
                   <Divider />
                   <FormControlLabel
                     control={<Radio />}
-                    label="Commercial Building"
-                    value="Commercial Building"
+                    label="Commercial Buildings"
+                    value="Commercial Buildings"
                   />
                   <Divider />
                   <FormControlLabel
                     control={<Radio />}
-                    label="Industrial Building"
-                    value="Industrial Building"
+                    label="Industrial Buildings"
+                    value="Industrial Buildings"
                   />
                   <Divider />
                   <FormControlLabel
                     control={<Radio />}
-                    label="Recreational Building"
-                    value="Recreational Building"
+                    label="Recreational Buildings"
+                    value="Recreational Buildings"
                   />
                 </RadioGroup>
                 <FormHelperText sx={customHelperTextStyles}>

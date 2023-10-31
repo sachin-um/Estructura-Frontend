@@ -1,6 +1,6 @@
-import { Box, Button, Typography } from '@mui/material';
-import { useEffect } from 'react';
+import { Box, Pagination, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 import '../../assets/font.css';
 import Footer from '../../components/Footer';
@@ -12,8 +12,9 @@ import ShopCategories from '../../components/shop/ShopCategories';
 import { useFetchRetailItems } from '../../hooks/retailItem/useFetchRetailItems';
 import Loading from '../../pages/loading';
 import Paginate from '../../utils/Paginate';
-
 const RecommendedItems = ({ recommendedItems }) => {
+  const [pageSize, _setPageSize] = useState(8); // Should add a selector
+  const [pageNumber, setPageNumber] = useState(1);
   //   const { fetchRetailItems, isLoading, retailItems } = useFetchRetailItems();
 
   //   useEffect(() => {
@@ -76,9 +77,10 @@ const RecommendedItems = ({ recommendedItems }) => {
   //   const firstFourGardenware = Gardenware.slice(0, 4);
   //   const firstFourLighting = Lighting.slice(0, 4);
   const PaginatedItems = Paginate(recommendedItems, pageNumber, pageSize);
+  console.log(PaginatedItems)
   const navigate = useNavigate();
   return (
-    <Container>
+    <Box>
       {/* Furniture */}
       <Box
         sx={{
@@ -112,7 +114,7 @@ const RecommendedItems = ({ recommendedItems }) => {
           count={Math.ceil(recommendedItems.length / pageSize)}
         />
       </Box>
-    </Container>
+    </Box>
   );
 };
 

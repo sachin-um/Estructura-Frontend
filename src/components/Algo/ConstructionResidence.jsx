@@ -58,7 +58,7 @@ function ConstructionResidence({
     event.preventDefault();
     if (selectedValues.length !== 0) {
       handlePageChange('Location');
-      updateFormData({ thirdChoice: [userSelection] });
+      updateFormData({ thirdChoice: selectedValues });
       nextPage();
     } else {
       setHelperText('Please select an option.');
