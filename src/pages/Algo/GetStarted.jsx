@@ -50,7 +50,7 @@ function RecAlgo() {
     data['secondChoice'] = data['secondChoice'].map((s) => s.toLowerCase());
     data['thirdChoice'] = data['thirdChoice'].map((s) => s.toLowerCase());
     data['price'] = data['price'];
-    alert(JSON.stringify(data));
+    // alert(JSON.stringify(data));
     API.post('/recommendation/recommend', data)
       .then((res) => {
         console.table(res);
@@ -58,7 +58,7 @@ function RecAlgo() {
           if (res.data.success === true) {
             // ! Redirect to a page that says, verify your email
             // navigate('/RecommendationsPage', { replace: true });
-            alert(JSON.stringify(res.data));
+            // alert(JSON.stringify(res.data));
             navigator('/RecommendationsPage', {
               state: {
                 data: res.data,
