@@ -49,6 +49,7 @@ function RecAlgo() {
     data['firstChoice'] = data['firstChoice'].toLowerCase();
     data['secondChoice'] = data['secondChoice'].map((s) => s.toLowerCase());
     data['thirdChoice'] = data['thirdChoice'].map((s) => s.toLowerCase());
+    data['price'] = data['price'];
     API.post('/recommendation/recommend', data)
       .then((res) => {
         console.table(res);

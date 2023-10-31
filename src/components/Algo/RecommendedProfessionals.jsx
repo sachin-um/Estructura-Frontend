@@ -83,7 +83,7 @@ const RecommendedProfessionals = ({ recommendedProfessionals }) => {
         fontSize="30px"
         variant="h4"
       >
-        Architects
+        Recommended Professionals
       </Typography>
       {PaginatedItems.length > 0 ? (
         <ProfessionalCategories data={PaginatedItems} />
@@ -96,7 +96,7 @@ const RecommendedProfessionals = ({ recommendedProfessionals }) => {
           onChange={(_event, value) => {
             setPageNumber(value);
           }}
-          count={Math.ceil(professionals.length / pageSize)}
+          count={Math.ceil(recommendedProfessionals.length / pageSize)}
         />
       </Box>
       <Footer />
