@@ -3,6 +3,8 @@ import { Container, Grid, Typography, Button, TextField } from '@mui/material';
 import React, { useEffect, useState, useRef } from 'react';
 import { Form, Formik } from 'formik';
 import TopBar from '../components/TopBar';
+import { useParams } from 'react-router';
+import * as yup from 'yup';
 const validationSchema = yup.object({
   confirmPassword: yup
     .string()
@@ -14,6 +16,7 @@ const validationSchema = yup.object({
     .required('Password is required'),
 });
 function ResetPassword() {
+  // const token =  useParams<{ token: string }>().token ?? '';
   const formRef = useRef(null);
   const [formData, setFormData] = useState({ email: '' });
 
@@ -137,11 +140,10 @@ function ResetPassword() {
                         password: formData.password ?? '',
                       }}
                       onSubmit={(values) => {
-                        API.post('/auth/reset-password', values, {
-                          headers: {
-                            'Content-Type': 'multipart/form-data',
-                          },
-                        })
+                        API.post(
+                          `/auth/reset-password-process/${token}`,
+                          values,
+                        )
                           .then((res) => {
                             console.table(res);
                             if (res.status === 200) {

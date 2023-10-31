@@ -77,7 +77,7 @@ const RecommendedItems = ({ recommendedItems }) => {
   //   const firstFourGardenware = Gardenware.slice(0, 4);
   //   const firstFourLighting = Lighting.slice(0, 4);
   const PaginatedItems = Paginate(recommendedItems, pageNumber, pageSize);
-  console.log(PaginatedItems)
+  console.log(PaginatedItems);
   const navigate = useNavigate();
   return (
     <Box>
@@ -100,7 +100,7 @@ const RecommendedItems = ({ recommendedItems }) => {
           Recommended Products
         </Typography>
       </Box>
-      {PaginatedItems.length > 0 ? (
+      {PaginatedItems != null ? (
         <ShopCategories data={PaginatedItems} />
       ) : (
         <NotFound />
@@ -111,7 +111,7 @@ const RecommendedItems = ({ recommendedItems }) => {
           onChange={(_event, value) => {
             setPageNumber(value);
           }}
-          count={Math.ceil(recommendedItems.length / pageSize)}
+          count={Math.ceil(recommendedItems?.length / pageSize)}
         />
       </Box>
     </Box>
