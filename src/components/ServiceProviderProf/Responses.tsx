@@ -35,10 +35,11 @@ function Responses() {
   const currentUser = useCurrentUser();
 
   useEffect(() => {
-    fetchCustomerRequestResponses({
-      providerId: currentUser?.id,
-    });
-  }, [currentUser?.id, fetchCustomerRequestResponses]);
+    if (currentUser)
+      fetchCustomerRequestResponses({
+        providerId: currentUser.id,
+      });
+  }, [currentUser, fetchCustomerRequestResponses]);
 
   const goToResponseView = (id: number, reqId: number) => () => {
     navigate(`/custom-requests/req/${reqId}/responses/${id}`);
