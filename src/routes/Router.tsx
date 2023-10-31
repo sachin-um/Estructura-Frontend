@@ -1,14 +1,14 @@
-import { AllInbox } from '@mui/icons-material';
 import { createBrowserRouter } from 'react-router-dom';
 
+// import RequestTable from '../pages/admin/RequestTable';
 import FirstPage from '../pages/Algo/FirstPage';
 import GetStarted from '../pages/Algo/GetStarted';
 import RecommendationsPage from '../pages/Algo/RecommendationsPage';
 import CustomerProfile from '../pages/CustomerProfile';
 import Homepage from '../pages/HomePage';
 import AddAdmin from '../pages/admin/AddAdmin';
-import Member from '../pages/admin/Member';
-import RequestTable from '../pages/admin/RequestTable';
+import UserManage from '../pages/admin/UserManage';
+// import VerifiedUsers from '../pages/admin/VerifiedUsers';
 import AdminDashboard from '../pages/admin/dash';
 import AllMessagesInbox from '../pages/messages/AllMessagesInbox';
 import Chat from '../pages/messages/Chat';
@@ -67,13 +67,10 @@ export const altRouter = createBrowserRouter([
     path: '/addadmin',
     element: <AddAdmin />,
   },
+
   {
-    path: '/member',
-    element: <Member />,
-  },
-  {
-    path: '/RequestTable',
-    element: <RequestTable />,
+    path: '/manageUsers',
+    element: <UserManage />,
   },
 
   ...AuthRoutes,
