@@ -6,6 +6,7 @@ interface CartItem {
 interface CartRequest {
   customer_id: number;
   shoppingCartItems: CartItem[];
+  total: number;
 }
 
 interface CheckoutRequest {

@@ -127,52 +127,56 @@ const ButtonText = styled.span`
 // TODO: REDESIGN
 const ShopCategories = ({ data }: { data: RetailItem[] }) => {
   const navigate = useNavigate();
-  const { addItem } = useCart();
+  const { addOrIncrementItem, items } = useCart();
   return (
     <Container>
       <CardGrid>
-        {data.map((card) => (
-          <Card key={card.id}>
-            <CardImage
-              onClick={() => {
-                navigate(`/shop/item/${card.id}`);
-              }}
-              alt={`Card ${card.id}`}
-              src={`http://localhost:8080/files/retail-item-files/${card.createdBy}/${card.id}/${card.mainImageName}`}
-            />
-            <CardWrapper>
-              <CardText
+        {data.map((card) => {
+          const item = items.find((i) => i.id === card.id);
+          return (
+            <Card key={card.id}>
+              <CardImage
                 onClick={() => {
                   navigate(`/shop/item/${card.id}`);
                 }}
-              >
-                {card.name}
-              </CardText>
-              <CardPrice>{card.price}</CardPrice>
-              <CardButtonsWrapper>
-                <ButtonContainer>
-                  <AddToCartButton
-                    onClick={() => {
-                      console.log(card.id, 'adding');
-                      addItem(card.id);
-                    }}
-                  >
-                    <ShoppingCart />
-                    <ButtonText>Add to Cart</ButtonText>
-                  </AddToCartButton>
-                  <AddToFavoritesButton>
-                    <Favorite />
-                    <ButtonText>Add to Plan</ButtonText>
-                  </AddToFavoritesButton>
-                </ButtonContainer>
-              </CardButtonsWrapper>
-              <CardDate>
-                <CardClockIcon />
-                {new Date(card.dateAdded).toDateString()}
-              </CardDate>
-            </CardWrapper>
-          </Card>
-        ))}
+                alt={`Card ${card.id}`}
+                src={`http://localhost:8080/files/retail-item-files/${card.createdBy}/${card.id}/${card.mainImageName}`}
+              />
+              <CardWrapper>
+                <CardText
+                  onClick={() => {
+                    navigate(`/shop/item/${card.id}`);
+                  }}
+                >
+                  {card.name}
+                </CardText>
+                <CardPrice>{card.price}</CardPrice>
+                {item && ` ${item.quantity} in Cart`}
+                <CardButtonsWrapper>
+                  <ButtonContainer>
+                    <AddToCartButton
+                      onClick={() => {
+                        console.log(card.id, 'adding');
+                        addOrIncrementItem(card.id, 1);
+                      }}
+                    >
+                      <ShoppingCart />
+                      <ButtonText>Add to Cart</ButtonText>
+                    </AddToCartButton>
+                    <AddToFavoritesButton>
+                      <Favorite />
+                      <ButtonText>Add to Plan</ButtonText>
+                    </AddToFavoritesButton>
+                  </ButtonContainer>
+                </CardButtonsWrapper>
+                <CardDate>
+                  <CardClockIcon />
+                  {new Date(card.dateAdded).toDateString()}
+                </CardDate>
+              </CardWrapper>
+            </Card>
+          );
+        })}
       </CardGrid>
     </Container>
   );
