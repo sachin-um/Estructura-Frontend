@@ -9,7 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import '../../assets/font.css';
 import Footer from '../../components/Footer';
@@ -28,8 +28,10 @@ const ViewResponseCard = () => {
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertStatus, setAlertStatus] = useState('');
 
+  const navigate = useNavigate();
   const handleAlertClose = () => {
     setAlertOpen(false);
+    navigate(`/custom-requests/req/${reqId}/responses/${reqResId}`);
   };
   const {
     acceptOrDecline,
@@ -354,7 +356,11 @@ const ViewResponseCard = () => {
               by: {requester?.firstName} {requester?.lastName}
             </Typography>
             <Divider sx={{ marginBottom: '5px', marginTop: '5px' }} />
-            {currentUser?.id === customerRequest?.createdBy && (
+            {customerRequestResponse?.status === 'ACCEPTED' ? (
+              'Accepted'
+            ) : customerRequestResponse?.status === 'DECLINE' ? (
+              'Rejected'
+            ) : currentUser?.id === customerRequest?.createdBy ? (
               <Box sx={{ display: 'flex' }}>
                 <Button
                   onClick={() => {
@@ -411,62 +417,63 @@ const ViewResponseCard = () => {
                   Decline Response
                 </Button>
               </Box>
-            )}
-            {currentUser?.id === customerRequestResponse?.createBy && (
-              <Box
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-around',
-                  marginTop: '10px',
-                }}
-              >
-                <Button
-                  onClick={() => {
-                    if (currentUser && customerRequestResponse)
-                      acceptOrDecline({
-                        action: 'ACCEPTED',
-                        customer_id: currentUser.id,
-                        response_id: customerRequestResponse.id,
-                      }).then((success) => {
-                        if (success) {
-                          setAlertStatus('Accepted');
-                          setAlertOpen(true);
-                        } else {
-                          setAlertStatus('Failed');
-                          setAlertOpen(true);
-                        }
-                      });
+            ) : (
+              currentUser?.id === customerRequestResponse?.createBy && (
+                <Box
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-around',
+                    marginTop: '10px',
                   }}
-                  color="primary"
-                  style={{}}
-                  variant="contained"
                 >
-                  Edit
-                </Button>
-                <Button
-                  onClick={() => {
-                    if (currentUser && customerRequestResponse)
-                      acceptOrDecline({
-                        action: 'DECLINE',
-                        customer_id: currentUser.id,
-                        response_id: customerRequestResponse.id,
-                      }).then((success) => {
-                        if (success) {
-                          setAlertStatus('Declined');
-                          setAlertOpen(true);
-                        } else {
-                          setAlertStatus('Failed');
-                          setAlertOpen(true);
-                        }
-                      });
-                  }}
-                  color="error"
-                  style={{}}
-                  variant="contained"
-                >
-                  Delete
-                </Button>
-              </Box>
+                  <Button
+                    onClick={() => {
+                      if (currentUser && customerRequestResponse)
+                        acceptOrDecline({
+                          action: 'ACCEPTED',
+                          customer_id: currentUser.id,
+                          response_id: customerRequestResponse.id,
+                        }).then((success) => {
+                          if (success) {
+                            setAlertStatus('Accepted');
+                            setAlertOpen(true);
+                          } else {
+                            setAlertStatus('Failed');
+                            setAlertOpen(true);
+                          }
+                        });
+                    }}
+                    color="primary"
+                    style={{}}
+                    variant="contained"
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      if (currentUser && customerRequestResponse)
+                        acceptOrDecline({
+                          action: 'DECLINE',
+                          customer_id: currentUser.id,
+                          response_id: customerRequestResponse.id,
+                        }).then((success) => {
+                          if (success) {
+                            setAlertStatus('Declined');
+                            setAlertOpen(true);
+                          } else {
+                            setAlertStatus('Failed');
+                            setAlertOpen(true);
+                          }
+                        });
+                    }}
+                    color="error"
+                    style={{}}
+                    variant="contained"
+                  >
+                    Delete
+                  </Button>
+                </Box>
+              )
             )}
           </Box>
           <AlertDialog

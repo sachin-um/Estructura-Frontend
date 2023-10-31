@@ -4,6 +4,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Form, Formik } from 'formik';
 import TopBar from '../components/TopBar';
 import { useParams } from 'react-router';
+import * as yup from 'yup';
 const validationSchema = yup.object({
   confirmPassword: yup
     .string()
