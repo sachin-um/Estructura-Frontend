@@ -14,9 +14,11 @@ import { useNavigate } from 'react-router-dom';
 
 import '../../assets/font.css';
 import Footer from '../../components/Footer';
+import NotFound from '../../components/NoResults';
 import TopBar from '../../components/TopAppBar';
 import { useFetchCustomerRequests } from '../../hooks/customerRequest/useFetchCustomerRequests';
 import useFetchAllUsers from '../../hooks/users/useFetchAllUsers';
+import Loading from '../../pages/loading';
 
 const ViewCustomerRequests = ({ my }: { my?: boolean }) => {
   const navigate = useNavigate();
@@ -67,38 +69,41 @@ const ViewCustomerRequests = ({ my }: { my?: boolean }) => {
       </Box>
       <Container>
         <Grid container spacing={10}>
-          {customerRequests.map((customerRequest, index) => {
-            const creator = users?.find(
-              (u) => u.id === customerRequest.createdBy,
-            );
-            return (
-              <Grid item key={index} md={6} xs={12}>
-                <Card style={cardStyle}>
-                  <CardContent style={cardContentStyle}>
-                    <Typography style={titleStyle} variant="h6">
-                      {customerRequest.shortDesc}
-                    </Typography>
-                    <Typography style={amountStyle}></Typography>
-                    <Box style={contactStyle}>
-                      <AccountCircleIcon />
-                      <Typography style={contactTextStyle}>
-                        {creator?.firstName + ' ' + creator?.lastName}
+          {customerRequests.length > 0 ? (
+            customerRequests.map((customerRequest, index) => {
+              const creator = users?.find(
+                (u) => u.id === customerRequest.createdBy,
+              );
+              return (
+                <Grid item key={index} md={6} xs={12}>
+                  <Card style={cardStyle}>
+                    <CardContent style={cardContentStyle}>
+                      <Typography style={titleStyle} variant="h6">
+                        {customerRequest.shortDesc}
                       </Typography>
-                      <PhoneIcon style={phoneIconStyle} />
-                      <Typography style={contactTextStyle}>
-                        {creator?.contactNo ?? creator?.businessContactNo ?? ''}
-                      </Typography>
-                    </Box>
-                    <Box style={buttonContainerStyle}>
-                      <Button
-                        color="primary"
-                        onClick={goToRequestView(customerRequest.id)}
-                        style={viewButtonStyle}
-                        variant="contained"
-                      >
-                        View request
-                      </Button>
-                      {/* <Button
+                      <Typography style={amountStyle}></Typography>
+                      <Box style={contactStyle}>
+                        <AccountCircleIcon />
+                        <Typography style={contactTextStyle}>
+                          {creator?.firstName + ' ' + creator?.lastName}
+                        </Typography>
+                        <PhoneIcon style={phoneIconStyle} />
+                        <Typography style={contactTextStyle}>
+                          {creator?.contactNo ??
+                            creator?.businessContactNo ??
+                            ''}
+                        </Typography>
+                      </Box>
+                      <Box style={buttonContainerStyle}>
+                        <Button
+                          color="primary"
+                          onClick={goToRequestView(customerRequest.id)}
+                          style={viewButtonStyle}
+                          variant="contained"
+                        >
+                          View request
+                        </Button>
+                        {/* <Button
                         color="primary"
                         onClick={goToResponses(customerRequest.id)}
                         style={viewResponsesButtonStyle}
@@ -106,12 +111,17 @@ const ViewCustomerRequests = ({ my }: { my?: boolean }) => {
                       >
                         View Responses
                       </Button> */}
-                    </Box>
-                  </CardContent>
-                </Card>
-              </Grid>
-            );
-          })}
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              );
+            })
+          ) : isLoading ? (
+            <Loading />
+          ) : (
+            <NotFound />
+          )}
         </Grid>
       </Container>
       <Box style={footerContainerStyle}>

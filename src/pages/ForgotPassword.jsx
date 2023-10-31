@@ -13,16 +13,11 @@ function ForgotPassword() {
 
   useEffect(() => {
     if (formData.email) {
-      API.post('/auth/password-reset-request', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
+      API.post('/auth/password-reset-request', formData)
         .then((res) => {
-          console.table(res);
           if (res.status === 200) {
             if (res.data.success === true) {
-              navigate('/emailNotVerified', { replace: true });
+              window.location.href = '/emailVerified';
             } else {
               alert(res.data.message);
             }

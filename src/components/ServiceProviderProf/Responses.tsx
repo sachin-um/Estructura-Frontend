@@ -13,6 +13,7 @@ import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import '../../assets/font.css';
+import NotFound from '../../components/NoResults';
 import { useFetchCustomerRequestResponses } from '../../hooks/customerRequest/useFetchCustomerRequestResponses';
 import useCurrentUser from '../../hooks/users/useCurrentUser';
 import Loading from '../../pages/loading';
@@ -74,9 +75,8 @@ function Responses() {
   // ];
   return isLoading ? (
     <Loading />
-  ) : (
+  ) : customerRequestResponses.length > 0 ? (
     <>
-      {console.log(customerRequestResponses)}
       {customerRequestResponses.map((card, index) => (
         <Grid item key={index} md={6} xs={12}>
           <Card style={cardStyle}>
@@ -109,6 +109,8 @@ function Responses() {
         </Grid>
       ))}
     </>
+  ) : (
+    <NotFound />
   );
 }
 
