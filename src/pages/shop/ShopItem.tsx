@@ -12,7 +12,9 @@ import Footer from '../../components/Footer';
 import NotFound from '../../components/NoResults';
 import TopAppBar from '../../components/TopAppBar';
 import Newsletter from '../../components/e-com/Blog';
+import useCart from '../../hooks/cart/useCart';
 import { useRetailItem } from '../../hooks/retailItem/useRetailItem';
+import useCurrentUser from '../../hooks/users/useCurrentUser';
 import useFetchUser from '../../hooks/users/useFetchUser';
 import Loading from '../../pages/loading';
 import { mobile } from '../../responsive';
@@ -56,15 +58,23 @@ const ShopItem: FunctionComponent = () => {
 
   const [amount, setAmount] = useState(1);
 
+  const { addOrIncrementItem, items, removeItem } = useCart();
+
   const handleIncrease = () => {
-    setAmount((prevAmount) => prevAmount + 1);
+    // setAmount((prevAmount) => prevAmount + 1);
+    addOrIncrementItem(itemId);
   };
 
   const handleDecrease = () => {
-    if (amount > 1) {
-      setAmount((prevAmount) => prevAmount - 1);
-    }
+    // if (amount > 1) {
+    //   setAmount((prevAmount) => prevAmount - 1);
+    // }
+    addOrIncrementItem(itemId, -1);
   };
+
+  const currentUser = useCurrentUser();
+
+  const ItemInCart = items.find((i) => i.id === itemId);
 
   return (
     <Container>
@@ -135,17 +145,25 @@ const ShopItem: FunctionComponent = () => {
             <PriceContainer>
               <Price>LKR. {retailItem.price.toFixed(2)}</Price>
             </PriceContainer>
-            {user?.role === 'CUSTOMER' && (
+            {currentUser?.role === 'CUSTOMER' && (
               <ActionContainer>
                 <ButtonContainer>
-                  <AddToCartButton>
+                  <AddToCartButton
+                    onClick={
+                      ItemInCart === undefined
+                        ? handleIncrease
+                        : () => removeItem(itemId)
+                    }
+                  >
                     <ShoppingCart />
-                    <ButtonText>ADD TO CART</ButtonText>
+                    <ButtonText>
+                      {ItemInCart ? 'REMOVE FROM' : 'ADD TO'} CART
+                    </ButtonText>
                   </AddToCartButton>
                   <AmountContainer>
-                    <Remove onClick={handleDecrease} />
-                    <Amount>{amount}</Amount>
-                    <Add onClick={handleIncrease} />
+                    {ItemInCart && <Remove onClick={handleDecrease} />}
+                    <Amount>{ItemInCart?.quantity ?? 0}</Amount>
+                    {ItemInCart && <Add onClick={handleIncrease} />}
                   </AmountContainer>
                 </ButtonContainer>
                 <AddToPlanButton>
