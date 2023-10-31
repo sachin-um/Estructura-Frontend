@@ -56,7 +56,7 @@ const RecommendationsPage = () => {
         );
         break;
       case 'retailItems':
-        tab = <RecommendedItems />;
+        tab = <RecommendedItems recommendedItems={data.retailItems} />;
         break;
     }
     return tab;

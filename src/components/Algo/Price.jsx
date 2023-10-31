@@ -140,28 +140,28 @@ function Price({
                       control={<Radio />}
                       labelPlacement="bottom"
                       label="Minimizing the cost"
-                      value="I want to minimize the cost"
+                      value="1"
                     />
 
                     <FormControlLabel
                       control={<Radio />}
                       labelPlacement="bottom"
                       label="Low to Mid Price quality"
-                      value="Low to Mid Price quality"
+                      value="2"
                     />
 
                     <FormControlLabel
                       control={<Radio />}
                       labelPlacement="bottom"
                       label="Mid to High Price quality"
-                      value="Mid to High Price quality"
+                      value="3"
                     />
 
                     <FormControlLabel
                       control={<Radio />}
                       labelPlacement="bottom"
                       label="Best Results"
-                      value="Best Results"
+                      value="4"
                     />
                   </RadioGroup>
                   <FormHelperText sx={customHelperTextStyles}>
