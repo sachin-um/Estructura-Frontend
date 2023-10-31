@@ -127,7 +127,7 @@ const ButtonText = styled.span`
 // TODO: REDESIGN
 const ShopCategories = ({ data }: { data: RetailItem[] }) => {
   const navigate = useNavigate();
-  const { addOrIncrementItem, items } = useCart();
+  const { addOrIncrementItem, items, removeItem } = useCart();
   return (
     <Container>
       <CardGrid>
@@ -156,12 +156,18 @@ const ShopCategories = ({ data }: { data: RetailItem[] }) => {
                   <ButtonContainer>
                     <AddToCartButton
                       onClick={() => {
-                        console.log(card.id, 'adding');
-                        addOrIncrementItem(card.id, 1);
+                        if (item === undefined) {
+                          console.log(card.id, 'adding');
+                          addOrIncrementItem(card.id, 1);
+                        } else {
+                          removeItem(card.id);
+                        }
                       }}
                     >
                       <ShoppingCart />
-                      <ButtonText>Add to Cart</ButtonText>
+                      <ButtonText>
+                        {item === undefined ? 'Add to' : 'Remove from'} Cart
+                      </ButtonText>
                     </AddToCartButton>
                     <AddToFavoritesButton>
                       <Favorite />

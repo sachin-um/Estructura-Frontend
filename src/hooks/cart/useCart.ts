@@ -36,7 +36,6 @@ const useCart = () => {
         console.log(res);
       });
     }
-    // alert(JSON.stringify(items));
   };
 
   const addOrIncrementItem = (itemId: number, inc?: number) => {
@@ -65,7 +64,9 @@ const useCart = () => {
   };
 
   const removeItem = (itemId: number) => {
-    setItems(items.filter((i) => i.id !== itemId));
+    const newItems = items.filter((i) => i.id !== itemId);
+    setItems(newItems);
+    saveProgress(newItems);
   };
 
   useEffect(() => {
