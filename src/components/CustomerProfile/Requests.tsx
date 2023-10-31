@@ -127,7 +127,7 @@ function Requests() {
                       color="primary"
                       onClick={goToResponses(customerRequest.id)}
                       style={viewResponsesButtonStyle}
-                      variant="outlined"
+                      variant="contained"
                     >
                       View Responses
                     </Button>
