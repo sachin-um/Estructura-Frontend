@@ -643,16 +643,18 @@ const ViewCustomerRequestCard = () => {
                     Accept Request
                   </Button>
                 )}
-              <Button
-                color="primary"
-                onClick={goToResponses(customerRequest.id)}
-                size="large"
-                style={{ width: '35%' }}
-                sx={{ borderRadius: 2, width: 1 / 2 }}
-                variant="contained"
-              >
-                View Responses
-              </Button>
+              {currentUser?.id === customerRequest.createdBy && (
+                <Button
+                  color="primary"
+                  onClick={goToResponses(customerRequest.id)}
+                  size="large"
+                  style={{ width: '35%' }}
+                  sx={{ borderRadius: 2, width: 1 / 2 }}
+                  variant="contained"
+                >
+                  View Responses
+                </Button>
+              )}
             </Box>
           </Box>
         </Grid>

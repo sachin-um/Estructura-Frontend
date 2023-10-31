@@ -1,6 +1,14 @@
 import { createBrowserRouter } from 'react-router-dom';
 
+
 // import RequestTable from '../pages/admin/RequestTable';
+
+
+import Billing from '../components/e-com/Billing';
+
+// import RequestTable from '../pages/admin/RequestTable';
+
+
 import FirstPage from '../pages/Algo/FirstPage';
 import GetStarted from '../pages/Algo/GetStarted';
 import RecommendationsPage from '../pages/Algo/RecommendationsPage';
@@ -71,6 +79,11 @@ export const altRouter = createBrowserRouter([
   {
     path: '/manageUsers',
     element: <UserManage />,
+
+  },
+  {
+    path: '/billing',
+    element: <Billing />,
   },
 
   ...AuthRoutes,
