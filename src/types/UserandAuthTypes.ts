@@ -72,7 +72,7 @@ interface User {
   firstName: string;
   id: number;
   introduction?: string;
-  isVerified: boolean;
+  verified: boolean;
   lastName: string;
   maxRate?: number;
   minRate?: number;

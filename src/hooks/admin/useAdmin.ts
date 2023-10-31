@@ -92,11 +92,6 @@ export const useAdmin = () => {
       }
     } else {
       result.success = true;
-      setAdmins(
-        (await API.get<Admin[]>(`/users/all`)).data.filter(
-          (u) => u.role === 'ADMIN',
-        ),
-      );
     }
     return result;
   }, []);
