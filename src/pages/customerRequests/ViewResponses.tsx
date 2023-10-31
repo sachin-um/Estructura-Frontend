@@ -138,7 +138,7 @@ const imageStyle: React.CSSProperties = {
 const cardStyle: React.CSSProperties = {
   border: '1px solid #ccc',
   margin: '0 auto',
-  maxHeight: '240px',
+  maxHeight: '260px',
   maxWidth: '500px',
 };
 

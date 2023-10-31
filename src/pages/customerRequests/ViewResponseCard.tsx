@@ -113,10 +113,10 @@ const ViewResponseCard = () => {
               {customerRequestResponse?.shortDesc}
             </Typography>
             <Typography>
-              by : {responder?.firstName} {responder?.lastName} [
+              posted by : {responder?.firstName} {responder?.lastName} [
               {responder?.role}]
             </Typography>
-            <Divider sx={{ marginBottom: '10px' }} />
+            <Divider sx={{ marginBottom: '10px', marginTop: '10px' }} />
             <Typography
               fontFamily="Poppins"
               sx={{ marginTop: '10px' }}
@@ -126,7 +126,7 @@ const ViewResponseCard = () => {
             </Typography>
             <Box
               sx={{
-                border: '2px solid green',
+                // border: '2px solid green',
                 marginTop: '10px',
                 minHeight: '70px',
                 padding: '10px',
@@ -142,6 +142,7 @@ const ViewResponseCard = () => {
                 {customerRequestResponse?.response}
               </Typography>
             </Box>
+            <Divider sx={{ marginBottom: '10px', marginTop: '10px' }} />
             <Typography
               fontFamily="Poppins"
               sx={{ marginTop: '20px' }}
@@ -151,7 +152,7 @@ const ViewResponseCard = () => {
             </Typography>
             <Box
               sx={{
-                border: '2px solid green',
+                // border: '2px solid green',
                 display: 'inline-block',
                 marginTop: '10px',
                 padding: '5px',
@@ -166,6 +167,7 @@ const ViewResponseCard = () => {
                 Rs:{customerRequestResponse?.proposedBudget} .00
               </Typography>
             </Box>
+            <Divider sx={{ marginBottom: '10px', marginTop: '10px' }} />
             <Typography
               fontFamily="Poppins"
               sx={{ marginTop: '20px' }}
@@ -189,10 +191,11 @@ const ViewResponseCard = () => {
                     backgroundColor: '#f3f3f3',
                     border: 1,
                     borderColor: 'grey',
+                    borderRadius: '5px',
                   }}
                   display={'flex'}
                   height="50px"
-                  marginTop="30px"
+                  marginTop="10px"
                   position="relative"
                   width="200px"
                 >
@@ -242,6 +245,7 @@ const ViewResponseCard = () => {
                     backgroundColor: '#f3f3f3',
                     border: 1,
                     borderColor: 'grey',
+                    borderRadius: '5px',
                   }}
                   display={'flex'}
                   height="50px"
@@ -351,7 +355,7 @@ const ViewResponseCard = () => {
             </Typography>
             <Divider sx={{ marginBottom: '10px', marginTop: '10px' }} />
             {currentUser?.id === customerRequest?.createdBy && (
-              <Box>
+              <Box sx={{ display: 'flex' }}>
                 <Button
                   onClick={() => {
                     if (currentUser && customerRequestResponse)
@@ -371,7 +375,7 @@ const ViewResponseCard = () => {
                   }}
                   style={{
                     display: 'block',
-                    margin: '50px 150px 0',
+                    margin: '50px',
                     width: '35%',
                   }}
                   color="primary"
@@ -398,7 +402,7 @@ const ViewResponseCard = () => {
                   }}
                   style={{
                     display: 'block',
-                    margin: '50px 150px 0',
+                    margin: '50px',
                     width: '35%',
                   }}
                   color="primary"
@@ -456,7 +460,7 @@ const ViewResponseCard = () => {
                         }
                       });
                   }}
-                  color="primary"
+                  color="error"
                   style={{}}
                   variant="contained"
                 >
