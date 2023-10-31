@@ -112,7 +112,7 @@ const AddResponse = () => {
       }).then((added) => {
         if (added.success) {
           navigate(
-            `/custom-requests/req/${added.item?.createBy}/responses/${added.item?.id}`,
+            `/custom-requests/req/${requestId}/responses/${added.item?.id}`,
           );
         }
       });
