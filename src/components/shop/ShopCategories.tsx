@@ -150,7 +150,7 @@ const ShopCategories = ({ data }: { data: RetailItem[] }) => {
                 >
                   {card.name}
                 </CardText>
-                <CardPrice>{card.price}</CardPrice>
+                <CardPrice>Rs:{card.price}</CardPrice>
                 {item && ` ${item.quantity} in Cart`}
                 <CardButtonsWrapper>
                   <ButtonContainer>

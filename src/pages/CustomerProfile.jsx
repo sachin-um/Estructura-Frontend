@@ -50,7 +50,7 @@ function CustomerProfile() {
             width: '100%',
           }}
           alt="cover"
-          src="cover.jpg"
+          src="/public/cover.jpg"
         />
         <Box
           left="7%"
@@ -70,7 +70,7 @@ function CustomerProfile() {
             <img
               src={
                 profilePicture ||
-                'account-avatar-person-profile-user-svgrepo-com.svg'
+                '/public/account-avatar-person-profile-user-svgrepo-com.svg'
               }
               style={{
                 height: '100px',

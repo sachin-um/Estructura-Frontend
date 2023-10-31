@@ -56,7 +56,7 @@ function InteriorDesign({
     event.preventDefault();
     if (selectedValues.length !== 0) {
       handlePageChange('Location');
-      updateFormData({ secondChoice: [userSelection] });
+      updateFormData({ secondChoice: selectedValues });
       nextPage();
     } else {
       setHelperText('Please select an option.');

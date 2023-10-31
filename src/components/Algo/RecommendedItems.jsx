@@ -1,6 +1,6 @@
-import { Box, Button, Typography } from '@mui/material';
-import { useEffect } from 'react';
+import { Box, Pagination, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 import '../../assets/font.css';
 import Footer from '../../components/Footer';
@@ -11,8 +11,10 @@ import Slider from '../../components/e-com/Slider';
 import ShopCategories from '../../components/shop/ShopCategories';
 import { useFetchRetailItems } from '../../hooks/retailItem/useFetchRetailItems';
 import Loading from '../../pages/loading';
-
-const RecommendedItems = () => {
+import Paginate from '../../utils/Paginate';
+const RecommendedItems = ({ recommendedItems }) => {
+  const [pageSize, _setPageSize] = useState(8); // Should add a selector
+  const [pageNumber, setPageNumber] = useState(1);
   //   const { fetchRetailItems, isLoading, retailItems } = useFetchRetailItems();
 
   //   useEffect(() => {
@@ -74,10 +76,11 @@ const RecommendedItems = () => {
   //   const firstFourBathware = Bathware.slice(0, 4);
   //   const firstFourGardenware = Gardenware.slice(0, 4);
   //   const firstFourLighting = Lighting.slice(0, 4);
-
+  const PaginatedItems = Paginate(recommendedItems, pageNumber, pageSize);
+  console.log(PaginatedItems)
   const navigate = useNavigate();
   return (
-    <div>
+    <Box>
       {/* Furniture */}
       <Box
         sx={{
@@ -94,165 +97,24 @@ const RecommendedItems = () => {
           fontSize="30px"
           variant="h4"
         >
-          Furniture
+          Recommended Products
         </Typography>
-        <Button
-          onClick={() => {
-            navigate('/shop/items/FURNITURE');
-          }}
-          color="primary"
-          variant="contained"
-        >
-          See More Furniture
-        </Button>
       </Box>
-      {firstFourFurniture.length > 0 && (
-        <ShopCategories data={firstFourFurniture} />
-      )}
-      {firstFourFurniture.length === 0 && (
-        <Box>{isLoading ? <Loading /> : <NotFound />}</Box>
+      {PaginatedItems.length > 0 ? (
+        <ShopCategories data={PaginatedItems} />
+      ) : (
+        <NotFound />
       )}
 
-      {/* Hardware */}
-      {/* <Box
-        sx={{
-          alignItems: 'center',
-          display: 'flex',
-          justifyContent: 'space-between',
-          margin: '20px',
-          marginTop: '50px',
-        }}
-      >
-        <Typography
-          color="#435834"
-          fontFamily="Poppins"
-          fontSize="30px"
-          variant="h4"
-        >
-          Hardware
-        </Typography>
-        <Button
-          onClick={() => {
-            navigate('/shop/items/HARDWARE');
+      <Box display={'flex'} justifyContent={'center'} marginBottom={'2rem'}>
+        <Pagination
+          onChange={(_event, value) => {
+            setPageNumber(value);
           }}
-          color="primary"
-          variant="contained"
-        >
-          See More Hardware
-        </Button>
+          count={Math.ceil(recommendedItems.length / pageSize)}
+        />
       </Box>
-      {firstFourHardware.length > 0 && (
-        <ShopCategories data={firstFourHardware} />
-      )}
-      {firstFourHardware.length === 0 && (
-        <Box>{isLoading ? <Loading /> : <NotFound />}</Box>
-      )} */}
-
-      {/* Bathware */}
-      {/* <Box
-        sx={{
-          alignItems: 'center',
-          display: 'flex',
-          justifyContent: 'space-between',
-          margin: '20px',
-          marginTop: '50px',
-        }}
-      >
-        <Typography
-          color="#435834"
-          fontFamily="Poppins"
-          fontSize="30px"
-          variant="h4"
-        >
-          Bathware
-        </Typography>
-        <Button
-          onClick={() => {
-            navigate('/shop/items/BATHWARE');
-          }}
-          color="primary"
-          variant="contained"
-        >
-          See More Bathware
-        </Button>
-      </Box>
-      {firstFourBathware.length > 0 && (
-        <ShopCategories data={firstFourBathware} />
-      )}
-      {firstFourBathware.length === 0 && (
-        <Box>{isLoading ? <Loading /> : <NotFound />}</Box>
-      )} */}
-
-      {/* Gardenware */}
-      {/* <Box
-        sx={{
-          alignItems: 'center',
-          display: 'flex',
-          justifyContent: 'space-between',
-          margin: '20px',
-          marginTop: '50px',
-        }}
-      >
-        <Typography
-          color="#435834"
-          fontFamily="Poppins"
-          fontSize="30px"
-          variant="h4"
-        >
-          Gardenware
-        </Typography>
-        <Button
-          onClick={() => {
-            navigate('/shop/items/GARDENWARE');
-          }}
-          color="primary"
-          variant="contained"
-        >
-          See More Gardenware
-        </Button>
-      </Box>
-      {firstFourGardenware.length > 0 && (
-        <ShopCategories data={firstFourGardenware} />
-      )}
-      {firstFourGardenware.length === 0 && (
-        <Box>{isLoading ? <Loading /> : <NotFound />}</Box>
-      )} */}
-
-      {/* Lighting */}
-      {/* <Box
-        sx={{
-          alignItems: 'center',
-          display: 'flex',
-          justifyContent: 'space-between',
-          margin: '20px',
-          marginTop: '50px',
-        }}
-      >
-        <Typography
-          color="#435834"
-          fontFamily="Poppins"
-          fontSize="30px"
-          variant="h4"
-        >
-          Lighting
-        </Typography>
-        <Button
-          onClick={() => {
-            navigate('/shop/items/LIGHTING');
-          }}
-          color="primary"
-          variant="contained"
-        >
-          See More Lighting
-        </Button>
-      </Box>
-      {firstFourLighting.length > 0 && (
-        <ShopCategories data={firstFourLighting} />
-      )}
-      {firstFourLighting.length === 0 && (
-        <Box>{isLoading ? <Loading /> : <NotFound />}</Box>
-      )} */}
-    </div>
+    </Box>
   );
 };
 

@@ -76,7 +76,7 @@ const ViewResponses = () => {
                       {card.shortDesc}
                     </Typography>
                     <Typography style={amountStyle}>
-                      {card.proposedBudget}
+                      Estimated Budget : Rs. {card.proposedBudget}.00
                     </Typography>
                     <Box style={contactStyle}>
                       <AccountCircleIcon />
@@ -138,7 +138,7 @@ const imageStyle: React.CSSProperties = {
 const cardStyle: React.CSSProperties = {
   border: '1px solid #ccc',
   margin: '0 auto',
-  maxHeight: '240px',
+  maxHeight: '260px',
   maxWidth: '500px',
 };
 
@@ -156,7 +156,7 @@ const titleStyle: React.CSSProperties = {
 
 const amountStyle: React.CSSProperties = {
   fontFamily: 'Poppins',
-  fontSize: '18px',
+  fontSize: '16px',
   marginBottom: '20px',
   textAlign: 'left',
 };
