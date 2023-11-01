@@ -115,7 +115,7 @@ const BarChart = ({ isDashboard = false }) => {
       enableLabel={false}
       indexBy="country"
       indexScale={{ round: true, type: 'band' }}
-      keys={['hot dog', 'burger', 'sandwich', 'kebab', 'fries', 'donut']}
+      keys={['customers', 'Service Providers']}
       labelSkipHeight={12}
       labelSkipWidth={12}
       margin={{ bottom: 50, left: 60, right: 130, top: 50 }}

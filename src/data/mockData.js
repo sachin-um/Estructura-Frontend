@@ -435,106 +435,74 @@ export const mockLineData = [
     color: tokens.greenAccent[500],
     data: [
       {
-        x: 'plane',
+        x: 'Architecture',
         y: 101,
       },
       {
-        x: 'helicopter',
+        x: 'Interior Designers',
         y: 75,
       },
       {
-        x: 'boat',
+        x: 'Home Builders',
         y: 36,
       },
       {
-        x: 'train',
+        x: 'Landscape Architects',
         y: 216,
       },
       {
-        x: 'subway',
+        x: 'Carpenters',
         y: 35,
       },
       {
-        x: 'bus',
+        x: 'Construction Companies',
         y: 236,
       },
       {
-        x: 'car',
+        x: 'Renter',
         y: 88,
       },
       {
-        x: 'moto',
+        x: 'Retail Store',
         y: 232,
       },
-      {
-        x: 'bicycle',
-        y: 281,
-      },
-      {
-        x: 'horse',
-        y: 1,
-      },
-      {
-        x: 'skateboard',
-        y: 35,
-      },
-      {
-        x: 'others',
-        y: 14,
-      },
     ],
-    id: 'japan',
+    id: 'Rathnapura',
   },
   {
     color: tokens.blueAccent[300],
     data: [
       {
-        x: 'plane',
-        y: 212,
+        x: 'Architecture',
+        y: 101,
       },
       {
-        x: 'helicopter',
-        y: 190,
-      },
-      {
-        x: 'boat',
-        y: 270,
-      },
-      {
-        x: 'train',
-        y: 9,
-      },
-      {
-        x: 'subway',
+        x: 'Interior Designers',
         y: 75,
       },
       {
-        x: 'bus',
-        y: 175,
+        x: 'Home Builders',
+        y: 36,
       },
       {
-        x: 'car',
-        y: 33,
+        x: 'Landscape Architects',
+        y: 216,
       },
       {
-        x: 'moto',
-        y: 189,
+        x: 'Carpenters',
+        y: 35,
       },
       {
-        x: 'bicycle',
-        y: 97,
+        x: 'Construction Companies',
+        y: 236,
       },
       {
-        x: 'horse',
-        y: 87,
+        x: 'Renter',
+        y: 88,
       },
       {
-        x: 'skateboard',
-        y: 299,
-      },
-      {
-        x: 'others',
-        y: 251,
+        x: 'Retail Store',
+        y: 232,
       },
     ],
     id: 'france',
@@ -543,55 +511,39 @@ export const mockLineData = [
     color: tokens.redAccent[200],
     data: [
       {
-        x: 'plane',
-        y: 191,
+        x: 'Architecture',
+        y: 101,
       },
       {
-        x: 'helicopter',
-        y: 136,
+        x: 'Interior Designers',
+        y: 75,
       },
       {
-        x: 'boat',
-        y: 91,
+        x: 'Home Builders',
+        y: 36,
       },
       {
-        x: 'train',
-        y: 190,
+        x: 'Landscape Architects',
+        y: 216,
       },
       {
-        x: 'subway',
-        y: 211,
+        x: 'Carpenters',
+        y: 35,
       },
       {
-        x: 'bus',
-        y: 152,
+        x: 'Construction Companies',
+        y: 236,
       },
       {
-        x: 'car',
-        y: 189,
+        x: 'Renter',
+        y: 88,
       },
       {
-        x: 'moto',
-        y: 152,
-      },
-      {
-        x: 'bicycle',
-        y: 8,
-      },
-      {
-        x: 'horse',
-        y: 197,
-      },
-      {
-        x: 'skateboard',
-        y: 107,
-      },
-      {
-        x: 'others',
-        y: 170,
+        x: 'Retail Store',
+        y: 232,
       },
     ],
-    id: 'us',
+    id: 'Colombo',
   },
 ];
 

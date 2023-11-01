@@ -9,7 +9,7 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
   return (
     <ResponsiveLine
       axisBottom={{
-        legend: isDashboard ? undefined : 'transportation', // added
+        legend: isDashboard ? undefined : 'Revenue', // added
         legendOffset: 36,
         legendPosition: 'middle',
         orient: 'bottom',
