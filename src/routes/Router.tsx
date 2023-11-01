@@ -1,11 +1,15 @@
 import { AllInbox } from '@mui/icons-material';
 import { createBrowserRouter } from 'react-router-dom';
 
+import AccountSuspended from '../pages/AccountSuspended';
+import AccountNotApproved from '../pages/AccountNotApproved';
 import FirstPage from '../pages/Algo/FirstPage';
 import GetStarted from '../pages/Algo/GetStarted';
 import RecommendationsPage from '../pages/Algo/RecommendationsPage';
 import CustomerProfile from '../pages/CustomerProfile';
 import Homepage from '../pages/HomePage';
+import PageNotFound from '../pages/PageNotFound';
+import ResetPasswordSuccessful from '../pages/ResetPasswordSuccessful';
 import AddAdmin from '../pages/admin/AddAdmin';
 import Member from '../pages/admin/Member';
 import RequestTable from '../pages/admin/RequestTable';
@@ -20,8 +24,6 @@ import ProjectRoutes from './ProjectsRoutes';
 import RentingItemRoutes from './RentingRoutes';
 import ServiceProviderRoutes from './ServiceProviderRoutes';
 import ShopRoutes from './ShopRoutes';
-import PageNotFound from '../pages/PageNotFound';
-import ResetPasswordSuccessful from '../pages/ResetPasswordSuccessful';
 
 export const altRouter = createBrowserRouter([
   {
@@ -84,6 +86,14 @@ export const altRouter = createBrowserRouter([
   {
     path: '/ResetPasswordSuccessful',
     element: <ResetPasswordSuccessful />,
+  },
+  {
+    path: '/AccountSuspended',
+    element: <AccountSuspended />,
+  },
+  {
+    path: '/AccountNotApproved',
+    element: <AccountNotApproved />,
   },
 
   ...AuthRoutes,
