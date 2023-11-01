@@ -2,6 +2,7 @@ import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import {
   Box,
   Button,
@@ -28,8 +29,8 @@ const FindFurniture = () => {
   const [showMatches, setShowMatches] = useState(false);
   const [filteredFurniture, setFilteredFurniture] = useState([]);
   useEffect(() => {
-    if (category) fetchRetailItems({});
-  }, [category, fetchRetailItems]);
+    fetchRetailItems({});
+  }, [fetchRetailItems]);
 
   const userInfo = useSelector(selectUser);
   const handleImageChange = (e) => {
@@ -44,7 +45,7 @@ const FindFurniture = () => {
       // Send the file to the server
       const formData = new FormData();
       formData.append('image', file);
-
+      console.log(retailItems);
       axios
         .post('http://localhost:5000/api/upload', formData) // Replace with your backend URL
         .then((response) => {
