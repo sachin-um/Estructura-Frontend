@@ -25,14 +25,14 @@ import AddressInputs, {
   addressValidators,
 } from '../AddressInputs';
 
-const professionalCategories = [
+const professionalCategories: [Role, string][] = [
   ['ARCHITECT', 'Architect'],
-  ['interiordesigner', 'Interior Designer'],
-  ['constructioncompany', 'Construction Company'],
-  ['homebuilder', 'Home Builder'],
-  ['landscapearchitect', 'Landscape Architect'],
-  ['painter', 'Painter'],
-  ['carpenter', 'Carpenter '],
+  ['INTERIORDESIGNER', 'Interior Designer'],
+  ['CONSTRUCTIONCOMPANY', 'Construction Company'],
+  ['MASONWORKER', 'Home Builder'],
+  ['LANDSCAPEARCHITECT', 'Landscape Architect'],
+  ['PAINTER', 'Painter'],
+  ['CARPENTER', 'Carpenter '],
 ];
 
 const validationSchema = yup.object({

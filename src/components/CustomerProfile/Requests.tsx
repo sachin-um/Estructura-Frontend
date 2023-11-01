@@ -54,14 +54,6 @@ function Requests() {
     <Loading />
   ) : (
     <>
-      <Button
-        onClick={() => {
-          navigate('/custom-requests/add');
-        }}
-        variant="contained"
-      >
-        Add new request
-      </Button>
       <Grid container spacing={10}>
         {customerRequests.map((customerRequest, index) => {
           console.log(customerRequest);
@@ -135,7 +127,7 @@ function Requests() {
                       color="primary"
                       onClick={goToResponses(customerRequest.id)}
                       style={viewResponsesButtonStyle}
-                      variant="outlined"
+                      variant="contained"
                     >
                       View Responses
                     </Button>

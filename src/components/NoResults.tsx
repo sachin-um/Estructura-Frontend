@@ -6,6 +6,7 @@ function NoResultsFound() {
       alignItems="center"
       display="flex"
       flexDirection="column"
+      minHeight="500px"
       padding="20px"
     >
       <img

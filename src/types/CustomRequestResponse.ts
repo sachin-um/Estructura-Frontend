@@ -21,6 +21,7 @@ interface CustomerRequestResponse {
   createBy: number;
   status: ResponseStatus;
   dateAdded: Date;
+  custReqId: number;
 }
 
 type ResponseStatus = 'ACCEPTED' | 'DECLINE' | 'PENDING';

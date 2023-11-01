@@ -1,18 +1,30 @@
-import { AllInbox } from '@mui/icons-material';
 import { createBrowserRouter } from 'react-router-dom';
+
 
 import AccountSuspended from '../pages/AccountSuspended';
 import AccountNotApproved from '../pages/AccountNotApproved';
+
+// import RequestTable from '../pages/admin/RequestTable';
+
+import Billing from '../components/e-com/Billing';
+
+// import RequestTable from '../pages/admin/RequestTable';
+
+
 import FirstPage from '../pages/Algo/FirstPage';
 import GetStarted from '../pages/Algo/GetStarted';
 import RecommendationsPage from '../pages/Algo/RecommendationsPage';
 import CustomerProfile from '../pages/CustomerProfile';
 import Homepage from '../pages/HomePage';
 import PageNotFound from '../pages/PageNotFound';
+
+import CreatePlan from '../pages/PlanCreation/CreatePlan';
+import ViewPlan from '../pages/PlanCreation/ViewPlan';
+
 import ResetPasswordSuccessful from '../pages/ResetPasswordSuccessful';
 import AddAdmin from '../pages/admin/AddAdmin';
-import Member from '../pages/admin/Member';
-import RequestTable from '../pages/admin/RequestTable';
+import UserManage from '../pages/admin/UserManage';
+// import VerifiedUsers from '../pages/admin/VerifiedUsers';
 import AdminDashboard from '../pages/admin/dash';
 import AllMessagesInbox from '../pages/messages/AllMessagesInbox';
 import Chat from '../pages/messages/Chat';
@@ -71,13 +83,14 @@ export const altRouter = createBrowserRouter([
     path: '/addadmin',
     element: <AddAdmin />,
   },
+
   {
-    path: '/member',
-    element: <Member />,
+    path: '/manageUsers',
+    element: <UserManage />,
   },
   {
-    path: '/RequestTable',
-    element: <RequestTable />,
+    path: '/billing',
+    element: <Billing />,
   },
   {
     path: '/PageNotFound',
@@ -94,6 +107,16 @@ export const altRouter = createBrowserRouter([
   {
     path: '/AccountNotApproved',
     element: <AccountNotApproved />,
+  },
+
+  {
+    path: '/plan',
+    element: <CreatePlan />,
+  },
+
+  {
+    path: '/plan/:id',
+    element: <ViewPlan />,
   },
 
   ...AuthRoutes,

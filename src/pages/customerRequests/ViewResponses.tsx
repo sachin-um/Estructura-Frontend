@@ -14,9 +14,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import '../../assets/font.css';
 import Footer from '../../components/Footer';
+import NotFound from '../../components/NoResults';
 import TopBar from '../../components/TopAppBar';
 import { useFetchCustomerRequestResponses } from '../../hooks/customerRequest/useFetchCustomerRequestResponses';
 import useFetchAllUsers from '../../hooks/users/useFetchAllUsers';
+import Loading from '../../pages/loading';
 
 const ViewResponses = () => {
   const navigate = useNavigate();
@@ -27,7 +29,7 @@ const ViewResponses = () => {
     navigate(`/custom-requests/req/${reqId}/responses/${id}`);
   };
 
-  const { customerRequestResponses, fetchCustomerRequestResponses } =
+  const { customerRequestResponses, fetchCustomerRequestResponses, isLoading } =
     useFetchCustomerRequestResponses();
 
   useEffect(() => {
@@ -65,45 +67,51 @@ const ViewResponses = () => {
         </Container>
       </Box>
       <Container>
-        <Grid container spacing={10}>
-          {customerRequestResponses.map((card, index) => {
-            const creator = users.find((u) => u.id === card.createBy);
-            return (
-              <Grid item key={index} md={6} xs={12}>
-                <Card style={cardStyle}>
-                  <CardContent style={cardContentStyle}>
-                    <Typography style={titleStyle} variant="h6">
-                      {card.shortDesc}
-                    </Typography>
-                    <Typography style={amountStyle}>
-                      {card.proposedBudget}
-                    </Typography>
-                    <Box style={contactStyle}>
-                      <AccountCircleIcon />
-                      <Typography style={contactTextStyle}>
-                        {creator?.firstName} {creator?.lastName} [
-                        {creator?.role}]
+        <Grid container spacing={10} sx={{ marginTop: '10px' }}>
+          {customerRequestResponses.length > 0 ? (
+            customerRequestResponses.map((card, index) => {
+              const creator = users.find((u) => u.id === card.createBy);
+              return (
+                <Grid item key={index} md={6} xs={12}>
+                  <Card style={cardStyle}>
+                    <CardContent style={cardContentStyle}>
+                      <Typography style={titleStyle} variant="h6">
+                        {card.shortDesc}
                       </Typography>
-                      <PhoneIcon style={phoneIconStyle} />
-                      <Typography style={contactTextStyle}>
-                        {creator?.contactNo ?? creator?.businessContactNo}
+                      <Typography style={amountStyle}>
+                        Estimated Budget : Rs. {card.proposedBudget}.00
                       </Typography>
-                    </Box>
-                    <Box style={buttonContainerStyle}>
-                      <Button
-                        color="primary"
-                        onClick={gotoResponse(card.id)}
-                        style={viewButtonStyle}
-                        variant="contained"
-                      >
-                        View response
-                      </Button>
-                    </Box>
-                  </CardContent>
-                </Card>
-              </Grid>
-            );
-          })}
+                      <Box style={contactStyle}>
+                        <AccountCircleIcon />
+                        <Typography style={contactTextStyle}>
+                          {creator?.firstName} {creator?.lastName} [
+                          {creator?.role}]
+                        </Typography>
+                        <PhoneIcon style={phoneIconStyle} />
+                        <Typography style={contactTextStyle}>
+                          {creator?.contactNo ?? creator?.businessContactNo}
+                        </Typography>
+                      </Box>
+                      <Box style={buttonContainerStyle}>
+                        <Button
+                          color="primary"
+                          onClick={gotoResponse(card.id)}
+                          style={viewButtonStyle}
+                          variant="contained"
+                        >
+                          View response
+                        </Button>
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              );
+            })
+          ) : isLoading ? (
+            <Loading />
+          ) : (
+            <NotFound />
+          )}
         </Grid>
       </Container>
       <Box style={footerContainerStyle}>
@@ -138,7 +146,7 @@ const imageStyle: React.CSSProperties = {
 const cardStyle: React.CSSProperties = {
   border: '1px solid #ccc',
   margin: '0 auto',
-  maxHeight: '240px',
+  maxHeight: '260px',
   maxWidth: '500px',
 };
 
@@ -156,7 +164,7 @@ const titleStyle: React.CSSProperties = {
 
 const amountStyle: React.CSSProperties = {
   fontFamily: 'Poppins',
-  fontSize: '18px',
+  fontSize: '16px',
   marginBottom: '20px',
   textAlign: 'left',
 };
