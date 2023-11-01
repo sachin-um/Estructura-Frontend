@@ -352,7 +352,7 @@ const AddCustomerRequest = () => {
           variant="outlined"
         />
 
-        <Typography
+        {/* <Typography
           fontFamily="Poppins"
           fontSize="1.2rem"
           sx={{ marginBottom: 1, marginTop: 4 }}
@@ -369,7 +369,7 @@ const AddCustomerRequest = () => {
           variant="contained"
         >
           Generate AI Image
-        </Button>
+        </Button> */}
 
         <Typography
           fontFamily="Poppins"
