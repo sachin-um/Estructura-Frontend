@@ -35,7 +35,7 @@ function Billing() {
                 ...totalItem,
                 price:
                   (totalItem.price ?? 0) +
-                  (item.price ?? 0) * (item.price ?? 0),
+                  (item.price ?? 0) * (item.quantity ?? 0),
               };
             }).price ?? 0
           : 0;
