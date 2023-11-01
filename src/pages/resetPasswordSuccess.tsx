@@ -7,7 +7,7 @@ function backToLogin() {
   window.location.replace('/SignIn');
 }
 
-function resetPasswordSuccess() {
+function ResetPasswordSuccess() {
   return (
     <>
       <TopBar title="Register to Estructura" />
@@ -45,4 +45,4 @@ function resetPasswordSuccess() {
   );
 }
 
-export default resetPasswordSuccess;
+export default ResetPasswordSuccess;

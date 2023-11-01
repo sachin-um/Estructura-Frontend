@@ -4,6 +4,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Form, Formik } from 'formik';
 import TopBar from '../components/TopBar';
 import { useParams } from 'react-router';
+import API from '../lib/API';
+import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 const validationSchema = yup.object({
   confirmPassword: yup
@@ -16,7 +18,8 @@ const validationSchema = yup.object({
     .required('Password is required'),
 });
 function ResetPassword() {
-  // const token =  useParams<{ token: string }>().token ?? '';
+  const token = useParams().token ?? '';
+  const navigate = useNavigate();
   const formRef = useRef(null);
   const [formData, setFormData] = useState({ email: '' });
 
@@ -141,13 +144,13 @@ function ResetPassword() {
                       }}
                       onSubmit={(values) => {
                         API.post(
-                          `/auth/reset-password-process/${token}`,
+                          `/auth/reset-password-process?token=${token}`,
                           values,
                         )
                           .then((res) => {
-                            console.table(res);
                             if (res.status === 200) {
                               if (res.data.success === true) {
+                                alert('hi');
                                 navigate('/SignIn', {
                                   replace: true,
                                 });
@@ -203,7 +206,7 @@ function ResetPassword() {
                               name="ConfirmPassword"
                               size="small"
                               sx={{ margin: 2, width: 1 }}
-                              type="ConfirmPassword"
+                              type="password"
                               variant="filled"
                               {...spread('confirmPassword')}
                             />

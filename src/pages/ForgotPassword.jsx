@@ -17,7 +17,7 @@ function ForgotPassword() {
         .then((res) => {
           if (res.status === 200) {
             if (res.data.success === true) {
-              window.location.href = '/emailVerified';
+              window.location.href = '/reset-request-success';
             } else {
               alert(res.data.message);
             }
