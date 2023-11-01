@@ -9,7 +9,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../../assets/font.css';
 
 function MultiActionAreaCard(props) {
-  const { image, key, price, title, type } = props;
+  const { image, key, price, title, type, id, providerId } = props;
   const Navigate = useNavigate();
 
   return (
@@ -39,7 +39,7 @@ function MultiActionAreaCard(props) {
             alt="Furniture"
             component="img"
             height="250"
-            image={image}
+            image={`http://localhost:8080/files/retail-item-files/${providerId}/${id}/${image}`}
           />
           <Box
             sx={{
@@ -81,7 +81,9 @@ function MultiActionAreaCard(props) {
       <Box display="flex" justifyContent="center" p={2}>
         <Button
           color="primary"
-          onClick={() => {Navigate('/shop/items/FURNITURE');}}
+          onClick={() => {
+            Navigate('/shop/items/FURNITURE');
+          }}
           size="medium"
           variant="contained"
         >

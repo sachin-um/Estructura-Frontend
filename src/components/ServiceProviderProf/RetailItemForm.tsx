@@ -128,6 +128,7 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
   const HandleSubmit = (values: RetailItemAddOrUpdateRequest) => {
     console.log(values);
     if (FormRef.current) {
+      alert('Item Edited');
       const { setErrors, setSubmitting } = FormRef.current;
       setSubmitting(true);
       console.log(values);
@@ -140,6 +141,7 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
           }
         });
       } else {
+        alert(JSON.stringify(values));
         addRetailItem(values).then((added) => {
           if (added.item) {
             navigate(`/shop/item/${added.item.id}`, {

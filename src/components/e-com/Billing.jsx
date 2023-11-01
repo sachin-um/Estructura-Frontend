@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import paymentGateway from '../../js/payment';
+// import paymentGateway from '../../js/payment';
 import {
   Grid,
   Typography,
@@ -48,7 +48,7 @@ function Billing() {
       newFormData['payment'] = total;
 
       console.log(newFormData);
-      paymentGateway(newFormData);
+      // paymentGateway(newFormData);
     }
   };
   return (
