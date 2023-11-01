@@ -572,7 +572,7 @@ const HomePage = (props) => {
                   size="large"
                   variant={isCreatePlanButtonHovered ? 'contained' : 'outlined'}
                   onClick={() => {
-                    navigate('/custom-requests/add');
+                    navigate('/plan');
                   }}
                 >
                   Plan On
