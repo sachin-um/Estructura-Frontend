@@ -115,7 +115,7 @@ function CreatePlan() {
 
   const HandleSubmit = () => {
     if (currentUser) {
-      const data = {
+      const data: PlanRequest = {
         budgets: budget,
         coverImageId: 1,
         documents: uploadedDocuments,
@@ -140,6 +140,7 @@ function CreatePlan() {
       ).then((response) => {
         if (response.data.success === true) {
           alert('Plan Saved');
+          console.log(response);
         }
       });
     }

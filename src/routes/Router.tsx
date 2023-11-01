@@ -13,6 +13,7 @@ import CustomerProfile from '../pages/CustomerProfile';
 import Homepage from '../pages/HomePage';
 import PageNotFound from '../pages/PageNotFound';
 import CreatePlan from '../pages/PlanCreation/CreatePlan';
+import ViewPlan from '../pages/PlanCreation/ViewPlan';
 import ResetPasswordSuccessful from '../pages/ResetPasswordSuccessful';
 import AddAdmin from '../pages/admin/AddAdmin';
 import UserManage from '../pages/admin/UserManage';
@@ -96,6 +97,11 @@ export const altRouter = createBrowserRouter([
   {
     path: '/plan',
     element: <CreatePlan />,
+  },
+
+  {
+    path: '/plan/:id',
+    element: <ViewPlan />,
   },
 
   ...AuthRoutes,
