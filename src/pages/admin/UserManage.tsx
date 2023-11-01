@@ -1,6 +1,7 @@
 import { Box, Tab, Tabs } from '@mui/material';
 import { useState } from 'react';
 
+import TopAppBar from '../../components/TopAppBar';
 import UserRequests from '../../components/admin/UserRequests';
 import VerifiedUsers from '../../components/admin/VerifiedUserTable';
 
@@ -15,6 +16,7 @@ const UserManage = () => {
 
   return (
     <div>
+      <TopAppBar />
       <Box m="20px">
         <Tabs centered onChange={handleTabChange} value={currentTab}>
           <Tab label="Members" value="Members" />
