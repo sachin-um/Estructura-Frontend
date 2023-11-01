@@ -92,6 +92,22 @@ const Slider = ({ images, interval = 5000 }) => {
               fingertips
             </Typography>
             <Box alignItems="center" display="flex" marginTop="80px">
+              <TextField
+                InputLabelProps={{
+                  shrink: false,
+                }}
+                sx={{
+                  '& .MuiInputLabel-root': {
+                    color: 'grey',
+                  },
+                  '& .MuiOutlinedInput-root': {
+                    backgroundColor: 'white',
+                  },
+                  width: '400px',
+                }}
+                label="What service do you need?"
+                variant="outlined"
+              />
               <Button
                 sx={{
                   '&:hover': {
@@ -129,8 +145,6 @@ const HomePage = (props) => {
   const [isCreateIdeaButtonHovered, setIsCreateIdeaButtonHovered] =
     useState(false);
   const [isFurnitureButtonHovered, setIsFurnitureButtonHovered] =
-    useState(false);
-  const [isCreatePlanButtonHovered, setIsCreatePlanButtonHovered] =
     useState(false);
 
   const images = [
@@ -263,10 +277,6 @@ const HomePage = (props) => {
   const [showOverlay, setShowOverlay] = useState(false);
 
   const handleMLButtonClick = () => {
-    window.location.href = '/findfurniture';
-  };
-
-  const handleCreatePlanButtonClick = () => {
     window.location.href = '/findfurniture';
   };
 
@@ -511,71 +521,6 @@ const HomePage = (props) => {
                   variant={isFurnitureButtonHovered ? 'contained' : 'outlined'}
                 >
                   Get Started!
-                </Button>
-              </Box>
-            </Box>
-          </Box>
-
-          {/*Customer Create Plan*/}
-          <Box height="400px" marginTop="40px" position="relative" width="100%">
-            <img
-              style={{
-                height: '100%',
-                marginLeft: '10px',
-                objectFit: 'cover',
-                width: '100%',
-              }}
-              alt="Banner"
-              src="https://images.pexels.com/photos/8031910/pexels-photo-8031910.jpeg"
-            />
-            <Box
-              alignItems="center"
-              bgcolor="rgba(243, 243, 243, 0.7)"
-              display="flex"
-              justifyContent="center"
-              left="10%"
-              maxWidth="400px"
-              p={4}
-              position="absolute"
-              textAlign="center"
-              top="30%"
-              transform="translate(-50%, -50%)"
-              width="80%"
-              zIndex="1"
-            >
-              <Box>
-                <Typography
-                  color="#304422"
-                  fontFamily="Poppins"
-                  fontSize="1.7rem"
-                  paragraph
-                  variant="h4"
-                >
-                  Have your own space to plan and keep track!
-                </Typography>
-                <Typography
-                  color="#435834"
-                  fontFamily="Poppins"
-                  fontSize="1.1rem"
-                  marginBottom="30px"
-                  paragraph
-                >
-                  Let your dreams take shape.
-                </Typography>
-                <Button
-                  style={{
-                    color: isCreatePlanButtonHovered ? '#FFFFFF' : '#9D6432',
-                  }}
-                  color="secondary"
-                  onMouseEnter={() => setIsCreatePlanButtonHovered(true)}
-                  onMouseLeave={() => setIsCreatePlanButtonHovered(false)}
-                  size="large"
-                  variant={isCreatePlanButtonHovered ? 'contained' : 'outlined'}
-                  onClick={() => {
-                    navigate('/custom-requests/add');
-                  }}
-                >
-                  Plan On
                 </Button>
               </Box>
             </Box>

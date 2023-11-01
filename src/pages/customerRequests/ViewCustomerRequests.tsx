@@ -98,14 +98,14 @@ const ViewCustomerRequests = ({ my }: { my?: boolean }) => {
                       >
                         View request
                       </Button>
-                      {/* <Button
+                      <Button
                         color="primary"
                         onClick={goToResponses(customerRequest.id)}
                         style={viewResponsesButtonStyle}
-                        variant="contained"
+                        variant="outlined"
                       >
                         View Responses
-                      </Button> */}
+                      </Button>
                     </Box>
                   </CardContent>
                 </Card>
