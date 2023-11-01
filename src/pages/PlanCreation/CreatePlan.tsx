@@ -13,12 +13,15 @@ import {
   Paper,
   Radio,
   RadioGroup,
+  TextField,
   Typography,
 } from '@mui/material';
 import { useRef, useState } from 'react';
 
 import Footer from '../../components/Footer';
 import TopAppBar from '../../components/TopAppBar';
+import SelectProfessionals from './selectProfessionals';
+import SelectRetailItems from './selectRetailItems';
 
 function CreatePlan() {
   const [selectedImage, setSelectedImage] = useState('');
@@ -27,6 +30,16 @@ function CreatePlan() {
   );
   const [uploadedDocuments, setUploadedDocuments] = useState(
     new DataTransfer().files,
+  );
+
+  const [selectedProfessionals, setSelectedProfessionals] = useState<
+    Partial<User & Professional>[]
+  >([]);
+  const [selectedRetailItems, setSelectedRetailItems] = useState<RetailItem[]>(
+    [],
+  );
+  const [selectedRentalItems, setSelectedRentalItems] = useState<RentingItem[]>(
+    [],
   );
 
   const cardContent = [
@@ -147,16 +160,21 @@ function CreatePlan() {
       </Paper>
 
       <Container>
-        {/* <Typography variant="body1" fontSize="20px" fontFamily="Poppins" marginTop="30px">
-          Title of your plan:
-        </Typography> */}
-        {/* <TextField
-          variant="outlined"
-          label="Your plan in one sentence"
-          fullWidth
-          margin="normal"
-        /> */}
         <Typography
+          fontFamily="Poppins"
+          fontSize="20px"
+          marginTop="30px"
+          variant="body1"
+        >
+          Title of your plan:
+        </Typography>
+        <TextField
+          fullWidth
+          label="Your plan in one sentence"
+          margin="normal"
+          variant="outlined"
+        />
+        {/* <Typography
           fontFamily="Poppins"
           fontSize="20px"
           marginTop="30px"
@@ -171,7 +189,7 @@ function CreatePlan() {
           variant="body2"
         >
           A contemporary residence woven into nature
-        </Typography>
+        </Typography> */}
 
         <Typography
           fontFamily="Poppins"
@@ -276,13 +294,15 @@ function CreatePlan() {
                 </Typography>
                 <Box marginBottom={3}>
                   {item.title === 'Professionals' ? (
-                    <Button color="primary" variant="contained">
-                      Add Professionals
-                    </Button>
+                    <SelectProfessionals
+                      selected={selectedProfessionals}
+                      setter={setSelectedProfessionals}
+                    />
                   ) : item.title === 'Retail Items' ? (
-                    <Button color="primary" variant="contained">
-                      Add Retail Items
-                    </Button>
+                    <SelectRetailItems
+                      selected={selectedRetailItems}
+                      setter={setSelectedRetailItems}
+                    />
                   ) : (
                     <Button color="primary" variant="contained">
                       Add Rental Items
@@ -290,7 +310,7 @@ function CreatePlan() {
                   )}
                 </Box>
               </Box>
-              {item.smallCards.map((smallCard, smallCardIndex) => (
+              {/* {item.smallCards.map((smallCard, smallCardIndex) => (
                 <Card
                   key={smallCardIndex}
                   sx={{ marginBottom: '10px', width: 350 }}
@@ -493,7 +513,7 @@ function CreatePlan() {
                     </Box>
                   </CardContent>
                 </Card>
-              ))}
+              ))} */}
             </Paper>
           </Grid>
         ))}
