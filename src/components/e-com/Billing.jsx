@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import paymentGateway from '../../js/payment';
 import {
   Grid,
   Typography,
@@ -16,7 +17,9 @@ import {
   Popover,
   TextField,
 } from '@mui/material';
+import useCart from '../../hooks/cart/useCart';
 function Billing() {
+  const { items } = useCart();
   const [formData, setFormData] = useState({});
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -25,8 +28,10 @@ function Billing() {
     for (const [name, value] of formDataList.entries()) {
       newFormData[name] = value;
     }
-    setFormData(formDataList.get('email'));
-    console.log(formData);
+    newFormData['shoppingCartItems'] = items;
+
+    console.log(newFormData);
+    paymentGateway(newFormData);
   };
   return (
     <>
@@ -94,7 +99,12 @@ function Billing() {
             variant="outlined"
           />
         </div>
-        <Button color="primary" sx={{ marginRight: 2 }} variant="contained">
+        <Button
+          type="submit"
+          color="primary"
+          sx={{ marginRight: 2 }}
+          variant="contained"
+        >
           Buy Now
         </Button>
         <Divider sx={{ width: '100%', margin: '1rem 0' }} />

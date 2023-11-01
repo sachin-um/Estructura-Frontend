@@ -1,8 +1,4 @@
 import axios from 'axios';
-<script
-  src="https://www.payhere.lk/lib/payhere.js"
-  type="text/javascript"
-></script>;
 const baseURL = 'http://localhost:8080/api/v1/';
 let customerId;
 let totalPrice;
@@ -95,3 +91,5 @@ payhere.onError = function onError(error) {
   // Note: show an error page
   console.log('Error:' + error);
 };
+
+export default paymentGateway;
