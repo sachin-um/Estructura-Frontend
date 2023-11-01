@@ -1,19 +1,20 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-
 // import RequestTable from '../pages/admin/RequestTable';
-
 
 import Billing from '../components/e-com/Billing';
 
 // import RequestTable from '../pages/admin/RequestTable';
-
 
 import FirstPage from '../pages/Algo/FirstPage';
 import GetStarted from '../pages/Algo/GetStarted';
 import RecommendationsPage from '../pages/Algo/RecommendationsPage';
 import CustomerProfile from '../pages/CustomerProfile';
 import Homepage from '../pages/HomePage';
+import PageNotFound from '../pages/PageNotFound';
+import CreatePlan from '../pages/PlanCreation/CreatePlan';
+import ViewPlan from '../pages/PlanCreation/ViewPlan';
+import ResetPasswordSuccessful from '../pages/ResetPasswordSuccessful';
 import AddAdmin from '../pages/admin/AddAdmin';
 import UserManage from '../pages/admin/UserManage';
 // import VerifiedUsers from '../pages/admin/VerifiedUsers';
@@ -28,8 +29,6 @@ import ProjectRoutes from './ProjectsRoutes';
 import RentingItemRoutes from './RentingRoutes';
 import ServiceProviderRoutes from './ServiceProviderRoutes';
 import ShopRoutes from './ShopRoutes';
-import PageNotFound from '../pages/PageNotFound';
-import ResetPasswordSuccessful from '../pages/ResetPasswordSuccessful';
 
 export const altRouter = createBrowserRouter([
   {
@@ -81,7 +80,6 @@ export const altRouter = createBrowserRouter([
   {
     path: '/manageUsers',
     element: <UserManage />,
-
   },
   {
     path: '/billing',
@@ -94,6 +92,16 @@ export const altRouter = createBrowserRouter([
   {
     path: '/ResetPasswordSuccessful',
     element: <ResetPasswordSuccessful />,
+  },
+
+  {
+    path: '/plan',
+    element: <CreatePlan />,
+  },
+
+  {
+    path: '/plan/:id',
+    element: <ViewPlan />,
   },
 
   ...AuthRoutes,
