@@ -21,6 +21,10 @@ function Billing() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const formDataList = new FormData(event.currentTarget);
+    const newFormData = {};
+    for (const [name, value] of formDataList.entries()) {
+      newFormData[name] = value;
+    }
     setFormData(formDataList.get('email'));
     console.log(formData);
   };
@@ -38,6 +42,7 @@ function Billing() {
         }}
         noValidate
         autoComplete="off"
+        onSubmit={handleSubmit}
       >
         <Typography
           sx={{ textTransform: 'uppercase', marginBottom: '20px' }}
@@ -50,19 +55,44 @@ function Billing() {
           Billing Address
         </Typography>
         <div>
-          <TextField id="outlined-basic" label="FULL NAME" variant="outlined" />
+          <TextField
+            id="outlined-basic"
+            name="billingName"
+            label="FULL NAME"
+            variant="outlined"
+          />
         </div>
         <div>
-          <TextField id="outlined-basic" label="ADDRESS 1" variant="outlined" />
+          <TextField
+            id="outlined-basic"
+            name="billingAddressLine1"
+            label="ADDRESS 1"
+            variant="outlined"
+          />
         </div>
         <div>
-          <TextField id="outlined-basic" label="ADDRESS 2" variant="outlined" />
+          <TextField
+            id="outlined-basic"
+            name="billingAddressLine2"
+            label="ADDRESS 2"
+            variant="outlined"
+          />
         </div>
         <div>
-          <TextField id="outlined-basic" label="CITY" variant="outlined" />
+          <TextField
+            id="outlined-basic"
+            name="billingCity"
+            label="CITY"
+            variant="outlined"
+          />
         </div>
         <div>
-          <TextField id="outlined-basic" label="ZIP CODE" variant="outlined" />
+          <TextField
+            id="outlined-basic"
+            name="billingZipcode"
+            label="ZIP CODE"
+            variant="outlined"
+          />
         </div>
         <Button color="primary" sx={{ marginRight: 2 }} variant="contained">
           Buy Now

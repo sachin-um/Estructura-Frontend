@@ -17,7 +17,7 @@ function ResetPasswordSuccess() {
           container
           justifyContent="center"
           marginTop={5}
-          style={{ height: '70vh' }}
+          style={{ minHeight: '70vh' }}
         >
           <Grid item xs={12}>
             <Box display="flex" justifyContent="center">

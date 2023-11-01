@@ -133,7 +133,7 @@ const AddResponse = () => {
               "url('https://images.pexels.com/photos/259962/pexels-photo-259962.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')",
             backgroundPosition: 'center',
             backgroundSize: 'cover',
-            height: '115vh',
+            height: '135vh',
           }}
           item
           md={6}
@@ -145,7 +145,7 @@ const AddResponse = () => {
             backgroundColor: '#f5f5f5',
             display: 'flex',
             flexDirection: 'column',
-            height: '115vh',
+            height: '135vh',
             padding: '20px',
           }}
           item
