@@ -1,17 +1,17 @@
 import { Box, Typography } from '@mui/material';
 
-function PageNotFound() {
+function AccountNotApproved() {
   return (
     <Box
       alignItems="center"
       display="flex"
       flexDirection="column"
-      marginTop={12}
+      marginTop={4}
       padding="20px"
     >
       <img
-        alt="No Results Found"
-        src="/ResetSuccessful.png"
+        alt="Account Not Approved"
+        src="/Account_notApproved.png"
         style={{ height: '30%', maxWidth: '30%' }}
       />
       <Typography
@@ -20,7 +20,7 @@ function PageNotFound() {
         marginTop={2}
         variant="h4"
       >
-        Reset Password Successful!
+        Account is not approved yet!
       </Typography>
       <Typography
         align="center"
@@ -28,7 +28,7 @@ function PageNotFound() {
         marginTop={4}
         variant="body1"
       >
-        Your password has been successfully reset
+        Your account has not been approved by the admin yet.
       </Typography>
       <Typography
         align="center"
@@ -37,10 +37,10 @@ function PageNotFound() {
         marginTop={2}
         variant="body1"
       >
-        You are all set to go!
+        Wait for approval.
       </Typography>
     </Box>
   );
 }
 
-export default PageNotFound;
+export default AccountNotApproved;

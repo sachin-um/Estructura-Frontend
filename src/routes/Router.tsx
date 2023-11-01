@@ -1,10 +1,15 @@
 import { createBrowserRouter } from 'react-router-dom';
 
+
+import AccountSuspended from '../pages/AccountSuspended';
+import AccountNotApproved from '../pages/AccountNotApproved';
+
 // import RequestTable from '../pages/admin/RequestTable';
 
 import Billing from '../components/e-com/Billing';
 
 // import RequestTable from '../pages/admin/RequestTable';
+
 
 import FirstPage from '../pages/Algo/FirstPage';
 import GetStarted from '../pages/Algo/GetStarted';
@@ -12,8 +17,10 @@ import RecommendationsPage from '../pages/Algo/RecommendationsPage';
 import CustomerProfile from '../pages/CustomerProfile';
 import Homepage from '../pages/HomePage';
 import PageNotFound from '../pages/PageNotFound';
+
 import CreatePlan from '../pages/PlanCreation/CreatePlan';
 import ViewPlan from '../pages/PlanCreation/ViewPlan';
+
 import ResetPasswordSuccessful from '../pages/ResetPasswordSuccessful';
 import AddAdmin from '../pages/admin/AddAdmin';
 import UserManage from '../pages/admin/UserManage';
@@ -92,6 +99,14 @@ export const altRouter = createBrowserRouter([
   {
     path: '/ResetPasswordSuccessful',
     element: <ResetPasswordSuccessful />,
+  },
+  {
+    path: '/AccountSuspended',
+    element: <AccountSuspended />,
+  },
+  {
+    path: '/AccountNotApproved',
+    element: <AccountNotApproved />,
   },
 
   {
