@@ -44,6 +44,8 @@ function Billing() {
         newFormData[name] = value;
       }
       newFormData['shoppingCartItems'] = items;
+      newFormData['customer_Id'] = customerID;
+      newFormData['payment'] = total;
 
       console.log(newFormData);
       paymentGateway(newFormData);
