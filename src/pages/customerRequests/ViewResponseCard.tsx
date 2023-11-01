@@ -27,6 +27,7 @@ const ViewResponseCard = () => {
 
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertStatus, setAlertStatus] = useState('');
+  const [alertTitle, setalertTitle] = useState('Response Status');
 
   const navigate = useNavigate();
   const handleAlertClose = () => {
@@ -357,9 +358,33 @@ const ViewResponseCard = () => {
             </Typography>
             <Divider sx={{ marginBottom: '5px', marginTop: '5px' }} />
             {customerRequestResponse?.status === 'ACCEPTED' ? (
-              'Accepted'
+              <Box
+                sx={{
+                  backgroundColor: '#4CAF50',
+                  border: '1px solid',
+                  borderRadius: '5px',
+                  color: 'white',
+                  fontWeight: 'bold',
+                  padding: '10px 20px',
+                  textAlign: 'center',
+                }}
+              >
+                Accepted
+              </Box>
             ) : customerRequestResponse?.status === 'DECLINE' ? (
-              'Rejected'
+              <Box
+                sx={{
+                  backgroundColor: '#FF5733',
+                  border: '1px solid',
+                  borderRadius: '5px',
+                  color: 'white',
+                  fontWeight: 'bold',
+                  padding: '10px 20px',
+                  textAlign: 'center',
+                }}
+              >
+                Rejected
+              </Box>
             ) : currentUser?.id === customerRequest?.createdBy ? (
               <Box sx={{ display: 'flex' }}>
                 <Button
@@ -480,7 +505,7 @@ const ViewResponseCard = () => {
             content={alertStatus}
             onClose={handleAlertClose}
             open={alertOpen}
-            title={alertStatus}
+            title={alertTitle}
           />
         </Grid>
       </Box>

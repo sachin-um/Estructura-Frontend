@@ -96,7 +96,7 @@ const RecommendedProfessionals = ({ recommendedProfessionals }) => {
           onChange={(_event, value) => {
             setPageNumber(value);
           }}
-          count={Math.ceil(recommendedProfessionals.length / pageSize)}
+          count={Math.ceil(recommendedProfessionals?.length / pageSize)}
         />
       </Box>
       <Footer />
