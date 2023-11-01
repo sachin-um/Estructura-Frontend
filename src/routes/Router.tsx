@@ -28,6 +28,8 @@ import ProjectRoutes from './ProjectsRoutes';
 import RentingItemRoutes from './RentingRoutes';
 import ServiceProviderRoutes from './ServiceProviderRoutes';
 import ShopRoutes from './ShopRoutes';
+import PageNotFound from '../pages/PageNotFound';
+import ResetPasswordSuccessful from '../pages/ResetPasswordSuccessful';
 
 export const altRouter = createBrowserRouter([
   {
@@ -84,6 +86,14 @@ export const altRouter = createBrowserRouter([
   {
     path: '/billing',
     element: <Billing />,
+  },
+  {
+    path: '/PageNotFound',
+    element: <PageNotFound />,
+  },
+  {
+    path: '/ResetPasswordSuccessful',
+    element: <ResetPasswordSuccessful />,
   },
 
   ...AuthRoutes,
