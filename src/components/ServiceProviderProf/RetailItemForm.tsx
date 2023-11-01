@@ -45,6 +45,13 @@ const retailItemTypes: RetailItemType[] = [
   'LIGHTING',
 ];
 
+const furnitureItemTypes: FurnitureItemType[] = [
+  'BOHEMIAN',
+  'COASTAL',
+  'INDUSTRIAL',
+  'SCANDINAVIAN',
+];
+
 const validationSchema = Yup.object().shape({
   description: Yup.string().required('You need to provide a Description'),
   extraImages: Yup.mixed()
@@ -146,6 +153,7 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
     ? {
         description: OriginalRetailItem.description,
         extraImages: new DataTransfer().files,
+        furnitureItemType: '' as FurnitureItemType,
         mainImage: new DataTransfer().files,
         name: OriginalRetailItem.name,
         price: OriginalRetailItem.price,
@@ -154,8 +162,9 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
         retailStoreId: userId,
       }
     : {
-        description: '',
+        description: '' as FurnitureItemType,
         extraImages: new DataTransfer().files,
+        furnitureItemType: '',
         mainImage: new DataTransfer().files,
         name: '',
         price: 0.0,
@@ -178,6 +187,17 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
     (_, index) => index + 1,
   );
 
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [showAdditionalInput, setShowAdditionalInput] = useState(false);
+  const [additionalInputValue, setAdditionalInputValue] = useState(null);
+
+  const handleCategoryChange = (event) => {
+    alert('HI');
+    const selectedValue = event.target.value as string;
+    setSelectedCategory(selectedValue);
+    // Check if the selected category requires an additional input
+    setShowAdditionalInput(selectedValue === 'FURNITURE'); // Change this condition based on your logic
+  };
   const removeMainImage = () => {
     setMainImage('');
     setMainImageName('');
@@ -334,6 +354,8 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
                             label="Rental Duration"
                             labelId="demo-simple-select-label"
                             {...spread('retailItemType')}
+                            onChange={handleCategoryChange}
+                            value={selectedCategory}
                           >
                             {retailItemTypes.map((retailItemType) => (
                               <MenuItem
@@ -359,6 +381,35 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
                             </span>
                           )}
                         </ErrorMessage>
+                        {showAdditionalInput && (
+                          <FormControl fullWidth variant="filled">
+                            <InputLabel id="demo-simple-select-label">
+                              Furniture Category
+                            </InputLabel>
+                            <Select
+                              sx={{
+                                justifyContent: 'center',
+                                margin: 1,
+                                width: '1',
+                              }}
+                              color="secondary"
+                              fullWidth
+                              id="demo-simple-select"
+                              label="Rental Duration"
+                              labelId="demo-simple-select-label"
+                              {...spread('furnitureItemType')}
+                            >
+                              {furnitureItemTypes.map((furnitureItemType) => (
+                                <MenuItem
+                                  key={furnitureItemType}
+                                  value={furnitureItemType}
+                                >
+                                  {furnitureItemType}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </FormControl>
+                        )}
                         <Divider />
                       </Box>
                     </Grid>
