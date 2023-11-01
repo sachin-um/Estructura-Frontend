@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import paymentGateway from '../../js/payment';
 import {
   Grid,
   Typography,
@@ -16,17 +17,39 @@ import {
   Popover,
   TextField,
 } from '@mui/material';
+import useCart from '../../hooks/cart/useCart';
+import useCurrentUser from '../../hooks/users/useCurrentUser';
 function Billing() {
+  const { items } = useCart();
+  const currentUser = useCurrentUser();
   const [formData, setFormData] = useState({});
   const handleSubmit = (event) => {
-    event.preventDefault();
-    const formDataList = new FormData(event.currentTarget);
-    const newFormData = {};
-    for (const [name, value] of formDataList.entries()) {
-      newFormData[name] = value;
+    if (currentUser) {
+      event.preventDefault();
+      const formDataList = new FormData(event.currentTarget);
+      const customerID = currentUser.id;
+      const total =
+        items.length > 0
+          ? items.reduce((totalItem, item) => {
+              return {
+                ...totalItem,
+                price:
+                  (totalItem.price ?? 0) +
+                  (item.price ?? 0) * (item.quantity ?? 0),
+              };
+            }).price ?? 0
+          : 0;
+      const newFormData = {};
+      for (const [name, value] of formDataList.entries()) {
+        newFormData[name] = value;
+      }
+      newFormData['shoppingCartItems'] = items;
+      newFormData['customer_Id'] = customerID;
+      newFormData['payment'] = total;
+
+      console.log(newFormData);
+      paymentGateway(newFormData);
     }
-    setFormData(formDataList.get('email'));
-    console.log(formData);
   };
   return (
     <>
@@ -94,7 +117,12 @@ function Billing() {
             variant="outlined"
           />
         </div>
-        <Button color="primary" sx={{ marginRight: 2 }} variant="contained">
+        <Button
+          type="submit"
+          color="primary"
+          sx={{ marginRight: 2 }}
+          variant="contained"
+        >
           Buy Now
         </Button>
         <Divider sx={{ width: '100%', margin: '1rem 0' }} />
