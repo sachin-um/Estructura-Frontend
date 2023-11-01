@@ -21,7 +21,7 @@ const SelectRetailItems = ({
   const { fetchRetailItems, retailItems } = useFetchRetailItems();
   useEffect(() => {
     fetchRetailItems({});
-  });
+  }, [fetchRetailItems]);
 
   const select = useCallback(
     (su: RetailItem) => {
@@ -67,6 +67,7 @@ const SelectRetailItems = ({
         Add/Remove Retail Items
       </Button>
       <Stack>
+        {selected.length === 0 && <>Nothing selected</>}
         {selected.map((u) => (
           <div key={u.id} style={{ textAlign: 'left' }}>
             <Link target="_blank" to={`/shop/item/${u.id}`}>
@@ -93,6 +94,7 @@ const SelectRetailItems = ({
         </DialogTitle>
         <DialogContent>
           <Stack>
+            {selected.length === 0 && <>Nothing selected</>}
             {selected.map((u) => (
               <div
                 style={{

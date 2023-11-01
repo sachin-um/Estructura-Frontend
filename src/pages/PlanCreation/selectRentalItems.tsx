@@ -21,7 +21,7 @@ const SelectRentingItems = ({
   const { fetchRentingItems, rentingItems } = useFetchRentingItems();
   useEffect(() => {
     fetchRentingItems({});
-  });
+  }, [fetchRentingItems]);
 
   const select = useCallback(
     (su: RentingItem) => {
@@ -67,6 +67,7 @@ const SelectRentingItems = ({
         Add/Remove Renting Items
       </Button>
       <Stack>
+        {selected.length === 0 && <>Nothing selected</>}
         {selected.map((u) => (
           <div key={u.id} style={{ textAlign: 'left' }}>
             <Link target="_blank" to={`/rentingItems/${u.id}`}>
@@ -93,6 +94,7 @@ const SelectRentingItems = ({
         </DialogTitle>
         <DialogContent>
           <Stack>
+            {selected.length === 0 && <>Nothing selected</>}
             {selected.map((u) => (
               <div
                 style={{

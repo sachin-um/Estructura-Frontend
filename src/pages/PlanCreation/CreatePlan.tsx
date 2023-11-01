@@ -20,6 +20,9 @@ import { useRef, useState } from 'react';
 
 import Footer from '../../components/Footer';
 import TopAppBar from '../../components/TopAppBar';
+import useCurrentUser from '../../hooks/users/useCurrentUser';
+import API from '../../lib/API';
+import HandleTextFieldChangeOrBlur from '../../utils/HandleTextFieldChangeOrBlur';
 import SelectProfessionals from './selectProfessionals';
 import SelectRentingItems from './selectRentalItems';
 import SelectRetailItems from './selectRetailItems';
@@ -45,36 +48,12 @@ function CreatePlan() {
 
   const cardContent = [
     {
-      smallCards: [
-        {
-          contactNo: '+94 773742634',
-          price: 'LKR 200 000 - LKR 400,000',
-          profession: 'Architect',
-          profileName: 'John Doe',
-        },
-      ],
       title: 'Professionals',
     },
     {
-      smallCards: [
-        {
-          contactNo: '+94 776543210',
-          price: 'LKR 50 000',
-          profession: 'Furniture',
-          profileName: 'Jane Smith',
-        },
-      ],
       title: 'Retail Items',
     },
     {
-      smallCards: [
-        {
-          contactNo: '+94 783829234',
-          price: 'LKR 10 000 per hour',
-          profession: 'Heavy Machinery',
-          profileName: 'John Smith',
-        },
-      ],
       title: 'Rental Items',
     },
   ];
@@ -82,10 +61,6 @@ function CreatePlan() {
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedValue = event.target.value;
     setSelectedImage(selectedValue);
-  };
-
-  const handleStatusChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // setSmallCardStatus(event.target.value);
   };
 
   const imagesRef = useRef<HTMLInputElement>(null);
@@ -132,6 +107,44 @@ function CreatePlan() {
     setUploadedDocuments(remainingDocuments.files);
   };
 
+  const [title, setTitle] = useState('');
+  const [note, setNote] = useState('');
+  const [budget, setBudget] = useState(10000);
+
+  const currentUser = useCurrentUser();
+
+  const HandleSubmit = () => {
+    if (currentUser) {
+      const data = {
+        budgets: budget,
+        coverImageId: 1,
+        documents: uploadedDocuments,
+        images: uploadedImages,
+        name: title,
+        note,
+        professionals:
+          selectedProfessionals.map<number>((p) => p.id ?? 0) ?? [],
+        rentingItems: selectedRentalItems.map<number>((r) => r.id) ?? [],
+        retailItems: selectedRetailItems.map<number>((r) => r.id) ?? [],
+        userID: currentUser?.id,
+      };
+      console.log(data);
+      API.post<{ errormessage: string; success: boolean }>(
+        '/customer-plan/create',
+        data,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        },
+      ).then((response) => {
+        if (response.data.success === true) {
+          alert('Plan Saved');
+        }
+      });
+    }
+  };
+
   return (
     <>
       <TopAppBar />
@@ -173,6 +186,9 @@ function CreatePlan() {
           fullWidth
           label="Your plan in one sentence"
           margin="normal"
+          onBlur={HandleTextFieldChangeOrBlur(setTitle)}
+          onChange={HandleTextFieldChangeOrBlur(setTitle)}
+          value={title}
           variant="outlined"
         />
         {/* <Typography
@@ -330,7 +346,10 @@ function CreatePlan() {
           fullWidth
           margin="normal"
           multiline
+          onBlur={HandleTextFieldChangeOrBlur(setNote)}
+          onChange={HandleTextFieldChangeOrBlur(setNote)}
           rows={4}
+          value={note}
           variant="outlined"
         />
         {/* <Typography
@@ -477,9 +496,16 @@ function CreatePlan() {
         >
           Estimated Budget
         </Typography>
-        <Typography fontSize="20px" marginLeft="50px" variant="h6">
+        {/* <Typography fontSize="20px" marginLeft="50px" variant="h6">
           <strong>LKR 800 000</strong>
-        </Typography>
+        </Typography> */}
+        <TextField
+          onBlur={HandleTextFieldChangeOrBlur(setBudget)}
+          onChange={HandleTextFieldChangeOrBlur(setBudget)}
+          placeholder="Enter your budget"
+          type="number"
+          value={budget}
+        />
       </Container>
 
       <Box
@@ -488,7 +514,12 @@ function CreatePlan() {
         marginBottom="50px"
         marginTop="30px"
       >
-        <Button color="primary" size="large" variant="contained">
+        <Button
+          color="primary"
+          onClick={HandleSubmit}
+          size="large"
+          variant="contained"
+        >
           Create Plan
         </Button>
       </Box>

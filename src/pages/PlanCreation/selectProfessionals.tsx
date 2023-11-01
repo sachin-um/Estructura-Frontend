@@ -21,9 +21,10 @@ const SelectProfessionals = ({
   setter: React.Dispatch<React.SetStateAction<uprof[]>>;
 }) => {
   const { fetchAllProfessionals, professionals } = useFetchAllProfessionals();
+
   useEffect(() => {
     fetchAllProfessionals();
-  });
+  }, [fetchAllProfessionals]);
 
   const select = useCallback(
     (su: uprof) => {
@@ -69,6 +70,7 @@ const SelectProfessionals = ({
         Add/Remove Professionals
       </Button>
       <Stack>
+        {selected.length === 0 && <>Nothing selected</>}
         {selected.map((u) => (
           <div key={u.id} style={{ textAlign: 'left' }}>
             <Link target="_blank" to={`/ServiceProvider/${u.id}`}>
@@ -95,6 +97,7 @@ const SelectProfessionals = ({
         </DialogTitle>
         <DialogContent>
           <Stack>
+            {selected.length === 0 && <>Nothing selected</>}
             {selected.map((u) => (
               <div
                 style={{
