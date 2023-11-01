@@ -150,8 +150,7 @@ function ResetPassword() {
                           .then((res) => {
                             if (res.status === 200) {
                               if (res.data.success === true) {
-                                alert('hi');
-                                navigate('/SignIn', {
+                                navigate('/ResetPasswordSuccessful', {
                                   replace: true,
                                 });
                               } else {

@@ -8,13 +8,33 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 function AlertDialog({ open, title, content, onClose }) {
   return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle>{title}</DialogTitle>
-      <DialogContent>
+    <Dialog
+      sx={{ width: '500px', minWidth: '100%' }}
+      open={open}
+      onClose={onClose}
+    >
+      <DialogTitle
+        sx={{
+          backgroundColor: '#f5f5f5',
+          borderBottom: '1px solid #ccc',
+          textAlign: 'center',
+        }}
+      >
+        {title}
+      </DialogTitle>
+      <DialogContent
+        sx={{ padding: '20px', textAlign: 'center', fontWeight: 'bold' }}
+      >
         <DialogContentText>{content}</DialogContentText>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose} color="primary">
+      <DialogActions
+        sx={{
+          justifyContent: 'center',
+          borderTop: '1px solid #ccc',
+          padding: '10px',
+        }}
+      >
+        <Button onClick={onClose} color="primary" variant="contained">
           OK
         </Button>
       </DialogActions>
