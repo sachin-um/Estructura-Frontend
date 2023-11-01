@@ -80,6 +80,10 @@ const validationSchema = Yup.object().shape({
       }
       return true;
     }),
+  furnitureItemType: Yup.string().oneOf(
+    furnitureItemTypes,
+    'RetailItemType has to be valid',
+  ),
   // one Image less than 5MB in size
   mainImage: Yup.mixed()
     .required('Required')
@@ -153,7 +157,7 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
     ? {
         description: OriginalRetailItem.description,
         extraImages: new DataTransfer().files,
-        furnitureItemType: '' as FurnitureItemType,
+        furnitureItemType: OriginalRetailItem.furnitureItemType,
         mainImage: new DataTransfer().files,
         name: OriginalRetailItem.name,
         price: OriginalRetailItem.price,
@@ -164,7 +168,7 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
     : {
         description: '' as FurnitureItemType,
         extraImages: new DataTransfer().files,
-        furnitureItemType: '',
+        furnitureItemType: '' as FurnitureItemType,
         mainImage: new DataTransfer().files,
         name: '',
         price: 0.0,
@@ -172,7 +176,6 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
         retailItemType: '' as RetailItemType,
         retailStoreId: userId,
       };
-  console.log(initialValues);
   const [mainImage, setMainImage] = useState<string>('');
   const [mainImageReset, setMainImageReset] = useState<boolean>(false);
   const [mainImageName, setMainImageName] = useState<string>('');
@@ -187,17 +190,6 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
     (_, index) => index + 1,
   );
 
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [showAdditionalInput, setShowAdditionalInput] = useState(false);
-  const [additionalInputValue, setAdditionalInputValue] = useState(null);
-
-  const handleCategoryChange = (event) => {
-    alert('HI');
-    const selectedValue = event.target.value as string;
-    setSelectedCategory(selectedValue);
-    // Check if the selected category requires an additional input
-    setShowAdditionalInput(selectedValue === 'FURNITURE'); // Change this condition based on your logic
-  };
   const removeMainImage = () => {
     setMainImage('');
     setMainImageName('');
@@ -243,6 +235,7 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
         >
           {(FormikProps: FormikProps<RetailItemAddOrUpdateRequest>) => {
             const spread = GetFormikProps(FormikProps);
+            console.log(FormikProps.errors);
             return (
               <Form>
                 <Container
@@ -354,8 +347,6 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
                             label="Rental Duration"
                             labelId="demo-simple-select-label"
                             {...spread('retailItemType')}
-                            onChange={handleCategoryChange}
-                            value={selectedCategory}
                           >
                             {retailItemTypes.map((retailItemType) => (
                               <MenuItem
@@ -381,35 +372,42 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
                             </span>
                           )}
                         </ErrorMessage>
-                        {showAdditionalInput && (
-                          <FormControl fullWidth variant="filled">
-                            <InputLabel id="demo-simple-select-label">
-                              Furniture Category
-                            </InputLabel>
-                            <Select
-                              sx={{
-                                justifyContent: 'center',
-                                margin: 1,
-                                width: '1',
-                              }}
-                              color="secondary"
-                              fullWidth
-                              id="demo-simple-select"
-                              label="Rental Duration"
-                              labelId="demo-simple-select-label"
-                              {...spread('furnitureItemType')}
-                            >
-                              {furnitureItemTypes.map((furnitureItemType) => (
-                                <MenuItem
-                                  key={furnitureItemType}
-                                  value={furnitureItemType}
-                                >
-                                  {furnitureItemType}
-                                </MenuItem>
-                              ))}
-                            </Select>
-                          </FormControl>
-                        )}
+                        <FormControl
+                          sx={{
+                            display:
+                              FormikProps.values.retailItemType === 'FURNITURE'
+                                ? 'block'
+                                : 'none',
+                          }}
+                          fullWidth
+                          variant="filled"
+                        >
+                          <InputLabel id="demo-simple-select-label">
+                            Furniture Category
+                          </InputLabel>
+                          <Select
+                            sx={{
+                              justifyContent: 'center',
+                              margin: 1,
+                              width: '1',
+                            }}
+                            color="secondary"
+                            fullWidth
+                            id="demo-simple-select"
+                            label="Rental Duration"
+                            labelId="demo-simple-select-label"
+                            {...spread('furnitureItemType')}
+                          >
+                            {furnitureItemTypes.map((furnitureItemType) => (
+                              <MenuItem
+                                key={furnitureItemType}
+                                value={furnitureItemType}
+                              >
+                                {furnitureItemType}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
                         <Divider />
                       </Box>
                     </Grid>
