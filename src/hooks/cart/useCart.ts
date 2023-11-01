@@ -28,7 +28,9 @@ const useCart = () => {
               ? items.reduce((totalItem, item) => {
                   return {
                     ...totalItem,
-                    price: (totalItem.price ?? 0) + (item.price ?? 0),
+                    price:
+                      (totalItem.price ?? 0) +
+                      (item.price ?? 0) * (item.price ?? 0),
                   };
                 }).price ?? 0
               : 0,

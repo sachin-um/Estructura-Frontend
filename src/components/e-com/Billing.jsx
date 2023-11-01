@@ -18,20 +18,36 @@ import {
   TextField,
 } from '@mui/material';
 import useCart from '../../hooks/cart/useCart';
+import useCurrentUser from '../../hooks/users/useCurrentUser';
 function Billing() {
   const { items } = useCart();
+  const currentUser = useCurrentUser();
   const [formData, setFormData] = useState({});
   const handleSubmit = (event) => {
-    event.preventDefault();
-    const formDataList = new FormData(event.currentTarget);
-    const newFormData = {};
-    for (const [name, value] of formDataList.entries()) {
-      newFormData[name] = value;
-    }
-    newFormData['shoppingCartItems'] = items;
+    if (currentUser) {
+      event.preventDefault();
+      const formDataList = new FormData(event.currentTarget);
+      const customerID = currentUser.id;
+      const total =
+        items.length > 0
+          ? items.reduce((totalItem, item) => {
+              return {
+                ...totalItem,
+                price:
+                  (totalItem.price ?? 0) +
+                  (item.price ?? 0) * (item.price ?? 0),
+              };
+            }).price ?? 0
+          : 0;
+      const newFormData = {};
+      for (const [name, value] of formDataList.entries()) {
+        newFormData[name] = value;
+      }
+      newFormData['shoppingCartItems'] = items;
 
-    console.log(newFormData);
-    paymentGateway(newFormData);
+      console.log(newFormData);
+      paymentGateway(newFormData);
+    }
   };
   return (
     <>
