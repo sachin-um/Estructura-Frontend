@@ -16,7 +16,7 @@ import {
   Popover,
   TextField,
 } from '@mui/material';
-function Billing({}) {
+function Billing() {
   const [formData, setFormData] = useState({});
   const handleSubmit = (event) => {
     event.preventDefault();
