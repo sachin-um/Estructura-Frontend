@@ -71,7 +71,7 @@ const SelectProfessionals = ({
       <Stack>
         {selected.map((u) => (
           <div key={u.id} style={{ textAlign: 'left' }}>
-            <Link to={`/ServiceProvider/${u.id}`}>
+            <Link target="_blank" to={`/ServiceProvider/${u.id}`}>
               {u.firstName} {u.lastName} [{u.role}]
             </Link>
             <Button
@@ -104,7 +104,7 @@ const SelectProfessionals = ({
                 }}
                 key={u.id}
               >
-                <Link to={`/ServiceProvider/${u.id}`}>
+                <Link target="_blank" to={`/ServiceProvider/${u.id}`}>
                   {u.firstName} {u.lastName} [{u.role}]
                 </Link>
                 <Button
@@ -128,7 +128,7 @@ const SelectProfessionals = ({
                 }}
                 key={u.id}
               >
-                <Link to={`/ServiceProvider/${u.id}`}>
+                <Link target="_blank" to={`/ServiceProvider/${u.id}`}>
                   {u.firstName} {u.lastName} [{u.role}]
                 </Link>
                 <Button

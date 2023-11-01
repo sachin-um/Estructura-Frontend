@@ -8,23 +8,23 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { useFetchRetailItems } from '../../hooks/retailItem/useFetchRetailItems';
+import { useFetchRentingItems } from '../../hooks/rentingItem/useFetchRentingItems';
 import Paginate from '../../utils/Paginate';
 
-const SelectRetailItems = ({
+const SelectRentingItems = ({
   selected,
   setter,
 }: {
-  selected: RetailItem[];
-  setter: React.Dispatch<React.SetStateAction<RetailItem[]>>;
+  selected: RentingItem[];
+  setter: React.Dispatch<React.SetStateAction<RentingItem[]>>;
 }) => {
-  const { fetchRetailItems, retailItems } = useFetchRetailItems();
+  const { fetchRentingItems, rentingItems } = useFetchRentingItems();
   useEffect(() => {
-    fetchRetailItems({});
+    fetchRentingItems({});
   });
 
   const select = useCallback(
-    (su: RetailItem) => {
+    (su: RentingItem) => {
       if (selected.find((u) => u.id === su.id) === undefined) {
         setter([...selected, su]);
       }
@@ -33,14 +33,14 @@ const SelectRetailItems = ({
   );
 
   const remove = useCallback(
-    (ru: RetailItem) => {
+    (ru: RentingItem) => {
       const newstate = selected.filter((u) => u.id !== ru.id);
       setter(newstate);
     },
     [selected, setter],
   );
 
-  const notSelected = retailItems.filter(
+  const notSelected = rentingItems.filter(
     (p) => selected.find((s) => p.id === s.id) === undefined,
   );
 
@@ -64,12 +64,12 @@ const SelectRetailItems = ({
   return (
     <React.Fragment>
       <Button onClick={handleClickOpen} variant="contained">
-        Add/Remove Retail Items
+        Add/Remove Renting Items
       </Button>
       <Stack>
         {selected.map((u) => (
           <div key={u.id} style={{ textAlign: 'left' }}>
-            <Link target="_blank" to={`/shop/item/${u.id}`}>
+            <Link target="_blank" to={`/rentingItems/${u.id}`}>
               {u.name} Rs.{u.price}
             </Link>
             <Button
@@ -89,7 +89,7 @@ const SelectRetailItems = ({
         open={open}
       >
         <DialogTitle id="responsive-dialog-title">
-          Select RetailItems
+          Select RentingItems
         </DialogTitle>
         <DialogContent>
           <Stack>
@@ -102,7 +102,7 @@ const SelectRetailItems = ({
                 }}
                 key={u.id}
               >
-                <Link target="_blank" to={`/shop/item/${u.id}`}>
+                <Link target="_blank" to={`/rentingItems/${u.id}`}>
                   {u.name} Rs.{u.price}
                 </Link>
                 <Button
@@ -126,7 +126,7 @@ const SelectRetailItems = ({
                 }}
                 key={u.id}
               >
-                <Link target="_blank" to={`/shop/item/${u.id}`}>
+                <Link target="_blank" to={`/rentingItems/${u.id}`}>
                   {u.name} Rs.{u.price}
                 </Link>
                 <Button
@@ -164,4 +164,4 @@ const SelectRetailItems = ({
   );
 };
 
-export default SelectRetailItems;
+export default SelectRentingItems;

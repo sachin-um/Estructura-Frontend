@@ -21,6 +21,7 @@ import { useRef, useState } from 'react';
 import Footer from '../../components/Footer';
 import TopAppBar from '../../components/TopAppBar';
 import SelectProfessionals from './selectProfessionals';
+import SelectRentingItems from './selectRentalItems';
 import SelectRetailItems from './selectRetailItems';
 
 function CreatePlan() {
@@ -304,233 +305,35 @@ function CreatePlan() {
                       setter={setSelectedRetailItems}
                     />
                   ) : (
-                    <Button color="primary" variant="contained">
-                      Add Rental Items
-                    </Button>
+                    <SelectRentingItems
+                      selected={selectedRentalItems}
+                      setter={setSelectedRentalItems}
+                    />
                   )}
                 </Box>
               </Box>
-              {/* {item.smallCards.map((smallCard, smallCardIndex) => (
-                <Card
-                  key={smallCardIndex}
-                  sx={{ marginBottom: '10px', width: 350 }}
-                >
-                  <CardContent>
-                    <Box alignItems="center" display="flex" marginBottom="8px">
-                      <Avatar
-                        alt={smallCard.profileName}
-                        sx={{ height: 32, marginRight: '8px', width: 32 }}
-                      >
-                        {smallCard.profileName.charAt(0)}
-                      </Avatar>
-
-                      <Typography variant="body2">
-                        {smallCard.profileName}
-                      </Typography>
-                      <Box
-                        alignItems="center"
-                        display="flex"
-                        flexGrow={1}
-                        justifyContent="flex-end"
-                      >
-                        <span
-                          style={{
-                            backgroundColor: '#E7C4A0',
-                            borderRadius: '4px',
-                            color: '#9D6432',
-                            padding: '4px 8px',
-                          }}
-                        >
-                          <Typography variant="body2">
-                            {smallCard.profession}
-                          </Typography>
-                        </span>
-                      </Box>
-                    </Box>
-
-                    {item.title === 'Retail Items' ? (
-                      <>
-                        <Typography
-                          style={{ marginBottom: '10px', marginTop: '20px' }}
-                          variant="body2"
-                        >
-                          <strong>Contact No:</strong> {smallCard.contactNo}
-                        </Typography>
-                        <Typography
-                          style={{ marginBottom: '10px' }}
-                          variant="body2"
-                        >
-                          <strong>Price:</strong> {smallCard.price}
-                        </Typography>
-                        <Typography
-                          style={{ marginRight: '10px' }}
-                          variant="body2"
-                        >
-                          <strong>Status</strong>
-                        </Typography>
-                        <FormControl component="fieldset">
-                          <RadioGroup
-                            aria-label="status"
-                            name="status"
-                            onChange={handleStatusChange}
-                          >
-                            <FormControlLabel
-                              label={
-                                <Typography variant="body2">Bought</Typography>
-                              }
-                              control={<Radio sx={{ marginLeft: '10px' }} />}
-                              value="Bought"
-                            />
-                            <FormControlLabel
-                              label={
-                                <Typography variant="body2">
-                                  Not bought
-                                </Typography>
-                              }
-                              control={<Radio sx={{ marginLeft: '10px' }} />}
-                              value="Not bought"
-                            />
-                          </RadioGroup>
-                        </FormControl>
-                      </>
-                    ) : item.title === 'Professionals' ? (
-                      <>
-                        <Typography
-                          style={{ marginBottom: '10px', marginTop: '20px' }}
-                          variant="body2"
-                        >
-                          <strong>Contact No:</strong> {smallCard.contactNo}
-                        </Typography>
-                        <Typography
-                          style={{ marginBottom: '10px' }}
-                          variant="body2"
-                        >
-                          <strong>Price Range:</strong> {smallCard.price}
-                        </Typography>
-                        <Typography
-                          style={{ marginRight: '10px' }}
-                          variant="body2"
-                        >
-                          <strong>Status</strong>
-                        </Typography>
-                        <FormControl component="fieldset">
-                          <RadioGroup
-                            aria-label="status"
-                            name="status"
-                            onChange={handleStatusChange}
-                          >
-                            <FormControlLabel
-                              label={
-                                <Typography variant="body2">
-                                  Yet to Confirm
-                                </Typography>
-                              }
-                              control={<Radio sx={{ marginLeft: '10px' }} />}
-                              value="Yet to Confirm"
-                            />
-                            <FormControlLabel
-                              label={
-                                <Typography variant="body2">
-                                  Waiting for a Response
-                                </Typography>
-                              }
-                              control={<Radio sx={{ marginLeft: '10px' }} />}
-                              value="Waiting for a response"
-                            />
-                            <FormControlLabel
-                              label={
-                                <Typography variant="body2">
-                                  Confirmed
-                                </Typography>
-                              }
-                              control={<Radio sx={{ marginLeft: '10px' }} />}
-                              value="Confirmed"
-                            />
-                          </RadioGroup>
-                        </FormControl>
-                      </>
-                    ) : (
-                      <>
-                        <Typography
-                          style={{ marginBottom: '10px', marginTop: '20px' }}
-                          variant="body2"
-                        >
-                          <strong>Contact No:</strong> {smallCard.contactNo}
-                        </Typography>
-                        <Typography
-                          style={{ marginBottom: '10px' }}
-                          variant="body2"
-                        >
-                          <strong>Price:</strong> {smallCard.price}
-                        </Typography>
-                        <Typography
-                          style={{ marginRight: '10px' }}
-                          variant="body2"
-                        >
-                          <strong>Status</strong>
-                        </Typography>
-                        <FormControl component="fieldset">
-                          <RadioGroup
-                            aria-label="status"
-                            name="status"
-                            onChange={handleStatusChange}
-                          >
-                            <FormControlLabel
-                              label={
-                                <Typography variant="body2">Rented</Typography>
-                              }
-                              control={<Radio sx={{ marginLeft: '10px' }} />}
-                              value="Rented"
-                            />
-                            <FormControlLabel
-                              label={
-                                <Typography variant="body2">
-                                  Not Rented
-                                </Typography>
-                              }
-                              control={<Radio sx={{ marginLeft: '10px' }} />}
-                              value="Not Rented"
-                            />
-                          </RadioGroup>
-                        </FormControl>
-                      </>
-                    )}
-                    <Box
-                      display="flex"
-                      justifyContent="center"
-                      marginTop="auto"
-                    >
-                      <Button
-                        onClick={() => {
-                          // handleRemoveSmallCard(cardIndex, smallCardIndex)
-                        }}
-                        color="secondary"
-                        sx={{ color: 'white' }}
-                        variant="contained"
-                      >
-                        Remove
-                      </Button>
-                    </Box>
-                  </CardContent>
-                </Card>
-              ))} */}
             </Paper>
           </Grid>
         ))}
       </Box>
 
       <Container>
-        {/* <Typography variant="body1" fontSize="20px" fontFamily='Poppins' marginTop='30px'>
-            Special Notes
-          </Typography>
-          <TextField
-            multiline
-            rows={4}
-            variant='outlined'
-            fullWidth
-            margin='normal'
-          /> */}
         <Typography
+          fontFamily="Poppins"
+          fontSize="20px"
+          marginTop="30px"
+          variant="body1"
+        >
+          Special Notes
+        </Typography>
+        <TextField
+          fullWidth
+          margin="normal"
+          multiline
+          rows={4}
+          variant="outlined"
+        />
+        {/* <Typography
           fontFamily="Poppins"
           fontSize="20px"
           marginTop="30px"
@@ -547,7 +350,7 @@ function CreatePlan() {
           I envision a home that not only provides comfort and functionality for
           my family but also harmonizes with the environment and promotes
           well-being through biophilic design principles.
-        </Typography>
+        </Typography> */}
       </Container>
 
       <Container>
