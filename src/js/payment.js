@@ -6,14 +6,24 @@ import axios from 'axios';
 const baseURL = 'http://localhost:8080/api/v1/';
 let customerId;
 let totalPrice;
-function paymentGateway(payment, serviceProviderID, customer_Id) {
-  customerId = customer_Id;
-  totalPrice = payment;
+let checkoutData;
+function paymentGateway(paymentData) {
+  customerId = paymentData.customer_Id;
+  totalPrice = paymentData.payment;
+  checkoutData.customerId = paymentData.customer_Id;
+  checkoutData.totalPrice = paymentData.payment;
+  checkoutData.shoppingCartItems = paymentData.shoppingCartItems;
+  checkoutData.billingName = paymentData.billingName;
+  checkoutData.billingAddressLine1 = paymentData.billingAddressLine1;
+  checkoutData.billingAddressLine2 = paymentData.billingAddressLine2;
+  checkoutData.billingCity = paymentData.billingCity;
+  checkoutData.billingZipcode = paymentData.billingZipcode;
+
   // Define the data you want to send in the POST request
   const requestData = {
-    amount: payment,
-    customerId: customerId,
-    serviceProviderID: serviceProviderID,
+    amount: paymentData.payment,
+    customerId: paymentData.customerId,
+    serviceProviderID: paymentData.serviceProviderID,
   };
 
   axios
@@ -25,7 +35,7 @@ function paymentGateway(payment, serviceProviderID, customer_Id) {
       var cancel_url = '';
 
       // Put the payment variables here
-      var paymentData = {
+      var paymentReqData = {
         address: obj.address,
         amount: obj.amount,
         cancel_url: cancel_url, // Important
@@ -39,7 +49,7 @@ function paymentGateway(payment, serviceProviderID, customer_Id) {
         email: obj.email,
         first_name: obj.first_names,
         hash: obj.hash,
-        items: 'Payment to ' + serviceProviderID,
+        items: 'Payment to ' + paymentData.serviceProviderID,
         last_name: obj.last_name,
         merchant_id: '1223006',
         notify_url: 'http://sample.com/notify',
@@ -50,7 +60,7 @@ function paymentGateway(payment, serviceProviderID, customer_Id) {
       };
 
       // eslint-disable-next-line no-undef
-      payhere.startPayment(paymentData);
+      payhere.startPayment(paymentReqData);
     })
     .catch((error) => {
       // Handle any errors here
@@ -59,13 +69,9 @@ function paymentGateway(payment, serviceProviderID, customer_Id) {
 }
 
 // eslint-disable-next-line no-undef
-payhere.onCompleted = function onCompleted(orderId) {
-  const requestData = {
-    customerId: customerId,
-    totalPrice: totalPrice,
-  };
+payhere.onCompleted = function onCompleted() {
   axios
-    .post(baseURL + '/payment/paymentDetails', requestData)
+    .post(baseURL + '/payment/checkout', checkoutData)
     .then((response) => {
       // Handle the response if needed
       // You can access response.data for the response data
