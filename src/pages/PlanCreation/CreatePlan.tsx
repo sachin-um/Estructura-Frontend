@@ -17,8 +17,8 @@ import {
 } from '@mui/material';
 import { useRef, useState } from 'react';
 
-import TopAppBar from '../../components/CusTopBar';
 import Footer from '../../components/Footer';
+import TopAppBar from '../../components/TopAppBar';
 
 function CreatePlan() {
   const [selectedImage, setSelectedImage] = useState('');
