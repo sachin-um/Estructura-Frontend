@@ -2,8 +2,12 @@ import TopAppBar from '../../components/TopAppBar';
 import { useState } from 'react';
 import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined';
 import EmailIcon from '@mui/icons-material/Email';
+import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
+import EngineeringSharpIcon from '@mui/icons-material/EngineeringSharp';
+import EngineeringSharpIcon from '@mui/icons-material/EngineeringSharp';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
+import HandymanOutlinedIcon from '@mui/icons-material/HandymanOutlined';
 import TrafficIcon from '@mui/icons-material/Traffic';
 import { Box, Button, IconButton, Typography, useTheme } from '@mui/material';
 import '../../assets/admindb.css';
@@ -23,7 +27,8 @@ const Dashboard = () => {
   const [res, setRes] = useState(null);
 
   return (
-    <AdminAuthenticated>
+    // <AdminAuthenticated>
+    <div>
       <TopAppBar setRes={setRes} />
       <Box m="20px">
         {/* HEADER */}
@@ -63,13 +68,13 @@ const Dashboard = () => {
           >
             <StatBox
               icon={
-                <EmailIcon
+                <AttachMoneyOutlinedIcon
                   sx={{ color: colors.greenAccent[300], fontSize: '26px' }}
                 />
               }
-              increase="+14%"
+              increase=""
               progress="0.75"
-              subtitle="Emails Sent"
+              subtitle="Income"
               title="12,361"
             />
           </Box>
@@ -82,14 +87,14 @@ const Dashboard = () => {
           >
             <StatBox
               icon={
-                <PointOfSaleIcon
+                <HandymanOutlinedIcon
                   sx={{ color: colors.greenAccent[300], fontSize: '26px' }}
                 />
               }
               increase="+21%"
               progress="0.50"
-              subtitle="Sales Obtained"
-              title="431,225"
+              subtitle="Retail Items Available"
+              title="11,225"
             />
           </Box>
           <Box
@@ -107,8 +112,8 @@ const Dashboard = () => {
               }
               increase="+5%"
               progress="0.30"
-              subtitle="New Clients"
-              title="32,441"
+              subtitle="Customers"
+              title="12,441"
             />
           </Box>
           <Box
@@ -120,14 +125,14 @@ const Dashboard = () => {
           >
             <StatBox
               icon={
-                <TrafficIcon
+                <EngineeringSharpIcon
                   sx={{ color: colors.greenAccent[300], fontSize: '26px' }}
                 />
               }
               increase="+43%"
               progress="0.80"
-              subtitle="Traffic Received"
-              title="1,325,134"
+              subtitle="Service Providers"
+              title="5,134"
             />
           </Box>
 
@@ -157,7 +162,7 @@ const Dashboard = () => {
                   fontWeight="bold"
                   variant="h3"
                 >
-                  $59,342.32
+                  LKR59,342.32
                 </Typography>
               </Box>
               <Box>
@@ -249,7 +254,7 @@ const Dashboard = () => {
                 sx={{ mt: '15px' }}
                 variant="h5"
               >
-                $48,352 revenue generated
+                LKR48,352 revenue generated
               </Typography>
               <Typography>
                 Includes extra misc expenditures and costs
@@ -291,9 +296,9 @@ const Dashboard = () => {
           </Box>
         </Box>
       </Box>
-    </AdminAuthenticated>
+    </div>
+    // </AdminAuthenticated>
   );
 };
 
 export default Dashboard;
-
