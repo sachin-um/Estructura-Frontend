@@ -76,8 +76,8 @@ function CreatePlan() {
 
   const imagesRef = useRef<HTMLInputElement>(null);
 
-  const handleImageUpload = () => {
-    const files = imagesRef.current?.files ?? new DataTransfer().files;
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files ?? new DataTransfer().files;
     setUploadedImages(files);
   };
 
@@ -99,7 +99,7 @@ function CreatePlan() {
   const documentsRef = useRef<HTMLInputElement>(null);
 
   const handleDocumentUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = documentsRef.current?.files ?? new DataTransfer().files;
+    const files = event.target.files ?? new DataTransfer().files;
     setUploadedDocuments(files);
   };
 
