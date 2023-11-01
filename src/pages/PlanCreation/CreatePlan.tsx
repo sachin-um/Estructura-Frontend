@@ -1,128 +1,146 @@
-import { useState } from 'react';
-import TopAppBar from '../../components/CusTopBar';
-import Footer from '../../components/Footer';
+import { CloudUpload, Delete } from '@mui/icons-material';
 import {
-  Container,
-  Typography,
-  Paper,
+  Avatar,
   Box,
-  Grid,
+  Button,
   Card,
   CardContent,
-  Button,
-  TextField,
+  Container,
   FormControl,
-  RadioGroup,
   FormControlLabel,
-  Radio,
-  Avatar,
+  Grid,
   IconButton,
+  Paper,
+  Radio,
+  RadioGroup,
+  Typography,
 } from '@mui/material';
-import { CloudUpload, Delete } from '@mui/icons-material';
+import { useRef, useState } from 'react';
+
+import TopAppBar from '../../components/CusTopBar';
+import Footer from '../../components/Footer';
 
 function CreatePlan() {
   const [selectedImage, setSelectedImage] = useState('');
-  const [uploadedImages, setUploadedImages] = useState([]);
-  const [uploadedDocuments, setUploadedDocuments] = useState([]);
+  const [uploadedImages, setUploadedImages] = useState(
+    new DataTransfer().files,
+  );
+  const [uploadedDocuments, setUploadedDocuments] = useState(
+    new DataTransfer().files,
+  );
 
   const cardContent = [
     {
-      title: 'Professionals',
       smallCards: [
         {
-          profileName: 'John Doe',
-          profession: 'Architect',
           contactNo: '+94 773742634',
-          priceRange: 'LKR 200 000 - LKR 400,000',
+          price: 'LKR 200 000 - LKR 400,000',
+          profession: 'Architect',
+          profileName: 'John Doe',
         },
       ],
+      title: 'Professionals',
     },
     {
-      title: 'Retail Items',
       smallCards: [
         {
-          profileName: 'Jane Smith',
-          profession: 'Furniture',
           contactNo: '+94 776543210',
           price: 'LKR 50 000',
+          profession: 'Furniture',
+          profileName: 'Jane Smith',
         },
       ],
+      title: 'Retail Items',
     },
     {
-      title: 'Rental Items',
       smallCards: [
         {
-          profileName: 'John Smith',
-          profession: 'Heavy Machinery',
           contactNo: '+94 783829234',
           price: 'LKR 10 000 per hour',
+          profession: 'Heavy Machinery',
+          profileName: 'John Smith',
         },
       ],
+      title: 'Rental Items',
     },
   ];
 
-  const handleImageChange = (event) => {
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedValue = event.target.value;
     setSelectedImage(selectedValue);
   };
 
-  const handleStatusChange = (event) => {
-    setSmallCardStatus(event.target.value);
+  const handleStatusChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // setSmallCardStatus(event.target.value);
   };
 
-  const handleImageUpload = (event) => {
-    const files = event.target.files;
-    const newImages = [];
-    for (let i = 0; i < files.length; i++) {
-      newImages.push(URL.createObjectURL(files[i]));
-    }
-    setUploadedImages([...uploadedImages, ...newImages]);
+  const imagesRef = useRef<HTMLInputElement>(null);
+
+  const handleImageUpload = () => {
+    const files = imagesRef.current?.files ?? new DataTransfer().files;
+    setUploadedImages(files);
   };
 
-  const handleRemoveImage = (index, event) => {
+  const handleRemoveImage = (
+    index: number,
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
     event.preventDefault();
-    const remainingImages = uploadedImages.filter((_, i) => i !== index);
-    setUploadedImages(remainingImages);
-  };
-
-  const handleDocumentUpload = (event) => {
-    const files = event.target.files;
-    const newDocuments = [];
-    for (let i = 0; i < files.length; i++) {
-      newDocuments.push(files[i].name);
+    const files = imagesRef.current?.files ?? new DataTransfer().files;
+    const remainingImages = new DataTransfer();
+    for (let i = 0; i < files.length; ++i) {
+      if (i !== index) {
+        remainingImages.items.add(files[i]);
+      }
     }
-    setUploadedDocuments([...uploadedDocuments, ...newDocuments]);
+    setUploadedImages(remainingImages.files);
   };
 
-  const handleRemoveDocument = (index, event) => {
+  const documentsRef = useRef<HTMLInputElement>(null);
+
+  const handleDocumentUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = documentsRef.current?.files ?? new DataTransfer().files;
+    setUploadedDocuments(files);
+  };
+
+  const handleRemoveDocument = (
+    index: number,
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
     event.preventDefault();
-    const remainingDocuments = uploadedDocuments.filter((_, i) => i !== index);
-    setUploadedDocuments(remainingDocuments);
+    const files = documentsRef.current?.files ?? new DataTransfer().files;
+    const remainingDocuments = new DataTransfer();
+    for (let i = 0; i < files.length; ++i) {
+      if (i !== index) {
+        remainingDocuments.items.add(files[i]);
+      }
+    }
+    setUploadedDocuments(remainingDocuments.files);
   };
 
   return (
     <>
-      <TopBar title="Create a plan" />
+      <TopAppBar />
 
       <Paper
-        elevation={3}
         sx={{
+          alignItems: 'center',
+          backgroundColor: selectedImage ? 'transparent' : '#F3F3F3',
           backgroundImage: selectedImage ? `url(${selectedImage})` : 'none',
-          backgroundSize: 'cover',
           backgroundPosition: 'center',
-          height: '300px',
-          marginBottom: '20px',
+          backgroundSize: 'cover',
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
+          height: '300px',
           justifyContent: 'center',
-          backgroundColor: selectedImage ? 'transparent' : '#F3F3F3',
+          marginBottom: '20px',
         }}
+        elevation={3}
       >
         <Typography
-          variant="h4"
-          fontFamily="Poppins"
           color={selectedImage ? 'white' : '#435834'}
+          fontFamily="Poppins"
+          variant="h4"
         >
           Plan Your Dream Project
         </Typography>
@@ -139,92 +157,92 @@ function CreatePlan() {
           margin="normal"
         /> */}
         <Typography
-          variant="body1"
-          fontSize="20px"
           fontFamily="Poppins"
+          fontSize="20px"
           marginTop="30px"
+          variant="body1"
         >
           Title of your plan:
         </Typography>
         <Typography
-          variant="body2"
-          fontSize="16px"
           fontFamily="Poppins"
+          fontSize="16px"
           marginLeft="20px"
+          variant="body2"
         >
           A contemporary residence woven into nature
         </Typography>
 
         <Typography
-          variant="body1"
-          fontSize="20px"
           fontFamily="Poppins"
+          fontSize="20px"
           marginTop="20px"
+          variant="body1"
         >
           Select cover image
         </Typography>
         <FormControl component="fieldset" fullWidth margin="normal">
           <RadioGroup
-            row
             aria-label="cover-image"
             name="cover-image"
-            value={selectedImage}
             onChange={handleImageChange}
+            row
+            value={selectedImage}
           >
             <FormControlLabel
-              value="https://images.pexels.com/photos/259580/pexels-photo-259580.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              control={<Radio />}
               label={
                 <img
-                  src="https://images.pexels.com/photos/259580/pexels-photo-259580.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                   alt="cover1"
-                  style={{ width: '150px', height: '100px' }}
+                  src="https://images.pexels.com/photos/259580/pexels-photo-259580.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                  style={{ height: '100px', width: '150px' }}
                 />
               }
+              control={<Radio />}
+              value="https://images.pexels.com/photos/259580/pexels-photo-259580.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             />
             <FormControlLabel
-              value="https://images.pexels.com/photos/7587820/pexels-photo-7587820.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              control={<Radio />}
               label={
                 <img
-                  src="https://images.pexels.com/photos/7587820/pexels-photo-7587820.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                   alt="cover2"
-                  style={{ width: '150px', height: '100px' }}
+                  src="https://images.pexels.com/photos/7587820/pexels-photo-7587820.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                  style={{ height: '100px', width: '150px' }}
                 />
               }
+              control={<Radio />}
+              value="https://images.pexels.com/photos/7587820/pexels-photo-7587820.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             />
             <FormControlLabel
-              value="https://images.pexels.com/photos/7851906/pexels-photo-7851906.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              control={<Radio />}
               label={
                 <img
-                  src="https://images.pexels.com/photos/7851906/pexels-photo-7851906.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                   alt="cover3"
-                  style={{ width: '150px', height: '100px' }}
+                  src="https://images.pexels.com/photos/7851906/pexels-photo-7851906.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                  style={{ height: '100px', width: '150px' }}
                 />
               }
+              control={<Radio />}
+              value="https://images.pexels.com/photos/7851906/pexels-photo-7851906.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             />
             <FormControlLabel
-              value="https://images.pexels.com/photos/8583809/pexels-photo-8583809.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              control={<Radio />}
               label={
                 <img
-                  src="https://images.pexels.com/photos/8583809/pexels-photo-8583809.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                   alt="cover4"
-                  style={{ width: '150px', height: '100px' }}
+                  src="https://images.pexels.com/photos/8583809/pexels-photo-8583809.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                  style={{ height: '100px', width: '150px' }}
                 />
               }
+              control={<Radio />}
+              value="https://images.pexels.com/photos/8583809/pexels-photo-8583809.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             />
             <FormControlLabel
-              value="https://images.pexels.com/photos/6316065/pexels-photo-6316065.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              control={<Radio />}
               label={
                 <img
-                  src="https://images.pexels.com/photos/6316065/pexels-photo-6316065.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                   alt="cover5"
-                  style={{ width: '150px', height: '100px' }}
+                  src="https://images.pexels.com/photos/6316065/pexels-photo-6316065.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                  style={{ height: '100px', width: '150px' }}
                 />
               }
+              control={<Radio />}
+              value="https://images.pexels.com/photos/6316065/pexels-photo-6316065.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             />
           </RadioGroup>
         </FormControl>
@@ -237,36 +255,36 @@ function CreatePlan() {
         justifyContent="center"
       >
         {cardContent.map((item, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index} marginTop="30px">
+          <Grid item key={index} marginTop="30px" md={4} sm={6} xs={12}>
             <Paper
               sx={{
-                padding: '1rem',
+                alignItems: 'flex-start',
+                backgroundColor: '#F3F3F3',
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'flex-start',
                 justifyContent: 'space-between',
-                width: '350px',
                 margin: '0px 10px 30px 40px',
                 marginRight: '5px',
-                backgroundColor: '#F3F3F3',
                 minHeight: '200px',
+                padding: '1rem',
+                width: '350px',
               }}
             >
               <Box textAlign="center">
-                <Typography variant="h5" fontFamily="Poppins" mb={2}>
+                <Typography fontFamily="Poppins" mb={2} variant="h5">
                   {item.title}
                 </Typography>
                 <Box marginBottom={3}>
                   {item.title === 'Professionals' ? (
-                    <Button variant="contained" color="primary">
+                    <Button color="primary" variant="contained">
                       Add Professionals
                     </Button>
                   ) : item.title === 'Retail Items' ? (
-                    <Button variant="contained" color="primary">
+                    <Button color="primary" variant="contained">
                       Add Retail Items
                     </Button>
                   ) : (
-                    <Button variant="contained" color="primary">
+                    <Button color="primary" variant="contained">
                       Add Rental Items
                     </Button>
                   )}
@@ -275,13 +293,13 @@ function CreatePlan() {
               {item.smallCards.map((smallCard, smallCardIndex) => (
                 <Card
                   key={smallCardIndex}
-                  sx={{ width: 350, marginBottom: '10px' }}
+                  sx={{ marginBottom: '10px', width: 350 }}
                 >
                   <CardContent>
-                    <Box display="flex" alignItems="center" marginBottom="8px">
+                    <Box alignItems="center" display="flex" marginBottom="8px">
                       <Avatar
                         alt={smallCard.profileName}
-                        sx={{ width: 32, height: 32, marginRight: '8px' }}
+                        sx={{ height: 32, marginRight: '8px', width: 32 }}
                       >
                         {smallCard.profileName.charAt(0)}
                       </Avatar>
@@ -290,17 +308,17 @@ function CreatePlan() {
                         {smallCard.profileName}
                       </Typography>
                       <Box
-                        flexGrow={1}
-                        display="flex"
-                        justifyContent="flex-end"
                         alignItems="center"
+                        display="flex"
+                        flexGrow={1}
+                        justifyContent="flex-end"
                       >
                         <span
                           style={{
                             backgroundColor: '#E7C4A0',
-                            padding: '4px 8px',
                             borderRadius: '4px',
                             color: '#9D6432',
+                            padding: '4px 8px',
                           }}
                         >
                           <Typography variant="body2">
@@ -313,45 +331,44 @@ function CreatePlan() {
                     {item.title === 'Retail Items' ? (
                       <>
                         <Typography
-                          variant="body2"
                           style={{ marginBottom: '10px', marginTop: '20px' }}
+                          variant="body2"
                         >
                           <strong>Contact No:</strong> {smallCard.contactNo}
                         </Typography>
                         <Typography
-                          variant="body2"
                           style={{ marginBottom: '10px' }}
+                          variant="body2"
                         >
                           <strong>Price:</strong> {smallCard.price}
                         </Typography>
                         <Typography
-                          variant="body2"
                           style={{ marginRight: '10px' }}
+                          variant="body2"
                         >
                           <strong>Status</strong>
                         </Typography>
                         <FormControl component="fieldset">
                           <RadioGroup
-                            column
                             aria-label="status"
                             name="status"
                             onChange={handleStatusChange}
                           >
                             <FormControlLabel
-                              value="Bought"
-                              control={<Radio sx={{ marginLeft: '10px' }} />}
                               label={
                                 <Typography variant="body2">Bought</Typography>
                               }
+                              control={<Radio sx={{ marginLeft: '10px' }} />}
+                              value="Bought"
                             />
                             <FormControlLabel
-                              value="Not bought"
-                              control={<Radio sx={{ marginLeft: '10px' }} />}
                               label={
                                 <Typography variant="body2">
                                   Not bought
                                 </Typography>
                               }
+                              control={<Radio sx={{ marginLeft: '10px' }} />}
+                              value="Not bought"
                             />
                           </RadioGroup>
                         </FormControl>
@@ -359,56 +376,55 @@ function CreatePlan() {
                     ) : item.title === 'Professionals' ? (
                       <>
                         <Typography
-                          variant="body2"
                           style={{ marginBottom: '10px', marginTop: '20px' }}
+                          variant="body2"
                         >
                           <strong>Contact No:</strong> {smallCard.contactNo}
                         </Typography>
                         <Typography
-                          variant="body2"
                           style={{ marginBottom: '10px' }}
+                          variant="body2"
                         >
-                          <strong>Price Range:</strong> {smallCard.priceRange}
+                          <strong>Price Range:</strong> {smallCard.price}
                         </Typography>
                         <Typography
-                          variant="body2"
                           style={{ marginRight: '10px' }}
+                          variant="body2"
                         >
                           <strong>Status</strong>
                         </Typography>
                         <FormControl component="fieldset">
                           <RadioGroup
-                            column
                             aria-label="status"
                             name="status"
                             onChange={handleStatusChange}
                           >
                             <FormControlLabel
-                              value="Yet to Confirm"
-                              control={<Radio sx={{ marginLeft: '10px' }} />}
                               label={
                                 <Typography variant="body2">
                                   Yet to Confirm
                                 </Typography>
                               }
+                              control={<Radio sx={{ marginLeft: '10px' }} />}
+                              value="Yet to Confirm"
                             />
                             <FormControlLabel
-                              value="Waiting for a response"
-                              control={<Radio sx={{ marginLeft: '10px' }} />}
                               label={
                                 <Typography variant="body2">
                                   Waiting for a Response
                                 </Typography>
                               }
+                              control={<Radio sx={{ marginLeft: '10px' }} />}
+                              value="Waiting for a response"
                             />
                             <FormControlLabel
-                              value="Confirmed"
-                              control={<Radio sx={{ marginLeft: '10px' }} />}
                               label={
                                 <Typography variant="body2">
                                   Confirmed
                                 </Typography>
                               }
+                              control={<Radio sx={{ marginLeft: '10px' }} />}
+                              value="Confirmed"
                             />
                           </RadioGroup>
                         </FormControl>
@@ -416,45 +432,44 @@ function CreatePlan() {
                     ) : (
                       <>
                         <Typography
-                          variant="body2"
                           style={{ marginBottom: '10px', marginTop: '20px' }}
+                          variant="body2"
                         >
                           <strong>Contact No:</strong> {smallCard.contactNo}
                         </Typography>
                         <Typography
-                          variant="body2"
                           style={{ marginBottom: '10px' }}
+                          variant="body2"
                         >
                           <strong>Price:</strong> {smallCard.price}
                         </Typography>
                         <Typography
-                          variant="body2"
                           style={{ marginRight: '10px' }}
+                          variant="body2"
                         >
                           <strong>Status</strong>
                         </Typography>
                         <FormControl component="fieldset">
                           <RadioGroup
-                            column
                             aria-label="status"
                             name="status"
                             onChange={handleStatusChange}
                           >
                             <FormControlLabel
-                              value="Rented"
-                              control={<Radio sx={{ marginLeft: '10px' }} />}
                               label={
                                 <Typography variant="body2">Rented</Typography>
                               }
+                              control={<Radio sx={{ marginLeft: '10px' }} />}
+                              value="Rented"
                             />
                             <FormControlLabel
-                              value="Not Rented"
-                              control={<Radio sx={{ marginLeft: '10px' }} />}
                               label={
                                 <Typography variant="body2">
                                   Not Rented
                                 </Typography>
                               }
+                              control={<Radio sx={{ marginLeft: '10px' }} />}
+                              value="Not Rented"
                             />
                           </RadioGroup>
                         </FormControl>
@@ -466,12 +481,12 @@ function CreatePlan() {
                       marginTop="auto"
                     >
                       <Button
-                        variant="contained"
+                        onClick={() => {
+                          // handleRemoveSmallCard(cardIndex, smallCardIndex)
+                        }}
                         color="secondary"
                         sx={{ color: 'white' }}
-                        onClick={() =>
-                          handleRemoveSmallCard(cardIndex, smallCardIndex)
-                        }
+                        variant="contained"
                       >
                         Remove
                       </Button>
@@ -496,18 +511,18 @@ function CreatePlan() {
             margin='normal'
           /> */}
         <Typography
-          variant="body1"
-          fontSize="20px"
           fontFamily="Poppins"
+          fontSize="20px"
           marginTop="30px"
+          variant="body1"
         >
           Special Notes:
         </Typography>
         <Typography
-          variant="body1"
-          fontSize="16px"
           fontFamily="Poppins"
+          fontSize="16px"
           marginLeft="20px"
+          variant="body1"
         >
           I envision a home that not only provides comfort and functionality for
           my family but also harmonizes with the environment and promotes
@@ -517,49 +532,51 @@ function CreatePlan() {
 
       <Container>
         <Typography
-          variant="body1"
-          fontSize="20px"
           fontFamily="Poppins"
+          fontSize="20px"
           marginTop="30px"
+          variant="body1"
         >
           Upload Images
         </Typography>
         <input
-          type="file"
           accept="image/*"
-          style={{ display: 'none' }}
           id="image-upload"
           multiple
           onChange={handleImageUpload}
+          style={{ display: 'none' }}
+          type="file"
         />
         <label htmlFor="image-upload" style={{ cursor: 'pointer' }}>
           <Box
-            border="2px dashed #ccc"
-            borderRadius="4px"
-            width="100%"
-            minHeight="150px"
-            display="flex"
-            flexDirection="row"
-            alignItems="center"
-            justifyContent="center"
-            overflowX="auto"
-            position="relative"
+            sx={{
+              alignItems: 'center',
+              border: '2px dashed #ccc',
+              borderRadius: '4px',
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              minHeight: '150px',
+              overflowX: 'auto',
+              position: 'relative',
+              width: '100%',
+            }}
           >
-            {uploadedImages.map((image, index) => (
-              <Box key={index} position="relative" marginRight="10px">
+            {Array.from(uploadedImages).map((image, index) => (
+              <Box key={index} marginRight="10px" position="relative">
                 <img
-                  src={image}
-                  alt={'Uploaded Image ${index + 1}'}
-                  style={{ width: '150px', height: '150px' }}
+                  alt={`Uploaded ${index + 1}`}
+                  src={URL.createObjectURL(image)}
+                  style={{ height: '150px', width: '150px' }}
                 />
                 <IconButton
-                  onClick={(event) => handleRemoveImage(index, event)}
                   style={{
-                    position: 'absolute',
-                    top: 0,
-                    right: 0,
                     background: 'white',
+                    position: 'absolute',
+                    right: 0,
+                    top: 0,
                   }}
+                  onClick={(event) => handleRemoveImage(index, event)}
                 >
                   <Delete />
                 </IconButton>
@@ -574,47 +591,49 @@ function CreatePlan() {
 
       <Container>
         <Typography
-          variant="body1"
-          fontSize="20px"
           fontFamily="Poppins"
+          fontSize="20px"
           marginTop="30px"
+          variant="body1"
         >
           Upload Documents
         </Typography>
         <input
-          type="file"
           accept="application/pdf,.doc,.docx"
-          style={{ display: 'none' }}
           id="document-upload"
           multiple
           onChange={handleDocumentUpload}
+          style={{ display: 'none' }}
+          type="file"
         />
         <label htmlFor="document-upload" style={{ cursor: 'pointer' }}>
           <Box
-            border="2px dashed #ccc"
-            borderRadius="4px"
-            width="100%"
-            minHeight="150px"
-            display="flex"
-            flexDirection="row"
-            alignItems="center"
-            justifyContent="center"
-            overflowX="auto"
-            position="relative"
+            sx={{
+              alignItems: 'center',
+              border: '2px dashed #ccc',
+              borderRadius: '4px',
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              minHeight: '150px',
+              overflowX: 'auto',
+              position: 'relative',
+              width: '100%',
+            }}
           >
-            {uploadedDocuments.map((document, index) => (
-              <Box key={index} position="relative" marginRight="10px">
-                <Typography variant="body1" style={{ margin: '10px' }}>
-                  {document}
+            {Array.from(uploadedDocuments).map((document, index) => (
+              <Box key={index} marginRight="10px" position="relative">
+                <Typography style={{ margin: '10px' }} variant="body1">
+                  {document.name}
                 </Typography>
                 <IconButton
-                  onClick={(event) => handleRemoveDocument(index, event)}
                   style={{
-                    position: 'absolute',
-                    top: 0,
-                    right: 0,
                     background: 'white',
+                    position: 'absolute',
+                    right: 0,
+                    top: 0,
                   }}
+                  onClick={(event) => handleRemoveDocument(index, event)}
                 >
                   <Delete />
                 </IconButton>
@@ -628,14 +647,14 @@ function CreatePlan() {
 
       <Container>
         <Typography
-          variant="body1"
-          fontSize="20px"
           fontFamily="Poppins"
+          fontSize="20px"
           marginTop="30px"
+          variant="body1"
         >
           Estimated Budget
         </Typography>
-        <Typography variant="h6" fontSize="20px" marginLeft="50px">
+        <Typography fontSize="20px" marginLeft="50px" variant="h6">
           <strong>LKR 800 000</strong>
         </Typography>
       </Container>
@@ -643,10 +662,10 @@ function CreatePlan() {
       <Box
         display="flex"
         justifyContent="center"
-        marginTop="30px"
         marginBottom="50px"
+        marginTop="30px"
       >
-        <Button variant="contained" color="primary" size="large">
+        <Button color="primary" size="large" variant="contained">
           Create Plan
         </Button>
       </Box>
