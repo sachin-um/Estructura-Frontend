@@ -92,6 +92,22 @@ const Slider = ({ images, interval = 5000 }) => {
               fingertips
             </Typography>
             <Box alignItems="center" display="flex" marginTop="80px">
+              <TextField
+                InputLabelProps={{
+                  shrink: false,
+                }}
+                sx={{
+                  '& .MuiInputLabel-root': {
+                    color: 'grey',
+                  },
+                  '& .MuiOutlinedInput-root': {
+                    backgroundColor: 'white',
+                  },
+                  width: '400px',
+                }}
+                label="What service do you need?"
+                variant="outlined"
+              />
               <Button
                 sx={{
                   '&:hover': {
@@ -263,10 +279,6 @@ const HomePage = (props) => {
   const [showOverlay, setShowOverlay] = useState(false);
 
   const handleMLButtonClick = () => {
-    window.location.href = '/findfurniture';
-  };
-
-  const handleCreatePlanButtonClick = () => {
     window.location.href = '/findfurniture';
   };
 

@@ -2,7 +2,6 @@ import type { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 
 import Logout from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import {
   AppBar,
   Avatar,
@@ -354,30 +353,7 @@ function TopAppBar(props: TopAppBarProps) {
                       />
                       <span>Profile</span>
                     </MenuItem>
-
                     <Divider />
-                    {userInfo?.role === 'CUSTOMER' && (
-                      <div>
-                        <MenuItem
-                          onClick={async () => {
-                            // const logout = await API.get('/auth/logout');
-                            // const res = dispatch(clean());
-                            // console.table({
-                            //   logout,
-                            //   res,
-                            // });
-                            Navigate('/shop/cart');
-                            Navigate(0);
-                          }}
-                        >
-                          <ShoppingCartIcon>
-                            <Logout fontSize="small" />
-                          </ShoppingCartIcon>
-                          View Cart
-                        </MenuItem>
-                        <Divider />
-                      </div>
-                    )}
                     <MenuItem
                       onClick={async () => {
                         const logout = await API.get('/auth/logout');
