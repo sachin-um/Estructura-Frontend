@@ -1,17 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-
 // import RequestTable from '../pages/admin/RequestTable';
 
-
-
-import AccountSuspended from '../pages/AccountSuspended';
 import AccountNotApproved from '../pages/AccountNotApproved';
+import AccountSuspended from '../pages/AccountSuspended';
 
 // import RequestTable from '../pages/admin/RequestTable';
 
 import Billing from '../components/e-com/Billing';
-
 
 // import RequestTable from '../pages/admin/RequestTable';
 
@@ -21,10 +17,8 @@ import RecommendationsPage from '../pages/Algo/RecommendationsPage';
 import CustomerProfile from '../pages/CustomerProfile';
 import Homepage from '../pages/HomePage';
 import PageNotFound from '../pages/PageNotFound';
-
 import CreatePlan from '../pages/PlanCreation/CreatePlan';
 import ViewPlan from '../pages/PlanCreation/ViewPlan';
-
 import ResetPasswordSuccessful from '../pages/ResetPasswordSuccessful';
 import AddAdmin from '../pages/admin/AddAdmin';
 import UserManage from '../pages/admin/UserManage';
@@ -91,12 +85,10 @@ export const altRouter = createBrowserRouter([
   {
     path: '/manageUsers',
     element: <UserManage />,
-
   },
   {
     path: '/billing',
     element: <Billing />,
-
   },
   {
     path: '/PageNotFound',
