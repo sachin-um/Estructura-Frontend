@@ -224,6 +224,7 @@ const ViewCustomerRequestCard = () => {
                       </>
                     );
                   }
+                  return <></>;
                 })}
               </Box>
             </Box>
@@ -502,7 +503,7 @@ const ViewCustomerRequestCard = () => {
                       {fileName}
                     </Typography> */}
                   <Link
-                    href={`http://localhost:8080/files/customer-request-files/${customerRequest?.createdBy}/${customerRequest?.id}/${customerRequest.Document1Name}`}
+                    href={`http://localhost:8080/files/customer-request-files/${customerRequest?.createdBy}/${customerRequest?.id}/${customerRequest.document1Name}`}
                     underline="hover"
                   >
                     <Typography
@@ -555,7 +556,7 @@ const ViewCustomerRequestCard = () => {
                       {fileName}
                     </Typography> */}
                   <Link
-                    href={`http://localhost:8080/files/customer-request-files/${customerRequest?.createdBy}/${customerRequest?.id}/${customerRequest.Document2Name}`}
+                    href={`http://localhost:8080/files/customer-request-files/${customerRequest?.createdBy}/${customerRequest?.id}/${customerRequest.document2Name}`}
                     underline="hover"
                   >
                     <Typography
@@ -608,7 +609,7 @@ const ViewCustomerRequestCard = () => {
                       {fileName}
                     </Typography> */}
                   <Link
-                    href={`http://localhost:8080/files/customer-request-files/${customerRequest?.createdBy}/${customerRequest?.id}/${customerRequest.Document3Name}`}
+                    href={`http://localhost:8080/files/customer-request-files/${customerRequest?.createdBy}/${customerRequest?.id}/${customerRequest.document3Name}`}
                     underline="hover"
                   >
                     <Typography
@@ -643,18 +644,16 @@ const ViewCustomerRequestCard = () => {
                     Accept Request
                   </Button>
                 )}
-              {currentUser?.id === customerRequest.createdBy && (
-                <Button
-                  color="primary"
-                  onClick={goToResponses(customerRequest.id)}
-                  size="large"
-                  style={{ width: '35%' }}
-                  sx={{ borderRadius: 2, width: 1 / 2 }}
-                  variant="contained"
-                >
-                  View Responses
-                </Button>
-              )}
+              <Button
+                color="primary"
+                onClick={goToResponses(customerRequest.id)}
+                size="large"
+                style={{ width: '35%' }}
+                sx={{ borderRadius: 2, width: 1 / 2 }}
+                variant="contained"
+              >
+                View Responses
+              </Button>
             </Box>
           </Box>
         </Grid>

@@ -99,11 +99,11 @@ function Requests() {
                   <Box style={contactStyle}>
                     <WorkHistoryIcon />
                     <Typography style={statusStyle}>
-                      {customerRequest.status == 'AWAITINGFORRESPONSE'
+                      {customerRequest.status === 'AWAITINGFORRESPONSE'
                         ? 'Awaiting for response'
-                        : customerRequest.status == 'AWAITINGFORACCEPT'
+                        : customerRequest.status === 'AWAITINGFORACCEPT'
                         ? 'Awaiting for acceptance'
-                        : customerRequest.status == 'COMPLETED'
+                        : customerRequest.status === 'COMPLETED'
                         ? 'Completed'
                         : ''}
                     </Typography>

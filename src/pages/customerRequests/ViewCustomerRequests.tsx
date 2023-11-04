@@ -107,7 +107,7 @@ const ViewCustomerRequests = ({ my }: { my?: boolean }) => {
                         color="primary"
                         onClick={goToResponses(customerRequest.id)}
                         style={viewResponsesButtonStyle}
-                        variant="contained"
+                        variant="outlined"
                       >
                         View Responses
                       </Button> */}
