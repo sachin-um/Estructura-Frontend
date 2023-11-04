@@ -1,77 +1,57 @@
 import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
 import RemoveIcon from '@mui/icons-material/Remove';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+
 import Footer from '../../components/Footer';
 import TopAppBar from '../../components/TopAppBar';
-import { mobile } from '../../responsive';
+import useCart from '../../hooks/cart/useCart';
 import { useFetchRetailItems } from '../../hooks/retailItem/useFetchRetailItems';
+import useCurrentUser from '../../hooks/users/useCurrentUser';
+import API from '../../lib/API';
+import { mobile } from '../../responsive';
 
 const ShopCart = () => {
-  // TODO: Make it work with backend
-  // TODO:when click add to cart, backend table add, then from that table take items to specific id array, then remove nm remove the content from table and reload page
-  // TODO: after checkout if successful clear the cart order from the table
-  const { fetchRetailItems, isLoading, retailItems } = useFetchRetailItems();
+  const { fetchRetailItems, retailItems } = useFetchRetailItems();
 
   useEffect(() => {
     fetchRetailItems({});
   }, [fetchRetailItems]);
 
-  console.log(retailItems);
+  const { addOrIncrementItem, items, removeItem } = useCart();
 
-  const specificIds = [1, 2, 3];
+  const products = items.map((item) => {
+    return {
+      item: retailItems.find((i) => i.id === item.id),
+      quantity: item.quantity,
+    };
+  });
 
-  const CartFurniture = retailItems.filter((item) =>
-    specificIds.includes(item.id),
-  );
-
-  console.log(CartFurniture);
-
-  const [products, setProducts] = useState(
-    specificIds.map((id) => ({ id, quantity: 1 })),
-  );
-
-  const increaseQuantity = (productId) => {
-    console.log('this is ' + productId);
-    setProducts((prevProducts) =>
-      prevProducts.map((product) =>
-        product.id === productId &&
-        product.quantity <
-          retailItems.find((item) => item.id === productId)?.quantity
-          ? { ...product, quantity: product.quantity + 1 }
-          : product,
-      ),
-    );
+  const increaseQuantity = (productId: number) => {
+    addOrIncrementItem(productId, 1);
   };
 
-  const decreaseQuantity = (productId) => {
-    setProducts((prevProducts) =>
-      prevProducts.map((product) =>
-        product.id === productId && product.quantity > 1
-          ? { ...product, quantity: product.quantity - 1 }
-          : product,
-      ),
-    );
+  const decreaseQuantity = (productId: number) => {
+    addOrIncrementItem(productId, -1);
   };
 
-  const removeProduct = (productId) => {
-    setProducts((prevProducts) =>
-      prevProducts.filter((product) => product.id !== productId),
-    );
+  const removeProduct = (productId: number) => {
+    removeItem(productId);
   };
 
   const totalPrice = products.reduce((total, product) => {
-    const item = retailItems.find((item) => item.id === product.id);
-
     // Check if the item exists before accessing its 'price' property
-    if (item) {
-      return total + item.price * product.quantity;
+    if (product.item) {
+      return total + product.item.price * product.quantity;
     }
 
     return total;
   }, 0);
+
+  const navigate = useNavigate();
 
   return (
     <Container>
@@ -79,31 +59,39 @@ const ShopCart = () => {
       <Wrapper>
         <Title>
           <ShoppingCartIcon
-            sx={{ fontSize: '32px', marginRight: '10px', marginBottom: '-5px' }}
+            sx={{ fontSize: '32px', marginBottom: '-5px', marginRight: '10px' }}
           />
           YOUR CART
         </Title>
         <Top>
-          <TopButton>CONTINUE SHOPPING</TopButton>
+          <TopButton
+            onClick={() => {
+              navigate(-1);
+            }}
+          >
+            CONTINUE SHOPPING
+          </TopButton>
 
-          <TopButton type="filled">Save Progress</TopButton>
+          {/* <TopButton onClick={saveProgress} type="filled">
+            Save Progress
+          </TopButton> */}
         </Top>
         <Bottom>
           <Info>
             <ScrollableProducts>
-              {CartFurniture.map((item) => (
-                <div key={item.id}>
+              {products.map((item) => (
+                <div key={item.item?.id}>
                   <Product>
                     <ProductDetail>
                       <Image
-                        src={`http://localhost:8080/files/retail-item-files/${item.createdBy}/${item.id}/${item.mainImageName}`}
+                        src={`http://localhost:8080/files/retail-item-files/${item.item?.createdBy}/${item.item?.id}/${item.item?.mainImageName}`}
                       />
                       <Details>
                         <ProductName>
-                          <b>Product:</b> {item.name}
+                          <b>Product:</b> {item.item?.name}
                         </ProductName>
                         <ProductId>
-                          <b>Type:</b> {item.retailItemType}
+                          <b>Type:</b> {item.item?.retailItemType}
                         </ProductId>
                       </Details>
                     </ProductDetail>
@@ -111,19 +99,23 @@ const ShopCart = () => {
                       <ProductAmountBox>
                         <ProductAmountContainer>
                           <RemoveIcon
-                            onClick={() => decreaseQuantity(item.id)}
+                            onClick={() =>
+                              decreaseQuantity(item.item?.id ?? -1)
+                            }
                           />
-                          <ProductAmount>
-                            {products.find((p) => p.id === item.id)?.quantity}
-                          </ProductAmount>
-                          <AddIcon onClick={() => increaseQuantity(item.id)} />
+                          <ProductAmount>{item.quantity}</ProductAmount>
+                          <AddIcon
+                            onClick={() =>
+                              increaseQuantity(item.item?.id ?? -1)
+                            }
+                          />
                         </ProductAmountContainer>
                       </ProductAmountBox>
-                      <ProductPrice>LKR. {item.price}</ProductPrice>
+                      <ProductPrice>LKR. {item.item?.price}</ProductPrice>
                     </PriceDetail>
                     <DeleteIcon
-                      sx={{ marginTop: 4, marginRight: 2 }}
-                      onClick={() => removeProduct(item.id)}
+                      onClick={() => removeProduct(item.item?.id ?? -1)}
+                      sx={{ marginRight: 2, marginTop: 4 }}
                     />
                   </Product>
                   <Hr />
@@ -186,7 +178,7 @@ const Top = styled.div`
   padding: 20px;
 `;
 
-const TopButton = styled.button`
+const TopButton = styled.button<{ type?: string }>`
   padding: 10px;
   font-weight: 600;
   cursor: pointer;
@@ -311,7 +303,7 @@ const SummaryTitle = styled.h1`
   color: #435834;
 `;
 
-const SummaryItem = styled.div`
+const SummaryItem = styled.div<{ type?: string }>`
   margin: 30px 0px;
   display: flex;
   justify-content: space-between;

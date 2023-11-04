@@ -2,6 +2,7 @@ import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import {
   Box,
   Button,
@@ -20,12 +21,16 @@ import TopAppBar from '../components/TopAppBar';
 import MultiActionAreaCard from '../components/e-com/furnitureCard';
 import { retails } from '../data/retails';
 import UnauthorizedAccess from './unauthorized_access';
-
+import { useFetchRetailItems } from '../hooks/retailItem/useFetchRetailItems';
 const FindFurniture = () => {
+  const { fetchRetailItems, retailItems } = useFetchRetailItems();
   const [imagePreview, setImagePreview] = useState(null);
   const [prediction, setPrediction] = useState(null);
   const [showMatches, setShowMatches] = useState(false);
   const [filteredFurniture, setFilteredFurniture] = useState([]);
+  useEffect(() => {
+    fetchRetailItems({});
+  }, [fetchRetailItems]);
 
   const userInfo = useSelector(selectUser);
   const handleImageChange = (e) => {
@@ -40,7 +45,7 @@ const FindFurniture = () => {
       // Send the file to the server
       const formData = new FormData();
       formData.append('image', file);
-
+      console.log(retailItems);
       axios
         .post('http://localhost:5000/api/upload', formData) // Replace with your backend URL
         .then((response) => {
@@ -89,9 +94,9 @@ const FindFurniture = () => {
         setShowMatches(true);
         if (predictionResponse.data && predictionResponse.data.predicted_type) {
           // Filter the furniture based on the predicted type
-          const filteredItems = retails.furniture.filter(
+          const filteredItems = retailItems.filter(
             (item) =>
-              item.interiorType.toLowerCase() ===
+              item.furnitureItemType.toLowerCase() ===
               predictionResponse.data.predicted_type.toLowerCase(),
           );
           setFilteredFurniture(filteredItems);
@@ -309,10 +314,12 @@ const FindFurniture = () => {
                 sx={{ flex: '1 0 20%', maxWidth: '25%', minWidth: '20%' }}
               >
                 <MultiActionAreaCard
-                  image={item.image}
+                  image={item.mainImageName}
                   price={item.price}
                   title={item.name}
-                  type={item.interiorType}
+                  type={item.furnitureType}
+                  id={item.id}
+                  providerId={item.createdBy}
                 />
               </Box>
             ))}

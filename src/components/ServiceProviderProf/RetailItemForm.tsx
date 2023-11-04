@@ -45,6 +45,13 @@ const retailItemTypes: RetailItemType[] = [
   'LIGHTING',
 ];
 
+const furnitureItemTypes: FurnitureItemType[] = [
+  'BOHEMIAN',
+  'COASTAL',
+  'INDUSTRIAL',
+  'SCANDINAVIAN',
+];
+
 const validationSchema = Yup.object().shape({
   description: Yup.string().required('You need to provide a Description'),
   extraImages: Yup.mixed()
@@ -73,6 +80,10 @@ const validationSchema = Yup.object().shape({
       }
       return true;
     }),
+  furnitureItemType: Yup.string().oneOf(
+    furnitureItemTypes,
+    'RetailItemType has to be valid',
+  ),
   // one Image less than 5MB in size
   mainImage: Yup.mixed()
     .required('Required')
@@ -117,6 +128,7 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
   const HandleSubmit = (values: RetailItemAddOrUpdateRequest) => {
     console.log(values);
     if (FormRef.current) {
+      alert('Item Edited');
       const { setErrors, setSubmitting } = FormRef.current;
       setSubmitting(true);
       console.log(values);
@@ -129,6 +141,7 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
           }
         });
       } else {
+        alert(JSON.stringify(values));
         addRetailItem(values).then((added) => {
           if (added.item) {
             navigate(`/shop/item/${added.item.id}`, {
@@ -146,6 +159,7 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
     ? {
         description: OriginalRetailItem.description,
         extraImages: new DataTransfer().files,
+        furnitureItemType: OriginalRetailItem.furnitureItemType,
         mainImage: new DataTransfer().files,
         name: OriginalRetailItem.name,
         price: OriginalRetailItem.price,
@@ -154,8 +168,9 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
         retailStoreId: userId,
       }
     : {
-        description: '',
+        description: '' as FurnitureItemType,
         extraImages: new DataTransfer().files,
+        furnitureItemType: '' as FurnitureItemType,
         mainImage: new DataTransfer().files,
         name: '',
         price: 0.0,
@@ -163,7 +178,6 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
         retailItemType: '' as RetailItemType,
         retailStoreId: userId,
       };
-  console.log(initialValues);
   const [mainImage, setMainImage] = useState<string>('');
   const [mainImageReset, setMainImageReset] = useState<boolean>(false);
   const [mainImageName, setMainImageName] = useState<string>('');
@@ -223,6 +237,7 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
         >
           {(FormikProps: FormikProps<RetailItemAddOrUpdateRequest>) => {
             const spread = GetFormikProps(FormikProps);
+            console.log(FormikProps.errors);
             return (
               <Form>
                 <Container
@@ -359,6 +374,42 @@ const RetailItemForm: FunctionComponent<RetailItemFormProps> = ({
                             </span>
                           )}
                         </ErrorMessage>
+                        <FormControl
+                          sx={{
+                            display:
+                              FormikProps.values.retailItemType === 'FURNITURE'
+                                ? 'block'
+                                : 'none',
+                          }}
+                          fullWidth
+                          variant="filled"
+                        >
+                          <InputLabel id="demo-simple-select-label">
+                            Furniture Category
+                          </InputLabel>
+                          <Select
+                            sx={{
+                              justifyContent: 'center',
+                              margin: 1,
+                              width: '1',
+                            }}
+                            color="secondary"
+                            fullWidth
+                            id="demo-simple-select"
+                            label="Rental Duration"
+                            labelId="demo-simple-select-label"
+                            {...spread('furnitureItemType')}
+                          >
+                            {furnitureItemTypes.map((furnitureItemType) => (
+                              <MenuItem
+                                key={furnitureItemType}
+                                value={furnitureItemType}
+                              >
+                                {furnitureItemType}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
                         <Divider />
                       </Box>
                     </Grid>

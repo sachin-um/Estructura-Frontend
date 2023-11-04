@@ -435,163 +435,115 @@ export const mockLineData = [
     color: tokens.greenAccent[500],
     data: [
       {
-        x: 'plane',
-        y: 101,
+        x: 'Architecture',
+        y: 2,
       },
       {
-        x: 'helicopter',
-        y: 75,
+        x: 'Interior Designers',
+        y: 5,
       },
       {
-        x: 'boat',
-        y: 36,
+        x: 'Home Builders',
+        y: 6,
       },
       {
-        x: 'train',
-        y: 216,
+        x: 'Landscape Architects',
+        y: 16,
       },
       {
-        x: 'subway',
+        x: 'Carpenters',
         y: 35,
       },
       {
-        x: 'bus',
-        y: 236,
+        x: 'Construction Companies',
+        y: 26,
       },
       {
-        x: 'car',
-        y: 88,
+        x: 'Renter',
+        y: 8,
       },
       {
-        x: 'moto',
-        y: 232,
-      },
-      {
-        x: 'bicycle',
-        y: 281,
-      },
-      {
-        x: 'horse',
-        y: 1,
-      },
-      {
-        x: 'skateboard',
-        y: 35,
-      },
-      {
-        x: 'others',
-        y: 14,
+        x: 'Retail Store',
+        y: 22,
       },
     ],
-    id: 'japan',
+    id: 'Rathnapura',
   },
   {
     color: tokens.blueAccent[300],
     data: [
       {
-        x: 'plane',
-        y: 212,
+        x: 'Architecture',
+        y: 11,
       },
       {
-        x: 'helicopter',
-        y: 190,
+        x: 'Interior Designers',
+        y: 5,
       },
       {
-        x: 'boat',
-        y: 270,
+        x: 'Home Builders',
+        y: 36,
       },
       {
-        x: 'train',
-        y: 9,
+        x: 'Landscape Architects',
+        y: 26,
       },
       {
-        x: 'subway',
-        y: 75,
+        x: 'Carpenters',
+        y: 35,
       },
       {
-        x: 'bus',
-        y: 175,
+        x: 'Construction Companies',
+        y: 36,
       },
       {
-        x: 'car',
-        y: 33,
+        x: 'Renter',
+        y: 8,
       },
       {
-        x: 'moto',
-        y: 189,
-      },
-      {
-        x: 'bicycle',
-        y: 97,
-      },
-      {
-        x: 'horse',
-        y: 87,
-      },
-      {
-        x: 'skateboard',
-        y: 299,
-      },
-      {
-        x: 'others',
-        y: 251,
+        x: 'Retail Store',
+        y: 22,
       },
     ],
-    id: 'france',
+    id: 'Ampara',
   },
   {
     color: tokens.redAccent[200],
     data: [
       {
-        x: 'plane',
-        y: 191,
+        x: 'Architecture',
+        y: 11,
       },
       {
-        x: 'helicopter',
-        y: 136,
+        x: 'Interior Designers',
+        y: 5,
       },
       {
-        x: 'boat',
-        y: 91,
+        x: 'Home Builders',
+        y: 36,
       },
       {
-        x: 'train',
-        y: 190,
+        x: 'Landscape Architects',
+        y: 16,
       },
       {
-        x: 'subway',
-        y: 211,
+        x: 'Carpenters',
+        y: 35,
       },
       {
-        x: 'bus',
-        y: 152,
+        x: 'Construction Companies',
+        y: 36,
       },
       {
-        x: 'car',
-        y: 189,
+        x: 'Renter',
+        y: 88,
       },
       {
-        x: 'moto',
-        y: 152,
-      },
-      {
-        x: 'bicycle',
-        y: 8,
-      },
-      {
-        x: 'horse',
-        y: 197,
-      },
-      {
-        x: 'skateboard',
-        y: 107,
-      },
-      {
-        x: 'others',
-        y: 170,
+        x: 'Retail Store',
+        y: 32,
       },
     ],
-    id: 'us',
+    id: 'Colombo',
   },
 ];
 

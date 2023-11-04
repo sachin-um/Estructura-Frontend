@@ -224,6 +224,7 @@ const ViewCustomerRequestCard = () => {
                       </>
                     );
                   }
+                  return <></>;
                 })}
               </Box>
             </Box>
@@ -502,7 +503,7 @@ const ViewCustomerRequestCard = () => {
                       {fileName}
                     </Typography> */}
                   <Link
-                    href={`http://localhost:8080/files/customer-request-files/${customerRequest?.createdBy}/${customerRequest?.id}/${customerRequest.Document1Name}`}
+                    href={`http://localhost:8080/files/customer-request-files/${customerRequest?.createdBy}/${customerRequest?.id}/${customerRequest.document1Name}`}
                     underline="hover"
                   >
                     <Typography
@@ -555,7 +556,7 @@ const ViewCustomerRequestCard = () => {
                       {fileName}
                     </Typography> */}
                   <Link
-                    href={`http://localhost:8080/files/customer-request-files/${customerRequest?.createdBy}/${customerRequest?.id}/${customerRequest.Document2Name}`}
+                    href={`http://localhost:8080/files/customer-request-files/${customerRequest?.createdBy}/${customerRequest?.id}/${customerRequest.document2Name}`}
                     underline="hover"
                   >
                     <Typography
@@ -608,7 +609,7 @@ const ViewCustomerRequestCard = () => {
                       {fileName}
                     </Typography> */}
                   <Link
-                    href={`http://localhost:8080/files/customer-request-files/${customerRequest?.createdBy}/${customerRequest?.id}/${customerRequest.Document3Name}`}
+                    href={`http://localhost:8080/files/customer-request-files/${customerRequest?.createdBy}/${customerRequest?.id}/${customerRequest.document3Name}`}
                     underline="hover"
                   >
                     <Typography

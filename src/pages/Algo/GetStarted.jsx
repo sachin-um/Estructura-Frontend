@@ -49,6 +49,8 @@ function RecAlgo() {
     data['firstChoice'] = data['firstChoice'].toLowerCase();
     data['secondChoice'] = data['secondChoice'].map((s) => s.toLowerCase());
     data['thirdChoice'] = data['thirdChoice'].map((s) => s.toLowerCase());
+    data['price'] = data['price'];
+    // alert(JSON.stringify(data));
     API.post('/recommendation/recommend', data)
       .then((res) => {
         console.table(res);
@@ -56,7 +58,7 @@ function RecAlgo() {
           if (res.data.success === true) {
             // ! Redirect to a page that says, verify your email
             // navigate('/RecommendationsPage', { replace: true });
-            alert(JSON.stringify(res.data));
+            // alert(JSON.stringify(res.data));
             navigator('/RecommendationsPage', {
               state: {
                 data: res.data,
@@ -194,7 +196,7 @@ function RecAlgo() {
           );
           break;
 
-        case 'Residence Building':
+        case 'Residence Buildings':
           newPage = (
             <ConstructionResidence
               formData={formData}
@@ -207,7 +209,7 @@ function RecAlgo() {
             />
           );
           break;
-        case 'Commercial Building':
+        case 'Commercial Buildings':
           newPage = (
             <ConstructionCommercial
               formData={formData}
@@ -221,7 +223,7 @@ function RecAlgo() {
           );
           break;
 
-        case 'Industrial Building':
+        case 'Industrial Buildings':
           newPage = (
             <ConstructionIndustrial
               formData={formData}
@@ -234,7 +236,7 @@ function RecAlgo() {
             />
           );
           break;
-        case 'Recreational Building':
+        case 'Recreational Buildings':
           newPage = (
             <ConstructionRecreational
               formData={formData}

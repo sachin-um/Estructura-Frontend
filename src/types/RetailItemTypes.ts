@@ -15,6 +15,7 @@ interface RetailItem {
   price: number;
   quantity: number;
   retailItemType: RetailItemType;
+  furnitureItemType: FurnitureItemType;
 }
 
 type RetailItemType =
@@ -24,6 +25,8 @@ type RetailItemType =
   | 'HARDWARE'
   | 'LIGHTING';
 
+type FurnitureItemType = 'BOHEMIAN' | 'COASTAL' | 'INDUSTRIAL' | 'SCANDINAVIAN';
+
 interface RetailItemAddOrUpdateRequest {
   description: string;
   extraImages: FileList;
@@ -32,6 +35,7 @@ interface RetailItemAddOrUpdateRequest {
   price: number;
   quantity: number;
   retailItemType: RetailItemType;
+  furnitureItemType: FurnitureItemType;
   retailStoreId: number;
 }
 

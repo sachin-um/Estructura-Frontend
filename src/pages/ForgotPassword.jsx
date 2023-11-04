@@ -2,7 +2,7 @@
 import { Container, Grid, Typography, Button, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import TopBar from '../components/TopBar';
-
+import API from '../lib/API';
 function ForgotPassword() {
   const [formData, setFormData] = useState({ email: '' });
   const handleSubmit = (event) => {
@@ -13,16 +13,11 @@ function ForgotPassword() {
 
   useEffect(() => {
     if (formData.email) {
-      API.post('/auth/password-reset-request', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
+      API.post('/auth/password-reset-request', formData)
         .then((res) => {
-          console.table(res);
           if (res.status === 200) {
             if (res.data.success === true) {
-              navigate('/emailNotVerified', { replace: true });
+              window.location.href = '/reset-request-success';
             } else {
               alert(res.data.message);
             }

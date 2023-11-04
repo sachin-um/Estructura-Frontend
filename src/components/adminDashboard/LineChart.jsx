@@ -9,7 +9,7 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
   return (
     <ResponsiveLine
       axisBottom={{
-        legend: isDashboard ? undefined : 'transportation', // added
+        legend: isDashboard ? undefined : 'Revenue', // added
         legendOffset: 36,
         legendPosition: 'middle',
         orient: 'bottom',
@@ -87,8 +87,8 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
         },
       }}
       yScale={{
-        max: 'auto',
-        min: 'auto',
+        max: '100',
+        min: '0',
         reverse: false,
         stacked: true,
         type: 'linear',

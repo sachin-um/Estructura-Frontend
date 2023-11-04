@@ -54,14 +54,6 @@ function Requests() {
     <Loading />
   ) : (
     <>
-      <Button
-        onClick={() => {
-          navigate('/custom-requests/add');
-        }}
-        variant="contained"
-      >
-        Add new request
-      </Button>
       <Grid container spacing={10}>
         {customerRequests.map((customerRequest, index) => {
           console.log(customerRequest);
@@ -107,11 +99,11 @@ function Requests() {
                   <Box style={contactStyle}>
                     <WorkHistoryIcon />
                     <Typography style={statusStyle}>
-                      {customerRequest.status == 'AWAITINGFORRESPONSE'
+                      {customerRequest.status === 'AWAITINGFORRESPONSE'
                         ? 'Awaiting for response'
-                        : customerRequest.status == 'AWAITINGFORACCEPT'
+                        : customerRequest.status === 'AWAITINGFORACCEPT'
                         ? 'Awaiting for acceptance'
-                        : customerRequest.status == 'COMPLETED'
+                        : customerRequest.status === 'COMPLETED'
                         ? 'Completed'
                         : ''}
                     </Typography>
@@ -135,7 +127,7 @@ function Requests() {
                       color="primary"
                       onClick={goToResponses(customerRequest.id)}
                       style={viewResponsesButtonStyle}
-                      variant="outlined"
+                      variant="contained"
                     >
                       View Responses
                     </Button>

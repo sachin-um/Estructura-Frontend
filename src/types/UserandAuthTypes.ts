@@ -72,7 +72,7 @@ interface User {
   firstName: string;
   id: number;
   introduction?: string;
-  isVerified: boolean;
+  verified: boolean;
   lastName: string;
   maxRate?: number;
   minRate?: number;
@@ -86,6 +86,7 @@ interface User {
   sliaRegNumber?: string;
   specializations?: Specialization[];
   status: AccountStatus;
+  adminApproved: boolean;
 }
 
 type AccountStatus = 'ACTIVE' | 'SUSPEND';

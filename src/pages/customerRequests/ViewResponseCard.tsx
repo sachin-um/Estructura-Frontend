@@ -1,6 +1,15 @@
-import { Alert, Box, Button, Divider, Grid, Typography } from '@mui/material';
+import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
+import {
+  Alert,
+  Box,
+  Button,
+  Divider,
+  Grid,
+  Link,
+  Typography,
+} from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import '../../assets/font.css';
 import Footer from '../../components/Footer';
@@ -18,9 +27,12 @@ const ViewResponseCard = () => {
 
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertStatus, setAlertStatus] = useState('');
+  const [alertTitle, setalertTitle] = useState('Response Status');
 
+  const navigate = useNavigate();
   const handleAlertClose = () => {
     setAlertOpen(false);
+    navigate(`/custom-requests/req/${reqId}/responses/${reqResId}`);
   };
   const {
     acceptOrDecline,
@@ -101,25 +113,28 @@ const ViewResponseCard = () => {
             paddingTop="50px"
           >
             <Typography fontFamily="Poppins" gutterBottom variant="h6">
-              {customerRequestResponse?.shortDesc} by {responder?.firstName}{' '}
-              {responder?.lastName} [{responder?.role}]
+              {customerRequestResponse?.shortDesc}
             </Typography>
-            Responding to request: {customerRequest?.shortDesc} by{' '}
-            {requester?.firstName} {requester?.lastName}
-            <Divider sx={{ marginBottom: '20px' }} />
+            <Typography>
+              posted by : {responder?.firstName} {responder?.lastName} [
+              {responder?.role}]
+            </Typography>
+            <Divider sx={{ marginBottom: '10px', marginTop: '10px' }} />
             <Typography
               fontFamily="Poppins"
-              sx={{ marginTop: '20px' }}
+              sx={{ marginTop: '10px' }}
               variant="subtitle1"
             >
               Description of the idea:
             </Typography>
             <Box
               sx={{
-                border: '2px solid green',
+                // border: '2px solid green',
                 marginTop: '10px',
+                minHeight: '70px',
                 padding: '10px',
                 textAlign: 'justify',
+                width: '100%',
               }}
             >
               <Typography
@@ -130,6 +145,7 @@ const ViewResponseCard = () => {
                 {customerRequestResponse?.response}
               </Typography>
             </Box>
+            <Divider sx={{ marginBottom: '10px', marginTop: '10px' }} />
             <Typography
               fontFamily="Poppins"
               sx={{ marginTop: '20px' }}
@@ -139,11 +155,11 @@ const ViewResponseCard = () => {
             </Typography>
             <Box
               sx={{
-                border: '2px solid green',
+                // border: '2px solid green',
                 display: 'inline-block',
-                marginLeft: '40px',
                 marginTop: '10px',
                 padding: '5px',
+                width: '100%',
               }}
             >
               <Typography
@@ -151,65 +167,226 @@ const ViewResponseCard = () => {
                 sx={{ marginLeft: '5px', textAlign: 'justify' }}
                 variant="body2"
               >
-                {customerRequestResponse?.proposedBudget}
+                Rs:{customerRequestResponse?.proposedBudget} .00
               </Typography>
             </Box>
+            <Divider sx={{ marginBottom: '10px', marginTop: '10px' }} />
             <Typography
               fontFamily="Poppins"
               sx={{ marginTop: '20px' }}
               variant="subtitle1"
             >
-              Images/Documents shared:
+              Relevant Images and Documents:
             </Typography>
-            <Box
-              sx={{ alignItems: 'center', display: 'flex', marginTop: '20px' }}
+            <Grid
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                marginTop: '10px',
+                width: '60%',
+              }}
+              container
+              spacing={1}
             >
-              {[
-                [
-                  customerRequestResponse?.document1,
-                  customerRequestResponse?.document1Name,
-                ],
-                [
-                  customerRequestResponse?.document2,
-                  customerRequestResponse?.document2Name,
-                ],
-                [
-                  customerRequestResponse?.document3,
-                  customerRequestResponse?.document3Name,
-                ],
-              ].map((docs) => (
-                <a
-                  href={`http://localhost:8080/files/responses-files/${customerRequestResponse?.createBy}/${customerRequestResponse?.id}/${docs[1]}`}
-                  key={docs[1]}
+              {customerRequestResponse?.document1 ? (
+                <Box
+                  sx={{
+                    backgroundColor: '#f3f3f3',
+                    border: 1,
+                    borderColor: 'grey',
+                    borderRadius: '5px',
+                  }}
+                  display={'flex'}
+                  height="50px"
+                  marginTop="10px"
+                  position="relative"
+                  width="200px"
                 >
-                  {docs[0]}
-                </a>
-              ))}
-              {/* <img
-                style={{
-                  border: '2px solid green',
-                  height: '30vh',
-                  marginRight: '10px',
-                  padding: '5px',
-                  width: '30vh',
+                  <InsertDriveFileIcon
+                    style={{
+                      marginLeft: '10px',
+                      marginTop: '10px',
+                    }}
+                  />
+
+                  {/* <Typography
+                      style={{
+                        backgroundColor: '#F9F6EE',
+                        justifyContent: 'center',
+                        marginLeft: '20px',
+                        marginTop: '10px',
+                      }}
+                    >
+                      {fileName}
+                    </Typography> */}
+                  <Link
+                    href={`http://localhost:8080/files/customer-request-files/${customerRequestResponse?.createBy}/${customerRequestResponse?.id}/${customerRequestResponse.document1Name}`}
+                    underline="hover"
+                  >
+                    <Typography
+                      style={{
+                        fontWeight: 'bold',
+                        marginLeft: '5px',
+                        marginTop: '10px',
+                        maxWidth: '150px',
+                        overflow: 'hidden',
+                        textAlign: 'left',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {customerRequestResponse?.document1}
+                    </Typography>
+                  </Link>
+                </Box>
+              ) : (
+                <></>
+              )}
+              {customerRequestResponse?.document2 ? (
+                <Box
+                  sx={{
+                    backgroundColor: '#f3f3f3',
+                    border: 1,
+                    borderColor: 'grey',
+                    borderRadius: '5px',
+                  }}
+                  display={'flex'}
+                  height="50px"
+                  marginTop="30px"
+                  position="relative"
+                  width="200px"
+                >
+                  <InsertDriveFileIcon
+                    style={{
+                      marginLeft: '10px',
+                      marginTop: '10px',
+                    }}
+                  />
+
+                  {/* <Typography
+                      style={{
+                        backgroundColor: '#F9F6EE',
+                        justifyContent: 'center',
+                        marginLeft: '20px',
+                        marginTop: '10px',
+                      }}
+                    >
+                      {fileName}
+                    </Typography> */}
+                  <Link
+                    href={`http://localhost:8080/files/customer-request-files/${customerRequestResponse?.createBy}/${customerRequestResponse?.id}/${customerRequestResponse?.document2Name}`}
+                    underline="hover"
+                  >
+                    <Typography
+                      style={{
+                        fontWeight: 'bold',
+                        marginLeft: '5px',
+                        marginTop: '10px',
+                        maxWidth: '150px',
+                        overflow: 'hidden',
+                        textAlign: 'left',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {customerRequestResponse?.document2}
+                    </Typography>
+                  </Link>
+                </Box>
+              ) : (
+                <></>
+              )}
+              {customerRequestResponse?.document3 ? (
+                <Box
+                  sx={{
+                    backgroundColor: '#f3f3f3',
+                    border: 1,
+                    borderColor: 'grey',
+                  }}
+                  display={'flex'}
+                  height="50px"
+                  marginTop="30px"
+                  position="relative"
+                  width="200px"
+                >
+                  <InsertDriveFileIcon
+                    style={{
+                      marginLeft: '10px',
+                      marginTop: '10px',
+                    }}
+                  />
+
+                  {/* <Typography
+                      style={{
+                        backgroundColor: '#F9F6EE',
+                        justifyContent: 'center',
+                        marginLeft: '20px',
+                        marginTop: '10px',
+                      }}
+                    >
+                      {fileName}
+                    </Typography> */}
+                  <Link
+                    href={`http://localhost:8080/files/customer-request-files/${customerRequestResponse?.createBy}/${customerRequestResponse?.id}/${customerRequestResponse?.document3Name}`}
+                    underline="hover"
+                  >
+                    <Typography
+                      style={{
+                        fontWeight: 'bold',
+                        marginLeft: '5px',
+                        marginTop: '10px',
+                        maxWidth: '150px',
+                        overflow: 'hidden',
+                        textAlign: 'left',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {customerRequestResponse?.document3}
+                    </Typography>
+                  </Link>
+                </Box>
+              ) : (
+                <></>
+              )}
+            </Grid>
+            <Divider sx={{ marginBottom: '10px', marginTop: '10px' }} />
+            Request Details :
+            <Typography>request: {customerRequest?.shortDesc}</Typography>
+            <Typography>
+              by: {requester?.firstName} {requester?.lastName}
+            </Typography>
+            <Divider sx={{ marginBottom: '5px', marginTop: '5px' }} />
+            {customerRequestResponse?.status === 'ACCEPTED' ? (
+              <Box
+                sx={{
+                  backgroundColor: '#4CAF50',
+                  border: '1px solid',
+                  borderRadius: '5px',
+                  color: 'white',
+                  fontWeight: 'bold',
+                  padding: '10px 20px',
+                  textAlign: 'center',
                 }}
-                alt="Generated by AI"
-                src="https://img.freepik.com/premium-photo/modern-living-room-clean-lines-neutral-colors-natural-elements-design-concept_763042-1619.jpg"
-              />
-              <img
-                style={{
-                  border: '2px solid green',
-                  height: '30vh',
-                  marginRight: '10px',
-                  padding: '5px',
-                  width: '30vh',
+              >
+                Accepted
+              </Box>
+            ) : customerRequestResponse?.status === 'DECLINE' ? (
+              <Box
+                sx={{
+                  backgroundColor: '#FF5733',
+                  border: '1px solid',
+                  borderRadius: '5px',
+                  color: 'white',
+                  fontWeight: 'bold',
+                  padding: '10px 20px',
+                  textAlign: 'center',
                 }}
-                alt="Generated by AI"
-                src="https://images.squarespace-cdn.com/content/v1/542afd6de4b09148cad4044b/1627069189925-YK8168BE2DCWTIKOOGUT/Interior-Design-Drawing-and-Marker+Rendering-by+Susan-Knof.JPGg"
-              /> */}
-            </Box>
-            {currentUser?.id === customerRequest?.createdBy && (
-              <Box>
+              >
+                Rejected
+              </Box>
+            ) : currentUser?.id === customerRequest?.createdBy ? (
+              <Box sx={{ display: 'flex' }}>
                 <Button
                   onClick={() => {
                     if (currentUser && customerRequestResponse)
@@ -229,7 +406,7 @@ const ViewResponseCard = () => {
                   }}
                   style={{
                     display: 'block',
-                    margin: '50px 150px 0',
+                    margin: '50px',
                     width: '35%',
                   }}
                   color="primary"
@@ -256,7 +433,7 @@ const ViewResponseCard = () => {
                   }}
                   style={{
                     display: 'block',
-                    margin: '50px 150px 0',
+                    margin: '50px',
                     width: '35%',
                   }}
                   color="primary"
@@ -265,13 +442,70 @@ const ViewResponseCard = () => {
                   Decline Response
                 </Button>
               </Box>
+            ) : (
+              currentUser?.id === customerRequestResponse?.createBy && (
+                <Box
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-around',
+                    marginTop: '10px',
+                  }}
+                >
+                  <Button
+                    onClick={() => {
+                      if (currentUser && customerRequestResponse)
+                        acceptOrDecline({
+                          action: 'ACCEPTED',
+                          customer_id: currentUser.id,
+                          response_id: customerRequestResponse.id,
+                        }).then((success) => {
+                          if (success) {
+                            setAlertStatus('Accepted');
+                            setAlertOpen(true);
+                          } else {
+                            setAlertStatus('Failed');
+                            setAlertOpen(true);
+                          }
+                        });
+                    }}
+                    color="primary"
+                    style={{}}
+                    variant="contained"
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      if (currentUser && customerRequestResponse)
+                        acceptOrDecline({
+                          action: 'DECLINE',
+                          customer_id: currentUser.id,
+                          response_id: customerRequestResponse.id,
+                        }).then((success) => {
+                          if (success) {
+                            setAlertStatus('Declined');
+                            setAlertOpen(true);
+                          } else {
+                            setAlertStatus('Failed');
+                            setAlertOpen(true);
+                          }
+                        });
+                    }}
+                    color="error"
+                    style={{}}
+                    variant="contained"
+                  >
+                    Delete
+                  </Button>
+                </Box>
+              )
             )}
           </Box>
           <AlertDialog
             content={alertStatus}
             onClose={handleAlertClose}
             open={alertOpen}
-            title={alertStatus}
+            title={alertTitle}
           />
         </Grid>
       </Box>

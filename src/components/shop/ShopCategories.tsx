@@ -3,6 +3,8 @@ import { FaRegClock } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
+import useCart from '../../hooks/cart/useCart';
+
 const Container = styled.div``;
 
 const CardGrid = styled.div`
@@ -27,6 +29,7 @@ const Card = styled.div`
   width: 320px;
   height: 400px;
   cursor: pointer;
+  position: relative;
 `;
 
 const CardImage = styled.img`
@@ -56,7 +59,7 @@ const CardDate = styled.div`
   color: #888;
   align-self: flex-end;
   margin-top: auto;
-  margin-right: 5px;
+  margin-right: 10px;
 `;
 
 const CardClockIcon = styled(FaRegClock)`
@@ -69,12 +72,16 @@ const CardButtonsWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: 10px;
+  margin-bottom: 30px;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-right: 20px;
 `;
 
 const AddToCartButton = styled.button`
@@ -108,7 +115,7 @@ const AddToFavoritesButton = styled.button`
   justify-content: space-between;
   align-items: center;
   white-space: nowrap;
-  margin-left: 55px;
+  margin-left: 8px;
 
   &:hover {
     background-color: #9d6432;
@@ -125,32 +132,58 @@ const ButtonText = styled.span`
 // TODO: REDESIGN
 const ShopCategories = ({ data }: { data: RetailItem[] }) => {
   const navigate = useNavigate();
+  const { addOrIncrementItem, items, removeItem } = useCart();
   return (
     <Container>
       <CardGrid>
-        {data.map((card) => (
-          <Card key={card.id}>
-            <CardImage
-              onClick={() => {
-                navigate(`/shop/item/${card.id}`);
-              }}
-              alt={`Card ${card.id}`}
-              src={`http://localhost:8080/files/retail-item-files/${card.createdBy}/${card.id}/${card.mainImageName}`}
-            />
-            <CardWrapper>
-              <CardText
+        {data.map((card) => {
+          const item = items.find((i) => i.id === card.id);
+          return (
+            <Card key={card.id}>
+              <CardImage
                 onClick={() => {
                   navigate(`/shop/item/${card.id}`);
                 }}
-              >
-                {card.name}
-              </CardText>
-              <CardPrice>{card.price}</CardPrice>
+                alt={`Card ${card.id}`}
+                src={`http://localhost:8080/files/retail-item-files/${card.createdBy}/${card.id}/${card.mainImageName}`}
+              />
+              <CardWrapper>
+                <CardText
+                  onClick={() => {
+                    navigate(`/shop/item/${card.id}`);
+                  }}
+                >
+                  {card.name}
+                </CardText>
+                <div style={{ alignItems: 'center', display: 'flex' }}>
+                  <CardPrice>Rs:{card.price}</CardPrice>
+                  {item ? (
+                    <span style={{ fontSize: '15px', fontWeight: 'bold', fontStyle: 'italic', color: '#304422', marginLeft: '100px' }}>Added to cart</span>
+                  ) : (
+                    ''
+                  )}
+                </div>
+              </CardWrapper>
+              <CardDate>
+                <CardClockIcon />
+                {new Date(card.dateAdded).toDateString()}
+              </CardDate>
               <CardButtonsWrapper>
                 <ButtonContainer>
-                  <AddToCartButton>
+                  <AddToCartButton
+                    onClick={() => {
+                      if (item === undefined) {
+                        console.log(card.id, 'adding');
+                        addOrIncrementItem(card.id, 1);
+                      } else {
+                        removeItem(card.id);
+                      }
+                    }}
+                  >
                     <ShoppingCart />
-                    <ButtonText>Add to Cart</ButtonText>
+                    <ButtonText>
+                      {item === undefined ? 'Add to' : 'Remove from'} Cart
+                    </ButtonText>
                   </AddToCartButton>
                   <AddToFavoritesButton>
                     <Favorite />
@@ -158,13 +191,9 @@ const ShopCategories = ({ data }: { data: RetailItem[] }) => {
                   </AddToFavoritesButton>
                 </ButtonContainer>
               </CardButtonsWrapper>
-              <CardDate>
-                <CardClockIcon />
-                {new Date(card.dateAdded).toDateString()}
-              </CardDate>
-            </CardWrapper>
-          </Card>
-        ))}
+            </Card>
+          );
+        })}
       </CardGrid>
     </Container>
   );

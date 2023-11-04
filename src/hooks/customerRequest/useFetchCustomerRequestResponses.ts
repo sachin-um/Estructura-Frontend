@@ -33,6 +33,7 @@ export const useFetchCustomerRequestResponses = () => {
             ? `/all/request/${requestId}`
             : `/all/service-provider/${providerId}`),
       );
+      console.log(response);
       if (response.status === 200) {
         setCustomerRequestResponses(response.data);
       } else {

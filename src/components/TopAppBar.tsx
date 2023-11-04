@@ -75,6 +75,18 @@ function TopAppBar(props: TopAppBarProps) {
           },
         ]
       : []),
+    ...(loggedIn && userInfo.role === 'ADMIN'
+      ? [
+          {
+            main: { name: 'Admin Options', path: '/' },
+            subPages: [
+              { name: 'Admin Dashboard', path: '/admin/dashboard' },
+              { name: 'Add New Admin', path: '/addadmin' },
+              { name: 'User Management', path: '/manageUsers' },
+            ],
+          },
+        ]
+      : []),
   ];
 
   const MenuButtonRef = useRef<HTMLButtonElement>(null);
